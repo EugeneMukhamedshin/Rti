@@ -1,0 +1,84 @@
+﻿<Window x:Class="Rti.App.View.Editors.ContragentEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Width="600" Height="635" MinWidth="600" MinHeight="635" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="128"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="Background" Value="LightGray"></Setter>
+            </Style>
+        </Grid.Resources>
+        <Label Grid.Row="0" Grid.Column="0" Content="№"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="Наименование организации"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Адрес"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="Директор"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="Лицо по доверенности"/>
+        <Label Grid.Row="5" Grid.Column="0" Content="Телефон"/>
+        <Label Grid.Row="6" Grid.Column="0" Content="Основание"/>
+        <Label Grid.Row="7" Grid.Column="0" Content="ИНН"/>
+        <Label Grid.Row="8" Grid.Column="0" Content="КПП"/>
+        <Label Grid.Row="9" Grid.Column="0" Content="Расчетный счет"/>
+        <Label Grid.Row="10" Grid.Column="0" Content="Корр. счет"/>
+        <Label Grid.Row="11" Grid.Column="0" Content="ОКВЭД"/>
+        <Label Grid.Row="12" Grid.Column="0" Content="ОКАТО"/>
+        <Label Grid.Row="13" Grid.Column="0" Content="ОКПО"/>
+        <Label Grid.Row="14" Grid.Column="0" Content="ОГРН"/>
+        <Label Grid.Row="15" Grid.Column="0" Content="БИК"/>
+        <Label Grid.Row="16" Grid.Column="0" Content="Банк"/>
+        <Label Grid.Row="17" Grid.Column="0" Content="E-mail"/>
+        <Label Grid.Row="18" Grid.Column="0" Content="Примечание"/>
+
+        <TextBox Grid.Row="0" Grid.Column="1"  TabIndex="0" Text="{Binding Entity.SortOrder}" IsReadOnly="True"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="1"  TabIndex="1" Text="{Binding Entity.Name}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="1"  TabIndex="2" Text="{Binding Entity.Address}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="1"  TabIndex="3" Text="{Binding Entity.Director}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="1"  TabIndex="4" Text="{Binding Entity.Trustee}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+        <TextBox Grid.Row="5" Grid.Column="1"  TabIndex="5" Text="{Binding Entity.Phone}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+        <TextBox Grid.Row="6" Grid.Column="1"  TabIndex="6" Text="{Binding Entity.Grounding}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+        <TextBox Grid.Row="7" Grid.Column="1"  TabIndex="7" Text="{Binding Entity.Inn}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+        <TextBox Grid.Row="8" Grid.Column="1"  TabIndex="8" Text="{Binding Entity.Kpp}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+        <TextBox Grid.Row="9" Grid.Column="1"  TabIndex="9" Text="{Binding Entity.Account}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+        <TextBox Grid.Row="10" Grid.Column="1" TabIndex="10" Text="{Binding Entity.CorrAccount}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+        <TextBox Grid.Row="11" Grid.Column="1" TabIndex="11" Text="{Binding Entity.Okved}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+        <TextBox Grid.Row="12" Grid.Column="1" TabIndex="12" Text="{Binding Entity.Okato}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+        <TextBox Grid.Row="13" Grid.Column="1" TabIndex="13" Text="{Binding Entity.Okpo}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+        <TextBox Grid.Row="14" Grid.Column="1" TabIndex="14" Text="{Binding Entity.Ogrn}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+        <TextBox Grid.Row="15" Grid.Column="1" TabIndex="15" Text="{Binding Entity.Bik}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+        <TextBox Grid.Row="16" Grid.Column="1" TabIndex="16" Text="{Binding Entity.Bank}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+        <TextBox Grid.Row="17" Grid.Column="1" TabIndex="17" Text="{Binding Entity.Email}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+        <TextBox Grid.Row="18" Grid.Column="1" TabIndex="18" Text="{Binding Entity.Note}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+
+        <StackPanel Grid.Row="19" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Button Content="Сохранить" Command="{Binding OkCommand}" Width="80" Margin="5" IsDefault="True" TabIndex="19"></Button>
+            <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="80" Margin="5" TabIndex="20"></Button>
+        </StackPanel>
+    </Grid>
+</Window>
