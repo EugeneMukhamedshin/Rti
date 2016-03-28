@@ -26,14 +26,14 @@ namespace Rti.ViewModel.ListViewModel
                 SortOrder = RootItems.Any() ? RootItems.Cast<DriverListItem>().Max(item => item.SortOrder) + 1 : 1
             };
             return OpenViewModelEditWindow<DriverListItem, DriverViewModel, Driver>(newEntity,
-                "Добавление группы", false)
+                "Добавление водителя", false)
                 ? new DriverListItem(newEntity, this, RepositoryFactory)
                 : null;
         }
 
         protected override bool DoEditItem(MasterDetailListItemViewModel item, bool editMode)
         {
-            OpenViewModelEditWindow<DriverListItem, DriverViewModel, Driver>(((DriverListItem)item).Entity, "Редактирование группы", !editMode);
+            OpenViewModelEditWindow<DriverListItem, DriverViewModel, Driver>(((DriverListItem)item).Entity, "Редактирование водителя", !editMode);
             return true;
         }
 

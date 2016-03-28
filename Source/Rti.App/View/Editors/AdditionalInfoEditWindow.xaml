@@ -1,6 +1,9 @@
-﻿<Window x:Class="Rti.App.View.Editors.DetailEditWindow"
+﻿<Window x:Class="Rti.App.View.Editors.AdditionalInfoEditWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
         Width="470" Height="250" MinWidth="470" MinHeight="250" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
@@ -21,7 +24,7 @@
             </Style>
         </Grid.Resources>
         <Label Content="№" Grid.Row="0" Grid.Column="0"/>
-        <Label Content="Наименование" Grid.Row="1" Grid.Column="0"/>
+        <Label Content="Доп. информация" Grid.Row="1" Grid.Column="0"/>
         <Label Content="Примечание" Grid.Row="2" Grid.Column="0"/>
 
         <TextBox Grid.Row="0" Grid.Column="1" TabIndex="0" Text="{Binding Entity.SortOrder}" IsReadOnly="True"></TextBox>

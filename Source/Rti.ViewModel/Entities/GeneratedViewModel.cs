@@ -381,6 +381,54 @@ namespace Rti.ViewModel.Entities
         }
 	}
 
+	// The viewmodel for Drawing
+	public partial class DrawingViewModel : EntityViewModel<Rti.Model.Domain.Drawing, DrawingViewModel>
+	{
+		// Конструктор для маппинга
+		public DrawingViewModel() { }
+
+        public DrawingViewModel(Rti.Model.Domain.Drawing entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+		private Int32 _id;
+		private String _name;
+
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged(); } }
+		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged(); } }
+
+		protected override void MapPropertiesToEntity()
+		{
+			Entity.Name = Name; 
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+			Id = Entity.Id; 
+			Name = Entity.Name; 
+		}
+
+		public override void CopyTo(DrawingViewModel target)
+		{
+			target.Name = Name; 
+		}
+
+		public override DrawingViewModel Clone()
+		{
+			var copy = new DrawingViewModel(null, RepositoryFactory);
+			CopyTo(copy);
+			return copy;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(DrawingViewModel other) { return _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((DrawingViewModel) obj);
+        }
+	}
+
 	// The viewmodel for Driver
 	public partial class DriverViewModel : EntityViewModel<Rti.Model.Domain.Driver, DriverViewModel>
 	{
@@ -537,7 +585,6 @@ namespace Rti.ViewModel.Entities
 
 		private Int32 _id;
 		private Int32 _sortOrder;
-		private String _drawing;
 		private String _name;
 		private Int32 _existance;
 		private Int32? _formCount;
@@ -545,10 +592,11 @@ namespace Rti.ViewModel.Entities
 		private Int32? _output;
 		private String _note;
 		private Boolean _isDeleted;
+		private GroupViewModel _group;
+		private DrawingViewModel _drawing;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged(); } }
 		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged(); } }
-		public String Drawing { get { return _drawing; } set { if (Equals(_drawing, value)) return; _drawing = value; OnPropertyChanged(); } }
 		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged(); } }
 		public Int32 Existance { get { return _existance; } set { if (Equals(_existance, value)) return; _existance = value; OnPropertyChanged(); } }
 		public Int32? FormCount { get { return _formCount; } set { if (Equals(_formCount, value)) return; _formCount = value; OnPropertyChanged(); } }
@@ -556,11 +604,12 @@ namespace Rti.ViewModel.Entities
 		public Int32? Output { get { return _output; } set { if (Equals(_output, value)) return; _output = value; OnPropertyChanged(); } }
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged(); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged(); } }
+		public GroupViewModel Group { get { return _group; } set { _group = value; OnPropertyChanged(); } }
+		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged(); } }
 
 		protected override void MapPropertiesToEntity()
 		{
 			Entity.SortOrder = SortOrder; 
-			Entity.Drawing = Drawing; 
 			Entity.Name = Name; 
 			Entity.Existance = Existance; 
 			Entity.FormCount = FormCount; 
@@ -568,13 +617,14 @@ namespace Rti.ViewModel.Entities
 			Entity.Output = Output; 
 			Entity.Note = Note; 
 			Entity.IsDeleted = IsDeleted; 
+			Entity.Group = Group == null ? null : Group.Entity; 
+			Entity.Drawing = Drawing == null ? null : Drawing.Entity; 
 		}
 
 		protected override void MapPropertiesFromEntity()
 		{
 			Id = Entity.Id; 
 			SortOrder = Entity.SortOrder; 
-			Drawing = Entity.Drawing; 
 			Name = Entity.Name; 
 			Existance = Entity.Existance; 
 			FormCount = Entity.FormCount; 
@@ -582,12 +632,13 @@ namespace Rti.ViewModel.Entities
 			Output = Entity.Output; 
 			Note = Entity.Note; 
 			IsDeleted = Entity.IsDeleted; 
+			Group = Entity.Group == null ? null : new GroupViewModel(Entity.Group, RepositoryFactory); 
+			Drawing = Entity.Drawing == null ? null : new DrawingViewModel(Entity.Drawing, RepositoryFactory); 
 		}
 
 		public override void CopyTo(EquipmentViewModel target)
 		{
 			target.SortOrder = SortOrder; 
-			target.Drawing = Drawing; 
 			target.Name = Name; 
 			target.Existance = Existance; 
 			target.FormCount = FormCount; 
@@ -595,6 +646,8 @@ namespace Rti.ViewModel.Entities
 			target.Output = Output; 
 			target.Note = Note; 
 			target.IsDeleted = IsDeleted; 
+			target.Group = Group; 
+			target.Drawing = Drawing; 
 		}
 
 		public override EquipmentViewModel Clone()

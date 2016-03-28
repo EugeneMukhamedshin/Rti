@@ -109,6 +109,23 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 		}
 	}
 
+	// The classmap for drawings
+	public partial class DrawingMap : BaseMap<Rti.Model.Domain.Drawing>
+	{
+		public DrawingMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("drawings");
+			Id(o => o.Id, "ID");
+			Map(o => o.Name, "name");
+			OnInitialized();
+		}
+	}
+
 	// The classmap for drivers
 	public partial class DriverMap : BaseMap<Rti.Model.Domain.Driver>
 	{
@@ -166,7 +183,6 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Table("equipments");
 			Id(o => o.Id, "ID");
 			Map(o => o.SortOrder, "sort_order");
-			Map(o => o.Drawing, "drawing");
 			Map(o => o.Name, "name");
 			Map(o => o.Existance, "existance");
 			Map(o => o.FormCount, "form_count");
@@ -174,6 +190,8 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.Output, "output");
 			Map(o => o.Note, "note");
 			Map(o => o.IsDeleted, "is_deleted");
+			References(o => o.Group, "group_id").Fetch.Join().Not.LazyLoad();
+			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
 			OnInitialized();
 		}
 	}

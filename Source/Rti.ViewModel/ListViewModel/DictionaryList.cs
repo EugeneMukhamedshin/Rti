@@ -23,6 +23,8 @@ namespace Rti.ViewModel.ListViewModel
                     new DictionaryListItem(this, RepositoryFactory) { Name = "Сотрудники", DictionaryViewModel = new EmployeeList(true, ViewService, RepositoryFactory) },
                     new DictionaryListItem(this, RepositoryFactory) { Name = "Единицы измерения", DictionaryViewModel = new MeasureUnitList(true, ViewService, RepositoryFactory) },
                     new DictionaryListItem(this, RepositoryFactory) { Name = "Водители", DictionaryViewModel = new DriverList(true, ViewService, RepositoryFactory) },
+                    new DictionaryListItem(this, RepositoryFactory) { Name = "Оснастка", DictionaryViewModel = new EquipmentList(true, ViewService, RepositoryFactory) },
+                    new DictionaryListItem(this, RepositoryFactory) { Name = "Доп. информация", DictionaryViewModel = new AdditionalInfoList(true, ViewService, RepositoryFactory) },
                 });
         }
 

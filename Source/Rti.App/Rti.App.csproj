@@ -82,6 +82,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Editors\AdditionalInfoEditWindow.xaml.cs">
+      <DependentUpon>AdditionalInfoEditWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Editors\ContragentEditWindow.xaml.cs">
       <DependentUpon>ContragentEditWindow.xaml</DependentUpon>
     </Compile>
@@ -94,6 +97,9 @@
     <Compile Include="View\Editors\EmployeeEditWindow.xaml.cs">
       <DependentUpon>EmployeeEditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Editors\EquipmentEditWindow.xaml.cs">
+      <DependentUpon>EquipmentEditWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Editors\GroupEditWindow.xaml.cs">
       <DependentUpon>GroupEditWindow.xaml</DependentUpon>
     </Compile>
@@ -105,6 +111,9 @@
     </Compile>
     <Compile Include="View\Editors\MethodEditWindow.xaml.cs">
       <DependentUpon>MethodEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\AdditionalInfoListWindow.xaml.cs">
+      <DependentUpon>AdditionalInfoListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lists\ContragentListWindow.xaml.cs">
       <DependentUpon>ContragentListWindow.xaml</DependentUpon>
@@ -120,6 +129,9 @@
     </Compile>
     <Compile Include="View\Lists\EmployeeListWindow.xaml.cs">
       <DependentUpon>EmployeeListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\EquipmentListWindow.xaml.cs">
+      <DependentUpon>EquipmentListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lists\GroupListWindow.xaml.cs">
       <DependentUpon>GroupListWindow.xaml</DependentUpon>
@@ -207,6 +219,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\Editors\AdditionalInfoEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Editors\ContragentEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -223,6 +239,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Editors\EquipmentEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Editors\GroupEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -236,6 +256,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Editors\MethodEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\AdditionalInfoListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -256,6 +280,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Lists\EmployeeListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\EquipmentListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

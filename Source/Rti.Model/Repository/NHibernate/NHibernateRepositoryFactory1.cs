@@ -17,6 +17,8 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new ContragentRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Detail))
                 return (IRepository<TEntity>)new DetailRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.Drawing))
+                return (IRepository<TEntity>)new DrawingRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Driver))
                 return (IRepository<TEntity>)new DriverRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Employee))
@@ -45,6 +47,8 @@ namespace Rti.Model.Repository.NHibernate
 		public IContragentRepository GetContragentRepository() { return (IContragentRepository) GetRepository<Rti.Model.Domain.Contragent>(); }
 
 		public IDetailRepository GetDetailRepository() { return (IDetailRepository) GetRepository<Rti.Model.Domain.Detail>(); }
+
+		public IDrawingRepository GetDrawingRepository() { return (IDrawingRepository) GetRepository<Rti.Model.Domain.Drawing>(); }
 
 		public IDriverRepository GetDriverRepository() { return (IDriverRepository) GetRepository<Rti.Model.Domain.Driver>(); }
 
@@ -105,6 +109,16 @@ namespace Rti.Model.Repository.NHibernate
         }
     }
 
+	public partial class DrawingRepository : NHibernateRepository<Rti.Model.Domain.Drawing>, IDrawingRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.Drawing, Rti.Model.Domain.Drawing> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Drawing, Rti.Model.Domain.Drawing> queryOver)
+        {
+			var result = queryOver;
+            return result;
+        }
+    }
+
 	public partial class DriverRepository : NHibernateRepository<Rti.Model.Domain.Driver>, IDriverRepository
     {
 
@@ -132,6 +146,8 @@ namespace Rti.Model.Repository.NHibernate
         protected override IQueryOver<Rti.Model.Domain.Equipment, Rti.Model.Domain.Equipment> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Equipment, Rti.Model.Domain.Equipment> queryOver)
         {
 			var result = queryOver;
+			result = result.Fetch(o => o.Group).Default;
+			result = result.Fetch(o => o.Drawing).Default;
             return result;
         }
     }

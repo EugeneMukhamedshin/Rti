@@ -38,6 +38,10 @@ namespace Rti.App
             AddToRegistry<MeasureUnitEdit, MeasureUnitEditWindow>();
             AddToRegistry<DriverList, DriverListWindow>();
             AddToRegistry<DriverEdit, DriverEditWindow>();
+            AddToRegistry<EquipmentList, EquipmentListWindow>();
+            AddToRegistry<EquipmentEdit, EquipmentEditWindow>();
+            AddToRegistry<AdditionalInfoList, AdditionalInfoListWindow>();
+            AddToRegistry<AdditionalInfoEdit, AdditionalInfoEditWindow>();
         }
 
         private void AddToRegistry<TViewModel, TView>()

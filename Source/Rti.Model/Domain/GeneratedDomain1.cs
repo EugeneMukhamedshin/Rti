@@ -118,6 +118,16 @@ namespace Rti.Model.Domain
 		public virtual Boolean IsDeleted { get; set; }
 	}
 
+	// The class for drawings
+	[Table("drawings")]
+	public partial class Drawing: IIdentifiedEntity
+	{
+		[Field("id")]
+		public virtual Int32 Id { get; protected set; }
+		[Field("name")]
+		public virtual String Name { get; set; }
+	}
+
 	// The class for drivers
 	[Table("drivers")]
 	public partial class Driver: IIdentifiedEntity
@@ -166,8 +176,6 @@ namespace Rti.Model.Domain
 		public virtual Int32 Id { get; protected set; }
 		[Field("sort_order")]
 		public virtual Int32 SortOrder { get; set; }
-		[Field("drawing")]
-		public virtual String Drawing { get; set; }
 		[Field("name")]
 		public virtual String Name { get; set; }
 		[Field("existance")]
@@ -182,6 +190,10 @@ namespace Rti.Model.Domain
 		public virtual String Note { get; set; }
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+		[Reference("group_id")]
+		public virtual Group Group { get; set; }
+		[Reference("drawing_id")]
+		public virtual Drawing Drawing { get; set; }
 	}
 
 	// The class for groups

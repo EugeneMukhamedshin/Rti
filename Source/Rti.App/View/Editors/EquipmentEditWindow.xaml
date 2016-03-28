@@ -1,0 +1,52 @@
+﻿<Window x:Class="Rti.App.View.Editors.EquipmentEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Rti.App.View.Editors"
+        mc:Ignorable="d"
+        Width="470" Height="390" MinWidth="470" MinHeight="390" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="128"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="Background" Value="LightGray"></Setter>
+            </Style>
+        </Grid.Resources>
+        <Label Content="№" Grid.Row="0" Grid.Column="0"/>
+        <Label Content="Группа" Grid.Row="1" Grid.Column="0"/>
+        <Label Content="Чертеж" Grid.Row="2" Grid.Column="0"/>
+        <Label Content="Оснастка" Grid.Row="3" Grid.Column="0"/>
+        <Label Content="Наличие" Grid.Row="4" Grid.Column="0"/>
+        <Label Content="Количество форм" Grid.Row="5" Grid.Column="0"/>
+        <Label Content="Гнездность" Grid.Row="6" Grid.Column="0"/>
+        <Label Content="Выход партии" Grid.Row="7" Grid.Column="0"/>
+        <Label Content="Примечание" Grid.Row="8" Grid.Column="0"/>
+
+        <TextBox Grid.Row="0" Grid.Column="1" TabIndex="0" Text="{Binding Entity.SortOrder}" IsReadOnly="True"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="1" TabIndex="1" Text="{Binding Entity.Name}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+        <TextBox Grid.Row="8" Grid.Column="1" TabIndex="2" Text="{Binding Entity.Note}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
+
+        <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Button Content="Сохранить" Command="{Binding OkCommand}" Width="80" Margin="5" IsDefault="True" TabIndex="3"></Button>
+            <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="80" Margin="5" TabIndex="4"></Button>
+        </StackPanel>
+    </Grid>
+</Window>
