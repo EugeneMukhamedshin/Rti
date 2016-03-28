@@ -1,0 +1,78 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data" #>
+<#@ assembly name="$(ProjectDir)bin\Debug\Rti.Model.dll" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="Rti.Model.Domain.Generator" #>
+<#@ output extension=".cs" #>
+
+using Rti.Model.Domain;
+using FluentNHibernate.Mapping;
+
+namespace Rti.Model.Repository.NHibernate.ClassMaps
+{
+<#
+            var types = Assembly.GetAssembly(typeof (Entity)).GetTypes()
+                .Where(t => t.GetCustomAttributes(typeof (TableAttribute), false).Any());
+            foreach (var type in types)
+            {
+                var tableAttribute =
+                    type.GetCustomAttributes(typeof (TableAttribute), false).FirstOrDefault() as TableAttribute;
+#>
+	// The classmap for <#= tableAttribute.TableName #>
+	public partial class <#= type.Name #>Map : BaseMap<<#= type.FullName #>>
+	{
+		public <#= type.Name #>Map()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("<#= tableAttribute.TableName #>");
+<#
+                var props =
+                    type.GetProperties();
+                foreach (var prop in props)
+                {
+                    var fieldAttribute = prop.GetCustomAttributes(typeof (FieldAttribute), false).FirstOrDefault() as FieldAttribute;
+                    if (fieldAttribute != null)
+					{
+						if (fieldAttribute.FieldName.ToLower() == "id")
+						{
+#>
+			Id(o => o.Id, "ID");
+<#
+						}
+						else
+						{		
+							if (prop.PropertyType == typeof(byte[]))
+								continue;
+#>
+			Map(o => o.<#= prop.Name #>, "<#= fieldAttribute.FieldName #>");
+<#
+						}
+					}
+                    var refAttribute = prop.GetCustomAttributes(typeof (ReferenceAttribute), false).FirstOrDefault() as ReferenceAttribute;
+                    if (refAttribute != null)
+					{
+#>
+			References(o => o.<#= prop.Name #>, "<#= refAttribute.ColumnName #>").Fetch.Join().Not.LazyLoad();
+<#
+					}
+
+                }
+#>
+			OnInitialized();
+		}
+	}
+
+<#
+			}
+#>
+}
