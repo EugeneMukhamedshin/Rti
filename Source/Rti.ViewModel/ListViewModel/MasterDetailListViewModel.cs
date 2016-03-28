@@ -16,8 +16,8 @@ namespace Rti.ViewModel.ListViewModel
 {
     public abstract class MasterDetailListViewModel<TItem> : BaseViewModel, IMasterDetailListViewModel where TItem : MasterDetailListItemViewModel
     {
-        private ObservableCollection<MasterDetailListItemViewModel> _rootItems;
-        private ObservableCollection<MasterDetailListItemViewModel> _visibleItems;
+        private ObservableCollection<MasterDetailListItemViewModel> _rootItems = new ObservableCollection<MasterDetailListItemViewModel>();
+        private ObservableCollection<MasterDetailListItemViewModel> _visibleItems = new ObservableCollection<MasterDetailListItemViewModel>();
         private MasterDetailListItemViewModel _selectedItem;
         public IViewService ViewService { get; private set; }
         protected List<Tuple<Type, Type, Type>> TypeMaps = new List<Tuple<Type, Type, Type>>();

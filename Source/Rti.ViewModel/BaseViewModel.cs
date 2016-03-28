@@ -94,6 +94,8 @@ namespace Rti.ViewModel
             }
         }
 
+        public virtual void Refresh() { }
+
         protected virtual void HandleException(Exception exception)
         {
             _log.Error("Произошла ошибка при обработке", exception);

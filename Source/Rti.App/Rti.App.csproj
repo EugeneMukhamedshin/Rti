@@ -82,13 +82,61 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="View\Editors\ContragentEditWindow.xaml.cs">
+      <DependentUpon>ContragentEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\DetailEditWindow.xaml.cs">
+      <DependentUpon>DetailEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\DriverEditWindow.xaml.cs">
+      <DependentUpon>DriverEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\EmployeeEditWindow.xaml.cs">
+      <DependentUpon>EmployeeEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\GroupEditWindow.xaml.cs">
+      <DependentUpon>GroupEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\JobEditWindow.xaml.cs">
+      <DependentUpon>JobEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\MeasureUnitEditWindow.xaml.cs">
+      <DependentUpon>MeasureUnitEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\MethodEditWindow.xaml.cs">
+      <DependentUpon>MethodEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\ContragentListWindow.xaml.cs">
+      <DependentUpon>ContragentListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\DetailListWindow.xaml.cs">
+      <DependentUpon>DetailListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\DictionaryListWindow.xaml.cs">
+      <DependentUpon>DictionaryListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\DriverListWindow.xaml.cs">
+      <DependentUpon>DriverListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\EmployeeListWindow.xaml.cs">
+      <DependentUpon>EmployeeListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\GroupListWindow.xaml.cs">
+      <DependentUpon>GroupListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\JobListWindow.xaml.cs">
+      <DependentUpon>JobListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\MaterialListWindow.xaml.cs">
+      <DependentUpon>MaterialListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewService.cs" />
     <Compile Include="View\Editors\Behaviour\TextBoxInputRegExBehaviour.cs" />
     <Compile Include="View\Editors\Behaviour\TextBoxNumberBehaviour.cs" />
     <Compile Include="View\Editors\FocusableAutoCompleteBox.cs" />
+    <Compile Include="View\Editors\MaterialEditWindow.xaml.cs">
+      <DependentUpon>MaterialEditWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Editors\StringToNumberConverter.cs" />
     <Compile Include="View\Lists\BooleanToCollapsedConverter.cs" />
     <Compile Include="View\Lists\CommandsToContextMenuConverter.cs" />
@@ -100,6 +148,12 @@
     <Compile Include="View\Lists\ListItemStyleSelector.cs" />
     <Compile Include="View\Lists\MapStyleSelector.cs" />
     <Compile Include="View\Lists\MapTemplateSelector.cs" />
+    <Compile Include="View\Lists\MeasureUnitListWindow.xaml.cs">
+      <DependentUpon>MeasureUnitListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\MethodListWindow.xaml.cs">
+      <DependentUpon>MethodListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Lists\ScrollToSelectedItemBehavior.cs" />
     <Compile Include="View\Lists\TemplateMap.cs" />
     <Compile Include="View\Lists\StyleMap.cs" />
@@ -153,7 +207,79 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MainWindow.xaml">
+    <Page Include="View\Editors\ContragentEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\DetailEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\DriverEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\EmployeeEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\GroupEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\JobEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\MeasureUnitEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\MethodEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\ContragentListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\DetailListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\DictionaryListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\DriverListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\EmployeeListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\GroupListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\JobListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\MaterialListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\MaterialEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\MeasureUnitListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\MethodListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

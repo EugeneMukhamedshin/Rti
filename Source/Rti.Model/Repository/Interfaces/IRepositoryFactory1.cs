@@ -26,8 +26,8 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IConstantRepository : IRepository<Rti.Model.Domain.Constant> { }
 	public partial interface IContragentRepository : IRepository<Rti.Model.Domain.Contragent> { }
 	public partial interface IDetailRepository : IRepository<Rti.Model.Domain.Detail> { }
-	public partial interface IDriverRepository : IRepository<Rti.Model.Domain.Driver> { }
-	public partial interface IEmployeeRepository : IRepository<Rti.Model.Domain.Employee> { }
+
+    public partial interface IEmployeeRepository : IRepository<Rti.Model.Domain.Employee> { }
 	public partial interface IEquipmentRepository : IRepository<Rti.Model.Domain.Equipment> { }
 	public partial interface IGroupRepository : IRepository<Rti.Model.Domain.Group> { }
 	public partial interface IJobRepository : IRepository<Rti.Model.Domain.Job> { }

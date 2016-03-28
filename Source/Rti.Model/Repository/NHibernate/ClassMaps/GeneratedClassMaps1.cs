@@ -16,7 +16,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 		{
 			Table("additional_infos");
 			Id(o => o.Id, "ID");
-			Map(o => o.Order, "order");
+			Map(o => o.SortOrder, "sort_order");
 			Map(o => o.Name, "name");
 			Map(o => o.Note, "note");
 			Map(o => o.IsDeleted, "is_deleted");
@@ -64,7 +64,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 		{
 			Table("contragents");
 			Id(o => o.Id, "ID");
-			Map(o => o.Order, "order");
+			Map(o => o.SortOrder, "sort_order");
 			Map(o => o.Name, "name");
 			Map(o => o.Type, "type");
 			Map(o => o.Address, "address");
@@ -101,7 +101,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 		{
 			Table("details");
 			Id(o => o.Id, "ID");
-			Map(o => o.Order, "order");
+			Map(o => o.SortOrder, "sort_order");
 			Map(o => o.Name, "name");
 			Map(o => o.Note, "note");
 			Map(o => o.IsDeleted, "is_deleted");
@@ -121,7 +121,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 		{
 			Table("drivers");
 			Id(o => o.Id, "ID");
-			Map(o => o.Order, "order");
+			Map(o => o.SortOrder, "sort_order");
 			Map(o => o.CarModel, "car_model");
 			Map(o => o.Number, "number");
 			Map(o => o.Name, "name");
@@ -143,12 +143,12 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 		{
 			Table("employees");
 			Id(o => o.Id, "ID");
-			Map(o => o.Order, "order");
+			Map(o => o.SortOrder, "sort_order");
 			Map(o => o.Code, "code");
 			Map(o => o.FullName, "full_name");
-			Map(o => o.JobId, "job_id");
 			Map(o => o.Note, "note");
 			Map(o => o.IsDeleted, "is_deleted");
+			References(o => o.Job, "job_id").Fetch.Join().Not.LazyLoad();
 			OnInitialized();
 		}
 	}
@@ -165,7 +165,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 		{
 			Table("equipments");
 			Id(o => o.Id, "ID");
-			Map(o => o.Order, "order");
+			Map(o => o.SortOrder, "sort_order");
 			Map(o => o.Drawing, "drawing");
 			Map(o => o.Name, "name");
 			Map(o => o.Existance, "existance");
@@ -190,7 +190,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 		{
 			Table("groups");
 			Id(o => o.Id, "ID");
-			Map(o => o.Order, "order");
+			Map(o => o.SortOrder, "sort_order");
 			Map(o => o.Name, "name");
 			Map(o => o.Note, "note");
 			Map(o => o.IsDeleted, "is_deleted");
@@ -210,7 +210,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 		{
 			Table("jobs");
 			Id(o => o.Id, "ID");
-			Map(o => o.Order, "order");
+			Map(o => o.SortOrder, "sort_order");
 			Map(o => o.Name, "name");
 			Map(o => o.Login, "login");
 			Map(o => o.Password, "password");
@@ -231,7 +231,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 		{
 			Table("machines");
 			Id(o => o.Id, "ID");
-			Map(o => o.Order, "order");
+			Map(o => o.SortOrder, "sort_order");
 			Map(o => o.Name, "name");
 			Map(o => o.PlateSize, "plate_size");
 			Map(o => o.InvNumber, "inv_number");
@@ -259,7 +259,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 		{
 			Table("materials");
 			Id(o => o.Id, "ID");
-			Map(o => o.Order, "order");
+			Map(o => o.SortOrder, "sort_order");
 			Map(o => o.Name, "name");
 			Map(o => o.TechConditions, "tech_conditions");
 			Map(o => o.Density, "density");
@@ -285,7 +285,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 		{
 			Table("measure_units");
 			Id(o => o.Id, "ID");
-			Map(o => o.Order, "order");
+			Map(o => o.SortOrder, "sort_order");
 			Map(o => o.Name, "name");
 			Map(o => o.Code, "code");
 			Map(o => o.IsDeleted, "is_deleted");
@@ -305,7 +305,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 		{
 			Table("methods");
 			Id(o => o.Id, "ID");
-			Map(o => o.Order, "order");
+			Map(o => o.SortOrder, "sort_order");
 			Map(o => o.Name, "name");
 			Map(o => o.Note, "note");
 			Map(o => o.IsDeleted, "is_deleted");

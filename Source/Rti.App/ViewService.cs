@@ -1,7 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
+using Rti.App.View.Editors;
+using Rti.App.View.Lists;
+using Rti.Model.Domain;
 using Rti.ViewModel;
+using Rti.ViewModel.EditViewModel;
+using Rti.ViewModel.Entities;
+using Rti.ViewModel.ListViewModel;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 
@@ -13,6 +19,30 @@ namespace Rti.App
 
         public ViewService()
         {
+            AddToRegistry<DictionaryList, DictionaryListWindow>();
+            AddToRegistry<MaterialList, MaterialListWindow>();
+            AddToRegistry<MaterialEdit, MaterialEditWindow>();
+            AddToRegistry<GroupList, GroupListWindow>();
+            AddToRegistry<GroupEdit, GroupEditWindow>();
+            AddToRegistry<DetailList, DetailListWindow>();
+            AddToRegistry<DetailEdit, DetailEditWindow>();
+            AddToRegistry<MethodList, MethodListWindow>();
+            AddToRegistry<MethodEdit, MethodEditWindow>();
+            AddToRegistry<ContragentList, ContragentListWindow>();
+            AddToRegistry<ContragentEdit, ContragentEditWindow>();
+            AddToRegistry<JobList, JobListWindow>();
+            AddToRegistry<JobEdit, JobEditWindow>();
+            AddToRegistry<EmployeeList, EmployeeListWindow>();
+            AddToRegistry<EmployeeEdit, EmployeeEditWindow>();
+            AddToRegistry<MeasureUnitList, MeasureUnitListWindow>();
+            AddToRegistry<MeasureUnitEdit, MeasureUnitEditWindow>();
+            AddToRegistry<DriverList, DriverListWindow>();
+            AddToRegistry<DriverEdit, DriverEditWindow>();
+        }
+
+        private void AddToRegistry<TViewModel, TView>()
+        {
+            _registry.Add(typeof(TViewModel), typeof(TView));
         }
 
         public void ShowView(BaseViewModel viewModel, bool topMost, bool showInTaskbar)
@@ -99,7 +129,7 @@ namespace Rti.App
             var window = (Window)Activator.CreateInstance(windowType);
             window.DataContext = viewModel;
             if (viewModel is IWindowCloser)
-                ((IWindowCloser) viewModel).CloseWindow = (entity, res) =>
+                ((IWindowCloser)viewModel).CloseWindow = (entity, res) =>
                 {
                     if (res && (entity is IValidatable) && !((IValidatable)entity).Validate())
                         return;

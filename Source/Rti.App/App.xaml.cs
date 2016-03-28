@@ -8,6 +8,7 @@ using log4net.Config;
 using log4net.Util;
 using Rti.Model.Repository.NHibernate;
 using Rti.ViewModel;
+using Rti.ViewModel.ListViewModel;
 
 namespace Rti.App
 {
@@ -32,8 +33,12 @@ namespace Rti.App
                 base.OnStartup(e);
                 var repositoryFactory = new NHibernateRepositoryFactory();
                 _viewService = new ViewService();
-                //var mainViewModel = new MainViewModel(_viewService, repositoryFactory, ApplicationContext.IsDebug);
+                //var mainViewModel = new MainViewModel(_viewService, repositoryFactory);
                 //_viewService.ShowView(mainViewModel, false, true);
+                //var materialList = new MaterialList(true, _viewService, repositoryFactory);
+                //materialList.Refresh();
+                var dictionaryList = new DictionaryList(true, _viewService, repositoryFactory);
+                _viewService.ShowView(dictionaryList, false, true);
             }
             catch (Exception ex)
             {

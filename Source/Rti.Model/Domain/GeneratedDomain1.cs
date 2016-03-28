@@ -10,8 +10,8 @@ namespace Rti.Model.Domain
 	{
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
-		[Field("order")]
-		public virtual Double Order { get; set; }
+		[Field("sort_order")]
+		public virtual Int32 SortOrder { get; set; }
 		[Field("name")]
 		public virtual String Name { get; set; }
 		[Field("note")]
@@ -58,8 +58,8 @@ namespace Rti.Model.Domain
 	{
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
-		[Field("order")]
-		public virtual Double Order { get; set; }
+		[Field("sort_order")]
+		public virtual Int32 SortOrder { get; set; }
 		[Field("name")]
 		public virtual String Name { get; set; }
 		[Field("type")]
@@ -108,8 +108,8 @@ namespace Rti.Model.Domain
 	{
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
-		[Field("order")]
-		public virtual Double Order { get; set; }
+		[Field("sort_order")]
+		public virtual Int32 SortOrder { get; set; }
 		[Field("name")]
 		public virtual String Name { get; set; }
 		[Field("note")]
@@ -124,8 +124,8 @@ namespace Rti.Model.Domain
 	{
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
-		[Field("order")]
-		public virtual Double Order { get; set; }
+		[Field("sort_order")]
+		public virtual Int32 SortOrder { get; set; }
 		[Field("car_model")]
 		public virtual String CarModel { get; set; }
 		[Field("number")]
@@ -135,7 +135,7 @@ namespace Rti.Model.Domain
 		[Field("document")]
 		public virtual String Document { get; set; }
 		[Field("is_deleted")]
-		public virtual String IsDeleted { get; set; }
+		public virtual Boolean IsDeleted { get; set; }
 	}
 
 	// The class for employees
@@ -144,18 +144,18 @@ namespace Rti.Model.Domain
 	{
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
-		[Field("order")]
-		public virtual Double Order { get; set; }
+		[Field("sort_order")]
+		public virtual Int32 SortOrder { get; set; }
 		[Field("code")]
 		public virtual String Code { get; set; }
 		[Field("full_name")]
 		public virtual String FullName { get; set; }
-		[Field("job_id")]
-		public virtual Int32 JobId { get; set; }
 		[Field("note")]
 		public virtual String Note { get; set; }
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+		[Reference("job_id")]
+		public virtual Job Job { get; set; }
 	}
 
 	// The class for equipments
@@ -164,8 +164,8 @@ namespace Rti.Model.Domain
 	{
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
-		[Field("order")]
-		public virtual Double Order { get; set; }
+		[Field("sort_order")]
+		public virtual Int32 SortOrder { get; set; }
 		[Field("drawing")]
 		public virtual String Drawing { get; set; }
 		[Field("name")]
@@ -190,8 +190,8 @@ namespace Rti.Model.Domain
 	{
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
-		[Field("order")]
-		public virtual Double Order { get; set; }
+		[Field("sort_order")]
+		public virtual Int32 SortOrder { get; set; }
 		[Field("name")]
 		public virtual String Name { get; set; }
 		[Field("note")]
@@ -206,8 +206,8 @@ namespace Rti.Model.Domain
 	{
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
-		[Field("order")]
-		public virtual Double Order { get; set; }
+		[Field("sort_order")]
+		public virtual Int32 SortOrder { get; set; }
 		[Field("name")]
 		public virtual String Name { get; set; }
 		[Field("login")]
@@ -224,8 +224,8 @@ namespace Rti.Model.Domain
 	{
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
-		[Field("order")]
-		public virtual Double Order { get; set; }
+		[Field("sort_order")]
+		public virtual Int32 SortOrder { get; set; }
 		[Field("name")]
 		public virtual String Name { get; set; }
 		[Field("plate_size")]
@@ -256,8 +256,8 @@ namespace Rti.Model.Domain
 	{
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
-		[Field("order")]
-		public virtual Double Order { get; set; }
+		[Field("sort_order")]
+		public virtual Int32 SortOrder { get; set; }
 		[Field("name")]
 		public virtual String Name { get; set; }
 		[Field("tech_conditions")]
@@ -284,8 +284,8 @@ namespace Rti.Model.Domain
 	{
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
-		[Field("order")]
-		public virtual Double Order { get; set; }
+		[Field("sort_order")]
+		public virtual Int32 SortOrder { get; set; }
 		[Field("name")]
 		public virtual String Name { get; set; }
 		[Field("code")]
@@ -300,8 +300,8 @@ namespace Rti.Model.Domain
 	{
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
-		[Field("order")]
-		public virtual Double Order { get; set; }
+		[Field("sort_order")]
+		public virtual Int32 SortOrder { get; set; }
 		[Field("name")]
 		public virtual String Name { get; set; }
 		[Field("note")]

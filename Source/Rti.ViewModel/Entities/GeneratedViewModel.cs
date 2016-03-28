@@ -13,20 +13,20 @@ namespace Rti.ViewModel.Entities
         public AdditionalInfoViewModel(Rti.Model.Domain.AdditionalInfo entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
 		private Int32 _id;
-		private Double _order;
+		private Int32 _sortOrder;
 		private String _name;
 		private String _note;
 		private Boolean _isDeleted;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged(); } }
-		public Double Order { get { return _order; } set { if (Equals(_order, value)) return; _order = value; OnPropertyChanged(); } }
+		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged(); } }
 		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged(); } }
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged(); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged(); } }
 
 		protected override void MapPropertiesToEntity()
 		{
-			Entity.Order = Order; 
+			Entity.SortOrder = SortOrder; 
 			Entity.Name = Name; 
 			Entity.Note = Note; 
 			Entity.IsDeleted = IsDeleted; 
@@ -35,7 +35,7 @@ namespace Rti.ViewModel.Entities
 		protected override void MapPropertiesFromEntity()
 		{
 			Id = Entity.Id; 
-			Order = Entity.Order; 
+			SortOrder = Entity.SortOrder; 
 			Name = Entity.Name; 
 			Note = Entity.Note; 
 			IsDeleted = Entity.IsDeleted; 
@@ -43,7 +43,7 @@ namespace Rti.ViewModel.Entities
 
 		public override void CopyTo(AdditionalInfoViewModel target)
 		{
-			target.Order = Order; 
+			target.SortOrder = SortOrder; 
 			target.Name = Name; 
 			target.Note = Note; 
 			target.IsDeleted = IsDeleted; 
@@ -179,7 +179,7 @@ namespace Rti.ViewModel.Entities
         public ContragentViewModel(Rti.Model.Domain.Contragent entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
 		private Int32 _id;
-		private Double _order;
+		private Int32 _sortOrder;
 		private String _name;
 		private Int32 _type;
 		private String _address;
@@ -202,7 +202,7 @@ namespace Rti.ViewModel.Entities
 		private Boolean _isDeleted;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged(); } }
-		public Double Order { get { return _order; } set { if (Equals(_order, value)) return; _order = value; OnPropertyChanged(); } }
+		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged(); } }
 		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged(); } }
 		public Int32 Type { get { return _type; } set { if (Equals(_type, value)) return; _type = value; OnPropertyChanged(); } }
 		public String Address { get { return _address; } set { if (Equals(_address, value)) return; _address = value; OnPropertyChanged(); } }
@@ -226,7 +226,7 @@ namespace Rti.ViewModel.Entities
 
 		protected override void MapPropertiesToEntity()
 		{
-			Entity.Order = Order; 
+			Entity.SortOrder = SortOrder; 
 			Entity.Name = Name; 
 			Entity.Type = Type; 
 			Entity.Address = Address; 
@@ -252,7 +252,7 @@ namespace Rti.ViewModel.Entities
 		protected override void MapPropertiesFromEntity()
 		{
 			Id = Entity.Id; 
-			Order = Entity.Order; 
+			SortOrder = Entity.SortOrder; 
 			Name = Entity.Name; 
 			Type = Entity.Type; 
 			Address = Entity.Address; 
@@ -277,7 +277,7 @@ namespace Rti.ViewModel.Entities
 
 		public override void CopyTo(ContragentViewModel target)
 		{
-			target.Order = Order; 
+			target.SortOrder = SortOrder; 
 			target.Name = Name; 
 			target.Type = Type; 
 			target.Address = Address; 
@@ -327,20 +327,20 @@ namespace Rti.ViewModel.Entities
         public DetailViewModel(Rti.Model.Domain.Detail entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
 		private Int32 _id;
-		private Double _order;
+		private Int32 _sortOrder;
 		private String _name;
 		private String _note;
 		private Boolean _isDeleted;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged(); } }
-		public Double Order { get { return _order; } set { if (Equals(_order, value)) return; _order = value; OnPropertyChanged(); } }
+		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged(); } }
 		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged(); } }
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged(); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged(); } }
 
 		protected override void MapPropertiesToEntity()
 		{
-			Entity.Order = Order; 
+			Entity.SortOrder = SortOrder; 
 			Entity.Name = Name; 
 			Entity.Note = Note; 
 			Entity.IsDeleted = IsDeleted; 
@@ -349,7 +349,7 @@ namespace Rti.ViewModel.Entities
 		protected override void MapPropertiesFromEntity()
 		{
 			Id = Entity.Id; 
-			Order = Entity.Order; 
+			SortOrder = Entity.SortOrder; 
 			Name = Entity.Name; 
 			Note = Entity.Note; 
 			IsDeleted = Entity.IsDeleted; 
@@ -357,7 +357,7 @@ namespace Rti.ViewModel.Entities
 
 		public override void CopyTo(DetailViewModel target)
 		{
-			target.Order = Order; 
+			target.SortOrder = SortOrder; 
 			target.Name = Name; 
 			target.Note = Note; 
 			target.IsDeleted = IsDeleted; 
@@ -390,24 +390,24 @@ namespace Rti.ViewModel.Entities
         public DriverViewModel(Rti.Model.Domain.Driver entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
 		private Int32 _id;
-		private Double _order;
+		private Int32 _sortOrder;
 		private String _carModel;
 		private String _number;
 		private String _name;
 		private String _document;
-		private String _isDeleted;
+		private Boolean _isDeleted;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged(); } }
-		public Double Order { get { return _order; } set { if (Equals(_order, value)) return; _order = value; OnPropertyChanged(); } }
+		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged(); } }
 		public String CarModel { get { return _carModel; } set { if (Equals(_carModel, value)) return; _carModel = value; OnPropertyChanged(); } }
 		public String Number { get { return _number; } set { if (Equals(_number, value)) return; _number = value; OnPropertyChanged(); } }
 		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged(); } }
 		public String Document { get { return _document; } set { if (Equals(_document, value)) return; _document = value; OnPropertyChanged(); } }
-		public String IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged(); } }
+		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged(); } }
 
 		protected override void MapPropertiesToEntity()
 		{
-			Entity.Order = Order; 
+			Entity.SortOrder = SortOrder; 
 			Entity.CarModel = CarModel; 
 			Entity.Number = Number; 
 			Entity.Name = Name; 
@@ -418,7 +418,7 @@ namespace Rti.ViewModel.Entities
 		protected override void MapPropertiesFromEntity()
 		{
 			Id = Entity.Id; 
-			Order = Entity.Order; 
+			SortOrder = Entity.SortOrder; 
 			CarModel = Entity.CarModel; 
 			Number = Entity.Number; 
 			Name = Entity.Name; 
@@ -428,7 +428,7 @@ namespace Rti.ViewModel.Entities
 
 		public override void CopyTo(DriverViewModel target)
 		{
-			target.Order = Order; 
+			target.SortOrder = SortOrder; 
 			target.CarModel = CarModel; 
 			target.Number = Number; 
 			target.Name = Name; 
@@ -463,50 +463,50 @@ namespace Rti.ViewModel.Entities
         public EmployeeViewModel(Rti.Model.Domain.Employee entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
 		private Int32 _id;
-		private Double _order;
+		private Int32 _sortOrder;
 		private String _code;
 		private String _fullName;
-		private Int32 _jobId;
 		private String _note;
 		private Boolean _isDeleted;
+		private JobViewModel _job;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged(); } }
-		public Double Order { get { return _order; } set { if (Equals(_order, value)) return; _order = value; OnPropertyChanged(); } }
+		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged(); } }
 		public String Code { get { return _code; } set { if (Equals(_code, value)) return; _code = value; OnPropertyChanged(); } }
 		public String FullName { get { return _fullName; } set { if (Equals(_fullName, value)) return; _fullName = value; OnPropertyChanged(); } }
-		public Int32 JobId { get { return _jobId; } set { if (Equals(_jobId, value)) return; _jobId = value; OnPropertyChanged(); } }
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged(); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged(); } }
+		public JobViewModel Job { get { return _job; } set { _job = value; OnPropertyChanged(); } }
 
 		protected override void MapPropertiesToEntity()
 		{
-			Entity.Order = Order; 
+			Entity.SortOrder = SortOrder; 
 			Entity.Code = Code; 
 			Entity.FullName = FullName; 
-			Entity.JobId = JobId; 
 			Entity.Note = Note; 
 			Entity.IsDeleted = IsDeleted; 
+			Entity.Job = Job == null ? null : Job.Entity; 
 		}
 
 		protected override void MapPropertiesFromEntity()
 		{
 			Id = Entity.Id; 
-			Order = Entity.Order; 
+			SortOrder = Entity.SortOrder; 
 			Code = Entity.Code; 
 			FullName = Entity.FullName; 
-			JobId = Entity.JobId; 
 			Note = Entity.Note; 
 			IsDeleted = Entity.IsDeleted; 
+			Job = Entity.Job == null ? null : new JobViewModel(Entity.Job, RepositoryFactory); 
 		}
 
 		public override void CopyTo(EmployeeViewModel target)
 		{
-			target.Order = Order; 
+			target.SortOrder = SortOrder; 
 			target.Code = Code; 
 			target.FullName = FullName; 
-			target.JobId = JobId; 
 			target.Note = Note; 
 			target.IsDeleted = IsDeleted; 
+			target.Job = Job; 
 		}
 
 		public override EmployeeViewModel Clone()
@@ -536,7 +536,7 @@ namespace Rti.ViewModel.Entities
         public EquipmentViewModel(Rti.Model.Domain.Equipment entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
 		private Int32 _id;
-		private Double _order;
+		private Int32 _sortOrder;
 		private String _drawing;
 		private String _name;
 		private Int32 _existance;
@@ -547,7 +547,7 @@ namespace Rti.ViewModel.Entities
 		private Boolean _isDeleted;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged(); } }
-		public Double Order { get { return _order; } set { if (Equals(_order, value)) return; _order = value; OnPropertyChanged(); } }
+		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged(); } }
 		public String Drawing { get { return _drawing; } set { if (Equals(_drawing, value)) return; _drawing = value; OnPropertyChanged(); } }
 		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged(); } }
 		public Int32 Existance { get { return _existance; } set { if (Equals(_existance, value)) return; _existance = value; OnPropertyChanged(); } }
@@ -559,7 +559,7 @@ namespace Rti.ViewModel.Entities
 
 		protected override void MapPropertiesToEntity()
 		{
-			Entity.Order = Order; 
+			Entity.SortOrder = SortOrder; 
 			Entity.Drawing = Drawing; 
 			Entity.Name = Name; 
 			Entity.Existance = Existance; 
@@ -573,7 +573,7 @@ namespace Rti.ViewModel.Entities
 		protected override void MapPropertiesFromEntity()
 		{
 			Id = Entity.Id; 
-			Order = Entity.Order; 
+			SortOrder = Entity.SortOrder; 
 			Drawing = Entity.Drawing; 
 			Name = Entity.Name; 
 			Existance = Entity.Existance; 
@@ -586,7 +586,7 @@ namespace Rti.ViewModel.Entities
 
 		public override void CopyTo(EquipmentViewModel target)
 		{
-			target.Order = Order; 
+			target.SortOrder = SortOrder; 
 			target.Drawing = Drawing; 
 			target.Name = Name; 
 			target.Existance = Existance; 
@@ -624,20 +624,20 @@ namespace Rti.ViewModel.Entities
         public GroupViewModel(Rti.Model.Domain.Group entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
 		private Int32 _id;
-		private Double _order;
+		private Int32 _sortOrder;
 		private String _name;
 		private String _note;
 		private Boolean _isDeleted;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged(); } }
-		public Double Order { get { return _order; } set { if (Equals(_order, value)) return; _order = value; OnPropertyChanged(); } }
+		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged(); } }
 		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged(); } }
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged(); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged(); } }
 
 		protected override void MapPropertiesToEntity()
 		{
-			Entity.Order = Order; 
+			Entity.SortOrder = SortOrder; 
 			Entity.Name = Name; 
 			Entity.Note = Note; 
 			Entity.IsDeleted = IsDeleted; 
@@ -646,7 +646,7 @@ namespace Rti.ViewModel.Entities
 		protected override void MapPropertiesFromEntity()
 		{
 			Id = Entity.Id; 
-			Order = Entity.Order; 
+			SortOrder = Entity.SortOrder; 
 			Name = Entity.Name; 
 			Note = Entity.Note; 
 			IsDeleted = Entity.IsDeleted; 
@@ -654,7 +654,7 @@ namespace Rti.ViewModel.Entities
 
 		public override void CopyTo(GroupViewModel target)
 		{
-			target.Order = Order; 
+			target.SortOrder = SortOrder; 
 			target.Name = Name; 
 			target.Note = Note; 
 			target.IsDeleted = IsDeleted; 
@@ -687,14 +687,14 @@ namespace Rti.ViewModel.Entities
         public JobViewModel(Rti.Model.Domain.Job entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
 		private Int32 _id;
-		private Double _order;
+		private Int32 _sortOrder;
 		private String _name;
 		private String _login;
 		private String _password;
 		private Boolean _isDeleted;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged(); } }
-		public Double Order { get { return _order; } set { if (Equals(_order, value)) return; _order = value; OnPropertyChanged(); } }
+		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged(); } }
 		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged(); } }
 		public String Login { get { return _login; } set { if (Equals(_login, value)) return; _login = value; OnPropertyChanged(); } }
 		public String Password { get { return _password; } set { if (Equals(_password, value)) return; _password = value; OnPropertyChanged(); } }
@@ -702,7 +702,7 @@ namespace Rti.ViewModel.Entities
 
 		protected override void MapPropertiesToEntity()
 		{
-			Entity.Order = Order; 
+			Entity.SortOrder = SortOrder; 
 			Entity.Name = Name; 
 			Entity.Login = Login; 
 			Entity.Password = Password; 
@@ -712,7 +712,7 @@ namespace Rti.ViewModel.Entities
 		protected override void MapPropertiesFromEntity()
 		{
 			Id = Entity.Id; 
-			Order = Entity.Order; 
+			SortOrder = Entity.SortOrder; 
 			Name = Entity.Name; 
 			Login = Entity.Login; 
 			Password = Entity.Password; 
@@ -721,7 +721,7 @@ namespace Rti.ViewModel.Entities
 
 		public override void CopyTo(JobViewModel target)
 		{
-			target.Order = Order; 
+			target.SortOrder = SortOrder; 
 			target.Name = Name; 
 			target.Login = Login; 
 			target.Password = Password; 
@@ -755,7 +755,7 @@ namespace Rti.ViewModel.Entities
         public MachineViewModel(Rti.Model.Domain.Machine entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
 		private Int32 _id;
-		private Double _order;
+		private Int32 _sortOrder;
 		private String _name;
 		private String _plateSize;
 		private String _invNumber;
@@ -769,7 +769,7 @@ namespace Rti.ViewModel.Entities
 		private Boolean _isDeleted;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged(); } }
-		public Double Order { get { return _order; } set { if (Equals(_order, value)) return; _order = value; OnPropertyChanged(); } }
+		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged(); } }
 		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged(); } }
 		public String PlateSize { get { return _plateSize; } set { if (Equals(_plateSize, value)) return; _plateSize = value; OnPropertyChanged(); } }
 		public String InvNumber { get { return _invNumber; } set { if (Equals(_invNumber, value)) return; _invNumber = value; OnPropertyChanged(); } }
@@ -784,7 +784,7 @@ namespace Rti.ViewModel.Entities
 
 		protected override void MapPropertiesToEntity()
 		{
-			Entity.Order = Order; 
+			Entity.SortOrder = SortOrder; 
 			Entity.Name = Name; 
 			Entity.PlateSize = PlateSize; 
 			Entity.InvNumber = InvNumber; 
@@ -801,7 +801,7 @@ namespace Rti.ViewModel.Entities
 		protected override void MapPropertiesFromEntity()
 		{
 			Id = Entity.Id; 
-			Order = Entity.Order; 
+			SortOrder = Entity.SortOrder; 
 			Name = Entity.Name; 
 			PlateSize = Entity.PlateSize; 
 			InvNumber = Entity.InvNumber; 
@@ -817,7 +817,7 @@ namespace Rti.ViewModel.Entities
 
 		public override void CopyTo(MachineViewModel target)
 		{
-			target.Order = Order; 
+			target.SortOrder = SortOrder; 
 			target.Name = Name; 
 			target.PlateSize = PlateSize; 
 			target.InvNumber = InvNumber; 
@@ -858,7 +858,7 @@ namespace Rti.ViewModel.Entities
         public MaterialViewModel(Rti.Model.Domain.Material entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
 		private Int32 _id;
-		private Double _order;
+		private Int32 _sortOrder;
 		private String _name;
 		private String _techConditions;
 		private Double? _density;
@@ -870,7 +870,7 @@ namespace Rti.ViewModel.Entities
 		private Boolean _isDeleted;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged(); } }
-		public Double Order { get { return _order; } set { if (Equals(_order, value)) return; _order = value; OnPropertyChanged(); } }
+		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged(); } }
 		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged(); } }
 		public String TechConditions { get { return _techConditions; } set { if (Equals(_techConditions, value)) return; _techConditions = value; OnPropertyChanged(); } }
 		public Double? Density { get { return _density; } set { if (Equals(_density, value)) return; _density = value; OnPropertyChanged(); } }
@@ -883,7 +883,7 @@ namespace Rti.ViewModel.Entities
 
 		protected override void MapPropertiesToEntity()
 		{
-			Entity.Order = Order; 
+			Entity.SortOrder = SortOrder; 
 			Entity.Name = Name; 
 			Entity.TechConditions = TechConditions; 
 			Entity.Density = Density; 
@@ -898,7 +898,7 @@ namespace Rti.ViewModel.Entities
 		protected override void MapPropertiesFromEntity()
 		{
 			Id = Entity.Id; 
-			Order = Entity.Order; 
+			SortOrder = Entity.SortOrder; 
 			Name = Entity.Name; 
 			TechConditions = Entity.TechConditions; 
 			Density = Entity.Density; 
@@ -912,7 +912,7 @@ namespace Rti.ViewModel.Entities
 
 		public override void CopyTo(MaterialViewModel target)
 		{
-			target.Order = Order; 
+			target.SortOrder = SortOrder; 
 			target.Name = Name; 
 			target.TechConditions = TechConditions; 
 			target.Density = Density; 
@@ -951,20 +951,20 @@ namespace Rti.ViewModel.Entities
         public MeasureUnitViewModel(Rti.Model.Domain.MeasureUnit entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
 		private Int32 _id;
-		private Double _order;
+		private Int32 _sortOrder;
 		private String _name;
 		private String _code;
 		private Boolean _isDeleted;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged(); } }
-		public Double Order { get { return _order; } set { if (Equals(_order, value)) return; _order = value; OnPropertyChanged(); } }
+		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged(); } }
 		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged(); } }
 		public String Code { get { return _code; } set { if (Equals(_code, value)) return; _code = value; OnPropertyChanged(); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged(); } }
 
 		protected override void MapPropertiesToEntity()
 		{
-			Entity.Order = Order; 
+			Entity.SortOrder = SortOrder; 
 			Entity.Name = Name; 
 			Entity.Code = Code; 
 			Entity.IsDeleted = IsDeleted; 
@@ -973,7 +973,7 @@ namespace Rti.ViewModel.Entities
 		protected override void MapPropertiesFromEntity()
 		{
 			Id = Entity.Id; 
-			Order = Entity.Order; 
+			SortOrder = Entity.SortOrder; 
 			Name = Entity.Name; 
 			Code = Entity.Code; 
 			IsDeleted = Entity.IsDeleted; 
@@ -981,7 +981,7 @@ namespace Rti.ViewModel.Entities
 
 		public override void CopyTo(MeasureUnitViewModel target)
 		{
-			target.Order = Order; 
+			target.SortOrder = SortOrder; 
 			target.Name = Name; 
 			target.Code = Code; 
 			target.IsDeleted = IsDeleted; 
@@ -1014,20 +1014,20 @@ namespace Rti.ViewModel.Entities
         public MethodViewModel(Rti.Model.Domain.Method entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
 		private Int32 _id;
-		private Double _order;
+		private Int32 _sortOrder;
 		private String _name;
 		private String _note;
 		private Boolean _isDeleted;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged(); } }
-		public Double Order { get { return _order; } set { if (Equals(_order, value)) return; _order = value; OnPropertyChanged(); } }
+		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged(); } }
 		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged(); } }
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged(); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged(); } }
 
 		protected override void MapPropertiesToEntity()
 		{
-			Entity.Order = Order; 
+			Entity.SortOrder = SortOrder; 
 			Entity.Name = Name; 
 			Entity.Note = Note; 
 			Entity.IsDeleted = IsDeleted; 
@@ -1036,7 +1036,7 @@ namespace Rti.ViewModel.Entities
 		protected override void MapPropertiesFromEntity()
 		{
 			Id = Entity.Id; 
-			Order = Entity.Order; 
+			SortOrder = Entity.SortOrder; 
 			Name = Entity.Name; 
 			Note = Entity.Note; 
 			IsDeleted = Entity.IsDeleted; 
@@ -1044,7 +1044,7 @@ namespace Rti.ViewModel.Entities
 
 		public override void CopyTo(MethodViewModel target)
 		{
-			target.Order = Order; 
+			target.SortOrder = SortOrder; 
 			target.Name = Name; 
 			target.Note = Note; 
 			target.IsDeleted = IsDeleted; 

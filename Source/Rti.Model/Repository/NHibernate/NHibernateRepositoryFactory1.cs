@@ -121,6 +121,7 @@ namespace Rti.Model.Repository.NHibernate
         protected override IQueryOver<Rti.Model.Domain.Employee, Rti.Model.Domain.Employee> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Employee, Rti.Model.Domain.Employee> queryOver)
         {
 			var result = queryOver;
+			result = result.Fetch(o => o.Job).Default;
             return result;
         }
     }

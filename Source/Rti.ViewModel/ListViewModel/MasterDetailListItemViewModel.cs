@@ -412,13 +412,13 @@ namespace Rti.ViewModel.ListViewModel
             }
         }
 
-        public void SetSortOrder(double order)
+        public void SetSortOrder(double SortOrder)
         {
             lock (_syncObject)
-                DoSetSortOrder(order);
+                DoSetSortOrder(SortOrder);
         }
 
-        protected virtual void DoSetSortOrder(double order) { }
+        protected virtual void DoSetSortOrder(double SortOrder) { }
 
         protected abstract void DoSave();
 

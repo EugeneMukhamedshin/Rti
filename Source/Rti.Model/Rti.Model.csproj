@@ -73,6 +73,15 @@
     <Compile Include="Domain\Generator\TableAttribute.cs" />
     <Compile Include="Domain\IIdentifiedEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Interfaces\IContragentRepository.cs" />
+    <Compile Include="Repository\Interfaces\IDetailRepository.cs" />
+    <Compile Include="Repository\Interfaces\IDriverRepository.cs" />
+    <Compile Include="Repository\Interfaces\IEmployeeRepository.cs" />
+    <Compile Include="Repository\Interfaces\IGroupRepository.cs" />
+    <Compile Include="Repository\Interfaces\IJobRepository.cs" />
+    <Compile Include="Repository\Interfaces\IMaterialRepository.cs" />
+    <Compile Include="Repository\Interfaces\IMeasureUnitRepository.cs" />
+    <Compile Include="Repository\Interfaces\IMethodRepository.cs" />
     <Compile Include="Repository\Interfaces\IRepository.cs" />
     <Compile Include="Repository\Interfaces\IRepositoryFactory1.cs">
       <AutoGen>True</AutoGen>
@@ -86,6 +95,15 @@
       <DependentUpon>GeneratedClassMaps.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\NHibernate\ClassMaps\ReferencesConvention.cs" />
+    <Compile Include="Repository\NHibernate\ContragentRepository.cs" />
+    <Compile Include="Repository\NHibernate\DetailRepository.cs" />
+    <Compile Include="Repository\NHibernate\DriverRepository.cs" />
+    <Compile Include="Repository\NHibernate\EmployeeRepository.cs" />
+    <Compile Include="Repository\NHibernate\GroupRepository.cs" />
+    <Compile Include="Repository\NHibernate\JobRepository.cs" />
+    <Compile Include="Repository\NHibernate\MaterialRepository.cs" />
+    <Compile Include="Repository\NHibernate\MeasureUnitRepository.cs" />
+    <Compile Include="Repository\NHibernate\MethodRepository.cs" />
     <Compile Include="Repository\NHibernate\NHibernateContext.cs" />
     <Compile Include="Repository\NHibernate\NHibernateRepository.cs" />
     <Compile Include="Repository\NHibernate\NHibernateRepositoryFactory1.cs">

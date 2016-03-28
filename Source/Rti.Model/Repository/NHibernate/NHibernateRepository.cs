@@ -50,7 +50,7 @@ namespace Rti.Model.Repository.NHibernate
             return queryOver;
         }
 
-        public TResult ExecuteFuncOnQueryOver<TResult>(Func<IQueryOver<TEntity, TEntity>, TResult> func, String description)
+        public TResult ExecuteFuncOnQueryOver<TResult>(Func<IQueryOver<TEntity, TEntity>, TResult> func, String description = null)
         {
             try
             {
