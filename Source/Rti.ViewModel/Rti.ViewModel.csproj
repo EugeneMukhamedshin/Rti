@@ -55,6 +55,8 @@
     <Compile Include="EditViewModel\DriverEdit.cs" />
     <Compile Include="EditViewModel\EquipmentEdit.cs" />
     <Compile Include="EditViewModel\AdditionalInfoEdit.cs" />
+    <Compile Include="EditViewModel\ConstantEdit.cs" />
+    <Compile Include="EditViewModel\MachineEdit.cs" />
     <Compile Include="EditViewModel\MeasureUnitEdit.cs" />
     <Compile Include="EditViewModel\GroupEdit.cs" />
     <Compile Include="EditViewModel\MethodEdit.cs" />
@@ -90,6 +92,8 @@
     <Compile Include="ListViewModel\EquipmentListItem.cs" />
     <Compile Include="ListViewModel\AdditionalInfoList.cs" />
     <Compile Include="ListViewModel\AdditionalInfoListItem.cs" />
+    <Compile Include="ListViewModel\MachineList.cs" />
+    <Compile Include="ListViewModel\MachineListItem.cs" />
     <Compile Include="ListViewModel\MeasureUnitList.cs" />
     <Compile Include="ListViewModel\MeasureUnitListItem.cs" />
     <Compile Include="ListViewModel\JobList.cs" />

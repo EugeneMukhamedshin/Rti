@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using log4net;
 using log4net.Util;
 using NHibernate;
-using NHibernate.SqlCommand;
-using NHibernate.Type;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 

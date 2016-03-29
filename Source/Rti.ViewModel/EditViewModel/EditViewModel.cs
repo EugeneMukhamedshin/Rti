@@ -47,6 +47,7 @@ namespace Rti.ViewModel.EditViewModel
                 o => true,
                 o => CloseWindow(this, false));
 
+            CloseWindow = (model, b) => { };
             Initialize();
         }
 

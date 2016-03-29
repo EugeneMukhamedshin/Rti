@@ -42,6 +42,9 @@ namespace Rti.App
             AddToRegistry<EquipmentEdit, EquipmentEditWindow>();
             AddToRegistry<AdditionalInfoList, AdditionalInfoListWindow>();
             AddToRegistry<AdditionalInfoEdit, AdditionalInfoEditWindow>();
+            AddToRegistry<MachineList, MachineListWindow>();
+            AddToRegistry<MachineEdit, MachineEditWindow>();
+            AddToRegistry<ConstantEdit, ConstantEditWindow>();
         }
 
         private void AddToRegistry<TViewModel, TView>()

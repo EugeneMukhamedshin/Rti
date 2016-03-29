@@ -1,15 +1,25 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Commands;
+using Rti.ViewModel.EditViewModel;
+using Rti.ViewModel.Entities;
 
 namespace Rti.ViewModel.ListViewModel
 {
     public class DictionaryList : MasterDetailListViewModel<DictionaryListItem>
     {
+        private DictionaryListItem _constantDictionaryListItem;
+
         public DictionaryList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory, HistoryContext historyContext = null)
             : base(editMode, viewService, repositoryFactory, historyContext)
         {
+            _constantDictionaryListItem = new DictionaryListItem(this, RepositoryFactory)
+            {
+                Name = "Константы",
+                DictionaryViewModel = new ConstantEdit("Константы", false, ViewService, RepositoryFactory),
+            };
             RootItems = new ObservableCollection<MasterDetailListItemViewModel>(
                 new []
                 {
@@ -25,6 +35,8 @@ namespace Rti.ViewModel.ListViewModel
                     new DictionaryListItem(this, RepositoryFactory) { Name = "Водители", DictionaryViewModel = new DriverList(true, ViewService, RepositoryFactory) },
                     new DictionaryListItem(this, RepositoryFactory) { Name = "Оснастка", DictionaryViewModel = new EquipmentList(true, ViewService, RepositoryFactory) },
                     new DictionaryListItem(this, RepositoryFactory) { Name = "Доп. информация", DictionaryViewModel = new AdditionalInfoList(true, ViewService, RepositoryFactory) },
+                    new DictionaryListItem(this, RepositoryFactory) { Name = "Оборудование", DictionaryViewModel = new MachineList(true, ViewService, RepositoryFactory) },
+                    _constantDictionaryListItem
                 });
         }
 
@@ -36,6 +48,14 @@ namespace Rti.ViewModel.ListViewModel
 
         protected override bool DoEditItem(MasterDetailListItemViewModel item, bool editMode)
         {
+            if (item == _constantDictionaryListItem)
+            {
+                var constant = new ConstantViewModel(RepositoryFactory.GetConstantRepository().GetActual(), RepositoryFactory);
+                ((ConstantEdit)_constantDictionaryListItem.DictionaryViewModel).Entity = constant;
+                if (ViewService.ShowViewDialog(_constantDictionaryListItem.DictionaryViewModel) == true)
+                    constant.SaveEntity();
+                return true;
+            }
             var viewModel = ((DictionaryListItem) item).DictionaryViewModel;
             viewModel.Refresh();
             ViewService.ShowViewDialog(viewModel);

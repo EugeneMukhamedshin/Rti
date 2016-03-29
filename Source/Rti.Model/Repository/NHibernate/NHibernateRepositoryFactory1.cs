@@ -79,17 +79,7 @@ namespace Rti.Model.Repository.NHibernate
         }
     }
 
-	public partial class ConstantRepository : NHibernateRepository<Rti.Model.Domain.Constant>, IConstantRepository
-    {
-
-        protected override IQueryOver<Rti.Model.Domain.Constant, Rti.Model.Domain.Constant> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Constant, Rti.Model.Domain.Constant> queryOver)
-        {
-			var result = queryOver;
-            return result;
-        }
-    }
-
-	public partial class ContragentRepository : NHibernateRepository<Rti.Model.Domain.Contragent>, IContragentRepository
+    public partial class ContragentRepository : NHibernateRepository<Rti.Model.Domain.Contragent>, IContragentRepository
     {
 
         protected override IQueryOver<Rti.Model.Domain.Contragent, Rti.Model.Domain.Contragent> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Contragent, Rti.Model.Domain.Contragent> queryOver)
