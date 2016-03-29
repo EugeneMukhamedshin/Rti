@@ -9,7 +9,7 @@ using Rti.ViewModel.Entities;
 
 namespace Rti.ViewModel.ListViewModel
 {
-    public class ContragentList : MasterDetailListViewModel<ContragentListItem>
+    public class ContragentList : MasterDetailListViewModel<ContragentListItem>, IWindowCloser
     {
         private readonly int _listType;
 
@@ -42,7 +42,14 @@ namespace Rti.ViewModel.ListViewModel
 
         protected override bool DoEditItem(MasterDetailListItemViewModel item, bool editMode)
         {
-            OpenViewModelEditWindow<ContragentListItem, ContragentViewModel, Contragent>(((ContragentListItem)item).Entity, string.Format("Редактирование {0}", _listType == 0 ? "заказчика" : "поставщика"), !editMode);
+            if (!EditMode)
+                CloseWindow(this, true);
+            else
+            {
+                OpenViewModelEditWindow<ContragentListItem, ContragentViewModel, Contragent>(
+                    ((ContragentListItem) item).Entity,
+                    string.Format("Редактирование {0}", _listType == 0 ? "заказчика" : "поставщика"), !editMode);
+            }
             return true;
         }
 
@@ -56,5 +63,7 @@ namespace Rti.ViewModel.ListViewModel
                             m =>
                                 new ContragentListItem(new ContragentViewModel(m, RepositoryFactory), this, RepositoryFactory)));
         }
+
+        public Action<BaseViewModel, bool> CloseWindow { get; set; }
     }
 }

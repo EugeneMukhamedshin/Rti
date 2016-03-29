@@ -33,12 +33,8 @@ namespace Rti.App
                 base.OnStartup(e);
                 var repositoryFactory = new NHibernateRepositoryFactory();
                 _viewService = new ViewService();
-                //var mainViewModel = new MainViewModel(_viewService, repositoryFactory);
-                //_viewService.ShowView(mainViewModel, false, true);
-                //var materialList = new MaterialList(true, _viewService, repositoryFactory);
-                //materialList.Refresh();
-                var dictionaryList = new DictionaryList(true, _viewService, repositoryFactory);
-                _viewService.ShowView(dictionaryList, false, true);
+                var mainViewModel = new MainViewModel(_viewService, repositoryFactory);
+                _viewService.ShowView(mainViewModel, false, true);
             }
             catch (Exception ex)
             {

@@ -93,6 +93,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IRepositoryFactory.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\Interfaces\IRequestRepository.cs" />
     <Compile Include="Repository\NHibernate\AdditionalInfoRepository.cs" />
     <Compile Include="Repository\NHibernate\ClassMaps\BaseMap.cs" />
     <Compile Include="Repository\NHibernate\ClassMaps\GeneratedClassMaps1.cs">
@@ -120,6 +121,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NHibernateRepositoryFactory.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\NHibernate\RequestRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Domain\domain.xml" />

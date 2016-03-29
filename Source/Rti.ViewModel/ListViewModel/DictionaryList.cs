@@ -10,7 +10,7 @@ namespace Rti.ViewModel.ListViewModel
 {
     public class DictionaryList : MasterDetailListViewModel<DictionaryListItem>
     {
-        private DictionaryListItem _constantDictionaryListItem;
+        private readonly DictionaryListItem _constantDictionaryListItem;
 
         public DictionaryList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory, HistoryContext historyContext = null)
             : base(editMode, viewService, repositoryFactory, historyContext)

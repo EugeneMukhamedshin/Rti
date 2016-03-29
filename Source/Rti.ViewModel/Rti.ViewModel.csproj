@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FogSoft.MonoReport, Version=1.4.0.21899, Culture=neutral, PublicKeyToken=704200c094cfd4f3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files\FogSoft\MonoReport\FogSoft.MonoReport.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -56,6 +60,7 @@
     <Compile Include="EditViewModel\EquipmentEdit.cs" />
     <Compile Include="EditViewModel\AdditionalInfoEdit.cs" />
     <Compile Include="EditViewModel\ConstantEdit.cs" />
+    <Compile Include="EditViewModel\RequestEdit.cs" />
     <Compile Include="EditViewModel\MachineEdit.cs" />
     <Compile Include="EditViewModel\MeasureUnitEdit.cs" />
     <Compile Include="EditViewModel\GroupEdit.cs" />
@@ -137,6 +142,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FogSoft.MonoReport.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

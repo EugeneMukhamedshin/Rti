@@ -1,8 +1,8 @@
 ﻿--
--- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 6.3.358.0
+-- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.0.49.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 29.03.2016 17:59:14
--- Версия сервера: 5.6.26-log
+-- Дата скрипта: 30.03.2016 0:42:46
+-- Версия сервера: 5.7.11-log
 -- Версия клиента: 4.1
 --
 
@@ -140,7 +140,8 @@ CREATE TABLE drawings (
 ENGINE = INNODB
 AUTO_INCREMENT = 1
 CHARACTER SET utf8
-COLLATE utf8_general_ci;
+COLLATE utf8_general_ci
+ROW_FORMAT = DYNAMIC;
 
 --
 -- Описание для таблицы drivers
@@ -350,6 +351,68 @@ COLLATE utf8_general_ci
 COMMENT = 'оснастки'
 ROW_FORMAT = DYNAMIC;
 
+--
+-- Описание для таблицы requests
+--
+DROP TABLE IF EXISTS requests;
+CREATE TABLE requests (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  number INT(11) NOT NULL,
+  reg_date DATETIME NOT NULL,
+  ship_date DATETIME DEFAULT NULL,
+  lead_time INT(11) DEFAULT NULL,
+  customer_id INT(11) DEFAULT NULL,
+  is_deleted INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_requests_contragents_id FOREIGN KEY (customer_id)
+    REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 30
+AVG_ROW_LENGTH = 3276
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы request_details
+--
+DROP TABLE IF EXISTS request_details;
+CREATE TABLE request_details (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  request_id INT(11) NOT NULL,
+  sort_order INT(11) NOT NULL,
+  drawing_id INT(11) NOT NULL,
+  group_id INT(11) DEFAULT NULL,
+  detail_id INT(11) DEFAULT NULL,
+  equipment_existance INT(11) DEFAULT NULL,
+  additional_info_id INT(11) DEFAULT NULL,
+  count DOUBLE NOT NULL,
+  price DOUBLE NOT NULL,
+  calculation_price DOUBLE DEFAULT NULL,
+  sum DOUBLE NOT NULL,
+  material_id INT(11) DEFAULT NULL,
+  note VARCHAR(1000) DEFAULT NULL,
+  is_deleted INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (id),
+  UNIQUE INDEX UK_request_details (request_id, sort_order),
+  CONSTRAINT FK_request_details_additional_infos_id FOREIGN KEY (additional_info_id)
+    REFERENCES additional_infos(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_request_details_drawings_id FOREIGN KEY (drawing_id)
+    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_request_details_groups_id FOREIGN KEY (group_id)
+    REFERENCES groups(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_request_details_materials_id FOREIGN KEY (material_id)
+    REFERENCES materials(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_request_details_requests_id FOREIGN KEY (request_id)
+    REFERENCES requests(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 1
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+ROW_FORMAT = DYNAMIC;
+
 -- 
 -- Вывод данных для таблицы additional_infos
 --
@@ -366,8 +429,8 @@ INSERT INTO constants VALUES
 -- Вывод данных для таблицы contragents
 --
 INSERT INTO contragents VALUES
-(1, 1, 'З1', 0, '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '111', 0),
-(2, 2, '2', 0, '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '22222', 0),
+(1, 1, 'З1', 0, '1', 'Мухамедшин', '1', '89263706340', '1', '1', '1', '4700181012384234980', '1', '1', '1', '1', '1', '1', '1', '1', '111', 0),
+(2, 2, '2', 0, '2', '2', '2', '2', '2', '2989867547636', '2', '2', '2', '22132346243653456', '2', '2', '2', '2', '2', 'email@server.ru', '22222', 0),
 (3, 1, 'П1', 0, '11', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', NULL, 0),
 (4, 1, 'G2', 1, '1', '1', '1', '1', '1', '1', '2', '2', '2', '2', '4', '4', '4', '4', '6', '7', '8', 0);
 
@@ -449,6 +512,22 @@ INSERT INTO employees VALUES
 --
 
 -- Таблица rti.equipments не содержит данных
+
+-- 
+-- Вывод данных для таблицы requests
+--
+INSERT INTO requests VALUES
+(21, 1, '2016-03-30 00:00:00', NULL, NULL, 2, 0),
+(23, 2, '2016-03-30 00:00:00', NULL, NULL, NULL, 0),
+(25, 3, '2016-03-30 00:00:00', NULL, NULL, 3, 0),
+(26, 4, '2016-03-30 00:00:00', NULL, NULL, NULL, 0),
+(28, 5, '2016-03-30 00:00:00', NULL, NULL, 2, 0);
+
+-- 
+-- Вывод данных для таблицы request_details
+--
+
+-- Таблица rti.request_details не содержит данных
 
 -- 
 -- Восстановить предыдущий режим SQL (SQL mode)

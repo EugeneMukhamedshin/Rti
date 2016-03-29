@@ -19,7 +19,11 @@ namespace Rti.App
 
         public ViewService()
         {
+            AddToRegistry<MainViewModel, MainWindow>();
+
             AddToRegistry<DictionaryList, DictionaryListWindow>();
+            AddToRegistry<RequestEdit, RequestEditWindow>();
+
             AddToRegistry<MaterialList, MaterialListWindow>();
             AddToRegistry<MaterialEdit, MaterialEditWindow>();
             AddToRegistry<GroupList, GroupListWindow>();
