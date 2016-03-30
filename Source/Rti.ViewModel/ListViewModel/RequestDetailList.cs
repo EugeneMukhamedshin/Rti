@@ -13,6 +13,10 @@ namespace Rti.ViewModel.ListViewModel
         private List<RequestDetailListItem> _deletedItems = new List<RequestDetailListItem>();
 
         public RequestViewModel Request { get; private set; }
+        public Lazy<List<DrawingViewModel>> DrawingsSource { get; private set; }
+        public Lazy<List<GroupViewModel>> GroupsSource { get; set; }
+        public Lazy<List<MaterialViewModel>> MaterialsSource { get; set; }
+        public Lazy<List<DetailViewModel>> DetailsSource { get; set; }
 
         public RequestDetailList(RequestViewModel request, bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory, HistoryContext historyContext = null)
             : base(editMode, viewService, repositoryFactory, historyContext)
@@ -20,6 +24,11 @@ namespace Rti.ViewModel.ListViewModel
             if (request == null)
                 throw new ArgumentNullException("request");
             Request = request;
+
+            DrawingsSource = new Lazy<List<DrawingViewModel>>(() => RepositoryFactory.GetDrawingRepository().GetAll().OrderBy(o => o.Id).Select(o => new DrawingViewModel(o, RepositoryFactory)).ToList());
+            GroupsSource = new Lazy<List<GroupViewModel>>(() => RepositoryFactory.GetGroupRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new GroupViewModel(o, RepositoryFactory)).ToList());
+            MaterialsSource = new Lazy<List<MaterialViewModel>>(() => RepositoryFactory.GetMaterialRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new MaterialViewModel(o, RepositoryFactory)).ToList());
+            DetailsSource = new Lazy<List<DetailViewModel>>(() => RepositoryFactory.GetDetailRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new DetailViewModel(o, RepositoryFactory)).ToList());
             //TypeMaps.Add(new Tuple<Type, Type, Type>(typeof(RequestDetailListItem), typeof(RequestDetailViewModel), typeof(RequestDetailEdit)));
         }
 
@@ -55,6 +64,7 @@ namespace Rti.ViewModel.ListViewModel
         {
             DoAsync(() => RepositoryFactory.GetRequestDetailRepository()
                     .GetByRequestId(Request.Id)
+                    .OrderBy(o => o.SortOrder)
                     .Select(
                         m =>
                             new RequestDetailListItem(new RequestDetailViewModel(m, RepositoryFactory), this,

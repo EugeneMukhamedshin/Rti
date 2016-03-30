@@ -523,11 +523,11 @@ namespace Rti.Model.Domain
 		[Field("sort_order")]
 		public virtual Int32 SortOrder { get; set; }
 
-		[Field("detail_id")]
-		public virtual Int32? DetailId { get; set; }
-
 		[Field("equipment_existance")]
 		public virtual Int32? EquipmentExistance { get; set; }
+
+		[Field("equipment_lead_time")]
+		public virtual Int32? EquipmentLeadTime { get; set; }
 
 		[Field("count")]
 		public virtual Double Count { get; set; }
@@ -555,6 +555,9 @@ namespace Rti.Model.Domain
 
 		[Reference("group_id")]
 		public virtual Group Group { get; set; }
+
+		[Reference("detail_id")]
+		public virtual Detail Detail { get; set; }
 
 		[Reference("additional_info_id")]
 		public virtual AdditionalInfo AdditionalInfo { get; set; }

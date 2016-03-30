@@ -208,8 +208,8 @@
     <Compile Include="View\Lists\MethodListWindow.xaml.cs">
       <DependentUpon>MethodListWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Lists\RequestDetailDrawingCellControl.xaml.cs">
-      <DependentUpon>RequestDetailDrawingCellControl.xaml</DependentUpon>
+    <Compile Include="View\Lists\ExtendedSelectorControl.xaml.cs">
+      <DependentUpon>ExtendedSelectorControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lists\RequestDetailListControl.xaml.cs">
       <DependentUpon>RequestDetailListControl.xaml</DependentUpon>
@@ -383,7 +383,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Lists\RequestDetailDrawingCellControl.xaml">
+    <Page Include="View\Lists\ExtendedSelectorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

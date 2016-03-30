@@ -1,8 +1,8 @@
 ﻿--
--- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 6.3.358.0
+-- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.0.49.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 30.03.2016 18:07:44
--- Версия сервера: 5.6.26-log
+-- Дата скрипта: 31.03.2016 0:18:51
+-- Версия сервера: 5.7.11-log
 -- Версия клиента: 4.1
 --
 
@@ -387,6 +387,7 @@ CREATE TABLE request_details (
   group_id INT(11) DEFAULT NULL,
   detail_id INT(11) DEFAULT NULL,
   equipment_existance INT(11) DEFAULT NULL,
+  equipment_lead_time INT(11) DEFAULT NULL,
   additional_info_id INT(11) DEFAULT NULL,
   count DOUBLE NOT NULL,
   price DOUBLE NOT NULL,
@@ -399,6 +400,8 @@ CREATE TABLE request_details (
   UNIQUE INDEX UK_request_details (request_id, sort_order),
   CONSTRAINT FK_request_details_additional_infos_id FOREIGN KEY (additional_info_id)
     REFERENCES additional_infos(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_request_details_details_id FOREIGN KEY (detail_id)
+    REFERENCES details(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT FK_request_details_drawings_id FOREIGN KEY (drawing_id)
     REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT FK_request_details_groups_id FOREIGN KEY (group_id)
@@ -409,7 +412,7 @@ CREATE TABLE request_details (
     REFERENCES requests(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 13
+AUTO_INCREMENT = 14
 AVG_ROW_LENGTH = 2340
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -537,13 +540,13 @@ INSERT INTO requests VALUES
 -- Вывод данных для таблицы request_details
 --
 INSERT INTO request_details VALUES
-(1, 41, 1, 1, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
-(2, 41, 2, 3, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
-(3, 41, 3, 4, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
-(8, 41, 8, 6, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
-(9, 41, 9, 5, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
-(10, 41, 10, 4, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
-(12, 41, 12, 1, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0);
+(1, 41, 1, 1, 1, 1, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
+(2, 41, 2, 3, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, 5, NULL, 0),
+(3, 41, 3, 4, 4, 1, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
+(8, 41, 8, 6, 2, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, 4, NULL, 0),
+(9, 41, 9, 5, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
+(10, 41, 10, 4, 1, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
+(12, 41, 12, 1, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0);
 
 -- 
 -- Восстановить предыдущий режим SQL (SQL mode)

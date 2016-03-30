@@ -11,7 +11,17 @@ namespace Rti.App.View.Editors
         {
             base.OnApplyTemplate();
             var textbox = Template.FindName("Text", this) as TextBox;
-            if (textbox != null) textbox.Focus();
+            if (textbox != null)
+            {
+                textbox.LostFocus += Textbox_LostFocus;
+                textbox.Focus();
+            }
+        }
+
+        private void Textbox_LostFocus(object sender, System.Windows.RoutedEventArgs e)
+        {
+            //if (SelectedItem == null && !string.IsNullOrEmpty(Text))
+            //    Text = null;
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

@@ -9,7 +9,7 @@ using Rti.ViewModel.Entities;
 
 namespace Rti.ViewModel.ListViewModel
 {
-    public class MaterialList : MasterDetailListViewModel<MaterialListItem>
+    public class MaterialList : MasterDetailListViewModel<MaterialListItem>, IWindowCloser
     {
         public MaterialList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory, HistoryContext historyContext = null)
             : base(editMode, viewService, repositoryFactory, historyContext)
@@ -33,7 +33,10 @@ namespace Rti.ViewModel.ListViewModel
 
         protected override bool DoEditItem(MasterDetailListItemViewModel item, bool editMode)
         {
-            OpenViewModelEditWindow<MaterialListItem, MaterialViewModel, Material>(((MaterialListItem)item).Entity, "Редактирование материала", !editMode);
+            if (!EditMode)
+                CloseWindow(this, true);
+            else
+                OpenViewModelEditWindow<MaterialListItem, MaterialViewModel, Material>(((MaterialListItem)item).Entity, "Редактирование материала", !editMode);
             return true;
         }
 
@@ -47,5 +50,7 @@ namespace Rti.ViewModel.ListViewModel
                             m =>
                                 new MaterialListItem(new MaterialViewModel(m, RepositoryFactory), this, RepositoryFactory)));
         }
+
+        public Action<BaseViewModel, bool> CloseWindow { get; set; }
     }
 }

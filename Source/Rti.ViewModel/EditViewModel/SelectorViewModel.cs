@@ -3,13 +3,13 @@ using System.Collections.ObjectModel;
 
 namespace Rti.ViewModel.EditViewModel
 {
-    public class SelectorViewModel<TItem>: BaseViewModel
+    public class SelectorViewModel<TEntityListItem>: BaseViewModel
     {
-        private TItem _selectedItem;
+        private TEntityListItem _selectedItem;
         private string _selectorText;
-        private ObservableCollection<TItem> _selectorItems;
+        private ObservableCollection<TEntityListItem> _selectorItems;
 
-        public ObservableCollection<TItem> SelectorItems
+        public ObservableCollection<TEntityListItem> SelectorItems
         {
             get { return _selectorItems; }
             set
@@ -20,7 +20,7 @@ namespace Rti.ViewModel.EditViewModel
             }
         }
 
-        public TItem SelectedItem
+        public TEntityListItem SelectedItem
         {
             get { return _selectedItem; }
             set

@@ -14,31 +14,13 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
-            <!--<RowDefinition Height="32"/>-->
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <Button Content="+" Command="{Binding AddItemCommand}" Width="24" Height="24" Margin="2"/>
             <Button Content="-" Command="{Binding DeleteItemCommand}" Width="24" Height="24" Margin="2"/>
-            <!--<Button Content="..." Command="{Binding EditItemCommand}" Width="24" Height="24" Margin="2"/>-->
         </StackPanel>
-        <!--<StackPanel Orientation="Horizontal" Grid.Row="1">
-            <Label Content="Найти" VerticalContentAlignment="Center"/>
-            <TextBox Width="300" Margin="5" Name="_findTextBox"/>
-            <Button Width="80" Margin="5" Content="Поиск" Command="{Binding FindCommand}" CommandParameter="{Binding Text,ElementName=_findTextBox}"></Button>
-        </StackPanel>-->
         <Grid Grid.Row="1">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Border x:Name="_col1" Grid.Column="0"/>
-                <Border x:Name="_col2" Grid.Column="1"/>
-                <Border x:Name="_col3" Grid.Column="2"/>
-            </Grid>
             <ListView ItemsSource="{Binding VisibleItems}" SelectedItem="{Binding SelectedItem}">
                 <ListView.Resources>
                     <Style TargetType="ListViewItem">
@@ -46,11 +28,6 @@
                         <Setter Property="VerticalContentAlignment" Value="Stretch" />
                     </Style>
                 </ListView.Resources>
-                <!--<i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDoubleClick">
-                        <command:EventToCommand Command="{Binding OpenItemCommand}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>-->
                 <i:Interaction.Behaviors>
                     <lists:ScrollToSelectedItemBehavior/>
                 </i:Interaction.Behaviors>
@@ -65,11 +42,62 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
+                        <GridViewColumn Header="Группа" Width="120">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="listViewModel:RequestDetailListItem">
+                                    <Border BorderBrush="DarkGray" BorderThickness="1" Margin="-6,-3,-7,-3">
+                                        <lists:ExtendedSelectorControl DataContext="{Binding GroupSelector}" ValueMemberPath="Name">
+                                            <lists:ExtendedSelectorControl.ItemTemplate>
+                                                <DataTemplate DataType="{x:Type entities:GroupViewModel}">
+                                                    <TextBlock Text="{Binding Name}" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" FontSize="10" Margin="2"></TextBlock>
+                                                </DataTemplate>
+                                            </lists:ExtendedSelectorControl.ItemTemplate>
+                                        </lists:ExtendedSelectorControl>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                         <GridViewColumn Header="Чертеж" Width="120">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate DataType="listViewModel:RequestDetailListItem">
                                     <Border BorderBrush="DarkGray" BorderThickness="1" Margin="-6,-3,-7,-3">
-                                        <lists:RequestDetailDrawingCellControl DataContext="{Binding}"/>
+                                        <lists:ExtendedSelectorControl DataContext="{Binding DrawingSelector}" ValueMemberPath="Name">
+                                            <lists:ExtendedSelectorControl.ItemTemplate>
+                                                <DataTemplate DataType="{x:Type entities:DrawingViewModel}">
+                                                    <TextBlock Text="{Binding Name}" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" FontSize="10" Margin="2"></TextBlock>
+                                                </DataTemplate>
+                                            </lists:ExtendedSelectorControl.ItemTemplate>
+                                        </lists:ExtendedSelectorControl>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Деталь" Width="120">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="listViewModel:RequestDetailListItem">
+                                    <Border BorderBrush="DarkGray" BorderThickness="1" Margin="-6,-3,-7,-3">
+                                        <lists:ExtendedSelectorControl DataContext="{Binding DetailSelector}" ValueMemberPath="Name">
+                                            <lists:ExtendedSelectorControl.ItemTemplate>
+                                                <DataTemplate DataType="{x:Type entities:DetailViewModel}">
+                                                    <TextBlock Text="{Binding Name}" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" FontSize="10" Margin="2"></TextBlock>
+                                                </DataTemplate>
+                                            </lists:ExtendedSelectorControl.ItemTemplate>
+                                        </lists:ExtendedSelectorControl>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Материал" Width="120">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="listViewModel:RequestDetailListItem">
+                                    <Border BorderBrush="DarkGray" BorderThickness="1" Margin="-6,-3,-7,-3">
+                                        <lists:ExtendedSelectorControl DataContext="{Binding MaterialSelector}" ValueMemberPath="Name">
+                                            <lists:ExtendedSelectorControl.ItemTemplate>
+                                                <DataTemplate DataType="{x:Type entities:MaterialViewModel}">
+                                                    <TextBlock Text="{Binding Name}" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" FontSize="10" Margin="2"></TextBlock>
+                                                </DataTemplate>
+                                            </lists:ExtendedSelectorControl.ItemTemplate>
+                                        </lists:ExtendedSelectorControl>
                                     </Border>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
