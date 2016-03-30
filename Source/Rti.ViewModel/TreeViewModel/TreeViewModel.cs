@@ -27,7 +27,7 @@ namespace Rti.ViewModel.TreeViewModel
             }
         }
 
-        public void OnItemsChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        public void OnItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (ItemsChanged != null)
                 ItemsChanged(sender, e);

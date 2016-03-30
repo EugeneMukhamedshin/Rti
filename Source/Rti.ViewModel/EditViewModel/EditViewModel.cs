@@ -40,7 +40,7 @@ namespace Rti.ViewModel.EditViewModel
             OkCommand = new DelegateCommand(
                 "ОК",
                 o => Editable,
-                o => CloseWindow(this, true));
+                o => SaveAndClose());
 
             CancelCommand = new DelegateCommand(
                 "Отмена",
@@ -66,6 +66,14 @@ namespace Rti.ViewModel.EditViewModel
         }
 
         protected virtual bool DoValidate() { return true; }
+
+        public void SaveAndClose()
+        {
+            DoInternalSave();
+            CloseWindow(this, true);
+        }
+
+        protected virtual void DoInternalSave() { }
 
         public Action<BaseViewModel, bool> CloseWindow { get; set; }
     }

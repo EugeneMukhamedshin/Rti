@@ -1,8 +1,8 @@
 ﻿--
--- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.0.49.0
+-- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 6.3.358.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 30.03.2016 0:42:46
--- Версия сервера: 5.7.11-log
+-- Дата скрипта: 30.03.2016 18:07:44
+-- Версия сервера: 5.6.26-log
 -- Версия клиента: 4.1
 --
 
@@ -138,7 +138,8 @@ CREATE TABLE drawings (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 8
+AVG_ROW_LENGTH = 2730
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
@@ -368,7 +369,7 @@ CREATE TABLE requests (
     REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 30
+AUTO_INCREMENT = 44
 AVG_ROW_LENGTH = 3276
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -408,7 +409,8 @@ CREATE TABLE request_details (
     REFERENCES requests(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 13
+AVG_ROW_LENGTH = 2340
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
@@ -444,8 +446,13 @@ INSERT INTO details VALUES
 -- 
 -- Вывод данных для таблицы drawings
 --
-
--- Таблица rti.drawings не содержит данных
+INSERT INTO drawings VALUES
+(1, 'Чертеж1'),
+(3, 'Чуртеж2'),
+(4, 'Чартеж3'),
+(5, 'Чэртеж4'),
+(6, 'Чыртеж5'),
+(7, 'Чяртеж6');
 
 -- 
 -- Вывод данных для таблицы drivers
@@ -521,13 +528,22 @@ INSERT INTO requests VALUES
 (23, 2, '2016-03-30 00:00:00', NULL, NULL, NULL, 0),
 (25, 3, '2016-03-30 00:00:00', NULL, NULL, 3, 0),
 (26, 4, '2016-03-30 00:00:00', NULL, NULL, NULL, 0),
-(28, 5, '2016-03-30 00:00:00', NULL, NULL, 2, 0);
+(28, 5, '2016-03-30 00:00:00', NULL, NULL, 2, 0),
+(31, 6, '2016-03-30 00:00:00', NULL, NULL, NULL, 0),
+(40, 7, '2016-03-30 00:00:00', NULL, NULL, 3, 0),
+(41, 8, '2016-03-30 00:00:00', NULL, NULL, 3, 0);
 
 -- 
 -- Вывод данных для таблицы request_details
 --
-
--- Таблица rti.request_details не содержит данных
+INSERT INTO request_details VALUES
+(1, 41, 1, 1, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
+(2, 41, 2, 3, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
+(3, 41, 3, 4, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
+(8, 41, 8, 6, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
+(9, 41, 9, 5, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
+(10, 41, 10, 4, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
+(12, 41, 12, 1, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0);
 
 -- 
 -- Восстановить предыдущий режим SQL (SQL mode)

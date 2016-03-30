@@ -8,6 +8,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Media3D;
 
 namespace Rti.App.View.Lists.DragDropLogic
 {
@@ -609,7 +610,7 @@ namespace Rti.App.View.Lists.DragDropLogic
 					// VisualTreeHelper works with objects of type Visual or Visual3D.
 					// If the current object is not derived from Visual or Visual3D,
 					// then use the LogicalTreeHelper to find the parent element.
-					if( depObj is Visual || depObj is System.Windows.Media.Media3D.Visual3D )
+					if( depObj is Visual || depObj is Visual3D )
 						depObj = VisualTreeHelper.GetParent( depObj );
 					else
 						depObj = LogicalTreeHelper.GetParent( depObj );

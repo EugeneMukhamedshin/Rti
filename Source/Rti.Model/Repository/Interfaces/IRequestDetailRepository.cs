@@ -3,8 +3,8 @@ using Rti.Model.Domain;
 
 namespace Rti.Model.Repository.Interfaces
 {
-    public partial interface IDetailRepository : IRepository<Detail> 
+    public partial interface IRequestDetailRepository
     {
-        IList<Detail> GetAllActive();
+        IList<RequestDetail> GetByRequestId(int requestId);
     }
 }

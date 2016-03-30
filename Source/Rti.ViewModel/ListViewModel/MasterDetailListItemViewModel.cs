@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
 using Rti.Model.Repository.Interfaces;
@@ -172,7 +173,7 @@ namespace Rti.ViewModel.ListViewModel
                 o => OwnerList.ExecuteEditItemCommand(this));
         }
 
-        private void ChildItems_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void ChildItems_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             OnChildItemsChanged();
         }

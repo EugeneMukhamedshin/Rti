@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using System.Windows;
 using Rti.App.View.Editors;
 using Rti.App.View.Lists;
-using Rti.Model.Domain;
 using Rti.ViewModel;
 using Rti.ViewModel.EditViewModel;
-using Rti.ViewModel.Entities;
 using Rti.ViewModel.ListViewModel;
-using Application = System.Windows.Application;
-using MessageBox = System.Windows.MessageBox;
 
 namespace Rti.App
 {
@@ -21,9 +17,8 @@ namespace Rti.App
         {
             AddToRegistry<MainViewModel, MainWindow>();
 
+            // Справочники
             AddToRegistry<DictionaryList, DictionaryListWindow>();
-            AddToRegistry<RequestEdit, RequestEditWindow>();
-
             AddToRegistry<MaterialList, MaterialListWindow>();
             AddToRegistry<MaterialEdit, MaterialEditWindow>();
             AddToRegistry<GroupList, GroupListWindow>();
@@ -49,6 +44,12 @@ namespace Rti.App
             AddToRegistry<MachineList, MachineListWindow>();
             AddToRegistry<MachineEdit, MachineEditWindow>();
             AddToRegistry<ConstantEdit, ConstantEditWindow>();
+
+            // Заявки
+            AddToRegistry<RequestEdit, RequestEditWindow>();
+
+            // Чертежи
+            AddToRegistry<DrawingList, DrawingListWindow>();
         }
 
         private void AddToRegistry<TViewModel, TView>()

@@ -40,5 +40,6 @@ namespace Rti.ViewModel.ListViewModel
         //void AddItem(MasterDetailListItemViewModel parentItem, MasterDetailListItemViewModel selectedItem, MasterDetailListItemViewModel newItem, int offset);
         void AddItem(MasterDetailListItemViewModel parentItem, MasterDetailListItemViewModel newItem, int index);
         int RemoveItem(MasterDetailListItemViewModel item);
+        void Refresh();
     }
 }

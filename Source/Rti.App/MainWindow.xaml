@@ -7,6 +7,7 @@
         Title="MainWindow" Height="300" Width="150">
     <StackPanel>
         <Button Content="Новая заявка" Command="{Binding CreateNewRequestCommand}"/>
+        <Button Content="Открыть заявку" Command="{Binding OpenRequestCommand}"/>
         <Button Content="Справочники" Command="{Binding OpenDictionaryListCommand}"/>
     </StackPanel>
 </Window>

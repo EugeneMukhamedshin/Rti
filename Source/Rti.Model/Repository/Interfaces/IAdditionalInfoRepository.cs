@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Reflection.Emit;
+﻿using System.Collections.Generic;
 using Rti.Model.Domain;
 
 namespace Rti.Model.Repository.Interfaces
 {
-    public partial interface IAdditionalInfoRepository : IRepository<Rti.Model.Domain.AdditionalInfo>
+    public partial interface IAdditionalInfoRepository
     {
         IList<AdditionalInfo> GetAllActive();
     }

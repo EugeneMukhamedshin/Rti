@@ -8,14 +8,14 @@
         xmlns:behaviour="clr-namespace:Rti.App.View.Editors.Behaviour"
         xmlns:editors="clr-namespace:Rti.App.View.Editors"
         xmlns:entities="clr-namespace:Rti.ViewModel.Entities;assembly=Rti.ViewModel"
+        xmlns:lists="clr-namespace:Rti.App.View.Lists"
         mc:Ignorable="d"
-        Width="1024" Height="250" MinWidth="1024" MinHeight="250" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
+        Width="1024" Height="760" MinWidth="1024" MinHeight="250" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="32"/>
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
@@ -38,11 +38,11 @@
                     x:Name="AutoCompleteBox"
                     Text="{Binding CustomerSelector.SelectorText,Mode=TwoWay}"
                     ItemsSource="{Binding CustomerSelector.SelectorItems}" 
-                    Margin="5" VerticalAlignment="Center"
+                    Margin="5,5,0,5" VerticalAlignment="Center"
                     SelectedItem="{Binding CustomerSelector.SelectedItem,Mode=OneWayToSource}" 
                     ValueMemberPath="Name"
                     FilterMode="Custom"
-                    Width="250">
+                    Width="667">
                 <editors:FocusableAutoCompleteBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type entities:ContragentViewModel}">
                         <Grid>
@@ -61,10 +61,11 @@
                 </editors:FocusableAutoCompleteBox.ItemTemplate>
             </editors:FocusableAutoCompleteBox>
 
-            <Button IsEnabled="{Binding Editable}" HorizontalAlignment="Left" Content="..." Command="{Binding SelectCustomerCommand}" Width="28" Margin="5" TabIndex="5"></Button>
+            <Button IsEnabled="{Binding Editable}" HorizontalAlignment="Left" Content="..." Command="{Binding SelectCustomerCommand}" Width="20" Margin="0,5,0,5" TabIndex="5"></Button>
         </StackPanel>
+        <lists:RequestDetailListControl DataContext="{Binding RequestDetailList}" Grid.Row="2"/>
 
-        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+        <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
             <Button Content="Сохранить" Command="{Binding OkCommand}" Width="80" Margin="5" IsDefault="True" TabIndex="1000"></Button>
             <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="80" Margin="5" TabIndex="1001"></Button>
         </StackPanel>

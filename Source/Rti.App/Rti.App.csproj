@@ -160,6 +160,9 @@
     <Compile Include="View\Lists\DictionaryListWindow.xaml.cs">
       <DependentUpon>DictionaryListWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Lists\DrawingListWindow.xaml.cs">
+      <DependentUpon>DrawingListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Lists\DriverListWindow.xaml.cs">
       <DependentUpon>DriverListWindow.xaml</DependentUpon>
     </Compile>
@@ -204,6 +207,12 @@
     </Compile>
     <Compile Include="View\Lists\MethodListWindow.xaml.cs">
       <DependentUpon>MethodListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\RequestDetailDrawingCellControl.xaml.cs">
+      <DependentUpon>RequestDetailDrawingCellControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\RequestDetailListControl.xaml.cs">
+      <DependentUpon>RequestDetailListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lists\ScrollToSelectedItemBehavior.cs" />
     <Compile Include="View\Lists\TemplateMap.cs" />
@@ -330,6 +339,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Lists\DrawingListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Lists\DriverListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -367,6 +380,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Lists\MethodListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\RequestDetailDrawingCellControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\RequestDetailListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

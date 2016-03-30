@@ -3,7 +3,7 @@ using Rti.Model.Domain;
 
 namespace Rti.Model.Repository.Interfaces
 {
-    public partial interface IEquipmentRepository : IRepository<Rti.Model.Domain.Equipment>
+    public partial interface IEquipmentRepository : IRepository<Equipment>
     {
         IList<Equipment> GetAllActive();
     }

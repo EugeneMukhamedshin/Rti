@@ -12,13 +12,12 @@
 
 
 using Rti.Model.Domain;
-using FluentNHibernate.Mapping;
 
 namespace Rti.Model.Repository.NHibernate.ClassMaps
 {
 
 	// The classmap for additional_infos
-	public partial class AdditionalInfoMap : BaseMap<Rti.Model.Domain.AdditionalInfo>
+	public partial class AdditionalInfoMap : BaseMap<AdditionalInfo>
 	{
 		public AdditionalInfoMap()
 		{
@@ -45,7 +44,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 
 	// The classmap for constants
-	public partial class ConstantMap : BaseMap<Rti.Model.Domain.Constant>
+	public partial class ConstantMap : BaseMap<Constant>
 	{
 		public ConstantMap()
 		{
@@ -88,7 +87,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 
 	// The classmap for contragents
-	public partial class ContragentMap : BaseMap<Rti.Model.Domain.Contragent>
+	public partial class ContragentMap : BaseMap<Contragent>
 	{
 		public ContragentMap()
 		{
@@ -149,7 +148,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 
 	// The classmap for details
-	public partial class DetailMap : BaseMap<Rti.Model.Domain.Detail>
+	public partial class DetailMap : BaseMap<Detail>
 	{
 		public DetailMap()
 		{
@@ -176,7 +175,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 
 	// The classmap for drawings
-	public partial class DrawingMap : BaseMap<Rti.Model.Domain.Drawing>
+	public partial class DrawingMap : BaseMap<Drawing>
 	{
 		public DrawingMap()
 		{
@@ -197,7 +196,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 
 	// The classmap for drivers
-	public partial class DriverMap : BaseMap<Rti.Model.Domain.Driver>
+	public partial class DriverMap : BaseMap<Driver>
 	{
 		public DriverMap()
 		{
@@ -228,7 +227,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 
 	// The classmap for employees
-	public partial class EmployeeMap : BaseMap<Rti.Model.Domain.Employee>
+	public partial class EmployeeMap : BaseMap<Employee>
 	{
 		public EmployeeMap()
 		{
@@ -259,7 +258,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 
 	// The classmap for equipments
-	public partial class EquipmentMap : BaseMap<Rti.Model.Domain.Equipment>
+	public partial class EquipmentMap : BaseMap<Equipment>
 	{
 		public EquipmentMap()
 		{
@@ -298,7 +297,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 
 	// The classmap for groups
-	public partial class GroupMap : BaseMap<Rti.Model.Domain.Group>
+	public partial class GroupMap : BaseMap<Group>
 	{
 		public GroupMap()
 		{
@@ -325,7 +324,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 
 	// The classmap for jobs
-	public partial class JobMap : BaseMap<Rti.Model.Domain.Job>
+	public partial class JobMap : BaseMap<Job>
 	{
 		public JobMap()
 		{
@@ -354,7 +353,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 
 	// The classmap for machines
-	public partial class MachineMap : BaseMap<Rti.Model.Domain.Machine>
+	public partial class MachineMap : BaseMap<Machine>
 	{
 		public MachineMap()
 		{
@@ -397,7 +396,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 
 	// The classmap for materials
-	public partial class MaterialMap : BaseMap<Rti.Model.Domain.Material>
+	public partial class MaterialMap : BaseMap<Material>
 	{
 		public MaterialMap()
 		{
@@ -436,7 +435,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 
 	// The classmap for measure_units
-	public partial class MeasureUnitMap : BaseMap<Rti.Model.Domain.MeasureUnit>
+	public partial class MeasureUnitMap : BaseMap<MeasureUnit>
 	{
 		public MeasureUnitMap()
 		{
@@ -463,7 +462,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 
 	// The classmap for methods
-	public partial class MethodMap : BaseMap<Rti.Model.Domain.Method>
+	public partial class MethodMap : BaseMap<Method>
 	{
 		public MethodMap()
 		{
@@ -490,7 +489,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 
 	// The classmap for requests
-	public partial class RequestMap : BaseMap<Rti.Model.Domain.Request>
+	public partial class RequestMap : BaseMap<Request>
 	{
 		public RequestMap()
 		{
@@ -521,7 +520,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 
 	// The classmap for request_details
-	public partial class RequestDetailMap : BaseMap<Rti.Model.Domain.RequestDetail>
+	public partial class RequestDetailMap : BaseMap<RequestDetail>
 	{
 		public RequestDetailMap()
 		{

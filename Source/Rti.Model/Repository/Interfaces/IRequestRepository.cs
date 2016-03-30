@@ -1,6 +1,8 @@
-﻿namespace Rti.Model.Repository.Interfaces
+﻿using Rti.Model.Domain;
+
+namespace Rti.Model.Repository.Interfaces
 {
-    public partial interface IRequestRepository : IRepository<Domain.Request> {
+    public partial interface IRequestRepository : IRepository<Request> {
         int GetNewRequestNumber();
     }
 }

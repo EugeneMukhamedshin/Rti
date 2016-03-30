@@ -8,7 +8,6 @@ using log4net.Config;
 using log4net.Util;
 using Rti.Model.Repository.NHibernate;
 using Rti.ViewModel;
-using Rti.ViewModel.ListViewModel;
 
 namespace Rti.App
 {

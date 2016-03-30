@@ -47,7 +47,7 @@ namespace Rti.App.View.Lists.TreeListView
             {
                 if (_level == -1)
                 {
-                    TreeListViewItem parent = ItemsControl.ItemsControlFromItemContainer(this) as TreeListViewItem;
+                    TreeListViewItem parent = ItemsControlFromItemContainer(this) as TreeListViewItem;
                     _level = (parent != null) ? parent.Level + 1 : 0;
                 }
                 return _level;

@@ -10,7 +10,7 @@
   <OutputDirectory>C:\Projects\Rti\Rti_Local\Db</OutputDirectory>
   <BaseFileName>rti</BaseFileName>
   <Mode>All</Mode>
-  <AppendTimestamp>True</AppendTimestamp>
+  <AppendTimestamp>False</AppendTimestamp>
   <MaxDays>0</MaxDays>
   <MaxFilesCount>0</MaxFilesCount>
   <Compression />

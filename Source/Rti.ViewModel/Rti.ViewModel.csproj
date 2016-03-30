@@ -97,6 +97,10 @@
     <Compile Include="ListViewModel\EquipmentListItem.cs" />
     <Compile Include="ListViewModel\AdditionalInfoList.cs" />
     <Compile Include="ListViewModel\AdditionalInfoListItem.cs" />
+    <Compile Include="ListViewModel\DrawingList.cs" />
+    <Compile Include="ListViewModel\DrawingListItem.cs" />
+    <Compile Include="ListViewModel\RequestDetailList.cs" />
+    <Compile Include="ListViewModel\RequestDetailListItem.cs" />
     <Compile Include="ListViewModel\MachineList.cs" />
     <Compile Include="ListViewModel\MachineListItem.cs" />
     <Compile Include="ListViewModel\MeasureUnitList.cs" />

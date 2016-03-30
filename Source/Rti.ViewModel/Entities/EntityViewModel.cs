@@ -8,6 +8,7 @@ namespace Rti.ViewModel.Entities
         where TEntity: class, IIdentifiedEntity, new()
     {
         private bool _isNewEntity;
+        private bool _isChanged;
         public TEntity Entity { get; private set; }
 
         public Boolean IsNewEntity
@@ -17,6 +18,17 @@ namespace Rti.ViewModel.Entities
             {
                 _isNewEntity = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public bool IsChanged
+        {
+            get { return _isChanged; }
+            set
+            {
+                if (value.Equals(_isChanged)) return;
+                _isChanged = value;
+                OnPropertyChanged("IsChanged");
             }
         }
 
@@ -82,6 +94,12 @@ namespace Rti.ViewModel.Entities
         public virtual TEntityViewModel Clone()
         {
             throw new NotImplementedException();
+        }
+
+        protected override void OnPropertyChanged(string propertyName = null)
+        {
+            IsChanged = true;
+            base.OnPropertyChanged(propertyName);
         }
     }
 }

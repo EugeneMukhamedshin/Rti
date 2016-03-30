@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
@@ -105,7 +106,7 @@ namespace Rti.ViewModel.TreeViewModel
             Entity.PropertyChanged += Entity_PropertyChanged;
         }
 
-        void Entity_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        void Entity_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             OnEntityChanged();
         }

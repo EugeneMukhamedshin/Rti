@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
@@ -8,22 +9,26 @@ using Rti.ViewModel.ListViewModel;
 
 namespace Rti.ViewModel.EditViewModel
 {
-    public class RequestEdit: EditEntityViewModel<RequestViewModel, Request>
+    public class RequestEdit : EditEntityViewModel<RequestViewModel, Request>
     {
-        public RequestEdit(string name, RequestViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) 
+        public RequestDetailList RequestDetailList { get; private set; }
+
+        public RequestEdit(string name, RequestViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {
+            RequestDetailList = new RequestDetailList(Entity, true, ViewService, RepositoryFactory);
         }
 
         public DelegateCommand SelectCustomerCommand { get; set; }
 
         public SelectorViewModel<ContragentViewModel> CustomerSelector { get; set; }
 
-        protected override void OnInitialize()
+        public override void Refresh()
         {
-            base.OnInitialize();
+            base.Refresh();
+            RequestDetailList.Refresh();
             SelectCustomerCommand = new DelegateCommand(
-                "Выбрать материал",
+                "Выбрать заказчика",
                 o => true,
                 o => SelectCustomer());
             CustomerSelector = new SelectorViewModel<ContragentViewModel>();
@@ -31,7 +36,7 @@ namespace Rti.ViewModel.EditViewModel
             RefreshSelector(Entity.Customer);
         }
 
-        void CustomerSelector_SelectedItemChanged(object sender, System.EventArgs e)
+        void CustomerSelector_SelectedItemChanged(object sender, EventArgs e)
         {
             if (CustomerSelector.SelectedItem != null)
                 UseCustomer(CustomerSelector.SelectedItem);
@@ -68,6 +73,14 @@ namespace Rti.ViewModel.EditViewModel
         private void UseCustomer(ContragentViewModel customer)
         {
             Entity.Customer = customer;
+        }
+
+        protected override void DoInternalSave()
+        {
+            base.DoInternalSave();
+            if (Entity.IsChanged)
+                Entity.SaveEntity();
+            RequestDetailList.SaveChanges();
         }
 
         protected override bool DoValidate()

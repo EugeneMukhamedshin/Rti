@@ -93,6 +93,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IRepositoryFactory.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\Interfaces\IRequestDetailRepository.cs" />
     <Compile Include="Repository\Interfaces\IRequestRepository.cs" />
     <Compile Include="Repository\NHibernate\AdditionalInfoRepository.cs" />
     <Compile Include="Repository\NHibernate\ClassMaps\BaseMap.cs" />
@@ -121,6 +122,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NHibernateRepositoryFactory.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\NHibernate\RequestDetailRepository.cs" />
     <Compile Include="Repository\NHibernate\RequestRepository.cs" />
   </ItemGroup>
   <ItemGroup>
