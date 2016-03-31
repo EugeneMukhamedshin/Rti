@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Threading;
@@ -25,6 +26,7 @@ namespace Rti.App
             {
                 XmlConfigurator.Configure();
                 DispatcherUnhandledException += App_DispatcherUnhandledException;
+                AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
                 var language = XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag);
                 FrameworkElement.LanguageProperty.OverrideMetadata(
                     typeof(FrameworkElement),
@@ -32,13 +34,25 @@ namespace Rti.App
                 base.OnStartup(e);
                 var repositoryFactory = new NHibernateRepositoryFactory();
                 _viewService = new ViewService();
+
                 var mainViewModel = new MainViewModel(_viewService, repositoryFactory);
                 _viewService.ShowView(mainViewModel, false, true);
+                var loginViewModel = new LoginViewModel(_viewService, repositoryFactory);
+                _viewService.ShowViewDialog(loginViewModel);
+                if (!loginViewModel.LoggedOn)
+                    mainViewModel.CloseWindow(mainViewModel, null);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            if (args.Name == "log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821")
+                return AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.FullName.Contains("log4net"));
+            return args.RequestingAssembly;
         }
 
         void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

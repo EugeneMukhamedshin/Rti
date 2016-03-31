@@ -4,7 +4,7 @@ namespace Rti.ViewModel
 {
     public interface IWindowCloser
     {
-        Action<BaseViewModel, Boolean> CloseWindow { get; set;  }
+        Action<BaseViewModel, Boolean?> CloseWindow { get; set;  }
     }
 
     public interface IValidatable

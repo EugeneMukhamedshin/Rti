@@ -64,6 +64,6 @@ namespace Rti.ViewModel.ListViewModel
                                 new ContragentListItem(new ContragentViewModel(m, RepositoryFactory), this, RepositoryFactory)));
         }
 
-        public Action<BaseViewModel, bool> CloseWindow { get; set; }
+        public Action<BaseViewModel, bool?> CloseWindow { get; set; }
     }
 }

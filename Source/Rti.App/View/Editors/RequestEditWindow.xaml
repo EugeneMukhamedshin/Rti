@@ -10,12 +10,13 @@
         xmlns:entities="clr-namespace:Rti.ViewModel.Entities;assembly=Rti.ViewModel"
         xmlns:lists="clr-namespace:Rti.App.View.Lists"
         mc:Ignorable="d"
-        Width="1024" Height="760" MinWidth="1024" MinHeight="250" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
+        Width="1200" Height="760" MinWidth="500" MinHeight="250" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="32"/>
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
@@ -66,6 +67,9 @@
         <lists:RequestDetailListControl DataContext="{Binding RequestDetailList}" Grid.Row="2"/>
 
         <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
+            <Button Content="Текущий счет" Command="{Binding GenerateInvoiceCommand}" Width="80" Margin="5" IsDefault="True" TabIndex="999"></Button>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal">
             <Button Content="Сохранить" Command="{Binding OkCommand}" Width="80" Margin="5" IsDefault="True" TabIndex="1000"></Button>
             <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="80" Margin="5" TabIndex="1001"></Button>
         </StackPanel>

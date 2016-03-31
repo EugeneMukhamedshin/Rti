@@ -106,6 +106,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -172,6 +175,7 @@
     <Compile Include="View\Lists\EquipmentListWindow.xaml.cs">
       <DependentUpon>EquipmentListWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Lists\ExistanceToItemsSource.cs" />
     <Compile Include="View\Lists\GroupListWindow.xaml.cs">
       <DependentUpon>GroupListWindow.xaml</DependentUpon>
     </Compile>
@@ -267,6 +271,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

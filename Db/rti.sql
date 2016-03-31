@@ -1,8 +1,8 @@
 ﻿--
--- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.0.49.0
+-- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 6.3.358.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 31.03.2016 0:18:51
--- Версия сервера: 5.7.11-log
+-- Дата скрипта: 31.03.2016 18:50:53
+-- Версия сервера: 5.6.26-log
 -- Версия клиента: 4.1
 --
 
@@ -196,10 +196,11 @@ CREATE TABLE jobs (
   login VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   is_deleted INT(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  UNIQUE INDEX UK_jobs_login (login)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 4
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -387,8 +388,8 @@ CREATE TABLE request_details (
   group_id INT(11) DEFAULT NULL,
   detail_id INT(11) DEFAULT NULL,
   equipment_existance INT(11) DEFAULT NULL,
+  additional_info VARCHAR(1000) DEFAULT NULL,
   equipment_lead_time INT(11) DEFAULT NULL,
-  additional_info_id INT(11) DEFAULT NULL,
   count DOUBLE NOT NULL,
   price DOUBLE NOT NULL,
   calculation_price DOUBLE DEFAULT NULL,
@@ -398,8 +399,6 @@ CREATE TABLE request_details (
   is_deleted INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (id),
   UNIQUE INDEX UK_request_details (request_id, sort_order),
-  CONSTRAINT FK_request_details_additional_infos_id FOREIGN KEY (additional_info_id)
-    REFERENCES additional_infos(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT FK_request_details_details_id FOREIGN KEY (detail_id)
     REFERENCES details(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT FK_request_details_drawings_id FOREIGN KEY (drawing_id)
@@ -479,7 +478,8 @@ INSERT INTO groups VALUES
 --
 INSERT INTO jobs VALUES
 (1, 1, 'Секретарь', 'secretary', 'secret', 0),
-(2, 2, 'Технолог', 'tehnolog', '123123qweasdzxc', 0);
+(2, 2, 'Технолог', 'tehnolog', '123123qweasdzxc', 0),
+(3, 3, 'Демо', 'demo', 'demo', 0);
 
 -- 
 -- Вывод данных для таблицы machines
@@ -540,13 +540,13 @@ INSERT INTO requests VALUES
 -- Вывод данных для таблицы request_details
 --
 INSERT INTO request_details VALUES
-(1, 41, 1, 1, 1, 1, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
-(2, 41, 2, 3, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, 5, NULL, 0),
-(3, 41, 3, 4, 4, 1, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
-(8, 41, 8, 6, 2, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, 4, NULL, 0),
-(9, 41, 9, 5, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
-(10, 41, 10, 4, 1, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0),
-(12, 41, 12, 1, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0);
+(1, 41, 1, 1, 1, 1, 1, NULL, NULL, 12, 15.312, NULL, 183.744, NULL, NULL, 0),
+(2, 41, 2, 3, NULL, NULL, 2, '123', NULL, 2, 0, NULL, 0, 5, NULL, 0),
+(3, 41, 3, 4, 4, 1, 0, '321', NULL, 3, 600, NULL, 1800, NULL, NULL, 0),
+(8, 41, 8, 6, 2, NULL, 1, NULL, NULL, 4, 150, 150, 600, 3, 'примечание примечание примечание примечание', 0),
+(9, 41, 9, 5, NULL, NULL, 2, 'asdfasdfs', NULL, 50, 0, NULL, 0, NULL, NULL, 0),
+(10, 41, 10, 4, 1, 1, 0, NULL, NULL, 6.3, 0, NULL, 0, NULL, NULL, 0),
+(12, 41, 12, 1, NULL, 1, 1, NULL, NULL, 8.9, 0, NULL, 0, NULL, NULL, 0);
 
 -- 
 -- Восстановить предыдущий режим SQL (SQL mode)

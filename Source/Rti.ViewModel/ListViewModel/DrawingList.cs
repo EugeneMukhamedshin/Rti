@@ -51,6 +51,6 @@ namespace Rti.ViewModel.ListViewModel
                                 new DrawingListItem(new DrawingViewModel(m, RepositoryFactory), this, RepositoryFactory)));
         }
 
-        public Action<BaseViewModel, bool> CloseWindow { get; set; }
+        public Action<BaseViewModel, bool?> CloseWindow { get; set; }
     }
 }

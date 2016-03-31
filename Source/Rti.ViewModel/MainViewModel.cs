@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
@@ -7,9 +9,12 @@ using Rti.ViewModel.ListViewModel;
 
 namespace Rti.ViewModel
 {
-    public class MainViewModel : BaseViewModel
+    public class MainViewModel : BaseViewModel, IWindowCloser
     {
         public IViewService ViewService { get; set; }
+
+        public RequestViewModel SelectedRequest { get; set; }
+        public List<RequestViewModel> Requests { get; set; }
 
         public DelegateCommand CreateNewRequestCommand { get; set; }
         public DelegateCommand OpenRequestCommand { get; set; }
@@ -31,6 +36,11 @@ namespace Rti.ViewModel
                 "Справочники",
                 o => true,
                 o => OpenDictionaryList());
+            Requests =
+                RepositoryFactory.GetRequestRepository()
+                    .GetAll()
+                    .Select(o => new RequestViewModel(o, RepositoryFactory))
+                    .ToList();
         }
 
         private void CreateNewRequest()
@@ -47,8 +57,9 @@ namespace Rti.ViewModel
 
         private void OpenRequest()
         {
-            var request = new RequestViewModel(RepositoryFactory.GetRequestRepository().GetById(41), RepositoryFactory);
-            var editViewModel = new RequestEdit("Заявка", request, false, ViewService, RepositoryFactory);
+            if (SelectedRequest == null)
+                return;
+            var editViewModel = new RequestEdit("Заявка", SelectedRequest, false, ViewService, RepositoryFactory);
             editViewModel.Refresh();
             ViewService.ShowViewDialog(editViewModel);
         }
@@ -57,5 +68,7 @@ namespace Rti.ViewModel
         {
             ViewService.ShowViewDialog(new DictionaryList(false, ViewService, RepositoryFactory));
         }
+
+        public Action<BaseViewModel, bool?> CloseWindow { get; set; }
     }
 }

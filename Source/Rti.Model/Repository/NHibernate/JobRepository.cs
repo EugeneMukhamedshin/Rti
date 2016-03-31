@@ -9,5 +9,10 @@ namespace Rti.Model.Repository.NHibernate
         {
             return ExecuteFuncOnQueryOver(q => q.Where(o => !o.IsDeleted).List());
         }
+
+        public Job GetByLogin(string login)
+        {
+            return ExecuteFuncOnQueryOver(q => q.Where(o => o.Login == login).SingleOrDefault());
+        }
     }
 }

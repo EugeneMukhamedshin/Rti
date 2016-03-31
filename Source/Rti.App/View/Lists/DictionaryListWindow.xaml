@@ -5,7 +5,7 @@
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         xmlns:lists="clr-namespace:Rti.App.View.Lists"
         xmlns:listViewModel="clr-namespace:Rti.ViewModel.ListViewModel;assembly=Rti.ViewModel"
-        Title="Справочники" Height="400" Width="500">
+        Title="Справочники" Height="500" Width="500">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>

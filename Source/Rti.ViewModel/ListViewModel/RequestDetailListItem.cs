@@ -1,4 +1,7 @@
-﻿using Rti.Model.Domain;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
 
@@ -7,13 +10,67 @@ namespace Rti.ViewModel.ListViewModel
     public class RequestDetailListItem : EntityListItem<RequestDetailViewModel, RequestDetail>
     {
         public int SortOrder { get { return IndexInParentCollection + 1; } }
-        public DrawingViewModel Drawing { get { return Entity.Drawing; } }
-        public GroupViewModel Group { get { return Entity.Group; } }
+
+        public Existance? EquipmentExistance
+        {
+            get { return Entity.EquipmentExistance == null ? null : (Existance?) Entity.EquipmentExistance; }
+            set { Entity.EquipmentExistance = (int?)value; }
+        }
+
+        public string AdditionalInfo
+        {
+            get { return Entity.AdditionalInfo; }
+            set { Entity.AdditionalInfo = value; }
+        }
+
+        public double Count
+        {
+            get { return Entity.Count; }
+            set
+            {
+                Entity.Count = value; 
+                Sum = Price * Count;
+            }
+        }
+
+        public double Price
+        {
+            get { return Entity.Price; }
+            set
+            {
+                Entity.Price = value;
+                Sum = Price*Count;
+            }
+        }
+
+        public double? CalculationPrice
+        {
+            get { return Entity.CalculationPrice; }
+            set { Entity.CalculationPrice = value; }
+        }
+
+        public double Sum
+        {
+            get { return Entity.Sum; }
+            set
+            {
+                Entity.Sum = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Note
+        {
+            get { return Entity.Note; }
+            set { Entity.Note = value; }
+        }
 
         public ExtendedSelectorViewModel<DrawingViewModel, Drawing, DrawingListItem, DrawingList> DrawingSelector { get; set; }
         public ExtendedSelectorViewModel<GroupViewModel, Group, GroupListItem, GroupList> GroupSelector { get; set; }
         public ExtendedSelectorViewModel<MaterialViewModel, Material, MaterialListItem, MaterialList> MaterialSelector { get; set; }
         public ExtendedSelectorViewModel<DetailViewModel, Detail, DetailListItem, DetailList> DetailSelector { get; set; }
+
+        public IEnumerable<Existance> Existances { get { return Enum.GetValues(typeof (Existance)).Cast<Existance>(); } }
 
         public RequestDetailListItem(RequestDetailViewModel entity, RequestDetailList ownerList, IRepositoryFactory repositoryFactory)
             : base(entity, null, ownerList, repositoryFactory)

@@ -6,6 +6,7 @@ using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
 using Rti.ViewModel.ListViewModel;
+using Rti.ViewModel.Reports;
 
 namespace Rti.ViewModel.EditViewModel
 {
@@ -17,7 +18,13 @@ namespace Rti.ViewModel.EditViewModel
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {
             RequestDetailList = new RequestDetailList(Entity, true, ViewService, RepositoryFactory);
+            GenerateInvoiceCommand = new DelegateCommand(
+                "Текущий счет",
+                o => true,
+                o => new InvoiceReport().BuildReport(entity.Id, RepositoryFactory));
         }
+
+        public DelegateCommand GenerateInvoiceCommand { get; set; }
 
         public DelegateCommand SelectCustomerCommand { get; set; }
 

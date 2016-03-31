@@ -75,7 +75,7 @@ namespace Rti.ViewModel.EditViewModel
 
         protected virtual void DoInternalSave() { }
 
-        public Action<BaseViewModel, bool> CloseWindow { get; set; }
+        public Action<BaseViewModel, bool?> CloseWindow { get; set; }
     }
 
     public class EditEntityViewModel<TEntityViewModel, TEntity> : EditViewModel<TEntityViewModel>

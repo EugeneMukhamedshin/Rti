@@ -15,6 +15,8 @@ namespace Rti.App
 
         public ViewService()
         {
+            AddToRegistry<LoginViewModel, LoginWindow>();
+
             AddToRegistry<MainViewModel, MainWindow>();
 
             // Справочники
@@ -143,9 +145,10 @@ namespace Rti.App
             if (viewModel is IWindowCloser)
                 ((IWindowCloser)viewModel).CloseWindow = (entity, res) =>
                 {
-                    if (res && (entity is IValidatable) && !((IValidatable)entity).Validate())
+                    if ((res == null || res.Value) && (entity is IValidatable) && !((IValidatable)entity).Validate())
                         return;
-                    window.DialogResult = res;
+                    if (res != null)
+                        window.DialogResult = res;
                     window.Close();
                 };
             return window;
