@@ -1,9 +1,14 @@
-﻿namespace Rti.Model.Domain
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
+namespace Rti.Model.Domain
 {
     public enum Existance
     {
-        InWork,
+        Exist,
+        NotExist,
         InMaintenance,
-        Lost
+        Lost,
+        InProduction
     }
 }

@@ -20,12 +20,16 @@ namespace Rti.App.View.Lists
         {
             switch (existance)
             {
-                case Existance.InWork:
-                    return "В работе";
+                case Existance.Exist:
+                    return "В наличии";
+                case Existance.NotExist:
+                    return "Отсутствует";
                 case Existance.InMaintenance:
                     return "В ремонте";
                 case Existance.Lost:
                     return "Утеряна";
+                case Existance.InProduction:
+                    return "Изготовление";
             }
             return null;
         }

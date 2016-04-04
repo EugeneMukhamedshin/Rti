@@ -1,0 +1,37 @@
+﻿using Rti.Model.Domain;
+using Rti.Model.Repository.Interfaces;
+using Rti.ViewModel.Entities;
+
+namespace Rti.ViewModel.ListViewModel
+{
+    public class DriverListItem : EntityListItem<DriverViewModel, Driver>
+    {
+        public int SortOrder { get { return Entity.SortOrder; } }
+        public string CarModel { get { return Entity.CarModel; } }
+        public string Number { get { return Entity.Number; } }
+        public string Name { get { return Entity.Name; } }
+        public string Document { get { return Entity.Document; } }
+
+        public DriverListItem(DriverViewModel entity, IMasterDetailListViewModel ownerList, IRepositoryFactory repositoryFactory)
+            : base(entity, null, ownerList, repositoryFactory)
+        {
+        }
+
+        protected override double DoGetSortOrder()
+        {
+            return Entity.SortOrder;
+        }
+
+        public override bool Delete()
+        {
+            Entity.IsDeleted = true;
+            Entity.SaveEntity();
+            return true;
+        }
+
+        public override bool AcceptFind(string text)
+        {
+            return text.ContainedIn(Name, CarModel, Number, Document);
+        }
+    }
+}
