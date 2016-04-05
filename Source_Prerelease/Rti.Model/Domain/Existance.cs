@@ -2,8 +2,10 @@
 {
     public enum Existance
     {
-        InWork,
+        Exist,
+        NotExist,
         InMaintenance,
-        Lost
+        Lost,
+        InProduction
     }
 }

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DevExpress.Xpf.Core;
 using Rti.ViewModel;
 
 namespace Rti.App
@@ -18,7 +19,7 @@ namespace Rti.App
     /// <summary>
     /// Логика взаимодействия для LoginWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class LoginWindow : DXWindow
     {
         public LoginWindow()
         {

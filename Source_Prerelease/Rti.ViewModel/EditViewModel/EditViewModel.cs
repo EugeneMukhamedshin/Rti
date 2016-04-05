@@ -73,7 +73,10 @@ namespace Rti.ViewModel.EditViewModel
             CloseWindow(this, true);
         }
 
-        protected virtual void DoInternalSave() { }
+        protected virtual void DoInternalSave()
+        {
+            Validate();
+        }
 
         public Action<BaseViewModel, bool?> CloseWindow { get; set; }
     }
