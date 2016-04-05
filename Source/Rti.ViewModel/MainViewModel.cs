@@ -76,7 +76,7 @@ namespace Rti.ViewModel
             OpenMaterialsCommand = new DelegateCommand(
                 "Справочники",
                 o => true,
-                o => OpenDictionary(new MaterialList(true, ViewService, RepositoryFactory)));
+                o => OpenDictionary(new MaterialSimpleList(true, ViewService, RepositoryFactory)));
             OpenGroupsCommand = new DelegateCommand(
                 "Справочники",
                 o => true,

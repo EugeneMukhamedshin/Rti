@@ -21,7 +21,8 @@ namespace Rti.App
 
             // Справочники
             AddToRegistry<DictionaryList, DictionaryListWindow>();
-            AddToRegistry<MaterialList, MaterialListWindow>();
+            //AddToRegistry<MaterialList, MaterialListWindow>();
+            AddToRegistry<MaterialSimpleList, MaterialListWindow>();
             AddToRegistry<MaterialEdit, MaterialEditWindow>();
             AddToRegistry<GroupList, GroupListWindow>();
             AddToRegistry<GroupEdit, GroupEditWindow>();
