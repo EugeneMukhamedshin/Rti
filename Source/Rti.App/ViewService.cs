@@ -17,7 +17,7 @@ namespace Rti.App
         {
             AddToRegistry<LoginViewModel, LoginWindow>();
 
-            AddToRegistry<MainViewModel, MainWindow>();
+            AddToRegistry<MainViewModel, MainDxWindow>();
 
             // Справочники
             AddToRegistry<DictionaryList, DictionaryListWindow>();
@@ -48,7 +48,7 @@ namespace Rti.App
             AddToRegistry<ConstantEdit, ConstantEditWindow>();
 
             // Заявки
-            AddToRegistry<RequestEdit, RequestEditWindow>();
+            AddToRegistry<RequestEdit, RequestEditDxWindow>();
 
             // Чертежи
             AddToRegistry<DrawingList, DrawingListWindow>();

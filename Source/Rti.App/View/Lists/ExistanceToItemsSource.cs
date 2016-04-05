@@ -5,6 +5,7 @@ using Rti.Model.Domain;
 
 namespace Rti.App.View.Lists
 {
+    // ReSharper disable EmptyConstructor
     public class ExistanceToItemsSource : MarkupExtension
     {
         public ExistanceToItemsSource() { }
@@ -16,12 +17,12 @@ namespace Rti.App.View.Lists
                 .Select(e => new { Value = e, DisplayName = GetDisplayName(e) });
         }
 
-        private string GetDisplayName(Existance existance)
+        private static string GetDisplayName(Existance existance)
         {
             switch (existance)
             {
                 case Existance.Exist:
-                    return "В наличии";
+                    return "В работе";
                 case Existance.NotExist:
                     return "Отсутствует";
                 case Existance.InMaintenance:

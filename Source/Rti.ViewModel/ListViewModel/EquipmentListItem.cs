@@ -9,7 +9,19 @@ namespace Rti.ViewModel.ListViewModel
         public int SortOrder { get { return Entity.SortOrder; } }
         public string GroupName { get { return Entity.Group == null ? null : Entity.Group.Name; } }
         public string DrawingName { get { return Entity.Drawing == null ? null : Entity.Drawing.Name; } }
-        public Existance Existance { get { return (Existance) Entity.Existance; } }
+
+        public string Existance
+        {
+            get
+            {
+                return (Existance) Entity.Existance == Model.Domain.Existance.Exist
+                    ? "В работе"
+                    : (Existance) Entity.Existance == Model.Domain.Existance.InMaintenance
+                        ? "В ремонте"
+                        : (Existance) Entity.Existance == Model.Domain.Existance.Lost ? "Утрата" : "Неизвестно";
+            }
+        }
+
         public string Name { get { return Entity.Name; } }
         public int? FormCount { get { return Entity.FormCount; } }
         public int? SlotCount { get { return Entity.SlotCount; } }

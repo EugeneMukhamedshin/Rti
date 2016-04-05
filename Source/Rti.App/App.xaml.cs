@@ -9,6 +9,8 @@ using log4net.Config;
 using log4net.Util;
 using Rti.Model.Repository.NHibernate;
 using Rti.ViewModel;
+using Rti.ViewModel.EditViewModel;
+using Rti.ViewModel.Entities;
 
 namespace Rti.App
 {
@@ -35,12 +37,24 @@ namespace Rti.App
                 var repositoryFactory = new NHibernateRepositoryFactory();
                 _viewService = new ViewService();
 
-                var mainViewModel = new MainViewModel(_viewService, repositoryFactory);
-                _viewService.ShowView(mainViewModel, false, true);
-                var loginViewModel = new LoginViewModel(_viewService, repositoryFactory);
-                _viewService.ShowViewDialog(loginViewModel);
-                if (!loginViewModel.LoggedOn)
-                    mainViewModel.CloseWindow(mainViewModel, null);
+                var isDebug = e.Args.Any(arg => arg.ToLower().Equals("debug=true"));
+
+                if (!isDebug)
+                {
+                    var mainViewModel = new MainViewModel(_viewService, repositoryFactory);
+                    _viewService.ShowView(mainViewModel, false, true);
+                    var loginViewModel = new LoginViewModel(_viewService, repositoryFactory);
+                    _viewService.ShowViewDialog(loginViewModel);
+                    if (!loginViewModel.LoggedOn)
+                        mainViewModel.CloseWindow(mainViewModel, null);
+                }
+                else
+                {
+                    var request = repositoryFactory.GetRequestRepository().GetById(41);
+                    var editViewModel = new RequestEdit("Заявка", new RequestViewModel(request, repositoryFactory), false, _viewService, repositoryFactory);
+                    editViewModel.Refresh();
+                    _viewService.ShowView(editViewModel, false, true);
+                }
             }
             catch (Exception ex)
             {
@@ -62,6 +76,12 @@ namespace Rti.App
 " + e.Exception.Message + @"
 Информация об ошибке в логе.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             e.Handled = true;
+        }
+
+        private void OnAppStartup_UpdateThemeName(object sender, StartupEventArgs e)
+        {
+
+            DevExpress.Xpf.Core.ApplicationThemeHelper.UpdateApplicationThemeName();
         }
     }
 }

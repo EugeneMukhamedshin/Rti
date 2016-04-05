@@ -1,22 +1,24 @@
-﻿<Window
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Rti.App.View.Lists"
-        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" x:Class="Rti.App.View.Lists.RequestDetailListDXControl"
-        mc:Ignorable="d"
-        Title="RequestDetailListDXControl" Height="300" Width="300">
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" x:Class="Rti.App.View.Lists.RequestDetailListDXControl" 
+             mc:Ignorable="d">
     <Grid>
 
-        <dxg:GridControl AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" ItemsSource="{Binding VisibleItems}" SelectedItem="{Binding SelectedItem}">
+        <dxg:GridControl AutoGenerateColumns="None" ItemsSource="{Binding VisibleItems}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row">
             <dxg:GridControl.Columns>
-                <dxg:GridColumn FieldName="Column" IsSmart="True"/>
+                <dxg:GridColumn FieldName="SortOrder" Header="№" UnboundType="Integer" >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
             </dxg:GridControl.Columns>
             <dxg:GridControl.View>
-                <dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True"/>
+                <dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="True"/>
             </dxg:GridControl.View>
         </dxg:GridControl>
 
     </Grid>
-</Window>
+</UserControl>

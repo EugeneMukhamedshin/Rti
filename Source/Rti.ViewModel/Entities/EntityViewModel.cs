@@ -9,6 +9,7 @@ namespace Rti.ViewModel.Entities
     {
         private bool _isNewEntity;
         private bool _isChanged;
+        private bool _suppressIsChanged;
         public TEntity Entity { get; private set; }
 
         public Boolean IsNewEntity
@@ -34,28 +35,34 @@ namespace Rti.ViewModel.Entities
 
         protected EntityViewModel()
         {
+            _suppressIsChanged = true;
             IsNewEntity = true;
             Entity = new TEntity();
             MapPropertiesFromEntity();
+            _suppressIsChanged = false;
         } 
 
         protected EntityViewModel(TEntity entity, IRepositoryFactory repositoryFactory)
             : base(repositoryFactory)
         {
+            _suppressIsChanged = true;
             if (entity == null)
             {
                 IsNewEntity = true;
             }
             Entity = entity ?? new TEntity();
             MapPropertiesFromEntity();
+            _suppressIsChanged = false;
         }
 
         public void SaveEntity()
         {
+            _suppressIsChanged = true;
             MapPropertiesToEntity();
             DoSave();
             AfterSave();
             MapPropertiesFromEntity();
+            _suppressIsChanged = false;
         }
 
         protected virtual void AfterSave() { }
@@ -70,6 +77,7 @@ namespace Rti.ViewModel.Entities
             }
             else
                 rep.Update(Entity);
+            IsChanged = false;
         }
 
         public void DeleteEntity()
@@ -98,7 +106,8 @@ namespace Rti.ViewModel.Entities
 
         protected override void OnPropertyChanged(string propertyName = null)
         {
-            IsChanged = true;
+            if (!_suppressIsChanged)
+                IsChanged = true;
             base.OnPropertyChanged(propertyName);
         }
     }
