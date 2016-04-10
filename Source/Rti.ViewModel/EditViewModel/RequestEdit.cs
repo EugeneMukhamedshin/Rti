@@ -1,93 +1,119 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
-using Rti.ViewModel.ListViewModel;
 using Rti.ViewModel.Reports;
 
 namespace Rti.ViewModel.EditViewModel
 {
     public class RequestEdit : EditEntityViewModel<RequestViewModel, Request>
     {
-        public RequestDetailList RequestDetailList { get; private set; }
+        private RequestDetailViewModel _selectedRequestDetail;
+        private List<RequestDetailViewModel> _deletedDetails;
+        private ObservableCollection<RequestDetailViewModel> _requestDetails;
+
+        public ObservableCollection<RequestDetailViewModel> RequestDetails
+        {
+            get { return _requestDetails; }
+            set
+            {
+                if (Equals(value, _requestDetails)) return;
+                _requestDetails = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public RequestDetailViewModel SelectedRequestDetail
+        {
+            get { return _selectedRequestDetail; }
+            set
+            {
+                if (Equals(value, _selectedRequestDetail)) return;
+                _selectedRequestDetail = value;
+                RemoveRequestDetailCommand.RequeryCanExecute();
+                OnPropertyChanged();
+            }
+        }
+
+        public Lazy<List<ContragentViewModel>> CustomersSource { get; set; }
+        public Lazy<List<DetailViewModel>> DetailsSource { get; set; }
+        public Lazy<List<MaterialViewModel>> MaterialsSource { get; set; }
+        public Lazy<List<GroupViewModel>> GroupsSource { get; set; }
+        public Lazy<List<DrawingViewModel>> DrawingsSource { get; set; }
 
         public RequestEdit(string name, RequestViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {
-            RequestDetailList = new RequestDetailList(Entity, true, ViewService, RepositoryFactory);
+            _deletedDetails = new List<RequestDetailViewModel>();
+
+            AddRequestDetailCommand = new DelegateCommand(
+                "Добавить строку",
+                o => true,
+                o => AddRequestDetail());
+            RemoveRequestDetailCommand = new DelegateCommand(
+                "Удалить строку",
+                o => SelectedRequestDetail != null,
+                o => RemoveRequestDetail());
             GenerateInvoiceCommand = new DelegateCommand(
                 "Текущий счет",
                 o => true,
                 o => new InvoiceReport().BuildReport(entity.Id, RepositoryFactory));
         }
 
+        public DelegateCommand AddRequestDetailCommand { get; set; }
+        public DelegateCommand RemoveRequestDetailCommand { get; set; }
         public DelegateCommand GenerateInvoiceCommand { get; set; }
 
-        public DelegateCommand SelectCustomerCommand { get; set; }
+        private void AddRequestDetail()
+        {
+            var newDetail = new RequestDetailViewModel(null, RepositoryFactory)
+            {
+                Request = Entity,
+                SortOrder = RequestDetails.Any() ? RequestDetails.Max(item => item.SortOrder) + 1 : 1
+            };
+            RequestDetails.Add(newDetail);
+        }
 
-        public SelectorViewModel<ContragentViewModel> CustomerSelector { get; set; }
+        private void RemoveRequestDetail()
+        {
+            _deletedDetails.Add(SelectedRequestDetail);
+            RequestDetails.Remove(SelectedRequestDetail);
+        }
 
         public override void Refresh()
         {
             base.Refresh();
-            RequestDetailList.Refresh();
-            SelectCustomerCommand = new DelegateCommand(
-                "Выбрать заказчика",
-                o => true,
-                o => SelectCustomer());
-            CustomerSelector = new SelectorViewModel<ContragentViewModel>();
-            CustomerSelector.SelectedItemChanged += CustomerSelector_SelectedItemChanged;
-            RefreshSelector(Entity.Customer);
-        }
+            DoAsync(() => RepositoryFactory.GetRequestDetailRepository()
+                .GetByRequestId(Entity.Id)
+                .OrderBy(o => o.SortOrder)
+                .Select(m => new RequestDetailViewModel(m, RepositoryFactory)),
+                res => RequestDetails = new ObservableCollection<RequestDetailViewModel>(res));
 
-        void CustomerSelector_SelectedItemChanged(object sender, EventArgs e)
-        {
-            if (CustomerSelector.SelectedItem != null)
-                UseCustomer(CustomerSelector.SelectedItem);
-        }
-
-        private void SelectCustomer()
-        {
-            var listViewModel = new ContragentList(0, false, ViewService, RepositoryFactory);
-            listViewModel.Refresh();
-            if (ViewService.ShowViewDialog(listViewModel) == true)
-            {
-                var customerItem = listViewModel.SelectedItem as ContragentListItem;
-                if (customerItem != null)
-                {
-                    var customer = customerItem.Entity;
-                    UseCustomer(customer);
-                    RefreshSelector(customer);
-                }
-            }
-        }
-
-        private void RefreshSelector(ContragentViewModel customer)
-        {
-            DoAsync(
-                () => RepositoryFactory.GetContragentRepository()
-                .GetAllActive(0)
-                .Select(m => new ContragentViewModel(m, RepositoryFactory))
-                .ToList(),
-                res => CustomerSelector.SelectorItems = new ObservableCollection<ContragentViewModel>(res));
-            CustomerSelector.SelectorText = customer == null ? null : customer.Name;
-            CustomerSelector.SelectedItem = customer;
-        }
-
-        private void UseCustomer(ContragentViewModel customer)
-        {
-            Entity.Customer = customer;
+            CustomersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(0).Select(m => new ContragentViewModel(m, RepositoryFactory)).ToList());
+            DrawingsSource = new Lazy<List<DrawingViewModel>>(() => RepositoryFactory.GetDrawingRepository().GetAll().OrderBy(o => o.Id).Select(o => new DrawingViewModel(o, RepositoryFactory)).ToList());
+            GroupsSource = new Lazy<List<GroupViewModel>>(() => RepositoryFactory.GetGroupRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new GroupViewModel(o, RepositoryFactory)).ToList());
+            MaterialsSource = new Lazy<List<MaterialViewModel>>(() => RepositoryFactory.GetMaterialRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new MaterialViewModel(o, RepositoryFactory)).ToList());
+            DetailsSource = new Lazy<List<DetailViewModel>>(() => RepositoryFactory.GetDetailRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new DetailViewModel(o, RepositoryFactory)).ToList());
         }
 
         protected override void DoInternalSave()
         {
             base.DoInternalSave();
             if (Entity.IsChanged)
-                Entity.SaveEntity();
-            RequestDetailList.SaveChanges();
+                Entity.SaveEntity();foreach (var deletedDetail in _deletedDetails)
+            {
+                deletedDetail.DeleteEntity();
+            }
+            _deletedDetails.Clear();
+            foreach (var detail in RequestDetails)
+            {
+                if (detail.IsNewEntity || detail.IsChanged)
+                    detail.SaveEntity();
+            }
         }
 
         protected override bool DoValidate()

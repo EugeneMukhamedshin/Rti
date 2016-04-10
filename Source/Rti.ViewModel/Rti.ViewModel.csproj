@@ -46,6 +46,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="BaseViewModel.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandExecutionInfo.cs" />
@@ -75,6 +78,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GeneratedViewModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\RequestDetailViewModel.cs" />
     <Compile Include="IComposite.cs" />
     <Compile Include="IViewService.cs" />
     <Compile Include="IWindowCloser.cs" />
@@ -86,6 +90,7 @@
     <Compile Include="ListViewModel\DropStrategy\DropCancelInfo.cs" />
     <Compile Include="ListViewModel\DropStrategy\IDropStrategy.cs" />
     <Compile Include="ListViewModel\DropStrategy\SortDropStrategy.cs" />
+    <Compile Include="ListViewModel\EntityList.cs" />
     <Compile Include="ListViewModel\EntityListItem.cs" />
     <Compile Include="ListViewModel\ContragentList.cs" />
     <Compile Include="ListViewModel\EmployeeList.cs" />

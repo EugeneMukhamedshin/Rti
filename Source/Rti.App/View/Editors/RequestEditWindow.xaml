@@ -9,6 +9,8 @@
         xmlns:editors="clr-namespace:Rti.App.View.Editors"
         xmlns:entities="clr-namespace:Rti.ViewModel.Entities;assembly=Rti.ViewModel"
         xmlns:lists="clr-namespace:Rti.App.View.Lists"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
         mc:Ignorable="d"
         Width="1200" Height="760" MinWidth="500" MinHeight="250" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
@@ -64,7 +66,38 @@
 
             <Button IsEnabled="{Binding Editable}" HorizontalAlignment="Left" Content="..." Command="{Binding SelectCustomerCommand}" Width="20" Margin="0,5,0,5" TabIndex="5"></Button>
         </StackPanel>
-        <lists:RequestDetailListControl DataContext="{Binding RequestDetailList}" Grid.Row="2"/>
+        <!--<lists:RequestDetailListDXControl DataContext="{Binding RequestDetailList}" Grid.Row="2"/>-->
+        <dxg:GridControl AutoGenerateColumns="None" ItemsSource="{Binding RequestDetails}" SelectionMode="Row" Grid.Row="2">
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn FieldName="SortOrder" Header="№" UnboundType="Integer" ReadOnly="True" />
+                <dxg:GridColumn FieldName="Group" Header="Группа" UnboundType="Object">
+                    <dxg:GridColumn.EditSettings>
+                        <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding GroupsSource}" AutoPopulateColumns="False">
+                            <dxg:LookUpEditSettings.StyleSettings>
+                                <dxg:SearchLookUpEditStyleSettings/>
+                            </dxg:LookUpEditSettings.StyleSettings>
+                            <dxg:LookUpEditSettings.PopupContentTemplate>
+                                <ControlTemplate>
+                                    <dxg:GridControl Name="PART_GridControl" AutoGenerateColumns="None" Background="Azure">
+                                        <dxg:GridControl.Columns>
+                                            <dxg:GridColumn FieldName="SortOrder" Header="№"/>
+                                            <dxg:GridColumn FieldName="Name" Header="Наименование"/>
+                                            <dxg:GridColumn FieldName="Note" Header="Примечание"/>
+                                        </dxg:GridControl.Columns>
+                                        <dxg:GridControl.View>
+                                            <dxg:TableView AutoWidth="True"/>
+                                        </dxg:GridControl.View>
+                                    </dxg:GridControl>
+                                </ControlTemplate>
+                            </dxg:LookUpEditSettings.PopupContentTemplate>
+                        </dxg:LookUpEditSettings>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+            </dxg:GridControl.Columns>
+            <dxg:GridControl.View>
+                <dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False"/>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
 
         <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
             <Button Content="Текущий счет" Command="{Binding GenerateInvoiceCommand}" Width="80" Margin="5" IsDefault="True" TabIndex="999"></Button>

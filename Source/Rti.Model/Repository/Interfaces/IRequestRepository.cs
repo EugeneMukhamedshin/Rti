@@ -4,5 +4,6 @@ namespace Rti.Model.Repository.Interfaces
 {
     public partial interface IRequestRepository : IRepository<Request> {
         int GetNewRequestNumber();
+        Request GetByNumber(int number);
     }
 }

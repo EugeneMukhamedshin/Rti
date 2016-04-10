@@ -14,7 +14,7 @@ namespace Rti.ViewModel.ListViewModel
         {
             get
             {
-                return (Existance) Entity.Existance == Model.Domain.Existance.InWork
+                return (Existance) Entity.Existance == Model.Domain.Existance.Exist
                     ? "В работе"
                     : (Existance) Entity.Existance == Model.Domain.Existance.InMaintenance
                         ? "В ремонте"
