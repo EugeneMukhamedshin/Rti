@@ -512,6 +512,7 @@ namespace Rti.ViewModel.ListViewModel
             var clone = (TEntityViewModel)Activator.CreateInstance(typeof(TEntityViewModel), null, RepositoryFactory);
             entityViewModel.CopyTo(clone);
             var editViewModel = (BaseViewModel)Activator.CreateInstance(typeMap.Item3, name, clone, readOnly, ViewService, RepositoryFactory);
+            editViewModel.Refresh();
             var result = ViewService.ShowViewDialog(editViewModel) == true;
             if (!result) return false;
             clone.CopyTo(entityViewModel);

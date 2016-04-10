@@ -6,6 +6,10 @@ using Rti.App.View.Lists;
 using Rti.ViewModel;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.ListViewModel;
+using DrawingList = Rti.ViewModel.Lists.DrawingList;
+using EmployeeList = Rti.ViewModel.Lists.EmployeeList;
+using EquipmentList = Rti.ViewModel.Lists.EquipmentList;
+using MaterialList = Rti.ViewModel.Lists.MaterialList;
 
 namespace Rti.App
 {
@@ -21,8 +25,7 @@ namespace Rti.App
 
             // Справочники
             AddToRegistry<DictionaryList, DictionaryListWindow>();
-            //AddToRegistry<MaterialList, MaterialListWindow>();
-            AddToRegistry<MaterialSimpleList, MaterialListWindow>();
+            AddToRegistry<MaterialList, MaterialListWindow>();
             AddToRegistry<MaterialEdit, MaterialEditWindow>();
             AddToRegistry<GroupList, GroupListWindow>();
             AddToRegistry<GroupEdit, GroupEditWindow>();

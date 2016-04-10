@@ -9,15 +9,15 @@ namespace Rti.ViewModel.EditViewModel
 {
     public class EmployeeEdit: EditEntityViewModel<EmployeeViewModel, Employee>
     {
-        public List<JobViewModel> Jobs { get; set; }
+        public Lazy<List<JobViewModel>> JobsSource { get; set; }
 
         public EmployeeEdit(string name, EmployeeViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) 
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {
-            Jobs = RepositoryFactory.GetJobRepository()
+            JobsSource = new Lazy<List<JobViewModel>>(() => RepositoryFactory.GetJobRepository()
                 .GetAllActive()
                 .Select(o => new JobViewModel(o, RepositoryFactory))
-                .ToList();
+                .ToList());
         }
 
         protected override bool DoValidate()
@@ -30,6 +30,11 @@ namespace Rti.ViewModel.EditViewModel
             if (String.IsNullOrEmpty(Entity.Code))
             {
                 ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задан код"));
+                return false;
+            }
+            if (Entity.Job == null)
+            {
+                ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задана должность"));
                 return false;
             }
             return base.DoValidate();

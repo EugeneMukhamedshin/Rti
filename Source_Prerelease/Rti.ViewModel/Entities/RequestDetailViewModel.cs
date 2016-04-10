@@ -1,4 +1,5 @@
-﻿using Rti.Model.Domain;
+﻿using System;
+using Rti.Model.Domain;
 
 namespace Rti.ViewModel.Entities
 {
@@ -6,8 +7,15 @@ namespace Rti.ViewModel.Entities
     {
         public Existance? EquipmentExistanceEnum
         {
-            get{return EquipmentExistance.HasValue ? (Existance)EquipmentExistance.Value : (Existance?)null;}
+            get { return EquipmentExistance.HasValue ? (Existance)EquipmentExistance.Value : (Existance?)null; }
             set { EquipmentExistance = value.HasValue ? (int)value.Value : (int?)null; }
+        }
+
+        protected override void OnPropertyChanged(string propertyName = null)
+        {
+            if (propertyName == "Count" || propertyName == "Price")
+                Sum = Count*Price;
+            base.OnPropertyChanged(propertyName);
         }
     }
 }

@@ -11,6 +11,7 @@ using Rti.Model.Repository.NHibernate;
 using Rti.ViewModel;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
+using Rti.ViewModel.ListViewModel;
 
 namespace Rti.App
 {
@@ -50,10 +51,13 @@ namespace Rti.App
                 }
                 else
                 {
-                    var request = repositoryFactory.GetRequestRepository().GetById(41);
-                    var editViewModel = new RequestEdit("Заявка", new RequestViewModel(request, repositoryFactory), false, _viewService, repositoryFactory);
-                    editViewModel.Refresh();
-                    _viewService.ShowView(editViewModel, false, true);
+                    //var request = repositoryFactory.GetRequestRepository().GetById(41);
+                    //var editViewModel = new RequestEdit("Заявка", new RequestViewModel(request, repositoryFactory), false, _viewService, repositoryFactory);
+                    //editViewModel.Refresh();
+                    //_viewService.ShowView(editViewModel, false, true);
+                    var viewModel = new MainViewModel(_viewService, repositoryFactory);
+                    viewModel.Refresh();
+                    _viewService.ShowView(viewModel, false, true);
                 }
             }
             catch (Exception ex)

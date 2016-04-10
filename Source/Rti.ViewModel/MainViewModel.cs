@@ -5,7 +5,12 @@ using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
+using Rti.ViewModel.Lists;
 using Rti.ViewModel.ListViewModel;
+using DrawingList = Rti.ViewModel.Lists.DrawingList;
+using EmployeeList = Rti.ViewModel.Lists.EmployeeList;
+using EquipmentList = Rti.ViewModel.Lists.EquipmentList;
+using MaterialList = Rti.ViewModel.Lists.MaterialList;
 
 namespace Rti.ViewModel
 {
@@ -20,6 +25,8 @@ namespace Rti.ViewModel
         public DelegateCommand CreateNewRequestCommand { get; set; }
         public DelegateCommand OpenRequestCommand { get; set; }
         public DelegateCommand OpenDictionaryListCommand { get; set; }
+
+        public DelegateCommand OpenDrawingsCommand { get; set; }
 
         public DelegateCommand OpenCustomersCommand { get; set; }
         public DelegateCommand OpenVendorsCommand { get; set; }
@@ -53,6 +60,11 @@ namespace Rti.ViewModel
                 o => true,
                 o => OpenDictionaryList());
 
+            OpenDrawingsCommand = new DelegateCommand(
+                "Чертежи",
+                o => true,
+                o => OpenDrawingList());
+
             OpenCustomersCommand = new DelegateCommand(
                 "Справочники",
                 o => true,
@@ -76,7 +88,7 @@ namespace Rti.ViewModel
             OpenMaterialsCommand = new DelegateCommand(
                 "Справочники",
                 o => true,
-                o => OpenDictionary(new MaterialSimpleList(true, ViewService, RepositoryFactory)));
+                o => OpenDictionary(new MaterialList(true, ViewService, RepositoryFactory)));
             OpenGroupsCommand = new DelegateCommand(
                 "Справочники",
                 o => true,
@@ -110,6 +122,13 @@ namespace Rti.ViewModel
                     .GetAll()
                     .Select(o => new RequestViewModel(o, RepositoryFactory))
                     .ToList();
+        }
+
+        private void OpenDrawingList()
+        {
+            var viewModel = new DrawingList(true, ViewService, RepositoryFactory);
+            viewModel.Refresh();
+            ViewService.ShowViewDialog(viewModel);
         }
 
         private void OpenDictionary(BaseViewModel viewModel)

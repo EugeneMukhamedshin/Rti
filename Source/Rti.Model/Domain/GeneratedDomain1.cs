@@ -1,383 +1,668 @@
 ﻿
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 using System;
 using Rti.Model.Domain.Generator;
 
 namespace Rti.Model.Domain
 {
+
 	// The class for additional_infos
 	[Table("additional_infos")]
 	public partial class AdditionalInfo: IIdentifiedEntity
 	{
+
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
+
 		[Field("sort_order")]
 		public virtual Int32 SortOrder { get; set; }
+
 		[Field("name")]
 		public virtual String Name { get; set; }
+
 		[Field("note")]
 		public virtual String Note { get; set; }
+
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+
 	}
+
 
 	// The class for constants
 	[Table("constants")]
 	public partial class Constant: IIdentifiedEntity
 	{
+
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
+
 		[Field("k_tr")]
 		public virtual Double KTr { get; set; }
+
 		[Field("k_esn")]
 		public virtual Double KEsn { get; set; }
+
 		[Field("k_ob_ceh")]
 		public virtual Double KObCeh { get; set; }
+
 		[Field("k_ob_pr")]
 		public virtual Double KObPr { get; set; }
+
 		[Field("k_el")]
 		public virtual Double KEl { get; set; }
+
 		[Field("k_nep")]
 		public virtual Double KNep { get; set; }
+
 		[Field("k_ren")]
 		public virtual Double KRen { get; set; }
+
 		[Field("nds")]
 		public virtual Double Nds { get; set; }
+
 		[Field("k_st")]
 		public virtual Double KSt { get; set; }
+
 		[Field("date_from")]
 		public virtual DateTime DateFrom { get; set; }
+
 		[Field("date_to")]
 		public virtual DateTime DateTo { get; set; }
+
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+
 	}
+
 
 	// The class for contragents
 	[Table("contragents")]
 	public partial class Contragent: IIdentifiedEntity
 	{
+
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
+
 		[Field("sort_order")]
 		public virtual Int32 SortOrder { get; set; }
+
 		[Field("name")]
 		public virtual String Name { get; set; }
+
 		[Field("type")]
 		public virtual Int32 Type { get; set; }
+
 		[Field("address")]
 		public virtual String Address { get; set; }
+
 		[Field("director")]
 		public virtual String Director { get; set; }
+
 		[Field("trustee")]
 		public virtual String Trustee { get; set; }
+
 		[Field("phone")]
 		public virtual String Phone { get; set; }
+
 		[Field("grounding")]
 		public virtual String Grounding { get; set; }
+
 		[Field("inn")]
 		public virtual String Inn { get; set; }
+
 		[Field("kpp")]
 		public virtual String Kpp { get; set; }
+
 		[Field("account")]
 		public virtual String Account { get; set; }
+
 		[Field("corr_account")]
 		public virtual String CorrAccount { get; set; }
+
 		[Field("okved")]
 		public virtual String Okved { get; set; }
+
 		[Field("okato")]
 		public virtual String Okato { get; set; }
+
 		[Field("okpo")]
 		public virtual String Okpo { get; set; }
+
 		[Field("ogrn")]
 		public virtual String Ogrn { get; set; }
+
 		[Field("bik")]
 		public virtual String Bik { get; set; }
+
 		[Field("bank")]
 		public virtual String Bank { get; set; }
+
 		[Field("email")]
 		public virtual String Email { get; set; }
+
 		[Field("note")]
 		public virtual String Note { get; set; }
+
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+
 	}
+
 
 	// The class for details
 	[Table("details")]
 	public partial class Detail: IIdentifiedEntity
 	{
+
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
+
 		[Field("sort_order")]
 		public virtual Int32 SortOrder { get; set; }
+
 		[Field("name")]
 		public virtual String Name { get; set; }
+
 		[Field("note")]
 		public virtual String Note { get; set; }
+
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+
 	}
+
 
 	// The class for drawings
 	[Table("drawings")]
 	public partial class Drawing: IIdentifiedEntity
 	{
+
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
+
+		[Field("sort_order")]
+		public virtual Int32? SortOrder { get; set; }
+
 		[Field("name")]
 		public virtual String Name { get; set; }
+
+		[Field("additional_info")]
+		public virtual String AdditionalInfo { get; set; }
+
+		[Field("code")]
+		public virtual String Code { get; set; }
+
+		[Field("mass_with_shruff")]
+		public virtual Double? MassWithShruff { get; set; }
+
+		[Field("price")]
+		public virtual Double? Price { get; set; }
+
+		[Field("shaving_price")]
+		public virtual Double? ShavingPrice { get; set; }
+
+		[Field("calculation_price")]
+		public virtual Double? CalculationPrice { get; set; }
+
+		[Field("width")]
+		public virtual Double? Width { get; set; }
+
+		[Field("length")]
+		public virtual Double? Length { get; set; }
+
+		[Field("thickness")]
+		public virtual Double? Thickness { get; set; }
+
+		[Field("inner_diameter")]
+		public virtual Double? InnerDiameter { get; set; }
+
+		[Field("outer_diameter")]
+		public virtual Double? OuterDiameter { get; set; }
+
+		[Field("note")]
+		public virtual String Note { get; set; }
+
+		[Field("is_deleted")]
+		public virtual Boolean IsDeleted { get; set; }
+
+		[Reference("group_id")]
+		public virtual Group Group { get; set; }
+
+		[Reference("detail_id")]
+		public virtual Detail Detail { get; set; }
+
+		[Reference("material_by_passport_id")]
+		public virtual Material MaterialByPassport { get; set; }
+
+		[Reference("material_id")]
+		public virtual Material Material { get; set; }
+
+		[Reference("measure_unit_id")]
+		public virtual MeasureUnit MeasureUnit { get; set; }
+
+		[Reference("mass_calculation_id")]
+		public virtual MassCalculation MassCalculation { get; set; }
+
+		[Reference("equipment_id")]
+		public virtual Equipment Equipment { get; set; }
+
+		[Reference("method_id")]
+		public virtual Method Method { get; set; }
+
+		[Reference("drawing_image_id")]
+		public virtual Image DrawingImage { get; set; }
+
 	}
+
 
 	// The class for drivers
 	[Table("drivers")]
 	public partial class Driver: IIdentifiedEntity
 	{
+
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
+
 		[Field("sort_order")]
 		public virtual Int32 SortOrder { get; set; }
+
 		[Field("car_model")]
 		public virtual String CarModel { get; set; }
+
 		[Field("number")]
 		public virtual String Number { get; set; }
+
 		[Field("name")]
 		public virtual String Name { get; set; }
+
 		[Field("document")]
 		public virtual String Document { get; set; }
+
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+
 	}
+
 
 	// The class for employees
 	[Table("employees")]
 	public partial class Employee: IIdentifiedEntity
 	{
+
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
+
 		[Field("sort_order")]
 		public virtual Int32 SortOrder { get; set; }
+
 		[Field("code")]
 		public virtual String Code { get; set; }
+
 		[Field("full_name")]
 		public virtual String FullName { get; set; }
+
 		[Field("note")]
 		public virtual String Note { get; set; }
+
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+
 		[Reference("job_id")]
 		public virtual Job Job { get; set; }
+
 	}
+
 
 	// The class for equipments
 	[Table("equipments")]
 	public partial class Equipment: IIdentifiedEntity
 	{
+
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
+
 		[Field("sort_order")]
 		public virtual Int32 SortOrder { get; set; }
+
 		[Field("name")]
 		public virtual String Name { get; set; }
+
 		[Field("existance")]
 		public virtual Int32 Existance { get; set; }
+
+		[Field("square")]
+		public virtual Double Square { get; set; }
+
 		[Field("form_count")]
-		public virtual Int32? FormCount { get; set; }
+		public virtual Int32 FormCount { get; set; }
+
 		[Field("slot_count")]
-		public virtual Int32? SlotCount { get; set; }
+		public virtual Int32 SlotCount { get; set; }
+
 		[Field("output")]
-		public virtual Int32? Output { get; set; }
+		public virtual Int32 Output { get; set; }
+
 		[Field("note")]
 		public virtual String Note { get; set; }
+
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+
 		[Reference("group_id")]
 		public virtual Group Group { get; set; }
+
 		[Reference("drawing_id")]
 		public virtual Drawing Drawing { get; set; }
+
 	}
+
 
 	// The class for groups
 	[Table("groups")]
 	public partial class Group: IIdentifiedEntity
 	{
+
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
+
 		[Field("sort_order")]
 		public virtual Int32 SortOrder { get; set; }
+
 		[Field("name")]
 		public virtual String Name { get; set; }
+
 		[Field("note")]
 		public virtual String Note { get; set; }
+
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+
 	}
+
+
+	// The class for images
+	[Table("images")]
+	public partial class Image: IIdentifiedEntity
+	{
+
+		[Field("id")]
+		public virtual Int32 Id { get; protected set; }
+
+		[Field("data")]
+		public virtual byte[] Data { get; set; }
+
+	}
+
 
 	// The class for jobs
 	[Table("jobs")]
 	public partial class Job: IIdentifiedEntity
 	{
+
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
+
 		[Field("sort_order")]
 		public virtual Int32 SortOrder { get; set; }
+
 		[Field("name")]
 		public virtual String Name { get; set; }
+
 		[Field("login")]
 		public virtual String Login { get; set; }
+
 		[Field("password")]
 		public virtual String Password { get; set; }
+
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+
 	}
+
 
 	// The class for machines
 	[Table("machines")]
 	public partial class Machine: IIdentifiedEntity
 	{
+
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
+
 		[Field("sort_order")]
 		public virtual Int32 SortOrder { get; set; }
+
 		[Field("name")]
 		public virtual String Name { get; set; }
+
 		[Field("plate_size")]
 		public virtual String PlateSize { get; set; }
+
 		[Field("inv_number")]
 		public virtual String InvNumber { get; set; }
+
 		[Field("plate_count")]
 		public virtual Int32? PlateCount { get; set; }
+
 		[Field("plate_power")]
 		public virtual Double? PlatePower { get; set; }
+
 		[Field("engine_power")]
 		public virtual Double? EnginePower { get; set; }
+
 		[Field("total_power")]
 		public virtual Double? TotalPower { get; set; }
+
 		[Field("power_price")]
 		public virtual Double? PowerPrice { get; set; }
+
 		[Field("time_price")]
 		public virtual Double? TimePrice { get; set; }
+
 		[Field("note")]
 		public virtual String Note { get; set; }
+
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+
 	}
+
+
+	// The class for mass_calculations
+	[Table("mass_calculations")]
+	public partial class MassCalculation: IIdentifiedEntity
+	{
+
+		[Field("id")]
+		public virtual Int32 Id { get; protected set; }
+
+	}
+
 
 	// The class for materials
 	[Table("materials")]
 	public partial class Material: IIdentifiedEntity
 	{
+
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
+
 		[Field("sort_order")]
 		public virtual Int32 SortOrder { get; set; }
+
 		[Field("name")]
 		public virtual String Name { get; set; }
+
 		[Field("tech_conditions")]
 		public virtual String TechConditions { get; set; }
+
 		[Field("density")]
 		public virtual Double? Density { get; set; }
+
 		[Field("thickness")]
 		public virtual Double? Thickness { get; set; }
+
 		[Field("length")]
 		public virtual Double? Length { get; set; }
+
 		[Field("width")]
 		public virtual Double? Width { get; set; }
+
 		[Field("price")]
 		public virtual Double? Price { get; set; }
+
 		[Field("note")]
 		public virtual String Note { get; set; }
+
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+
 	}
+
 
 	// The class for measure_units
 	[Table("measure_units")]
 	public partial class MeasureUnit: IIdentifiedEntity
 	{
+
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
+
 		[Field("sort_order")]
 		public virtual Int32 SortOrder { get; set; }
+
 		[Field("name")]
 		public virtual String Name { get; set; }
+
 		[Field("code")]
 		public virtual String Code { get; set; }
+
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+
 	}
+
 
 	// The class for methods
 	[Table("methods")]
 	public partial class Method: IIdentifiedEntity
 	{
+
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
+
 		[Field("sort_order")]
 		public virtual Int32 SortOrder { get; set; }
+
 		[Field("name")]
 		public virtual String Name { get; set; }
+
 		[Field("note")]
 		public virtual String Note { get; set; }
+
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+
 	}
+
 
 	// The class for requests
 	[Table("requests")]
 	public partial class Request: IIdentifiedEntity
 	{
+
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
+
 		[Field("number")]
 		public virtual Int32 Number { get; set; }
+
 		[Field("reg_date")]
 		public virtual DateTime RegDate { get; set; }
+
 		[Field("ship_date")]
 		public virtual DateTime? ShipDate { get; set; }
+
 		[Field("lead_time")]
 		public virtual Int32? LeadTime { get; set; }
+
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+
 		[Reference("customer_id")]
 		public virtual Contragent Customer { get; set; }
+
 	}
+
 
 	// The class for request_details
 	[Table("request_details")]
 	public partial class RequestDetail: IIdentifiedEntity
 	{
+
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
+
 		[Field("sort_order")]
 		public virtual Int32 SortOrder { get; set; }
+
 		[Field("equipment_existance")]
 		public virtual Int32? EquipmentExistance { get; set; }
+
 		[Field("additional_info")]
 		public virtual String AdditionalInfo { get; set; }
+
 		[Field("equipment_lead_time")]
 		public virtual Int32? EquipmentLeadTime { get; set; }
+
 		[Field("count")]
 		public virtual Double Count { get; set; }
+
 		[Field("price")]
 		public virtual Double Price { get; set; }
+
 		[Field("calculation_price")]
 		public virtual Double? CalculationPrice { get; set; }
+
 		[Field("sum")]
 		public virtual Double Sum { get; set; }
+
 		[Field("note")]
 		public virtual String Note { get; set; }
+
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+
 		[Reference("request_id")]
 		public virtual Request Request { get; set; }
+
 		[Reference("drawing_id")]
 		public virtual Drawing Drawing { get; set; }
+
 		[Reference("group_id")]
 		public virtual Group Group { get; set; }
+
 		[Reference("detail_id")]
 		public virtual Detail Detail { get; set; }
+
 		[Reference("material_id")]
 		public virtual Material Material { get; set; }
+
 	}
+
 
 }

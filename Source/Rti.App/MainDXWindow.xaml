@@ -22,7 +22,7 @@
                     </dxr:RibbonControl.ApplicationMenu>
                     <dxr:RibbonDefaultPageCategory>
                         <dxr:RibbonPage Caption="Главная">
-                            <dxr:RibbonPageGroup Caption="Реестр..." ShowCaptionButton="True">
+                            <dxr:RibbonPageGroup Caption="Заявки" ShowCaptionButton="True">
                                 <dxb:BarButtonItem Content="Новая заявка" RibbonStyle="Large" Command="{Binding CreateNewRequestCommand}"/>
                                 <dxb:BarEditItem EditWidth="100" EditValue="{Binding SelectedRequestNumber}">
                                     <dxb:BarEditItem.EditSettings>
@@ -31,6 +31,9 @@
                                     </dxb:BarEditItem.EditSettings>
                                 </dxb:BarEditItem>
                                 <dxb:BarButtonItem Content="Открыть..." Command="{Binding OpenRequestCommand}"/>
+                            </dxr:RibbonPageGroup>
+                            <dxr:RibbonPageGroup Caption="Чертежи">
+                                <dxb:BarButtonItem Content="Чертежи" RibbonStyle="Large" Command="{Binding OpenDrawingsCommand}"/>
                             </dxr:RibbonPageGroup>
                         </dxr:RibbonPage>
                         <dxr:RibbonPage Caption="Справочники">

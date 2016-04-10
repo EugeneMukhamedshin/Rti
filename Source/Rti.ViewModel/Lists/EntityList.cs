@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
-using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
 
-namespace Rti.ViewModel.ListViewModel
+namespace Rti.ViewModel.Lists
 {
-    public abstract class SimpleEntityList<TEntityViewModel, TEntity> : BaseViewModel
+    public abstract class EntityList<TEntityViewModel, TEntity> : BaseViewModel
         where TEntityViewModel : EntityViewModel<TEntity, TEntityViewModel> where TEntity : class, IIdentifiedEntity, new()
     {
         private ObservableCollection<TEntityViewModel> _items;
@@ -49,7 +47,7 @@ namespace Rti.ViewModel.ListViewModel
         public DelegateCommand EditEntityCommand { get; private set; }
         public DelegateCommand FindEntityCommand { get; private set; }
 
-        public SimpleEntityList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(repositoryFactory)
+        public EntityList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(repositoryFactory)
         {
             EditMode = editMode;
             ViewService = viewService;
@@ -132,6 +130,7 @@ namespace Rti.ViewModel.ListViewModel
             var editViewModel =
                 (BaseViewModel)
                     Activator.CreateInstance(typeMap.Item2, name, clone, readOnly, ViewService, RepositoryFactory);
+            editViewModel.Refresh();
             var result = ViewService.ShowViewDialog(editViewModel) == true;
             if (!result) return false;
             clone.CopyTo(entityViewModel);
@@ -158,39 +157,6 @@ namespace Rti.ViewModel.ListViewModel
             AddEntityCommand.RequeryCanExecute();
             DeleteEntityCommand.RequeryCanExecute();
             EditEntityCommand.RequeryCanExecute();
-        }
-    }
-
-    public class MaterialSimpleList : SimpleEntityList<MaterialViewModel, Material>
-    {
-        public MaterialSimpleList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
-        {
-            TypeMaps.Add(new Tuple<Type, Type>(typeof(MaterialViewModel), typeof(MaterialEdit)));
-        }
-
-        protected override IEnumerable<MaterialViewModel> GetItems()
-        {
-            return RepositoryFactory.GetMaterialRepository().GetAllActive().Select(o => new MaterialViewModel(o, RepositoryFactory));
-        }
-
-        protected override MaterialViewModel DoCreateNewEntity()
-        {
-            return new MaterialViewModel(null, RepositoryFactory)
-            {
-                SortOrder = Items.Max(o => o.SortOrder) + 1,
-                Name = "Новый материал"
-            };
-        }
-
-        protected override void DoDeleteEntity(MaterialViewModel entity)
-        {
-            entity.IsDeleted = true;
-            entity.SaveEntity();
-        }
-
-        protected override bool AcceptFind(MaterialViewModel entity, string searchText)
-        {
-            return searchText.ContainedIn(entity.Name, entity.Note, entity.TechConditions);
         }
     }
 }
