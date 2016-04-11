@@ -40,8 +40,10 @@ namespace Rti.Model.Domain
 	{
 		var protectedSet = entityField.ColumnName.ToLower() == "id" ? "protected " : "";
 		var fieldType = entityField.Type;
+		if (fieldType == "Int32" && entityField.ColumnName.ToLower().EndsWith("_enum"))
+			fieldType = fieldType.Replace("_enum", string.Empty);
 		if (fieldType != "String" && entityField.IsNullable && fieldType != "byte[]")
-			fieldType =  entityField.Type + "?";
+			fieldType =  fieldType + "?";
 #>
 		[Field("<#= entityField.ColumnName.ToLower() #>")]
 		public virtual <#= fieldType #> <#= entityField.Name #> { get; <#= protectedSet #>set; }

@@ -490,6 +490,69 @@ namespace Rti.Model.Domain
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
 
+		[Field("detail_type_enum")]
+		public virtual Int32 DetailTypeEnum { get; set; }
+
+		[Field("material_density")]
+		public virtual Double? MaterialDensity { get; set; }
+
+		[Field("rnd_d_shn")]
+		public virtual Double? RndDShn { get; set; }
+
+		[Field("rnd_s1")]
+		public virtual Double? RndS1 { get; set; }
+
+		[Field("rnd_s2")]
+		public virtual Double? RndS2 { get; set; }
+
+		[Field("rnd_d_nar")]
+		public virtual Double? RndDNar { get; set; }
+
+		[Field("rnd_d_vn")]
+		public virtual Double? RndDVn { get; set; }
+
+		[Field("rnd_d_sr")]
+		public virtual Double? RndDSr { get; set; }
+
+		[Field("rnd_m_ras")]
+		public virtual Double? RndMRas { get; set; }
+
+		[Field("sq_s")]
+		public virtual Double? SqS { get; set; }
+
+		[Field("sq_l")]
+		public virtual Double? SqL { get; set; }
+
+		[Field("sq_b")]
+		public virtual Double? SqB { get; set; }
+
+		[Field("sq_l1")]
+		public virtual Double? SqL1 { get; set; }
+
+		[Field("sq_b1")]
+		public virtual Double? SqB1 { get; set; }
+
+		[Field("sq_d_vn")]
+		public virtual Double? SqDVn { get; set; }
+
+		[Field("vl_s")]
+		public virtual Double? VlS { get; set; }
+
+		[Field("vl_l")]
+		public virtual Double? VlL { get; set; }
+
+		[Field("vl_b")]
+		public virtual Double? VlB { get; set; }
+
+		[Field("vl_l1")]
+		public virtual Double? VlL1 { get; set; }
+
+		[Field("vl_b1")]
+		public virtual Double? VlB1 { get; set; }
+
+		[Field("mass_formula")]
+		public virtual String MassFormula { get; set; }
+
 	}
 
 
