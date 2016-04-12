@@ -9,7 +9,7 @@ using Rti.ViewModel.Entities;
 
 namespace Rti.ViewModel.ListViewModel
 {
-    public class GroupList : MasterDetailListViewModel<GroupListItem>, IWindowCloser
+    public class GroupList : MasterDetailListViewModel<GroupListItem>, IClosable
     {
         public GroupList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory, HistoryContext historyContext = null)
             : base(editMode, viewService, repositoryFactory, historyContext)
@@ -34,7 +34,7 @@ namespace Rti.ViewModel.ListViewModel
         protected override bool DoEditItem(MasterDetailListItemViewModel item, bool editMode)
         {
             if (!EditMode)
-                CloseWindow(this, true);
+                Close(true);
             else
                 OpenViewModelEditWindow<GroupListItem, GroupViewModel, Group>(((GroupListItem)item).Entity, "Редактирование группы", !editMode);
             return true;
@@ -51,6 +51,11 @@ namespace Rti.ViewModel.ListViewModel
                                 new GroupListItem(new GroupViewModel(m, RepositoryFactory), this, RepositoryFactory)));
         }
 
-        public Action<BaseViewModel, bool?> CloseWindow { get; set; }
+        public bool CanClose()
+        {
+            return true;
+        }
+
+        public Action<bool?> Close { get; set; }
     }
 }

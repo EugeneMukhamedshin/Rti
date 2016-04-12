@@ -35,8 +35,6 @@ namespace Rti.ViewModel.TreeViewModel
 
         public event NotifyCollectionChangedEventHandler ItemsChanged;
 
-        public virtual void Refresh() { }
-
         public void OpenItem(ITreeItemViewModel item)
         {
             if (OpenItemAction != null)

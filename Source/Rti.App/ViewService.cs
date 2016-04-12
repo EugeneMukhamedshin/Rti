@@ -146,16 +146,28 @@ namespace Rti.App
                     viewModel.GetType().Name, windowType.Name));
             var window = (Window)Activator.CreateInstance(windowType);
             window.DataContext = viewModel;
-            if (viewModel is IWindowCloser)
-                ((IWindowCloser)viewModel).CloseWindow = (entity, res) =>
+            if (viewModel is IClosable)
+            {
+                var closable = (IClosable) viewModel;
+                window.Closing += (sender, args) => args.Cancel = !closable.CanClose();
+                closable.Close = res =>
                 {
-                    if ((res == null || res.Value) && (entity is IValidatable) && !((IValidatable)entity).Validate())
+                    if ((res == null || res.Value) && (closable is IValidatable) &&
+                        !((IValidatable)closable).Validate())
+                        return;
+                    if (!closable.CanClose())
                         return;
                     if (res != null)
                         window.DialogResult = res;
                     window.Close();
                 };
+            }
             return window;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         public Window MainWindow { get; set; }

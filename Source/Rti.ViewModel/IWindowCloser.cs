@@ -2,8 +2,10 @@ using System;
 
 namespace Rti.ViewModel
 {
-    public interface IWindowCloser
+    public interface IClosable
     {
-        Action<BaseViewModel, Boolean?> CloseWindow { get; set;  }
+        bool CanClose();
+
+        Action<Boolean?> Close { get; set;  }
     }
 }

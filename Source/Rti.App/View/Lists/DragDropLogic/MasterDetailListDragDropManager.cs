@@ -22,12 +22,5 @@ namespace Rti.App.View.Lists.DragDropLogic
             var itemDroppedTo = itemsSource[newIndex];
             itemDroppedTo.OwnerList.ExecuteAcceptDroppedCommand(itemDroppedTo, itemDragged);
         }
-
-        protected override MasterDetailListItemViewModel GetData(IDataObject data)
-        {
-            MasterDetailListItemViewModel value;
-
-            return base.GetData(data);
-        }
     }
 }

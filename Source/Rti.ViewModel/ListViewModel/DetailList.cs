@@ -9,7 +9,7 @@ using Rti.ViewModel.Entities;
 
 namespace Rti.ViewModel.ListViewModel
 {
-    public class DetailList : MasterDetailListViewModel<DetailListItem>, IWindowCloser
+    public class DetailList : MasterDetailListViewModel<DetailListItem>, IClosable
     {
         public DetailList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory, HistoryContext historyContext = null)
             : base(editMode, viewService, repositoryFactory, historyContext)
@@ -34,7 +34,7 @@ namespace Rti.ViewModel.ListViewModel
         protected override bool DoEditItem(MasterDetailListItemViewModel item, bool editMode)
         {
             if (!EditMode)
-                CloseWindow(this, true);
+                Close(true);
             else
                 OpenViewModelEditWindow<DetailListItem, DetailViewModel, Detail>(((DetailListItem)item).Entity, "Редактирование детали", !editMode);
             return true;
@@ -51,6 +51,11 @@ namespace Rti.ViewModel.ListViewModel
                                 new DetailListItem(new DetailViewModel(m, RepositoryFactory), this, RepositoryFactory)));
         }
 
-        public Action<BaseViewModel, bool?> CloseWindow { get; set; }
+        public bool CanClose()
+        {
+            return true;
+        }
+
+        public Action<bool?> Close { get; set; }
     }
 }

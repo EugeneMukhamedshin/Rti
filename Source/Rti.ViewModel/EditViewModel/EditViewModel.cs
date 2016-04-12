@@ -6,7 +6,7 @@ using Rti.ViewModel.Entities.Commands;
 
 namespace Rti.ViewModel.EditViewModel
 {
-    public class EditViewModel<TObject> : BaseViewModel, IWindowCloser, IValidatable
+    public class EditViewModel<TObject> : BaseViewModel, IClosable, IValidatable
     {
         private string _name;
         protected readonly IViewService ViewService;
@@ -45,9 +45,7 @@ namespace Rti.ViewModel.EditViewModel
             CancelCommand = new DelegateCommand(
                 "Отмена",
                 o => true,
-                o => CloseWindow(this, false));
-
-            CloseWindow = (model, b) => { };
+                o => Close(false));
             Initialize();
         }
 
@@ -70,12 +68,17 @@ namespace Rti.ViewModel.EditViewModel
         public void SaveAndClose()
         {
             DoInternalSave();
-            CloseWindow(this, true);
+            Close(true);
         }
 
         protected virtual void DoInternalSave() { }
 
-        public Action<BaseViewModel, bool?> CloseWindow { get; set; }
+        public bool CanClose()
+        {
+            return true;
+        }
+
+        public Action<bool?> Close { get; set; }
     }
 
     public class EditEntityViewModel<TEntityViewModel, TEntity> : EditViewModel<TEntityViewModel>

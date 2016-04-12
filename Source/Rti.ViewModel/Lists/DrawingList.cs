@@ -8,7 +8,7 @@ using Rti.ViewModel.Entities.Commands;
 
 namespace Rti.ViewModel.Lists
 {
-    public class DrawingList : EntityList<DrawingViewModel, Drawing>
+    public class DrawingList : EntityList<DrawingViewModel, Drawing>, IClosable
     {
         public Lazy<List<GroupViewModel>> GroupsSource { get; set; }
         public Lazy<List<DetailViewModel>> DetailsSource { get; set; }
@@ -19,6 +19,11 @@ namespace Rti.ViewModel.Lists
 
         public DelegateCommand AddDrawingCommand { get; set; }
         public DelegateCommand OpenMassCalculationCommand { get; set; }
+        public DelegateCommand PrevPageCommand { get; set; }
+        public DelegateCommand NextPageCommand { get; set; }
+
+        public int Page { get; set; }
+        public int PageSize { get; set; }
 
         public DrawingList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
         {
@@ -30,6 +35,20 @@ namespace Rti.ViewModel.Lists
                 "Открыть расчет массы",
                 o => true,
                 o => OpenMassCalculation());
+            PrevPageCommand = new DelegateCommand(
+                "Предыдущая страница",
+                o => Page > 0,
+                o => { Page--; Refresh(); });
+            NextPageCommand = new DelegateCommand(
+                "Следующая страница",
+                o => Page > 0,
+                o =>
+                {
+                    Page++;
+                    Refresh();
+                });
+            Page = 0;
+            PageSize = 2;
         }
 
         public override void Refresh()
@@ -45,7 +64,7 @@ namespace Rti.ViewModel.Lists
 
         protected override IEnumerable<DrawingViewModel> GetItems()
         {
-            return RepositoryFactory.GetDrawingRepository().GetAllActive().Select(o => new DrawingViewModel(o, RepositoryFactory));
+            return RepositoryFactory.GetDrawingRepository().GetPage(Page, PageSize).Select(o => new DrawingViewModel(o, RepositoryFactory));
         }
 
         private void AddDrawing()
@@ -57,10 +76,14 @@ namespace Rti.ViewModel.Lists
 
         protected override DrawingViewModel DoCreateNewEntity()
         {
-            return new DrawingViewModel(null, RepositoryFactory)
+
+            var drawing = new DrawingViewModel(null, RepositoryFactory)
             {
-                SortOrder = Items.Any() ? Items.Max(o => o.SortOrder) + 1 : 1
+                SortOrder = Items.Any() ? Items.Max(o => o.SortOrder) + 1 : 1,
+                Name = "Новый чертеж"
             };
+            drawing.SaveEntity();
+            return drawing;
         }
 
         protected override void DoDeleteEntity(DrawingViewModel entity)
@@ -92,5 +115,18 @@ namespace Rti.ViewModel.Lists
         private void OpenMassCalculation()
         {
         }
+
+        public bool CanClose()
+        {
+            if (Items.Any(drawing => !drawing.IsValid))
+            {
+                return
+                    ViewService.ShowConfirmation(new MessageViewModel("Внимание",
+                        "Есть записи с ошибками, они не будут сохранены. Закрыть окно?", true));
+            }
+            return true;
+        }
+
+        public Action<bool?> Close { get; set; }
     }
 }

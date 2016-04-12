@@ -4,7 +4,7 @@ using Rti.ViewModel.Entities.Commands;
 
 namespace Rti.ViewModel
 {
-    public class LoginViewModel: BaseViewModel, IWindowCloser
+    public class LoginViewModel: BaseViewModel, IClosable
     {
         private readonly IViewService _viewService;
 
@@ -32,10 +32,15 @@ namespace Rti.ViewModel
             else
             {
                 LoggedOn = true;
-                CloseWindow(this, null);
+                Close(null);
             }
         }
 
-        public Action<BaseViewModel, bool?> CloseWindow { get; set; }
+        public bool CanClose()
+        {
+            return true;
+        }
+
+        public Action<bool?> Close { get; set; }
     }
 }

@@ -45,7 +45,7 @@ namespace Rti.App
                     var loginViewModel = new LoginViewModel(_viewService, repositoryFactory);
                     _viewService.ShowViewDialog(loginViewModel);
                     if (!loginViewModel.LoggedOn)
-                        mainViewModel.CloseWindow(mainViewModel, null);
+                        mainViewModel.Close(null);
                 }
                 else
                 {
@@ -53,7 +53,7 @@ namespace Rti.App
                     //var editViewModel = new RequestEdit("Заявка", new RequestViewModel(request, repositoryFactory), false, _viewService, repositoryFactory);
                     //editViewModel.Refresh();
                     //_viewService.ShowView(editViewModel, false, true);
-                    var viewModel = new DrawingList(true, _viewService, repositoryFactory);
+                    var viewModel = new MainViewModel(_viewService, repositoryFactory);
                     viewModel.Refresh();
                     _viewService.ShowView(viewModel, false, true);
                 }

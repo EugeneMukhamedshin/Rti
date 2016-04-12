@@ -14,7 +14,7 @@ using MaterialList = Rti.ViewModel.Lists.MaterialList;
 
 namespace Rti.ViewModel
 {
-    public class MainViewModel : BaseViewModel, IWindowCloser
+    public class MainViewModel : BaseViewModel, IClosable
     {
         public IViewService ViewService { get; set; }
 
@@ -173,6 +173,11 @@ namespace Rti.ViewModel
             ViewService.ShowViewDialog(new DictionaryList(false, ViewService, RepositoryFactory));
         }
 
-        public Action<BaseViewModel, bool?> CloseWindow { get; set; }
+        public bool CanClose()
+        {
+            return true;
+        }
+
+        public Action<bool?> Close { get; set; }
     }
 }

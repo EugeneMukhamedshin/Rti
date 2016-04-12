@@ -9,7 +9,7 @@ using Rti.ViewModel.Entities;
 
 namespace Rti.ViewModel.ListViewModel
 {
-    public class ContragentList : MasterDetailListViewModel<ContragentListItem>, IWindowCloser
+    public class ContragentList : MasterDetailListViewModel<ContragentListItem>, IClosable
     {
         private readonly int _listType;
 
@@ -43,7 +43,7 @@ namespace Rti.ViewModel.ListViewModel
         protected override bool DoEditItem(MasterDetailListItemViewModel item, bool editMode)
         {
             if (!EditMode)
-                CloseWindow(this, true);
+                Close(true);
             else
             {
                 OpenViewModelEditWindow<ContragentListItem, ContragentViewModel, Contragent>(
@@ -64,6 +64,11 @@ namespace Rti.ViewModel.ListViewModel
                                 new ContragentListItem(new ContragentViewModel(m, RepositoryFactory), this, RepositoryFactory)));
         }
 
-        public Action<BaseViewModel, bool?> CloseWindow { get; set; }
+        public bool CanClose()
+        {
+            return true;
+        }
+
+        public Action<bool?> Close { get; set; }
     }
 }
