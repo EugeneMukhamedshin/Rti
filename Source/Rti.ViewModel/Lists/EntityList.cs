@@ -36,6 +36,7 @@ namespace Rti.ViewModel.Lists
             get { return _selectedItem; }
             set
             {
+                OnSelectedItemChanging();
                 _selectedItem = value;
                 OnPropertyChanged();
                 RequeryCommands();
@@ -158,5 +159,7 @@ namespace Rti.ViewModel.Lists
             DeleteEntityCommand.RequeryCanExecute();
             EditEntityCommand.RequeryCanExecute();
         }
+
+        protected virtual void OnSelectedItemChanging() { }
     }
 }

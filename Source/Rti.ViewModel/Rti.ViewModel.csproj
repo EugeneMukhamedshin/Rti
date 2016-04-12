@@ -69,6 +69,7 @@
     <Compile Include="EditViewModel\SelectorViewModel.cs" />
     <Compile Include="Entities\Commands\DelegateCommand.cs" />
     <Compile Include="Entities\Commands\RequeryableCommand.cs" />
+    <Compile Include="Entities\DrawingViewModel.cs" />
     <Compile Include="Entities\EmployeeViewModel.cs" />
     <Compile Include="Entities\EntityViewModel.cs" />
     <Compile Include="Entities\EquipmentViewModel.cs" />
@@ -79,6 +80,7 @@
     </Compile>
     <Compile Include="Entities\RequestDetailViewModel.cs" />
     <Compile Include="IComposite.cs" />
+    <Compile Include="IValidatable.cs" />
     <Compile Include="IViewService.cs" />
     <Compile Include="IWindowCloser.cs" />
     <Compile Include="Lists\DrawingList.cs" />
@@ -141,6 +143,7 @@
     <Compile Include="TreeViewModel\TreeItemViewModel.cs" />
     <Compile Include="TreeViewModel\TreeItemViewModelExtension.cs" />
     <Compile Include="TreeViewModel\TreeViewModel.cs" />
+    <Compile Include="ValidateException.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rti.Model\Rti.Model.csproj">

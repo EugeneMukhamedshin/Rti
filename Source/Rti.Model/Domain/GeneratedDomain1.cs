@@ -196,7 +196,7 @@ namespace Rti.Model.Domain
 		public virtual Int32 Id { get; protected set; }
 
 		[Field("sort_order")]
-		public virtual Int32? SortOrder { get; set; }
+		public virtual Int32 SortOrder { get; set; }
 
 		[Field("name")]
 		public virtual String Name { get; set; }

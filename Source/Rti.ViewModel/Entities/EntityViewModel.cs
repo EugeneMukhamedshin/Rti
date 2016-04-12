@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 
@@ -9,7 +11,10 @@ namespace Rti.ViewModel.Entities
     {
         private bool _isNewEntity;
         private bool _isChanged;
-        private bool _suppressIsChanged;
+        private bool _isValid;
+        private string _validationErrorMessage;
+
+        protected bool SuppressIsChanged;
         public TEntity Entity { get; private set; }
 
         public Boolean IsNewEntity
@@ -35,36 +40,129 @@ namespace Rti.ViewModel.Entities
 
         protected EntityViewModel()
         {
-            _suppressIsChanged = true;
-            IsNewEntity = true;
-            Entity = new TEntity();
-            MapPropertiesFromEntity();
-            _suppressIsChanged = false;
-        } 
+            SuppressIsChanged = true;
+            try
+            {
+                IsNewEntity = true;
+                Entity = new TEntity();
+                MapPropertiesFromEntity();
+            }
+            finally
+            {
+                SuppressIsChanged = false;
+            }
+        }
 
         protected EntityViewModel(TEntity entity, IRepositoryFactory repositoryFactory)
             : base(repositoryFactory)
         {
-            _suppressIsChanged = true;
-            if (entity == null)
+            SuppressIsChanged = true;
+            try
             {
-                IsNewEntity = true;
+                if (entity == null)
+                {
+                    IsNewEntity = true;
+                }
+                Entity = entity ?? new TEntity();
+                MapPropertiesFromEntity();
             }
-            Entity = entity ?? new TEntity();
-            MapPropertiesFromEntity();
-            _suppressIsChanged = false;
+            finally
+            {
+                SuppressIsChanged = false;
+            }
         }
 
         public void SaveEntity()
         {
-            _suppressIsChanged = true;
-            MapPropertiesToEntity();
-            DoSave();
-            AfterSave();
-            MapPropertiesFromEntity();
-            _suppressIsChanged = false;
+            SuppressIsChanged = true;
+            try
+            {
+                Validate();
+                MapPropertiesToEntity();
+                DoSave();
+                AfterSave();
+                MapPropertiesFromEntity();
+            }
+            finally
+            {
+                SuppressIsChanged = false;
+            }
         }
 
+        public bool IsValid
+        {
+            get { return _isValid; }
+            set
+            {
+                SuppressIsChanged = true;
+                try
+                {
+                    if (value.Equals(_isValid)) return;
+                    _isValid = value;
+                    OnPropertyChanged("IsValid");
+                }
+                finally
+                {
+                    SuppressIsChanged = false;
+                }
+            }
+        }
+
+        public string ValidationErrorMessage
+        {
+            get { return _validationErrorMessage; }
+            set
+            {
+                SuppressIsChanged = true;
+                try
+                {
+                    if (value == _validationErrorMessage) return;
+                    _validationErrorMessage = value;
+                    OnPropertyChanged("ValidationErrorMessage");
+                }
+                finally
+                {
+                    SuppressIsChanged = false;
+                }
+            }
+        }
+
+        public class ValidationRule
+        {
+            public Func<TEntityViewModel, bool> Rule { get; set; }
+            public string Message { get; set; }
+
+            public ValidationRule(Func<TEntityViewModel, bool> rule, string message)
+            {
+                Rule = rule;
+                Message = message;
+            }
+        }
+
+        protected virtual IEnumerable<ValidationRule> GetValidationRules()
+        {
+            return new List<ValidationRule>();
+        }
+
+        public bool Validate()
+        {
+            var errorMessageBuilder = new StringBuilder();
+            var isValid = true;
+            foreach (var validationRule in GetValidationRules())
+            {
+                if (!validationRule.Rule((TEntityViewModel)this))
+                {
+                    isValid = false;
+                    errorMessageBuilder.AppendLine(validationRule.Message);
+                }
+            }
+            ValidationErrorMessage = errorMessageBuilder.ToString();
+            IsValid = isValid;
+            if (!IsValid)
+                throw new ValidateException(ValidationErrorMessage);
+            return IsValid;
+        }
+        
         protected virtual void AfterSave() { }
 
         private void DoSave()
@@ -106,7 +204,7 @@ namespace Rti.ViewModel.Entities
 
         protected override void OnPropertyChanged(string propertyName = null)
         {
-            if (!_suppressIsChanged)
+            if (!SuppressIsChanged)
                 IsChanged = true;
             base.OnPropertyChanged(propertyName);
         }

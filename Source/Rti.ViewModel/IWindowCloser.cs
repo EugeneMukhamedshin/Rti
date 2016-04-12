@@ -6,9 +6,4 @@ namespace Rti.ViewModel
     {
         Action<BaseViewModel, Boolean?> CloseWindow { get; set;  }
     }
-
-    public interface IValidatable
-    {
-        bool Validate();
-    }
 }

@@ -17,10 +17,15 @@ namespace Rti.ViewModel.Lists
         public Lazy<List<EquipmentViewModel>> EquipmentsSource { get; set; }
         public Lazy<List<MethodViewModel>> MethodsSource { get; set; }
 
+        public DelegateCommand AddDrawingCommand { get; set; }
         public DelegateCommand OpenMassCalculationCommand { get; set; }
 
         public DrawingList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
         {
+            AddDrawingCommand = new DelegateCommand(
+                "Добавить новый чертеж",
+                o => true,
+                o => AddDrawing());
             OpenMassCalculationCommand = new DelegateCommand(
                 "Открыть расчет массы",
                 o => true,
@@ -43,6 +48,13 @@ namespace Rti.ViewModel.Lists
             return RepositoryFactory.GetDrawingRepository().GetAllActive().Select(o => new DrawingViewModel(o, RepositoryFactory));
         }
 
+        private void AddDrawing()
+        {
+            var drawing = DoCreateNewEntity();
+            Items.Add(drawing);
+            SelectedItem = drawing;
+        }
+
         protected override DrawingViewModel DoCreateNewEntity()
         {
             return new DrawingViewModel(null, RepositoryFactory)
@@ -60,6 +72,21 @@ namespace Rti.ViewModel.Lists
         protected override bool AcceptFind(DrawingViewModel entity, string searchText)
         {
             return searchText.ContainedIn(entity.Name, entity.Note, entity.SortOrder);
+        }
+
+        protected override void OnSelectedItemChanging()
+        {
+            base.OnSelectedItemChanging();
+            if (SelectedItem != null)
+                try
+                {
+                    if (SelectedItem.IsChanged)
+                        SelectedItem.SaveEntity();
+                }
+                catch (ValidateException ex)
+                {
+                    ViewService.ShowMessage(new MessageViewModel("Ошибка", ex.Message, true));
+                }
         }
 
         private void OpenMassCalculation()

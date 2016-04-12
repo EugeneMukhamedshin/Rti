@@ -13,7 +13,7 @@
                 <RowDefinition Height="32"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="0">
-                <Button Content="+" Command="{Binding AddEntityCommand}" Width="32" Height="32" Margin="5"/>
+                <Button Content="+" Command="{Binding AddDrawingCommand}" Width="32" Height="32" Margin="5"/>
                 <Button Content="-" Command="{Binding RemoveEntityCommand}" Width="32" Height="32" Margin="5"/>
             </StackPanel>
             <dxg:GridControl TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="1">

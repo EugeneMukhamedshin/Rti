@@ -4,21 +4,20 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Threading;
+using DevExpress.Xpf.Core;
 using log4net;
 using log4net.Config;
 using log4net.Util;
 using Rti.Model.Repository.NHibernate;
 using Rti.ViewModel;
-using Rti.ViewModel.EditViewModel;
-using Rti.ViewModel.Entities;
-using Rti.ViewModel.ListViewModel;
+using Rti.ViewModel.Lists;
 
 namespace Rti.App
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
         private readonly ILog _log = LogManager.GetLogger(typeof(App));
         private IViewService _viewService;
@@ -29,7 +28,6 @@ namespace Rti.App
             {
                 XmlConfigurator.Configure();
                 DispatcherUnhandledException += App_DispatcherUnhandledException;
-                AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
                 var language = XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag);
                 FrameworkElement.LanguageProperty.OverrideMetadata(
                     typeof(FrameworkElement),
@@ -55,7 +53,7 @@ namespace Rti.App
                     //var editViewModel = new RequestEdit("Заявка", new RequestViewModel(request, repositoryFactory), false, _viewService, repositoryFactory);
                     //editViewModel.Refresh();
                     //_viewService.ShowView(editViewModel, false, true);
-                    var viewModel = new MainViewModel(_viewService, repositoryFactory);
+                    var viewModel = new DrawingList(true, _viewService, repositoryFactory);
                     viewModel.Refresh();
                     _viewService.ShowView(viewModel, false, true);
                 }
@@ -64,13 +62,6 @@ namespace Rti.App
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
-        {
-            if (args.Name == "log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821")
-                return AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.FullName.Contains("log4net"));
-            return args.RequestingAssembly;
         }
 
         void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -85,7 +76,7 @@ namespace Rti.App
         private void OnAppStartup_UpdateThemeName(object sender, StartupEventArgs e)
         {
 
-            DevExpress.Xpf.Core.ApplicationThemeHelper.UpdateApplicationThemeName();
+            ApplicationThemeHelper.UpdateApplicationThemeName();
         }
     }
 }
