@@ -47,8 +47,7 @@ namespace Rti.App
                     if (!loginViewModel.LoggedOn)
                         mainViewModel.Close(null);
                 }
-                else
-                {
+                else{
                     //var request = repositoryFactory.GetRequestRepository().GetById(41);
                     //var editViewModel = new RequestEdit("Заявка", new RequestViewModel(request, repositoryFactory), false, _viewService, repositoryFactory);
                     //editViewModel.Refresh();

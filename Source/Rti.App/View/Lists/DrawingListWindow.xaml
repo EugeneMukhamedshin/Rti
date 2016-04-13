@@ -4,6 +4,8 @@
         xmlns:lists="clr-namespace:Rti.App.View.Lists"
         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
         xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         Title="Чертежи" Height="600" Width="1500" x:ClassModifier="internal" WindowState="Maximized">
     <Grid>
         <Grid>
@@ -13,12 +15,20 @@
                 <RowDefinition Height="32"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="0">
-                <Button Content="+" Command="{Binding AddDrawingCommand}" Width="32" Height="32" Margin="5"/>
+                <Button Content="+" Command="{Binding AddEntityCommand}" Width="32" Height="32" Margin="5"/>
                 <Button Content="-" Command="{Binding RemoveEntityCommand}" Width="32" Height="32" Margin="5"/>
-                <Button Content="Назад" Command="{Binding PrevPageCommand}" Width="32" Height="32" Margin="5"/>
-                <Button Content="Вперед" Command="{Binding NextPageCommand}" Width="32" Height="32" Margin="5"/>
+                <Button Content="..." Command="{Binding EditEntityCommand}" Width="32" Height="32" Margin="5"/>
+                <Button Content="&lt;" Command="{Binding PrevPageCommand}" Width="32" Height="32" Margin="5"/>
+                <Button Content="&gt;" Command="{Binding NextPageCommand}" Width="32" Height="32" Margin="5"/>
             </StackPanel>
             <dxg:GridControl TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="1">
+                <dxmvvm:Interaction.Behaviors>
+                    <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding EditEntityCommand}" PassEventArgsToCommand="True">
+                        <dxmvvm:EventToCommand.EventArgsConverter>
+                            <dx:EventArgsToDataRowConverter/>
+                        </dxmvvm:EventToCommand.EventArgsConverter>
+                    </dxmvvm:EventToCommand>
+                </dxmvvm:Interaction.Behaviors>
                 <dxg:GridControl.Resources>
                     <Style TargetType="dxg:GridColumn">
                         <Setter Property="HeaderTemplate">
@@ -32,222 +42,27 @@
                 </dxg:GridControl.Resources>
                 <dxg:GridControl.Columns>
                     <dxg:GridColumn FieldName="SortOrder" Header="Артикул" ReadOnly="True" Width="40"/>
-                    <dxg:GridColumn FieldName="Name" Header="Чертеж" Width="80">
-                        <dxg:GridColumn.EditSettings>
-                            <dxe:TextEditSettings/>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                    <dxg:GridColumn FieldName="Group" Header="Группа" Width="80">
-                        <dxg:GridColumn.EditSettings>
-                            <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding GroupsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
-                                <dxg:LookUpEditSettings.StyleSettings>
-                                    <dxg:SearchLookUpEditStyleSettings/>
-                                </dxg:LookUpEditSettings.StyleSettings>
-                                <dxg:LookUpEditSettings.PopupContentTemplate>
-                                    <ControlTemplate>
-                                        <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
-                                            <dxg:GridControl.Columns>
-                                                <dxg:GridColumn FieldName="SortOrder" Header="№" Width="50"/>
-                                                <dxg:GridColumn FieldName="Name" Header="Наименование" Width="100"/>
-                                                <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
-                                            </dxg:GridControl.Columns>
-                                            <dxg:GridControl.View>
-                                                <dxg:TableView AutoWidth="True"/>
-                                            </dxg:GridControl.View>
-                                        </dxg:GridControl>
-                                    </ControlTemplate>
-                                </dxg:LookUpEditSettings.PopupContentTemplate>
-                            </dxg:LookUpEditSettings>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                    <dxg:GridColumn FieldName="Detail" Header="Наименование детали" Width="95">
-                        <dxg:GridColumn.EditSettings>
-                            <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding DetailsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
-                                <dxg:LookUpEditSettings.StyleSettings>
-                                    <dxg:SearchLookUpEditStyleSettings/>
-                                </dxg:LookUpEditSettings.StyleSettings>
-                                <dxg:LookUpEditSettings.PopupContentTemplate>
-                                    <ControlTemplate>
-                                        <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
-                                            <dxg:GridControl.Columns>
-                                                <dxg:GridColumn FieldName="SortOrder" Header="№" Width="50"/>
-                                                <dxg:GridColumn FieldName="Name" Header="Наименование" Width="100"/>
-                                                <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
-                                            </dxg:GridControl.Columns>
-                                            <dxg:GridControl.View>
-                                                <dxg:TableView AutoWidth="True"/>
-                                            </dxg:GridControl.View>
-                                        </dxg:GridControl>
-                                    </ControlTemplate>
-                                </dxg:LookUpEditSettings.PopupContentTemplate>
-                            </dxg:LookUpEditSettings>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                    <dxg:GridColumn FieldName="MaterialByPassport" Header="Материал по паспорту" Width="80">
-                        <dxg:GridColumn.EditSettings>
-                            <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding MaterialsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
-                                <dxg:LookUpEditSettings.StyleSettings>
-                                    <dxg:SearchLookUpEditStyleSettings/>
-                                </dxg:LookUpEditSettings.StyleSettings>
-                                <dxg:LookUpEditSettings.PopupContentTemplate>
-                                    <ControlTemplate>
-                                        <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
-                                            <dxg:GridControl.Columns>
-                                                <dxg:GridColumn FieldName="SortOrder" Header="№" Width="50"/>
-                                                <dxg:GridColumn FieldName="Name" Header="Наименование" Width="100"/>
-                                                <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
-                                            </dxg:GridControl.Columns>
-                                            <dxg:GridControl.View>
-                                                <dxg:TableView AutoWidth="True"/>
-                                            </dxg:GridControl.View>
-                                        </dxg:GridControl>
-                                    </ControlTemplate>
-                                </dxg:LookUpEditSettings.PopupContentTemplate>
-                            </dxg:LookUpEditSettings>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                    <dxg:GridColumn FieldName="Material" Header="Материал" Width="80">
-                        <dxg:GridColumn.EditSettings>
-                            <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding MaterialsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
-                                <dxg:LookUpEditSettings.StyleSettings>
-                                    <dxg:SearchLookUpEditStyleSettings/>
-                                </dxg:LookUpEditSettings.StyleSettings>
-                                <dxg:LookUpEditSettings.PopupContentTemplate>
-                                    <ControlTemplate>
-                                        <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
-                                            <dxg:GridControl.Columns>
-                                                <dxg:GridColumn FieldName="SortOrder" Header="№" Width="50"/>
-                                                <dxg:GridColumn FieldName="Name" Header="Наименование" Width="100"/>
-                                                <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
-                                            </dxg:GridControl.Columns>
-                                            <dxg:GridControl.View>
-                                                <dxg:TableView AutoWidth="True"/>
-                                            </dxg:GridControl.View>
-                                        </dxg:GridControl>
-                                    </ControlTemplate>
-                                </dxg:LookUpEditSettings.PopupContentTemplate>
-                            </dxg:LookUpEditSettings>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                    <dxg:GridColumn FieldName="MeasureUnit" Header="Ед. изм." Width="40">
-                        <dxg:GridColumn.EditSettings>
-                            <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding MeasureUnitsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
-                                <dxg:LookUpEditSettings.StyleSettings>
-                                    <dxg:SearchLookUpEditStyleSettings/>
-                                </dxg:LookUpEditSettings.StyleSettings>
-                                <dxg:LookUpEditSettings.PopupContentTemplate>
-                                    <ControlTemplate>
-                                        <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
-                                            <dxg:GridControl.Columns>
-                                                <dxg:GridColumn FieldName="SortOrder" Header="№" Width="50"/>
-                                                <dxg:GridColumn FieldName="Name" Header="Наименование" Width="100"/>
-                                                <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
-                                            </dxg:GridControl.Columns>
-                                            <dxg:GridControl.View>
-                                                <dxg:TableView AutoWidth="True"/>
-                                            </dxg:GridControl.View>
-                                        </dxg:GridControl>
-                                    </ControlTemplate>
-                                </dxg:LookUpEditSettings.PopupContentTemplate>
-                            </dxg:LookUpEditSettings>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                    <dxg:GridColumn FieldName="Code" Header="Код" Width="40">
-                        <dxg:GridColumn.EditSettings>
-                            <dxe:TextEditSettings/>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                    <dxg:GridColumn FieldName="MassCalculation" Header="Масса по чертежу" Width="60">
-                        <dxg:GridColumn.EditSettings>
-                            <dxe:ButtonEditSettings AllowDefaultButton="False">
-                                <dxe:ButtonEditSettings.Buttons>
-                                    <dxe:ButtonInfo Content="..." Command="{Binding OpenMassCalculationCommand}" CommandParameter="{Binding SelectedItem}"></dxe:ButtonInfo>
-                                </dxe:ButtonEditSettings.Buttons>
-                            </dxe:ButtonEditSettings>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                    <dxg:GridColumn FieldName="MassWithShruff" Header="Масса с отходами" Width="65">
-                        <dxg:GridColumn.EditSettings>
-                            <dxe:TextEditSettings Mask="f3" MaskType="Numeric" MaskCulture="ru-RU"/>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                    <dxg:GridColumn FieldName="Price" Header="Цена по чертежу, руб. без НДС" Width="60">
-                        <dxg:GridColumn.EditSettings>
-                            <dxe:TextEditSettings Mask="f3" MaskType="Numeric" MaskCulture="ru-RU"/>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                    <dxg:GridColumn FieldName="ShavingPrice" Header="Цена обрезки" Width="60">
-                        <dxg:GridColumn.EditSettings>
-                            <dxe:TextEditSettings Mask="f3" MaskType="Numeric" MaskCulture="ru-RU"/>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                    <dxg:GridColumn FieldName="Equipment" Header="Оснастка" Width="80">
-                        <dxg:GridColumn.EditSettings>
-                            <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding EquipmentsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
-                                <dxg:LookUpEditSettings.StyleSettings>
-                                    <dxg:SearchLookUpEditStyleSettings/>
-                                </dxg:LookUpEditSettings.StyleSettings>
-                                <dxg:LookUpEditSettings.PopupContentTemplate>
-                                    <ControlTemplate>
-                                        <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
-                                            <dxg:GridControl.Columns>
-                                                <dxg:GridColumn FieldName="SortOrder" Header="№" Width="50"/>
-                                                <dxg:GridColumn FieldName="Name" Header="Наименование" Width="100"/>
-                                                <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
-                                            </dxg:GridControl.Columns>
-                                            <dxg:GridControl.View>
-                                                <dxg:TableView AutoWidth="True"/>
-                                            </dxg:GridControl.View>
-                                        </dxg:GridControl>
-                                    </ControlTemplate>
-                                </dxg:LookUpEditSettings.PopupContentTemplate>
-                            </dxg:LookUpEditSettings>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                    <dxg:GridColumn FieldName="EquipmentExistanceEnum" Header="Наличие оснастки" Width="90" ReadOnly="True">
-                        <dxg:GridColumn.EditSettings>
-                            <dxe:ComboBoxEditSettings ItemsSource="{lists:ExistanceToItemsSource}" DisplayMember="DisplayName" ValueMember="Value"/>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
+                    <dxg:GridColumn FieldName="Name" Header="Чертеж" Width="80"/>
+                    <dxg:GridColumn FieldName="Group.Name" Header="Группа" Width="80"/>
+                    <dxg:GridColumn FieldName="Detail.Name" Header="Наименование детали" Width="95"/>
+                    <dxg:GridColumn FieldName="MaterialByPassport.Name" Header="Материал по паспорту" Width="80"/>
+                    <dxg:GridColumn FieldName="Material.Name" Header="Материал" Width="80"/>
+                    <dxg:GridColumn FieldName="MeasureUnit.Name" Header="Ед. изм." Width="40"/>
+                    <dxg:GridColumn FieldName="MeasureUnit.Code" Header="Код" Width="40"/>
+                    <dxg:GridColumn FieldName="MassCalculation.Id" Header="Масса по чертежу" Width="60"/>
+                    <dxg:GridColumn FieldName="MassWithShruff" Header="Масса с отходами" Width="65"/>
+                    <dxg:GridColumn FieldName="Price" Header="Цена по чертежу, руб. без НДС" Width="60"/>
+                    <dxg:GridColumn FieldName="ShavingPrice" Header="Цена обрезки" Width="60"/>
+                    <dxg:GridColumn FieldName="Equipment.Name" Header="Оснастка" Width="80"/>
+                    <dxg:GridColumn FieldName="Equipment.ExistanceEnum" Header="Наличие оснастки" Width="90" ReadOnly="True"/>
                     <dxg:GridColumn FieldName="Equipment.FormCount" Header="Кол-во форм" Width="40" ReadOnly="True"/>
                     <dxg:GridColumn FieldName="Equipment.SlotCount" Header="Гнездность" Width="40" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="Method" Header="Способ изготовления" Width="90">
-                        <dxg:GridColumn.EditSettings>
-                            <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding MethodsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
-                                <dxg:LookUpEditSettings.StyleSettings>
-                                    <dxg:SearchLookUpEditStyleSettings/>
-                                </dxg:LookUpEditSettings.StyleSettings>
-                                <dxg:LookUpEditSettings.PopupContentTemplate>
-                                    <ControlTemplate>
-                                        <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
-                                            <dxg:GridControl.Columns>
-                                                <dxg:GridColumn FieldName="SortOrder" Header="№" Width="50"/>
-                                                <dxg:GridColumn FieldName="Name" Header="Наименование" Width="100"/>
-                                                <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
-                                            </dxg:GridControl.Columns>
-                                            <dxg:GridControl.View>
-                                                <dxg:TableView AutoWidth="True"/>
-                                            </dxg:GridControl.View>
-                                        </dxg:GridControl>
-                                    </ControlTemplate>
-                                </dxg:LookUpEditSettings.PopupContentTemplate>
-                            </dxg:LookUpEditSettings>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                    <dxg:GridColumn FieldName="CalculationPrice" Header="Цена по калькуляции" Width="60">
-                        <dxg:GridColumn.EditSettings>
-                            <dxe:TextEditSettings Mask="f3" MaskType="Numeric" MaskCulture="ru-RU"/>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-
-                    <dxg:GridColumn FieldName="Note" Header="Примечание" Width="100">
-                        <dxg:GridColumn.EditSettings>
-                            <dxe:TextEditSettings Mask="d"/>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
+                    <dxg:GridColumn FieldName="Method.Name" Header="Способ изготовления" Width="90"/>
+                    <dxg:GridColumn FieldName="CalculationPrice" Header="Цена по калькуляции" Width="60"/>
+                    <dxg:GridColumn FieldName="Note" Header="Примечание" Width="100"/>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>
-                    <dxg:TableView AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                    <dxg:TableView AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>
             </dxg:GridControl>
         </Grid>

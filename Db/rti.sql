@@ -1,8 +1,8 @@
 ﻿--
--- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 6.3.358.0
+-- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.0.49.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 31.03.2016 18:50:53
--- Версия сервера: 5.6.26-log
+-- Дата скрипта: 13.04.2016 21:34:43
+-- Версия сервера: 5.7.11-log
 -- Версия клиента: 4.1
 --
 
@@ -129,22 +129,6 @@ COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
 
 --
--- Описание для таблицы drawings
---
-DROP TABLE IF EXISTS drawings;
-CREATE TABLE drawings (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  name VARCHAR(500) NOT NULL,
-  PRIMARY KEY (id)
-)
-ENGINE = INNODB
-AUTO_INCREMENT = 8
-AVG_ROW_LENGTH = 2730
-CHARACTER SET utf8
-COLLATE utf8_general_ci
-ROW_FORMAT = DYNAMIC;
-
---
 -- Описание для таблицы drivers
 --
 DROP TABLE IF EXISTS drivers;
@@ -181,6 +165,21 @@ CREATE TABLE groups (
 ENGINE = INNODB
 AUTO_INCREMENT = 6
 AVG_ROW_LENGTH = 3276
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы images
+--
+DROP TABLE IF EXISTS images;
+CREATE TABLE images (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  data BLOB DEFAULT NULL,
+  PRIMARY KEY (id)
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 1
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
@@ -236,6 +235,41 @@ COMMENT = 'оборудование'
 ROW_FORMAT = DYNAMIC;
 
 --
+-- Описание для таблицы mass_calculations
+--
+DROP TABLE IF EXISTS mass_calculations;
+CREATE TABLE mass_calculations (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  detail_type_enum INT(11) NOT NULL,
+  material_density DOUBLE DEFAULT NULL,
+  rnd_d_shn DOUBLE DEFAULT NULL,
+  rnd_s1 DOUBLE DEFAULT NULL,
+  rnd_s2 DOUBLE DEFAULT NULL,
+  rnd_d_nar DOUBLE DEFAULT NULL,
+  rnd_d_vn DOUBLE DEFAULT NULL,
+  rnd_d_sr DOUBLE DEFAULT NULL,
+  rnd_m_ras DOUBLE DEFAULT NULL,
+  sq_s DOUBLE DEFAULT NULL,
+  sq_l DOUBLE DEFAULT NULL,
+  sq_b DOUBLE DEFAULT NULL,
+  sq_l1 DOUBLE DEFAULT NULL,
+  sq_b1 DOUBLE DEFAULT NULL,
+  sq_d_vn DOUBLE DEFAULT NULL,
+  vl_s DOUBLE DEFAULT NULL,
+  vl_l DOUBLE DEFAULT NULL,
+  vl_b DOUBLE DEFAULT NULL,
+  vl_l1 DOUBLE DEFAULT NULL,
+  vl_b1 DOUBLE DEFAULT NULL,
+  mass_formula VARCHAR(500) DEFAULT NULL,
+  PRIMARY KEY (id)
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 1
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+ROW_FORMAT = DYNAMIC;
+
+--
 -- Описание для таблицы materials
 --
 DROP TABLE IF EXISTS materials;
@@ -254,7 +288,7 @@ CREATE TABLE materials (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 7
+AUTO_INCREMENT = 9
 AVG_ROW_LENGTH = 2730
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -325,35 +359,6 @@ COMMENT = 'сотрудники'
 ROW_FORMAT = DYNAMIC;
 
 --
--- Описание для таблицы equipments
---
-DROP TABLE IF EXISTS equipments;
-CREATE TABLE equipments (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  sort_order INT(11) NOT NULL,
-  group_id INT(11) DEFAULT NULL,
-  drawing_id INT(11) DEFAULT NULL,
-  name VARCHAR(1000) NOT NULL,
-  existance INT(11) NOT NULL,
-  form_count INT(11) DEFAULT NULL,
-  slot_count INT(11) DEFAULT NULL,
-  output INT(11) DEFAULT NULL,
-  note VARCHAR(1000) DEFAULT NULL,
-  is_deleted INT(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (id),
-  CONSTRAINT FK_equipments_drawings_id FOREIGN KEY (drawing_id)
-    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_equipments_groups_id FOREIGN KEY (group_id)
-    REFERENCES groups(id) ON DELETE RESTRICT ON UPDATE RESTRICT
-)
-ENGINE = INNODB
-AUTO_INCREMENT = 1
-CHARACTER SET utf8
-COLLATE utf8_general_ci
-COMMENT = 'оснастки'
-ROW_FORMAT = DYNAMIC;
-
---
 -- Описание для таблицы requests
 --
 DROP TABLE IF EXISTS requests;
@@ -370,10 +375,77 @@ CREATE TABLE requests (
     REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 44
+AUTO_INCREMENT = 42
 AVG_ROW_LENGTH = 3276
 CHARACTER SET utf8
 COLLATE utf8_general_ci
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы drawings
+--
+DROP TABLE IF EXISTS drawings;
+CREATE TABLE drawings (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  creation_date DATETIME DEFAULT NULL,
+  sort_order INT(11) NOT NULL,
+  name VARCHAR(500) NOT NULL,
+  group_id INT(11) DEFAULT NULL,
+  detail_id INT(11) DEFAULT NULL,
+  additional_info VARCHAR(500) DEFAULT NULL,
+  material_by_passport_id INT(11) DEFAULT NULL,
+  material_id INT(11) DEFAULT NULL,
+  measure_unit_id INT(11) DEFAULT NULL,
+  code VARCHAR(255) DEFAULT NULL,
+  mass_calculation_id INT(11) DEFAULT NULL,
+  mass_with_shruff DOUBLE DEFAULT NULL,
+  price DOUBLE DEFAULT NULL,
+  shaving_price DOUBLE DEFAULT NULL,
+  calculation_price DOUBLE DEFAULT NULL,
+  equipment_id INT(11) DEFAULT NULL,
+  method_id INT(11) DEFAULT NULL,
+  width DOUBLE DEFAULT NULL,
+  length DOUBLE DEFAULT NULL,
+  thickness DOUBLE DEFAULT NULL,
+  inner_diameter DOUBLE DEFAULT NULL,
+  outer_diameter DOUBLE DEFAULT NULL,
+  drawing_image_id INT(11) DEFAULT NULL,
+  note VARCHAR(500) DEFAULT NULL,
+  is_deleted INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (id)
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 8
+AVG_ROW_LENGTH = 2730
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы equipments
+--
+DROP TABLE IF EXISTS equipments;
+CREATE TABLE equipments (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  sort_order INT(11) NOT NULL,
+  group_id INT(11) NOT NULL,
+  drawing_id INT(11) NOT NULL,
+  name VARCHAR(1000) NOT NULL,
+  existance INT(11) NOT NULL,
+  square DOUBLE NOT NULL,
+  form_count INT(11) NOT NULL,
+  slot_count INT(11) NOT NULL,
+  output INT(11) NOT NULL,
+  note VARCHAR(1000) DEFAULT NULL,
+  is_deleted INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (id)
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 3
+AVG_ROW_LENGTH = 8192
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'оснастки'
 ROW_FORMAT = DYNAMIC;
 
 --
@@ -398,24 +470,78 @@ CREATE TABLE request_details (
   note VARCHAR(1000) DEFAULT NULL,
   is_deleted INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (id),
-  UNIQUE INDEX UK_request_details (request_id, sort_order),
-  CONSTRAINT FK_request_details_details_id FOREIGN KEY (detail_id)
-    REFERENCES details(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_request_details_drawings_id FOREIGN KEY (drawing_id)
-    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_request_details_groups_id FOREIGN KEY (group_id)
-    REFERENCES groups(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_request_details_materials_id FOREIGN KEY (material_id)
-    REFERENCES materials(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_request_details_requests_id FOREIGN KEY (request_id)
-    REFERENCES requests(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+  UNIQUE INDEX UK_request_details (request_id, sort_order)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 14
+AUTO_INCREMENT = 13
 AVG_ROW_LENGTH = 2340
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
+
+ALTER TABLE drawings
+ADD CONSTRAINT FK_drawings_details_id FOREIGN KEY (detail_id)
+REFERENCES details (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE drawings
+ADD CONSTRAINT FK_drawings_equipments_id FOREIGN KEY (equipment_id)
+REFERENCES equipments (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE drawings
+ADD CONSTRAINT FK_drawings_groups_id FOREIGN KEY (group_id)
+REFERENCES groups (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE drawings
+ADD CONSTRAINT FK_drawings_images_id FOREIGN KEY (drawing_image_id)
+REFERENCES images (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE drawings
+ADD CONSTRAINT FK_drawings_mass_calculations_id FOREIGN KEY (mass_calculation_id)
+REFERENCES mass_calculations (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE drawings
+ADD CONSTRAINT FK_drawings_materials_bp_id FOREIGN KEY (material_by_passport_id)
+REFERENCES materials (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE drawings
+ADD CONSTRAINT FK_drawings_materials_id FOREIGN KEY (material_id)
+REFERENCES materials (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE drawings
+ADD CONSTRAINT FK_drawings_measure_units_id FOREIGN KEY (measure_unit_id)
+REFERENCES measure_units (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE drawings
+ADD CONSTRAINT FK_drawings_methods_id FOREIGN KEY (method_id)
+REFERENCES methods (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE equipments
+ADD CONSTRAINT FK_equipments_drawings_id FOREIGN KEY (drawing_id)
+REFERENCES drawings (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE equipments
+ADD CONSTRAINT FK_equipments_groups_id FOREIGN KEY (group_id)
+REFERENCES groups (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE request_details
+ADD CONSTRAINT FK_request_details_details_id FOREIGN KEY (detail_id)
+REFERENCES details (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE request_details
+ADD CONSTRAINT FK_request_details_drawings_id FOREIGN KEY (drawing_id)
+REFERENCES drawings (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE request_details
+ADD CONSTRAINT FK_request_details_groups_id FOREIGN KEY (group_id)
+REFERENCES groups (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE request_details
+ADD CONSTRAINT FK_request_details_materials_id FOREIGN KEY (material_id)
+REFERENCES materials (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE request_details
+ADD CONSTRAINT FK_request_details_requests_id FOREIGN KEY (request_id)
+REFERENCES requests (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 -- 
 -- Вывод данных для таблицы additional_infos
@@ -446,17 +572,6 @@ INSERT INTO details VALUES
 (2, 2, 'deTail132', 'sfv sgth fhg j fe''r;lfq''fr ', 1);
 
 -- 
--- Вывод данных для таблицы drawings
---
-INSERT INTO drawings VALUES
-(1, 'Чертеж1'),
-(3, 'Чуртеж2'),
-(4, 'Чартеж3'),
-(5, 'Чэртеж4'),
-(6, 'Чыртеж5'),
-(7, 'Чяртеж6');
-
--- 
 -- Вывод данных для таблицы drivers
 --
 INSERT INTO drivers VALUES
@@ -474,6 +589,12 @@ INSERT INTO groups VALUES
 (5, 4, '321654321', NULL, 0);
 
 -- 
+-- Вывод данных для таблицы images
+--
+
+-- Таблица rti.images не содержит данных
+
+-- 
 -- Вывод данных для таблицы jobs
 --
 INSERT INTO jobs VALUES
@@ -488,15 +609,23 @@ INSERT INTO machines VALUES
 (1, 1, '2', '3', '4', 5, 6, 7, 8, 9, 10, '11', 0);
 
 -- 
+-- Вывод данных для таблицы mass_calculations
+--
+
+-- Таблица rti.mass_calculations не содержит данных
+
+-- 
 -- Вывод данных для таблицы materials
 --
 INSERT INTO materials VALUES
 (1, 1, 'Материал1', 'ГОСТ123123', NULL, NULL, NULL, NULL, NULL, NULL, 1),
 (2, 2, 'Материал2', 'ТУ 4324982', NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(3, 1, 'Материал', '123ТУ1234123', 100.2312, 12.12, 423.42, 123.21, 4000.5, 'Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание ', 0),
+(3, 1, 'Материал', '123ТУ1234123', 100.2312, 12.12, 423.42, 123.21, 4000.5, 'Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание Большое примечание ', 1),
 (4, 1, '654654', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(5, 2, '8tjgfnfytjhrhy654', '564321654', NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(6, 3, 'gfdbfdnhtryjrtynh', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
+(5, 2, '8tjgfnfytjhrhy654', '564321654', 1.1, 2.22222, 3.3333, 2.4213, 12312, ' ASDF ASDF ASDF SADF SADFLKJSADNF ASDKJFN ALSKDJF ALKJDSFH LAKSDJFH ALKDSJFH LAKSJDFH LAKSDJFH LAKSJDHF LKSAJDHF LKSADJFH LAKSDJFH ALKSDJHF LASKDJFH LKSAJDHF ', 0),
+(6, 3, 'gfdbfdnhtryjrtynh', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(7, 0, 'sdfsvdsfvdsv', '123', 123, 321, NULL, NULL, NULL, NULL, 0),
+(8, 4, 'Новый материал', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы measure_units
@@ -515,13 +644,7 @@ INSERT INTO methods VALUES
 -- Вывод данных для таблицы employees
 --
 INSERT INTO employees VALUES
-(1, 1, '123654', 'Я Я Я321', 1, NULL, 0);
-
--- 
--- Вывод данных для таблицы equipments
---
-
--- Таблица rti.equipments не содержит данных
+(1, 1, '1236546', 'Я Я Я321', 1, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы requests
@@ -534,19 +657,37 @@ INSERT INTO requests VALUES
 (28, 5, '2016-03-30 00:00:00', NULL, NULL, 2, 0),
 (31, 6, '2016-03-30 00:00:00', NULL, NULL, NULL, 0),
 (40, 7, '2016-03-30 00:00:00', NULL, NULL, 3, 0),
-(41, 8, '2016-03-30 00:00:00', NULL, NULL, 3, 0);
+(41, 8, '2016-03-30 00:00:00', '2016-04-21 00:00:00', NULL, 1, 0);
+
+-- 
+-- Вывод данных для таблицы drawings
+--
+INSERT INTO drawings VALUES
+(1, '2016-04-12 22:38:59', 1, 'Чертеж1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(3, '2016-04-12 22:39:02', 3, 'Чуртеж2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(4, '2016-04-12 22:39:04', 4, 'Чартеж3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(5, '2016-04-12 22:39:14', 5, 'Чэртеж4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(6, '2016-04-12 22:39:11', 6, 'Чыртеж5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(7, '2016-04-12 22:39:17', 7, 'Чяртеж6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
+
+-- 
+-- Вывод данных для таблицы equipments
+--
+INSERT INTO equipments VALUES
+(1, 1, 3, 5, 'Оснастка1', 1, 1.123, 12, 1, 12, '1ыфв сфыва ыфавп ыва ывап ывап ывап ывап выа выап выап выап выап ывап выап вып', 1),
+(2, 1, 2, 5, 'Новая оснастка', 0, 0, 0, 0, 0, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы request_details
 --
 INSERT INTO request_details VALUES
-(1, 41, 1, 1, 1, 1, 1, NULL, NULL, 12, 15.312, NULL, 183.744, NULL, NULL, 0),
-(2, 41, 2, 3, NULL, NULL, 2, '123', NULL, 2, 0, NULL, 0, 5, NULL, 0),
+(1, 41, 1, 4, 1, 1, 1, NULL, NULL, 12, 15.312, NULL, 183.744, NULL, NULL, 0),
+(2, 41, 2, 3, NULL, 1, 2, '123', 12, 2, 0, NULL, 0, 5, NULL, 0),
 (3, 41, 3, 4, 4, 1, 0, '321', NULL, 3, 600, NULL, 1800, NULL, NULL, 0),
-(8, 41, 8, 6, 2, NULL, 1, NULL, NULL, 4, 150, 150, 600, 3, 'примечание примечание примечание примечание', 0),
-(9, 41, 9, 5, NULL, NULL, 2, 'asdfasdfs', NULL, 50, 0, NULL, 0, NULL, NULL, 0),
+(8, 41, 8, 6, 2, NULL, 1, NULL, NULL, 4, 300, 150, 1200, 3, 'примечание примечание примечание примечание', 0),
+(9, 41, 9, 3, 3, NULL, 2, 'asdfasdfs', 123, 50, 200, NULL, 10000, NULL, NULL, 0),
 (10, 41, 10, 4, 1, 1, 0, NULL, NULL, 6.3, 0, NULL, 0, NULL, NULL, 0),
-(12, 41, 12, 1, NULL, 1, 1, NULL, NULL, 8.9, 0, NULL, 0, NULL, NULL, 0);
+(12, 41, 12, 4, NULL, 1, 1, NULL, 323, 8.9, 0, NULL, 0, NULL, NULL, 0);
 
 -- 
 -- Восстановить предыдущий режим SQL (SQL mode)

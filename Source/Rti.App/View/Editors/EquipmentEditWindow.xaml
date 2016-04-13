@@ -1,4 +1,4 @@
-﻿<Window x:Class="Rti.App.View.Editors.EquipmentEditWindow"
+﻿<dx:DXWindow x:Class="Rti.App.View.Editors.EquipmentEditWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,6 +7,7 @@
         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
         xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
         xmlns:lists="clr-namespace:Rti.App.View.Lists"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         mc:Ignorable="d"
         Width="470" Height="390" MinWidth="470" MinHeight="390" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
@@ -17,7 +18,7 @@
         <dxprg:PropertyGridControl SortMode="Definitions" Grid.Row="0" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
             <dxprg:PropertyGridControl.PropertyDefinitions>
                 <dxprg:PropertyDefinition Header="№" Path="SortOrder" IsReadOnly="True"/>
-                <dxprg:PropertyDefinition Header="Группа" Path="Group">
+                <!--<dxprg:PropertyDefinition Header="Группа" Path="Group">
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding GroupsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                             <dxg:LookUpEditSettings.StyleSettings>
@@ -39,8 +40,8 @@
                             </dxg:LookUpEditSettings.PopupContentTemplate>
                         </dxg:LookUpEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
-                </dxprg:PropertyDefinition>
-                <dxprg:PropertyDefinition Header="Чертеж" Path="Drawing">
+                </dxprg:PropertyDefinition>-->
+                <!--<dxprg:PropertyDefinition Header="Чертеж" Path="Drawing">
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding DrawingsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                             <dxg:LookUpEditSettings.StyleSettings>
@@ -62,7 +63,7 @@
                             </dxg:LookUpEditSettings.PopupContentTemplate>
                         </dxg:LookUpEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
-                </dxprg:PropertyDefinition>
+                </dxprg:PropertyDefinition>-->
                 <dxprg:PropertyDefinition Header="Оснастка" Path="Name"/>
                 <dxprg:PropertyDefinition Header="Площадь оснастки" Path="Square" EditSettings="{dxe:TextSettings Mask=f3}"/>
                 <dxprg:PropertyDefinition Header="Наличие оснастки" Path="ExistanceEnum">
@@ -108,4 +109,4 @@
         <TextBox Grid.Row="4" Grid.Column="1" TabIndex="1" Text="{Binding Entity.Name}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
         <TextBox Grid.Row="8" Grid.Column="1" TabIndex="2" Text="{Binding Entity.Note}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>-->
     </Grid>
-</Window>
+</dx:DXWindow>

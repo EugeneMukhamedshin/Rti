@@ -1,11 +1,11 @@
 ﻿namespace Rti.App.View.Editors
 {
     /// <summary>
-    /// Interaction logic for EquipmentEditWindow.xaml
+    /// Interaction logic for DrawingEditWindow.xaml
     /// </summary>
-    public partial class EquipmentEditWindow
+    public partial class DrawingEditWindow
     {
-        public EquipmentEditWindow()
+        public DrawingEditWindow()
         {
             InitializeComponent();
         }

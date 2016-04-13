@@ -7,8 +7,6 @@ namespace Rti.ViewModel.ListViewModel
     public class EquipmentListItem : EntityListItem<EquipmentViewModel, Equipment>
     {
         public int SortOrder { get { return Entity.SortOrder; } }
-        public string GroupName { get { return Entity.Group == null ? null : Entity.Group.Name; } }
-        public string DrawingName { get { return Entity.Drawing == null ? null : Entity.Drawing.Name; } }
 
         public string Existance
         {
@@ -46,7 +44,7 @@ namespace Rti.ViewModel.ListViewModel
 
         public override bool AcceptFind(string text)
         {
-            return text.ContainedIn(Name, GroupName, DrawingName);
+            return text.ContainedIn(Name);
         }
     }
 }

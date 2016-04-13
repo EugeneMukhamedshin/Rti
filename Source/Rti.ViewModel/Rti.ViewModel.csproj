@@ -50,6 +50,7 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandExecutionInfo.cs" />
     <Compile Include="Commands\HistoryContext.cs" />
+    <Compile Include="EditViewModel\DrawingEdit.cs" />
     <Compile Include="EditViewModel\EditViewModel.cs" />
     <Compile Include="EditViewModel\EditViewModelBase.cs" />
     <Compile Include="EditViewModel\DetailEdit.cs" />
