@@ -136,11 +136,11 @@
                         </dxg:LookUpEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
-                <dxprg:PropertyDefinition Path="MassCalculation" Header="Масса по чертежу" Width="60">
+                <dxprg:PropertyDefinition Path="MassCalculation" Header="Масса по чертежу">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxe:ButtonEditSettings AllowDefaultButton="False">
+                        <dxe:ButtonEditSettings AllowDefaultButton="False" IsTextEditable="False">
                             <dxe:ButtonEditSettings.Buttons>
-                                <dxe:ButtonInfo Content="..." Command="{Binding OpenMassCalculationCommand}" CommandParameter="{Binding SelectedItem}"></dxe:ButtonInfo>
+                                <dxe:ButtonInfo Content="..." Command="{Binding OpenMassCalculationCommand}"></dxe:ButtonInfo>
                             </dxe:ButtonEditSettings.Buttons>
                         </dxe:ButtonEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
@@ -150,7 +150,7 @@
                         <dxe:TextEditSettings Mask="f3" MaskType="Numeric" MaskCulture="ru-RU"/>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
-                <dxprg:PropertyDefinition Path="Price" Header="Цена по чертежу, руб. без НДС" Width="60">
+                <dxprg:PropertyDefinition Path="Price" Header="Цена по чертежу, руб. без НДС">
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxe:TextEditSettings Mask="f3" MaskType="Numeric" MaskCulture="ru-RU"/>
                     </dxprg:PropertyDefinition.EditSettings>
@@ -160,7 +160,7 @@
                         <dxe:TextEditSettings Mask="f3" MaskType="Numeric" MaskCulture="ru-RU"/>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
-                <dxprg:PropertyDefinition Path="Equipment" Header="Оснастка" Width="80">
+                <dxprg:PropertyDefinition Path="Equipment" Header="Оснастка">
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding EquipmentsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                             <dxg:LookUpEditSettings.StyleSettings>
@@ -183,7 +183,7 @@
                         </dxg:LookUpEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
-                <dxprg:PropertyDefinition Path="Method" Header="Способ изготовления" Width="90">
+                <dxprg:PropertyDefinition Path="Method" Header="Способ изготовления">
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding MethodsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                             <dxg:LookUpEditSettings.StyleSettings>
@@ -206,13 +206,21 @@
                         </dxg:LookUpEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
-                <dxprg:PropertyDefinition Path="CalculationPrice" Header="Цена по калькуляции" Width="60">
+                <dxprg:PropertyDefinition Path="CalculationPrice" Header="Цена по калькуляции">
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxe:TextEditSettings Mask="f3" MaskType="Numeric" MaskCulture="ru-RU"/>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
-
-                <dxprg:PropertyDefinition Path="Note" Header="Примечание" Width="100">
+                <dxprg:PropertyDefinition Path="Measurements" Header="Размеры">
+                    <dxprg:PropertyDefinition.EditSettings>
+                        <dxe:ButtonEditSettings AllowDefaultButton="False" IsTextEditable="False">
+                            <dxe:ButtonEditSettings.Buttons>
+                                <dxe:ButtonInfo Content="..." Command="{Binding OpenDrawingMeasurementEditCommand}"></dxe:ButtonInfo>
+                            </dxe:ButtonEditSettings.Buttons>
+                        </dxe:ButtonEditSettings>
+                    </dxprg:PropertyDefinition.EditSettings>
+                </dxprg:PropertyDefinition>
+                <dxprg:PropertyDefinition Path="Note" Header="Примечание">
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxe:TextEditSettings Mask="d"/>
                     </dxprg:PropertyDefinition.EditSettings>

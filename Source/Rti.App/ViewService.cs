@@ -57,6 +57,7 @@ namespace Rti.App
             // Чертежи
             AddToRegistry<DrawingList, DrawingListWindow>();
             AddToRegistry<DrawingEdit, DrawingEditWindow>();
+            AddToRegistry<DrawingMeasurementEdit, DrawingMeasurementEditWindow>();
         }
 
         private void AddToRegistry<TViewModel, TView>()
