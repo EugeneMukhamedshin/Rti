@@ -72,7 +72,7 @@ namespace Rti.ViewModel.Entities
 							propertyTypeName = prop.PropertyType.GenericTypeArguments[0].Name + "?";
 						var fieldName = String.Format("_{0}{1}", prop.Name[0].ToString().ToLower(), prop.Name.Substring(1));
 #>
-		public <#= propertyTypeName #> <#= prop.Name #> { get { return <#= fieldName #>; } set { if (Equals(<#= fieldName #>, value)) return; <#= fieldName #> = value; OnPropertyChanged(); } }
+		public <#= propertyTypeName #> <#= prop.Name #> { get { return <#= fieldName #>; } set { if (Equals(<#= fieldName #>, value)) return; <#= fieldName #> = value; OnPropertyChanged("<#= prop.Name #>"); } }
 <#
 		            }
                     var refAttribute = prop.GetCustomAttributes(typeof (ReferenceAttribute), false).FirstOrDefault() as ReferenceAttribute;
@@ -81,7 +81,7 @@ namespace Rti.ViewModel.Entities
 						var propertyTypeName = prop.PropertyType.Name;
 						var fieldName = String.Format("_{0}{1}", prop.Name[0].ToString().ToLower(), prop.Name.Substring(1));
 #>
-		public <#= propertyTypeName #>ViewModel <#= prop.Name #> { get { return <#= fieldName #>; } set { <#= fieldName #> = value; OnPropertyChanged(); } }
+		public <#= propertyTypeName #>ViewModel <#= prop.Name #> { get { return <#= fieldName #>; } set { <#= fieldName #> = value; OnPropertyChanged("<#= prop.Name #>"); } }
 <#
 		            }
 				}

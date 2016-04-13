@@ -17,21 +17,25 @@ namespace Rti.ViewModel.EditViewModel
         public Lazy<List<EquipmentViewModel>> EquipmentsSource { get; set; }
         public Lazy<List<MethodViewModel>> MethodsSource { get; set; }
 
+        public DelegateCommand OpenMassCalculationCommand { get; set; }
         public DelegateCommand OpenDrawingMeasurementEditCommand { get; set; }
 
         public DrawingEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {
+            OpenMassCalculationCommand = new DelegateCommand(
+                "Рассчитать массу",
+                o => true,
+                o => OpenMassCalculationEdit());
+            OpenDrawingMeasurementEditCommand = new DelegateCommand(
+                "Изменить размеры",
+                o => true,
+                o => OpenDrawingMeasurementEdit());
         }
 
         public override void Refresh()
         {
             base.Refresh();
-
-            OpenDrawingMeasurementEditCommand = new DelegateCommand(
-                "Изменить размеры",
-                o => true,
-                o => OpenDrawingMeasurementEdit());
 
             GroupsSource = new Lazy<List<GroupViewModel>>(() => RepositoryFactory.GetGroupRepository().GetAllActive().Select(o => new GroupViewModel(o, RepositoryFactory)).ToList());
             DetailsSource = new Lazy<List<DetailViewModel>>(() => RepositoryFactory.GetDetailRepository().GetAllActive().Select(o => new DetailViewModel(o, RepositoryFactory)).ToList());
@@ -39,6 +43,20 @@ namespace Rti.ViewModel.EditViewModel
             MeasureUnitsSource = new Lazy<List<MeasureUnitViewModel>>(() => RepositoryFactory.GetMeasureUnitRepository().GetAllActive().Select(o => new MeasureUnitViewModel(o, RepositoryFactory)).ToList());
             EquipmentsSource = new Lazy<List<EquipmentViewModel>>(() => RepositoryFactory.GetEquipmentRepository().GetAllActive().Select(o => new EquipmentViewModel(o, RepositoryFactory)).ToList());
             MethodsSource = new Lazy<List<MethodViewModel>>(() => RepositoryFactory.GetMethodRepository().GetAllActive().Select(o => new MethodViewModel(o, RepositoryFactory)).ToList());
+        }
+
+        private void OpenMassCalculationEdit()
+        {
+            var massCalculation = Entity.MassCalculation ?? new MassCalculationViewModel(null, RepositoryFactory);
+            var editor = new MassCalculationEdit("Расчет массы", massCalculation, ReadOnly, ViewService, RepositoryFactory);
+            if (ViewService.ShowViewDialog(editor) == true)
+            {
+                if (Entity.MassCalculation == null)
+                    Entity.MassCalculation = massCalculation;
+                else
+                    massCalculation.CopyTo(Entity.MassCalculation);
+                Entity.MassCalculation.SaveEntity();
+            }
         }
 
         private void OpenDrawingMeasurementEdit()

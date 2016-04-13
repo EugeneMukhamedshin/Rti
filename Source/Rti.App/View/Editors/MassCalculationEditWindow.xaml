@@ -1,0 +1,99 @@
+﻿<dx:DXWindow
+    x:Class="Rti.App.View.Editors.MassCalculationEditWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxprg="http://schemas.devexpress.com/winfx/2008/xaml/propertygrid"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:lists="clr-namespace:Rti.App.View.Lists"
+    Width="470" Height="390" MinWidth="470" MinHeight="390" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="32"/>
+        </Grid.RowDefinitions>
+        <Button Content="Типовые детали" Command="{Binding ShowDetailTypesCommand}" Grid.Row="0" Margin="5" Width="120" HorizontalAlignment="Left"></Button>
+        <dxprg:PropertyGridControl SortMode="Definitions" Grid.Row="1" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
+            <dxprg:PropertyGridControl.PropertyDefinitions>
+                <dxprg:PropertyDefinition Header="Тип детали" Path="DetailTypeEnum">
+                    <dxprg:PropertyDefinition.EditSettings>
+                        <dxe:ComboBoxEditSettings ItemsSource="{lists:DetailTypeToItemsSource}" DisplayMember="DisplayName" ValueMember="Value"/>
+                    </dxprg:PropertyDefinition.EditSettings>
+                </dxprg:PropertyDefinition>
+                <dxprg:PropertyDefinition Header="Плотность материала, г/см3 (P)" Path="MaterialDensity">
+                    <dxprg:PropertyDefinition.EditSettings>
+                        <dxe:TextEditSettings Mask="f3"/>
+                    </dxprg:PropertyDefinition.EditSettings>
+                </dxprg:PropertyDefinition>
+                <dxprg:PropertyDefinition Header="Диаметр шнура, мм (Dшн) / Толщина пластины, мм (S)" Path="RndS" Visibility="{Binding IsRound,Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <dxprg:PropertyDefinition.EditSettings>
+                        <dxe:TextEditSettings Mask="f1"/>
+                    </dxprg:PropertyDefinition.EditSettings>
+                </dxprg:PropertyDefinition>
+                <dxprg:PropertyDefinition Header="Диаметр шнура, мм / Толщина пластины, мм (S1)" Path="RndS1"  Visibility="{Binding IsRound,Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <dxprg:PropertyDefinition.EditSettings>
+                        <dxe:TextEditSettings Mask="f1"/>
+                    </dxprg:PropertyDefinition.EditSettings>
+                </dxprg:PropertyDefinition>
+                <dxprg:PropertyDefinition Header="Диаметр шнура, мм / Толщина пластины, мм (S2)" Path="RndS2" Visibility="{Binding IsRound,Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <dxprg:PropertyDefinition.EditSettings>
+                        <dxe:TextEditSettings Mask="f1"/>
+                    </dxprg:PropertyDefinition.EditSettings>
+                </dxprg:PropertyDefinition>
+                <dxprg:PropertyDefinition Header="Диаметр наружный, мм (Dнар)" Path="RndDNar" Visibility="{Binding IsRound,Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <dxprg:PropertyDefinition.EditSettings>
+                        <dxe:TextEditSettings Mask="f1"/>
+                    </dxprg:PropertyDefinition.EditSettings>
+                </dxprg:PropertyDefinition>
+                <dxprg:PropertyDefinition Header="Диаметр внутренний, мм (Dвн)" Path="RndDVn" Visibility="{Binding IsRound,Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <dxprg:PropertyDefinition.EditSettings>
+                        <dxe:TextEditSettings Mask="f1"/>
+                    </dxprg:PropertyDefinition.EditSettings>
+                </dxprg:PropertyDefinition>
+                <dxprg:PropertyDefinition Header="Диаметр по средней линии, мм (Dср)" Path="RndDSr" Visibility="{Binding IsRound,Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <dxprg:PropertyDefinition.EditSettings>
+                        <dxe:TextEditSettings Mask="f1"/>
+                    </dxprg:PropertyDefinition.EditSettings>
+                </dxprg:PropertyDefinition>
+
+                <dxprg:PropertyDefinition Header="Толщина пластины, мм (S)" Path="SqS" Visibility="{Binding IsSquare,Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <dxprg:PropertyDefinition.EditSettings>
+                        <dxe:TextEditSettings Mask="f1"/>
+                    </dxprg:PropertyDefinition.EditSettings>
+                </dxprg:PropertyDefinition>
+                <dxprg:PropertyDefinition Header="Длина, мм (L)" Path="SqL" Visibility="{Binding IsSquare,Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <dxprg:PropertyDefinition.EditSettings>
+                        <dxe:TextEditSettings Mask="f1"/>
+                    </dxprg:PropertyDefinition.EditSettings>
+                </dxprg:PropertyDefinition>
+                <dxprg:PropertyDefinition Header="Ширина, мм (B)" Path="SqB" Visibility="{Binding IsSquare,Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <dxprg:PropertyDefinition.EditSettings>
+                        <dxe:TextEditSettings Mask="f1"/>
+                    </dxprg:PropertyDefinition.EditSettings>
+                </dxprg:PropertyDefinition>
+                <dxprg:PropertyDefinition Header="Длина, мм (L1)" Path="SqL1" Visibility="{Binding IsSquare,Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <dxprg:PropertyDefinition.EditSettings>
+                        <dxe:TextEditSettings Mask="f1"/>
+                    </dxprg:PropertyDefinition.EditSettings>
+                </dxprg:PropertyDefinition>
+                <dxprg:PropertyDefinition Header="Ширина отв, мм (B1)" Path="SqB1" Visibility="{Binding IsSquare,Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <dxprg:PropertyDefinition.EditSettings>
+                        <dxe:TextEditSettings Mask="f1"/>
+                    </dxprg:PropertyDefinition.EditSettings>
+                </dxprg:PropertyDefinition>
+
+                <dxprg:PropertyDefinition Header="Формула для расчета" Path="MassFormula" Visibility="{Binding IsOther,Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <dxprg:PropertyDefinition.EditSettings>
+                        <dxe:TextEditSettings/>
+                    </dxprg:PropertyDefinition.EditSettings>
+                </dxprg:PropertyDefinition>
+
+            </dxprg:PropertyGridControl.PropertyDefinitions>
+        </dxprg:PropertyGridControl>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>
+            <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
+        </StackPanel>
+    </Grid>
+</dx:DXWindow>

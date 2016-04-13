@@ -152,6 +152,9 @@
     <Compile Include="View\Editors\DriverEditWindow.xaml.cs">
       <DependentUpon>DriverEditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Editors\MassCalculationEditWindow.xaml.cs">
+      <DependentUpon>MassCalculationEditWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Editors\RequestEditDXWindow.xaml.cs">
       <DependentUpon>RequestEditDXWindow.xaml</DependentUpon>
     </Compile>
@@ -188,6 +191,7 @@
     <Compile Include="View\Lists\DetailListWindow.xaml.cs">
       <DependentUpon>DetailListWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Lists\DetailTypeToItemsSource.cs" />
     <Compile Include="View\Lists\DictionaryListWindow.xaml.cs">
       <DependentUpon>DictionaryListWindow.xaml</DependentUpon>
     </Compile>
@@ -340,6 +344,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Editors\DriverEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\MassCalculationEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

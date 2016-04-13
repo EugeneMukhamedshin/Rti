@@ -61,6 +61,7 @@
     <Compile Include="EditViewModel\EquipmentEdit.cs" />
     <Compile Include="EditViewModel\AdditionalInfoEdit.cs" />
     <Compile Include="EditViewModel\ConstantEdit.cs" />
+    <Compile Include="EditViewModel\MassCalculationEdit.cs" />
     <Compile Include="EditViewModel\RequestEdit.cs" />
     <Compile Include="EditViewModel\MachineEdit.cs" />
     <Compile Include="EditViewModel\MeasureUnitEdit.cs" />
@@ -80,6 +81,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GeneratedViewModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\MassCalculationViewModel.cs" />
     <Compile Include="Entities\RequestDetailViewModel.cs" />
     <Compile Include="IComposite.cs" />
     <Compile Include="IValidatable.cs" />
