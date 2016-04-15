@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using NHibernate.Criterion;
-using NHibernate.Impl;
 using Rti.Model.Domain;
 
 namespace Rti.Model.Repository.NHibernate

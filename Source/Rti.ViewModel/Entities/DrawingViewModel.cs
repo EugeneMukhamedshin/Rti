@@ -8,7 +8,7 @@ namespace Rti.ViewModel.Entities
         {
             get
             {
-                return string.Format("Ø:{0:f3},Ä:{1:f3},Ò:{2:f3},ÂÄ:{3:f3},ÍÄ:{4:f3}",
+                return string.Format("{0} : {1} : {2} : {3} : {4}",
                     Width, Length, Thickness, InnerDiameter, OuterDiameter);
             }
         }

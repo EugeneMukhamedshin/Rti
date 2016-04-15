@@ -23,6 +23,11 @@ namespace Rti.App.View.Editors
         public DrawingMeasurementEditWindow()
         {
             InitializeComponent();
+            Loaded += DrawingMeasurementEditWindow_Loaded;
+        }
+
+        void DrawingMeasurementEditWindow_Loaded(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

@@ -10,6 +10,8 @@ using log4net.Config;
 using log4net.Util;
 using Rti.Model.Repository.NHibernate;
 using Rti.ViewModel;
+using Rti.ViewModel.EditViewModel;
+using Rti.ViewModel.Entities;
 using Rti.ViewModel.Lists;
 
 namespace Rti.App
@@ -52,6 +54,7 @@ namespace Rti.App
                     //var editViewModel = new RequestEdit("Заявка", new RequestViewModel(request, repositoryFactory), false, _viewService, repositoryFactory);
                     //editViewModel.Refresh();
                     //_viewService.ShowView(editViewModel, false, true);
+                    //var viewModel = new MassCalculationEdit("", new MassCalculationViewModel(repositoryFactory.GetMassCalculationRepository().GetById(0), repositoryFactory), false, _viewService, repositoryFactory);
                     var viewModel = new MainViewModel(_viewService, repositoryFactory);
                     viewModel.Refresh();
                     _viewService.ShowView(viewModel, false, true);

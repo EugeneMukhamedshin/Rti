@@ -1,0 +1,57 @@
+﻿<dx:DXWindow
+    x:Class="Rti.App.View.Editors.MassCalculationEditWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxprg="http://schemas.devexpress.com/winfx/2008/xaml/propertygrid"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:lists="clr-namespace:Rti.App.View.Lists"
+    xmlns:editViewModel="clr-namespace:Rti.ViewModel.EditViewModel;assembly=Rti.ViewModel"
+    Width="400" Height="290" MinWidth="380" MinHeight="290" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="32"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <Button Content="Типовые детали" Command="{Binding ShowDetailTypesCommand}" Margin="5" Width="120" HorizontalAlignment="Left"/>
+            <Label Content="Рассчитанная масса" Margin="5"/>
+            <Label Content="{Binding Entity.CalculatedMass}" Margin="5"/>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <dxprg:PropertyGridControl HeaderColumnMinWidth="300" SortMode="Definitions" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False" PropertyDefinitionsSource="{Binding Properties}">
+                    <dxprg:PropertyGridControl.PropertyDefinitionTemplateSelector>
+                    <lists:MapTemplateSelector>
+                        <lists:MapTemplateSelector.DefaultTemplate>
+                            <DataTemplate DataType="editViewModel:Property">
+                                <dxprg:PropertyDefinition Path="{Binding Path}" Header="{Binding Header}">
+                                    <dxprg:PropertyDefinition.EditSettings>
+                                        <dxe:TextSettings Mask="f2" MaskCulture="ru-RU"/>
+                                    </dxprg:PropertyDefinition.EditSettings>
+                                </dxprg:PropertyDefinition>
+                            </DataTemplate>
+                        </lists:MapTemplateSelector.DefaultTemplate>
+                        <lists:MapTemplateSelector.TemplateMaps>
+                            <lists:TemplateMap ObjectType="editViewModel:DetailTypeProperty">
+                                <lists:TemplateMap.Template>
+                                    <DataTemplate DataType="editViewModel:DetailTypeProperty">
+                                        <dxprg:PropertyDefinition Path="{Binding Path}" Header="{Binding Header}">
+                                            <dxprg:PropertyDefinition.EditSettings>
+                                                <dxe:ComboBoxEditSettings ItemsSource="{lists:DetailTypeToItemsSource}" DisplayMember="DisplayName" ValueMember="Value"/>
+                                            </dxprg:PropertyDefinition.EditSettings>
+                                        </dxprg:PropertyDefinition>
+                                    </DataTemplate>
+                                </lists:TemplateMap.Template>
+                            </lists:TemplateMap>
+                        </lists:MapTemplateSelector.TemplateMaps>
+                    </lists:MapTemplateSelector>
+                </dxprg:PropertyGridControl.PropertyDefinitionTemplateSelector>
+            </dxprg:PropertyGridControl>
+        </Grid>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>
+            <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
+        </StackPanel>
+    </Grid>
+</dx:DXWindow>

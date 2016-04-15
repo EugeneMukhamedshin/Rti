@@ -10,6 +10,7 @@ namespace Rti.ViewModel.EditViewModel
     {
         private string _name;
         protected readonly IViewService ViewService;
+        private TObject _entity;
 
         public DelegateCommand OkCommand { get; set; }
         public DelegateCommand CancelCommand { get; set; }
@@ -56,7 +57,11 @@ namespace Rti.ViewModel.EditViewModel
 
         protected virtual void OnInitialize() { }
 
-        public TObject Entity { get; set; }
+        public TObject Entity
+        {
+            get { return _entity; }
+            set { _entity = value; }
+        }
 
         public bool Validate()
         {

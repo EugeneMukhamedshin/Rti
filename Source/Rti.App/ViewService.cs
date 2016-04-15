@@ -58,6 +58,7 @@ namespace Rti.App
             AddToRegistry<DrawingList, DrawingListWindow>();
             AddToRegistry<DrawingEdit, DrawingEditWindow>();
             AddToRegistry<DrawingMeasurementEdit, DrawingMeasurementEditWindow>();
+            AddToRegistry<MassCalculationEdit, MassCalculationEditWindow>();
         }
 
         private void AddToRegistry<TViewModel, TView>()

@@ -11,8 +11,6 @@ namespace Rti.ViewModel.Lists
 {
     public class DrawingList : EntityList<DrawingViewModel, Drawing>, IClosable
     {
-        //public DelegateCommand AddDrawingCommand { get; set; }
-        //public DelegateCommand OpenMassCalculationCommand { get; set; }
         public DelegateCommand PrevPageCommand { get; set; }
         public DelegateCommand NextPageCommand { get; set; }
 
@@ -21,14 +19,6 @@ namespace Rti.ViewModel.Lists
 
         public DrawingList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
         {
-            //AddDrawingCommand = new DelegateCommand(
-            //    "Добавить новый чертеж",
-            //    o => true,
-            //    o => AddDrawing());
-            //OpenMassCalculationCommand = new DelegateCommand(
-            //    "Открыть расчет массы",
-            //    o => true,
-            //    o => OpenMassCalculation());
             TypeMaps.Add(new Tuple<Type, Type>(typeof(DrawingViewModel), typeof(DrawingEdit)));
 
             PrevPageCommand = new DelegateCommand(
@@ -69,22 +59,9 @@ namespace Rti.ViewModel.Lists
             return RepositoryFactory.GetDrawingRepository().GetPage(Page, PageSize).Select(o => new DrawingViewModel(o, RepositoryFactory));
         }
 
-        //private void AddDrawing()
-        //{
-        //    var drawing = DoCreateNewEntity();
-        //    Items.Add(drawing);
-        //    SelectedItem = drawing;
-        //}
-
         protected override DrawingViewModel DoCreateNewEntity()
         {
 
-            //var drawing = new DrawingViewModel(null, RepositoryFactory)
-            //{
-            //    SortOrder = Items.Any() ? Items.Max(o => o.SortOrder) + 1 : 1,
-            //    Name = "Новый чертеж"
-            //};
-            //OpenViewModelEditWindow(drawing, "Новый чертеж", false);
             return new DrawingViewModel(null, RepositoryFactory)
             {
                 SortOrder = Items.Any() ? Items.Max(o => o.SortOrder) + 1 : 1,
@@ -103,33 +80,8 @@ namespace Rti.ViewModel.Lists
             return searchText.ContainedIn(entity.Name, entity.Note, entity.SortOrder);
         }
 
-        protected override void OnSelectedItemChanging()
-        {
-            base.OnSelectedItemChanging();
-            //if (SelectedItem != null)
-            //    try
-            //    {
-            //        if (SelectedItem.IsChanged)
-            //            SelectedItem.SaveEntity();
-            //    }
-            //    catch (ValidateException ex)
-            //    {
-            //        ViewService.ShowMessage(new MessageViewModel("Ошибка", ex.Message, true));
-            //    }
-        }
-
-        private void OpenMassCalculation()
-        {
-        }
-
         public bool CanClose()
         {
-            //if (Items.Any(drawing => !drawing.IsValid))
-            //{
-            //    return
-            //        ViewService.ShowConfirmation(new MessageViewModel("Внимание",
-            //            "Есть записи с ошибками, они не будут сохранены. Закрыть окно?", true));
-            //}
             return true;
         }
 

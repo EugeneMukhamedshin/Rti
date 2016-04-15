@@ -197,8 +197,6 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Map(o => o.AdditionalInfo, "additional_info");
 
-			Map(o => o.Code, "code");
-
 			Map(o => o.MassWithShruff, "mass_with_shruff");
 
 			Map(o => o.Price, "price");
@@ -338,10 +336,6 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Map(o => o.IsDeleted, "is_deleted");
 
-			References(o => o.Group, "group_id").Fetch.Join().Not.LazyLoad();
-
-			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
-
 			OnInitialized();
 		}
 	}
@@ -479,7 +473,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Id(o => o.Id, "ID");
 
-			Map(o => o.DetailTypeEnum, "detail_type_enum");
+			Map(o => o.DetailTypeEnum, "detail_type_enum").CustomType<DetailType>();
 
 			Map(o => o.MaterialDensity, "material_density");
 

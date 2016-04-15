@@ -54,7 +54,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 							if (prop.PropertyType == typeof(byte[]))
 								continue;
 #>
-			Map(o => o.<#= prop.Name #>, "<#= fieldAttribute.FieldName #>");
+			Map(o => o.<#= prop.Name #>, "<#= fieldAttribute.FieldName #>")<#= fieldAttribute.FieldName.EndsWith("_enum") ? string.Format(".CustomType<{0}>()", prop.Name.Replace("Enum", string.Empty)) : string.Empty #>;
 <#
 						}
 					}

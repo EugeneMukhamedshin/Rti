@@ -5,13 +5,13 @@
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:dxprg="http://schemas.devexpress.com/winfx/2008/xaml/propertygrid"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
-    Width="470" Height="390" MinWidth="470" MinHeight="390" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
+    Width="470" Height="250" MinWidth="470" MinHeight="250" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
-        <dxprg:PropertyGridControl SortMode="Definitions" Grid.Row="0" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
+        <dxprg:PropertyGridControl SortMode="Definitions" Grid.Row="0" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity,PresentationTraceSources.TraceLevel=High}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
             <dxprg:PropertyGridControl.PropertyDefinitions>
                 <dxprg:PropertyDefinition Header="Ширина" Path="Width">
                     <dxprg:PropertyDefinition.EditSettings>
