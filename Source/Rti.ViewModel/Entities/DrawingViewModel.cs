@@ -8,11 +8,7 @@ namespace Rti.ViewModel.Entities
         {
             get
             {
-<<<<<<< HEAD
                 return string.Format("{0} : {1} : {2} : {3} : {4}",
-=======
-                return string.Format("{0:f3} : {1:f3} : {2:f3} : {3:f3} : {4:f3}",
->>>>>>> origin/develop
                     Width, Length, Thickness, InnerDiameter, OuterDiameter);
             }
         }
