@@ -1,15 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Forms;
 using Rti.App.View.Editors;
 using Rti.App.View.Lists;
 using Rti.ViewModel;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.ListViewModel;
+using Application = System.Windows.Application;
 using DrawingList = Rti.ViewModel.Lists.DrawingList;
 using EmployeeList = Rti.ViewModel.Lists.EmployeeList;
 using EquipmentList = Rti.ViewModel.Lists.EquipmentList;
 using MaterialList = Rti.ViewModel.Lists.MaterialList;
+using MessageBox = System.Windows.MessageBox;
 
 namespace Rti.App
 {
@@ -59,6 +62,9 @@ namespace Rti.App
             AddToRegistry<DrawingEdit, DrawingEditWindow>();
             AddToRegistry<DrawingMeasurementEdit, DrawingMeasurementEditWindow>();
             AddToRegistry<MassCalculationEdit, MassCalculationEditWindow>();
+
+            // Изображения
+            AddToRegistry<ImageEdit, ImageEditWindow>();
         }
 
         private void AddToRegistry<TViewModel, TView>()
@@ -113,27 +119,26 @@ namespace Rti.App
 
         public bool ShowFileDialog(ref string fileName, string filter, bool isSave = true)
         {
-            //if (isSave)
-            //    using (var fileDialog = new SaveFileDialog())
-            //    {
-            //        fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            //        fileDialog.FileName = fileName;
-            //        fileDialog.Filter = filter;
-            //        var res = fileDialog.ShowDialog() == DialogResult.OK;
-            //        fileName = fileDialog.FileName;
-            //        return res;
-            //    }
-            //else
-            //    using (var fileDialog = new OpenFileDialog())
-            //    {
-            //        fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            //        fileDialog.FileName = fileName;
-            //        fileDialog.Filter = filter;
-            //        var res = fileDialog.ShowDialog() == DialogResult.OK;
-            //        fileName = fileDialog.FileName;
-            //        return res;
-            //    }
-            return false;
+            if (isSave)
+                using (var fileDialog = new SaveFileDialog())
+                {
+                    fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    fileDialog.FileName = fileName;
+                    fileDialog.Filter = filter;
+                    var res = fileDialog.ShowDialog() == DialogResult.OK;
+                    fileName = fileDialog.FileName;
+                    return res;
+                }
+            else
+                using (var fileDialog = new OpenFileDialog())
+                {
+                    fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    fileDialog.FileName = fileName;
+                    fileDialog.Filter = filter;
+                    var res = fileDialog.ShowDialog() == DialogResult.OK;
+                    fileName = fileDialog.FileName;
+                    return res;
+                }
         }
 
         private Window GetWindow(BaseViewModel viewModel)

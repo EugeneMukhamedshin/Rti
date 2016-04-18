@@ -87,6 +87,7 @@
     <Compile Include="Repository\Interfaces\IEmployeeRepository.cs" />
     <Compile Include="Repository\Interfaces\IEquipmentRepository.cs" />
     <Compile Include="Repository\Interfaces\IGroupRepository.cs" />
+    <Compile Include="Repository\Interfaces\IImageRepository.cs" />
     <Compile Include="Repository\Interfaces\IJobRepository.cs" />
     <Compile Include="Repository\Interfaces\IMachineRepository.cs" />
     <Compile Include="Repository\Interfaces\IMaterialRepository.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Repository\NHibernate\EmployeeRepository.cs" />
     <Compile Include="Repository\NHibernate\EquipmentRepository.cs" />
     <Compile Include="Repository\NHibernate\GroupRepository.cs" />
+    <Compile Include="Repository\NHibernate\ImageRepository.cs" />
     <Compile Include="Repository\NHibernate\JobRepository.cs" />
     <Compile Include="Repository\NHibernate\MachineRepository.cs" />
     <Compile Include="Repository\NHibernate\MaterialRepository.cs" />

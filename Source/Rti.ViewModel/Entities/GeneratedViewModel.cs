@@ -1400,9 +1400,8 @@ namespace Rti.ViewModel.Entities
         }
 	}
 
-
-	// The viewmodel for Image
-	public partial class ImageViewModel : EntityViewModel<Rti.Model.Domain.Image, ImageViewModel>
+    // The viewmodel for Image
+    public partial class ImageViewModel : EntityViewModel<Rti.Model.Domain.Image, ImageViewModel>
 	{
 		// Конструктор для маппинга
 		public ImageViewModel() { }

@@ -65,6 +65,7 @@
     <Compile Include="EditViewModel\EquipmentEdit.cs" />
     <Compile Include="EditViewModel\AdditionalInfoEdit.cs" />
     <Compile Include="EditViewModel\ConstantEdit.cs" />
+    <Compile Include="EditViewModel\ImageEdit.cs" />
     <Compile Include="EditViewModel\MassCalculationEdit.cs" />
     <Compile Include="EditViewModel\RequestEdit.cs" />
     <Compile Include="EditViewModel\MachineEdit.cs" />

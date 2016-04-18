@@ -1,0 +1,22 @@
+﻿<dx:DXWindow
+    x:Class="Rti.App.View.Editors.ImageEditWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    Width="470" Height="460" MinWidth="470" MinHeight="460" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="32"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Content="Загрузить" Command="{Binding UploadImageCommand}" Width="90" Margin="5" TabIndex="0"></Button>
+        </StackPanel>
+        <Image Source="{Binding Entity.Data}" Grid.Row="1" Margin="5" Stretch="Fill"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>
+            <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
+        </StackPanel>
+    </Grid>
+</dx:DXWindow>

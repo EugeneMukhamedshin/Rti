@@ -10,10 +10,14 @@
     Width="470" Height="460" MinWidth="470" MinHeight="460" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
-        <dxprg:PropertyGridControl Margin="5" SortMode="Definitions" Grid.Row="0" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Content="Просмотр" Command="{Binding OpenDrawingImageCommand}" Width="90" Margin="5" TabIndex="0"></Button>
+        </StackPanel>
+        <dxprg:PropertyGridControl Margin="5" SortMode="Definitions" Grid.Row="1" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
             <dxprg:PropertyGridControl.PropertyDefinitions>
                 <dxprg:PropertyDefinition Path="SortOrder" Header="Артикул" IsReadOnly="True" Width="40"/>
                 <dxprg:PropertyDefinition Path="Name" Header="Чертеж" Width="80">
@@ -227,7 +231,7 @@
                 </dxprg:PropertyDefinition>
             </dxprg:PropertyGridControl.PropertyDefinitions>
         </dxprg:PropertyGridControl>
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>
             <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
         </StackPanel>

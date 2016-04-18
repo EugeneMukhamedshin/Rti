@@ -19,6 +19,7 @@ namespace Rti.ViewModel.EditViewModel
 
         public DelegateCommand OpenMassCalculationCommand { get; set; }
         public DelegateCommand OpenDrawingMeasurementEditCommand { get; set; }
+        public DelegateCommand OpenDrawingImageCommand { get; set; }
 
         public DrawingEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
@@ -31,6 +32,10 @@ namespace Rti.ViewModel.EditViewModel
                 "Изменить размеры",
                 o => true,
                 o => OpenDrawingMeasurementEdit());
+            OpenDrawingImageCommand = new DelegateCommand(
+                "Просмотреть",
+                o => true,
+                o => OpenDrawingImage());
         }
 
         public override void Refresh()
@@ -47,7 +52,9 @@ namespace Rti.ViewModel.EditViewModel
 
         private void OpenMassCalculationEdit()
         {
-            var massCalculation = Entity.MassCalculation ?? new MassCalculationViewModel(null, RepositoryFactory);
+            var massCalculation = Entity.MassCalculation == null
+                ? new MassCalculationViewModel(null, RepositoryFactory)
+                : Entity.MassCalculation.Clone();
             var editor = new MassCalculationEdit("Расчет массы", massCalculation, ReadOnly, ViewService, RepositoryFactory);
             if (ViewService.ShowViewDialog(editor) == true)
             {
@@ -67,6 +74,22 @@ namespace Rti.ViewModel.EditViewModel
             if (ViewService.ShowViewDialog(viewModel) == true)
             {
                 clone.CopyTo(Entity);
+            }
+        }
+
+        private void OpenDrawingImage()
+        {
+            var drawingImage = Entity.DrawingImage == null
+                ? new ImageViewModel(null, RepositoryFactory)
+                : Entity.DrawingImage.Clone();
+            var viewModel = new ImageEdit("Просмотр чертежа", drawingImage, Entity.DrawingImage == null ? 0 : Entity.DrawingImage.Id, ReadOnly, ViewService, RepositoryFactory);
+            viewModel.Refresh();
+            if (ViewService.ShowViewDialog(viewModel) == true)
+            {
+                if (Entity.DrawingImage == null)
+                    Entity.DrawingImage = drawingImage;
+                else
+                    drawingImage.CopyTo(Entity.DrawingImage);
             }
         }
 
