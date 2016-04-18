@@ -24,7 +24,7 @@ namespace Rti.ViewModel.Lists
         {
             return new MaterialViewModel(null, RepositoryFactory)
             {
-                SortOrder = Items.Max(o => o.SortOrder) + 1,
+                SortOrder = Items.Any() ? Items.Max(o => o.SortOrder) + 1 : 1,
                 Name = "Новый материал"
             };
         }
