@@ -318,9 +318,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="image024.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Rti.Model\Rti.Model.csproj">
       <Project>{DAEE8322-1220-41C8-A2E4-6AEA2A0EF8E3}</Project>
       <Name>Rti.Model</Name>
@@ -493,6 +490,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\DetailTypes.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

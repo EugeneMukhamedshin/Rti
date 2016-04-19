@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using Rti.Model.Domain;
 using Rti.ViewModel.Calculation;
 
@@ -11,7 +11,7 @@ namespace Rti.ViewModel.Entities
             get
             {
                 var mass = CalculateMass();
-                return mass == null ? "Недостаточно данных" : string.Format("{0:f3}", mass);
+                return mass == null ? "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґР°РЅРЅС‹С…" : string.Format("{0:f3}", mass);
             }
         }
 

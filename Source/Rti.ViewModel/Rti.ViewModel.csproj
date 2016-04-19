@@ -65,6 +65,7 @@
     <Compile Include="EditViewModel\EquipmentEdit.cs" />
     <Compile Include="EditViewModel\AdditionalInfoEdit.cs" />
     <Compile Include="EditViewModel\ConstantEdit.cs" />
+    <Compile Include="EditViewModel\FlowsheetEdit.cs" />
     <Compile Include="EditViewModel\ImageEdit.cs" />
     <Compile Include="EditViewModel\MassCalculationEdit.cs" />
     <Compile Include="EditViewModel\RequestEdit.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Lists\DrawingList.cs" />
     <Compile Include="Lists\EmployeeList.cs" />
     <Compile Include="Lists\EquipmentList.cs" />
+    <Compile Include="Lists\FlowsheetEquipmentList.cs" />
     <Compile Include="Lists\MaterialList.cs" />
     <Compile Include="ListViewModel\DetailList.cs" />
     <Compile Include="ListViewModel\DetailListItem.cs" />

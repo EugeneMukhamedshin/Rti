@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.IO;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
@@ -12,9 +14,16 @@ namespace Rti.ViewModel.EditViewModel
     {
         private readonly Dictionary<DetailType, List<Property>> _detailTypeProperties;
 
+        public DelegateCommand ShowDetailTypesCommand { get; set; }
+
         public MassCalculationEdit(string name, MassCalculationViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {
+            ShowDetailTypesCommand = new DelegateCommand(
+                "Типы деталей",
+                o => true,
+                o => ShowDetailTypes());
+
             var detailType = new DetailTypeProperty("DetailTypeEnum", "Тип детали");
 
             var p = new Property("MaterialDensity", "Плотность материала, г/см3 (P)");
@@ -146,6 +155,14 @@ namespace Rti.ViewModel.EditViewModel
             };
 
             Entity.PropertyChanged += Entity_PropertyChanged;
+        }
+
+        private void ShowDetailTypes()
+        {
+            var imageData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content", "DetailTypes.jpg"));
+            var viewer = new ImageEdit("Типы деталей", imageData, true, ViewService, RepositoryFactory);
+            viewer.IsIsUploadCommandAvailable = false;
+            ViewService.ShowViewDialog(viewer);
         }
 
         private void Entity_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

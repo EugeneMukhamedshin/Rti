@@ -20,5 +20,12 @@ namespace Rti.ViewModel.Entities
                 new ValidationRule(o => o.Name != null, "Не задано наименование чертежа")
             };
         }
+
+        protected override void OnPropertyChanged(string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+            if (propertyName.In("Width", "Length", "Thickness", "InnerDiameter", "OuterDiameter"))
+                OnPropertyChanged("Measurements");
+        }
     }
 }

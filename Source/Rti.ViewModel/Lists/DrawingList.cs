@@ -61,7 +61,6 @@ namespace Rti.ViewModel.Lists
 
         protected override DrawingViewModel DoCreateNewEntity()
         {
-
             return new DrawingViewModel(null, RepositoryFactory)
             {
                 SortOrder = Items.Any() ? Items.Max(o => o.SortOrder) + 1 : 1,

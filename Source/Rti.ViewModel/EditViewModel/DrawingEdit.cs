@@ -20,6 +20,7 @@ namespace Rti.ViewModel.EditViewModel
         public DelegateCommand OpenMassCalculationCommand { get; set; }
         public DelegateCommand OpenDrawingMeasurementEditCommand { get; set; }
         public DelegateCommand OpenDrawingImageCommand { get; set; }
+        public DelegateCommand OpenFlowsheetCommand { get; set; }
 
         public DrawingEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
@@ -36,6 +37,10 @@ namespace Rti.ViewModel.EditViewModel
                 "Просмотреть",
                 o => true,
                 o => OpenDrawingImage());
+            OpenFlowsheetCommand = new DelegateCommand(
+                "Технологическая карта",
+                o => true,
+                o => OpenFlowsheet());
         }
 
         public override void Refresh()
@@ -100,6 +105,23 @@ namespace Rti.ViewModel.EditViewModel
                     Entity.DrawingImage = image;
                 }
                 Entity.DrawingImage.Data = viewModel.Entity.Data;
+            }
+        }
+
+        private void OpenFlowsheet()
+        {
+            var flowsheet = Entity.Flowsheet == null
+                ? new FlowsheetViewModel(null, RepositoryFactory)
+                : Entity.Flowsheet.Clone();
+            var viewModel = new FlowsheetEdit("Технологическая карта", flowsheet, ReadOnly, ViewService, RepositoryFactory);
+            if (ViewService.ShowViewDialog(viewModel) == true)
+            {
+                if (Entity.Flowsheet == null)
+                    Entity.Flowsheet = flowsheet;
+                else
+                    flowsheet.CopyTo(Entity.Flowsheet);
+                Entity.Flowsheet.SaveEntity();
+                Entity.SaveEntity();
             }
         }
 
