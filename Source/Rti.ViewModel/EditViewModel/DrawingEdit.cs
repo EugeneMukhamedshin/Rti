@@ -50,6 +50,13 @@ namespace Rti.ViewModel.EditViewModel
             MethodsSource = new Lazy<List<MethodViewModel>>(() => RepositoryFactory.GetMethodRepository().GetAllActive().Select(o => new MethodViewModel(o, RepositoryFactory)).ToList());
         }
 
+        protected override void DoInternalSave()
+        {
+            base.DoInternalSave();
+            Entity.DrawingImage.SaveEntity();
+            RepositoryFactory.GetImageRepository().SaveData(Entity.DrawingImage.Id, Entity.DrawingImage.Data);
+        }
+
         private void OpenMassCalculationEdit()
         {
             var massCalculation = Entity.MassCalculation == null
@@ -79,17 +86,20 @@ namespace Rti.ViewModel.EditViewModel
 
         private void OpenDrawingImage()
         {
-            var drawingImage = Entity.DrawingImage == null
-                ? new ImageViewModel(null, RepositoryFactory)
-                : Entity.DrawingImage.Clone();
-            var viewModel = new ImageEdit("Просмотр чертежа", drawingImage, Entity.DrawingImage == null ? 0 : Entity.DrawingImage.Id, ReadOnly, ViewService, RepositoryFactory);
+            var imageData = new byte[] {};
+            if (Entity.DrawingImage != null)
+                imageData = Entity.DrawingImage.Data ?? RepositoryFactory.GetImageRepository().GetData(Entity.DrawingImage.Id);
+            
+            var viewModel = new ImageEdit("Просмотр чертежа", imageData, ReadOnly, ViewService, RepositoryFactory);
             viewModel.Refresh();
             if (ViewService.ShowViewDialog(viewModel) == true)
             {
                 if (Entity.DrawingImage == null)
-                    Entity.DrawingImage = drawingImage;
-                else
-                    drawingImage.CopyTo(Entity.DrawingImage);
+                {
+                    var image = new ImageViewModel(null, RepositoryFactory);
+                    Entity.DrawingImage = image;
+                }
+                Entity.DrawingImage.Data = viewModel.Entity.Data;
             }
         }
 

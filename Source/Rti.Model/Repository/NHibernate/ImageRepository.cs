@@ -13,7 +13,7 @@ namespace Rti.Model.Repository.NHibernate
                         .SetParameter(0, imageId)
                         .UniqueResult(),
                 string.Format("Получение изображения Id = {0}", imageId));
-            return result == null ? null : (byte[])((object[])result)[0];
+            return result == null ? null : (byte[])result;
         }
 
         public void SaveData(int imageId, byte[] data)

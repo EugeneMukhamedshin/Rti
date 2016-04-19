@@ -1,14 +1,11 @@
 using System.IO;
-using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
-using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
 
 namespace Rti.ViewModel.EditViewModel
 {
-    public class ImageEdit : EditEntityViewModel<ImageViewModel, Image>
+    public class ImageEdit : EditViewModel<ImageDataViewModel>
     {
-        private int _entityId;
         private bool _isUploadCommandAvailable = true;
         public DelegateCommand UploadImageCommand { get; set; }
 
@@ -23,9 +20,8 @@ namespace Rti.ViewModel.EditViewModel
             }
         }
 
-        public ImageEdit(string name, ImageViewModel entity, int entityId, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) : base(name, entity, readOnly, viewService, repositoryFactory)
+        public ImageEdit(string name, byte[] imageData, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) : base(name, new ImageDataViewModel {Data = imageData}, readOnly, viewService, repositoryFactory)
         {
-            _entityId = entityId;
             UploadImageCommand = new DelegateCommand(
                 "Загрузить изображение",
                 o => Editable && IsIsUploadCommandAvailable,
@@ -38,23 +34,21 @@ namespace Rti.ViewModel.EditViewModel
             if (ViewService.ShowFileDialog(ref fileName, "Изображения (*.jpg)|*.jpg", false))
                 Entity.Data = File.ReadAllBytes(fileName);
         }
+    }
 
-        public override void Refresh()
+    public class ImageDataViewModel : BaseViewModel
         {
-            base.Refresh();
-            if (Entity.Data == null)
-                Entity.Data = RepositoryFactory.GetImageRepository().GetData(_entityId);
-        }
+        private byte[] _data;
 
-        protected override void DoInternalSave()
+        public byte[] Data
         {
-            base.DoInternalSave();
-            if (Entity.IsNewEntity)
+            get { return _data; }
+            set
             {
-                Entity.SaveEntity();
-                _entityId = Entity.Id;
+                if (Equals(value, _data)) return;
+                _data = value;
+                OnPropertyChanged();
             }
-            RepositoryFactory.GetImageRepository().SaveData(_entityId, Entity.Data);
         }
     }
 }
