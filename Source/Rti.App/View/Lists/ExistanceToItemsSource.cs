@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Linq;
 using System.Windows.Markup;
 using Rti.Model.Domain;
@@ -22,15 +22,15 @@ namespace Rti.App.View.Lists
             switch (existance)
             {
                 case Existance.Exist:
-                    return "В работе";
+                    return "Р’ СЂР°Р±РѕС‚Рµ";
                 case Existance.NotExist:
-                    return "Отсутствует";
+                    return "РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚";
                 case Existance.InMaintenance:
-                    return "В ремонте";
+                    return "Р’ СЂРµРјРѕРЅС‚Рµ";
                 case Existance.Lost:
-                    return "Утеряна";
+                    return "РЈС‚РµСЂСЏРЅР°";
                 case Existance.InProduction:
-                    return "Изготовление";
+                    return "РР·РіРѕС‚РѕРІР»РµРЅРёРµ";
             }
             return null;
         }

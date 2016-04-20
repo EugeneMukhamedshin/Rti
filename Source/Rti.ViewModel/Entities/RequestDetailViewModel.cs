@@ -14,9 +14,9 @@ namespace Rti.ViewModel.Entities
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
+            base.OnPropertyChanged(propertyName);
             if (propertyName == "Count" || propertyName == "Price")
                 Sum = Count * Price;
-            base.OnPropertyChanged(propertyName);
         }
     }
 }

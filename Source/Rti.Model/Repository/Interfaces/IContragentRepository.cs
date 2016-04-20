@@ -5,6 +5,6 @@ namespace Rti.Model.Repository.Interfaces
 {
     public partial interface IContragentRepository
     {
-        IList<Contragent> GetAllActive(int contragentType);
+        IList<Contragent> GetAllActive(ContragentType contragentType);
     }
 }

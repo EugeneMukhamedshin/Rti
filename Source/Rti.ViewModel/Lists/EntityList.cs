@@ -39,7 +39,7 @@ namespace Rti.ViewModel.Lists
                 OnSelectedItemChanging();
                 _selectedItem = value;
                 OnPropertyChanged();
-                RequeryCommands();
+                RequeryCommandsOnSelectionChanged();
             }
         }
 
@@ -153,7 +153,7 @@ namespace Rti.ViewModel.Lists
 
         protected abstract bool AcceptFind(TEntityViewModel entity, string searchText);
 
-        private void RequeryCommands()
+        protected virtual void RequeryCommandsOnSelectionChanged()
         {
             AddEntityCommand.RequeryCanExecute();
             DeleteEntityCommand.RequeryCanExecute();

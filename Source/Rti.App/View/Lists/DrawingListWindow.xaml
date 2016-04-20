@@ -65,6 +65,9 @@
                     <dxg:TableView AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>
             </dxg:GridControl>
+            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                <Button Content="Тех. карта" Command="{Binding OpenFlowsheetCommand}" Width="90" Margin="5" TabIndex="1000"></Button>
+            </StackPanel>
         </Grid>
         <Border Opacity="0.8" Visibility="{Binding IsLoading,Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel VerticalAlignment="Center">

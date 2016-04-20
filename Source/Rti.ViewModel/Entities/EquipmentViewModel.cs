@@ -5,17 +5,11 @@ namespace Rti.ViewModel.Entities
 {
     partial class EquipmentViewModel
     {
-        public Existance ExistanceEnum
-        {
-            get { return (Existance)Existance; }
-            set { Existance = (int) value; }
-        }
-
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
+            base.OnPropertyChanged(propertyName);
             if (propertyName == "FormCount" || propertyName == "SlotCount")
                 Output = FormCount * SlotCount;
-            base.OnPropertyChanged(propertyName);
         }
     }
 }

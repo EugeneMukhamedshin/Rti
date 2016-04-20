@@ -179,6 +179,9 @@
     <Compile Include="View\Editors\DriverEditWindow.xaml.cs">
       <DependentUpon>DriverEditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Editors\FlowsheetEditWindow.xaml.cs">
+      <DependentUpon>FlowsheetEditWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Editors\ImageEditWindow.xaml.cs">
       <DependentUpon>ImageEditWindow.xaml</DependentUpon>
     </Compile>
@@ -371,6 +374,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Editors\DriverEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\FlowsheetEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -55,7 +55,7 @@ namespace Rti.App
                     //editViewModel.Refresh();
                     //_viewService.ShowView(editViewModel, false, true);
                     //var viewModel = new MassCalculationEdit("", new MassCalculationViewModel(repositoryFactory.GetMassCalculationRepository().GetById(0), repositoryFactory), false, _viewService, repositoryFactory);
-                    var viewModel = new MainViewModel(_viewService, repositoryFactory);
+                    var viewModel = new DrawingList(true, _viewService, repositoryFactory);
                     viewModel.Refresh();
                     _viewService.ShowView(viewModel, false, true);
                 }

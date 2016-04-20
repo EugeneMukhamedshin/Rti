@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
@@ -12,23 +11,22 @@ namespace Rti.ViewModel.EditViewModel
 {
     public class FlowsheetEdit: EditEntityViewModel<FlowsheetViewModel, Flowsheet>
     {
-        public FlowsheetEquipmentList FlowsheetEquipmentList { get; set; }
+        public FlowsheetMachineList FlowsheetMachineList { get; set; }
 
-        public FlowsheetEdit(string name, FlowsheetViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) : base(name, entity, readOnly, viewService, repositoryFactory)
+        public Lazy<List<ContragentViewModel>> CustomersSource { get; set; }
+
+        public FlowsheetEdit(string name, FlowsheetViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
+            : base(name, entity, readOnly, viewService, repositoryFactory)
         {
-            FlowsheetEquipmentList = new FlowsheetEquipmentList(entity, Editable, ViewService, RepositoryFactory);
+            FlowsheetMachineList = new FlowsheetMachineList(entity, Editable, ViewService, RepositoryFactory);
+
+            CustomersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(ContragentType.Customer).Select(o => new ContragentViewModel(o, RepositoryFactory)).ToList());
         }
 
         public override void Refresh()
         {
             base.Refresh();
-            FlowsheetEquipmentList.Refresh();
-        }
-
-        protected override void DoInternalSave()
-        {
-            base.DoInternalSave();
-            FlowsheetEquipmentList.SaveChanges();
+            FlowsheetMachineList.Refresh();
         }
     }
 }

@@ -62,8 +62,8 @@ namespace Rti.Model.Domain
 		public virtual Int32 SortOrder { get; set; }
 		[Field("name")]
 		public virtual String Name { get; set; }
-		[Field("type")]
-		public virtual Int32 Type { get; set; }
+		[Field("contragent_type_enum")]
+		public virtual ContragentType ContragentTypeEnum { get; set; }
 		[Field("address")]
 		public virtual String Address { get; set; }
 		[Field("director")]
@@ -174,8 +174,6 @@ namespace Rti.Model.Domain
 		public virtual Method Method { get; set; }
 		[Reference("drawing_image_id")]
 		public virtual Image DrawingImage { get; set; }
-		[Reference("flowsheet_id")]
-		public virtual Flowsheet Flowsheet { get; set; }
 	}
 
 	// The class for drivers
@@ -228,8 +226,8 @@ namespace Rti.Model.Domain
 		public virtual Int32 SortOrder { get; set; }
 		[Field("name")]
 		public virtual String Name { get; set; }
-		[Field("existance")]
-		public virtual Int32 Existance { get; set; }
+		[Field("existance_enum")]
+		public virtual Existance ExistanceEnum { get; set; }
 		[Field("square")]
 		public virtual Double Square { get; set; }
 		[Field("form_count")]
@@ -242,10 +240,6 @@ namespace Rti.Model.Domain
 		public virtual String Note { get; set; }
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
-		[Reference("group_id")]
-		public virtual Group Group { get; set; }
-		[Reference("drawing_id")]
-		public virtual Drawing Drawing { get; set; }
 	}
 
 	// The class for flowsheets
@@ -256,15 +250,17 @@ namespace Rti.Model.Domain
 		public virtual Int32 Id { get; protected set; }
 		[Field("note")]
 		public virtual String Note { get; set; }
+		[Reference("drawing_id")]
+		public virtual Drawing Drawing { get; set; }
 		[Reference("customer_id")]
 		public virtual Contragent Customer { get; set; }
-		[Reference("secondary_custormer_id")]
-		public virtual Contragent SecondaryCustormer { get; set; }
+		[Reference("secondary_customer_id")]
+		public virtual Contragent SecondaryCustomer { get; set; }
 	}
 
-	// The class for flowsheet_equipments
-	[Table("flowsheet_equipments")]
-	public partial class FlowsheetEquipment: IIdentifiedEntity
+	// The class for flowsheet_machines
+	[Table("flowsheet_machines")]
+	public partial class FlowsheetMachine: IIdentifiedEntity
 	{
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
@@ -276,8 +272,8 @@ namespace Rti.Model.Domain
 		public virtual Double? CureTime { get; set; }
 		[Reference("flowsheet_id")]
 		public virtual Flowsheet Flowsheet { get; set; }
-		[Reference("equipment_id")]
-		public virtual Equipment Equipment { get; set; }
+		[Reference("machine_id")]
+		public virtual Machine Machine { get; set; }
 	}
 
 	// The class for groups

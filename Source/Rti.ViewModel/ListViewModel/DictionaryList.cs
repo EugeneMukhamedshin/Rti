@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Commands;
 using Rti.ViewModel.EditViewModel;
@@ -26,13 +27,13 @@ namespace Rti.ViewModel.ListViewModel
                     new DictionaryListItem(this, RepositoryFactory) { Name = "Группы", DictionaryViewModel = new GroupList(true, ViewService, RepositoryFactory) },
                     new DictionaryListItem(this, RepositoryFactory) { Name = "Детали", DictionaryViewModel = new DetailList(true, ViewService, RepositoryFactory) },
                     new DictionaryListItem(this, RepositoryFactory) { Name = "Способы изготовления", DictionaryViewModel = new MethodList(true, ViewService, RepositoryFactory) },
-                    new DictionaryListItem(this, RepositoryFactory) { Name = "Заказчики", DictionaryViewModel = new ContragentList(0, true, ViewService, RepositoryFactory) },
-                    new DictionaryListItem(this, RepositoryFactory) { Name = "Поставщики", DictionaryViewModel = new ContragentList(1, true, ViewService, RepositoryFactory) },
+                    new DictionaryListItem(this, RepositoryFactory) { Name = "Заказчики", DictionaryViewModel = new ContragentList(ContragentType.Customer, true, ViewService, RepositoryFactory) },
+                    new DictionaryListItem(this, RepositoryFactory) { Name = "Поставщики", DictionaryViewModel = new ContragentList(ContragentType.Supplier, true, ViewService, RepositoryFactory) },
                     new DictionaryListItem(this, RepositoryFactory) { Name = "Должности", DictionaryViewModel = new JobList(true, ViewService, RepositoryFactory) },
                     new DictionaryListItem(this, RepositoryFactory) { Name = "Сотрудники", DictionaryViewModel = new EmployeeList(true, ViewService, RepositoryFactory) },
                     new DictionaryListItem(this, RepositoryFactory) { Name = "Единицы измерения", DictionaryViewModel = new MeasureUnitList(true, ViewService, RepositoryFactory) },
                     new DictionaryListItem(this, RepositoryFactory) { Name = "Водители", DictionaryViewModel = new DriverList(true, ViewService, RepositoryFactory) },
-                    new DictionaryListItem(this, RepositoryFactory) { Name = "Оснастка", DictionaryViewModel = new EquipmentList(true, ViewService, RepositoryFactory) },
+                    //new DictionaryListItem(this, RepositoryFactory) { Name = "Оснастка", DictionaryViewModel = new EquipmentList(true, ViewService, RepositoryFactory) },
                     new DictionaryListItem(this, RepositoryFactory) { Name = "Доп. информация", DictionaryViewModel = new AdditionalInfoList(true, ViewService, RepositoryFactory) },
                     new DictionaryListItem(this, RepositoryFactory) { Name = "Оборудование", DictionaryViewModel = new MachineList(true, ViewService, RepositoryFactory) },
                     _constantDictionaryListItem

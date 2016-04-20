@@ -61,12 +61,13 @@
     </Compile>
     <Compile Include="Domain\ActionType.cs" />
     <Compile Include="Domain\Authorization\ActionCode.cs" />
+    <Compile Include="Domain\ContragentType.cs" />
     <Compile Include="Domain\DetailType.cs" />
     <Compile Include="Domain\Existance.cs" />
     <Compile Include="Domain\GeneratedDomain1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>GeneratedDomain.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Domain\Generator\Entity.cs" />
     <Compile Include="Domain\Generator\EntityDeclaration.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Repository\Interfaces\IEmployeeRepository.cs" />
     <Compile Include="Repository\Interfaces\IEquipmentRepository.cs" />
     <Compile Include="Repository\Interfaces\IFlowsheetEquipmentRepository.cs" />
+    <Compile Include="Repository\Interfaces\IFlowsheetRepository.cs" />
     <Compile Include="Repository\Interfaces\IGroupRepository.cs" />
     <Compile Include="Repository\Interfaces\IImageRepository.cs" />
     <Compile Include="Repository\Interfaces\IJobRepository.cs" />
@@ -118,6 +120,7 @@
     <Compile Include="Repository\NHibernate\EmployeeRepository.cs" />
     <Compile Include="Repository\NHibernate\EquipmentRepository.cs" />
     <Compile Include="Repository\NHibernate\FlowsheetEquipmentRepository.cs" />
+    <Compile Include="Repository\NHibernate\FlowsheetRepository.cs" />
     <Compile Include="Repository\NHibernate\GroupRepository.cs" />
     <Compile Include="Repository\NHibernate\ImageRepository.cs" />
     <Compile Include="Repository\NHibernate\JobRepository.cs" />

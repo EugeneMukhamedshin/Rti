@@ -96,7 +96,7 @@
     <Compile Include="Lists\DrawingList.cs" />
     <Compile Include="Lists\EmployeeList.cs" />
     <Compile Include="Lists\EquipmentList.cs" />
-    <Compile Include="Lists\FlowsheetEquipmentList.cs" />
+    <Compile Include="Lists\FlowsheetMachineList.cs" />
     <Compile Include="Lists\MaterialList.cs" />
     <Compile Include="ListViewModel\DetailList.cs" />
     <Compile Include="ListViewModel\DetailListItem.cs" />

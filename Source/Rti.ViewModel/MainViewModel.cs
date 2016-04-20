@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
@@ -68,11 +69,11 @@ namespace Rti.ViewModel
             OpenCustomersCommand = new DelegateCommand(
                 "Справочники",
                 o => true,
-                o => OpenDictionary(new ContragentList(0, true, ViewService, RepositoryFactory)));
+                o => OpenDictionary(new ContragentList(ContragentType.Customer, true, ViewService, RepositoryFactory)));
             OpenVendorsCommand  = new DelegateCommand(
                 "Справочники",
                 o => true,
-                o => OpenDictionary(new ContragentList(1, true, ViewService, RepositoryFactory)));
+                o => OpenDictionary(new ContragentList(ContragentType.Supplier, true, ViewService, RepositoryFactory)));
             OpenDriversCommand  = new DelegateCommand(
                 "Справочники",
                 o => true,

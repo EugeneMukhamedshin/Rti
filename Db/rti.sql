@@ -1,8 +1,8 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 6.3.358.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 19.04.2016 22:47:54
--- Версия сервера: 5.7.9-log
+-- Дата скрипта: 20.04.2016 18:22:05
+-- Версия сервера: 5.6.26-log
 -- Версия клиента: 4.1
 --
 
@@ -81,7 +81,7 @@ CREATE TABLE contragents (
   id INT(11) NOT NULL AUTO_INCREMENT,
   sort_order INT(11) NOT NULL,
   name VARCHAR(1000) NOT NULL,
-  type INT(11) NOT NULL COMMENT 'тип контрагента (0 - заказчик, 1 - поставщик)',
+  contragent_type_enum INT(11) NOT NULL COMMENT 'тип контрагента (0 - заказчик, 1 - поставщик)',
   address VARCHAR(1000) DEFAULT NULL,
   director VARCHAR(1000) DEFAULT NULL,
   trustee VARCHAR(1000) DEFAULT NULL,
@@ -148,6 +148,31 @@ AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 COMMENT = 'водители'
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы equipments
+--
+DROP TABLE IF EXISTS equipments;
+CREATE TABLE equipments (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  sort_order INT(11) NOT NULL,
+  name VARCHAR(1000) NOT NULL,
+  existance_enum INT(11) NOT NULL,
+  square DOUBLE NOT NULL,
+  form_count INT(11) NOT NULL,
+  slot_count INT(11) NOT NULL,
+  output INT(11) NOT NULL,
+  note VARCHAR(1000) DEFAULT NULL,
+  is_deleted INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (id)
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 3
+AVG_ROW_LENGTH = 8192
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'оснастки'
 ROW_FORMAT = DYNAMIC;
 
 --
@@ -337,75 +362,6 @@ COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
 
 --
--- Описание для таблицы employees
---
-DROP TABLE IF EXISTS employees;
-CREATE TABLE employees (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  sort_order INT(11) NOT NULL,
-  code VARCHAR(255) NOT NULL,
-  full_name VARCHAR(1000) NOT NULL,
-  job_id INT(11) NOT NULL,
-  note VARCHAR(1000) DEFAULT NULL,
-  is_deleted INT(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (id),
-  CONSTRAINT FK_employees_jobs_id FOREIGN KEY (job_id)
-    REFERENCES jobs(id) ON DELETE RESTRICT ON UPDATE RESTRICT
-)
-ENGINE = INNODB
-AUTO_INCREMENT = 2
-AVG_ROW_LENGTH = 16384
-CHARACTER SET utf8
-COLLATE utf8_general_ci
-COMMENT = 'сотрудники'
-ROW_FORMAT = DYNAMIC;
-
---
--- Описание для таблицы flowsheets
---
-DROP TABLE IF EXISTS flowsheets;
-CREATE TABLE flowsheets (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  customer_id INT(11) NOT NULL,
-  secondary_custormer_id INT(11) DEFAULT NULL,
-  note VARCHAR(1000) DEFAULT NULL,
-  PRIMARY KEY (id),
-  CONSTRAINT FK_flowsheets_customers_id FOREIGN KEY (customer_id)
-    REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_flowsheets_sec_customers_id FOREIGN KEY (secondary_custormer_id)
-    REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT
-)
-ENGINE = INNODB
-AUTO_INCREMENT = 1
-CHARACTER SET utf8
-COLLATE utf8_general_ci
-COMMENT = 'технологические карты'
-ROW_FORMAT = DYNAMIC;
-
---
--- Описание для таблицы requests
---
-DROP TABLE IF EXISTS requests;
-CREATE TABLE requests (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  number INT(11) NOT NULL,
-  reg_date DATETIME NOT NULL,
-  ship_date DATETIME DEFAULT NULL,
-  lead_time INT(11) DEFAULT NULL,
-  customer_id INT(11) DEFAULT NULL,
-  is_deleted INT(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (id),
-  CONSTRAINT FK_requests_contragents_id FOREIGN KEY (customer_id)
-    REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT
-)
-ENGINE = INNODB
-AUTO_INCREMENT = 43
-AVG_ROW_LENGTH = 3276
-CHARACTER SET utf8
-COLLATE utf8_general_ci
-ROW_FORMAT = DYNAMIC;
-
---
 -- Описание для таблицы drawings
 --
 DROP TABLE IF EXISTS drawings;
@@ -436,61 +392,104 @@ CREATE TABLE drawings (
   drawing_image_id INT(11) DEFAULT NULL,
   note VARCHAR(500) DEFAULT NULL,
   is_deleted INT(11) NOT NULL DEFAULT 0,
-  flowsheet_id INT(11) DEFAULT NULL COMMENT 'технологическая карта',
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  CONSTRAINT FK_drawings_details_id FOREIGN KEY (detail_id)
+    REFERENCES details(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_equipments_id FOREIGN KEY (equipment_id)
+    REFERENCES equipments(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_groups_id FOREIGN KEY (group_id)
+    REFERENCES groups(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_images_id FOREIGN KEY (drawing_image_id)
+    REFERENCES images(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_mass_calculations_id FOREIGN KEY (mass_calculation_id)
+    REFERENCES mass_calculations(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_materials_bp_id FOREIGN KEY (material_by_passport_id)
+    REFERENCES materials(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_materials_id FOREIGN KEY (material_id)
+    REFERENCES materials(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_measure_units_id FOREIGN KEY (measure_unit_id)
+    REFERENCES measure_units(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_methods_id FOREIGN KEY (method_id)
+    REFERENCES methods(id) ON DELETE NO ACTION ON UPDATE NO ACTION
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 8
+AUTO_INCREMENT = 10
 AVG_ROW_LENGTH = 2730
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
 
 --
--- Описание для таблицы equipments
+-- Описание для таблицы employees
 --
-DROP TABLE IF EXISTS equipments;
-CREATE TABLE equipments (
+DROP TABLE IF EXISTS employees;
+CREATE TABLE employees (
   id INT(11) NOT NULL AUTO_INCREMENT,
   sort_order INT(11) NOT NULL,
-  group_id INT(11) NOT NULL,
-  drawing_id INT(11) NOT NULL,
-  name VARCHAR(1000) NOT NULL,
-  existance INT(11) NOT NULL,
-  square DOUBLE NOT NULL,
-  form_count INT(11) NOT NULL,
-  slot_count INT(11) NOT NULL,
-  output INT(11) NOT NULL,
+  code VARCHAR(255) NOT NULL,
+  full_name VARCHAR(1000) NOT NULL,
+  job_id INT(11) NOT NULL,
   note VARCHAR(1000) DEFAULT NULL,
   is_deleted INT(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  CONSTRAINT FK_employees_jobs_id FOREIGN KEY (job_id)
+    REFERENCES jobs(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 3
-AVG_ROW_LENGTH = 8192
+AUTO_INCREMENT = 2
+AVG_ROW_LENGTH = 16384
 CHARACTER SET utf8
 COLLATE utf8_general_ci
-COMMENT = 'оснастки'
+COMMENT = 'сотрудники'
 ROW_FORMAT = DYNAMIC;
 
 --
--- Описание для таблицы flowsheet_equipments
+-- Описание для таблицы requests
 --
-DROP TABLE IF EXISTS flowsheet_equipments;
-CREATE TABLE flowsheet_equipments (
+DROP TABLE IF EXISTS requests;
+CREATE TABLE requests (
   id INT(11) NOT NULL AUTO_INCREMENT,
-  flowsheet_id INT(11) NOT NULL,
-  sort_order INT(11) NOT NULL,
-  equipment_id INT(11) NOT NULL,
-  plate_temperature DOUBLE DEFAULT NULL,
-  cure_time DOUBLE DEFAULT NULL,
-  PRIMARY KEY (id)
+  number INT(11) NOT NULL,
+  reg_date DATETIME NOT NULL,
+  ship_date DATETIME DEFAULT NULL,
+  lead_time INT(11) DEFAULT NULL,
+  customer_id INT(11) DEFAULT NULL,
+  is_deleted INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_requests_contragents_id FOREIGN KEY (customer_id)
+    REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 43
+AVG_ROW_LENGTH = 3276
 CHARACTER SET utf8
 COLLATE utf8_general_ci
-COMMENT = 'Оборудование технологической карты'
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы flowsheets
+--
+DROP TABLE IF EXISTS flowsheets;
+CREATE TABLE flowsheets (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  drawing_id INT(11) NOT NULL,
+  customer_id INT(11) NOT NULL,
+  secondary_customer_id INT(11) DEFAULT NULL,
+  note VARCHAR(1000) DEFAULT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_flowsheets_customers_id FOREIGN KEY (customer_id)
+    REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_flowsheets_drawings_id FOREIGN KEY (drawing_id)
+    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_flowsheets_sec_customers_id FOREIGN KEY (secondary_customer_id)
+    REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 4
+AVG_ROW_LENGTH = 8192
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'технологические карты'
 ROW_FORMAT = DYNAMIC;
 
 --
@@ -515,7 +514,17 @@ CREATE TABLE request_details (
   note VARCHAR(1000) DEFAULT NULL,
   is_deleted INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (id),
-  UNIQUE INDEX UK_request_details (request_id, sort_order)
+  UNIQUE INDEX UK_request_details (request_id, sort_order),
+  CONSTRAINT FK_request_details_details_id FOREIGN KEY (detail_id)
+    REFERENCES details(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_request_details_drawings_id FOREIGN KEY (drawing_id)
+    REFERENCES drawings(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_request_details_groups_id FOREIGN KEY (group_id)
+    REFERENCES groups(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_request_details_materials_id FOREIGN KEY (material_id)
+    REFERENCES materials(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_request_details_requests_id FOREIGN KEY (request_id)
+    REFERENCES requests(id) ON DELETE NO ACTION ON UPDATE NO ACTION
 )
 ENGINE = INNODB
 AUTO_INCREMENT = 13
@@ -524,81 +533,29 @@ CHARACTER SET utf8
 COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
 
-ALTER TABLE drawings
-ADD CONSTRAINT FK_drawings_details_id FOREIGN KEY (detail_id)
-REFERENCES details (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-ALTER TABLE drawings
-ADD CONSTRAINT FK_drawings_equipments_id FOREIGN KEY (equipment_id)
-REFERENCES equipments (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-ALTER TABLE drawings
-ADD CONSTRAINT FK_drawings_flowsheets_id FOREIGN KEY (flowsheet_id)
-REFERENCES flowsheets (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE drawings
-ADD CONSTRAINT FK_drawings_groups_id FOREIGN KEY (group_id)
-REFERENCES groups (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-ALTER TABLE drawings
-ADD CONSTRAINT FK_drawings_images_id FOREIGN KEY (drawing_image_id)
-REFERENCES images (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-ALTER TABLE drawings
-ADD CONSTRAINT FK_drawings_mass_calculations_id FOREIGN KEY (mass_calculation_id)
-REFERENCES mass_calculations (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-ALTER TABLE drawings
-ADD CONSTRAINT FK_drawings_materials_bp_id FOREIGN KEY (material_by_passport_id)
-REFERENCES materials (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-ALTER TABLE drawings
-ADD CONSTRAINT FK_drawings_materials_id FOREIGN KEY (material_id)
-REFERENCES materials (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-ALTER TABLE drawings
-ADD CONSTRAINT FK_drawings_measure_units_id FOREIGN KEY (measure_unit_id)
-REFERENCES measure_units (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-ALTER TABLE drawings
-ADD CONSTRAINT FK_drawings_methods_id FOREIGN KEY (method_id)
-REFERENCES methods (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-ALTER TABLE equipments
-ADD CONSTRAINT FK_equipments_drawings_id FOREIGN KEY (drawing_id)
-REFERENCES drawings (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-ALTER TABLE equipments
-ADD CONSTRAINT FK_equipments_groups_id FOREIGN KEY (group_id)
-REFERENCES groups (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-ALTER TABLE flowsheet_equipments
-ADD CONSTRAINT FK_flowsheet_equipments_equipments_id FOREIGN KEY (equipment_id)
-REFERENCES equipments (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE flowsheet_equipments
-ADD CONSTRAINT FK_flowsheet_equipments_flowsheets_id FOREIGN KEY (flowsheet_id)
-REFERENCES flowsheets (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE request_details
-ADD CONSTRAINT FK_request_details_details_id FOREIGN KEY (detail_id)
-REFERENCES details (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-ALTER TABLE request_details
-ADD CONSTRAINT FK_request_details_drawings_id FOREIGN KEY (drawing_id)
-REFERENCES drawings (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-ALTER TABLE request_details
-ADD CONSTRAINT FK_request_details_groups_id FOREIGN KEY (group_id)
-REFERENCES groups (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-ALTER TABLE request_details
-ADD CONSTRAINT FK_request_details_materials_id FOREIGN KEY (material_id)
-REFERENCES materials (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-ALTER TABLE request_details
-ADD CONSTRAINT FK_request_details_requests_id FOREIGN KEY (request_id)
-REFERENCES requests (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
+--
+-- Описание для таблицы flowsheet_equipments
+--
+DROP TABLE IF EXISTS flowsheet_equipments;
+CREATE TABLE flowsheet_equipments (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  flowsheet_id INT(11) NOT NULL,
+  sort_order INT(11) NOT NULL,
+  equipment_id INT(11) NOT NULL,
+  plate_temperature DOUBLE DEFAULT NULL,
+  cure_time DOUBLE DEFAULT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_flowsheet_equipments_equipments_id FOREIGN KEY (equipment_id)
+    REFERENCES equipments(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_flowsheet_equipments_flowsheets_id FOREIGN KEY (flowsheet_id)
+    REFERENCES flowsheets(id) ON DELETE NO ACTION ON UPDATE NO ACTION
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 1
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'Оборудование технологической карты'
+ROW_FORMAT = DYNAMIC;
 
 -- 
 -- Вывод данных для таблицы additional_infos
@@ -634,6 +591,13 @@ INSERT INTO details VALUES
 INSERT INTO drivers VALUES
 (1, 1, 'газель', 'а100аа777', 'Бикмамбетов', '999999', 0),
 (2, 2, 'ывпа', 'фывпаыпав', 'фывпаыфва', 'фываыфвавыф', 0);
+
+-- 
+-- Вывод данных для таблицы equipments
+--
+INSERT INTO equipments VALUES
+(1, 1, 'Оснастка1', 1, 1.123, 12, 1, 12, '1ыфв сфыва ыфавп ыва ывап ывап ывап ывап выа выап выап выап выап ывап выап вып', 1),
+(2, 1, 'Новая оснастка', 0, 0, 2, 3, 6, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы groups
@@ -702,16 +666,21 @@ INSERT INTO methods VALUES
 (2, 2, 'fv swerg ', 'werg werg  wergwerrg werg', 1);
 
 -- 
+-- Вывод данных для таблицы drawings
+--
+INSERT INTO drawings VALUES
+(1, '2016-04-12 22:38:59', 1, 'Чертеж1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(3, '2016-04-12 22:39:02', 3, 'Чуртеж2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(4, '2016-04-12 22:39:04', 4, 'Чартеж3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(5, '2016-04-12 22:39:14', 5, 'Чэртеж4', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, 0),
+(6, '2016-04-12 22:39:11', 6, 'Чыртеж5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(7, '2016-04-12 22:39:17', 7, 'Чяртеж6', 3, 1, NULL, 5, 7, 1, NULL, 1, NULL, 1200, 201, 1500, 2, 1, 12, 3, 23, 4, NULL, 1, 'qq af sdfg rtg werg wergf', 0);
+
+-- 
 -- Вывод данных для таблицы employees
 --
 INSERT INTO employees VALUES
 (1, 1, '1236546', 'Я Я Я321', 1, NULL, 0);
-
--- 
--- Вывод данных для таблицы flowsheets
---
-
--- Таблица rti.flowsheets не содержит данных
 
 -- 
 -- Вывод данных для таблицы requests
@@ -727,28 +696,11 @@ INSERT INTO requests VALUES
 (41, 8, '2016-03-30 00:00:00', '2016-04-21 00:00:00', NULL, 1, 0);
 
 -- 
--- Вывод данных для таблицы drawings
+-- Вывод данных для таблицы flowsheets
 --
-INSERT INTO drawings VALUES
-(1, '2016-04-12 22:38:59', 1, 'Чертеж1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL),
-(3, '2016-04-12 22:39:02', 3, 'Чуртеж2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL),
-(4, '2016-04-12 22:39:04', 4, 'Чартеж3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL),
-(5, '2016-04-12 22:39:14', 5, 'Чэртеж4', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, 0, NULL),
-(6, '2016-04-12 22:39:11', 6, 'Чыртеж5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL),
-(7, '2016-04-12 22:39:17', 7, 'Чяртеж6', 3, 1, NULL, 5, 7, 1, NULL, 1, NULL, 1200, 201, 1500, 2, 1, 12, 3, 23, 4, NULL, 1, 'qq af sdfg rtg werg wergf', 0, NULL);
-
--- 
--- Вывод данных для таблицы equipments
---
-INSERT INTO equipments VALUES
-(1, 1, 3, 5, 'Оснастка1', 1, 1.123, 12, 1, 12, '1ыфв сфыва ыфавп ыва ывап ывап ывап ывап выа выап выап выап выап ывап выап вып', 1),
-(2, 1, 2, 5, 'Новая оснастка', 0, 0, 0, 0, 0, NULL, 0);
-
--- 
--- Вывод данных для таблицы flowsheet_equipments
---
-
--- Таблица rti.flowsheet_equipments не содержит данных
+INSERT INTO flowsheets VALUES
+(1, 1, 2, 1, NULL),
+(3, 7, 2, 3, NULL);
 
 -- 
 -- Вывод данных для таблицы request_details
@@ -761,6 +713,12 @@ INSERT INTO request_details VALUES
 (9, 41, 9, 3, 3, NULL, 2, 'asdfasdfs', 123, 50, 200, NULL, 10000, NULL, NULL, 0),
 (10, 41, 10, 4, 1, 1, 0, NULL, NULL, 6.3, 0, NULL, 0, NULL, NULL, 0),
 (12, 41, 12, 4, NULL, 1, 1, NULL, 323, 8.9, 0, NULL, 0, NULL, NULL, 0);
+
+-- 
+-- Вывод данных для таблицы flowsheet_equipments
+--
+
+-- Таблица rti.flowsheet_equipments не содержит данных
 
 -- 
 -- Восстановить предыдущий режим SQL (SQL mode)

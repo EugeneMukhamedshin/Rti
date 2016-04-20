@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.Linq;
 using Rti.Model.Domain;
@@ -13,6 +13,7 @@ namespace Rti.ViewModel.Lists
     {
         public DelegateCommand PrevPageCommand { get; set; }
         public DelegateCommand NextPageCommand { get; set; }
+        public DelegateCommand OpenFlowsheetCommand { get; set; }
 
         public int Page { get; set; }
         public int PageSize { get; set; }
@@ -22,7 +23,7 @@ namespace Rti.ViewModel.Lists
             TypeMaps.Add(new Tuple<Type, Type>(typeof(DrawingViewModel), typeof(DrawingEdit)));
 
             PrevPageCommand = new DelegateCommand(
-                "Предыдущая страница",
+                "РџСЂРµРґС‹РґСѓС‰Р°СЏ СЃС‚СЂР°РЅРёС†Р°",
                 o => Page > 0,
                 o =>
                 {
@@ -30,13 +31,18 @@ namespace Rti.ViewModel.Lists
                     Refresh();
                 });
             NextPageCommand = new DelegateCommand(
-                "Следующая страница",
+                "РЎР»РµРґСѓСЋС‰Р°СЏ СЃС‚СЂР°РЅРёС†Р°",
                 o => true,
                 o =>
                 {
                     Page++;
                     Refresh();
                 });
+            OpenFlowsheetCommand = new DelegateCommand(
+               "РўРµС…РЅРѕР»РѕРіРёС‡РµСЃРєР°СЏ РєР°СЂС‚Р°",
+               o => SelectedItem != null,
+               o => OpenFlowsheet());
+
             Page = 0;
             PageSize = 15;
 
@@ -45,6 +51,19 @@ namespace Rti.ViewModel.Lists
 
         private void InitializeSources()
         {
+        }
+
+        private void OpenFlowsheet()
+        {
+            var flowsheet = new FlowsheetViewModel(RepositoryFactory.GetFlowsheetRepository().GetByDrawingId(SelectedItem.Id), RepositoryFactory);
+            flowsheet.Drawing = SelectedItem;
+            var viewModel = new FlowsheetEdit("РўРµС…РЅРѕР»РѕРіРёС‡РµСЃРєР°СЏ РєР°СЂС‚Р°", flowsheet, !EditMode, ViewService, RepositoryFactory);
+            viewModel.Refresh();
+            if (ViewService.ShowViewDialog(viewModel) == true)
+            {
+                viewModel.Entity.SaveEntity();
+                viewModel.FlowsheetMachineList.SaveChanges();
+            }
         }
 
         public override void Refresh()
@@ -64,7 +83,7 @@ namespace Rti.ViewModel.Lists
             return new DrawingViewModel(null, RepositoryFactory)
             {
                 SortOrder = Items.Any() ? Items.Max(o => o.SortOrder) + 1 : 1,
-                Name = "Новый чертеж"
+                Name = "РќРѕРІС‹Р№ С‡РµСЂС‚РµР¶"
             };
         }
 
@@ -77,6 +96,12 @@ namespace Rti.ViewModel.Lists
         protected override bool AcceptFind(DrawingViewModel entity, string searchText)
         {
             return searchText.ContainedIn(entity.Name, entity.Note, entity.SortOrder);
+        }
+
+        protected override void RequeryCommandsOnSelectionChanged()
+        {
+            base.RequeryCommandsOnSelectionChanged();
+            OpenFlowsheetCommand.RequeryCanExecute();
         }
 
         public bool CanClose()

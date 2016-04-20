@@ -66,7 +66,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Id(o => o.Id, "ID");
 			Map(o => o.SortOrder, "sort_order");
 			Map(o => o.Name, "name");
-			Map(o => o.Type, "type");
+			Map(o => o.ContragentTypeEnum, "contragent_type_enum").CustomType<ContragentType>();
 			Map(o => o.Address, "address");
 			Map(o => o.Director, "director");
 			Map(o => o.Trustee, "trustee");
@@ -146,7 +146,6 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			References(o => o.Equipment, "equipment_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Method, "method_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.DrawingImage, "drawing_image_id").Fetch.Join().Not.LazyLoad();
-			References(o => o.Flowsheet, "flowsheet_id").Fetch.Join().Not.LazyLoad();
 			OnInitialized();
 		}
 	}
@@ -209,15 +208,13 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Id(o => o.Id, "ID");
 			Map(o => o.SortOrder, "sort_order");
 			Map(o => o.Name, "name");
-			Map(o => o.Existance, "existance");
+			Map(o => o.ExistanceEnum, "existance_enum").CustomType<Existance>();
 			Map(o => o.Square, "square");
 			Map(o => o.FormCount, "form_count");
 			Map(o => o.SlotCount, "slot_count");
 			Map(o => o.Output, "output");
 			Map(o => o.Note, "note");
 			Map(o => o.IsDeleted, "is_deleted");
-			References(o => o.Group, "group_id").Fetch.Join().Not.LazyLoad();
-			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
 			OnInitialized();
 		}
 	}
@@ -235,29 +232,30 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Table("flowsheets");
 			Id(o => o.Id, "ID");
 			Map(o => o.Note, "note");
+			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Customer, "customer_id").Fetch.Join().Not.LazyLoad();
-			References(o => o.SecondaryCustormer, "secondary_custormer_id").Fetch.Join().Not.LazyLoad();
+			References(o => o.SecondaryCustomer, "secondary_customer_id").Fetch.Join().Not.LazyLoad();
 			OnInitialized();
 		}
 	}
 
-	// The classmap for flowsheet_equipments
-	public partial class FlowsheetEquipmentMap : BaseMap<Rti.Model.Domain.FlowsheetEquipment>
+	// The classmap for flowsheet_machines
+	public partial class FlowsheetMachineMap : BaseMap<Rti.Model.Domain.FlowsheetMachine>
 	{
-		public FlowsheetEquipmentMap()
+		public FlowsheetMachineMap()
 		{
 			Initialize();
 		}
 
 		private void Initialize()
 		{
-			Table("flowsheet_equipments");
+			Table("flowsheet_machines");
 			Id(o => o.Id, "ID");
 			Map(o => o.SortOrder, "sort_order");
 			Map(o => o.PlateTemperature, "plate_temperature");
 			Map(o => o.CureTime, "cure_time");
 			References(o => o.Flowsheet, "flowsheet_id").Fetch.Join().Not.LazyLoad();
-			References(o => o.Equipment, "equipment_id").Fetch.Join().Not.LazyLoad();
+			References(o => o.Machine, "machine_id").Fetch.Join().Not.LazyLoad();
 			OnInitialized();
 		}
 	}

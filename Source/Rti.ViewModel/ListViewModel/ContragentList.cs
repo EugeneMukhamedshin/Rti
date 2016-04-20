@@ -11,14 +11,14 @@ namespace Rti.ViewModel.ListViewModel
 {
     public class ContragentList : MasterDetailListViewModel<ContragentListItem>, IClosable
     {
-        private readonly int _listType;
+        private readonly ContragentType _listType;
 
         public string Name
         {
             get { return _listType == 0 ? "Заказчики" : "Поставщики"; }
         }
 
-        public ContragentList(int listType, bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory, HistoryContext historyContext = null)
+        public ContragentList(ContragentType listType, bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory, HistoryContext historyContext = null)
             : base(editMode, viewService, repositoryFactory, historyContext)
         {
             _listType = listType;
@@ -32,7 +32,7 @@ namespace Rti.ViewModel.ListViewModel
             var newEntity = new ContragentViewModel(null, RepositoryFactory)
             {
                 SortOrder = RootItems.Any() ? RootItems.Cast<ContragentListItem>().Max(item => item.SortOrder) + 1 : 1,
-                Type = _listType
+                ContragentTypeEnum = _listType
             };
             return OpenViewModelEditWindow<ContragentListItem, ContragentViewModel, Contragent>(newEntity,
                 string.Format("Добавление {0}", _listType == 0 ? "заказчика" : "поставщика"), false)

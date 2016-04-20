@@ -1,13 +1,11 @@
-using System;
 using System.Collections.Generic;
-using NHibernate;
 using Rti.Model.Domain;
 
 namespace Rti.Model.Repository.NHibernate
 {
-    public partial class FlowsheetEquipmentRepository
+    public partial class FlowsheetMachineRepository
     {
-        public IList<FlowsheetEquipment> GetByFlowsheetId(int flowsheetId)
+        public IList<FlowsheetMachine> GetByFlowsheetId(int flowsheetId)
         {
             return ExecuteFuncOnQueryOver(q => q.Where(o => o.Flowsheet.Id == flowsheetId).List());
         }

@@ -181,7 +181,7 @@ namespace Rti.ViewModel.Entities
 		private Int32 _id;
 		private Int32 _sortOrder;
 		private String _name;
-		private Int32 _type;
+		private ContragentType _contragentTypeEnum;
 		private String _address;
 		private String _director;
 		private String _trustee;
@@ -204,7 +204,7 @@ namespace Rti.ViewModel.Entities
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
 		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged("Name"); } }
-		public Int32 Type { get { return _type; } set { if (Equals(_type, value)) return; _type = value; OnPropertyChanged("Type"); } }
+		public ContragentType ContragentTypeEnum { get { return _contragentTypeEnum; } set { if (Equals(_contragentTypeEnum, value)) return; _contragentTypeEnum = value; OnPropertyChanged("ContragentTypeEnum"); } }
 		public String Address { get { return _address; } set { if (Equals(_address, value)) return; _address = value; OnPropertyChanged("Address"); } }
 		public String Director { get { return _director; } set { if (Equals(_director, value)) return; _director = value; OnPropertyChanged("Director"); } }
 		public String Trustee { get { return _trustee; } set { if (Equals(_trustee, value)) return; _trustee = value; OnPropertyChanged("Trustee"); } }
@@ -228,7 +228,7 @@ namespace Rti.ViewModel.Entities
 		{
 			Entity.SortOrder = SortOrder; 
 			Entity.Name = Name; 
-			Entity.Type = Type; 
+			Entity.ContragentTypeEnum = ContragentTypeEnum; 
 			Entity.Address = Address; 
 			Entity.Director = Director; 
 			Entity.Trustee = Trustee; 
@@ -254,7 +254,7 @@ namespace Rti.ViewModel.Entities
 			Id = Entity.Id; 
 			SortOrder = Entity.SortOrder; 
 			Name = Entity.Name; 
-			Type = Entity.Type; 
+			ContragentTypeEnum = Entity.ContragentTypeEnum; 
 			Address = Entity.Address; 
 			Director = Entity.Director; 
 			Trustee = Entity.Trustee; 
@@ -279,7 +279,7 @@ namespace Rti.ViewModel.Entities
 		{
 			target.SortOrder = SortOrder; 
 			target.Name = Name; 
-			target.Type = Type; 
+			target.ContragentTypeEnum = ContragentTypeEnum; 
 			target.Address = Address; 
 			target.Director = Director; 
 			target.Trustee = Trustee; 
@@ -415,7 +415,6 @@ namespace Rti.ViewModel.Entities
 		private EquipmentViewModel _equipment;
 		private MethodViewModel _method;
 		private ImageViewModel _drawingImage;
-		private FlowsheetViewModel _flowsheet;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public DateTime? CreationDate { get { return _creationDate; } set { if (Equals(_creationDate, value)) return; _creationDate = value; OnPropertyChanged("CreationDate"); } }
@@ -443,7 +442,6 @@ namespace Rti.ViewModel.Entities
 		public EquipmentViewModel Equipment { get { return _equipment; } set { _equipment = value; OnPropertyChanged("Equipment"); } }
 		public MethodViewModel Method { get { return _method; } set { _method = value; OnPropertyChanged("Method"); } }
 		public ImageViewModel DrawingImage { get { return _drawingImage; } set { _drawingImage = value; OnPropertyChanged("DrawingImage"); } }
-		public FlowsheetViewModel Flowsheet { get { return _flowsheet; } set { _flowsheet = value; OnPropertyChanged("Flowsheet"); } }
 
 		protected override void MapPropertiesToEntity()
 		{
@@ -472,7 +470,6 @@ namespace Rti.ViewModel.Entities
 			Entity.Equipment = Equipment == null ? null : Equipment.Entity; 
 			Entity.Method = Method == null ? null : Method.Entity; 
 			Entity.DrawingImage = DrawingImage == null ? null : DrawingImage.Entity; 
-			Entity.Flowsheet = Flowsheet == null ? null : Flowsheet.Entity; 
 		}
 
 		protected override void MapPropertiesFromEntity()
@@ -503,7 +500,6 @@ namespace Rti.ViewModel.Entities
 			Equipment = Entity.Equipment == null ? null : new EquipmentViewModel(Entity.Equipment, RepositoryFactory); 
 			Method = Entity.Method == null ? null : new MethodViewModel(Entity.Method, RepositoryFactory); 
 			DrawingImage = Entity.DrawingImage == null ? null : new ImageViewModel(Entity.DrawingImage, RepositoryFactory); 
-			Flowsheet = Entity.Flowsheet == null ? null : new FlowsheetViewModel(Entity.Flowsheet, RepositoryFactory); 
 		}
 
 		public override void CopyTo(DrawingViewModel target)
@@ -533,7 +529,6 @@ namespace Rti.ViewModel.Entities
 			target.Equipment = Equipment; 
 			target.Method = Method; 
 			target.DrawingImage = DrawingImage; 
-			target.Flowsheet = Flowsheet; 
 		}
 
 		public override DrawingViewModel Clone()
@@ -711,42 +706,36 @@ namespace Rti.ViewModel.Entities
 		private Int32 _id;
 		private Int32 _sortOrder;
 		private String _name;
-		private Int32 _existance;
+		private Existance _existanceEnum;
 		private Double _square;
 		private Int32 _formCount;
 		private Int32 _slotCount;
 		private Int32 _output;
 		private String _note;
 		private Boolean _isDeleted;
-		private GroupViewModel _group;
-		private DrawingViewModel _drawing;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
 		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged("Name"); } }
-		public Int32 Existance { get { return _existance; } set { if (Equals(_existance, value)) return; _existance = value; OnPropertyChanged("Existance"); } }
+		public Existance ExistanceEnum { get { return _existanceEnum; } set { if (Equals(_existanceEnum, value)) return; _existanceEnum = value; OnPropertyChanged("ExistanceEnum"); } }
 		public Double Square { get { return _square; } set { if (Equals(_square, value)) return; _square = value; OnPropertyChanged("Square"); } }
 		public Int32 FormCount { get { return _formCount; } set { if (Equals(_formCount, value)) return; _formCount = value; OnPropertyChanged("FormCount"); } }
 		public Int32 SlotCount { get { return _slotCount; } set { if (Equals(_slotCount, value)) return; _slotCount = value; OnPropertyChanged("SlotCount"); } }
 		public Int32 Output { get { return _output; } set { if (Equals(_output, value)) return; _output = value; OnPropertyChanged("Output"); } }
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
-		public GroupViewModel Group { get { return _group; } set { _group = value; OnPropertyChanged("Group"); } }
-		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
 
 		protected override void MapPropertiesToEntity()
 		{
 			Entity.SortOrder = SortOrder; 
 			Entity.Name = Name; 
-			Entity.Existance = Existance; 
+			Entity.ExistanceEnum = ExistanceEnum; 
 			Entity.Square = Square; 
 			Entity.FormCount = FormCount; 
 			Entity.SlotCount = SlotCount; 
 			Entity.Output = Output; 
 			Entity.Note = Note; 
 			Entity.IsDeleted = IsDeleted; 
-			Entity.Group = Group == null ? null : Group.Entity; 
-			Entity.Drawing = Drawing == null ? null : Drawing.Entity; 
 		}
 
 		protected override void MapPropertiesFromEntity()
@@ -754,30 +743,26 @@ namespace Rti.ViewModel.Entities
 			Id = Entity.Id; 
 			SortOrder = Entity.SortOrder; 
 			Name = Entity.Name; 
-			Existance = Entity.Existance; 
+			ExistanceEnum = Entity.ExistanceEnum; 
 			Square = Entity.Square; 
 			FormCount = Entity.FormCount; 
 			SlotCount = Entity.SlotCount; 
 			Output = Entity.Output; 
 			Note = Entity.Note; 
 			IsDeleted = Entity.IsDeleted; 
-			Group = Entity.Group == null ? null : new GroupViewModel(Entity.Group, RepositoryFactory); 
-			Drawing = Entity.Drawing == null ? null : new DrawingViewModel(Entity.Drawing, RepositoryFactory); 
 		}
 
 		public override void CopyTo(EquipmentViewModel target)
 		{
 			target.SortOrder = SortOrder; 
 			target.Name = Name; 
-			target.Existance = Existance; 
+			target.ExistanceEnum = ExistanceEnum; 
 			target.Square = Square; 
 			target.FormCount = FormCount; 
 			target.SlotCount = SlotCount; 
 			target.Output = Output; 
 			target.Note = Note; 
 			target.IsDeleted = IsDeleted; 
-			target.Group = Group; 
-			target.Drawing = Drawing; 
 		}
 
 		public override EquipmentViewModel Clone()
@@ -808,34 +793,39 @@ namespace Rti.ViewModel.Entities
 
 		private Int32 _id;
 		private String _note;
+		private DrawingViewModel _drawing;
 		private ContragentViewModel _customer;
-		private ContragentViewModel _secondaryCustormer;
+		private ContragentViewModel _secondaryCustomer;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
+		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
 		public ContragentViewModel Customer { get { return _customer; } set { _customer = value; OnPropertyChanged("Customer"); } }
-		public ContragentViewModel SecondaryCustormer { get { return _secondaryCustormer; } set { _secondaryCustormer = value; OnPropertyChanged("SecondaryCustormer"); } }
+		public ContragentViewModel SecondaryCustomer { get { return _secondaryCustomer; } set { _secondaryCustomer = value; OnPropertyChanged("SecondaryCustomer"); } }
 
 		protected override void MapPropertiesToEntity()
 		{
 			Entity.Note = Note; 
+			Entity.Drawing = Drawing == null ? null : Drawing.Entity; 
 			Entity.Customer = Customer == null ? null : Customer.Entity; 
-			Entity.SecondaryCustormer = SecondaryCustormer == null ? null : SecondaryCustormer.Entity; 
+			Entity.SecondaryCustomer = SecondaryCustomer == null ? null : SecondaryCustomer.Entity; 
 		}
 
 		protected override void MapPropertiesFromEntity()
 		{
 			Id = Entity.Id; 
 			Note = Entity.Note; 
+			Drawing = Entity.Drawing == null ? null : new DrawingViewModel(Entity.Drawing, RepositoryFactory); 
 			Customer = Entity.Customer == null ? null : new ContragentViewModel(Entity.Customer, RepositoryFactory); 
-			SecondaryCustormer = Entity.SecondaryCustormer == null ? null : new ContragentViewModel(Entity.SecondaryCustormer, RepositoryFactory); 
+			SecondaryCustomer = Entity.SecondaryCustomer == null ? null : new ContragentViewModel(Entity.SecondaryCustomer, RepositoryFactory); 
 		}
 
 		public override void CopyTo(FlowsheetViewModel target)
 		{
 			target.Note = Note; 
+			target.Drawing = Drawing; 
 			target.Customer = Customer; 
-			target.SecondaryCustormer = SecondaryCustormer; 
+			target.SecondaryCustomer = SecondaryCustomer; 
 		}
 
 		public override FlowsheetViewModel Clone()
@@ -856,27 +846,27 @@ namespace Rti.ViewModel.Entities
         }
 	}
 
-	// The viewmodel for FlowsheetEquipment
-	public partial class FlowsheetEquipmentViewModel : EntityViewModel<Rti.Model.Domain.FlowsheetEquipment, FlowsheetEquipmentViewModel>
+	// The viewmodel for FlowsheetMachine
+	public partial class FlowsheetMachineViewModel : EntityViewModel<Rti.Model.Domain.FlowsheetMachine, FlowsheetMachineViewModel>
 	{
 		// Конструктор для маппинга
-		public FlowsheetEquipmentViewModel() { }
+		public FlowsheetMachineViewModel() { }
 
-        public FlowsheetEquipmentViewModel(Rti.Model.Domain.FlowsheetEquipment entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+        public FlowsheetMachineViewModel(Rti.Model.Domain.FlowsheetMachine entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
 		private Int32 _id;
 		private Int32 _sortOrder;
 		private Double? _plateTemperature;
 		private Double? _cureTime;
 		private FlowsheetViewModel _flowsheet;
-		private EquipmentViewModel _equipment;
+		private MachineViewModel _machine;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
 		public Double? PlateTemperature { get { return _plateTemperature; } set { if (Equals(_plateTemperature, value)) return; _plateTemperature = value; OnPropertyChanged("PlateTemperature"); } }
 		public Double? CureTime { get { return _cureTime; } set { if (Equals(_cureTime, value)) return; _cureTime = value; OnPropertyChanged("CureTime"); } }
 		public FlowsheetViewModel Flowsheet { get { return _flowsheet; } set { _flowsheet = value; OnPropertyChanged("Flowsheet"); } }
-		public EquipmentViewModel Equipment { get { return _equipment; } set { _equipment = value; OnPropertyChanged("Equipment"); } }
+		public MachineViewModel Machine { get { return _machine; } set { _machine = value; OnPropertyChanged("Machine"); } }
 
 		protected override void MapPropertiesToEntity()
 		{
@@ -884,7 +874,7 @@ namespace Rti.ViewModel.Entities
 			Entity.PlateTemperature = PlateTemperature; 
 			Entity.CureTime = CureTime; 
 			Entity.Flowsheet = Flowsheet == null ? null : Flowsheet.Entity; 
-			Entity.Equipment = Equipment == null ? null : Equipment.Entity; 
+			Entity.Machine = Machine == null ? null : Machine.Entity; 
 		}
 
 		protected override void MapPropertiesFromEntity()
@@ -894,33 +884,33 @@ namespace Rti.ViewModel.Entities
 			PlateTemperature = Entity.PlateTemperature; 
 			CureTime = Entity.CureTime; 
 			Flowsheet = Entity.Flowsheet == null ? null : new FlowsheetViewModel(Entity.Flowsheet, RepositoryFactory); 
-			Equipment = Entity.Equipment == null ? null : new EquipmentViewModel(Entity.Equipment, RepositoryFactory); 
+			Machine = Entity.Machine == null ? null : new MachineViewModel(Entity.Machine, RepositoryFactory); 
 		}
 
-		public override void CopyTo(FlowsheetEquipmentViewModel target)
+		public override void CopyTo(FlowsheetMachineViewModel target)
 		{
 			target.SortOrder = SortOrder; 
 			target.PlateTemperature = PlateTemperature; 
 			target.CureTime = CureTime; 
 			target.Flowsheet = Flowsheet; 
-			target.Equipment = Equipment; 
+			target.Machine = Machine; 
 		}
 
-		public override FlowsheetEquipmentViewModel Clone()
+		public override FlowsheetMachineViewModel Clone()
 		{
-			var copy = new FlowsheetEquipmentViewModel(null, RepositoryFactory);
+			var copy = new FlowsheetMachineViewModel(null, RepositoryFactory);
 			CopyTo(copy);
 			return copy;
 		}
 
         public override int GetHashCode() { return _id; }
-        protected bool Equals(FlowsheetEquipmentViewModel other) { return _id == other._id; }
+        protected bool Equals(FlowsheetMachineViewModel other) { return _id == other._id; }
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((FlowsheetEquipmentViewModel) obj);
+            return Equals((FlowsheetMachineViewModel) obj);
         }
 	}
 
