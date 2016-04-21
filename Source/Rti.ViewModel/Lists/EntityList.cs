@@ -12,7 +12,7 @@ namespace Rti.ViewModel.Lists
     public abstract class EntityList<TEntityViewModel, TEntity> : BaseViewModel
         where TEntityViewModel : EntityViewModel<TEntity, TEntityViewModel> where TEntity : class, IIdentifiedEntity, new()
     {
-        private ObservableCollection<TEntityViewModel> _items;
+        private ObservableCollection<TEntityViewModel> _items = new ObservableCollection<TEntityViewModel>();
         private TEntityViewModel _selectedItem;
 
         protected readonly List<Tuple<Type, Type>> TypeMaps = new List<Tuple<Type, Type>>();

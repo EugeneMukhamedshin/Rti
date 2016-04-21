@@ -63,6 +63,7 @@ namespace Rti.ViewModel.Lists
             {
                 viewModel.Entity.SaveEntity();
                 viewModel.FlowsheetMachineList.SaveChanges();
+                viewModel.FlowsheetProcessList.SaveChanges();
             }
         }
 

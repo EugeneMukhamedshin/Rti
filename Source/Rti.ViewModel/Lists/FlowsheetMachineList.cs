@@ -33,11 +33,7 @@ namespace Rti.ViewModel.Lists
         }
         private void AddFlowsheetMachine()
         {
-            var newItem = new FlowsheetMachineViewModel(null, RepositoryFactory)
-            {
-                Flowsheet = Flowsheet,
-                SortOrder = Items.Any() ? Items.Max(item => item.SortOrder) + 1 : 1
-            };
+            var newItem = DoCreateNewEntity();
             Items.Add(newItem);
         }
 

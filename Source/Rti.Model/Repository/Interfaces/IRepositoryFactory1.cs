@@ -17,6 +17,7 @@ namespace Rti.Model.Repository.Interfaces
 		IEquipmentRepository GetEquipmentRepository();
 		IFlowsheetRepository GetFlowsheetRepository();
 		IFlowsheetMachineRepository GetFlowsheetMachineRepository();
+		IFlowsheetProcessRepository GetFlowsheetProcessRepository();
 		IGroupRepository GetGroupRepository();
 		IImageRepository GetImageRepository();
 		IJobRepository GetJobRepository();
@@ -39,6 +40,7 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IEquipmentRepository : IRepository<Rti.Model.Domain.Equipment> { }
 	public partial interface IFlowsheetRepository : IRepository<Rti.Model.Domain.Flowsheet> { }
 	public partial interface IFlowsheetMachineRepository : IRepository<Rti.Model.Domain.FlowsheetMachine> { }
+	public partial interface IFlowsheetProcessRepository : IRepository<Rti.Model.Domain.FlowsheetProcess> { }
 	public partial interface IGroupRepository : IRepository<Rti.Model.Domain.Group> { }
 	public partial interface IImageRepository : IRepository<Rti.Model.Domain.Image> { }
 	public partial interface IJobRepository : IRepository<Rti.Model.Domain.Job> { }

@@ -29,6 +29,8 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new FlowsheetRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.FlowsheetMachine))
                 return (IRepository<TEntity>)new FlowsheetMachineRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.FlowsheetProcess))
+                return (IRepository<TEntity>)new FlowsheetProcessRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Group))
                 return (IRepository<TEntity>)new GroupRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Image))
@@ -71,6 +73,8 @@ namespace Rti.Model.Repository.NHibernate
 		public IFlowsheetRepository GetFlowsheetRepository() { return (IFlowsheetRepository) GetRepository<Rti.Model.Domain.Flowsheet>(); }
 
 		public IFlowsheetMachineRepository GetFlowsheetMachineRepository() { return (IFlowsheetMachineRepository) GetRepository<Rti.Model.Domain.FlowsheetMachine>(); }
+
+		public IFlowsheetProcessRepository GetFlowsheetProcessRepository() { return (IFlowsheetProcessRepository) GetRepository<Rti.Model.Domain.FlowsheetProcess>(); }
 
 		public IGroupRepository GetGroupRepository() { return (IGroupRepository) GetRepository<Rti.Model.Domain.Group>(); }
 
@@ -204,6 +208,17 @@ namespace Rti.Model.Repository.NHibernate
 			var result = queryOver;
 			result = result.Fetch(o => o.Flowsheet).Default;
 			result = result.Fetch(o => o.Machine).Default;
+            return result;
+        }
+    }
+
+	public partial class FlowsheetProcessRepository : NHibernateRepository<Rti.Model.Domain.FlowsheetProcess>, IFlowsheetProcessRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.FlowsheetProcess, Rti.Model.Domain.FlowsheetProcess> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.FlowsheetProcess, Rti.Model.Domain.FlowsheetProcess> queryOver)
+        {
+			var result = queryOver;
+			result = result.Fetch(o => o.Flowsheet).Default;
             return result;
         }
     }

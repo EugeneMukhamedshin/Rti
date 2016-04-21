@@ -276,6 +276,28 @@ namespace Rti.Model.Domain
 		public virtual Machine Machine { get; set; }
 	}
 
+	// The class for flowsheet_processes
+	[Table("flowsheet_processes")]
+	public partial class FlowsheetProcess: IIdentifiedEntity
+	{
+		[Field("id")]
+		public virtual Int32 Id { get; protected set; }
+		[Field("sort_order")]
+		public virtual Int32? SortOrder { get; set; }
+		[Field("name")]
+		public virtual String Name { get; set; }
+		[Field("operation")]
+		public virtual String Operation { get; set; }
+		[Field("executor")]
+		public virtual String Executor { get; set; }
+		[Field("var_name")]
+		public virtual String VarName { get; set; }
+		[Field("norm_time")]
+		public virtual Double NormTime { get; set; }
+		[Reference("flowsheet_id")]
+		public virtual Flowsheet Flowsheet { get; set; }
+	}
+
 	// The class for groups
 	[Table("groups")]
 	public partial class Group: IIdentifiedEntity

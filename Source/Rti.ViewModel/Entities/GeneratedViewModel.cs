@@ -914,6 +914,84 @@ namespace Rti.ViewModel.Entities
         }
 	}
 
+	// The viewmodel for FlowsheetProcess
+	public partial class FlowsheetProcessViewModel : EntityViewModel<Rti.Model.Domain.FlowsheetProcess, FlowsheetProcessViewModel>
+	{
+		// Конструктор для маппинга
+		public FlowsheetProcessViewModel() { }
+
+        public FlowsheetProcessViewModel(Rti.Model.Domain.FlowsheetProcess entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+		private Int32 _id;
+		private Int32? _sortOrder;
+		private String _name;
+		private String _operation;
+		private String _executor;
+		private String _varName;
+		private Double _normTime;
+		private FlowsheetViewModel _flowsheet;
+
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+		public Int32? SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
+		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged("Name"); } }
+		public String Operation { get { return _operation; } set { if (Equals(_operation, value)) return; _operation = value; OnPropertyChanged("Operation"); } }
+		public String Executor { get { return _executor; } set { if (Equals(_executor, value)) return; _executor = value; OnPropertyChanged("Executor"); } }
+		public String VarName { get { return _varName; } set { if (Equals(_varName, value)) return; _varName = value; OnPropertyChanged("VarName"); } }
+		public Double NormTime { get { return _normTime; } set { if (Equals(_normTime, value)) return; _normTime = value; OnPropertyChanged("NormTime"); } }
+		public FlowsheetViewModel Flowsheet { get { return _flowsheet; } set { _flowsheet = value; OnPropertyChanged("Flowsheet"); } }
+
+		protected override void MapPropertiesToEntity()
+		{
+			Entity.SortOrder = SortOrder; 
+			Entity.Name = Name; 
+			Entity.Operation = Operation; 
+			Entity.Executor = Executor; 
+			Entity.VarName = VarName; 
+			Entity.NormTime = NormTime; 
+			Entity.Flowsheet = Flowsheet == null ? null : Flowsheet.Entity; 
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+			Id = Entity.Id; 
+			SortOrder = Entity.SortOrder; 
+			Name = Entity.Name; 
+			Operation = Entity.Operation; 
+			Executor = Entity.Executor; 
+			VarName = Entity.VarName; 
+			NormTime = Entity.NormTime; 
+			Flowsheet = Entity.Flowsheet == null ? null : new FlowsheetViewModel(Entity.Flowsheet, RepositoryFactory); 
+		}
+
+		public override void CopyTo(FlowsheetProcessViewModel target)
+		{
+			target.SortOrder = SortOrder; 
+			target.Name = Name; 
+			target.Operation = Operation; 
+			target.Executor = Executor; 
+			target.VarName = VarName; 
+			target.NormTime = NormTime; 
+			target.Flowsheet = Flowsheet; 
+		}
+
+		public override FlowsheetProcessViewModel Clone()
+		{
+			var copy = new FlowsheetProcessViewModel(null, RepositoryFactory);
+			CopyTo(copy);
+			return copy;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(FlowsheetProcessViewModel other) { return _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((FlowsheetProcessViewModel) obj);
+        }
+	}
+
 	// The viewmodel for Group
 	public partial class GroupViewModel : EntityViewModel<Rti.Model.Domain.Group, GroupViewModel>
 	{

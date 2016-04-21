@@ -88,6 +88,7 @@
     <Compile Include="Repository\Interfaces\IEmployeeRepository.cs" />
     <Compile Include="Repository\Interfaces\IEquipmentRepository.cs" />
     <Compile Include="Repository\Interfaces\IFlowsheetEquipmentRepository.cs" />
+    <Compile Include="Repository\Interfaces\IFlowsheetProcessRepository.cs" />
     <Compile Include="Repository\Interfaces\IFlowsheetRepository.cs" />
     <Compile Include="Repository\Interfaces\IGroupRepository.cs" />
     <Compile Include="Repository\Interfaces\IImageRepository.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Repository\NHibernate\EmployeeRepository.cs" />
     <Compile Include="Repository\NHibernate\EquipmentRepository.cs" />
     <Compile Include="Repository\NHibernate\FlowsheetEquipmentRepository.cs" />
+    <Compile Include="Repository\NHibernate\FlowsheetProcessRepository.cs" />
     <Compile Include="Repository\NHibernate\FlowsheetRepository.cs" />
     <Compile Include="Repository\NHibernate\GroupRepository.cs" />
     <Compile Include="Repository\NHibernate\ImageRepository.cs" />

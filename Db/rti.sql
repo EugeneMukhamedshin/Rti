@@ -1,8 +1,8 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 6.3.358.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 20.04.2016 18:22:05
--- Версия сервера: 5.6.26-log
+-- Дата скрипта: 21.04.2016 13:13:38
+-- Версия сервера: 5.7.9-log
 -- Версия клиента: 4.1
 --
 
@@ -168,7 +168,7 @@ CREATE TABLE equipments (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 5
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -534,27 +534,51 @@ COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
 
 --
--- Описание для таблицы flowsheet_equipments
+-- Описание для таблицы flowsheet_machines
 --
-DROP TABLE IF EXISTS flowsheet_equipments;
-CREATE TABLE flowsheet_equipments (
+DROP TABLE IF EXISTS flowsheet_machines;
+CREATE TABLE flowsheet_machines (
   id INT(11) NOT NULL AUTO_INCREMENT,
   flowsheet_id INT(11) NOT NULL,
   sort_order INT(11) NOT NULL,
-  equipment_id INT(11) NOT NULL,
+  machine_id INT(11) NOT NULL,
   plate_temperature DOUBLE DEFAULT NULL,
   cure_time DOUBLE DEFAULT NULL,
   PRIMARY KEY (id),
-  CONSTRAINT FK_flowsheet_equipments_equipments_id FOREIGN KEY (equipment_id)
-    REFERENCES equipments(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT FK_flowsheet_equipments_flowsheets_id FOREIGN KEY (flowsheet_id)
-    REFERENCES flowsheets(id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    REFERENCES flowsheets(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_flowsheet_machines_machines_id FOREIGN KEY (machine_id)
+    REFERENCES machines(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 4
+AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 COMMENT = 'Оборудование технологической карты'
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы flowsheet_processes
+--
+DROP TABLE IF EXISTS flowsheet_processes;
+CREATE TABLE flowsheet_processes (
+  id INT(11) NOT NULL,
+  flowsheet_id INT(11) DEFAULT NULL,
+  sort_order INT(11) DEFAULT NULL,
+  name VARCHAR(255) DEFAULT NULL,
+  operation VARCHAR(255) DEFAULT NULL,
+  executor VARCHAR(255) DEFAULT NULL,
+  var_name VARCHAR(50) DEFAULT NULL,
+  norm_time DOUBLE NOT NULL DEFAULT 0,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_flowsheet_processes_flowsheets_id FOREIGN KEY (flowsheet_id)
+    REFERENCES flowsheets(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'технологические процессы'
 ROW_FORMAT = DYNAMIC;
 
 -- 
@@ -597,7 +621,9 @@ INSERT INTO drivers VALUES
 --
 INSERT INTO equipments VALUES
 (1, 1, 'Оснастка1', 1, 1.123, 12, 1, 12, '1ыфв сфыва ыфавп ыва ывап ывап ывап ывап выа выап выап выап выап ывап выап вып', 1),
-(2, 1, 'Новая оснастка', 0, 0, 2, 3, 6, NULL, 0);
+(2, 1, 'Новая оснастка', 0, 0, 2, 3, 6, NULL, 0),
+(3, 2, 'Íîâàÿ îñíàñòêà', 0, 0, 0, 0, 0, NULL, 0),
+(4, 3, 'Нsadsdfvsdf', 0, 0, 0, 0, 0, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы groups
@@ -700,7 +726,7 @@ INSERT INTO requests VALUES
 --
 INSERT INTO flowsheets VALUES
 (1, 1, 2, 1, NULL),
-(3, 7, 2, 3, NULL);
+(3, 7, 2, 1, NULL);
 
 -- 
 -- Вывод данных для таблицы request_details
@@ -715,10 +741,17 @@ INSERT INTO request_details VALUES
 (12, 41, 12, 4, NULL, 1, 1, NULL, 323, 8.9, 0, NULL, 0, NULL, NULL, 0);
 
 -- 
--- Вывод данных для таблицы flowsheet_equipments
+-- Вывод данных для таблицы flowsheet_machines
+--
+INSERT INTO flowsheet_machines VALUES
+(1, 3, 1, 1, 12, 123),
+(3, 3, 2, 1, 321, 123);
+
+-- 
+-- Вывод данных для таблицы flowsheet_processes
 --
 
--- Таблица rti.flowsheet_equipments не содержит данных
+-- Таблица rti.flowsheet_processes не содержит данных
 
 -- 
 -- Восстановить предыдущий режим SQL (SQL mode)

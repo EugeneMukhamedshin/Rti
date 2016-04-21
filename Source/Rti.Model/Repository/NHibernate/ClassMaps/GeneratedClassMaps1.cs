@@ -260,6 +260,29 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 		}
 	}
 
+	// The classmap for flowsheet_processes
+	public partial class FlowsheetProcessMap : BaseMap<Rti.Model.Domain.FlowsheetProcess>
+	{
+		public FlowsheetProcessMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("flowsheet_processes");
+			Id(o => o.Id, "ID");
+			Map(o => o.SortOrder, "sort_order");
+			Map(o => o.Name, "name");
+			Map(o => o.Operation, "operation");
+			Map(o => o.Executor, "executor");
+			Map(o => o.VarName, "var_name");
+			Map(o => o.NormTime, "norm_time");
+			References(o => o.Flowsheet, "flowsheet_id").Fetch.Join().Not.LazyLoad();
+			OnInitialized();
+		}
+	}
+
 	// The classmap for groups
 	public partial class GroupMap : BaseMap<Rti.Model.Domain.Group>
 	{

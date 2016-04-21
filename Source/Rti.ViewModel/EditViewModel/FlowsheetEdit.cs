@@ -12,6 +12,7 @@ namespace Rti.ViewModel.EditViewModel
     public class FlowsheetEdit: EditEntityViewModel<FlowsheetViewModel, Flowsheet>
     {
         public FlowsheetMachineList FlowsheetMachineList { get; set; }
+        public FlowsheetProcessList FlowsheetProcessList { get; set; }
 
         public Lazy<List<ContragentViewModel>> CustomersSource { get; set; }
 
@@ -19,6 +20,7 @@ namespace Rti.ViewModel.EditViewModel
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {
             FlowsheetMachineList = new FlowsheetMachineList(entity, Editable, ViewService, RepositoryFactory);
+            FlowsheetProcessList = new FlowsheetProcessList(entity, Editable, ViewService, RepositoryFactory);
 
             CustomersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(ContragentType.Customer).Select(o => new ContragentViewModel(o, RepositoryFactory)).ToList());
         }
@@ -27,6 +29,10 @@ namespace Rti.ViewModel.EditViewModel
         {
             base.Refresh();
             FlowsheetMachineList.Refresh();
+            if (Entity.IsNewEntity)
+                FlowsheetProcessList.GenerateProcessesForNewFlowsheet();
+            else
+                FlowsheetProcessList.Refresh();
         }
     }
 }
