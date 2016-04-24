@@ -46,7 +46,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 						if (fieldAttribute.FieldName.ToLower() == "id")
 						{
 #>
-			Id(o => o.Id, "ID");
+			Id(o => o.Id, "id");
 <#
 						}
 						else

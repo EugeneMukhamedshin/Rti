@@ -61,6 +61,8 @@
     </Compile>
     <Compile Include="Domain\ActionType.cs" />
     <Compile Include="Domain\Authorization\ActionCode.cs" />
+    <Compile Include="Domain\CalculationRowType.cs" />
+    <Compile Include="Domain\CalculationType.cs" />
     <Compile Include="Domain\ContragentType.cs" />
     <Compile Include="Domain\DetailType.cs" />
     <Compile Include="Domain\Existance.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Domain\IIdentifiedEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Interfaces\IAdditionalInfoRepository.cs" />
+    <Compile Include="Repository\Interfaces\ICalculationRepository.cs" />
     <Compile Include="Repository\Interfaces\IConstantRepository.cs" />
     <Compile Include="Repository\Interfaces\IContragentRepository.cs" />
     <Compile Include="Repository\Interfaces\IDetailRepository.cs" />
@@ -106,6 +109,7 @@
     <Compile Include="Repository\Interfaces\IRequestDetailRepository.cs" />
     <Compile Include="Repository\Interfaces\IRequestRepository.cs" />
     <Compile Include="Repository\NHibernate\AdditionalInfoRepository.cs" />
+    <Compile Include="Repository\NHibernate\CalculationRepository.cs" />
     <Compile Include="Repository\NHibernate\ClassMaps\BaseMap.cs" />
     <Compile Include="Repository\NHibernate\ClassMaps\GeneratedClassMaps1.cs">
       <AutoGen>True</AutoGen>

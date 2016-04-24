@@ -8,6 +8,7 @@ namespace Rti.Model.Repository.Interfaces
         IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IIdentifiedEntity;
 
 		IAdditionalInfoRepository GetAdditionalInfoRepository();
+		ICalculationRepository GetCalculationRepository();
 		IConstantRepository GetConstantRepository();
 		IContragentRepository GetContragentRepository();
 		IDetailRepository GetDetailRepository();
@@ -31,6 +32,7 @@ namespace Rti.Model.Repository.Interfaces
     }
 
 	public partial interface IAdditionalInfoRepository : IRepository<Rti.Model.Domain.AdditionalInfo> { }
+	public partial interface ICalculationRepository : IRepository<Rti.Model.Domain.Calculation> { }
 	public partial interface IConstantRepository : IRepository<Rti.Model.Domain.Constant> { }
 	public partial interface IContragentRepository : IRepository<Rti.Model.Domain.Contragent> { }
 	public partial interface IDetailRepository : IRepository<Rti.Model.Domain.Detail> { }

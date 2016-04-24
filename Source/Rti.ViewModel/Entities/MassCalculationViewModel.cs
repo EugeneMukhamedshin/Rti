@@ -1,4 +1,4 @@
-п»їusing System;
+using System;
 using Rti.Model.Domain;
 using Rti.ViewModel.Calculation;
 
@@ -11,7 +11,7 @@ namespace Rti.ViewModel.Entities
             get
             {
                 var mass = CalculateMass();
-                return mass == null ? "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґР°РЅРЅС‹С…" : string.Format("{0:f3}", mass);
+                return mass == null ? "Недостаточно данных" : string.Format("{0:f3}", mass);
             }
         }
 
@@ -36,7 +36,7 @@ namespace Rti.ViewModel.Entities
                 case DetailType.MoldingSquare3:
                     return SqB * SqL * SqS * MaterialDensity / 1000 - pi * SqDVn * SqDVn / 4000;
                 case DetailType.LaserCutting:
-                    return (VlS * VlL * VlB * MaterialDensity * 1000) / ((VlL / (VlL1 + 5)) * (VlB / (VlB1 + 5)));
+                    return (VlS * VlL * VlB * MaterialDensity / 1000) / ((VlL / (VlL1 + 5)) * (VlB / (VlB1 + 5)));
                 case DetailType.Other:
                     return new Calculator().Calculate(MassFormula);
             }

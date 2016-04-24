@@ -162,7 +162,7 @@ namespace Rti.ViewModel.Entities
 		}
 
         public override int GetHashCode() { return _id; }
-        protected bool Equals(<#= viewModelTypeName #> other) { return _id == other._id; }
+        protected bool Equals(<#= viewModelTypeName #> other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;

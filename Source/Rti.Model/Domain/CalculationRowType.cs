@@ -1,0 +1,30 @@
+﻿namespace Rti.Model.Domain
+{
+    public enum CalculationRowType
+    {
+        ParentMaterials,
+        MainMaterial,
+        Rubber,
+        Clue,
+        Armature,
+        Sand,
+        Textile,
+        OtherMaterial,
+        Transport,
+        MainSalary,
+        AdditionalSalary,
+        FixedTax,
+        TotalDivision,
+        TotalManufacture,
+        MainSummary,
+        PowerForFormed,
+        OtherPower,
+        MainAndPowerSummary,
+        Unforseen,
+        NetCost,
+        Profitability,
+        Price,
+        NdsTax,
+        Summary
+    }
+}

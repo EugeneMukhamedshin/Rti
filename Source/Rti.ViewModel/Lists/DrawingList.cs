@@ -14,6 +14,7 @@ namespace Rti.ViewModel.Lists
         public DelegateCommand PrevPageCommand { get; set; }
         public DelegateCommand NextPageCommand { get; set; }
         public DelegateCommand OpenFlowsheetCommand { get; set; }
+        public DelegateCommand OpenCalculationCommand { get; set; }
 
         public int Page { get; set; }
         public int PageSize { get; set; }
@@ -42,6 +43,10 @@ namespace Rti.ViewModel.Lists
                "Технологическая карта",
                o => SelectedItem != null,
                o => OpenFlowsheet());
+            OpenCalculationCommand = new DelegateCommand(
+                "Калькуляция",
+                o => SelectedItem != null,
+                o => OpenCalculation());
 
             Page = 0;
             PageSize = 15;
@@ -64,6 +69,22 @@ namespace Rti.ViewModel.Lists
                 viewModel.Entity.SaveEntity();
                 viewModel.FlowsheetMachineList.SaveChanges();
                 viewModel.FlowsheetProcessList.SaveChanges();
+            }
+        }
+
+        private void OpenCalculation()
+        {
+            var planCalculation = new CalculationViewModel(RepositoryFactory.GetCalculationRepository().GetByDrawingId(SelectedItem.Id, CalculationType.Plan), RepositoryFactory);
+            planCalculation.Drawing = SelectedItem;
+            planCalculation.CalculationTypeEnum = CalculationType.Plan;
+            var factCalculation = new CalculationViewModel(RepositoryFactory.GetCalculationRepository().GetByDrawingId(SelectedItem.Id, CalculationType.Fact), RepositoryFactory);
+            factCalculation.Drawing = SelectedItem;
+            factCalculation.CalculationTypeEnum = CalculationType.Fact;
+            var drawingCalculation = new DrawingCalculationViewModel(planCalculation, factCalculation);
+            var calculationEdit = new DrawingCalculationEdit("Калькуляция", drawingCalculation, !EditMode, ViewService, RepositoryFactory);
+            if (ViewService.ShowViewDialog(calculationEdit) == true)
+            {
+                drawingCalculation.Save();
             }
         }
 
@@ -103,6 +124,7 @@ namespace Rti.ViewModel.Lists
         {
             base.RequeryCommandsOnSelectionChanged();
             OpenFlowsheetCommand.RequeryCanExecute();
+            OpenCalculationCommand.RequeryCanExecute();
         }
 
         public bool CanClose()

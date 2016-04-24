@@ -161,6 +161,9 @@
     <Compile Include="View\Editors\AdditionalInfoEditWindow.xaml.cs">
       <DependentUpon>AdditionalInfoEditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Editors\CalculationEditControl.xaml.cs">
+      <DependentUpon>CalculationEditControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Editors\ConstantEditWindow.xaml.cs">
       <DependentUpon>ConstantEditWindow.xaml</DependentUpon>
     </Compile>
@@ -169,6 +172,9 @@
     </Compile>
     <Compile Include="View\Editors\DetailEditWindow.xaml.cs">
       <DependentUpon>DetailEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\DrawingCalculationEditWindow.xaml.cs">
+      <DependentUpon>DrawingCalculationEditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Editors\DrawingEditWindow.xaml.cs">
       <DependentUpon>DrawingEditWindow.xaml</DependentUpon>
@@ -353,6 +359,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Editors\CalculationEditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Editors\ConstantEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -362,6 +372,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Editors\DetailEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\DrawingCalculationEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

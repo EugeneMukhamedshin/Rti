@@ -63,6 +63,7 @@ namespace Rti.App
             AddToRegistry<DrawingMeasurementEdit, DrawingMeasurementEditWindow>();
             AddToRegistry<MassCalculationEdit, MassCalculationEditWindow>();
             AddToRegistry<FlowsheetEdit, FlowsheetEditWindow>();
+            AddToRegistry<DrawingCalculationEdit, DrawingCalculationEditWindow>();
 
             // Изображения
             AddToRegistry<ImageEdit, ImageEditWindow>();

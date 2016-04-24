@@ -11,6 +11,8 @@ namespace Rti.Model.Repository.NHibernate
         {
             if (typeof(TEntity) == typeof(Rti.Model.Domain.AdditionalInfo))
                 return (IRepository<TEntity>)new AdditionalInfoRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.Calculation))
+                return (IRepository<TEntity>)new CalculationRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Constant))
                 return (IRepository<TEntity>)new ConstantRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Contragent))
@@ -55,6 +57,8 @@ namespace Rti.Model.Repository.NHibernate
 		}
 
 		public IAdditionalInfoRepository GetAdditionalInfoRepository() { return (IAdditionalInfoRepository) GetRepository<Rti.Model.Domain.AdditionalInfo>(); }
+
+		public ICalculationRepository GetCalculationRepository() { return (ICalculationRepository) GetRepository<Rti.Model.Domain.Calculation>(); }
 
 		public IConstantRepository GetConstantRepository() { return (IConstantRepository) GetRepository<Rti.Model.Domain.Constant>(); }
 
@@ -103,6 +107,17 @@ namespace Rti.Model.Repository.NHibernate
         protected override IQueryOver<Rti.Model.Domain.AdditionalInfo, Rti.Model.Domain.AdditionalInfo> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.AdditionalInfo, Rti.Model.Domain.AdditionalInfo> queryOver)
         {
 			var result = queryOver;
+            return result;
+        }
+    }
+
+	public partial class CalculationRepository : NHibernateRepository<Rti.Model.Domain.Calculation>, ICalculationRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.Calculation, Rti.Model.Domain.Calculation> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Calculation, Rti.Model.Domain.Calculation> queryOver)
+        {
+			var result = queryOver;
+			result = result.Fetch(o => o.Drawing).Default;
             return result;
         }
     }

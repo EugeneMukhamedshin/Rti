@@ -49,7 +49,7 @@
                     <dxg:GridColumn FieldName="Material.Name" Header="Материал" Width="80"/>
                     <dxg:GridColumn FieldName="MeasureUnit.Name" Header="Ед. изм." Width="40"/>
                     <dxg:GridColumn FieldName="MeasureUnit.Code" Header="Код" Width="40"/>
-                    <dxg:GridColumn FieldName="MassCalculation.Id" Header="Масса по чертежу" Width="60"/>
+                    <dxg:GridColumn FieldName="MassCalculation.CalculatedMass" Header="Масса по чертежу" Width="60"/>
                     <dxg:GridColumn FieldName="MassWithShruff" Header="Масса с отходами" Width="65"/>
                     <dxg:GridColumn FieldName="Price" Header="Цена по чертежу, руб. без НДС" Width="60"/>
                     <dxg:GridColumn FieldName="ShavingPrice" Header="Цена обрезки" Width="60"/>
@@ -67,6 +67,7 @@
             </dxg:GridControl>
             <StackPanel Orientation="Horizontal" Grid.Row="2">
                 <Button Content="Тех. карта" Command="{Binding OpenFlowsheetCommand}" Width="90" Margin="5" TabIndex="1000"></Button>
+                <Button Content="Калькуляция" Command="{Binding OpenCalculationCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
             </StackPanel>
         </Grid>
         <Border Opacity="0.8" Visibility="{Binding IsLoading,Converter={StaticResource BooleanToVisibilityConverter}}">

@@ -54,6 +54,9 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandExecutionInfo.cs" />
     <Compile Include="Commands\HistoryContext.cs" />
+    <Compile Include="EditViewModel\CalculationEdit.cs" />
+    <Compile Include="EditViewModel\DrawingCalculationEdit.cs" />
+    <Compile Include="EditViewModel\DrawingCalculationViewModel.cs" />
     <Compile Include="EditViewModel\DrawingEdit.cs" />
     <Compile Include="EditViewModel\DrawingMeasurementEdit.cs" />
     <Compile Include="EditViewModel\EditViewModel.cs" />
@@ -76,6 +79,7 @@
     <Compile Include="EditViewModel\JobEdit.cs" />
     <Compile Include="EditViewModel\MaterialEdit.cs" />
     <Compile Include="EditViewModel\SelectorViewModel.cs" />
+    <Compile Include="Entities\CalculationViewModel.cs" />
     <Compile Include="Entities\Commands\DelegateCommand.cs" />
     <Compile Include="Entities\Commands\RequeryableCommand.cs" />
     <Compile Include="Entities\DrawingViewModel.cs" />
