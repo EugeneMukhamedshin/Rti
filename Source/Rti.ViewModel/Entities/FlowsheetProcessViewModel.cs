@@ -26,7 +26,7 @@ namespace Rti.ViewModel.Entities
             set { VarName = value; }
         }
 
-        public double DisplayNormTime
+        public decimal DisplayNormTime
         {
             get { return Process.ProcessTypeEnum == Model.Domain.ProcessType.Other ? NormTime : (Process.DefaultNormTime ?? 0); }
             set { NormTime = value; }

@@ -7,6 +7,7 @@
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     xmlns:lists="clr-namespace:Rti.App.View.Lists"
+    xmlns:components="clr-namespace:Rti.App.View.Components"
     Width="470" Height="460" MinWidth="470" MinHeight="460" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
@@ -17,8 +18,8 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Button Content="Просмотр" Command="{Binding OpenDrawingImageCommand}" Width="90" Margin="5" TabIndex="0"></Button>
         </StackPanel>
-        <dxprg:PropertyGridControl Margin="5" SortMode="Definitions" Grid.Row="1" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
-            <dxprg:PropertyGridControl.PropertyDefinitions>
+        <components:PropertyGridResponsible Margin="5" SortMode="Definitions" Grid.Row="1" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
+            <components:PropertyGridResponsible.PropertyDefinitions>
                 <dxprg:PropertyDefinition Path="SortOrder" Header="Артикул" IsReadOnly="True" Width="40"/>
                 <dxprg:PropertyDefinition Path="Name" Header="Чертеж" Width="80">
                     <dxprg:PropertyDefinition.EditSettings>
@@ -229,8 +230,8 @@
                         <dxe:TextEditSettings Mask="d"/>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
-            </dxprg:PropertyGridControl.PropertyDefinitions>
-        </dxprg:PropertyGridControl>
+            </components:PropertyGridResponsible.PropertyDefinitions>
+        </components:PropertyGridResponsible>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>
             <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>

@@ -122,51 +122,51 @@ namespace Rti.ViewModel.Entities
 
 		private CalculationType _calculationTypeEnum;
 
-		private Double? _mainMaterial;
+		private Decimal? _mainMaterial;
 
-		private Double? _rubber;
+		private Decimal? _rubber;
 
-		private Double? _clue;
+		private Decimal? _clue;
 
-		private Double? _armature;
+		private Decimal? _armature;
 
-		private Double? _sand;
+		private Decimal? _sand;
 
-		private Double? _textile;
+		private Decimal? _textile;
 
-		private Double? _otherMaterial;
+		private Decimal? _otherMaterial;
 
-		private Double? _transport;
+		private Decimal? _transport;
 
-		private Double? _mainSalary;
+		private Decimal? _mainSalary;
 
-		private Double? _additionalSalary;
+		private Decimal? _additionalSalary;
 
-		private Double? _fixedTax;
+		private Decimal? _fixedTax;
 
-		private Double? _totalDivision;
+		private Decimal? _totalDivision;
 
-		private Double? _totalManufacture;
+		private Decimal? _totalManufacture;
 
-		private Double? _mainSummary;
+		private Decimal? _mainSummary;
 
-		private Double? _powerForFormed;
+		private Decimal? _powerForFormed;
 
-		private Double? _otherPower;
+		private Decimal? _otherPower;
 
-		private Double? _mainAndPowerSummary;
+		private Decimal? _mainAndPowerSummary;
 
-		private Double? _unforseen;
+		private Decimal? _unforseen;
 
-		private Double? _netCost;
+		private Decimal? _netCost;
 
-		private Double? _profitability;
+		private Decimal? _profitability;
 
-		private Double? _price;
+		private Decimal? _price;
 
-		private Double? _ndsTax;
+		private Decimal? _ndsTax;
 
-		private Double? _summary;
+		private Decimal? _summary;
 
 		private DrawingViewModel _drawing;
 
@@ -176,51 +176,51 @@ namespace Rti.ViewModel.Entities
 
 		public CalculationType CalculationTypeEnum { get { return _calculationTypeEnum; } set { if (Equals(_calculationTypeEnum, value)) return; _calculationTypeEnum = value; OnPropertyChanged("CalculationTypeEnum"); } }
 
-		public Double? MainMaterial { get { return _mainMaterial; } set { if (Equals(_mainMaterial, value)) return; _mainMaterial = value; OnPropertyChanged("MainMaterial"); } }
+		public Decimal? MainMaterial { get { return _mainMaterial; } set { if (Equals(_mainMaterial, value)) return; _mainMaterial = value; OnPropertyChanged("MainMaterial"); } }
 
-		public Double? Rubber { get { return _rubber; } set { if (Equals(_rubber, value)) return; _rubber = value; OnPropertyChanged("Rubber"); } }
+		public Decimal? Rubber { get { return _rubber; } set { if (Equals(_rubber, value)) return; _rubber = value; OnPropertyChanged("Rubber"); } }
 
-		public Double? Clue { get { return _clue; } set { if (Equals(_clue, value)) return; _clue = value; OnPropertyChanged("Clue"); } }
+		public Decimal? Clue { get { return _clue; } set { if (Equals(_clue, value)) return; _clue = value; OnPropertyChanged("Clue"); } }
 
-		public Double? Armature { get { return _armature; } set { if (Equals(_armature, value)) return; _armature = value; OnPropertyChanged("Armature"); } }
+		public Decimal? Armature { get { return _armature; } set { if (Equals(_armature, value)) return; _armature = value; OnPropertyChanged("Armature"); } }
 
-		public Double? Sand { get { return _sand; } set { if (Equals(_sand, value)) return; _sand = value; OnPropertyChanged("Sand"); } }
+		public Decimal? Sand { get { return _sand; } set { if (Equals(_sand, value)) return; _sand = value; OnPropertyChanged("Sand"); } }
 
-		public Double? Textile { get { return _textile; } set { if (Equals(_textile, value)) return; _textile = value; OnPropertyChanged("Textile"); } }
+		public Decimal? Textile { get { return _textile; } set { if (Equals(_textile, value)) return; _textile = value; OnPropertyChanged("Textile"); } }
 
-		public Double? OtherMaterial { get { return _otherMaterial; } set { if (Equals(_otherMaterial, value)) return; _otherMaterial = value; OnPropertyChanged("OtherMaterial"); } }
+		public Decimal? OtherMaterial { get { return _otherMaterial; } set { if (Equals(_otherMaterial, value)) return; _otherMaterial = value; OnPropertyChanged("OtherMaterial"); } }
 
-		public Double? Transport { get { return _transport; } set { if (Equals(_transport, value)) return; _transport = value; OnPropertyChanged("Transport"); } }
+		public Decimal? Transport { get { return _transport; } set { if (Equals(_transport, value)) return; _transport = value; OnPropertyChanged("Transport"); } }
 
-		public Double? MainSalary { get { return _mainSalary; } set { if (Equals(_mainSalary, value)) return; _mainSalary = value; OnPropertyChanged("MainSalary"); } }
+		public Decimal? MainSalary { get { return _mainSalary; } set { if (Equals(_mainSalary, value)) return; _mainSalary = value; OnPropertyChanged("MainSalary"); } }
 
-		public Double? AdditionalSalary { get { return _additionalSalary; } set { if (Equals(_additionalSalary, value)) return; _additionalSalary = value; OnPropertyChanged("AdditionalSalary"); } }
+		public Decimal? AdditionalSalary { get { return _additionalSalary; } set { if (Equals(_additionalSalary, value)) return; _additionalSalary = value; OnPropertyChanged("AdditionalSalary"); } }
 
-		public Double? FixedTax { get { return _fixedTax; } set { if (Equals(_fixedTax, value)) return; _fixedTax = value; OnPropertyChanged("FixedTax"); } }
+		public Decimal? FixedTax { get { return _fixedTax; } set { if (Equals(_fixedTax, value)) return; _fixedTax = value; OnPropertyChanged("FixedTax"); } }
 
-		public Double? TotalDivision { get { return _totalDivision; } set { if (Equals(_totalDivision, value)) return; _totalDivision = value; OnPropertyChanged("TotalDivision"); } }
+		public Decimal? TotalDivision { get { return _totalDivision; } set { if (Equals(_totalDivision, value)) return; _totalDivision = value; OnPropertyChanged("TotalDivision"); } }
 
-		public Double? TotalManufacture { get { return _totalManufacture; } set { if (Equals(_totalManufacture, value)) return; _totalManufacture = value; OnPropertyChanged("TotalManufacture"); } }
+		public Decimal? TotalManufacture { get { return _totalManufacture; } set { if (Equals(_totalManufacture, value)) return; _totalManufacture = value; OnPropertyChanged("TotalManufacture"); } }
 
-		public Double? MainSummary { get { return _mainSummary; } set { if (Equals(_mainSummary, value)) return; _mainSummary = value; OnPropertyChanged("MainSummary"); } }
+		public Decimal? MainSummary { get { return _mainSummary; } set { if (Equals(_mainSummary, value)) return; _mainSummary = value; OnPropertyChanged("MainSummary"); } }
 
-		public Double? PowerForFormed { get { return _powerForFormed; } set { if (Equals(_powerForFormed, value)) return; _powerForFormed = value; OnPropertyChanged("PowerForFormed"); } }
+		public Decimal? PowerForFormed { get { return _powerForFormed; } set { if (Equals(_powerForFormed, value)) return; _powerForFormed = value; OnPropertyChanged("PowerForFormed"); } }
 
-		public Double? OtherPower { get { return _otherPower; } set { if (Equals(_otherPower, value)) return; _otherPower = value; OnPropertyChanged("OtherPower"); } }
+		public Decimal? OtherPower { get { return _otherPower; } set { if (Equals(_otherPower, value)) return; _otherPower = value; OnPropertyChanged("OtherPower"); } }
 
-		public Double? MainAndPowerSummary { get { return _mainAndPowerSummary; } set { if (Equals(_mainAndPowerSummary, value)) return; _mainAndPowerSummary = value; OnPropertyChanged("MainAndPowerSummary"); } }
+		public Decimal? MainAndPowerSummary { get { return _mainAndPowerSummary; } set { if (Equals(_mainAndPowerSummary, value)) return; _mainAndPowerSummary = value; OnPropertyChanged("MainAndPowerSummary"); } }
 
-		public Double? Unforseen { get { return _unforseen; } set { if (Equals(_unforseen, value)) return; _unforseen = value; OnPropertyChanged("Unforseen"); } }
+		public Decimal? Unforseen { get { return _unforseen; } set { if (Equals(_unforseen, value)) return; _unforseen = value; OnPropertyChanged("Unforseen"); } }
 
-		public Double? NetCost { get { return _netCost; } set { if (Equals(_netCost, value)) return; _netCost = value; OnPropertyChanged("NetCost"); } }
+		public Decimal? NetCost { get { return _netCost; } set { if (Equals(_netCost, value)) return; _netCost = value; OnPropertyChanged("NetCost"); } }
 
-		public Double? Profitability { get { return _profitability; } set { if (Equals(_profitability, value)) return; _profitability = value; OnPropertyChanged("Profitability"); } }
+		public Decimal? Profitability { get { return _profitability; } set { if (Equals(_profitability, value)) return; _profitability = value; OnPropertyChanged("Profitability"); } }
 
-		public Double? Price { get { return _price; } set { if (Equals(_price, value)) return; _price = value; OnPropertyChanged("Price"); } }
+		public Decimal? Price { get { return _price; } set { if (Equals(_price, value)) return; _price = value; OnPropertyChanged("Price"); } }
 
-		public Double? NdsTax { get { return _ndsTax; } set { if (Equals(_ndsTax, value)) return; _ndsTax = value; OnPropertyChanged("NdsTax"); } }
+		public Decimal? NdsTax { get { return _ndsTax; } set { if (Equals(_ndsTax, value)) return; _ndsTax = value; OnPropertyChanged("NdsTax"); } }
 
-		public Double? Summary { get { return _summary; } set { if (Equals(_summary, value)) return; _summary = value; OnPropertyChanged("Summary"); } }
+		public Decimal? Summary { get { return _summary; } set { if (Equals(_summary, value)) return; _summary = value; OnPropertyChanged("Summary"); } }
 
 		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
 
@@ -422,23 +422,23 @@ namespace Rti.ViewModel.Entities
 
 		private Int32 _id;
 
-		private Double _kTr;
+		private Decimal _kTr;
 
-		private Double _kEsn;
+		private Decimal _kEsn;
 
-		private Double _kObCeh;
+		private Decimal _kObCeh;
 
-		private Double _kObPr;
+		private Decimal _kObPr;
 
-		private Double _kEl;
+		private Decimal _kEl;
 
-		private Double _kNep;
+		private Decimal _kNep;
 
-		private Double _kRen;
+		private Decimal _kRen;
 
-		private Double _nds;
+		private Decimal _nds;
 
-		private Double _kSt;
+		private Decimal _kSt;
 
 		private DateTime _dateFrom;
 
@@ -450,23 +450,23 @@ namespace Rti.ViewModel.Entities
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 
-		public Double KTr { get { return _kTr; } set { if (Equals(_kTr, value)) return; _kTr = value; OnPropertyChanged("KTr"); } }
+		public Decimal KTr { get { return _kTr; } set { if (Equals(_kTr, value)) return; _kTr = value; OnPropertyChanged("KTr"); } }
 
-		public Double KEsn { get { return _kEsn; } set { if (Equals(_kEsn, value)) return; _kEsn = value; OnPropertyChanged("KEsn"); } }
+		public Decimal KEsn { get { return _kEsn; } set { if (Equals(_kEsn, value)) return; _kEsn = value; OnPropertyChanged("KEsn"); } }
 
-		public Double KObCeh { get { return _kObCeh; } set { if (Equals(_kObCeh, value)) return; _kObCeh = value; OnPropertyChanged("KObCeh"); } }
+		public Decimal KObCeh { get { return _kObCeh; } set { if (Equals(_kObCeh, value)) return; _kObCeh = value; OnPropertyChanged("KObCeh"); } }
 
-		public Double KObPr { get { return _kObPr; } set { if (Equals(_kObPr, value)) return; _kObPr = value; OnPropertyChanged("KObPr"); } }
+		public Decimal KObPr { get { return _kObPr; } set { if (Equals(_kObPr, value)) return; _kObPr = value; OnPropertyChanged("KObPr"); } }
 
-		public Double KEl { get { return _kEl; } set { if (Equals(_kEl, value)) return; _kEl = value; OnPropertyChanged("KEl"); } }
+		public Decimal KEl { get { return _kEl; } set { if (Equals(_kEl, value)) return; _kEl = value; OnPropertyChanged("KEl"); } }
 
-		public Double KNep { get { return _kNep; } set { if (Equals(_kNep, value)) return; _kNep = value; OnPropertyChanged("KNep"); } }
+		public Decimal KNep { get { return _kNep; } set { if (Equals(_kNep, value)) return; _kNep = value; OnPropertyChanged("KNep"); } }
 
-		public Double KRen { get { return _kRen; } set { if (Equals(_kRen, value)) return; _kRen = value; OnPropertyChanged("KRen"); } }
+		public Decimal KRen { get { return _kRen; } set { if (Equals(_kRen, value)) return; _kRen = value; OnPropertyChanged("KRen"); } }
 
-		public Double Nds { get { return _nds; } set { if (Equals(_nds, value)) return; _nds = value; OnPropertyChanged("Nds"); } }
+		public Decimal Nds { get { return _nds; } set { if (Equals(_nds, value)) return; _nds = value; OnPropertyChanged("Nds"); } }
 
-		public Double KSt { get { return _kSt; } set { if (Equals(_kSt, value)) return; _kSt = value; OnPropertyChanged("KSt"); } }
+		public Decimal KSt { get { return _kSt; } set { if (Equals(_kSt, value)) return; _kSt = value; OnPropertyChanged("KSt"); } }
 
 		public DateTime DateFrom { get { return _dateFrom; } set { if (Equals(_dateFrom, value)) return; _dateFrom = value; OnPropertyChanged("DateFrom"); } }
 
@@ -958,23 +958,23 @@ namespace Rti.ViewModel.Entities
 
 		private String _code;
 
-		private Double? _massWithShruff;
+		private Decimal? _massWithShruff;
 
-		private Double? _price;
+		private Decimal? _price;
 
-		private Double? _shavingPrice;
+		private Decimal? _shavingPrice;
 
-		private Double? _calculationPrice;
+		private Decimal? _calculationPrice;
 
-		private Double? _width;
+		private Decimal? _width;
 
-		private Double? _length;
+		private Decimal? _length;
 
-		private Double? _thickness;
+		private Decimal? _thickness;
 
-		private Double? _innerDiameter;
+		private Decimal? _innerDiameter;
 
-		private Double? _outerDiameter;
+		private Decimal? _outerDiameter;
 
 		private String _note;
 
@@ -1012,23 +1012,23 @@ namespace Rti.ViewModel.Entities
 
 		public String Code { get { return _code; } set { if (Equals(_code, value)) return; _code = value; OnPropertyChanged("Code"); } }
 
-		public Double? MassWithShruff { get { return _massWithShruff; } set { if (Equals(_massWithShruff, value)) return; _massWithShruff = value; OnPropertyChanged("MassWithShruff"); } }
+		public Decimal? MassWithShruff { get { return _massWithShruff; } set { if (Equals(_massWithShruff, value)) return; _massWithShruff = value; OnPropertyChanged("MassWithShruff"); } }
 
-		public Double? Price { get { return _price; } set { if (Equals(_price, value)) return; _price = value; OnPropertyChanged("Price"); } }
+		public Decimal? Price { get { return _price; } set { if (Equals(_price, value)) return; _price = value; OnPropertyChanged("Price"); } }
 
-		public Double? ShavingPrice { get { return _shavingPrice; } set { if (Equals(_shavingPrice, value)) return; _shavingPrice = value; OnPropertyChanged("ShavingPrice"); } }
+		public Decimal? ShavingPrice { get { return _shavingPrice; } set { if (Equals(_shavingPrice, value)) return; _shavingPrice = value; OnPropertyChanged("ShavingPrice"); } }
 
-		public Double? CalculationPrice { get { return _calculationPrice; } set { if (Equals(_calculationPrice, value)) return; _calculationPrice = value; OnPropertyChanged("CalculationPrice"); } }
+		public Decimal? CalculationPrice { get { return _calculationPrice; } set { if (Equals(_calculationPrice, value)) return; _calculationPrice = value; OnPropertyChanged("CalculationPrice"); } }
 
-		public Double? Width { get { return _width; } set { if (Equals(_width, value)) return; _width = value; OnPropertyChanged("Width"); } }
+		public Decimal? Width { get { return _width; } set { if (Equals(_width, value)) return; _width = value; OnPropertyChanged("Width"); } }
 
-		public Double? Length { get { return _length; } set { if (Equals(_length, value)) return; _length = value; OnPropertyChanged("Length"); } }
+		public Decimal? Length { get { return _length; } set { if (Equals(_length, value)) return; _length = value; OnPropertyChanged("Length"); } }
 
-		public Double? Thickness { get { return _thickness; } set { if (Equals(_thickness, value)) return; _thickness = value; OnPropertyChanged("Thickness"); } }
+		public Decimal? Thickness { get { return _thickness; } set { if (Equals(_thickness, value)) return; _thickness = value; OnPropertyChanged("Thickness"); } }
 
-		public Double? InnerDiameter { get { return _innerDiameter; } set { if (Equals(_innerDiameter, value)) return; _innerDiameter = value; OnPropertyChanged("InnerDiameter"); } }
+		public Decimal? InnerDiameter { get { return _innerDiameter; } set { if (Equals(_innerDiameter, value)) return; _innerDiameter = value; OnPropertyChanged("InnerDiameter"); } }
 
-		public Double? OuterDiameter { get { return _outerDiameter; } set { if (Equals(_outerDiameter, value)) return; _outerDiameter = value; OnPropertyChanged("OuterDiameter"); } }
+		public Decimal? OuterDiameter { get { return _outerDiameter; } set { if (Equals(_outerDiameter, value)) return; _outerDiameter = value; OnPropertyChanged("OuterDiameter"); } }
 
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
 
@@ -1480,7 +1480,7 @@ namespace Rti.ViewModel.Entities
 
 		private Existance _existanceEnum;
 
-		private Double _square;
+		private Decimal _square;
 
 		private Int32 _formCount;
 
@@ -1502,7 +1502,7 @@ namespace Rti.ViewModel.Entities
 
 		public Existance ExistanceEnum { get { return _existanceEnum; } set { if (Equals(_existanceEnum, value)) return; _existanceEnum = value; OnPropertyChanged("ExistanceEnum"); } }
 
-		public Double Square { get { return _square; } set { if (Equals(_square, value)) return; _square = value; OnPropertyChanged("Square"); } }
+		public Decimal Square { get { return _square; } set { if (Equals(_square, value)) return; _square = value; OnPropertyChanged("Square"); } }
 
 		public Int32 FormCount { get { return _formCount; } set { if (Equals(_formCount, value)) return; _formCount = value; OnPropertyChanged("FormCount"); } }
 
@@ -1616,9 +1616,9 @@ namespace Rti.ViewModel.Entities
 
 		private Int32 _id;
 
-		private Double? _blankMass;
+		private Decimal? _blankMass;
 
-		private Double? _factMass;
+		private Decimal? _factMass;
 
 		private String _note;
 
@@ -1632,9 +1632,9 @@ namespace Rti.ViewModel.Entities
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 
-		public Double? BlankMass { get { return _blankMass; } set { if (Equals(_blankMass, value)) return; _blankMass = value; OnPropertyChanged("BlankMass"); } }
+		public Decimal? BlankMass { get { return _blankMass; } set { if (Equals(_blankMass, value)) return; _blankMass = value; OnPropertyChanged("BlankMass"); } }
 
-		public Double? FactMass { get { return _factMass; } set { if (Equals(_factMass, value)) return; _factMass = value; OnPropertyChanged("FactMass"); } }
+		public Decimal? FactMass { get { return _factMass; } set { if (Equals(_factMass, value)) return; _factMass = value; OnPropertyChanged("FactMass"); } }
 
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
 
@@ -1730,9 +1730,9 @@ namespace Rti.ViewModel.Entities
 
 		private Int32 _sortOrder;
 
-		private Double? _plateTemperature;
+		private Decimal? _plateTemperature;
 
-		private Double? _cureTime;
+		private Decimal? _cureTime;
 
 		private FlowsheetViewModel _flowsheet;
 
@@ -1744,9 +1744,9 @@ namespace Rti.ViewModel.Entities
 
 		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
 
-		public Double? PlateTemperature { get { return _plateTemperature; } set { if (Equals(_plateTemperature, value)) return; _plateTemperature = value; OnPropertyChanged("PlateTemperature"); } }
+		public Decimal? PlateTemperature { get { return _plateTemperature; } set { if (Equals(_plateTemperature, value)) return; _plateTemperature = value; OnPropertyChanged("PlateTemperature"); } }
 
-		public Double? CureTime { get { return _cureTime; } set { if (Equals(_cureTime, value)) return; _cureTime = value; OnPropertyChanged("CureTime"); } }
+		public Decimal? CureTime { get { return _cureTime; } set { if (Equals(_cureTime, value)) return; _cureTime = value; OnPropertyChanged("CureTime"); } }
 
 		public FlowsheetViewModel Flowsheet { get { return _flowsheet; } set { _flowsheet = value; OnPropertyChanged("Flowsheet"); } }
 
@@ -1840,7 +1840,7 @@ namespace Rti.ViewModel.Entities
 
 		private String _varName;
 
-		private Double _normTime;
+		private Decimal _normTime;
 
 		private String _note;
 
@@ -1862,7 +1862,7 @@ namespace Rti.ViewModel.Entities
 
 		public String VarName { get { return _varName; } set { if (Equals(_varName, value)) return; _varName = value; OnPropertyChanged("VarName"); } }
 
-		public Double NormTime { get { return _normTime; } set { if (Equals(_normTime, value)) return; _normTime = value; OnPropertyChanged("NormTime"); } }
+		public Decimal NormTime { get { return _normTime; } set { if (Equals(_normTime, value)) return; _normTime = value; OnPropertyChanged("NormTime"); } }
 
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
 
@@ -2238,15 +2238,15 @@ namespace Rti.ViewModel.Entities
 
 		private Int32? _plateCount;
 
-		private Double? _platePower;
+		private Decimal? _platePower;
 
-		private Double? _enginePower;
+		private Decimal? _enginePower;
 
-		private Double? _totalPower;
+		private Decimal? _totalPower;
 
-		private Double? _powerPrice;
+		private Decimal? _powerPrice;
 
-		private Double? _timePrice;
+		private Decimal? _timePrice;
 
 		private String _note;
 
@@ -2266,15 +2266,15 @@ namespace Rti.ViewModel.Entities
 
 		public Int32? PlateCount { get { return _plateCount; } set { if (Equals(_plateCount, value)) return; _plateCount = value; OnPropertyChanged("PlateCount"); } }
 
-		public Double? PlatePower { get { return _platePower; } set { if (Equals(_platePower, value)) return; _platePower = value; OnPropertyChanged("PlatePower"); } }
+		public Decimal? PlatePower { get { return _platePower; } set { if (Equals(_platePower, value)) return; _platePower = value; OnPropertyChanged("PlatePower"); } }
 
-		public Double? EnginePower { get { return _enginePower; } set { if (Equals(_enginePower, value)) return; _enginePower = value; OnPropertyChanged("EnginePower"); } }
+		public Decimal? EnginePower { get { return _enginePower; } set { if (Equals(_enginePower, value)) return; _enginePower = value; OnPropertyChanged("EnginePower"); } }
 
-		public Double? TotalPower { get { return _totalPower; } set { if (Equals(_totalPower, value)) return; _totalPower = value; OnPropertyChanged("TotalPower"); } }
+		public Decimal? TotalPower { get { return _totalPower; } set { if (Equals(_totalPower, value)) return; _totalPower = value; OnPropertyChanged("TotalPower"); } }
 
-		public Double? PowerPrice { get { return _powerPrice; } set { if (Equals(_powerPrice, value)) return; _powerPrice = value; OnPropertyChanged("PowerPrice"); } }
+		public Decimal? PowerPrice { get { return _powerPrice; } set { if (Equals(_powerPrice, value)) return; _powerPrice = value; OnPropertyChanged("PowerPrice"); } }
 
-		public Double? TimePrice { get { return _timePrice; } set { if (Equals(_timePrice, value)) return; _timePrice = value; OnPropertyChanged("TimePrice"); } }
+		public Decimal? TimePrice { get { return _timePrice; } set { if (Equals(_timePrice, value)) return; _timePrice = value; OnPropertyChanged("TimePrice"); } }
 
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
 
@@ -2402,43 +2402,43 @@ namespace Rti.ViewModel.Entities
 
 		private DetailType _detailTypeEnum;
 
-		private Double? _materialDensity;
+		private Decimal? _materialDensity;
 
-		private Double? _rndDShn;
+		private Decimal? _rndDShn;
 
-		private Double? _rndS1;
+		private Decimal? _rndS1;
 
-		private Double? _rndS2;
+		private Decimal? _rndS2;
 
-		private Double? _rndDNar;
+		private Decimal? _rndDNar;
 
-		private Double? _rndDVn;
+		private Decimal? _rndDVn;
 
-		private Double? _rndDSr;
+		private Decimal? _rndDSr;
 
-		private Double? _rndMRas;
+		private Decimal? _rndMRas;
 
-		private Double? _sqS;
+		private Decimal? _sqS;
 
-		private Double? _sqL;
+		private Decimal? _sqL;
 
-		private Double? _sqB;
+		private Decimal? _sqB;
 
-		private Double? _sqL1;
+		private Decimal? _sqL1;
 
-		private Double? _sqB1;
+		private Decimal? _sqB1;
 
-		private Double? _sqDVn;
+		private Decimal? _sqDVn;
 
-		private Double? _vlS;
+		private Decimal? _vlS;
 
-		private Double? _vlL;
+		private Decimal? _vlL;
 
-		private Double? _vlB;
+		private Decimal? _vlB;
 
-		private Double? _vlL1;
+		private Decimal? _vlL1;
 
-		private Double? _vlB1;
+		private Decimal? _vlB1;
 
 		private String _massFormula;
 
@@ -2448,43 +2448,43 @@ namespace Rti.ViewModel.Entities
 
 		public DetailType DetailTypeEnum { get { return _detailTypeEnum; } set { if (Equals(_detailTypeEnum, value)) return; _detailTypeEnum = value; OnPropertyChanged("DetailTypeEnum"); } }
 
-		public Double? MaterialDensity { get { return _materialDensity; } set { if (Equals(_materialDensity, value)) return; _materialDensity = value; OnPropertyChanged("MaterialDensity"); } }
+		public Decimal? MaterialDensity { get { return _materialDensity; } set { if (Equals(_materialDensity, value)) return; _materialDensity = value; OnPropertyChanged("MaterialDensity"); } }
 
-		public Double? RndDShn { get { return _rndDShn; } set { if (Equals(_rndDShn, value)) return; _rndDShn = value; OnPropertyChanged("RndDShn"); } }
+		public Decimal? RndDShn { get { return _rndDShn; } set { if (Equals(_rndDShn, value)) return; _rndDShn = value; OnPropertyChanged("RndDShn"); } }
 
-		public Double? RndS1 { get { return _rndS1; } set { if (Equals(_rndS1, value)) return; _rndS1 = value; OnPropertyChanged("RndS1"); } }
+		public Decimal? RndS1 { get { return _rndS1; } set { if (Equals(_rndS1, value)) return; _rndS1 = value; OnPropertyChanged("RndS1"); } }
 
-		public Double? RndS2 { get { return _rndS2; } set { if (Equals(_rndS2, value)) return; _rndS2 = value; OnPropertyChanged("RndS2"); } }
+		public Decimal? RndS2 { get { return _rndS2; } set { if (Equals(_rndS2, value)) return; _rndS2 = value; OnPropertyChanged("RndS2"); } }
 
-		public Double? RndDNar { get { return _rndDNar; } set { if (Equals(_rndDNar, value)) return; _rndDNar = value; OnPropertyChanged("RndDNar"); } }
+		public Decimal? RndDNar { get { return _rndDNar; } set { if (Equals(_rndDNar, value)) return; _rndDNar = value; OnPropertyChanged("RndDNar"); } }
 
-		public Double? RndDVn { get { return _rndDVn; } set { if (Equals(_rndDVn, value)) return; _rndDVn = value; OnPropertyChanged("RndDVn"); } }
+		public Decimal? RndDVn { get { return _rndDVn; } set { if (Equals(_rndDVn, value)) return; _rndDVn = value; OnPropertyChanged("RndDVn"); } }
 
-		public Double? RndDSr { get { return _rndDSr; } set { if (Equals(_rndDSr, value)) return; _rndDSr = value; OnPropertyChanged("RndDSr"); } }
+		public Decimal? RndDSr { get { return _rndDSr; } set { if (Equals(_rndDSr, value)) return; _rndDSr = value; OnPropertyChanged("RndDSr"); } }
 
-		public Double? RndMRas { get { return _rndMRas; } set { if (Equals(_rndMRas, value)) return; _rndMRas = value; OnPropertyChanged("RndMRas"); } }
+		public Decimal? RndMRas { get { return _rndMRas; } set { if (Equals(_rndMRas, value)) return; _rndMRas = value; OnPropertyChanged("RndMRas"); } }
 
-		public Double? SqS { get { return _sqS; } set { if (Equals(_sqS, value)) return; _sqS = value; OnPropertyChanged("SqS"); } }
+		public Decimal? SqS { get { return _sqS; } set { if (Equals(_sqS, value)) return; _sqS = value; OnPropertyChanged("SqS"); } }
 
-		public Double? SqL { get { return _sqL; } set { if (Equals(_sqL, value)) return; _sqL = value; OnPropertyChanged("SqL"); } }
+		public Decimal? SqL { get { return _sqL; } set { if (Equals(_sqL, value)) return; _sqL = value; OnPropertyChanged("SqL"); } }
 
-		public Double? SqB { get { return _sqB; } set { if (Equals(_sqB, value)) return; _sqB = value; OnPropertyChanged("SqB"); } }
+		public Decimal? SqB { get { return _sqB; } set { if (Equals(_sqB, value)) return; _sqB = value; OnPropertyChanged("SqB"); } }
 
-		public Double? SqL1 { get { return _sqL1; } set { if (Equals(_sqL1, value)) return; _sqL1 = value; OnPropertyChanged("SqL1"); } }
+		public Decimal? SqL1 { get { return _sqL1; } set { if (Equals(_sqL1, value)) return; _sqL1 = value; OnPropertyChanged("SqL1"); } }
 
-		public Double? SqB1 { get { return _sqB1; } set { if (Equals(_sqB1, value)) return; _sqB1 = value; OnPropertyChanged("SqB1"); } }
+		public Decimal? SqB1 { get { return _sqB1; } set { if (Equals(_sqB1, value)) return; _sqB1 = value; OnPropertyChanged("SqB1"); } }
 
-		public Double? SqDVn { get { return _sqDVn; } set { if (Equals(_sqDVn, value)) return; _sqDVn = value; OnPropertyChanged("SqDVn"); } }
+		public Decimal? SqDVn { get { return _sqDVn; } set { if (Equals(_sqDVn, value)) return; _sqDVn = value; OnPropertyChanged("SqDVn"); } }
 
-		public Double? VlS { get { return _vlS; } set { if (Equals(_vlS, value)) return; _vlS = value; OnPropertyChanged("VlS"); } }
+		public Decimal? VlS { get { return _vlS; } set { if (Equals(_vlS, value)) return; _vlS = value; OnPropertyChanged("VlS"); } }
 
-		public Double? VlL { get { return _vlL; } set { if (Equals(_vlL, value)) return; _vlL = value; OnPropertyChanged("VlL"); } }
+		public Decimal? VlL { get { return _vlL; } set { if (Equals(_vlL, value)) return; _vlL = value; OnPropertyChanged("VlL"); } }
 
-		public Double? VlB { get { return _vlB; } set { if (Equals(_vlB, value)) return; _vlB = value; OnPropertyChanged("VlB"); } }
+		public Decimal? VlB { get { return _vlB; } set { if (Equals(_vlB, value)) return; _vlB = value; OnPropertyChanged("VlB"); } }
 
-		public Double? VlL1 { get { return _vlL1; } set { if (Equals(_vlL1, value)) return; _vlL1 = value; OnPropertyChanged("VlL1"); } }
+		public Decimal? VlL1 { get { return _vlL1; } set { if (Equals(_vlL1, value)) return; _vlL1 = value; OnPropertyChanged("VlL1"); } }
 
-		public Double? VlB1 { get { return _vlB1; } set { if (Equals(_vlB1, value)) return; _vlB1 = value; OnPropertyChanged("VlB1"); } }
+		public Decimal? VlB1 { get { return _vlB1; } set { if (Equals(_vlB1, value)) return; _vlB1 = value; OnPropertyChanged("VlB1"); } }
 
 		public String MassFormula { get { return _massFormula; } set { if (Equals(_massFormula, value)) return; _massFormula = value; OnPropertyChanged("MassFormula"); } }
 
@@ -2668,15 +2668,15 @@ namespace Rti.ViewModel.Entities
 
 		private String _techConditions;
 
-		private Double? _density;
+		private Decimal? _density;
 
-		private Double? _thickness;
+		private Decimal? _thickness;
 
-		private Double? _length;
+		private Decimal? _length;
 
-		private Double? _width;
+		private Decimal? _width;
 
-		private Double? _price;
+		private Decimal? _price;
 
 		private String _note;
 
@@ -2692,15 +2692,15 @@ namespace Rti.ViewModel.Entities
 
 		public String TechConditions { get { return _techConditions; } set { if (Equals(_techConditions, value)) return; _techConditions = value; OnPropertyChanged("TechConditions"); } }
 
-		public Double? Density { get { return _density; } set { if (Equals(_density, value)) return; _density = value; OnPropertyChanged("Density"); } }
+		public Decimal? Density { get { return _density; } set { if (Equals(_density, value)) return; _density = value; OnPropertyChanged("Density"); } }
 
-		public Double? Thickness { get { return _thickness; } set { if (Equals(_thickness, value)) return; _thickness = value; OnPropertyChanged("Thickness"); } }
+		public Decimal? Thickness { get { return _thickness; } set { if (Equals(_thickness, value)) return; _thickness = value; OnPropertyChanged("Thickness"); } }
 
-		public Double? Length { get { return _length; } set { if (Equals(_length, value)) return; _length = value; OnPropertyChanged("Length"); } }
+		public Decimal? Length { get { return _length; } set { if (Equals(_length, value)) return; _length = value; OnPropertyChanged("Length"); } }
 
-		public Double? Width { get { return _width; } set { if (Equals(_width, value)) return; _width = value; OnPropertyChanged("Width"); } }
+		public Decimal? Width { get { return _width; } set { if (Equals(_width, value)) return; _width = value; OnPropertyChanged("Width"); } }
 
-		public Double? Price { get { return _price; } set { if (Equals(_price, value)) return; _price = value; OnPropertyChanged("Price"); } }
+		public Decimal? Price { get { return _price; } set { if (Equals(_price, value)) return; _price = value; OnPropertyChanged("Price"); } }
 
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
 
@@ -3008,7 +3008,7 @@ namespace Rti.ViewModel.Entities
 
 		private String _variableName;
 
-		private Double? _defaultNormTime;
+		private Decimal? _defaultNormTime;
 
 
 
@@ -3024,7 +3024,7 @@ namespace Rti.ViewModel.Entities
 
 		public String VariableName { get { return _variableName; } set { if (Equals(_variableName, value)) return; _variableName = value; OnPropertyChanged("VariableName"); } }
 
-		public Double? DefaultNormTime { get { return _defaultNormTime; } set { if (Equals(_defaultNormTime, value)) return; _defaultNormTime = value; OnPropertyChanged("DefaultNormTime"); } }
+		public Decimal? DefaultNormTime { get { return _defaultNormTime; } set { if (Equals(_defaultNormTime, value)) return; _defaultNormTime = value; OnPropertyChanged("DefaultNormTime"); } }
 
 
 		protected override void MapPropertiesToEntity()
@@ -3230,13 +3230,13 @@ namespace Rti.ViewModel.Entities
 
 		private Int32? _equipmentLeadTime;
 
-		private Double _count;
+		private Decimal _count;
 
-		private Double _price;
+		private Decimal _price;
 
-		private Double? _calculationPrice;
+		private Decimal? _calculationPrice;
 
-		private Double _sum;
+		private Decimal _sum;
 
 		private String _note;
 
@@ -3264,13 +3264,13 @@ namespace Rti.ViewModel.Entities
 
 		public Int32? EquipmentLeadTime { get { return _equipmentLeadTime; } set { if (Equals(_equipmentLeadTime, value)) return; _equipmentLeadTime = value; OnPropertyChanged("EquipmentLeadTime"); } }
 
-		public Double Count { get { return _count; } set { if (Equals(_count, value)) return; _count = value; OnPropertyChanged("Count"); } }
+		public Decimal Count { get { return _count; } set { if (Equals(_count, value)) return; _count = value; OnPropertyChanged("Count"); } }
 
-		public Double Price { get { return _price; } set { if (Equals(_price, value)) return; _price = value; OnPropertyChanged("Price"); } }
+		public Decimal Price { get { return _price; } set { if (Equals(_price, value)) return; _price = value; OnPropertyChanged("Price"); } }
 
-		public Double? CalculationPrice { get { return _calculationPrice; } set { if (Equals(_calculationPrice, value)) return; _calculationPrice = value; OnPropertyChanged("CalculationPrice"); } }
+		public Decimal? CalculationPrice { get { return _calculationPrice; } set { if (Equals(_calculationPrice, value)) return; _calculationPrice = value; OnPropertyChanged("CalculationPrice"); } }
 
-		public Double Sum { get { return _sum; } set { if (Equals(_sum, value)) return; _sum = value; OnPropertyChanged("Sum"); } }
+		public Decimal Sum { get { return _sum; } set { if (Equals(_sum, value)) return; _sum = value; OnPropertyChanged("Sum"); } }
 
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
 

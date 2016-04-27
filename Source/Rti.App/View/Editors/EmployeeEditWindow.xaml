@@ -5,14 +5,15 @@
         xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
         xmlns:lists="clr-namespace:Rti.App.View.Lists"
+        xmlns:components="clr-namespace:Rti.App.View.Components"
         Width="470" Height="170" MinWidth="470" MinHeight="170" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
-        <dxprg:PropertyGridControl SortMode="Definitions" Grid.Row="0" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
-            <dxprg:PropertyGridControl.PropertyDefinitions>
+        <components:PropertyGridResponsible SortMode="Definitions" Grid.Row="0" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
+            <components:PropertyGridResponsible.PropertyDefinitions>
                 <dxprg:PropertyDefinition Header="№" Path="SortOrder" IsReadOnly="True"/>
                 <dxprg:PropertyDefinition Header="ФИО" Path="FullName"/>
                 <dxprg:PropertyDefinition Header="Таб. номер" Path="Code"/>
@@ -38,8 +39,8 @@
                         </dxg:LookUpEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
-            </dxprg:PropertyGridControl.PropertyDefinitions>
-        </dxprg:PropertyGridControl>
+            </components:PropertyGridResponsible.PropertyDefinitions>
+        </components:PropertyGridResponsible>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>
             <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>

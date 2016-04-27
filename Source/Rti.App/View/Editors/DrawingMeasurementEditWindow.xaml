@@ -5,14 +5,15 @@
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:dxprg="http://schemas.devexpress.com/winfx/2008/xaml/propertygrid"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:components="clr-namespace:Rti.App.View.Components"
     Width="470" Height="250" MinWidth="470" MinHeight="250" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
-        <dxprg:PropertyGridControl SortMode="Definitions" Grid.Row="0" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity,PresentationTraceSources.TraceLevel=High}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
-            <dxprg:PropertyGridControl.PropertyDefinitions>
+        <components:PropertyGridResponsible SortMode="Definitions" Grid.Row="0" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity,PresentationTraceSources.TraceLevel=High}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
+            <components:PropertyGridResponsible.PropertyDefinitions>
                 <dxprg:PropertyDefinition Header="Ширина" Path="Width">
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxe:TextEditSettings Mask="f3" MaskCulture="ru-RU"/>
@@ -38,8 +39,8 @@
                         <dxe:TextEditSettings Mask="f3" MaskCulture="ru-RU"/>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
-            </dxprg:PropertyGridControl.PropertyDefinitions>
-        </dxprg:PropertyGridControl>
+            </components:PropertyGridResponsible.PropertyDefinitions>
+        </components:PropertyGridResponsible>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>
             <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>

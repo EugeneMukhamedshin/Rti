@@ -105,6 +105,7 @@ namespace Rti.ViewModel.Lists
             return new DrawingViewModel(null, RepositoryFactory)
             {
                 SortOrder = Items.Any() ? Items.Max(o => o.SortOrder) + 1 : 1,
+                CreationDate = DateTime.Now,
                 Name = "Новый чертеж"
             };
         }

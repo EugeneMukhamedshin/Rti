@@ -159,6 +159,7 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Components\PropertyGridResponsible.cs" />
     <Compile Include="View\Editors\AdditionalInfoEditWindow.xaml.cs">
       <DependentUpon>AdditionalInfoEditWindow.xaml</DependentUpon>
     </Compile>
@@ -289,9 +290,6 @@
     </Compile>
     <Compile Include="View\Lists\ExtendedSelectorControl.xaml.cs">
       <DependentUpon>ExtendedSelectorControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Lists\RequestDetailListControl.xaml.cs">
-      <DependentUpon>RequestDetailListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lists\RequestDetailListDXControl.xaml.cs">
       <DependentUpon>RequestDetailListDXControl.xaml</DependentUpon>
@@ -508,10 +506,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Lists\ExtendedSelectorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Lists\RequestDetailListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

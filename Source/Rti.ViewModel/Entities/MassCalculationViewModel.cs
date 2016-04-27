@@ -15,7 +15,7 @@ namespace Rti.ViewModel.Entities
             }
         }
 
-        public double? CalculatedMass
+        public decimal? CalculatedMass
         {
             get
             {
@@ -23,9 +23,9 @@ namespace Rti.ViewModel.Entities
             }
         }
 
-        public double? CalculateMass()
+        public decimal? CalculateMass()
         {
-            var pi = Math.PI;
+            var pi = (decimal)Math.PI;
 
             switch (DetailTypeEnum)
             {

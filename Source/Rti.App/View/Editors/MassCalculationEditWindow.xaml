@@ -8,6 +8,7 @@
     xmlns:lists="clr-namespace:Rti.App.View.Lists"
     xmlns:editViewModel="clr-namespace:Rti.ViewModel.EditViewModel;assembly=Rti.ViewModel"
     xmlns:domain="clr-namespace:Rti.Model.Domain;assembly=Rti.Model"
+    xmlns:components="clr-namespace:Rti.App.View.Components"
     Width="400" Height="290" MinWidth="380" MinHeight="290" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
@@ -21,8 +22,8 @@
             <Label Content="{Binding Entity.DisplayCalculatedMass}" Margin="5"/>
         </StackPanel>
         <Grid Grid.Row="1">
-            <dxprg:PropertyGridControl HeaderColumnMinWidth="300" SortMode="Definitions" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False" PropertyDefinitionsSource="{Binding Properties}">
-                    <dxprg:PropertyGridControl.PropertyDefinitionTemplateSelector>
+            <components:PropertyGridResponsible HeaderColumnMinWidth="300" SortMode="Definitions" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False" PropertyDefinitionsSource="{Binding Properties}">
+                    <components:PropertyGridResponsible.PropertyDefinitionTemplateSelector>
                     <lists:MapTemplateSelector>
                         <lists:MapTemplateSelector.DefaultTemplate>
                             <DataTemplate DataType="editViewModel:Property">
@@ -51,8 +52,8 @@
                             </lists:TemplateMap>
                         </lists:MapTemplateSelector.TemplateMaps>
                     </lists:MapTemplateSelector>
-                </dxprg:PropertyGridControl.PropertyDefinitionTemplateSelector>
-            </dxprg:PropertyGridControl>
+                </components:PropertyGridResponsible.PropertyDefinitionTemplateSelector>
+            </components:PropertyGridResponsible>
         </Grid>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>

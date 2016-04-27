@@ -11,11 +11,11 @@ namespace Rti.ViewModel.ListViewModel
         public string PlateSize { get { return      Entity.PlateSize        ; } }
         public string InvNumber { get { return      Entity.InvNumber        ; } }
         public int? PlateCount { get { return       Entity.PlateCount       ; } }
-        public double? PlatePower { get { return    Entity.PlatePower       ; } }
-        public double? EnginePower { get { return   Entity.EnginePower      ; } }
-        public double? TotalPower { get { return    Entity.TotalPower       ; } }
-        public double? PowerPrice { get { return    Entity.PowerPrice       ; } }
-        public double? TimePrice { get { return     Entity.TimePrice        ; } }
+        public decimal? PlatePower { get { return    Entity.PlatePower       ; } }
+        public decimal? EnginePower { get { return   Entity.EnginePower      ; } }
+        public decimal? TotalPower { get { return    Entity.TotalPower       ; } }
+        public decimal? PowerPrice { get { return    Entity.PowerPrice       ; } }
+        public decimal? TimePrice { get { return     Entity.TimePrice        ; } }
         public string Note { get { return           Entity.Note             ; } }
 
         public MachineListItem(MachineViewModel entity, IMasterDetailListViewModel ownerList, IRepositoryFactory repositoryFactory)
