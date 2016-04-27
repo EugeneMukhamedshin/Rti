@@ -8,6 +8,7 @@
              xmlns:listViewModel="clr-namespace:Rti.ViewModel.ListViewModel;assembly=Rti.ViewModel"
              xmlns:entities="clr-namespace:Rti.ViewModel.Entities;assembly=Rti.ViewModel"
              xmlns:behaviour="clr-namespace:Rti.App.View.Editors.Behaviour"
+             xmlns:domain="clr-namespace:Rti.Model.Domain;assembly=Rti.Model"
              mc:Ignorable="d">
     <Grid>
         <Grid>
@@ -100,7 +101,10 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate DataType="listViewModel:RequestDetailListItem">
                                         <Border Style="{StaticResource CellStyle}">
-                                            <ComboBox ItemsSource="{lists:ExistanceToItemsSource}" SelectedValue="{Binding EquipmentExistance}" SelectedValuePath="Value" DisplayMemberPath="DisplayName" VerticalContentAlignment="Center" VerticalAlignment="Center">
+                                            <ComboBox SelectedValue="{Binding EquipmentExistance}" SelectedValuePath="Value" DisplayMemberPath="DisplayName" VerticalContentAlignment="Center" VerticalAlignment="Center">
+                                                <ComboBox.ItemsSource>
+                                                    <lists:EnumToItemsSource EnumType="domain:Existance"/>
+                                                </ComboBox.ItemsSource>
                                             </ComboBox>
                                         </Border>
                                     </DataTemplate>

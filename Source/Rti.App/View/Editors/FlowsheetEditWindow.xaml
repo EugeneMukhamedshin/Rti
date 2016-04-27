@@ -238,27 +238,27 @@
                             </Style>
                         </dxg:GridControl.Resources>
                         <dxg:GridControl.Columns>
-                            <dxg:GridColumn FieldName="Name" Header="Наименование процесса" Width="150">
+                            <dxg:GridColumn FieldName="DisplayName" Header="Наименование процесса" Width="150">
                                 <dxg:GridColumn.EditSettings>
-                                    <dxe:TextEditSettings/>
+                                    <dxe:TextEditSettings IsEnabled="{Binding AreNamesReadOnly}"/>
                                 </dxg:GridColumn.EditSettings>
                             </dxg:GridColumn>
-                            <dxg:GridColumn FieldName="Operation" Header="Выполняемая операция" Width="150">
+                            <dxg:GridColumn FieldName="DisplayOperation" Header="Выполняемая операция" Width="150">
                                 <dxg:GridColumn.EditSettings>
-                                    <dxe:TextEditSettings/>
+                                    <dxe:TextEditSettings IsEnabled="{Binding AreNamesReadOnly}"/>
                                 </dxg:GridColumn.EditSettings>
                             </dxg:GridColumn>
-                            <dxg:GridColumn FieldName="Executor" Header="Исполнитель" Width="150">
+                            <dxg:GridColumn FieldName="DisplayExecutor" Header="Исполнитель" Width="150">
                                 <dxg:GridColumn.EditSettings>
-                                    <dxe:TextEditSettings/>
+                                    <dxe:TextEditSettings IsEnabled="{Binding AreNamesReadOnly}"/>
                                 </dxg:GridColumn.EditSettings>
                             </dxg:GridColumn>
-                            <dxg:GridColumn FieldName="VarName" Header="t" Width="50">
+                            <dxg:GridColumn FieldName="DisplayVarName" Header="t" Width="50">
                                 <dxg:GridColumn.EditSettings>
-                                    <dxe:TextEditSettings/>
+                                    <dxe:TextEditSettings IsEnabled="{Binding AreNamesReadOnly}"/>
                                 </dxg:GridColumn.EditSettings>
                             </dxg:GridColumn>
-                            <dxg:GridColumn FieldName="NormTime" Header="Время по норме" Width="120">
+                            <dxg:GridColumn FieldName="DisplayNormTime" Header="Время по норме" Width="120">
                                 <dxg:GridColumn.EditSettings>
                                     <dxe:TextEditSettings/>
                                 </dxg:GridColumn.EditSettings>

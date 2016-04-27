@@ -6,12 +6,20 @@ namespace Rti.ViewModel.Entities
 {
     public partial class MassCalculationViewModel
     {
-        public string CalculatedMass
+        public string DisplayCalculatedMass
         {
             get
             {
-                var mass = CalculateMass();
+                var mass = CalculatedMass;
                 return mass == null ? "Недостаточно данных" : string.Format("{0:f3}", mass);
+            }
+        }
+
+        public double? CalculatedMass
+        {
+            get
+            {
+                return CalculateMass();
             }
         }
 
@@ -47,11 +55,12 @@ namespace Rti.ViewModel.Entities
         {
             base.OnPropertyChanged(propertyName);
             base.OnPropertyChanged("CalculatedMass");
+            base.OnPropertyChanged("DisplayCalculatedMass");
         }
 
         public override string ToString()
         {
-            return CalculatedMass;
+            return DisplayCalculatedMass;
         }
     }
 }

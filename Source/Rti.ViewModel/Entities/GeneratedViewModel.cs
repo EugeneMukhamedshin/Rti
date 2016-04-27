@@ -122,51 +122,51 @@ namespace Rti.ViewModel.Entities
 
 		private CalculationType _calculationTypeEnum;
 
-		private Decimal? _mainMaterial;
+		private Double? _mainMaterial;
 
-		private Decimal? _rubber;
+		private Double? _rubber;
 
-		private Decimal? _clue;
+		private Double? _clue;
 
-		private Decimal? _armature;
+		private Double? _armature;
 
-		private Decimal? _sand;
+		private Double? _sand;
 
-		private Decimal? _textile;
+		private Double? _textile;
 
-		private Decimal? _otherMaterial;
+		private Double? _otherMaterial;
 
-		private Decimal? _transport;
+		private Double? _transport;
 
-		private Decimal? _mainSalary;
+		private Double? _mainSalary;
 
-		private Decimal? _additionalSalary;
+		private Double? _additionalSalary;
 
-		private Decimal? _fixedTax;
+		private Double? _fixedTax;
 
-		private Decimal? _totalDivision;
+		private Double? _totalDivision;
 
-		private Decimal? _totalManufacture;
+		private Double? _totalManufacture;
 
-		private Decimal? _mainSummary;
+		private Double? _mainSummary;
 
-		private Decimal? _powerForFormed;
+		private Double? _powerForFormed;
 
-		private Decimal? _otherPower;
+		private Double? _otherPower;
 
-		private Decimal? _mainAndPowerSummary;
+		private Double? _mainAndPowerSummary;
 
-		private Decimal? _unforseen;
+		private Double? _unforseen;
 
-		private Decimal? _netCost;
+		private Double? _netCost;
 
-		private Decimal? _profitability;
+		private Double? _profitability;
 
-		private Decimal? _price;
+		private Double? _price;
 
-		private Decimal? _ndsTax;
+		private Double? _ndsTax;
 
-		private Decimal? _summary;
+		private Double? _summary;
 
 		private DrawingViewModel _drawing;
 
@@ -176,51 +176,51 @@ namespace Rti.ViewModel.Entities
 
 		public CalculationType CalculationTypeEnum { get { return _calculationTypeEnum; } set { if (Equals(_calculationTypeEnum, value)) return; _calculationTypeEnum = value; OnPropertyChanged("CalculationTypeEnum"); } }
 
-		public Decimal? MainMaterial { get { return _mainMaterial; } set { if (Equals(_mainMaterial, value)) return; _mainMaterial = value; OnPropertyChanged("MainMaterial"); } }
+		public Double? MainMaterial { get { return _mainMaterial; } set { if (Equals(_mainMaterial, value)) return; _mainMaterial = value; OnPropertyChanged("MainMaterial"); } }
 
-		public Decimal? Rubber { get { return _rubber; } set { if (Equals(_rubber, value)) return; _rubber = value; OnPropertyChanged("Rubber"); } }
+		public Double? Rubber { get { return _rubber; } set { if (Equals(_rubber, value)) return; _rubber = value; OnPropertyChanged("Rubber"); } }
 
-		public Decimal? Clue { get { return _clue; } set { if (Equals(_clue, value)) return; _clue = value; OnPropertyChanged("Clue"); } }
+		public Double? Clue { get { return _clue; } set { if (Equals(_clue, value)) return; _clue = value; OnPropertyChanged("Clue"); } }
 
-		public Decimal? Armature { get { return _armature; } set { if (Equals(_armature, value)) return; _armature = value; OnPropertyChanged("Armature"); } }
+		public Double? Armature { get { return _armature; } set { if (Equals(_armature, value)) return; _armature = value; OnPropertyChanged("Armature"); } }
 
-		public Decimal? Sand { get { return _sand; } set { if (Equals(_sand, value)) return; _sand = value; OnPropertyChanged("Sand"); } }
+		public Double? Sand { get { return _sand; } set { if (Equals(_sand, value)) return; _sand = value; OnPropertyChanged("Sand"); } }
 
-		public Decimal? Textile { get { return _textile; } set { if (Equals(_textile, value)) return; _textile = value; OnPropertyChanged("Textile"); } }
+		public Double? Textile { get { return _textile; } set { if (Equals(_textile, value)) return; _textile = value; OnPropertyChanged("Textile"); } }
 
-		public Decimal? OtherMaterial { get { return _otherMaterial; } set { if (Equals(_otherMaterial, value)) return; _otherMaterial = value; OnPropertyChanged("OtherMaterial"); } }
+		public Double? OtherMaterial { get { return _otherMaterial; } set { if (Equals(_otherMaterial, value)) return; _otherMaterial = value; OnPropertyChanged("OtherMaterial"); } }
 
-		public Decimal? Transport { get { return _transport; } set { if (Equals(_transport, value)) return; _transport = value; OnPropertyChanged("Transport"); } }
+		public Double? Transport { get { return _transport; } set { if (Equals(_transport, value)) return; _transport = value; OnPropertyChanged("Transport"); } }
 
-		public Decimal? MainSalary { get { return _mainSalary; } set { if (Equals(_mainSalary, value)) return; _mainSalary = value; OnPropertyChanged("MainSalary"); } }
+		public Double? MainSalary { get { return _mainSalary; } set { if (Equals(_mainSalary, value)) return; _mainSalary = value; OnPropertyChanged("MainSalary"); } }
 
-		public Decimal? AdditionalSalary { get { return _additionalSalary; } set { if (Equals(_additionalSalary, value)) return; _additionalSalary = value; OnPropertyChanged("AdditionalSalary"); } }
+		public Double? AdditionalSalary { get { return _additionalSalary; } set { if (Equals(_additionalSalary, value)) return; _additionalSalary = value; OnPropertyChanged("AdditionalSalary"); } }
 
-		public Decimal? FixedTax { get { return _fixedTax; } set { if (Equals(_fixedTax, value)) return; _fixedTax = value; OnPropertyChanged("FixedTax"); } }
+		public Double? FixedTax { get { return _fixedTax; } set { if (Equals(_fixedTax, value)) return; _fixedTax = value; OnPropertyChanged("FixedTax"); } }
 
-		public Decimal? TotalDivision { get { return _totalDivision; } set { if (Equals(_totalDivision, value)) return; _totalDivision = value; OnPropertyChanged("TotalDivision"); } }
+		public Double? TotalDivision { get { return _totalDivision; } set { if (Equals(_totalDivision, value)) return; _totalDivision = value; OnPropertyChanged("TotalDivision"); } }
 
-		public Decimal? TotalManufacture { get { return _totalManufacture; } set { if (Equals(_totalManufacture, value)) return; _totalManufacture = value; OnPropertyChanged("TotalManufacture"); } }
+		public Double? TotalManufacture { get { return _totalManufacture; } set { if (Equals(_totalManufacture, value)) return; _totalManufacture = value; OnPropertyChanged("TotalManufacture"); } }
 
-		public Decimal? MainSummary { get { return _mainSummary; } set { if (Equals(_mainSummary, value)) return; _mainSummary = value; OnPropertyChanged("MainSummary"); } }
+		public Double? MainSummary { get { return _mainSummary; } set { if (Equals(_mainSummary, value)) return; _mainSummary = value; OnPropertyChanged("MainSummary"); } }
 
-		public Decimal? PowerForFormed { get { return _powerForFormed; } set { if (Equals(_powerForFormed, value)) return; _powerForFormed = value; OnPropertyChanged("PowerForFormed"); } }
+		public Double? PowerForFormed { get { return _powerForFormed; } set { if (Equals(_powerForFormed, value)) return; _powerForFormed = value; OnPropertyChanged("PowerForFormed"); } }
 
-		public Decimal? OtherPower { get { return _otherPower; } set { if (Equals(_otherPower, value)) return; _otherPower = value; OnPropertyChanged("OtherPower"); } }
+		public Double? OtherPower { get { return _otherPower; } set { if (Equals(_otherPower, value)) return; _otherPower = value; OnPropertyChanged("OtherPower"); } }
 
-		public Decimal? MainAndPowerSummary { get { return _mainAndPowerSummary; } set { if (Equals(_mainAndPowerSummary, value)) return; _mainAndPowerSummary = value; OnPropertyChanged("MainAndPowerSummary"); } }
+		public Double? MainAndPowerSummary { get { return _mainAndPowerSummary; } set { if (Equals(_mainAndPowerSummary, value)) return; _mainAndPowerSummary = value; OnPropertyChanged("MainAndPowerSummary"); } }
 
-		public Decimal? Unforseen { get { return _unforseen; } set { if (Equals(_unforseen, value)) return; _unforseen = value; OnPropertyChanged("Unforseen"); } }
+		public Double? Unforseen { get { return _unforseen; } set { if (Equals(_unforseen, value)) return; _unforseen = value; OnPropertyChanged("Unforseen"); } }
 
-		public Decimal? NetCost { get { return _netCost; } set { if (Equals(_netCost, value)) return; _netCost = value; OnPropertyChanged("NetCost"); } }
+		public Double? NetCost { get { return _netCost; } set { if (Equals(_netCost, value)) return; _netCost = value; OnPropertyChanged("NetCost"); } }
 
-		public Decimal? Profitability { get { return _profitability; } set { if (Equals(_profitability, value)) return; _profitability = value; OnPropertyChanged("Profitability"); } }
+		public Double? Profitability { get { return _profitability; } set { if (Equals(_profitability, value)) return; _profitability = value; OnPropertyChanged("Profitability"); } }
 
-		public Decimal? Price { get { return _price; } set { if (Equals(_price, value)) return; _price = value; OnPropertyChanged("Price"); } }
+		public Double? Price { get { return _price; } set { if (Equals(_price, value)) return; _price = value; OnPropertyChanged("Price"); } }
 
-		public Decimal? NdsTax { get { return _ndsTax; } set { if (Equals(_ndsTax, value)) return; _ndsTax = value; OnPropertyChanged("NdsTax"); } }
+		public Double? NdsTax { get { return _ndsTax; } set { if (Equals(_ndsTax, value)) return; _ndsTax = value; OnPropertyChanged("NdsTax"); } }
 
-		public Decimal? Summary { get { return _summary; } set { if (Equals(_summary, value)) return; _summary = value; OnPropertyChanged("Summary"); } }
+		public Double? Summary { get { return _summary; } set { if (Equals(_summary, value)) return; _summary = value; OnPropertyChanged("Summary"); } }
 
 		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
 
@@ -1846,6 +1846,8 @@ namespace Rti.ViewModel.Entities
 
 		private FlowsheetViewModel _flowsheet;
 
+		private ProcessViewModel _process;
+
 
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
@@ -1866,6 +1868,8 @@ namespace Rti.ViewModel.Entities
 
 		public FlowsheetViewModel Flowsheet { get { return _flowsheet; } set { _flowsheet = value; OnPropertyChanged("Flowsheet"); } }
 
+		public ProcessViewModel Process { get { return _process; } set { _process = value; OnPropertyChanged("Process"); } }
+
 
 		protected override void MapPropertiesToEntity()
 		{
@@ -1885,6 +1889,8 @@ namespace Rti.ViewModel.Entities
 			Entity.Note = Note; 
 
 			Entity.Flowsheet = Flowsheet == null ? null : Flowsheet.Entity; 
+
+			Entity.Process = Process == null ? null : Process.Entity; 
 
 		}
 
@@ -1909,6 +1915,8 @@ namespace Rti.ViewModel.Entities
 
 			Flowsheet = Entity.Flowsheet == null ? null : new FlowsheetViewModel(Entity.Flowsheet, RepositoryFactory); 
 
+			Process = Entity.Process == null ? null : new ProcessViewModel(Entity.Process, RepositoryFactory); 
+
 		}
 
 		public override void CopyTo(FlowsheetProcessViewModel target)
@@ -1929,6 +1937,8 @@ namespace Rti.ViewModel.Entities
 			target.Note = Note; 
 
 			target.Flowsheet = Flowsheet; 
+
+			target.Process = Process; 
 
 		}
 
@@ -2973,6 +2983,118 @@ namespace Rti.ViewModel.Entities
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((MethodViewModel) obj);
+        }
+	}
+
+
+	// The viewmodel for Process
+	public partial class ProcessViewModel : EntityViewModel<Rti.Model.Domain.Process, ProcessViewModel>
+	{
+		// Конструктор для маппинга
+		public ProcessViewModel() { }
+
+        public ProcessViewModel(Rti.Model.Domain.Process entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+
+		private Int32 _id;
+
+		private ProcessType _processTypeEnum;
+
+		private String _name;
+
+		private String _defaultOperation;
+
+		private String _defaultExecutor;
+
+		private String _variableName;
+
+		private Double? _defaultNormTime;
+
+
+
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+
+		public ProcessType ProcessTypeEnum { get { return _processTypeEnum; } set { if (Equals(_processTypeEnum, value)) return; _processTypeEnum = value; OnPropertyChanged("ProcessTypeEnum"); } }
+
+		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged("Name"); } }
+
+		public String DefaultOperation { get { return _defaultOperation; } set { if (Equals(_defaultOperation, value)) return; _defaultOperation = value; OnPropertyChanged("DefaultOperation"); } }
+
+		public String DefaultExecutor { get { return _defaultExecutor; } set { if (Equals(_defaultExecutor, value)) return; _defaultExecutor = value; OnPropertyChanged("DefaultExecutor"); } }
+
+		public String VariableName { get { return _variableName; } set { if (Equals(_variableName, value)) return; _variableName = value; OnPropertyChanged("VariableName"); } }
+
+		public Double? DefaultNormTime { get { return _defaultNormTime; } set { if (Equals(_defaultNormTime, value)) return; _defaultNormTime = value; OnPropertyChanged("DefaultNormTime"); } }
+
+
+		protected override void MapPropertiesToEntity()
+		{
+
+			Entity.ProcessTypeEnum = ProcessTypeEnum; 
+
+			Entity.Name = Name; 
+
+			Entity.DefaultOperation = DefaultOperation; 
+
+			Entity.DefaultExecutor = DefaultExecutor; 
+
+			Entity.VariableName = VariableName; 
+
+			Entity.DefaultNormTime = DefaultNormTime; 
+
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+
+			Id = Entity.Id; 
+
+			ProcessTypeEnum = Entity.ProcessTypeEnum; 
+
+			Name = Entity.Name; 
+
+			DefaultOperation = Entity.DefaultOperation; 
+
+			DefaultExecutor = Entity.DefaultExecutor; 
+
+			VariableName = Entity.VariableName; 
+
+			DefaultNormTime = Entity.DefaultNormTime; 
+
+		}
+
+		public override void CopyTo(ProcessViewModel target)
+		{
+
+			target.ProcessTypeEnum = ProcessTypeEnum; 
+
+			target.Name = Name; 
+
+			target.DefaultOperation = DefaultOperation; 
+
+			target.DefaultExecutor = DefaultExecutor; 
+
+			target.VariableName = VariableName; 
+
+			target.DefaultNormTime = DefaultNormTime; 
+
+		}
+
+		public override ProcessViewModel Clone()
+		{
+			var copy = new ProcessViewModel(null, RepositoryFactory);
+			CopyTo(copy);
+			return copy;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(ProcessViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((ProcessViewModel) obj);
         }
 	}
 

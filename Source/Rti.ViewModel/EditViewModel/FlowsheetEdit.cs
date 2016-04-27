@@ -68,12 +68,12 @@ namespace Rti.ViewModel.EditViewModel
             }
             foreach (var flowsheetProcess in FlowsheetProcessList.Items)
             {
-                if (flowsheetProcess.Name == null)
+                if (flowsheetProcess.DisplayName == null)
                 {
                     ViewService.ShowMessage(new MessageViewModel("Ошибка", string.Format("Нормирование времени. В строке {0} не задано наименование работ", FlowsheetProcessList.Items.IndexOf(flowsheetProcess) + 1)));
                     return false;
                 }
-                if (flowsheetProcess.Executor == null)
+                if (flowsheetProcess.DisplayExecutor == null)
                 {
                     ViewService.ShowMessage(new MessageViewModel("Ошибка", string.Format("Нормирование времени. В строке {0} не задан исполнитель", FlowsheetProcessList.Items.IndexOf(flowsheetProcess) + 1)));
                     return false;

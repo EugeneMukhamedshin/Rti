@@ -55,73 +55,73 @@ namespace Rti.Model.Domain
 		public virtual CalculationType CalculationTypeEnum { get; set; }
 
 		[Field("main_material")]
-		public virtual decimal? MainMaterial { get; set; }
+		public virtual Double? MainMaterial { get; set; }
 
 		[Field("rubber")]
-		public virtual decimal? Rubber { get; set; }
+		public virtual Double? Rubber { get; set; }
 
 		[Field("clue")]
-		public virtual decimal? Clue { get; set; }
+		public virtual Double? Clue { get; set; }
 
 		[Field("armature")]
-		public virtual decimal? Armature { get; set; }
+		public virtual Double? Armature { get; set; }
 
 		[Field("sand")]
-		public virtual decimal? Sand { get; set; }
+		public virtual Double? Sand { get; set; }
 
 		[Field("textile")]
-		public virtual decimal? Textile { get; set; }
+		public virtual Double? Textile { get; set; }
 
 		[Field("other_material")]
-		public virtual decimal? OtherMaterial { get; set; }
+		public virtual Double? OtherMaterial { get; set; }
 
 		[Field("transport")]
-		public virtual decimal? Transport { get; set; }
+		public virtual Double? Transport { get; set; }
 
 		[Field("main_salary")]
-		public virtual decimal? MainSalary { get; set; }
+		public virtual Double? MainSalary { get; set; }
 
 		[Field("additional_salary")]
-		public virtual decimal? AdditionalSalary { get; set; }
+		public virtual Double? AdditionalSalary { get; set; }
 
 		[Field("fixed_tax")]
-		public virtual decimal? FixedTax { get; set; }
+		public virtual Double? FixedTax { get; set; }
 
 		[Field("total_division")]
-		public virtual decimal? TotalDivision { get; set; }
+		public virtual Double? TotalDivision { get; set; }
 
 		[Field("total_manufacture")]
-		public virtual decimal? TotalManufacture { get; set; }
+		public virtual Double? TotalManufacture { get; set; }
 
 		[Field("main_summary")]
-		public virtual decimal? MainSummary { get; set; }
+		public virtual Double? MainSummary { get; set; }
 
 		[Field("power_for_formed")]
-		public virtual decimal? PowerForFormed { get; set; }
+		public virtual Double? PowerForFormed { get; set; }
 
 		[Field("other_power")]
-		public virtual decimal? OtherPower { get; set; }
+		public virtual Double? OtherPower { get; set; }
 
 		[Field("main_and_power_summary")]
-		public virtual decimal? MainAndPowerSummary { get; set; }
+		public virtual Double? MainAndPowerSummary { get; set; }
 
 		[Field("unforseen")]
-		public virtual decimal? Unforseen { get; set; }
+		public virtual Double? Unforseen { get; set; }
 
 		[Field("net_cost")]
-		public virtual decimal? NetCost { get; set; }
+		public virtual Double? NetCost { get; set; }
 
 		[Field("profitability")]
-		public virtual decimal? Profitability { get; set; }
+		public virtual Double? Profitability { get; set; }
 
 		[Field("price")]
-		public virtual decimal? Price { get; set; }
+		public virtual Double? Price { get; set; }
 
 		[Field("nds_tax")]
-		public virtual decimal? NdsTax { get; set; }
+		public virtual Double? NdsTax { get; set; }
 
 		[Field("summary")]
-		public virtual decimal? Summary { get; set; }
+		public virtual Double? Summary { get; set; }
 
 		[Reference("drawing_id")]
 		public virtual Drawing Drawing { get; set; }
@@ -542,6 +542,9 @@ namespace Rti.Model.Domain
 		[Reference("flowsheet_id")]
 		public virtual Flowsheet Flowsheet { get; set; }
 
+		[Reference("process_id")]
+		public virtual Process Process { get; set; }
+
 	}
 
 
@@ -812,6 +815,35 @@ namespace Rti.Model.Domain
 
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+
+	}
+
+
+	// The class for processes
+	[Table("processes")]
+	public partial class Process: IIdentifiedEntity
+	{
+
+		[Field("id")]
+		public virtual Int32 Id { get; protected set; }
+
+		[Field("process_type_enum")]
+		public virtual ProcessType ProcessTypeEnum { get; set; }
+
+		[Field("name")]
+		public virtual String Name { get; set; }
+
+		[Field("default_operation")]
+		public virtual String DefaultOperation { get; set; }
+
+		[Field("default_executor")]
+		public virtual String DefaultExecutor { get; set; }
+
+		[Field("variable_name")]
+		public virtual String VariableName { get; set; }
+
+		[Field("default_norm_time")]
+		public virtual Double? DefaultNormTime { get; set; }
 
 	}
 

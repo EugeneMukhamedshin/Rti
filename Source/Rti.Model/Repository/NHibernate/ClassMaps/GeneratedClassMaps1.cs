@@ -502,6 +502,8 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			References(o => o.Flowsheet, "flowsheet_id").Fetch.Join().Not.LazyLoad();
 
+			References(o => o.Process, "process_id").Fetch.Join().Not.LazyLoad();
+
 			OnInitialized();
 		}
 	}
@@ -773,6 +775,37 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.Note, "note");
 
 			Map(o => o.IsDeleted, "is_deleted");
+
+			OnInitialized();
+		}
+	}
+
+
+	// The classmap for processes
+	public partial class ProcessMap : BaseMap<Rti.Model.Domain.Process>
+	{
+		public ProcessMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("processes");
+
+			Id(o => o.Id, "id");
+
+			Map(o => o.ProcessTypeEnum, "process_type_enum").CustomType<ProcessType>();
+
+			Map(o => o.Name, "name");
+
+			Map(o => o.DefaultOperation, "default_operation");
+
+			Map(o => o.DefaultExecutor, "default_executor");
+
+			Map(o => o.VariableName, "variable_name");
+
+			Map(o => o.DefaultNormTime, "default_norm_time");
 
 			OnInitialized();
 		}

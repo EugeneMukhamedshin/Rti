@@ -27,6 +27,7 @@ namespace Rti.Model.Repository.Interfaces
 		IMaterialRepository GetMaterialRepository();
 		IMeasureUnitRepository GetMeasureUnitRepository();
 		IMethodRepository GetMethodRepository();
+		IProcessRepository GetProcessRepository();
 		IRequestRepository GetRequestRepository();
 		IRequestDetailRepository GetRequestDetailRepository();
     }
@@ -51,6 +52,7 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IMaterialRepository : IRepository<Rti.Model.Domain.Material> { }
 	public partial interface IMeasureUnitRepository : IRepository<Rti.Model.Domain.MeasureUnit> { }
 	public partial interface IMethodRepository : IRepository<Rti.Model.Domain.Method> { }
+	public partial interface IProcessRepository : IRepository<Rti.Model.Domain.Process> { }
 	public partial interface IRequestRepository : IRepository<Rti.Model.Domain.Request> { }
 	public partial interface IRequestDetailRepository : IRepository<Rti.Model.Domain.RequestDetail> { }
 }

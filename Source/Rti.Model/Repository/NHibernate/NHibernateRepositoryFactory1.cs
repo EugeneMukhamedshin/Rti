@@ -49,6 +49,8 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new MeasureUnitRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Method))
                 return (IRepository<TEntity>)new MethodRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.Process))
+                return (IRepository<TEntity>)new ProcessRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Request))
                 return (IRepository<TEntity>)new RequestRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.RequestDetail))
@@ -95,6 +97,8 @@ namespace Rti.Model.Repository.NHibernate
 		public IMeasureUnitRepository GetMeasureUnitRepository() { return (IMeasureUnitRepository) GetRepository<Rti.Model.Domain.MeasureUnit>(); }
 
 		public IMethodRepository GetMethodRepository() { return (IMethodRepository) GetRepository<Rti.Model.Domain.Method>(); }
+
+		public IProcessRepository GetProcessRepository() { return (IProcessRepository) GetRepository<Rti.Model.Domain.Process>(); }
 
 		public IRequestRepository GetRequestRepository() { return (IRequestRepository) GetRepository<Rti.Model.Domain.Request>(); }
 
@@ -234,6 +238,7 @@ namespace Rti.Model.Repository.NHibernate
         {
 			var result = queryOver;
 			result = result.Fetch(o => o.Flowsheet).Default;
+			result = result.Fetch(o => o.Process).Default;
             return result;
         }
     }
@@ -312,6 +317,16 @@ namespace Rti.Model.Repository.NHibernate
     {
 
         protected override IQueryOver<Rti.Model.Domain.Method, Rti.Model.Domain.Method> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Method, Rti.Model.Domain.Method> queryOver)
+        {
+			var result = queryOver;
+            return result;
+        }
+    }
+
+	public partial class ProcessRepository : NHibernateRepository<Rti.Model.Domain.Process>, IProcessRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.Process, Rti.Model.Domain.Process> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Process, Rti.Model.Domain.Process> queryOver)
         {
 			var result = queryOver;
             return result;

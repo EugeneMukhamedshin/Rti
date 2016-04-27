@@ -69,6 +69,7 @@
     <Compile Include="EditViewModel\AdditionalInfoEdit.cs" />
     <Compile Include="EditViewModel\ConstantEdit.cs" />
     <Compile Include="EditViewModel\FlowsheetEdit.cs" />
+    <Compile Include="EditViewModel\FlowsheetProcessEdit.cs" />
     <Compile Include="EditViewModel\ImageEdit.cs" />
     <Compile Include="EditViewModel\MassCalculationEdit.cs" />
     <Compile Include="EditViewModel\RequestEdit.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Entities\EmployeeViewModel.cs" />
     <Compile Include="Entities\EntityViewModel.cs" />
     <Compile Include="Entities\EquipmentViewModel.cs" />
+    <Compile Include="Entities\FlowsheetProcessViewModel.cs" />
     <Compile Include="Entities\GeneratedViewModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

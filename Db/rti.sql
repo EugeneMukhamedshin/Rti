@@ -1,7 +1,7 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 6.3.358.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 22.04.2016 17:40:35
+-- Дата скрипта: 27.04.2016 18:54:33
 -- Версия сервера: 5.6.26-log
 -- Версия клиента: 4.1
 --
@@ -362,6 +362,27 @@ COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
 
 --
+-- Описание для таблицы processes
+--
+DROP TABLE IF EXISTS processes;
+CREATE TABLE processes (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  process_type_enum INT(11) NOT NULL,
+  name VARCHAR(500) DEFAULT NULL,
+  default_operation VARCHAR(500) DEFAULT NULL,
+  default_executor VARCHAR(500) DEFAULT NULL,
+  variable_name VARCHAR(50) DEFAULT NULL,
+  default_norm_time DOUBLE DEFAULT NULL,
+  PRIMARY KEY (id)
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 14
+AVG_ROW_LENGTH = 1365
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'типы процессов';
+
+--
 -- Описание для таблицы drawings
 --
 DROP TABLE IF EXISTS drawings;
@@ -413,7 +434,7 @@ CREATE TABLE drawings (
     REFERENCES methods(id) ON DELETE NO ACTION ON UPDATE NO ACTION
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 10
+AUTO_INCREMENT = 8
 AVG_ROW_LENGTH = 2730
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -460,7 +481,7 @@ CREATE TABLE requests (
     REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 43
+AUTO_INCREMENT = 44
 AVG_ROW_LENGTH = 3276
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -474,35 +495,36 @@ CREATE TABLE calculations (
   id INT(11) NOT NULL AUTO_INCREMENT,
   drawing_id INT(11) NOT NULL,
   calculation_type_enum INT(11) NOT NULL DEFAULT 0 COMMENT '0 - плановая, 1 - фактическая',
-  Main_Material DECIMAL(10, 2) DEFAULT 0.00,
-  Rubber DECIMAL(10, 2) DEFAULT 0.00,
-  Clue DECIMAL(10, 2) DEFAULT 0.00,
-  Armature DECIMAL(10, 2) DEFAULT 0.00,
-  Sand DECIMAL(10, 2) DEFAULT 0.00,
-  Textile DECIMAL(10, 2) DEFAULT 0.00,
-  Other_Material DECIMAL(10, 2) DEFAULT 0.00,
-  Transport DECIMAL(10, 2) DEFAULT 0.00,
-  Main_Salary DECIMAL(10, 2) DEFAULT 0.00,
-  Additional_Salary DECIMAL(10, 2) DEFAULT 0.00,
-  Fixed_Tax DECIMAL(10, 2) DEFAULT 0.00,
-  Total_Division DECIMAL(10, 2) DEFAULT 0.00,
-  Total_Manufacture DECIMAL(10, 2) DEFAULT 0.00,
-  Main_Summary DECIMAL(10, 2) DEFAULT 0.00,
-  Power_For_Formed DECIMAL(10, 2) DEFAULT 0.00,
-  Other_Power DECIMAL(10, 2) DEFAULT 0.00,
-  Main_And_Power_Summary DECIMAL(10, 2) DEFAULT 0.00,
-  Unforseen DECIMAL(10, 2) DEFAULT 0.00,
-  Net_Cost DECIMAL(10, 2) DEFAULT 0.00,
-  Profitability DECIMAL(10, 2) DEFAULT 0.00,
-  Price DECIMAL(10, 2) DEFAULT 0.00,
-  Nds_Tax DECIMAL(10, 2) DEFAULT 0.00,
-  Summary DECIMAL(10, 2) DEFAULT 0.00,
+  Main_Material DOUBLE DEFAULT 0,
+  Rubber DOUBLE DEFAULT 0,
+  Clue DOUBLE DEFAULT 0,
+  Armature DOUBLE DEFAULT 0,
+  Sand DOUBLE DEFAULT 0,
+  Textile DOUBLE DEFAULT 0,
+  Other_Material DOUBLE DEFAULT 0,
+  Transport DOUBLE DEFAULT 0,
+  Main_Salary DOUBLE DEFAULT 0,
+  Additional_Salary DOUBLE DEFAULT 0,
+  Fixed_Tax DOUBLE DEFAULT 0,
+  Total_Division DOUBLE DEFAULT 0,
+  Total_Manufacture DOUBLE DEFAULT 0,
+  Main_Summary DOUBLE DEFAULT 0,
+  Power_For_Formed DOUBLE DEFAULT 0,
+  Other_Power DOUBLE DEFAULT 0,
+  Main_And_Power_Summary DOUBLE DEFAULT 0,
+  Unforseen DOUBLE DEFAULT 0,
+  Net_Cost DOUBLE DEFAULT 0,
+  Profitability DOUBLE DEFAULT 0,
+  Price DOUBLE DEFAULT 0,
+  Nds_Tax DOUBLE DEFAULT 0,
+  Summary DOUBLE DEFAULT 0,
   PRIMARY KEY (id),
   CONSTRAINT FK_calculations_drawings_id FOREIGN KEY (drawing_id)
     REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 3
+AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 COMMENT = 'калькуляции';
@@ -528,7 +550,7 @@ CREATE TABLE flowsheets (
     REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 9
+AUTO_INCREMENT = 10
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -594,7 +616,7 @@ CREATE TABLE flowsheet_machines (
     REFERENCES machines(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 6
+AUTO_INCREMENT = 7
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -609,6 +631,7 @@ CREATE TABLE flowsheet_processes (
   id INT(11) NOT NULL AUTO_INCREMENT,
   flowsheet_id INT(11) DEFAULT NULL,
   sort_order INT(11) DEFAULT NULL,
+  process_id INT(11) NOT NULL COMMENT 'тип процесса',
   name VARCHAR(255) DEFAULT NULL,
   operation VARCHAR(255) DEFAULT NULL,
   executor VARCHAR(255) DEFAULT NULL,
@@ -617,11 +640,13 @@ CREATE TABLE flowsheet_processes (
   note VARCHAR(4000) DEFAULT NULL,
   PRIMARY KEY (id),
   CONSTRAINT FK_flowsheet_processes_flowsheets_id FOREIGN KEY (flowsheet_id)
-    REFERENCES flowsheets(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+    REFERENCES flowsheets(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_flowsheet_processes_processes_id FOREIGN KEY (process_id)
+    REFERENCES processes(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 34
-AVG_ROW_LENGTH = 512
+AUTO_INCREMENT = 50
+AVG_ROW_LENGTH = 348
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 COMMENT = 'технологические процессы'
@@ -667,7 +692,7 @@ INSERT INTO drivers VALUES
 --
 INSERT INTO equipments VALUES
 (1, 1, 'Оснастка1', 1, 1.123, 12, 1, 12, '1ыфв сфыва ыфавп ыва ывап ывап ывап ывап выа выап выап выап выап ывап выап вып', 1),
-(2, 1, 'Новая оснастка', 0, 0, 2, 3, 6, NULL, 0),
+(2, 1, 'Новая оснастка', 3, 0, 2, 3, 6, NULL, 0),
 (3, 2, 'Íîâàÿ îñíàñòêà', 0, 0, 0, 0, 0, NULL, 0),
 (4, 3, 'Нsadsdfvsdf', 0, 0, 0, 0, 0, NULL, 0);
 
@@ -708,7 +733,7 @@ INSERT INTO machines VALUES
 -- Вывод данных для таблицы mass_calculations
 --
 INSERT INTO mass_calculations VALUES
-(1, 7, 2, 10, NULL, NULL, 100, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 10, 100, 50, 1000, 500, '1+2'),
+(1, 1, 2, 10, 10, 10, 100, 10, 15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 10, 100, 50, 1000, 500, '1+2'),
 (2, 0, 2, 5, NULL, NULL, 200, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- 
@@ -736,6 +761,24 @@ INSERT INTO measure_units VALUES
 INSERT INTO methods VALUES
 (1, 1, 'Met121', 'sfdv ls''fd;lvk s'';lgfk sfd sdkjgf s;lkgj ', 0),
 (2, 2, 'fv swerg ', 'werg werg  wergwerrg werg', 1);
+
+-- 
+-- Вывод данных для таблицы processes
+--
+INSERT INTO processes VALUES
+(1, 1, 'Подготовительное', 'Получить прессформу', 'Технолог', 'tпод', NULL),
+(2, 2, 'Чистка/ремонт формы', 'Чистка/ремонт формы', 'Токарь', 'tч', NULL),
+(3, 3, 'Фильера', 'Подбор фильеры и рез смеси', 'Технолог', 'tф', NULL),
+(4, 4, 'Вальцовка', 'Подготовить смесь', 'Вальцовщик', 'tвал', NULL),
+(5, 5, 'Шприцевание', 'Выполнить заготовку', 'Вальцовщик', 'tшпр', NULL),
+(6, 6, 'Программирование', 'Работа технолога перед загрузкой', 'Технолог', 'tтехн', NULL),
+(7, 7, 'Загрузка', 'Загрузить в прессформу', 'Прессовщик', 'tзаг', NULL),
+(8, 8, 'Вулканизация/вырубка', 'Вулканизировать/вырубить', 'Прессовщик', 'tв', NULL),
+(9, 9, 'Выгрузка', 'Выгрузить', 'Прессовщик', 'tвыгр', NULL),
+(10, 10, 'Простой технологический', NULL, 'Прессовщик', 'tпр.т', NULL),
+(11, 11, 'Простой по вине работника', NULL, 'Работник', 'tпр.и', NULL),
+(12, 12, 'Общее время вулканизации/вырубки', NULL, 'Технолог', 'Tоб', NULL),
+(13, 13, 'Процесс', 'Операция', 'Исполнитель', 'Обозначение', NULL);
 
 -- 
 -- Вывод данных для таблицы drawings
@@ -770,8 +813,9 @@ INSERT INTO requests VALUES
 -- 
 -- Вывод данных для таблицы calculations
 --
-
--- Таблица rti.calculations не содержит данных
+INSERT INTO calculations VALUES
+(1, 7, 0, 29009.46656324815, 123, 234, 345, 456, 567, NULL, 39017.73252756876, 37284, 3389.4545454545455, 86349.744, 158626.47272727272, 162693.81818181818, 516370.6885453624, 15, 75, 516460.6885453624, 3098764.1312721744, 3615224.819817537, 25306573.73872276, 28921798.558540296, 231374388.46832237, 260296187.02686265),
+(2, 7, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- 
 -- Вывод данных для таблицы flowsheets
@@ -780,7 +824,8 @@ INSERT INTO flowsheets VALUES
 (5, 6, 1, NULL, NULL, NULL, NULL),
 (6, 4, 2, NULL, NULL, NULL, NULL),
 (7, 7, 3, 3, 30, 20, NULL),
-(8, 1, 3, NULL, NULL, NULL, NULL);
+(8, 1, 3, NULL, NULL, NULL, NULL),
+(9, 3, 1, 3, 100, 200, NULL);
 
 -- 
 -- Вывод данных для таблицы request_details
@@ -799,44 +844,60 @@ INSERT INTO request_details VALUES
 --
 INSERT INTO flowsheet_machines VALUES
 (4, 7, 1, 1, 300, 15),
-(5, 7, 2, 1, 200, 20);
+(5, 7, 2, 1, 200, 20),
+(6, 9, 1, 1, 130, 150);
 
 -- 
 -- Вывод данных для таблицы flowsheet_processes
 --
 INSERT INTO flowsheet_processes VALUES
-(1, 6, 1, 'Подготовительное', 'Получить прессформу', 'Технолог', 'tпод', 0, NULL),
-(2, 6, 2, 'Чистка/ремонт формы', 'Чистка/ремонт формы', 'Токарь', 'tч', 0, NULL),
-(3, 6, 3, 'Фильера', 'Подбор фильеры и рез смеси', 'Технолог', 'tф', 0, NULL),
-(4, 6, 4, 'Вальцовка', 'Подготовить смесь', 'Вальцовщик', 'tвал', 0, NULL),
-(5, 6, 5, 'Шприцевание', 'Выполнить заготовку', 'Вальцовщик', 'tшпр', 0, NULL),
-(6, 6, 6, 'Программирование', 'Работа технолога перед загрузкой', 'Технолог', 'tтехн', 0, NULL),
-(7, 6, 7, 'Загрузка', 'Загрузить в прессформу', 'Прессовщик', 'tзаг', 0, NULL),
-(8, 6, 8, 'Вулканизация/вырубка', 'Вулканизировать/вырубить', 'Прессовщик', 'tв', 0, NULL),
-(9, 6, 9, 'Выгрузка', 'Выгрузить', 'Прессовщик', 'tвыгр', 0, NULL),
-(10, 6, 10, 'Простой', 'Технологический', 'Прессовщик', 'tпр.т', 0, NULL),
-(11, 6, 11, 'Простой', 'По вине работника', 'Работник', 'tпр.и', 0, NULL),
-(12, 6, 12, 'Общее время вулканизации/вырубки', '', 'Технолог', 'Tоб', 0, NULL),
-(13, 7, 1, 'Подготовительное', 'Получить прессформу', 'Технолог', 'tпод', 20, 'павыиавпи'),
-(14, 7, 2, 'Чистка/ремонт формы', 'Чистка/ремонт формы', 'Токарь', 'tч', 21, 'вапи'),
-(15, 7, 3, 'Фильера', 'Подбор фильеры и рез смеси', 'Технолог', 'tф', 34, 'авп вап ипарт арп'),
-(16, 7, 4, 'Вальцовка', 'Подготовить смесь', 'Вальцовщик', 'tвал', 65, 'т апрт уке у'),
-(17, 7, 5, 'Шприцевание3', 'Выполнить заготовку', 'Вальцовщик', 'tшпр', 23, 'нуен нек'),
-(18, 7, 6, 'Программирование2', 'Работа технолога перед загрузкой', 'Технолог', 'tтехн', 56, 'р уцекп '),
-(20, 7, 8, 'Вулканизация/вырубка1', 'Вулканизировать/вырубить', 'Прессовщик', 'tв', 9, 'р унер кне оукне р'),
-(21, 7, 9, 'Выгрузка', 'Выгрузить', 'Прессовщик', 'tвыгр', 15, 'унекр унекр укре'),
-(22, 7, 10, 'Простой', 'Технологический', 'Прессовщик', 'tпр.т', 14, 'уцекп уек р'),
-(23, 7, 11, 'Простой', 'По вине работника', 'Работник', 'tпр.и', 34, 'еукр ук'),
-(24, 7, 13, 'Перекур', 'Вынужденный', 'Все по очереди', 'tперекур', 90, 'ер урек'),
-(25, 8, 1, 'Подготовительное', 'Получить прессформу', 'Технолог', 'tпод', 0, NULL),
-(26, 8, 2, 'Чистка/ремонт формы', 'Чистка/ремонт формы', 'Токарь', 'tч', 0, NULL),
-(27, 8, 4, 'Вальцовка', 'Подготовить смесь', 'Вальцовщик', 'tвал', 0, NULL),
-(28, 8, 5, 'Шприцевание', 'Выполнить заготовку', 'Вальцовщик', 'tшпр', 0, NULL),
-(29, 8, 6, 'Программирование', 'Работа технолога перед загрузкой', 'Технолог', 'tтехн', 0, NULL),
-(30, 8, 7, 'Загрузка', 'Загрузить в прессформу', 'Прессовщик', 'tзаг', 0, NULL),
-(31, 8, 8, 'Вулканизация/вырубка', 'Вулканизировать/вырубить', 'Прессовщик', 'tв', 0, NULL),
-(32, 8, 9, 'Выгрузка', 'Выгрузить', 'Прессовщик', 'tвыгр', 0, NULL),
-(33, 7, 14, 'New', NULL, 'CIO', NULL, 0, NULL);
+(1, 6, 1, 1, NULL, NULL, NULL, NULL, 0, NULL),
+(2, 6, 2, 2, NULL, NULL, NULL, NULL, 0, NULL),
+(3, 6, 3, 3, NULL, NULL, NULL, NULL, 0, NULL),
+(4, 6, 4, 4, NULL, NULL, NULL, NULL, 0, NULL),
+(5, 6, 5, 5, NULL, NULL, NULL, NULL, 0, NULL),
+(6, 6, 6, 6, NULL, NULL, NULL, NULL, 0, NULL),
+(7, 6, 7, 7, NULL, NULL, NULL, NULL, 0, NULL),
+(8, 6, 8, 8, NULL, NULL, NULL, NULL, 0, NULL),
+(9, 6, 9, 9, NULL, NULL, NULL, NULL, 0, NULL),
+(10, 6, 10, 10, NULL, NULL, NULL, NULL, 0, NULL),
+(11, 6, 11, 11, NULL, NULL, NULL, NULL, 0, NULL),
+(12, 6, 12, 12, NULL, NULL, NULL, NULL, 0, NULL),
+(13, 7, 1, 1, NULL, NULL, NULL, NULL, 20, 'павыиавпи'),
+(14, 7, 2, 2, NULL, NULL, NULL, NULL, 21, 'вапи'),
+(15, 7, 3, 3, NULL, NULL, NULL, NULL, 34, 'авп вап ипарт арп'),
+(16, 7, 4, 4, NULL, NULL, '3', NULL, 65, 'т апрт уке у'),
+(17, 7, 5, 5, '1', NULL, NULL, NULL, 23, 'нуен нек'),
+(18, 7, 6, 6, NULL, '2', NULL, NULL, 56, 'р уцекп '),
+(20, 7, 8, 8, NULL, NULL, NULL, NULL, 9, 'р унер кне оукне р'),
+(21, 7, 9, 9, NULL, NULL, NULL, NULL, 15, 'унекр унекр укре'),
+(22, 7, 10, 10, NULL, NULL, NULL, NULL, 14, 'уцекп уек р'),
+(23, 7, 11, 11, NULL, NULL, NULL, NULL, 34, 'еукр ук'),
+(24, 7, 13, 13, NULL, NULL, NULL, NULL, 90, 'ер урек'),
+(25, 8, 1, 1, NULL, NULL, NULL, NULL, 0, NULL),
+(26, 8, 2, 2, NULL, NULL, NULL, NULL, 0, NULL),
+(27, 8, 4, 4, NULL, NULL, NULL, NULL, 0, NULL),
+(28, 8, 5, 5, NULL, NULL, NULL, NULL, 0, NULL),
+(29, 8, 6, 6, NULL, NULL, NULL, NULL, 0, NULL),
+(30, 8, 7, 7, NULL, NULL, NULL, NULL, 0, NULL),
+(31, 8, 8, 8, '1', '2', '3', '1', 0, NULL),
+(32, 8, 9, 9, NULL, NULL, NULL, NULL, 0, NULL),
+(33, 7, 13, 13, 'Новый', 'Операция нового', 'Ктото', 'tнов', 0, NULL),
+(35, 9, 1, 1, NULL, NULL, NULL, NULL, 0, NULL),
+(36, 9, 2, 2, NULL, NULL, NULL, NULL, 0, ' йуца йц'),
+(37, 9, 3, 3, NULL, NULL, NULL, NULL, 0, NULL),
+(38, 9, 4, 4, NULL, NULL, NULL, NULL, 0, 'цук укца укц'),
+(39, 9, 5, 5, NULL, NULL, NULL, NULL, 0, 'а '),
+(40, 9, 6, 6, NULL, NULL, NULL, NULL, 0, 'укца '),
+(41, 9, 7, 7, NULL, NULL, NULL, NULL, 0, NULL),
+(42, 9, 8, 8, NULL, NULL, NULL, NULL, 0, 'уа цука  цук у'),
+(43, 9, 9, 9, NULL, NULL, NULL, NULL, 0, NULL),
+(44, 9, 10, 10, NULL, NULL, NULL, NULL, 0, 'цука '),
+(45, 9, 11, 11, NULL, NULL, NULL, NULL, 0, 'укц'),
+(46, 9, 12, 12, NULL, NULL, NULL, NULL, 0, 'а уцка '),
+(47, 9, 13, 1, NULL, NULL, NULL, NULL, 0, NULL),
+(48, 9, 14, 2, NULL, NULL, NULL, NULL, 0, NULL),
+(49, 9, 15, 13, 'Новый процецц', 'ломтвыатмывд', 'лотдлоидлои', 'илорим', 321, 'ыавм ьцашм оам о');
 
 -- 
 -- Восстановить предыдущий режим SQL (SQL mode)

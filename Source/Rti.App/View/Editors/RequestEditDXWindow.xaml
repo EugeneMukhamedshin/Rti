@@ -6,6 +6,7 @@
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:lists="clr-namespace:Rti.App.View.Lists"
+    xmlns:domain="clr-namespace:Rti.Model.Domain;assembly=Rti.Model"
     x:Class="Rti.App.View.Editors.RequestEditDxWindow"
     Width="1400" Height="760" MinWidth="500" MinHeight="250" Title="{Binding Name}" WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
@@ -143,7 +144,11 @@
                     </dxg:GridColumn>
                     <dxg:GridColumn FieldName="EquipmentExistanceEnum" Header="Наличие оснастки" Width="90">
                         <dxg:GridColumn.EditSettings>
-                            <dxe:ComboBoxEditSettings ItemsSource="{lists:ExistanceToItemsSource}" DisplayMember="DisplayName" ValueMember="Value"/>
+                            <dxe:ComboBoxEditSettings DisplayMember="DisplayName" ValueMember="Value">
+                                <dxe:ComboBoxEditSettings.ItemsSource>
+                                    <lists:EnumToItemsSource EnumType="domain:Existance"/>
+                                </dxe:ComboBoxEditSettings.ItemsSource>
+                            </dxe:ComboBoxEditSettings>
                         </dxg:GridColumn.EditSettings>
                     </dxg:GridColumn>
                     <dxg:GridColumn FieldName="AdditionalInfo" Header="Доп. инфо" Width="180">

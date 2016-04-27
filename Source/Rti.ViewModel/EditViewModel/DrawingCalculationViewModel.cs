@@ -8,6 +8,9 @@ namespace Rti.ViewModel.EditViewModel
         {
             PlanCalculation = planCalculation;
             FactCalculation = factCalculation;
+
+            PlanCalculation.PropertyChanged += (sender, args) => OnPropertyChanged("PlanCalculation");
+            FactCalculation.PropertyChanged += (sender, args) => OnPropertyChanged("FactCalculation");
         }
 
         public CalculationViewModel PlanCalculation { get; set; }

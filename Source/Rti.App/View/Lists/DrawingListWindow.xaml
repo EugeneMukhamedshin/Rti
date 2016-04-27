@@ -6,6 +6,7 @@
         xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
         xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:domain="clr-namespace:Rti.Model.Domain;assembly=Rti.Model"
         Title="Чертежи" Height="600" Width="1500" x:ClassModifier="internal" WindowState="Maximized">
     <Grid>
         <Grid>
@@ -54,7 +55,15 @@
                     <dxg:GridColumn FieldName="Price" Header="Цена по чертежу, руб. без НДС" Width="60"/>
                     <dxg:GridColumn FieldName="ShavingPrice" Header="Цена обрезки" Width="60"/>
                     <dxg:GridColumn FieldName="Equipment.Name" Header="Оснастка" Width="80"/>
-                    <dxg:GridColumn FieldName="Equipment.ExistanceEnum" Header="Наличие оснастки" Width="90" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="Equipment.ExistanceEnum" Header="Наличие оснастки" Width="90" ReadOnly="True">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:ComboBoxEditSettings DisplayMember="DisplayName" ValueMember="Value">
+                                <dxe:ComboBoxEditSettings.ItemsSource>
+                                    <lists:EnumToItemsSource EnumType="domain:Existance"/>
+                                </dxe:ComboBoxEditSettings.ItemsSource>
+                            </dxe:ComboBoxEditSettings>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
                     <dxg:GridColumn FieldName="Equipment.FormCount" Header="Кол-во форм" Width="40" ReadOnly="True"/>
                     <dxg:GridColumn FieldName="Equipment.SlotCount" Header="Гнездность" Width="40" ReadOnly="True"/>
                     <dxg:GridColumn FieldName="Method.Name" Header="Способ изготовления" Width="90"/>
