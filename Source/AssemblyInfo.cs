@@ -4,4 +4,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("Iterus")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: ComVisible(false)]
-[assembly: AssemblyVersion("1.2.3.*")]
+[assembly: AssemblyVersion("1.3.1.*")]

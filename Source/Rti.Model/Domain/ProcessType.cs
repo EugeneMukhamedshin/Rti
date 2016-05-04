@@ -28,7 +28,7 @@ namespace Rti.Model.Domain
         ExecutorDowntime = 11,
         [Display(Name = "Общее время вулканизации/вырубки")]
         SummaryCuttingTime = 12,
-        [Display(Name = "Процесс")]
+        [Display(Name = "Добавить другой процесс")]
         Other = 13
     }
 }

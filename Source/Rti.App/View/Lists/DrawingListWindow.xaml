@@ -16,7 +16,7 @@
                 <RowDefinition Height="32"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="0">
-                <Button Content="+" Command="{Binding AddEntityCommand}" Width="32" Height="32" Margin="5"/>
+                <Button Content="+" Command="{Binding AddDrawingCommand}" Width="32" Height="32" Margin="5"/>
                 <Button Content="-" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5"/>
                 <Button Content="..." Command="{Binding EditEntityCommand}" Width="32" Height="32" Margin="5"/>
                 <Button Content="&lt;" Command="{Binding PrevPageCommand}" Width="32" Height="32" Margin="5"/>

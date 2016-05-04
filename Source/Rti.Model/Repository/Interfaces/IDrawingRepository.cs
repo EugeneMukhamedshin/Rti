@@ -8,5 +8,7 @@ namespace Rti.Model.Repository.Interfaces
         IList<Drawing> GetAllActive();
 
         IList<Drawing> GetPage(int page, int pageSize);
+
+        int GetNextSortOrder();
     }
 }

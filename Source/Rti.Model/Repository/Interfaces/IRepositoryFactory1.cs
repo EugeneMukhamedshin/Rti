@@ -11,6 +11,8 @@ namespace Rti.Model.Repository.Interfaces
 		ICalculationRepository GetCalculationRepository();
 		IConstantRepository GetConstantRepository();
 		IContragentRepository GetContragentRepository();
+		IDailyWorkPackageRepository GetDailyWorkPackageRepository();
+		IDailyWorkPackageDetailRepository GetDailyWorkPackageDetailRepository();
 		IDetailRepository GetDetailRepository();
 		IDrawingRepository GetDrawingRepository();
 		IDriverRepository GetDriverRepository();
@@ -36,6 +38,8 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface ICalculationRepository : IRepository<Rti.Model.Domain.Calculation> { }
 	public partial interface IConstantRepository : IRepository<Rti.Model.Domain.Constant> { }
 	public partial interface IContragentRepository : IRepository<Rti.Model.Domain.Contragent> { }
+	public partial interface IDailyWorkPackageRepository : IRepository<Rti.Model.Domain.DailyWorkPackage> { }
+	public partial interface IDailyWorkPackageDetailRepository : IRepository<Rti.Model.Domain.DailyWorkPackageDetail> { }
 	public partial interface IDetailRepository : IRepository<Rti.Model.Domain.Detail> { }
 	public partial interface IDrawingRepository : IRepository<Rti.Model.Domain.Drawing> { }
 	public partial interface IDriverRepository : IRepository<Rti.Model.Domain.Driver> { }

@@ -29,6 +29,8 @@ namespace Rti.ViewModel
 
         public DelegateCommand OpenDrawingsCommand { get; set; }
 
+        public DelegateCommand OpenDailyWorkPackagesCommand { get; set; }
+
         public DelegateCommand OpenCustomersCommand { get; set; }
         public DelegateCommand OpenVendorsCommand { get; set; }
         public DelegateCommand OpenDriversCommand { get; set; }
@@ -65,6 +67,11 @@ namespace Rti.ViewModel
                 "Чертежи",
                 o => true,
                 o => OpenDrawingList());
+
+            OpenDailyWorkPackagesCommand = new DelegateCommand(
+                "Дневные наряды",
+                o => true,
+                o => OpenDailyWorkPackages());
 
             OpenCustomersCommand = new DelegateCommand(
                 "Справочники",
@@ -118,16 +125,18 @@ namespace Rti.ViewModel
                 "Справочники",
                 o => true,
                 o => OpenDictionary(new ConstantEdit("Константы", false, ViewService, RepositoryFactory)));
-            Requests =
-                RepositoryFactory.GetRequestRepository()
-                    .GetAll()
-                    .Select(o => new RequestViewModel(o, RepositoryFactory))
-                    .ToList();
         }
 
         private void OpenDrawingList()
         {
             var viewModel = new DrawingList(true, ViewService, RepositoryFactory);
+            viewModel.Refresh();
+            ViewService.ShowViewDialog(viewModel);
+        }
+
+        private void OpenDailyWorkPackages()
+        {
+            var viewModel = new DailyWorkPackageList(true, ViewService, RepositoryFactory);
             viewModel.Refresh();
             ViewService.ShowViewDialog(viewModel);
         }

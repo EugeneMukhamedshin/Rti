@@ -104,7 +104,8 @@ namespace Rti.ViewModel.EditViewModel
         {
             base.DoInternalSave();
             if (Entity.IsChanged)
-                Entity.SaveEntity();foreach (var deletedDetail in _deletedDetails)
+                Entity.SaveEntity();
+            foreach (var deletedDetail in _deletedDetails)
             {
                 deletedDetail.DeleteEntity();
             }

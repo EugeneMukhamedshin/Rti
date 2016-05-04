@@ -6,6 +6,7 @@ using Rti.App.View.Editors;
 using Rti.App.View.Lists;
 using Rti.ViewModel;
 using Rti.ViewModel.EditViewModel;
+using Rti.ViewModel.Lists;
 using Rti.ViewModel.ListViewModel;
 using Application = System.Windows.Application;
 using DrawingList = Rti.ViewModel.Lists.DrawingList;
@@ -24,7 +25,7 @@ namespace Rti.App
         {
             AddToRegistry<LoginViewModel, LoginWindow>();
 
-            AddToRegistry<MainViewModel, MainDxWindow>();
+            AddToRegistry<MainViewModel, MainWindow>();
 
             // Справочники
             AddToRegistry<DictionaryList, DictionaryListWindow>();
@@ -65,6 +66,10 @@ namespace Rti.App
             AddToRegistry<FlowsheetEdit, FlowsheetEditWindow>();
             AddToRegistry<FlowsheetProcessEdit, FlowsheetProcessEditWindow>();
             AddToRegistry<DrawingCalculationEdit, DrawingCalculationEditWindow>();
+
+            // Дневные наряды
+            AddToRegistry<DailyWorkPackageList, DailyWorkPackageListWindow>();
+            AddToRegistry<DailyWorkPackageEdit, DailyWorkPackageEditWindow>();
 
             // Изображения
             AddToRegistry<ImageEdit, ImageEditWindow>();

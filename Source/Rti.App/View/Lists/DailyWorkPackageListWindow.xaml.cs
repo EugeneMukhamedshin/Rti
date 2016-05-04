@@ -10,17 +10,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using DevExpress.Xpf.Ribbon;
+using DevExpress.Xpf.Core;
 
 
-namespace Rti.App
+namespace Rti.App.View.Lists
 {
     /// <summary>
-    /// Interaction logic for MainDxWindow.xaml
+    /// Interaction logic for DailyWorkPackageListWindow.xaml
     /// </summary>
-    public partial class MainDxWindow : DXRibbonWindow
+    public partial class DailyWorkPackageListWindow : DXWindow
     {
-        public MainDxWindow()
+        public DailyWorkPackageListWindow()
         {
             InitializeComponent();
         }

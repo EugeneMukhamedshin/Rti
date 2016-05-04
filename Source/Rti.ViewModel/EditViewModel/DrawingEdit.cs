@@ -55,8 +55,11 @@ namespace Rti.ViewModel.EditViewModel
         protected override void DoInternalSave()
         {
             base.DoInternalSave();
-            Entity.DrawingImage.SaveEntity();
-            RepositoryFactory.GetImageRepository().SaveData(Entity.DrawingImage.Id, Entity.DrawingImage.Data);
+            if (Entity.DrawingImage != null)
+            {
+                Entity.DrawingImage.SaveEntity();
+                RepositoryFactory.GetImageRepository().SaveData(Entity.DrawingImage.Id, Entity.DrawingImage.Data);
+            }
         }
 
         private void OpenMassCalculationEdit()

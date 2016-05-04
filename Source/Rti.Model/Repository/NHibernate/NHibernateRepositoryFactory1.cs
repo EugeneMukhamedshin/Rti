@@ -17,6 +17,10 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new ConstantRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Contragent))
                 return (IRepository<TEntity>)new ContragentRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.DailyWorkPackage))
+                return (IRepository<TEntity>)new DailyWorkPackageRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.DailyWorkPackageDetail))
+                return (IRepository<TEntity>)new DailyWorkPackageDetailRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Detail))
                 return (IRepository<TEntity>)new DetailRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Drawing))
@@ -65,6 +69,10 @@ namespace Rti.Model.Repository.NHibernate
 		public IConstantRepository GetConstantRepository() { return (IConstantRepository) GetRepository<Rti.Model.Domain.Constant>(); }
 
 		public IContragentRepository GetContragentRepository() { return (IContragentRepository) GetRepository<Rti.Model.Domain.Contragent>(); }
+
+		public IDailyWorkPackageRepository GetDailyWorkPackageRepository() { return (IDailyWorkPackageRepository) GetRepository<Rti.Model.Domain.DailyWorkPackage>(); }
+
+		public IDailyWorkPackageDetailRepository GetDailyWorkPackageDetailRepository() { return (IDailyWorkPackageDetailRepository) GetRepository<Rti.Model.Domain.DailyWorkPackageDetail>(); }
 
 		public IDetailRepository GetDetailRepository() { return (IDetailRepository) GetRepository<Rti.Model.Domain.Detail>(); }
 
@@ -142,6 +150,29 @@ namespace Rti.Model.Repository.NHibernate
         protected override IQueryOver<Rti.Model.Domain.Contragent, Rti.Model.Domain.Contragent> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Contragent, Rti.Model.Domain.Contragent> queryOver)
         {
 			var result = queryOver;
+            return result;
+        }
+    }
+
+	public partial class DailyWorkPackageRepository : NHibernateRepository<Rti.Model.Domain.DailyWorkPackage>, IDailyWorkPackageRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.DailyWorkPackage, Rti.Model.Domain.DailyWorkPackage> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.DailyWorkPackage, Rti.Model.Domain.DailyWorkPackage> queryOver)
+        {
+			var result = queryOver;
+            return result;
+        }
+    }
+
+	public partial class DailyWorkPackageDetailRepository : NHibernateRepository<Rti.Model.Domain.DailyWorkPackageDetail>, IDailyWorkPackageDetailRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.DailyWorkPackageDetail, Rti.Model.Domain.DailyWorkPackageDetail> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.DailyWorkPackageDetail, Rti.Model.Domain.DailyWorkPackageDetail> queryOver)
+        {
+			var result = queryOver;
+			result = result.Fetch(o => o.DailyWorkPackage).Default;
+			result = result.Fetch(o => o.Drawing).Default;
+			result = result.Fetch(o => o.Employee).Default;
             return result;
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Media.Animation;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.EditViewModel;
@@ -11,6 +12,7 @@ namespace Rti.ViewModel.Lists
 {
     public class DrawingList : EntityList<DrawingViewModel, Drawing>, IClosable
     {
+        public DelegateCommand AddDrawingCommand { get; set; }
         public DelegateCommand PrevPageCommand { get; set; }
         public DelegateCommand NextPageCommand { get; set; }
         public DelegateCommand OpenFlowsheetCommand { get; set; }
@@ -18,11 +20,16 @@ namespace Rti.ViewModel.Lists
 
         public int Page { get; set; }
         public int PageSize { get; set; }
+        public bool IsLastPage { get; set; }
 
         public DrawingList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
         {
             TypeMaps.Add(new Tuple<Type, Type>(typeof(DrawingViewModel), typeof(DrawingEdit)));
 
+            AddDrawingCommand = new DelegateCommand(
+                "Добавить чертеж",
+                o => true,
+                o => AddDrawing());
             PrevPageCommand = new DelegateCommand(
                 "Предыдущая страница",
                 o => Page > 0,
@@ -33,7 +40,7 @@ namespace Rti.ViewModel.Lists
                 });
             NextPageCommand = new DelegateCommand(
                 "Следующая страница",
-                o => true,
+                o => !IsLastPage,
                 o =>
                 {
                     Page++;
@@ -49,13 +56,17 @@ namespace Rti.ViewModel.Lists
                 o => OpenCalculation());
 
             Page = 0;
-            PageSize = 15;
-
-            InitializeSources();
+            PageSize = 5;
         }
 
-        private void InitializeSources()
+        private void AddDrawing()
         {
+            var drawing = DoCreateNewEntity();
+            if (OpenViewModelEditWindow(drawing, "Новый чертеж", false))
+            {
+                Page = 0;
+                Refresh();
+            }
         }
 
         private void OpenFlowsheet()
@@ -88,23 +99,25 @@ namespace Rti.ViewModel.Lists
             }
         }
 
-        public override void Refresh()
+        protected override void OnItemsChanged()
         {
-            base.Refresh();
+            base.OnItemsChanged();
             PrevPageCommand.RequeryCanExecute();
             NextPageCommand.RequeryCanExecute();
         }
 
         protected override IEnumerable<DrawingViewModel> GetItems()
         {
-            return RepositoryFactory.GetDrawingRepository().GetPage(Page, PageSize).Select(o => new DrawingViewModel(o, RepositoryFactory));
+            var items = RepositoryFactory.GetDrawingRepository().GetPage(Page, PageSize);
+            IsLastPage = !(items.Count > PageSize);
+            return items.Take(PageSize).Select(o => new DrawingViewModel(o, RepositoryFactory)).ToList(); ;
         }
 
         protected override DrawingViewModel DoCreateNewEntity()
         {
             return new DrawingViewModel(null, RepositoryFactory)
             {
-                SortOrder = Items.Any() ? Items.Max(o => o.SortOrder) + 1 : 1,
+                SortOrder = RepositoryFactory.GetDrawingRepository().GetNextSortOrder(),
                 CreationDate = DateTime.Now,
                 Name = "Новый чертеж"
             };

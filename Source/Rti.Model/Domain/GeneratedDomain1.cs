@@ -160,6 +160,42 @@ namespace Rti.Model.Domain
 		public virtual Boolean IsDeleted { get; set; }
 	}
 
+	// The class for daily_work_package
+	[Table("daily_work_package")]
+	public partial class DailyWorkPackage: IIdentifiedEntity
+	{
+		[Field("id")]
+		public virtual Int32 Id { get; protected set; }
+		[Field("sort_order")]
+		public virtual Int32 SortOrder { get; set; }
+		[Field("date")]
+		public virtual DateTime Date { get; set; }
+		[Field("is_deleted")]
+		public virtual Boolean IsDeleted { get; set; }
+	}
+
+	// The class for daily_work_package_details
+	[Table("daily_work_package_details")]
+	public partial class DailyWorkPackageDetail: IIdentifiedEntity
+	{
+		[Field("id")]
+		public virtual Int32 Id { get; protected set; }
+		[Field("sort_order")]
+		public virtual Int32 SortOrder { get; set; }
+		[Field("task_count")]
+		public virtual Int32? TaskCount { get; set; }
+		[Field("done_count")]
+		public virtual Int32? DoneCount { get; set; }
+		[Field("note")]
+		public virtual String Note { get; set; }
+		[Reference("daily_work_package_id")]
+		public virtual DailyWorkPackage DailyWorkPackage { get; set; }
+		[Reference("drawing_id")]
+		public virtual Drawing Drawing { get; set; }
+		[Reference("employee_id")]
+		public virtual Employee Employee { get; set; }
+	}
+
 	// The class for details
 	[Table("details")]
 	public partial class Detail: IIdentifiedEntity
@@ -193,23 +229,23 @@ namespace Rti.Model.Domain
 		[Field("code")]
 		public virtual String Code { get; set; }
 		[Field("mass_with_shruff")]
-		public virtual decimal? MassWithShruff { get; set; }
+		public virtual Double? MassWithShruff { get; set; }
 		[Field("price")]
-		public virtual decimal? Price { get; set; }
+		public virtual Double? Price { get; set; }
 		[Field("shaving_price")]
-		public virtual decimal? ShavingPrice { get; set; }
+		public virtual Double? ShavingPrice { get; set; }
 		[Field("calculation_price")]
-		public virtual decimal? CalculationPrice { get; set; }
+		public virtual Double? CalculationPrice { get; set; }
 		[Field("width")]
-		public virtual decimal? Width { get; set; }
+		public virtual Double? Width { get; set; }
 		[Field("length")]
-		public virtual decimal? Length { get; set; }
+		public virtual Double? Length { get; set; }
 		[Field("thickness")]
-		public virtual decimal? Thickness { get; set; }
+		public virtual Double? Thickness { get; set; }
 		[Field("inner_diameter")]
-		public virtual decimal? InnerDiameter { get; set; }
+		public virtual Double? InnerDiameter { get; set; }
 		[Field("outer_diameter")]
-		public virtual decimal? OuterDiameter { get; set; }
+		public virtual Double? OuterDiameter { get; set; }
 		[Field("note")]
 		public virtual String Note { get; set; }
 		[Field("is_deleted")]

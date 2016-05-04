@@ -40,7 +40,7 @@ namespace Rti.ViewModel.Entities
             // Транспортные
             Transport = constants.KTr * MainMaterial;
             // Основная зарплата
-            if (Drawing.Equipment != null)
+            if (Drawing.Equipment != null && Drawing.Equipment.Output != 0)
                 MainSalary = (getTime(ProcessType.Loading) + getTime(ProcessType.CuringOrCutting) +
                               getTime(ProcessType.Unloading)) / Drawing.Equipment.Output * constants.KSt;
             else
@@ -57,7 +57,7 @@ namespace Rti.ViewModel.Entities
             MainSummary = MainMaterial + Transport + MainSalary + AdditionalSalary + FixedTax + TotalDivision +
                          TotalManufacture;
             // Электроэнергия для формовых
-            if (Drawing.Equipment != null)
+            if (Drawing.Equipment != null && Drawing.Equipment.Output != 0)
                 PowerForFormed = getTime(ProcessType.CuringOrCutting) * flowsheetMachines.Max(fm => fm.Machine.TimePrice) /
                                  Drawing.Equipment.Output;
             else

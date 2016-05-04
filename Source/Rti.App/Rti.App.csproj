@@ -150,14 +150,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainDXWindow.xaml.cs">
-      <DependentUpon>MainDXWindow.xaml</DependentUpon>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Components\PropertyGridResponsible.cs" />
     <Compile Include="View\Editors\AdditionalInfoEditWindow.xaml.cs">
@@ -171,6 +168,9 @@
     </Compile>
     <Compile Include="View\Editors\ContragentEditWindow.xaml.cs">
       <DependentUpon>ContragentEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\DailyWorkPackageEditWindow.xaml.cs">
+      <DependentUpon>DailyWorkPackageEditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Editors\DetailEditWindow.xaml.cs">
       <DependentUpon>DetailEditWindow.xaml</DependentUpon>
@@ -231,6 +231,9 @@
     </Compile>
     <Compile Include="View\Lists\ContragentListWindow.xaml.cs">
       <DependentUpon>ContragentListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\DailyWorkPackageListWindow.xaml.cs">
+      <DependentUpon>DailyWorkPackageListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lists\DetailListWindow.xaml.cs">
       <DependentUpon>DetailListWindow.xaml</DependentUpon>
@@ -345,17 +348,13 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MainDXWindow.xaml">
+    <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Editors\AdditionalInfoEditWindow.xaml">
       <SubType>Designer</SubType>
@@ -370,6 +369,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Editors\ContragentEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\DailyWorkPackageEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -450,6 +453,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Lists\ContragentListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\DailyWorkPackageListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -87,6 +87,8 @@
     <Compile Include="Repository\Interfaces\ICalculationRepository.cs" />
     <Compile Include="Repository\Interfaces\IConstantRepository.cs" />
     <Compile Include="Repository\Interfaces\IContragentRepository.cs" />
+    <Compile Include="Repository\Interfaces\IDailyWorkPackageDetailRepository.cs" />
+    <Compile Include="Repository\Interfaces\IDailyWorkPackageRepository.cs" />
     <Compile Include="Repository\Interfaces\IDetailRepository.cs" />
     <Compile Include="Repository\Interfaces\IDrawingRepository.cs" />
     <Compile Include="Repository\Interfaces\IDriverRepository.cs" />
@@ -121,6 +123,8 @@
     <Compile Include="Repository\NHibernate\ClassMaps\ReferencesConvention.cs" />
     <Compile Include="Repository\NHibernate\ConstantRepository.cs" />
     <Compile Include="Repository\NHibernate\ContragentRepository.cs" />
+    <Compile Include="Repository\NHibernate\DailyWorkPackageDetailRepository.cs" />
+    <Compile Include="Repository\NHibernate\DailyWorkPackageRepository.cs" />
     <Compile Include="Repository\NHibernate\DetailRepository.cs" />
     <Compile Include="Repository\NHibernate\DrawingRepository.cs" />
     <Compile Include="Repository\NHibernate\DriverRepository.cs" />

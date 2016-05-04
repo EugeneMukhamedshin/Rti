@@ -27,8 +27,14 @@ namespace Rti.ViewModel.Lists
             {
                 if (Equals(value, _items)) return;
                 _items = value;
+                OnItemsChanged();
                 OnPropertyChanged();
             }
+        }
+
+        protected virtual void OnItemsChanged()
+        {
+            
         }
 
         public TEntityViewModel SelectedItem

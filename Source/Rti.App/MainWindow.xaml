@@ -1,27 +1,65 @@
-﻿<Window x:Class="Rti.App.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
-        Title="ЭЛМА-1" Height="300" Width="241.947" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
-    <StackPanel>
-        <StackPanel.Resources>
-            <Style TargetType="Button">
-                <Setter Property="Margin" Value="20,2,20,2"/>
-            </Style>
-        </StackPanel.Resources>
-        <Button Content="Новая заявка" Command="{Binding CreateNewRequestCommand}"/>
-        <Grid Margin="20,2,20,2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="20"/>
-            </Grid.ColumnDefinitions>
-            <Label Content="№ заявки" Grid.Column="0"/>
-            <ComboBox ItemsSource="{Binding Requests}" SelectedItem="{Binding SelectedRequest}" DisplayMemberPath="Number" Grid.Column="1"/>
-            <Button Content="..." Command="{Binding OpenRequestCommand}" Margin="3,0,0,0" Grid.Column="2"/>
-        </Grid>
-        <Button Content="Справочники" Command="{Binding OpenDictionaryListCommand}"/>
-    </StackPanel>
-</Window>
+﻿<dxr:DXRibbonWindow
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    x:Class="Rti.App.MainWindow"
+    Title="ЭЛМА-1" Height="700" Width="1200" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
+
+    <Grid>
+        <dxb:BarManager>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <dxr:RibbonControl Grid.Row="0" RibbonStyle="Office2010">
+                    <dxr:RibbonControl.ApplicationMenu>
+                        <dxr:BackstageViewControl/>
+                    </dxr:RibbonControl.ApplicationMenu>
+                    <dxr:RibbonDefaultPageCategory>
+                        <dxr:RibbonPage Caption="Главная">
+                            <dxr:RibbonPageGroup Caption="Заявки" ShowCaptionButton="True">
+                                <dxb:BarButtonItem Content="Новая заявка" RibbonStyle="Large" Command="{Binding CreateNewRequestCommand}"/>
+                                <dxb:BarEditItem EditWidth="100" EditValue="{Binding SelectedRequestNumber}">
+                                    <dxb:BarEditItem.EditSettings>
+                                        <dxe:TextEditSettings Mask="d" NullText="Номер заявки">
+                                        </dxe:TextEditSettings>
+                                    </dxb:BarEditItem.EditSettings>
+                                </dxb:BarEditItem>
+                                <dxb:BarButtonItem Content="Открыть..." Command="{Binding OpenRequestCommand}"/>
+                            </dxr:RibbonPageGroup>
+                            <dxr:RibbonPageGroup Caption="Чертежи">
+                                <dxb:BarButtonItem Content="Чертежи" RibbonStyle="Large" Command="{Binding OpenDrawingsCommand}"/>
+                            </dxr:RibbonPageGroup>
+                            <dxr:RibbonPageGroup Caption="Наряды">
+                                <dxb:BarButtonItem Content="Дневные наряды" RibbonStyle="Large" Command="{Binding OpenDailyWorkPackagesCommand}"/>
+                            </dxr:RibbonPageGroup>
+                        </dxr:RibbonPage>
+                        <dxr:RibbonPage Caption="Справочники">
+                            <dxr:RibbonPageGroup Caption="Справочники">
+                                <dxb:BarButtonItem Content="Заказчики" Command="{Binding OpenCustomersCommand}"/>
+                                <dxb:BarButtonItem Content="Поставщики" Command="{Binding OpenVendorsCommand}"/>
+                                <dxb:BarButtonItem Content="Водители" Command="{Binding OpenDriversCommand}"/>
+                                <dxb:BarButtonItem Content="Должности" Command="{Binding OpenJobsCommand}"/>
+                                <dxb:BarButtonItem Content="Сотрудники" Command="{Binding OpenEmployeesCommand}"/>
+                                <dxb:BarButtonItem Content="Материалы" Command="{Binding OpenMaterialsCommand}"/>
+                                <dxb:BarButtonItem Content="Группы" Command="{Binding OpenGroupsCommand}"/>
+                                <dxb:BarButtonItem Content="Оснастка" Command="{Binding OpenEquipmentsCommand}"/>
+                                <dxb:BarButtonItem Content="Детали" Command="{Binding OpenDetailsCommand}"/>
+                                <dxb:BarButtonItem Content="Способы изготовления" Command="{Binding OpenMethodsCommand}"/>
+                                <dxb:BarButtonItem Content="Единицы измерения" Command="{Binding OpenMeasureUnitsCommand}"/>
+                                <dxb:BarButtonItem Content="Оборудование" Command="{Binding OpenMachinesCommand}"/>
+                                <dxb:BarButtonItem Content="Константы" Command="{Binding OpenConstantsCommand}"/>
+                            </dxr:RibbonPageGroup>
+                        </dxr:RibbonPage>
+                    </dxr:RibbonDefaultPageCategory>
+                </dxr:RibbonControl>
+                <dxr:RibbonStatusBarControl Grid.Row="2"/>
+            </Grid>
+        </dxb:BarManager>
+    </Grid>
+</dxr:DXRibbonWindow>
