@@ -71,6 +71,10 @@ namespace Rti.App
             AddToRegistry<DailyWorkPackageList, DailyWorkPackageListWindow>();
             AddToRegistry<DailyWorkPackageEdit, DailyWorkPackageEditWindow>();
 
+            // Журналы
+            // Журнал обрезки облоя
+            AddToRegistry<ShavingRecordList, ShavingRecordListWindow>();
+
             // Изображения
             AddToRegistry<ImageEdit, ImageEditWindow>();
         }

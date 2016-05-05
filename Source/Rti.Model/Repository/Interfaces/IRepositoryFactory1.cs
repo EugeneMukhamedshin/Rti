@@ -32,6 +32,7 @@ namespace Rti.Model.Repository.Interfaces
 		IProcessRepository GetProcessRepository();
 		IRequestRepository GetRequestRepository();
 		IRequestDetailRepository GetRequestDetailRepository();
+		IShavingRecordRepository GetShavingRecordRepository();
     }
 
 	public partial interface IAdditionalInfoRepository : IRepository<Rti.Model.Domain.AdditionalInfo> { }
@@ -59,4 +60,5 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IProcessRepository : IRepository<Rti.Model.Domain.Process> { }
 	public partial interface IRequestRepository : IRepository<Rti.Model.Domain.Request> { }
 	public partial interface IRequestDetailRepository : IRepository<Rti.Model.Domain.RequestDetail> { }
+	public partial interface IShavingRecordRepository : IRepository<Rti.Model.Domain.ShavingRecord> { }
 }

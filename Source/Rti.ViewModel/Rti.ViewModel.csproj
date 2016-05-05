@@ -109,6 +109,7 @@
     <Compile Include="Lists\FlowsheetProcessList.cs" />
     <Compile Include="Lists\FlowsheetMachineList.cs" />
     <Compile Include="Lists\MaterialList.cs" />
+    <Compile Include="Lists\ShavingRecordList.cs" />
     <Compile Include="ListViewModel\DetailList.cs" />
     <Compile Include="ListViewModel\DetailListItem.cs" />
     <Compile Include="ListViewModel\DictionaryList.cs" />

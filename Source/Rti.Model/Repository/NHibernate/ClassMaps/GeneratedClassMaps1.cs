@@ -950,4 +950,37 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 	}
 
 
+	// The classmap for shaving_records
+	public partial class ShavingRecordMap : BaseMap<Rti.Model.Domain.ShavingRecord>
+	{
+		public ShavingRecordMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("shaving_records");
+
+			Id(o => o.Id, "id");
+
+			Map(o => o.SortOrder, "sort_order");
+
+			Map(o => o.ShaveDate, "shave_date");
+
+			Map(o => o.InputCount, "input_count");
+
+			Map(o => o.FlawCount, "flaw_count");
+
+			Map(o => o.IsDeleted, "is_deleted");
+
+			References(o => o.ShaverEmployee, "shaver_employee_id").Fetch.Join().Not.LazyLoad();
+
+			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
+
+			OnInitialized();
+		}
+	}
+
+
 }

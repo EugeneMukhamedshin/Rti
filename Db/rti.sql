@@ -1,7 +1,7 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 6.3.358.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 05.05.2016 0:09:23
+-- Дата скрипта: 06.05.2016 0:10:34
 -- Версия сервера: 5.7.9-log
 -- Версия клиента: 4.1
 --
@@ -649,6 +649,32 @@ COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
 
 --
+-- Описание для таблицы shaving_records
+--
+DROP TABLE IF EXISTS shaving_records;
+CREATE TABLE shaving_records (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  sort_order INT(11) NOT NULL,
+  shaver_employee_id INT(11) NOT NULL COMMENT 'Сотрудник - обрезчик',
+  shave_date DATETIME NOT NULL,
+  drawing_id INT(11) NOT NULL,
+  input_count INT(11) NOT NULL COMMENT 'Входное количество',
+  flaw_count INT(11) NOT NULL COMMENT 'Количество брака',
+  is_deleted INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_shaving_records_drawings_id FOREIGN KEY (drawing_id)
+    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_shaving_records_shaver_employees_id FOREIGN KEY (shaver_employee_id)
+    REFERENCES employees(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 1
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'Журнал обрезки облоя'
+ROW_FORMAT = DYNAMIC;
+
+--
 -- Описание для таблицы flowsheet_machines
 --
 DROP TABLE IF EXISTS flowsheet_machines;
@@ -915,6 +941,12 @@ INSERT INTO request_details VALUES
 (9, 41, 9, 3, 3, NULL, 2, 'asdfasdfs', 123, 50.00, 200.00, NULL, 10000.00, NULL, NULL, 0),
 (10, 41, 10, 4, 1, 1, 0, NULL, NULL, 6.30, 0.00, NULL, 0.00, NULL, NULL, 0),
 (12, 41, 12, 4, NULL, 1, 1, NULL, 323, 8.90, 0.00, NULL, 0.00, NULL, NULL, 0);
+
+-- 
+-- Вывод данных для таблицы shaving_records
+--
+
+-- Таблица rti.shaving_records не содержит данных
 
 -- 
 -- Вывод данных для таблицы flowsheet_machines

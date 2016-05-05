@@ -664,4 +664,26 @@ namespace Rti.Model.Domain
 		public virtual Material Material { get; set; }
 	}
 
+	// The class for shaving_records
+	[Table("shaving_records")]
+	public partial class ShavingRecord: IIdentifiedEntity
+	{
+		[Field("id")]
+		public virtual Int32 Id { get; protected set; }
+		[Field("sort_order")]
+		public virtual Int32 SortOrder { get; set; }
+		[Field("shave_date")]
+		public virtual DateTime ShaveDate { get; set; }
+		[Field("input_count")]
+		public virtual Int32 InputCount { get; set; }
+		[Field("flaw_count")]
+		public virtual Int32 FlawCount { get; set; }
+		[Field("is_deleted")]
+		public virtual Boolean IsDeleted { get; set; }
+		[Reference("shaver_employee_id")]
+		public virtual Employee ShaverEmployee { get; set; }
+		[Reference("drawing_id")]
+		public virtual Drawing Drawing { get; set; }
+	}
+
 }

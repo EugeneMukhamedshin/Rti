@@ -112,6 +112,7 @@
     </Compile>
     <Compile Include="Repository\Interfaces\IRequestDetailRepository.cs" />
     <Compile Include="Repository\Interfaces\IRequestRepository.cs" />
+    <Compile Include="Repository\Interfaces\IShavingRecordRepository.cs" />
     <Compile Include="Repository\NHibernate\AdditionalInfoRepository.cs" />
     <Compile Include="Repository\NHibernate\CalculationRepository.cs" />
     <Compile Include="Repository\NHibernate\ClassMaps\BaseMap.cs" />
@@ -149,6 +150,7 @@
     </Compile>
     <Compile Include="Repository\NHibernate\RequestDetailRepository.cs" />
     <Compile Include="Repository\NHibernate\RequestRepository.cs" />
+    <Compile Include="Repository\NHibernate\ShavingRecordRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Domain\domain.xml" />

@@ -38,6 +38,9 @@
                             <dxr:RibbonPageGroup Caption="Наряды">
                                 <dxb:BarButtonItem Content="Дневные наряды" RibbonStyle="Large" Command="{Binding OpenDailyWorkPackagesCommand}"/>
                             </dxr:RibbonPageGroup>
+                            <dxr:RibbonPageGroup Caption="Журналы">
+                                <dxb:BarButtonItem Content="Обрезка облоя" RibbonStyle="SmallWithText" Command="{Binding OpenShavingRecordsCommand}"/>
+                            </dxr:RibbonPageGroup>
                         </dxr:RibbonPage>
                         <dxr:RibbonPage Caption="Справочники">
                             <dxr:RibbonPageGroup Caption="Справочники">

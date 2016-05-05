@@ -298,6 +298,9 @@
       <DependentUpon>RequestDetailListDXControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lists\ScrollToSelectedItemBehavior.cs" />
+    <Compile Include="View\Lists\ShavingRecordListWindow.xaml.cs">
+      <DependentUpon>ShavingRecordListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Lists\TemplateMap.cs" />
     <Compile Include="View\Lists\StyleMap.cs" />
     <Compile Include="View\Lists\TreeListView\TreeListView.cs" />
@@ -517,6 +520,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Lists\RequestDetailListDXControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\ShavingRecordListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

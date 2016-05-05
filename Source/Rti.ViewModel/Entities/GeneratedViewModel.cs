@@ -3617,4 +3617,126 @@ namespace Rti.ViewModel.Entities
 	}
 
 
+	// The viewmodel for ShavingRecord
+	public partial class ShavingRecordViewModel : EntityViewModel<Rti.Model.Domain.ShavingRecord, ShavingRecordViewModel>
+	{
+		// Конструктор для маппинга
+		public ShavingRecordViewModel() { }
+
+        public ShavingRecordViewModel(Rti.Model.Domain.ShavingRecord entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+
+		private Int32 _id;
+
+		private Int32 _sortOrder;
+
+		private DateTime _shaveDate;
+
+		private Int32 _inputCount;
+
+		private Int32 _flawCount;
+
+		private Boolean _isDeleted;
+
+		private EmployeeViewModel _shaverEmployee;
+
+		private DrawingViewModel _drawing;
+
+
+
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+
+		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
+
+		public DateTime ShaveDate { get { return _shaveDate; } set { if (Equals(_shaveDate, value)) return; _shaveDate = value; OnPropertyChanged("ShaveDate"); } }
+
+		public Int32 InputCount { get { return _inputCount; } set { if (Equals(_inputCount, value)) return; _inputCount = value; OnPropertyChanged("InputCount"); } }
+
+		public Int32 FlawCount { get { return _flawCount; } set { if (Equals(_flawCount, value)) return; _flawCount = value; OnPropertyChanged("FlawCount"); } }
+
+		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
+
+		public EmployeeViewModel ShaverEmployee { get { return _shaverEmployee; } set { _shaverEmployee = value; OnPropertyChanged("ShaverEmployee"); } }
+
+		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
+
+
+		protected override void MapPropertiesToEntity()
+		{
+
+			Entity.SortOrder = SortOrder; 
+
+			Entity.ShaveDate = ShaveDate; 
+
+			Entity.InputCount = InputCount; 
+
+			Entity.FlawCount = FlawCount; 
+
+			Entity.IsDeleted = IsDeleted; 
+
+			Entity.ShaverEmployee = ShaverEmployee == null ? null : ShaverEmployee.Entity; 
+
+			Entity.Drawing = Drawing == null ? null : Drawing.Entity; 
+
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+
+			Id = Entity.Id; 
+
+			SortOrder = Entity.SortOrder; 
+
+			ShaveDate = Entity.ShaveDate; 
+
+			InputCount = Entity.InputCount; 
+
+			FlawCount = Entity.FlawCount; 
+
+			IsDeleted = Entity.IsDeleted; 
+
+			ShaverEmployee = Entity.ShaverEmployee == null ? null : new EmployeeViewModel(Entity.ShaverEmployee, RepositoryFactory); 
+
+			Drawing = Entity.Drawing == null ? null : new DrawingViewModel(Entity.Drawing, RepositoryFactory); 
+
+		}
+
+		public override void CopyTo(ShavingRecordViewModel target)
+		{
+
+			target.SortOrder = SortOrder; 
+
+			target.ShaveDate = ShaveDate; 
+
+			target.InputCount = InputCount; 
+
+			target.FlawCount = FlawCount; 
+
+			target.IsDeleted = IsDeleted; 
+
+			target.ShaverEmployee = ShaverEmployee; 
+
+			target.Drawing = Drawing; 
+
+		}
+
+		public override ShavingRecordViewModel Clone()
+		{
+			var copy = new ShavingRecordViewModel(null, RepositoryFactory);
+			CopyTo(copy);
+			return copy;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(ShavingRecordViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((ShavingRecordViewModel) obj);
+        }
+	}
+
+
 }

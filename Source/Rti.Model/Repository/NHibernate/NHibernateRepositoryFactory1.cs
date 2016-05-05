@@ -59,6 +59,8 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new RequestRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.RequestDetail))
                 return (IRepository<TEntity>)new RequestDetailRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.ShavingRecord))
+                return (IRepository<TEntity>)new ShavingRecordRepository();
 			return new NHibernateRepository<TEntity>();
 		}
 
@@ -111,6 +113,8 @@ namespace Rti.Model.Repository.NHibernate
 		public IRequestRepository GetRequestRepository() { return (IRequestRepository) GetRepository<Rti.Model.Domain.Request>(); }
 
 		public IRequestDetailRepository GetRequestDetailRepository() { return (IRequestDetailRepository) GetRepository<Rti.Model.Domain.RequestDetail>(); }
+
+		public IShavingRecordRepository GetShavingRecordRepository() { return (IShavingRecordRepository) GetRepository<Rti.Model.Domain.ShavingRecord>(); }
 
 	}
 	public partial class AdditionalInfoRepository : NHibernateRepository<Rti.Model.Domain.AdditionalInfo>, IAdditionalInfoRepository
@@ -386,6 +390,18 @@ namespace Rti.Model.Repository.NHibernate
 			result = result.Fetch(o => o.Group).Default;
 			result = result.Fetch(o => o.Detail).Default;
 			result = result.Fetch(o => o.Material).Default;
+            return result;
+        }
+    }
+
+	public partial class ShavingRecordRepository : NHibernateRepository<Rti.Model.Domain.ShavingRecord>, IShavingRecordRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.ShavingRecord, Rti.Model.Domain.ShavingRecord> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.ShavingRecord, Rti.Model.Domain.ShavingRecord> queryOver)
+        {
+			var result = queryOver;
+			result = result.Fetch(o => o.ShaverEmployee).Default;
+			result = result.Fetch(o => o.Drawing).Default;
             return result;
         }
     }
