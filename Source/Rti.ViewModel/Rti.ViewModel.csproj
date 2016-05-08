@@ -60,6 +60,7 @@
     <Compile Include="EditViewModel\DrawingCalculationViewModel.cs" />
     <Compile Include="EditViewModel\DrawingEdit.cs" />
     <Compile Include="EditViewModel\DrawingMeasurementEdit.cs" />
+    <Compile Include="EditViewModel\EditEntityViewModel.cs" />
     <Compile Include="EditViewModel\EditViewModel.cs" />
     <Compile Include="EditViewModel\EditViewModelBase.cs" />
     <Compile Include="EditViewModel\DetailEdit.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="EditViewModel\FlowsheetProcessEdit.cs" />
     <Compile Include="EditViewModel\ImageEdit.cs" />
     <Compile Include="EditViewModel\MassCalculationEdit.cs" />
+    <Compile Include="EditViewModel\MaterialArrivalRecordEdit.cs" />
     <Compile Include="EditViewModel\RequestEdit.cs" />
     <Compile Include="EditViewModel\MachineEdit.cs" />
     <Compile Include="EditViewModel\MeasureUnitEdit.cs" />
@@ -80,7 +82,9 @@
     <Compile Include="EditViewModel\MethodEdit.cs" />
     <Compile Include="EditViewModel\JobEdit.cs" />
     <Compile Include="EditViewModel\MaterialEdit.cs" />
+    <Compile Include="EditViewModel\RollingRecordEdit.cs" />
     <Compile Include="EditViewModel\SelectorViewModel.cs" />
+    <Compile Include="EditViewModel\ShavingRecordEdit.cs" />
     <Compile Include="Entities\CalculationViewModel.cs" />
     <Compile Include="Entities\Commands\DelegateCommand.cs" />
     <Compile Include="Entities\Commands\RequeryableCommand.cs" />
@@ -96,7 +100,10 @@
       <DependentUpon>GeneratedViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\MassCalculationViewModel.cs" />
+    <Compile Include="Entities\MaterialArrivalRecordViewModel.cs" />
     <Compile Include="Entities\RequestDetailViewModel.cs" />
+    <Compile Include="Entities\RollingRecordViewModel.cs" />
+    <Compile Include="Entities\ShavingRecordViewModel.cs" />
     <Compile Include="IComposite.cs" />
     <Compile Include="IValidatable.cs" />
     <Compile Include="IViewService.cs" />
@@ -108,6 +115,7 @@
     <Compile Include="Lists\EquipmentList.cs" />
     <Compile Include="Lists\FlowsheetProcessList.cs" />
     <Compile Include="Lists\FlowsheetMachineList.cs" />
+    <Compile Include="Lists\MaterialArrivalRecordList.cs" />
     <Compile Include="Lists\MaterialList.cs" />
     <Compile Include="Lists\ShavingRecordList.cs" />
     <Compile Include="ListViewModel\DetailList.cs" />

@@ -52,29 +52,28 @@ namespace Rti.ViewModel.EditViewModel
             MethodsSource = new Lazy<List<MethodViewModel>>(() => RepositoryFactory.GetMethodRepository().GetAllActive().Select(o => new MethodViewModel(o, RepositoryFactory)).ToList());
         }
 
-        protected override void DoInternalSave()
+        protected override void DoSave()
         {
-            base.DoInternalSave();
             if (Entity.DrawingImage != null)
             {
                 Entity.DrawingImage.SaveEntity();
                 RepositoryFactory.GetImageRepository().SaveData(Entity.DrawingImage.Id, Entity.DrawingImage.Data);
             }
+            base.DoSave();
         }
 
         private void OpenMassCalculationEdit()
         {
-            var massCalculation = Entity.MassCalculation == null
-                ? new MassCalculationViewModel(null, RepositoryFactory)
-                : Entity.MassCalculation.Clone();
+            var massCalculation = Entity.MassCalculation ?? new MassCalculationViewModel(null, RepositoryFactory);
             var editor = new MassCalculationEdit("Расчет массы", massCalculation, ReadOnly, ViewService, RepositoryFactory);
             if (ViewService.ShowViewDialog(editor) == true)
             {
                 if (Entity.MassCalculation == null)
                     Entity.MassCalculation = massCalculation;
-                else
-                    massCalculation.CopyTo(Entity.MassCalculation);
-                Entity.MassCalculation.SaveEntity();
+                //else
+                //    massCalculation.CopyTo(Entity.MassCalculation);
+                //Entity.MassCalculation.SaveEntity();
+                //massCalculation.SaveEntity();
             }
         }
 

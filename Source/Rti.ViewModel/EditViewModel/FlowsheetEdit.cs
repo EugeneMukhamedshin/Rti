@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
@@ -26,11 +25,18 @@ namespace Rti.ViewModel.EditViewModel
             CustomersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(ContragentType.Customer).Select(o => new ContragentViewModel(o, RepositoryFactory)).ToList());
         }
 
+        protected override void DoSave()
+        {
+            base.DoSave();
+            FlowsheetMachineList.SaveChanges();
+            FlowsheetProcessList.SaveChanges();
+        }
+
         public override void Refresh()
         {
             base.Refresh();
             FlowsheetMachineList.Refresh();
-            if (Entity.IsNewEntity)
+            if (Source.IsNewEntity)
                 FlowsheetProcessList.GenerateProcessesForNewFlowsheet();
             else
                 FlowsheetProcessList.Refresh();

@@ -132,16 +132,12 @@ namespace Rti.ViewModel.Lists
             var typeMap = TypeMaps.FirstOrDefault(map => map.Item1 == typeof(TEntityViewModel));
             if (typeMap == null)
                 throw new InvalidOperationException("Не найдена информация о добавляемой сущности");
-            var clone = (TEntityViewModel)Activator.CreateInstance(typeof(TEntityViewModel), null, RepositoryFactory);
-            entityViewModel.CopyTo(clone);
             var editViewModel =
                 (BaseViewModel)
-                    Activator.CreateInstance(typeMap.Item2, name, clone, readOnly, ViewService, RepositoryFactory);
+                    Activator.CreateInstance(typeMap.Item2, name, entityViewModel, readOnly, ViewService, RepositoryFactory);
             editViewModel.Refresh();
             var result = ViewService.ShowViewDialog(editViewModel) == true;
             if (!result) return false;
-            clone.CopyTo(entityViewModel);
-            entityViewModel.SaveEntity();
             return true;
         }
 

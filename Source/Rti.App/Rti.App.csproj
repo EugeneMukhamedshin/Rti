@@ -199,6 +199,9 @@
     <Compile Include="View\Editors\MassCalculationEditWindow.xaml.cs">
       <DependentUpon>MassCalculationEditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Editors\MaterialArrivalRecordEditWindow.xaml.cs">
+      <DependentUpon>MaterialArrivalRecordEditWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Editors\RequestEditDXWindow.xaml.cs">
       <DependentUpon>RequestEditDXWindow.xaml</DependentUpon>
     </Compile>
@@ -225,6 +228,12 @@
     </Compile>
     <Compile Include="View\Editors\RequestEditWindow.xaml.cs">
       <DependentUpon>RequestEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\RollingRecordEditWindow.xaml.cs">
+      <DependentUpon>RollingRecordEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\ShavingRecordEditWindow.xaml.cs">
+      <DependentUpon>ShavingRecordEditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lists\AdditionalInfoListWindow.xaml.cs">
       <DependentUpon>AdditionalInfoListWindow.xaml</DependentUpon>
@@ -264,6 +273,9 @@
     <Compile Include="View\Lists\MachineListWindow.xaml.cs">
       <DependentUpon>MachineListWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Lists\MaterialArrivalRecordListWindow.xaml.cs">
+      <DependentUpon>MaterialArrivalRecordListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Lists\MaterialListWindow.xaml.cs">
       <DependentUpon>MaterialListWindow.xaml</DependentUpon>
     </Compile>
@@ -296,6 +308,9 @@
     </Compile>
     <Compile Include="View\Lists\RequestDetailListDXControl.xaml.cs">
       <DependentUpon>RequestDetailListDXControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\RollingRecordListWindow.xaml.cs">
+      <DependentUpon>RollingRecordListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lists\ScrollToSelectedItemBehavior.cs" />
     <Compile Include="View\Lists\ShavingRecordListWindow.xaml.cs">
@@ -415,6 +430,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Editors\MaterialArrivalRecordEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Editors\RequestEditDXWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -448,6 +467,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Editors\RequestEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\RollingRecordEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\ShavingRecordEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -499,6 +526,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Lists\MaterialArrivalRecordListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Lists\MaterialListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -520,6 +551,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Lists\RequestDetailListDXControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\RollingRecordListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

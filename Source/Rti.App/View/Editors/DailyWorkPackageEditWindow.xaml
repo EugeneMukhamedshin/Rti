@@ -27,9 +27,9 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
                 <Button Content="+" Command="{Binding DailyWorkPackageDetailList.AddDetailCommand}" Width="32" Height="32" Margin="5"></Button>
-                <Button Content="-" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5"></Button>
+                <Button Content="-" Command="{Binding DailyWorkPackageDetailList.DeleteEntityCommand}" Width="32" Height="32" Margin="5"></Button>
             </StackPanel>
-            <dxg:GridControl CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding DailyWorkPackageDetailList.Items}" SelectedItem="{Binding SelectedItems}" SelectionMode="Row" Grid.Row="2">
+            <dxg:GridControl CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding DailyWorkPackageDetailList.Items}" SelectedItem="{Binding DailyWorkPackageDetailList.SelectedItem}" SelectionMode="Row" Grid.Row="2">
                 <dxg:GridControl.Resources>
                     <Style TargetType="dxg:GridColumn">
                         <Setter Property="HeaderTemplate">
@@ -42,7 +42,7 @@
                     </Style>
                 </dxg:GridControl.Resources>
                 <dxg:GridControl.Columns>
-                    <dxg:GridColumn UnboundType="Integer" Header="№" ReadOnly="True" Width="50" Name="RowNumberColumn"/>
+                    <dxg:GridColumn UnboundType="Integer" Header="№" ReadOnly="True" Width="50" Name="_rowNumberColumn"/>
                     <dxg:GridColumn FieldName="Drawing.Detail.Name" Header="Наименование" Width="180" ReadOnly="True"/>
                     <dxg:GridColumn FieldName="Drawing.Group.Name" Header="Группа" Width="80" ReadOnly="True"/>
                     <dxg:GridColumn FieldName="Drawing" Header="Чертеж" Width="100">

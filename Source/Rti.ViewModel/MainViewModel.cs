@@ -32,6 +32,8 @@ namespace Rti.ViewModel
         public DelegateCommand OpenDailyWorkPackagesCommand { get; set; }
 
         public DelegateCommand OpenShavingRecordsCommand { get; set; }
+        public DelegateCommand OpenMaterialArrivalRecordsCommand { get; set; }
+        public DelegateCommand OpenRollingRecordsCommand { get; set; }
 
         public DelegateCommand OpenCustomersCommand { get; set; }
         public DelegateCommand OpenVendorsCommand { get; set; }
@@ -79,6 +81,14 @@ namespace Rti.ViewModel
                 "Открыть журнал обрезки облоя",
                 o => true,
                 o => OpenShavingRecords());
+            OpenMaterialArrivalRecordsCommand = new DelegateCommand(
+                "Открыть журнал прихода материала",
+                o => true,
+                o => OpenMaterialArrivalRecords());
+            OpenRollingRecordsCommand = new DelegateCommand(
+                "Открыть журнал вальцовщика",
+                o => true,
+                o => OpenRollingRecords());
 
             OpenCustomersCommand = new DelegateCommand(
                 "Справочники",
@@ -151,6 +161,20 @@ namespace Rti.ViewModel
         private void OpenShavingRecords()
         {
             var viewModel = new ShavingRecordList(true, ViewService, RepositoryFactory);
+            viewModel.Refresh();
+            ViewService.ShowViewDialog(viewModel);
+        }
+
+        private void OpenMaterialArrivalRecords()
+        {
+            var viewModel = new MaterialArrivalRecordList(true, ViewService, RepositoryFactory);
+            viewModel.Refresh();
+            ViewService.ShowViewDialog(viewModel);
+        }
+
+        private void OpenRollingRecords()
+        {
+            var viewModel = new RollingRecordList(true, ViewService, RepositoryFactory);
             viewModel.Refresh();
             ViewService.ShowViewDialog(viewModel);
         }

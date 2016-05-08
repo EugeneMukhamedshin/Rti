@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
+using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
 
@@ -19,8 +20,11 @@ namespace Rti.ViewModel.Lists
 
         public Lazy<List<EmployeeViewModel>> EmployeesSource { get; set; }
 
-        public ShavingRecordList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
+        public ShavingRecordList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory)
+            : base(editMode, viewService, repositoryFactory)
         {
+            TypeMaps.Add(new Tuple<Type, Type>(typeof(ShavingRecordViewModel), typeof(ShavingRecordEdit)));
+
             AddRecordCommand = new DelegateCommand(
                "Добавить запись в журнал",
                o => true,
@@ -33,17 +37,17 @@ namespace Rti.ViewModel.Lists
             EndDate = DateTime.Today;
         }
 
-        private void AddRecord()
-        {
-            var record = DoCreateNewEntity();
-            Items.Add(record);
-        }
-
         public override void Refresh()
         {
             base.Refresh();
             EmployeesSource = new Lazy<List<EmployeeViewModel>>(() => RepositoryFactory.GetEmployeeRepository().GetAllActive().Select(m => new EmployeeViewModel(m, RepositoryFactory)).ToList());
+        }
 
+        private void AddRecord()
+        {
+            var record = DoCreateNewEntity();
+            if (OpenViewModelEditWindow(record, "Новая запись журнала", false) && StartDate <= record.ShaveDate && record.ShaveDate <= EndDate && (Shaver == null || record.ShaverEmployee.Id == Shaver.Id))
+                Items.Add(record);
         }
 
         protected override IEnumerable<ShavingRecordViewModel> GetItems()

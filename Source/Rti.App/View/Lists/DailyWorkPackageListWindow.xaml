@@ -5,7 +5,7 @@
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
-    Title="Чертежи" Height="600" Width="1500" WindowState="Maximized">
+    Title="Дневные наряды" Height="500" Width="300" WindowState="Maximized">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -16,13 +16,13 @@
             <StackPanel Orientation="Horizontal" Grid.Row="0">
                 <Button Content="+" Command="{Binding AddDailyWorkPackageCommand}" Width="32" Height="32" Margin="5"/>
                 <Button Content="-" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5"/>
-                <Button Content="..." Command="{Binding EditEntityCommand}" Width="32" Height="32" Margin="5"/>
+                <Button Content="..." Command="{Binding EditDailyWorkPackageCommand}" Width="32" Height="32" Margin="5"/>
                 <Button Content="&lt;" Command="{Binding PrevPageCommand}" Width="32" Height="32" Margin="5"/>
                 <Button Content="&gt;" Command="{Binding NextPageCommand}" Width="32" Height="32" Margin="5"/>
             </StackPanel>
             <dxg:GridControl TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="1">
                 <dxmvvm:Interaction.Behaviors>
-                    <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding EditEntityCommand}" PassEventArgsToCommand="True">
+                    <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding EditDailyWorkPackageCommand}" PassEventArgsToCommand="True">
                         <dxmvvm:EventToCommand.EventArgsConverter>
                             <dx:EventArgsToDataRowConverter/>
                         </dxmvvm:EventToCommand.EventArgsConverter>
@@ -40,8 +40,8 @@
                     </Style>
                 </dxg:GridControl.Resources>
                 <dxg:GridControl.Columns>
-                    <dxg:GridColumn FieldName="SortOrder" Header="Номер" ReadOnly="True" Width="40"/>
-                    <dxg:GridColumn FieldName="Date" Header="Дата" ReadOnly="True" Width="40"/>
+                    <dxg:GridColumn FieldName="SortOrder" Header="Номер" ReadOnly="True" Width="80"/>
+                    <dxg:GridColumn FieldName="Date" Header="Дата" ReadOnly="True" Width="80"/>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>
                     <dxg:TableView AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>

@@ -13,11 +13,11 @@ namespace Rti.ViewModel.EditViewModel
         {
         }
 
-        protected override void DoInternalSave()
+        protected override void DoSave()
         {
-            base.DoInternalSave();
-            var process = RepositoryFactory.GetProcessRepository().GetById((int) ProcessType);
+            var process = RepositoryFactory.GetProcessRepository().GetById((int)ProcessType);
             Entity.Process = new ProcessViewModel(process, RepositoryFactory);
+            base.DoSave();
         }
     }
 }

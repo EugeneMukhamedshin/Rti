@@ -72,7 +72,7 @@ namespace Rti.ViewModel.EditViewModel
         {
             var newDetail = new RequestDetailViewModel(null, RepositoryFactory)
             {
-                Request = Entity,
+                Request = Source,
                 SortOrder = RequestDetails.Any() ? RequestDetails.Max(item => item.SortOrder) + 1 : 1
             };
             RequestDetails.Add(newDetail);
@@ -88,7 +88,7 @@ namespace Rti.ViewModel.EditViewModel
         {
             base.Refresh();
             DoAsync(() => RepositoryFactory.GetRequestDetailRepository()
-                .GetByRequestId(Entity.Id)
+                .GetByRequestId(Source.Id)
                 .OrderBy(o => o.SortOrder)
                 .Select(m => new RequestDetailViewModel(m, RepositoryFactory)),
                 res => RequestDetails = new ObservableCollection<RequestDetailViewModel>(res));
@@ -100,11 +100,9 @@ namespace Rti.ViewModel.EditViewModel
             DetailsSource = new Lazy<List<DetailViewModel>>(() => RepositoryFactory.GetDetailRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new DetailViewModel(o, RepositoryFactory)).ToList());
         }
 
-        protected override void DoInternalSave()
+        protected override void DoSave()
         {
-            base.DoInternalSave();
-            if (Entity.IsChanged)
-                Entity.SaveEntity();
+            base.DoSave();
             foreach (var deletedDetail in _deletedDetails)
             {
                 deletedDetail.DeleteEntity();
@@ -123,6 +121,14 @@ namespace Rti.ViewModel.EditViewModel
             {
                 ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задан заказчик"));
                 return false;
+            }
+            foreach (var requestDetail in RequestDetails)
+            {
+                if (requestDetail.Drawing == null)
+                {
+                    ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задан чертеж"));
+                    return false;
+                }
             }
             return base.DoValidate();
         }

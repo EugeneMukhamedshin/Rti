@@ -9,9 +9,10 @@ using Rti.ViewModel.Entities.Commands;
 
 namespace Rti.ViewModel.Lists
 {
-    public class DailyWorkPackageList: EntityList<DailyWorkPackageViewModel, DailyWorkPackage>, IClosable
+    public class DailyWorkPackageList : EntityList<DailyWorkPackageViewModel, DailyWorkPackage>, IClosable
     {
         public DelegateCommand AddDailyWorkPackageCommand { get; set; }
+        public DelegateCommand EditDailyWorkPackageCommand { get; set; }
         public DelegateCommand PrevPageCommand { get; set; }
         public DelegateCommand NextPageCommand { get; set; }
 
@@ -19,14 +20,17 @@ namespace Rti.ViewModel.Lists
         public int PageSize { get; set; }
         public bool IsLastPage { get; set; }
 
-        public DailyWorkPackageList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
+        public DailyWorkPackageList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory)
+            : base(editMode, viewService, repositoryFactory)
         {
-            TypeMaps.Add(new Tuple<Type, Type>(typeof(DailyWorkPackageViewModel), typeof(DailyWorkPackageEdit)));
-
             AddDailyWorkPackageCommand = new DelegateCommand(
-                "Добавить чертеж",
-                o => true,
+                "Добавить дневной наряд",
+                o => EditMode,
                 o => AddDailyWorkPackage());
+            EditDailyWorkPackageCommand = new DelegateCommand(
+                "Изменить дневной наряд",
+                o => EditMode,
+                o => EditDailyWorkPackage());
             PrevPageCommand = new DelegateCommand(
                 "Предыдущая страница",
                 o => Page > 0,
@@ -45,17 +49,26 @@ namespace Rti.ViewModel.Lists
                 });
 
             Page = 0;
-            PageSize = 15;
+            PageSize = 10;
         }
 
         private void AddDailyWorkPackage()
         {
             var dailyWorkPackage = DoCreateNewEntity();
-            if (OpenViewModelEditWindow(dailyWorkPackage, "Новый дневной наряд", false))
+            var edit = new DailyWorkPackageEdit("Новый дневной наряд", dailyWorkPackage, false, ViewService, RepositoryFactory);
+            edit.Refresh();
+            if (ViewService.ShowViewDialog(edit) == true)
             {
                 Page = 0;
                 Refresh();
             }
+        }
+
+        private void EditDailyWorkPackage()
+        {
+            var edit = new DailyWorkPackageEdit("Новый дневной наряд", SelectedItem, false, ViewService, RepositoryFactory);
+            edit.Refresh();
+            ViewService.ShowViewDialog(edit);
         }
 
         protected override IEnumerable<DailyWorkPackageViewModel> GetItems()

@@ -56,7 +56,7 @@ namespace Rti.ViewModel.Lists
                 o => OpenCalculation());
 
             Page = 0;
-            PageSize = 5;
+            PageSize = 15;
         }
 
         private void AddDrawing()
@@ -75,12 +75,7 @@ namespace Rti.ViewModel.Lists
             flowsheet.Drawing = SelectedItem;
             var viewModel = new FlowsheetEdit("Технологическая карта", flowsheet, !EditMode, ViewService, RepositoryFactory);
             viewModel.Refresh();
-            if (ViewService.ShowViewDialog(viewModel) == true)
-            {
-                viewModel.Entity.SaveEntity();
-                viewModel.FlowsheetMachineList.SaveChanges();
-                viewModel.FlowsheetProcessList.SaveChanges();
-            }
+            ViewService.ShowViewDialog(viewModel);
         }
 
         private void OpenCalculation()

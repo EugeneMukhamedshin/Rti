@@ -101,6 +101,7 @@
     <Compile Include="Repository\Interfaces\IImageRepository.cs" />
     <Compile Include="Repository\Interfaces\IJobRepository.cs" />
     <Compile Include="Repository\Interfaces\IMachineRepository.cs" />
+    <Compile Include="Repository\Interfaces\IMaterialArrivalRecordRepository.cs" />
     <Compile Include="Repository\Interfaces\IMaterialRepository.cs" />
     <Compile Include="Repository\Interfaces\IMeasureUnitRepository.cs" />
     <Compile Include="Repository\Interfaces\IMethodRepository.cs" />
@@ -112,6 +113,7 @@
     </Compile>
     <Compile Include="Repository\Interfaces\IRequestDetailRepository.cs" />
     <Compile Include="Repository\Interfaces\IRequestRepository.cs" />
+    <Compile Include="Repository\Interfaces\IRollingRecordRepository.cs" />
     <Compile Include="Repository\Interfaces\IShavingRecordRepository.cs" />
     <Compile Include="Repository\NHibernate\AdditionalInfoRepository.cs" />
     <Compile Include="Repository\NHibernate\CalculationRepository.cs" />
@@ -138,6 +140,7 @@
     <Compile Include="Repository\NHibernate\ImageRepository.cs" />
     <Compile Include="Repository\NHibernate\JobRepository.cs" />
     <Compile Include="Repository\NHibernate\MachineRepository.cs" />
+    <Compile Include="Repository\NHibernate\MaterialArrivalRecordRepository.cs" />
     <Compile Include="Repository\NHibernate\MaterialRepository.cs" />
     <Compile Include="Repository\NHibernate\MeasureUnitRepository.cs" />
     <Compile Include="Repository\NHibernate\MethodRepository.cs" />
@@ -150,6 +153,7 @@
     </Compile>
     <Compile Include="Repository\NHibernate\RequestDetailRepository.cs" />
     <Compile Include="Repository\NHibernate\RequestRepository.cs" />
+    <Compile Include="Repository\NHibernate\RollingRecordRepository.cs" />
     <Compile Include="Repository\NHibernate\ShavingRecordRepository.cs" />
   </ItemGroup>
   <ItemGroup>

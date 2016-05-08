@@ -785,6 +785,49 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 	}
 
 
+	// The classmap for material_arrival_records
+	public partial class MaterialArrivalRecordMap : BaseMap<Rti.Model.Domain.MaterialArrivalRecord>
+	{
+		public MaterialArrivalRecordMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("material_arrival_records");
+
+			Id(o => o.Id, "id");
+
+			Map(o => o.SortOrder, "sort_order");
+
+			Map(o => o.InvoiceNumber, "invoice_number");
+
+			Map(o => o.InvoiceSum, "invoice_sum");
+
+			Map(o => o.WaybillDate, "waybill_date");
+
+			Map(o => o.WaybillNumber, "waybill_number");
+
+			Map(o => o.Price, "price");
+
+			Map(o => o.Count, "count");
+
+			Map(o => o.ForwardedCount, "forwarded_count");
+
+			Map(o => o.IsDeleted, "is_deleted");
+
+			References(o => o.Supplier, "supplier_id").Fetch.Join().Not.LazyLoad();
+
+			References(o => o.Material, "material_id").Fetch.Join().Not.LazyLoad();
+
+			References(o => o.MeasureUnit, "measure_unit_id").Fetch.Join().Not.LazyLoad();
+
+			OnInitialized();
+		}
+	}
+
+
 	// The classmap for measure_units
 	public partial class MeasureUnitMap : BaseMap<Rti.Model.Domain.MeasureUnit>
 	{
@@ -942,6 +985,41 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			References(o => o.Group, "group_id").Fetch.Join().Not.LazyLoad();
 
 			References(o => o.Detail, "detail_id").Fetch.Join().Not.LazyLoad();
+
+			References(o => o.Material, "material_id").Fetch.Join().Not.LazyLoad();
+
+			OnInitialized();
+		}
+	}
+
+
+	// The classmap for rolling_records
+	public partial class RollingRecordMap : BaseMap<Rti.Model.Domain.RollingRecord>
+	{
+		public RollingRecordMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("rolling_records");
+
+			Id(o => o.Id, "id");
+
+			Map(o => o.SortOrder, "sort_order");
+
+			Map(o => o.RollingDate, "rolling_date");
+
+			Map(o => o.Count, "count");
+
+			Map(o => o.Note, "note");
+
+			Map(o => o.IsDeleted, "is_deleted");
+
+			References(o => o.Customer, "customer_id").Fetch.Join().Not.LazyLoad();
+
+			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
 
 			References(o => o.Material, "material_id").Fetch.Join().Not.LazyLoad();
 

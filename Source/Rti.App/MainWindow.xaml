@@ -40,6 +40,8 @@
                             </dxr:RibbonPageGroup>
                             <dxr:RibbonPageGroup Caption="Журналы">
                                 <dxb:BarButtonItem Content="Обрезка облоя" RibbonStyle="SmallWithText" Command="{Binding OpenShavingRecordsCommand}"/>
+                                <dxb:BarButtonItem Content="Приход материала" RibbonStyle="SmallWithText" Command="{Binding OpenMaterialArrivalRecordsCommand}"/>
+                                <dxb:BarButtonItem Content="Вальцовщик" RibbonStyle="SmallWithText" Command="{Binding OpenRollingRecordsCommand}"/>
                             </dxr:RibbonPageGroup>
                         </dxr:RibbonPage>
                         <dxr:RibbonPage Caption="Справочники">

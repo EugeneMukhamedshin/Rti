@@ -49,6 +49,8 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new MassCalculationRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Material))
                 return (IRepository<TEntity>)new MaterialRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.MaterialArrivalRecord))
+                return (IRepository<TEntity>)new MaterialArrivalRecordRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.MeasureUnit))
                 return (IRepository<TEntity>)new MeasureUnitRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Method))
@@ -59,6 +61,8 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new RequestRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.RequestDetail))
                 return (IRepository<TEntity>)new RequestDetailRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.RollingRecord))
+                return (IRepository<TEntity>)new RollingRecordRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.ShavingRecord))
                 return (IRepository<TEntity>)new ShavingRecordRepository();
 			return new NHibernateRepository<TEntity>();
@@ -104,6 +108,8 @@ namespace Rti.Model.Repository.NHibernate
 
 		public IMaterialRepository GetMaterialRepository() { return (IMaterialRepository) GetRepository<Rti.Model.Domain.Material>(); }
 
+		public IMaterialArrivalRecordRepository GetMaterialArrivalRecordRepository() { return (IMaterialArrivalRecordRepository) GetRepository<Rti.Model.Domain.MaterialArrivalRecord>(); }
+
 		public IMeasureUnitRepository GetMeasureUnitRepository() { return (IMeasureUnitRepository) GetRepository<Rti.Model.Domain.MeasureUnit>(); }
 
 		public IMethodRepository GetMethodRepository() { return (IMethodRepository) GetRepository<Rti.Model.Domain.Method>(); }
@@ -113,6 +119,8 @@ namespace Rti.Model.Repository.NHibernate
 		public IRequestRepository GetRequestRepository() { return (IRequestRepository) GetRepository<Rti.Model.Domain.Request>(); }
 
 		public IRequestDetailRepository GetRequestDetailRepository() { return (IRequestDetailRepository) GetRepository<Rti.Model.Domain.RequestDetail>(); }
+
+		public IRollingRecordRepository GetRollingRecordRepository() { return (IRollingRecordRepository) GetRepository<Rti.Model.Domain.RollingRecord>(); }
 
 		public IShavingRecordRepository GetShavingRecordRepository() { return (IShavingRecordRepository) GetRepository<Rti.Model.Domain.ShavingRecord>(); }
 
@@ -338,6 +346,19 @@ namespace Rti.Model.Repository.NHibernate
         }
     }
 
+	public partial class MaterialArrivalRecordRepository : NHibernateRepository<Rti.Model.Domain.MaterialArrivalRecord>, IMaterialArrivalRecordRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.MaterialArrivalRecord, Rti.Model.Domain.MaterialArrivalRecord> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.MaterialArrivalRecord, Rti.Model.Domain.MaterialArrivalRecord> queryOver)
+        {
+			var result = queryOver;
+			result = result.Fetch(o => o.Supplier).Default;
+			result = result.Fetch(o => o.Material).Default;
+			result = result.Fetch(o => o.MeasureUnit).Default;
+            return result;
+        }
+    }
+
 	public partial class MeasureUnitRepository : NHibernateRepository<Rti.Model.Domain.MeasureUnit>, IMeasureUnitRepository
     {
 
@@ -389,6 +410,19 @@ namespace Rti.Model.Repository.NHibernate
 			result = result.Fetch(o => o.Drawing).Default;
 			result = result.Fetch(o => o.Group).Default;
 			result = result.Fetch(o => o.Detail).Default;
+			result = result.Fetch(o => o.Material).Default;
+            return result;
+        }
+    }
+
+	public partial class RollingRecordRepository : NHibernateRepository<Rti.Model.Domain.RollingRecord>, IRollingRecordRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.RollingRecord, Rti.Model.Domain.RollingRecord> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.RollingRecord, Rti.Model.Domain.RollingRecord> queryOver)
+        {
+			var result = queryOver;
+			result = result.Fetch(o => o.Customer).Default;
+			result = result.Fetch(o => o.Drawing).Default;
 			result = result.Fetch(o => o.Material).Default;
             return result;
         }

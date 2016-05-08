@@ -28,7 +28,7 @@ namespace Rti.App.View.Editors
 
         private void GridControl_OnCustomColumnDisplayText(object sender, CustomColumnDisplayTextEventArgs e)
         {
-            if (Equals(e.Column, RowNumberColumn))
+            if (Equals(e.Column, _rowNumberColumn))
                 e.DisplayText = (e.ListSourceIndex + 1).ToString();
         }
     }

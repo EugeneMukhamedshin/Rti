@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NHibernate.Criterion;
@@ -15,6 +16,11 @@ namespace Rti.Model.Repository.NHibernate
         public int GetNextSortOrder()
         {
             return ExecuteFuncOnQueryOver(q => q.Where(o => !o.IsDeleted).Select(Projections.Max<DailyWorkPackage>(o => o.SortOrder)).SingleOrDefault<int>() + 1);
+        }
+
+        public DailyWorkPackage GetByDate(DateTime date)
+        {
+            return ExecuteFuncOnQueryOver(q => q.Where(o => !o.IsDeleted && o.Date == date).SingleOrDefault());
         }
     }
 }

@@ -3007,6 +3007,178 @@ namespace Rti.ViewModel.Entities
 	}
 
 
+	// The viewmodel for MaterialArrivalRecord
+	public partial class MaterialArrivalRecordViewModel : EntityViewModel<Rti.Model.Domain.MaterialArrivalRecord, MaterialArrivalRecordViewModel>
+	{
+		// Конструктор для маппинга
+		public MaterialArrivalRecordViewModel() { }
+
+        public MaterialArrivalRecordViewModel(Rti.Model.Domain.MaterialArrivalRecord entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+
+		private Int32 _id;
+
+		private Int32 _sortOrder;
+
+		private String _invoiceNumber;
+
+		private Decimal _invoiceSum;
+
+		private DateTime _waybillDate;
+
+		private String _waybillNumber;
+
+		private Decimal _price;
+
+		private Decimal _count;
+
+		private Decimal? _forwardedCount;
+
+		private Boolean _isDeleted;
+
+		private ContragentViewModel _supplier;
+
+		private MaterialViewModel _material;
+
+		private MeasureUnitViewModel _measureUnit;
+
+
+
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+
+		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
+
+		public String InvoiceNumber { get { return _invoiceNumber; } set { if (Equals(_invoiceNumber, value)) return; _invoiceNumber = value; OnPropertyChanged("InvoiceNumber"); } }
+
+		public Decimal InvoiceSum { get { return _invoiceSum; } set { if (Equals(_invoiceSum, value)) return; _invoiceSum = value; OnPropertyChanged("InvoiceSum"); } }
+
+		public DateTime WaybillDate { get { return _waybillDate; } set { if (Equals(_waybillDate, value)) return; _waybillDate = value; OnPropertyChanged("WaybillDate"); } }
+
+		public String WaybillNumber { get { return _waybillNumber; } set { if (Equals(_waybillNumber, value)) return; _waybillNumber = value; OnPropertyChanged("WaybillNumber"); } }
+
+		public Decimal Price { get { return _price; } set { if (Equals(_price, value)) return; _price = value; OnPropertyChanged("Price"); } }
+
+		public Decimal Count { get { return _count; } set { if (Equals(_count, value)) return; _count = value; OnPropertyChanged("Count"); } }
+
+		public Decimal? ForwardedCount { get { return _forwardedCount; } set { if (Equals(_forwardedCount, value)) return; _forwardedCount = value; OnPropertyChanged("ForwardedCount"); } }
+
+		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
+
+		public ContragentViewModel Supplier { get { return _supplier; } set { _supplier = value; OnPropertyChanged("Supplier"); } }
+
+		public MaterialViewModel Material { get { return _material; } set { _material = value; OnPropertyChanged("Material"); } }
+
+		public MeasureUnitViewModel MeasureUnit { get { return _measureUnit; } set { _measureUnit = value; OnPropertyChanged("MeasureUnit"); } }
+
+
+		protected override void MapPropertiesToEntity()
+		{
+
+			Entity.SortOrder = SortOrder; 
+
+			Entity.InvoiceNumber = InvoiceNumber; 
+
+			Entity.InvoiceSum = InvoiceSum; 
+
+			Entity.WaybillDate = WaybillDate; 
+
+			Entity.WaybillNumber = WaybillNumber; 
+
+			Entity.Price = Price; 
+
+			Entity.Count = Count; 
+
+			Entity.ForwardedCount = ForwardedCount; 
+
+			Entity.IsDeleted = IsDeleted; 
+
+			Entity.Supplier = Supplier == null ? null : Supplier.Entity; 
+
+			Entity.Material = Material == null ? null : Material.Entity; 
+
+			Entity.MeasureUnit = MeasureUnit == null ? null : MeasureUnit.Entity; 
+
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+
+			Id = Entity.Id; 
+
+			SortOrder = Entity.SortOrder; 
+
+			InvoiceNumber = Entity.InvoiceNumber; 
+
+			InvoiceSum = Entity.InvoiceSum; 
+
+			WaybillDate = Entity.WaybillDate; 
+
+			WaybillNumber = Entity.WaybillNumber; 
+
+			Price = Entity.Price; 
+
+			Count = Entity.Count; 
+
+			ForwardedCount = Entity.ForwardedCount; 
+
+			IsDeleted = Entity.IsDeleted; 
+
+			Supplier = Entity.Supplier == null ? null : new ContragentViewModel(Entity.Supplier, RepositoryFactory); 
+
+			Material = Entity.Material == null ? null : new MaterialViewModel(Entity.Material, RepositoryFactory); 
+
+			MeasureUnit = Entity.MeasureUnit == null ? null : new MeasureUnitViewModel(Entity.MeasureUnit, RepositoryFactory); 
+
+		}
+
+		public override void CopyTo(MaterialArrivalRecordViewModel target)
+		{
+
+			target.SortOrder = SortOrder; 
+
+			target.InvoiceNumber = InvoiceNumber; 
+
+			target.InvoiceSum = InvoiceSum; 
+
+			target.WaybillDate = WaybillDate; 
+
+			target.WaybillNumber = WaybillNumber; 
+
+			target.Price = Price; 
+
+			target.Count = Count; 
+
+			target.ForwardedCount = ForwardedCount; 
+
+			target.IsDeleted = IsDeleted; 
+
+			target.Supplier = Supplier; 
+
+			target.Material = Material; 
+
+			target.MeasureUnit = MeasureUnit; 
+
+		}
+
+		public override MaterialArrivalRecordViewModel Clone()
+		{
+			var copy = new MaterialArrivalRecordViewModel(null, RepositoryFactory);
+			CopyTo(copy);
+			return copy;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(MaterialArrivalRecordViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((MaterialArrivalRecordViewModel) obj);
+        }
+	}
+
+
 	// The viewmodel for MeasureUnit
 	public partial class MeasureUnitViewModel : EntityViewModel<Rti.Model.Domain.MeasureUnit, MeasureUnitViewModel>
 	{
@@ -3613,6 +3785,138 @@ namespace Rti.ViewModel.Entities
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((RequestDetailViewModel) obj);
+        }
+	}
+
+
+	// The viewmodel for RollingRecord
+	public partial class RollingRecordViewModel : EntityViewModel<Rti.Model.Domain.RollingRecord, RollingRecordViewModel>
+	{
+		// Конструктор для маппинга
+		public RollingRecordViewModel() { }
+
+        public RollingRecordViewModel(Rti.Model.Domain.RollingRecord entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+
+		private Int32 _id;
+
+		private Int32 _sortOrder;
+
+		private DateTime _rollingDate;
+
+		private Int32 _count;
+
+		private String _note;
+
+		private Boolean _isDeleted;
+
+		private ContragentViewModel _customer;
+
+		private DrawingViewModel _drawing;
+
+		private MaterialViewModel _material;
+
+
+
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+
+		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
+
+		public DateTime RollingDate { get { return _rollingDate; } set { if (Equals(_rollingDate, value)) return; _rollingDate = value; OnPropertyChanged("RollingDate"); } }
+
+		public Int32 Count { get { return _count; } set { if (Equals(_count, value)) return; _count = value; OnPropertyChanged("Count"); } }
+
+		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
+
+		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
+
+		public ContragentViewModel Customer { get { return _customer; } set { _customer = value; OnPropertyChanged("Customer"); } }
+
+		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
+
+		public MaterialViewModel Material { get { return _material; } set { _material = value; OnPropertyChanged("Material"); } }
+
+
+		protected override void MapPropertiesToEntity()
+		{
+
+			Entity.SortOrder = SortOrder; 
+
+			Entity.RollingDate = RollingDate; 
+
+			Entity.Count = Count; 
+
+			Entity.Note = Note; 
+
+			Entity.IsDeleted = IsDeleted; 
+
+			Entity.Customer = Customer == null ? null : Customer.Entity; 
+
+			Entity.Drawing = Drawing == null ? null : Drawing.Entity; 
+
+			Entity.Material = Material == null ? null : Material.Entity; 
+
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+
+			Id = Entity.Id; 
+
+			SortOrder = Entity.SortOrder; 
+
+			RollingDate = Entity.RollingDate; 
+
+			Count = Entity.Count; 
+
+			Note = Entity.Note; 
+
+			IsDeleted = Entity.IsDeleted; 
+
+			Customer = Entity.Customer == null ? null : new ContragentViewModel(Entity.Customer, RepositoryFactory); 
+
+			Drawing = Entity.Drawing == null ? null : new DrawingViewModel(Entity.Drawing, RepositoryFactory); 
+
+			Material = Entity.Material == null ? null : new MaterialViewModel(Entity.Material, RepositoryFactory); 
+
+		}
+
+		public override void CopyTo(RollingRecordViewModel target)
+		{
+
+			target.SortOrder = SortOrder; 
+
+			target.RollingDate = RollingDate; 
+
+			target.Count = Count; 
+
+			target.Note = Note; 
+
+			target.IsDeleted = IsDeleted; 
+
+			target.Customer = Customer; 
+
+			target.Drawing = Drawing; 
+
+			target.Material = Material; 
+
+		}
+
+		public override RollingRecordViewModel Clone()
+		{
+			var copy = new RollingRecordViewModel(null, RepositoryFactory);
+			CopyTo(copy);
+			return copy;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(RollingRecordViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((RollingRecordViewModel) obj);
         }
 	}
 

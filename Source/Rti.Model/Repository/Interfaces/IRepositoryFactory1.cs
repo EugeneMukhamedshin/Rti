@@ -27,11 +27,13 @@ namespace Rti.Model.Repository.Interfaces
 		IMachineRepository GetMachineRepository();
 		IMassCalculationRepository GetMassCalculationRepository();
 		IMaterialRepository GetMaterialRepository();
+		IMaterialArrivalRecordRepository GetMaterialArrivalRecordRepository();
 		IMeasureUnitRepository GetMeasureUnitRepository();
 		IMethodRepository GetMethodRepository();
 		IProcessRepository GetProcessRepository();
 		IRequestRepository GetRequestRepository();
 		IRequestDetailRepository GetRequestDetailRepository();
+		IRollingRecordRepository GetRollingRecordRepository();
 		IShavingRecordRepository GetShavingRecordRepository();
     }
 
@@ -55,10 +57,12 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IMachineRepository : IRepository<Rti.Model.Domain.Machine> { }
 	public partial interface IMassCalculationRepository : IRepository<Rti.Model.Domain.MassCalculation> { }
 	public partial interface IMaterialRepository : IRepository<Rti.Model.Domain.Material> { }
+	public partial interface IMaterialArrivalRecordRepository : IRepository<Rti.Model.Domain.MaterialArrivalRecord> { }
 	public partial interface IMeasureUnitRepository : IRepository<Rti.Model.Domain.MeasureUnit> { }
 	public partial interface IMethodRepository : IRepository<Rti.Model.Domain.Method> { }
 	public partial interface IProcessRepository : IRepository<Rti.Model.Domain.Process> { }
 	public partial interface IRequestRepository : IRepository<Rti.Model.Domain.Request> { }
 	public partial interface IRequestDetailRepository : IRepository<Rti.Model.Domain.RequestDetail> { }
+	public partial interface IRollingRecordRepository : IRepository<Rti.Model.Domain.RollingRecord> { }
 	public partial interface IShavingRecordRepository : IRepository<Rti.Model.Domain.ShavingRecord> { }
 }

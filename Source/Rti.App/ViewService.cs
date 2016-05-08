@@ -74,6 +74,13 @@ namespace Rti.App
             // Журналы
             // Журнал обрезки облоя
             AddToRegistry<ShavingRecordList, ShavingRecordListWindow>();
+            AddToRegistry<ShavingRecordEdit, ShavingRecordEditWindow>();
+            // Журнал прихода материала
+            AddToRegistry<MaterialArrivalRecordList, MaterialArrivalRecordListWindow>();
+            AddToRegistry<MaterialArrivalRecordEdit, MaterialArrivalRecordEditWindow>();
+            // Журнал прихода материала
+            AddToRegistry<RollingRecordList, RollingRecordListWindow>();
+            AddToRegistry<RollingRecordEdit, RollingRecordEditWindow>();
 
             // Изображения
             AddToRegistry<ImageEdit, ImageEditWindow>();
@@ -172,9 +179,9 @@ namespace Rti.App
                 window.Closing += (sender, args) => args.Cancel = !closable.CanClose();
                 closable.Close = res =>
                 {
-                    if ((res == null || res.Value) && (closable is IValidatable) &&
-                        !((IValidatable)closable).Validate())
-                        return;
+                    //if ((res == null || res.Value) && (closable is IValidatable) &&
+                    //    !((IValidatable)closable).Validate())
+                    //    return;
                     if (!closable.CanClose())
                         return;
                     if (res != null)
