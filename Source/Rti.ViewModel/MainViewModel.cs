@@ -34,6 +34,7 @@ namespace Rti.ViewModel
         public DelegateCommand OpenShavingRecordsCommand { get; set; }
         public DelegateCommand OpenMaterialArrivalRecordsCommand { get; set; }
         public DelegateCommand OpenRollingRecordsCommand { get; set; }
+        public DelegateCommand OpenShippingOrderRecordsCommand { get; set; }
 
         public DelegateCommand OpenCustomersCommand { get; set; }
         public DelegateCommand OpenVendorsCommand { get; set; }
@@ -89,6 +90,10 @@ namespace Rti.ViewModel
                 "Открыть журнал вальцовщика",
                 o => true,
                 o => OpenRollingRecords());
+            OpenShippingOrderRecordsCommand = new DelegateCommand(
+                "Открыть журнал вальцовщика",
+                o => true,
+                o => OpenShippingOrderRecords());
 
             OpenCustomersCommand = new DelegateCommand(
                 "Справочники",
@@ -175,6 +180,13 @@ namespace Rti.ViewModel
         private void OpenRollingRecords()
         {
             var viewModel = new RollingRecordList(true, ViewService, RepositoryFactory);
+            viewModel.Refresh();
+            ViewService.ShowViewDialog(viewModel);
+        }
+
+        private void OpenShippingOrderRecords()
+        {
+            var viewModel = new ShippingOrderRecordList(true, ViewService, RepositoryFactory);
             viewModel.Refresh();
             ViewService.ShowViewDialog(viewModel);
         }

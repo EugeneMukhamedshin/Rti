@@ -65,6 +65,8 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new RollingRecordRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.ShavingRecord))
                 return (IRepository<TEntity>)new ShavingRecordRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.ShippingOrderRecord))
+                return (IRepository<TEntity>)new ShippingOrderRecordRepository();
 			return new NHibernateRepository<TEntity>();
 		}
 
@@ -124,6 +126,8 @@ namespace Rti.Model.Repository.NHibernate
 
 		public IShavingRecordRepository GetShavingRecordRepository() { return (IShavingRecordRepository) GetRepository<Rti.Model.Domain.ShavingRecord>(); }
 
+		public IShippingOrderRecordRepository GetShippingOrderRecordRepository() { return (IShippingOrderRecordRepository) GetRepository<Rti.Model.Domain.ShippingOrderRecord>(); }
+
 	}
 	public partial class AdditionalInfoRepository : NHibernateRepository<Rti.Model.Domain.AdditionalInfo>, IAdditionalInfoRepository
     {
@@ -141,7 +145,6 @@ namespace Rti.Model.Repository.NHibernate
         protected override IQueryOver<Rti.Model.Domain.Calculation, Rti.Model.Domain.Calculation> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Calculation, Rti.Model.Domain.Calculation> queryOver)
         {
 			var result = queryOver;
-			result = result.Fetch(o => o.Drawing).Default;
             return result;
         }
     }
@@ -211,9 +214,12 @@ namespace Rti.Model.Repository.NHibernate
 			result = result.Fetch(o => o.Material).Default;
 			result = result.Fetch(o => o.MeasureUnit).Default;
 			result = result.Fetch(o => o.MassCalculation).Default;
+			result = result.Fetch(o => o.PlanCalculation).Default;
+			result = result.Fetch(o => o.FactCalculation).Default;
 			result = result.Fetch(o => o.Equipment).Default;
 			result = result.Fetch(o => o.Method).Default;
 			result = result.Fetch(o => o.DrawingImage).Default;
+			result = result.Fetch(o => o.Flowsheet).Default;
             return result;
         }
     }
@@ -255,7 +261,6 @@ namespace Rti.Model.Repository.NHibernate
         protected override IQueryOver<Rti.Model.Domain.Flowsheet, Rti.Model.Domain.Flowsheet> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Flowsheet, Rti.Model.Domain.Flowsheet> queryOver)
         {
 			var result = queryOver;
-			result = result.Fetch(o => o.Drawing).Default;
 			result = result.Fetch(o => o.Customer).Default;
 			result = result.Fetch(o => o.SecondaryCustomer).Default;
             return result;
@@ -435,6 +440,18 @@ namespace Rti.Model.Repository.NHibernate
         {
 			var result = queryOver;
 			result = result.Fetch(o => o.ShaverEmployee).Default;
+			result = result.Fetch(o => o.Drawing).Default;
+            return result;
+        }
+    }
+
+	public partial class ShippingOrderRecordRepository : NHibernateRepository<Rti.Model.Domain.ShippingOrderRecord>, IShippingOrderRecordRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.ShippingOrderRecord, Rti.Model.Domain.ShippingOrderRecord> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.ShippingOrderRecord, Rti.Model.Domain.ShippingOrderRecord> queryOver)
+        {
+			var result = queryOver;
+			result = result.Fetch(o => o.Customer).Default;
 			result = result.Fetch(o => o.Drawing).Default;
             return result;
         }

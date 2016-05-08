@@ -35,6 +35,7 @@ namespace Rti.Model.Repository.Interfaces
 		IRequestDetailRepository GetRequestDetailRepository();
 		IRollingRecordRepository GetRollingRecordRepository();
 		IShavingRecordRepository GetShavingRecordRepository();
+		IShippingOrderRecordRepository GetShippingOrderRecordRepository();
     }
 
 	public partial interface IAdditionalInfoRepository : IRepository<Rti.Model.Domain.AdditionalInfo> { }
@@ -65,4 +66,5 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IRequestDetailRepository : IRepository<Rti.Model.Domain.RequestDetail> { }
 	public partial interface IRollingRecordRepository : IRepository<Rti.Model.Domain.RollingRecord> { }
 	public partial interface IShavingRecordRepository : IRepository<Rti.Model.Domain.ShavingRecord> { }
+	public partial interface IShippingOrderRecordRepository : IRepository<Rti.Model.Domain.ShippingOrderRecord> { }
 }

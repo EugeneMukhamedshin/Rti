@@ -4,24 +4,27 @@ namespace Rti.ViewModel.EditViewModel
 {
     public class DrawingCalculationViewModel : BaseViewModel
     {
-        public DrawingCalculationViewModel(CalculationViewModel planCalculation, CalculationViewModel factCalculation)
-        {
-            PlanCalculation = planCalculation;
-            FactCalculation = factCalculation;
+        public DrawingViewModel Drawing { get; set; }
 
-            PlanCalculation.PropertyChanged += (sender, args) => OnPropertyChanged("PlanCalculation");
-            FactCalculation.PropertyChanged += (sender, args) => OnPropertyChanged("FactCalculation");
+        public DrawingCalculationViewModel(DrawingViewModel drawing)//CalculationViewModel planCalculation, CalculationViewModel factCalculation)
+        {
+            //PlanCalculation = planCalculation;
+            //FactCalculation = factCalculation;
+
+            //PlanCalculation.PropertyChanged += (sender, args) => OnPropertyChanged("PlanCalculation");
+            //FactCalculation.PropertyChanged += (sender, args) => OnPropertyChanged("FactCalculation");
+            Drawing = drawing;
         }
 
-        public CalculationViewModel PlanCalculation { get; set; }
-        public CalculationViewModel FactCalculation { get; set; }
+        //public CalculationViewModel PlanCalculation { get; set; }
+        //public CalculationViewModel FactCalculation { get; set; }
 
         public void Save()
         {
-            if (PlanCalculation != null && (PlanCalculation.IsNewEntity || PlanCalculation.IsChanged))
-                PlanCalculation.SaveEntity();
-            if (FactCalculation != null && (FactCalculation.IsNewEntity || FactCalculation.IsChanged))
-                FactCalculation.SaveEntity();
+            if (Drawing.PlanCalculation != null && (Drawing.PlanCalculation.IsNewEntity || Drawing.PlanCalculation.IsChanged))
+                Drawing.PlanCalculation.SaveEntity();
+            if (Drawing.FactCalculation != null && (Drawing.FactCalculation.IsNewEntity || Drawing.FactCalculation.IsChanged))
+                Drawing.FactCalculation.SaveEntity();
         }
     }
 }

@@ -58,8 +58,6 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Id(o => o.Id, "id");
 
-			Map(o => o.CalculationTypeEnum, "calculation_type_enum").CustomType<CalculationType>();
-
 			Map(o => o.MainMaterial, "main_material");
 
 			Map(o => o.Rubber, "rubber");
@@ -105,8 +103,6 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.NdsTax, "nds_tax");
 
 			Map(o => o.Summary, "summary");
-
-			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
 
 			OnInitialized();
 		}
@@ -332,7 +328,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Map(o => o.ShavingPrice, "shaving_price");
 
-			Map(o => o.CalculationPrice, "calculation_price");
+			Map(o => o.CalculationPriceManual, "calculation_price_manual");
 
 			Map(o => o.Width, "width");
 
@@ -360,11 +356,17 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			References(o => o.MassCalculation, "mass_calculation_id").Fetch.Join().Not.LazyLoad();
 
+			References(o => o.PlanCalculation, "plan_calculation_id").Fetch.Join().Not.LazyLoad();
+
+			References(o => o.FactCalculation, "fact_calculation_id").Fetch.Join().Not.LazyLoad();
+
 			References(o => o.Equipment, "equipment_id").Fetch.Join().Not.LazyLoad();
 
 			References(o => o.Method, "method_id").Fetch.Join().Not.LazyLoad();
 
 			References(o => o.DrawingImage, "drawing_image_id").Fetch.Join().Not.LazyLoad();
+
+			References(o => o.Flowsheet, "flowsheet_id").Fetch.Join().Not.LazyLoad();
 
 			OnInitialized();
 		}
@@ -484,13 +486,13 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Id(o => o.Id, "id");
 
+			Map(o => o.DrawingId, "drawing_id");
+
 			Map(o => o.BlankMass, "blank_mass");
 
 			Map(o => o.FactMass, "fact_mass");
 
 			Map(o => o.Note, "note");
-
-			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
 
 			References(o => o.Customer, "customer_id").Fetch.Join().Not.LazyLoad();
 
@@ -1053,6 +1055,37 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.IsDeleted, "is_deleted");
 
 			References(o => o.ShaverEmployee, "shaver_employee_id").Fetch.Join().Not.LazyLoad();
+
+			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
+
+			OnInitialized();
+		}
+	}
+
+
+	// The classmap for shipping_order_records
+	public partial class ShippingOrderRecordMap : BaseMap<Rti.Model.Domain.ShippingOrderRecord>
+	{
+		public ShippingOrderRecordMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("shipping_order_records");
+
+			Id(o => o.Id, "id");
+
+			Map(o => o.SortOrder, "sort_order");
+
+			Map(o => o.OrderDate, "order_date");
+
+			Map(o => o.Count, "count");
+
+			Map(o => o.IsDeleted, "is_deleted");
+
+			References(o => o.Customer, "customer_id").Fetch.Join().Not.LazyLoad();
 
 			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
 

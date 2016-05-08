@@ -13,6 +13,21 @@ namespace Rti.ViewModel.Entities
             }
         }
 
+        public decimal? CalculationPrice
+        {
+            get
+            {
+                return (FactCalculation == null || FactCalculation.Summary == null)
+                    ? PlanCalculation == null ? null : PlanCalculation.Summary
+                    : FactCalculation.Summary;
+            }
+        }
+
+        public void RaiseCalculationPriceChanged()
+        {
+            OnPropertyChanged("CalculationPrice");
+        }
+
         protected override IEnumerable<ValidationRule> GetValidationRules()
         {
             return new List<ValidationRule>()

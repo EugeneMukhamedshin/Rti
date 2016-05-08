@@ -81,6 +81,9 @@ namespace Rti.App
             // Журнал прихода материала
             AddToRegistry<RollingRecordList, RollingRecordListWindow>();
             AddToRegistry<RollingRecordEdit, RollingRecordEditWindow>();
+            // Журнал распоряжений на отгрузку
+            AddToRegistry<ShippingOrderRecordList, ShippingOrderRecordListWindow>();
+            AddToRegistry<ShippingOrderRecordEdit, ShippingOrderRecordEditWindow>();
 
             // Изображения
             AddToRegistry<ImageEdit, ImageEditWindow>();

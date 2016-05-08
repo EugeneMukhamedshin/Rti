@@ -14,19 +14,37 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="0">
             <TextBlock Text="Наименование детали" Width="150"/>
-            <TextBox Text="{Binding Entity.PlanCalculation.Drawing.Detail.Name}" IsReadOnly="True" Width="150"/>
+            <TextBox Text="{Binding Entity.Detail.Name}" IsReadOnly="True" Width="150"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="1">
             <TextBlock Text="Чертеж" Width="150"/>
-            <TextBox Text="{Binding Entity.PlanCalculation.Drawing.Group.Name}" IsReadOnly="True" Width="50"/>
-            <TextBox Text="{Binding Entity.PlanCalculation.Drawing.Name}" IsReadOnly="True" Width="95" Margin="5 0 0 0"/>
+            <TextBox Text="{Binding Entity.Group.Name}" IsReadOnly="True" Width="50"/>
+            <TextBox Text="{Binding Entity.Name}" IsReadOnly="True" Width="95" Margin="5 0 0 0"/>
         </StackPanel>
         <TabControl Padding="5" Grid.Row="2">
             <TabItem Header="Плановая">
-                <editors:CalculationEditControl DataContext="{Binding Entity.PlanCalculation}"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="32"/>
+                    </Grid.RowDefinitions>
+                    <editors:CalculationEditControl DataContext="{Binding Entity.PlanCalculation}"/>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Button Content="Расчет" Command="{Binding CalculatePlanCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="900"></Button>
+                    </StackPanel>
+                </Grid>
             </TabItem>
             <TabItem Header="Фактическая">
-                <editors:CalculationEditControl DataContext="{Binding Entity.FactCalculation}"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="32"/>
+                    </Grid.RowDefinitions>
+                    <editors:CalculationEditControl DataContext="{Binding Entity.FactCalculation}"/>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Button Content="Расчет" Command="{Binding CalculateFactCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="900"></Button>
+                    </StackPanel>
+                </Grid>
             </TabItem>
         </TabControl>
         <StackPanel Grid.Row="3" Orientation="Horizontal">

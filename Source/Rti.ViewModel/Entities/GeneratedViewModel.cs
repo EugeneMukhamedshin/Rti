@@ -120,8 +120,6 @@ namespace Rti.ViewModel.Entities
 
 		private Int32 _id;
 
-		private CalculationType _calculationTypeEnum;
-
 		private Decimal? _mainMaterial;
 
 		private Decimal? _rubber;
@@ -168,13 +166,9 @@ namespace Rti.ViewModel.Entities
 
 		private Decimal? _summary;
 
-		private DrawingViewModel _drawing;
-
 
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
-
-		public CalculationType CalculationTypeEnum { get { return _calculationTypeEnum; } set { if (Equals(_calculationTypeEnum, value)) return; _calculationTypeEnum = value; OnPropertyChanged("CalculationTypeEnum"); } }
 
 		public Decimal? MainMaterial { get { return _mainMaterial; } set { if (Equals(_mainMaterial, value)) return; _mainMaterial = value; OnPropertyChanged("MainMaterial"); } }
 
@@ -222,13 +216,9 @@ namespace Rti.ViewModel.Entities
 
 		public Decimal? Summary { get { return _summary; } set { if (Equals(_summary, value)) return; _summary = value; OnPropertyChanged("Summary"); } }
 
-		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
-
 
 		protected override void MapPropertiesToEntity()
 		{
-
-			Entity.CalculationTypeEnum = CalculationTypeEnum; 
 
 			Entity.MainMaterial = MainMaterial; 
 
@@ -276,16 +266,12 @@ namespace Rti.ViewModel.Entities
 
 			Entity.Summary = Summary; 
 
-			Entity.Drawing = Drawing == null ? null : Drawing.Entity; 
-
 		}
 
 		protected override void MapPropertiesFromEntity()
 		{
 
 			Id = Entity.Id; 
-
-			CalculationTypeEnum = Entity.CalculationTypeEnum; 
 
 			MainMaterial = Entity.MainMaterial; 
 
@@ -333,14 +319,10 @@ namespace Rti.ViewModel.Entities
 
 			Summary = Entity.Summary; 
 
-			Drawing = Entity.Drawing == null ? null : new DrawingViewModel(Entity.Drawing, RepositoryFactory); 
-
 		}
 
 		public override void CopyTo(CalculationViewModel target)
 		{
-
-			target.CalculationTypeEnum = CalculationTypeEnum; 
 
 			target.MainMaterial = MainMaterial; 
 
@@ -387,8 +369,6 @@ namespace Rti.ViewModel.Entities
 			target.NdsTax = NdsTax; 
 
 			target.Summary = Summary; 
-
-			target.Drawing = Drawing; 
 
 		}
 
@@ -1162,13 +1142,13 @@ namespace Rti.ViewModel.Entities
 
 		private String _code;
 
-		private Double? _massWithShruff;
+		private Decimal? _massWithShruff;
 
-		private Double? _price;
+		private Decimal? _price;
 
-		private Double? _shavingPrice;
+		private Decimal? _shavingPrice;
 
-		private Double? _calculationPrice;
+		private Decimal? _calculationPriceManual;
 
 		private Double? _width;
 
@@ -1196,11 +1176,17 @@ namespace Rti.ViewModel.Entities
 
 		private MassCalculationViewModel _massCalculation;
 
+		private CalculationViewModel _planCalculation;
+
+		private CalculationViewModel _factCalculation;
+
 		private EquipmentViewModel _equipment;
 
 		private MethodViewModel _method;
 
 		private ImageViewModel _drawingImage;
+
+		private FlowsheetViewModel _flowsheet;
 
 
 
@@ -1216,13 +1202,13 @@ namespace Rti.ViewModel.Entities
 
 		public String Code { get { return _code; } set { if (Equals(_code, value)) return; _code = value; OnPropertyChanged("Code"); } }
 
-		public Double? MassWithShruff { get { return _massWithShruff; } set { if (Equals(_massWithShruff, value)) return; _massWithShruff = value; OnPropertyChanged("MassWithShruff"); } }
+		public Decimal? MassWithShruff { get { return _massWithShruff; } set { if (Equals(_massWithShruff, value)) return; _massWithShruff = value; OnPropertyChanged("MassWithShruff"); } }
 
-		public Double? Price { get { return _price; } set { if (Equals(_price, value)) return; _price = value; OnPropertyChanged("Price"); } }
+		public Decimal? Price { get { return _price; } set { if (Equals(_price, value)) return; _price = value; OnPropertyChanged("Price"); } }
 
-		public Double? ShavingPrice { get { return _shavingPrice; } set { if (Equals(_shavingPrice, value)) return; _shavingPrice = value; OnPropertyChanged("ShavingPrice"); } }
+		public Decimal? ShavingPrice { get { return _shavingPrice; } set { if (Equals(_shavingPrice, value)) return; _shavingPrice = value; OnPropertyChanged("ShavingPrice"); } }
 
-		public Double? CalculationPrice { get { return _calculationPrice; } set { if (Equals(_calculationPrice, value)) return; _calculationPrice = value; OnPropertyChanged("CalculationPrice"); } }
+		public Decimal? CalculationPriceManual { get { return _calculationPriceManual; } set { if (Equals(_calculationPriceManual, value)) return; _calculationPriceManual = value; OnPropertyChanged("CalculationPriceManual"); } }
 
 		public Double? Width { get { return _width; } set { if (Equals(_width, value)) return; _width = value; OnPropertyChanged("Width"); } }
 
@@ -1250,11 +1236,17 @@ namespace Rti.ViewModel.Entities
 
 		public MassCalculationViewModel MassCalculation { get { return _massCalculation; } set { _massCalculation = value; OnPropertyChanged("MassCalculation"); } }
 
+		public CalculationViewModel PlanCalculation { get { return _planCalculation; } set { _planCalculation = value; OnPropertyChanged("PlanCalculation"); } }
+
+		public CalculationViewModel FactCalculation { get { return _factCalculation; } set { _factCalculation = value; OnPropertyChanged("FactCalculation"); } }
+
 		public EquipmentViewModel Equipment { get { return _equipment; } set { _equipment = value; OnPropertyChanged("Equipment"); } }
 
 		public MethodViewModel Method { get { return _method; } set { _method = value; OnPropertyChanged("Method"); } }
 
 		public ImageViewModel DrawingImage { get { return _drawingImage; } set { _drawingImage = value; OnPropertyChanged("DrawingImage"); } }
+
+		public FlowsheetViewModel Flowsheet { get { return _flowsheet; } set { _flowsheet = value; OnPropertyChanged("Flowsheet"); } }
 
 
 		protected override void MapPropertiesToEntity()
@@ -1276,7 +1268,7 @@ namespace Rti.ViewModel.Entities
 
 			Entity.ShavingPrice = ShavingPrice; 
 
-			Entity.CalculationPrice = CalculationPrice; 
+			Entity.CalculationPriceManual = CalculationPriceManual; 
 
 			Entity.Width = Width; 
 
@@ -1304,11 +1296,17 @@ namespace Rti.ViewModel.Entities
 
 			Entity.MassCalculation = MassCalculation == null ? null : MassCalculation.Entity; 
 
+			Entity.PlanCalculation = PlanCalculation == null ? null : PlanCalculation.Entity; 
+
+			Entity.FactCalculation = FactCalculation == null ? null : FactCalculation.Entity; 
+
 			Entity.Equipment = Equipment == null ? null : Equipment.Entity; 
 
 			Entity.Method = Method == null ? null : Method.Entity; 
 
 			Entity.DrawingImage = DrawingImage == null ? null : DrawingImage.Entity; 
+
+			Entity.Flowsheet = Flowsheet == null ? null : Flowsheet.Entity; 
 
 		}
 
@@ -1333,7 +1331,7 @@ namespace Rti.ViewModel.Entities
 
 			ShavingPrice = Entity.ShavingPrice; 
 
-			CalculationPrice = Entity.CalculationPrice; 
+			CalculationPriceManual = Entity.CalculationPriceManual; 
 
 			Width = Entity.Width; 
 
@@ -1361,11 +1359,17 @@ namespace Rti.ViewModel.Entities
 
 			MassCalculation = Entity.MassCalculation == null ? null : new MassCalculationViewModel(Entity.MassCalculation, RepositoryFactory); 
 
+			PlanCalculation = Entity.PlanCalculation == null ? null : new CalculationViewModel(Entity.PlanCalculation, RepositoryFactory); 
+
+			FactCalculation = Entity.FactCalculation == null ? null : new CalculationViewModel(Entity.FactCalculation, RepositoryFactory); 
+
 			Equipment = Entity.Equipment == null ? null : new EquipmentViewModel(Entity.Equipment, RepositoryFactory); 
 
 			Method = Entity.Method == null ? null : new MethodViewModel(Entity.Method, RepositoryFactory); 
 
 			DrawingImage = Entity.DrawingImage == null ? null : new ImageViewModel(Entity.DrawingImage, RepositoryFactory); 
+
+			Flowsheet = Entity.Flowsheet == null ? null : new FlowsheetViewModel(Entity.Flowsheet, RepositoryFactory); 
 
 		}
 
@@ -1388,7 +1392,7 @@ namespace Rti.ViewModel.Entities
 
 			target.ShavingPrice = ShavingPrice; 
 
-			target.CalculationPrice = CalculationPrice; 
+			target.CalculationPriceManual = CalculationPriceManual; 
 
 			target.Width = Width; 
 
@@ -1416,11 +1420,17 @@ namespace Rti.ViewModel.Entities
 
 			target.MassCalculation = MassCalculation; 
 
+			target.PlanCalculation = PlanCalculation; 
+
+			target.FactCalculation = FactCalculation; 
+
 			target.Equipment = Equipment; 
 
 			target.Method = Method; 
 
 			target.DrawingImage = DrawingImage; 
+
+			target.Flowsheet = Flowsheet; 
 
 		}
 
@@ -1820,13 +1830,13 @@ namespace Rti.ViewModel.Entities
 
 		private Int32 _id;
 
+		private Int32 _drawingId;
+
 		private Decimal? _blankMass;
 
 		private Decimal? _factMass;
 
 		private String _note;
-
-		private DrawingViewModel _drawing;
 
 		private ContragentViewModel _customer;
 
@@ -1836,13 +1846,13 @@ namespace Rti.ViewModel.Entities
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 
+		public Int32 DrawingId { get { return _drawingId; } set { if (Equals(_drawingId, value)) return; _drawingId = value; OnPropertyChanged("DrawingId"); } }
+
 		public Decimal? BlankMass { get { return _blankMass; } set { if (Equals(_blankMass, value)) return; _blankMass = value; OnPropertyChanged("BlankMass"); } }
 
 		public Decimal? FactMass { get { return _factMass; } set { if (Equals(_factMass, value)) return; _factMass = value; OnPropertyChanged("FactMass"); } }
 
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
-
-		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
 
 		public ContragentViewModel Customer { get { return _customer; } set { _customer = value; OnPropertyChanged("Customer"); } }
 
@@ -1852,13 +1862,13 @@ namespace Rti.ViewModel.Entities
 		protected override void MapPropertiesToEntity()
 		{
 
+			Entity.DrawingId = DrawingId; 
+
 			Entity.BlankMass = BlankMass; 
 
 			Entity.FactMass = FactMass; 
 
 			Entity.Note = Note; 
-
-			Entity.Drawing = Drawing == null ? null : Drawing.Entity; 
 
 			Entity.Customer = Customer == null ? null : Customer.Entity; 
 
@@ -1871,13 +1881,13 @@ namespace Rti.ViewModel.Entities
 
 			Id = Entity.Id; 
 
+			DrawingId = Entity.DrawingId; 
+
 			BlankMass = Entity.BlankMass; 
 
 			FactMass = Entity.FactMass; 
 
 			Note = Entity.Note; 
-
-			Drawing = Entity.Drawing == null ? null : new DrawingViewModel(Entity.Drawing, RepositoryFactory); 
 
 			Customer = Entity.Customer == null ? null : new ContragentViewModel(Entity.Customer, RepositoryFactory); 
 
@@ -1888,13 +1898,13 @@ namespace Rti.ViewModel.Entities
 		public override void CopyTo(FlowsheetViewModel target)
 		{
 
+			target.DrawingId = DrawingId; 
+
 			target.BlankMass = BlankMass; 
 
 			target.FactMass = FactMass; 
 
 			target.Note = Note; 
-
-			target.Drawing = Drawing; 
 
 			target.Customer = Customer; 
 
@@ -4039,6 +4049,118 @@ namespace Rti.ViewModel.Entities
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((ShavingRecordViewModel) obj);
+        }
+	}
+
+
+	// The viewmodel for ShippingOrderRecord
+	public partial class ShippingOrderRecordViewModel : EntityViewModel<Rti.Model.Domain.ShippingOrderRecord, ShippingOrderRecordViewModel>
+	{
+		// Конструктор для маппинга
+		public ShippingOrderRecordViewModel() { }
+
+        public ShippingOrderRecordViewModel(Rti.Model.Domain.ShippingOrderRecord entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+
+		private Int32 _id;
+
+		private Int32 _sortOrder;
+
+		private DateTime _orderDate;
+
+		private Int32 _count;
+
+		private Boolean _isDeleted;
+
+		private ContragentViewModel _customer;
+
+		private DrawingViewModel _drawing;
+
+
+
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+
+		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
+
+		public DateTime OrderDate { get { return _orderDate; } set { if (Equals(_orderDate, value)) return; _orderDate = value; OnPropertyChanged("OrderDate"); } }
+
+		public Int32 Count { get { return _count; } set { if (Equals(_count, value)) return; _count = value; OnPropertyChanged("Count"); } }
+
+		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
+
+		public ContragentViewModel Customer { get { return _customer; } set { _customer = value; OnPropertyChanged("Customer"); } }
+
+		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
+
+
+		protected override void MapPropertiesToEntity()
+		{
+
+			Entity.SortOrder = SortOrder; 
+
+			Entity.OrderDate = OrderDate; 
+
+			Entity.Count = Count; 
+
+			Entity.IsDeleted = IsDeleted; 
+
+			Entity.Customer = Customer == null ? null : Customer.Entity; 
+
+			Entity.Drawing = Drawing == null ? null : Drawing.Entity; 
+
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+
+			Id = Entity.Id; 
+
+			SortOrder = Entity.SortOrder; 
+
+			OrderDate = Entity.OrderDate; 
+
+			Count = Entity.Count; 
+
+			IsDeleted = Entity.IsDeleted; 
+
+			Customer = Entity.Customer == null ? null : new ContragentViewModel(Entity.Customer, RepositoryFactory); 
+
+			Drawing = Entity.Drawing == null ? null : new DrawingViewModel(Entity.Drawing, RepositoryFactory); 
+
+		}
+
+		public override void CopyTo(ShippingOrderRecordViewModel target)
+		{
+
+			target.SortOrder = SortOrder; 
+
+			target.OrderDate = OrderDate; 
+
+			target.Count = Count; 
+
+			target.IsDeleted = IsDeleted; 
+
+			target.Customer = Customer; 
+
+			target.Drawing = Drawing; 
+
+		}
+
+		public override ShippingOrderRecordViewModel Clone()
+		{
+			var copy = new ShippingOrderRecordViewModel(null, RepositoryFactory);
+			CopyTo(copy);
+			return copy;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(ShippingOrderRecordViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((ShippingOrderRecordViewModel) obj);
         }
 	}
 

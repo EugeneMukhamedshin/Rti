@@ -4,7 +4,7 @@ namespace Rti.ViewModel.Entities
 {
     public partial class ShavingRecordViewModel
     {
-        public Double? Salary { get { return InputCount*(Drawing == null ? 0 : Drawing.ShavingPrice); } }
+        public decimal? Salary { get { return InputCount*(Drawing == null ? 0 : Drawing.ShavingPrice); } }
 
         protected override void OnPropertyChanged(string propertyName = null)
         {

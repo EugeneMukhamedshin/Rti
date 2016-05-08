@@ -71,26 +71,24 @@ namespace Rti.ViewModel.Lists
 
         private void OpenFlowsheet()
         {
-            var flowsheet = new FlowsheetViewModel(RepositoryFactory.GetFlowsheetRepository().GetByDrawingId(SelectedItem.Id), RepositoryFactory);
-            flowsheet.Drawing = SelectedItem;
-            var viewModel = new FlowsheetEdit("Технологическая карта", flowsheet, !EditMode, ViewService, RepositoryFactory);
+            if (SelectedItem.Flowsheet == null)
+                SelectedItem.Flowsheet = new FlowsheetViewModel(null, RepositoryFactory);
+            var viewModel = new FlowsheetEdit("Технологическая карта", SelectedItem.Flowsheet, !EditMode, ViewService, RepositoryFactory);
             viewModel.Refresh();
-            ViewService.ShowViewDialog(viewModel);
+            if (ViewService.ShowViewDialog(viewModel) == true)
+                SelectedItem.SaveEntity();
         }
 
         private void OpenCalculation()
         {
-            var planCalculation = new CalculationViewModel(RepositoryFactory.GetCalculationRepository().GetByDrawingId(SelectedItem.Id, CalculationType.Plan), RepositoryFactory);
-            planCalculation.Drawing = SelectedItem;
-            planCalculation.CalculationTypeEnum = CalculationType.Plan;
-            var factCalculation = new CalculationViewModel(RepositoryFactory.GetCalculationRepository().GetByDrawingId(SelectedItem.Id, CalculationType.Fact), RepositoryFactory);
-            factCalculation.Drawing = SelectedItem;
-            factCalculation.CalculationTypeEnum = CalculationType.Fact;
-            var drawingCalculation = new DrawingCalculationViewModel(planCalculation, factCalculation);
-            var calculationEdit = new DrawingCalculationEdit("Калькуляция", drawingCalculation, !EditMode, ViewService, RepositoryFactory);
+            if (SelectedItem.PlanCalculation == null)
+                SelectedItem.PlanCalculation = new CalculationViewModel(null, RepositoryFactory);
+            if (SelectedItem.FactCalculation == null)
+                SelectedItem.FactCalculation = new CalculationViewModel(null, RepositoryFactory);
+            var calculationEdit = new DrawingCalculationEdit("Калькуляция", SelectedItem, !EditMode, ViewService, RepositoryFactory);
             if (ViewService.ShowViewDialog(calculationEdit) == true)
             {
-                drawingCalculation.Save();
+                SelectedItem.RaiseCalculationPriceChanged();
             }
         }
 

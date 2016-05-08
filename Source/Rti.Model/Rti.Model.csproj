@@ -84,7 +84,6 @@
     <Compile Include="Domain\ProcessType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Interfaces\IAdditionalInfoRepository.cs" />
-    <Compile Include="Repository\Interfaces\ICalculationRepository.cs" />
     <Compile Include="Repository\Interfaces\IConstantRepository.cs" />
     <Compile Include="Repository\Interfaces\IContragentRepository.cs" />
     <Compile Include="Repository\Interfaces\IDailyWorkPackageDetailRepository.cs" />
@@ -115,8 +114,8 @@
     <Compile Include="Repository\Interfaces\IRequestRepository.cs" />
     <Compile Include="Repository\Interfaces\IRollingRecordRepository.cs" />
     <Compile Include="Repository\Interfaces\IShavingRecordRepository.cs" />
+    <Compile Include="Repository\Interfaces\IShippingOrderRecordRepository.cs" />
     <Compile Include="Repository\NHibernate\AdditionalInfoRepository.cs" />
-    <Compile Include="Repository\NHibernate\CalculationRepository.cs" />
     <Compile Include="Repository\NHibernate\ClassMaps\BaseMap.cs" />
     <Compile Include="Repository\NHibernate\ClassMaps\GeneratedClassMaps1.cs">
       <AutoGen>True</AutoGen>
@@ -155,6 +154,7 @@
     <Compile Include="Repository\NHibernate\RequestRepository.cs" />
     <Compile Include="Repository\NHibernate\RollingRecordRepository.cs" />
     <Compile Include="Repository\NHibernate\ShavingRecordRepository.cs" />
+    <Compile Include="Repository\NHibernate\ShippingOrderRecordRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Domain\domain.xml" />

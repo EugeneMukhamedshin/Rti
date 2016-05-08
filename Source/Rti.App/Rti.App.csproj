@@ -235,6 +235,9 @@
     <Compile Include="View\Editors\ShavingRecordEditWindow.xaml.cs">
       <DependentUpon>ShavingRecordEditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Editors\ShippingOrderRecordEditWindow.xaml.cs">
+      <DependentUpon>ShippingOrderRecordEditWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Lists\AdditionalInfoListWindow.xaml.cs">
       <DependentUpon>AdditionalInfoListWindow.xaml</DependentUpon>
     </Compile>
@@ -315,6 +318,9 @@
     <Compile Include="View\Lists\ScrollToSelectedItemBehavior.cs" />
     <Compile Include="View\Lists\ShavingRecordListWindow.xaml.cs">
       <DependentUpon>ShavingRecordListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\ShippingOrderRecordListWindow.xaml.cs">
+      <DependentUpon>ShippingOrderRecordListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lists\TemplateMap.cs" />
     <Compile Include="View\Lists\StyleMap.cs" />
@@ -478,6 +484,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Editors\ShippingOrderRecordEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Lists\AdditionalInfoListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -559,6 +569,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Lists\ShavingRecordListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\ShippingOrderRecordListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

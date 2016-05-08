@@ -15,6 +15,7 @@
                 <RowDefinition Height="110"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
             </Grid.RowDefinitions>
             <GroupBox Grid.Row="0" Margin="2" Header="Общая информация">
                 <dxg:GridControl TabIndex="0" AutoGenerateColumns="None" ItemsSource="{Binding FlowsheetSource}">
@@ -275,7 +276,11 @@
                     </dxg:GridControl>
                 </Grid>
             </GroupBox>
-            <StackPanel Grid.Row="5" Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Grid.Row="5">
+                <TextBlock Text="Примечание" Width="150"/>
+                <TextBox Text="{Binding Entity.Note}" Margin="5,0,0,0" Width="600" TextWrapping="Wrap"/>
+            </StackPanel>
+            <StackPanel Grid.Row="6" Orientation="Horizontal">
                 <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"/>
                 <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"/>
             </StackPanel>

@@ -2,8 +2,8 @@
 
 namespace Rti.Model.Repository.Interfaces
 {
-    public partial interface IFlowsheetRepository
-    {
-        Flowsheet GetByDrawingId(int drawingId);
-    }
+    //public partial interface IFlowsheetRepository
+    //{
+    //    Flowsheet GetByDrawingId(int drawingId);
+    //}
 }

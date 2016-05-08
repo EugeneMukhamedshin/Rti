@@ -42,6 +42,8 @@
                                 <dxb:BarButtonItem Content="Обрезка облоя" RibbonStyle="SmallWithText" Command="{Binding OpenShavingRecordsCommand}"/>
                                 <dxb:BarButtonItem Content="Приход материала" RibbonStyle="SmallWithText" Command="{Binding OpenMaterialArrivalRecordsCommand}"/>
                                 <dxb:BarButtonItem Content="Вальцовщик" RibbonStyle="SmallWithText" Command="{Binding OpenRollingRecordsCommand}"/>
+                                <dxb:BarButtonItem Content="Учет отгруженной продукции" RibbonStyle="SmallWithText" Command="{Binding OpenShippingRecordsCommand}"/>
+                                <dxb:BarButtonItem Content="Распоряжение на отгрузку" RibbonStyle="SmallWithText" Command="{Binding OpenShippingOrderRecordsCommand}"/>
                             </dxr:RibbonPageGroup>
                         </dxr:RibbonPage>
                         <dxr:RibbonPage Caption="Справочники">

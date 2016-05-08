@@ -141,7 +141,7 @@
                         </dxg:LookUpEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
-                <dxprg:PropertyDefinition Path="MassCalculation" Header="Масса по чертежу">
+                <dxprg:PropertyDefinition Path="MassCalculation" Header="Масса по чертежу, кг">
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxe:ButtonEditSettings AllowDefaultButton="False" IsTextEditable="False">
                             <dxe:ButtonEditSettings.Buttons>
@@ -150,7 +150,7 @@
                         </dxe:ButtonEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
-                <dxprg:PropertyDefinition Path="MassWithShruff" Header="Масса с отходами" Width="65">
+                <dxprg:PropertyDefinition Path="MassWithShruff" Header="Масса с отходами, кг" Width="65">
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxe:TextEditSettings Mask="f3" MaskType="Numeric" MaskCulture="ru-RU"/>
                     </dxprg:PropertyDefinition.EditSettings>
@@ -160,7 +160,7 @@
                         <dxe:TextEditSettings Mask="f3" MaskType="Numeric" MaskCulture="ru-RU"/>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
-                <dxprg:PropertyDefinition Path="ShavingPrice" Header="Цена обрезки" Width="60">
+                <dxprg:PropertyDefinition Path="ShavingPrice" Header="Цена обрезки, руб." Width="60">
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxe:TextEditSettings Mask="f3" MaskType="Numeric" MaskCulture="ru-RU"/>
                     </dxprg:PropertyDefinition.EditSettings>
@@ -211,12 +211,8 @@
                         </dxg:LookUpEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
-                <dxprg:PropertyDefinition Path="CalculationPrice" Header="Цена по калькуляции">
-                    <dxprg:PropertyDefinition.EditSettings>
-                        <dxe:TextEditSettings Mask="f3" MaskType="Numeric" MaskCulture="ru-RU"/>
-                    </dxprg:PropertyDefinition.EditSettings>
-                </dxprg:PropertyDefinition>
-                <dxprg:PropertyDefinition Path="Measurements" Header="Размеры">
+                <dxprg:PropertyDefinition Path="CalculationPrice" Header="Цена по калькуляции, руб" IsReadOnly="True"/>
+                <dxprg:PropertyDefinition Path="Measurements" Header="Размеры, мм">
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxe:ButtonEditSettings AllowDefaultButton="False" IsTextEditable="False">
                             <dxe:ButtonEditSettings.Buttons>
