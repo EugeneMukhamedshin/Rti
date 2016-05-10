@@ -2329,6 +2329,98 @@ namespace Rti.ViewModel.Entities
 	}
 
 
+	// The viewmodel for Invoice
+	public partial class InvoiceViewModel : EntityViewModel<Rti.Model.Domain.Invoice, InvoiceViewModel>
+	{
+		// Конструктор для маппинга
+		public InvoiceViewModel() { }
+
+        public InvoiceViewModel(Rti.Model.Domain.Invoice entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+
+		private Int32 _id;
+
+		private Boolean _isDeleted;
+
+		private String _invoiceNumber;
+
+		private DateTime _invoiceDate;
+
+		private RequestViewModel _request;
+
+
+
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+
+		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
+
+		public String InvoiceNumber { get { return _invoiceNumber; } set { if (Equals(_invoiceNumber, value)) return; _invoiceNumber = value; OnPropertyChanged("InvoiceNumber"); } }
+
+		public DateTime InvoiceDate { get { return _invoiceDate; } set { if (Equals(_invoiceDate, value)) return; _invoiceDate = value; OnPropertyChanged("InvoiceDate"); } }
+
+		public RequestViewModel Request { get { return _request; } set { _request = value; OnPropertyChanged("Request"); } }
+
+
+		protected override void MapPropertiesToEntity()
+		{
+
+			Entity.IsDeleted = IsDeleted; 
+
+			Entity.InvoiceNumber = InvoiceNumber; 
+
+			Entity.InvoiceDate = InvoiceDate; 
+
+			Entity.Request = Request == null ? null : Request.Entity; 
+
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+
+			Id = Entity.Id; 
+
+			IsDeleted = Entity.IsDeleted; 
+
+			InvoiceNumber = Entity.InvoiceNumber; 
+
+			InvoiceDate = Entity.InvoiceDate; 
+
+			Request = Entity.Request == null ? null : new RequestViewModel(Entity.Request, RepositoryFactory); 
+
+		}
+
+		public override void CopyTo(InvoiceViewModel target)
+		{
+
+			target.IsDeleted = IsDeleted; 
+
+			target.InvoiceNumber = InvoiceNumber; 
+
+			target.InvoiceDate = InvoiceDate; 
+
+			target.Request = Request; 
+
+		}
+
+		public override InvoiceViewModel Clone()
+		{
+			var copy = new InvoiceViewModel(null, RepositoryFactory);
+			CopyTo(copy);
+			return copy;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(InvoiceViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((InvoiceViewModel) obj);
+        }
+	}
+
+
 	// The viewmodel for Job
 	public partial class JobViewModel : EntityViewModel<Rti.Model.Domain.Job, JobViewModel>
 	{
@@ -4049,6 +4141,178 @@ namespace Rti.ViewModel.Entities
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((ShavingRecordViewModel) obj);
+        }
+	}
+
+
+	// The viewmodel for ShippedProductRecord
+	public partial class ShippedProductRecordViewModel : EntityViewModel<Rti.Model.Domain.ShippedProductRecord, ShippedProductRecordViewModel>
+	{
+		// Конструктор для маппинга
+		public ShippedProductRecordViewModel() { }
+
+        public ShippedProductRecordViewModel(Rti.Model.Domain.ShippedProductRecord entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+
+		private Int32 _id;
+
+		private Int32 _sortOrder;
+
+		private String _payDocNumber;
+
+		private DateTime _payDocDate;
+
+		private Decimal? _advanceSum;
+
+		private DateTime _shipmentDate;
+
+		private String _taxInvoiceNumber;
+
+		private Decimal _sum;
+
+		private Decimal? _equipmentSum;
+
+		private String _note;
+
+		private InvoiceViewModel _invoice;
+
+		private EquipmentViewModel _equipment;
+
+		private EmployeeViewModel _employee;
+
+
+
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+
+		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
+
+		public String PayDocNumber { get { return _payDocNumber; } set { if (Equals(_payDocNumber, value)) return; _payDocNumber = value; OnPropertyChanged("PayDocNumber"); } }
+
+		public DateTime PayDocDate { get { return _payDocDate; } set { if (Equals(_payDocDate, value)) return; _payDocDate = value; OnPropertyChanged("PayDocDate"); } }
+
+		public Decimal? AdvanceSum { get { return _advanceSum; } set { if (Equals(_advanceSum, value)) return; _advanceSum = value; OnPropertyChanged("AdvanceSum"); } }
+
+		public DateTime ShipmentDate { get { return _shipmentDate; } set { if (Equals(_shipmentDate, value)) return; _shipmentDate = value; OnPropertyChanged("ShipmentDate"); } }
+
+		public String TaxInvoiceNumber { get { return _taxInvoiceNumber; } set { if (Equals(_taxInvoiceNumber, value)) return; _taxInvoiceNumber = value; OnPropertyChanged("TaxInvoiceNumber"); } }
+
+		public Decimal Sum { get { return _sum; } set { if (Equals(_sum, value)) return; _sum = value; OnPropertyChanged("Sum"); } }
+
+		public Decimal? EquipmentSum { get { return _equipmentSum; } set { if (Equals(_equipmentSum, value)) return; _equipmentSum = value; OnPropertyChanged("EquipmentSum"); } }
+
+		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
+
+		public InvoiceViewModel Invoice { get { return _invoice; } set { _invoice = value; OnPropertyChanged("Invoice"); } }
+
+		public EquipmentViewModel Equipment { get { return _equipment; } set { _equipment = value; OnPropertyChanged("Equipment"); } }
+
+		public EmployeeViewModel Employee { get { return _employee; } set { _employee = value; OnPropertyChanged("Employee"); } }
+
+
+		protected override void MapPropertiesToEntity()
+		{
+
+			Entity.SortOrder = SortOrder; 
+
+			Entity.PayDocNumber = PayDocNumber; 
+
+			Entity.PayDocDate = PayDocDate; 
+
+			Entity.AdvanceSum = AdvanceSum; 
+
+			Entity.ShipmentDate = ShipmentDate; 
+
+			Entity.TaxInvoiceNumber = TaxInvoiceNumber; 
+
+			Entity.Sum = Sum; 
+
+			Entity.EquipmentSum = EquipmentSum; 
+
+			Entity.Note = Note; 
+
+			Entity.Invoice = Invoice == null ? null : Invoice.Entity; 
+
+			Entity.Equipment = Equipment == null ? null : Equipment.Entity; 
+
+			Entity.Employee = Employee == null ? null : Employee.Entity; 
+
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+
+			Id = Entity.Id; 
+
+			SortOrder = Entity.SortOrder; 
+
+			PayDocNumber = Entity.PayDocNumber; 
+
+			PayDocDate = Entity.PayDocDate; 
+
+			AdvanceSum = Entity.AdvanceSum; 
+
+			ShipmentDate = Entity.ShipmentDate; 
+
+			TaxInvoiceNumber = Entity.TaxInvoiceNumber; 
+
+			Sum = Entity.Sum; 
+
+			EquipmentSum = Entity.EquipmentSum; 
+
+			Note = Entity.Note; 
+
+			Invoice = Entity.Invoice == null ? null : new InvoiceViewModel(Entity.Invoice, RepositoryFactory); 
+
+			Equipment = Entity.Equipment == null ? null : new EquipmentViewModel(Entity.Equipment, RepositoryFactory); 
+
+			Employee = Entity.Employee == null ? null : new EmployeeViewModel(Entity.Employee, RepositoryFactory); 
+
+		}
+
+		public override void CopyTo(ShippedProductRecordViewModel target)
+		{
+
+			target.SortOrder = SortOrder; 
+
+			target.PayDocNumber = PayDocNumber; 
+
+			target.PayDocDate = PayDocDate; 
+
+			target.AdvanceSum = AdvanceSum; 
+
+			target.ShipmentDate = ShipmentDate; 
+
+			target.TaxInvoiceNumber = TaxInvoiceNumber; 
+
+			target.Sum = Sum; 
+
+			target.EquipmentSum = EquipmentSum; 
+
+			target.Note = Note; 
+
+			target.Invoice = Invoice; 
+
+			target.Equipment = Equipment; 
+
+			target.Employee = Employee; 
+
+		}
+
+		public override ShippedProductRecordViewModel Clone()
+		{
+			var copy = new ShippedProductRecordViewModel(null, RepositoryFactory);
+			CopyTo(copy);
+			return copy;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(ShippedProductRecordViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((ShippedProductRecordViewModel) obj);
         }
 	}
 

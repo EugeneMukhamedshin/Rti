@@ -23,6 +23,7 @@ namespace Rti.Model.Repository.Interfaces
 		IFlowsheetProcessRepository GetFlowsheetProcessRepository();
 		IGroupRepository GetGroupRepository();
 		IImageRepository GetImageRepository();
+		IInvoiceRepository GetInvoiceRepository();
 		IJobRepository GetJobRepository();
 		IMachineRepository GetMachineRepository();
 		IMassCalculationRepository GetMassCalculationRepository();
@@ -35,6 +36,7 @@ namespace Rti.Model.Repository.Interfaces
 		IRequestDetailRepository GetRequestDetailRepository();
 		IRollingRecordRepository GetRollingRecordRepository();
 		IShavingRecordRepository GetShavingRecordRepository();
+		IShippedProductRecordRepository GetShippedProductRecordRepository();
 		IShippingOrderRecordRepository GetShippingOrderRecordRepository();
     }
 
@@ -54,6 +56,7 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IFlowsheetProcessRepository : IRepository<Rti.Model.Domain.FlowsheetProcess> { }
 	public partial interface IGroupRepository : IRepository<Rti.Model.Domain.Group> { }
 	public partial interface IImageRepository : IRepository<Rti.Model.Domain.Image> { }
+	public partial interface IInvoiceRepository : IRepository<Rti.Model.Domain.Invoice> { }
 	public partial interface IJobRepository : IRepository<Rti.Model.Domain.Job> { }
 	public partial interface IMachineRepository : IRepository<Rti.Model.Domain.Machine> { }
 	public partial interface IMassCalculationRepository : IRepository<Rti.Model.Domain.MassCalculation> { }
@@ -66,5 +69,6 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IRequestDetailRepository : IRepository<Rti.Model.Domain.RequestDetail> { }
 	public partial interface IRollingRecordRepository : IRepository<Rti.Model.Domain.RollingRecord> { }
 	public partial interface IShavingRecordRepository : IRepository<Rti.Model.Domain.ShavingRecord> { }
+	public partial interface IShippedProductRecordRepository : IRepository<Rti.Model.Domain.ShippedProductRecord> { }
 	public partial interface IShippingOrderRecordRepository : IRepository<Rti.Model.Domain.ShippingOrderRecord> { }
 }

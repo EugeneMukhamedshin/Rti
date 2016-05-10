@@ -615,6 +615,33 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 	}
 
 
+	// The classmap for invoices
+	public partial class InvoiceMap : BaseMap<Rti.Model.Domain.Invoice>
+	{
+		public InvoiceMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("invoices");
+
+			Id(o => o.Id, "id");
+
+			Map(o => o.IsDeleted, "is_deleted");
+
+			Map(o => o.InvoiceNumber, "invoice_number");
+
+			Map(o => o.InvoiceDate, "invoice_date");
+
+			References(o => o.Request, "request_id").Fetch.Join().Not.LazyLoad();
+
+			OnInitialized();
+		}
+	}
+
+
 	// The classmap for jobs
 	public partial class JobMap : BaseMap<Rti.Model.Domain.Job>
 	{
@@ -1057,6 +1084,49 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			References(o => o.ShaverEmployee, "shaver_employee_id").Fetch.Join().Not.LazyLoad();
 
 			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
+
+			OnInitialized();
+		}
+	}
+
+
+	// The classmap for shipped_product_records
+	public partial class ShippedProductRecordMap : BaseMap<Rti.Model.Domain.ShippedProductRecord>
+	{
+		public ShippedProductRecordMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("shipped_product_records");
+
+			Id(o => o.Id, "id");
+
+			Map(o => o.SortOrder, "sort_order");
+
+			Map(o => o.PayDocNumber, "pay_doc_number");
+
+			Map(o => o.PayDocDate, "pay_doc_date");
+
+			Map(o => o.AdvanceSum, "advance_sum");
+
+			Map(o => o.ShipmentDate, "shipment_date");
+
+			Map(o => o.TaxInvoiceNumber, "tax_invoice_number");
+
+			Map(o => o.Sum, "sum");
+
+			Map(o => o.EquipmentSum, "equipment_sum");
+
+			Map(o => o.Note, "note");
+
+			References(o => o.Invoice, "invoice_id").Fetch.Join().Not.LazyLoad();
+
+			References(o => o.Equipment, "equipment_id").Fetch.Join().Not.LazyLoad();
+
+			References(o => o.Employee, "employee_id").Fetch.Join().Not.LazyLoad();
 
 			OnInitialized();
 		}
