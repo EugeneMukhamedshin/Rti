@@ -117,6 +117,7 @@
     <Compile Include="Repository\Interfaces\IShippingOrderRecordRepository.cs" />
     <Compile Include="Repository\NHibernate\AdditionalInfoRepository.cs" />
     <Compile Include="Repository\NHibernate\ClassMaps\BaseMap.cs" />
+    <Compile Include="Repository\NHibernate\ClassMaps\FlowsheetMap.cs" />
     <Compile Include="Repository\NHibernate\ClassMaps\GeneratedClassMaps1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

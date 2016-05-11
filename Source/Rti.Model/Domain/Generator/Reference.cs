@@ -9,5 +9,6 @@ namespace Rti.Model.Domain.Generator
         public String Name { get; set; }
         public String ReferencedEntityName { get; set; }
         public bool IsNullable { get; set; }
+        public bool IsManuallyMapped { get; set; }
     }
 }

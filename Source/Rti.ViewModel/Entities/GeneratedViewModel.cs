@@ -1830,13 +1830,13 @@ namespace Rti.ViewModel.Entities
 
 		private Int32 _id;
 
-		private Int32 _drawingId;
-
 		private Decimal? _blankMass;
 
 		private Decimal? _factMass;
 
 		private String _note;
+
+		private DrawingViewModel _drawing;
 
 		private ContragentViewModel _customer;
 
@@ -1846,13 +1846,13 @@ namespace Rti.ViewModel.Entities
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 
-		public Int32 DrawingId { get { return _drawingId; } set { if (Equals(_drawingId, value)) return; _drawingId = value; OnPropertyChanged("DrawingId"); } }
-
 		public Decimal? BlankMass { get { return _blankMass; } set { if (Equals(_blankMass, value)) return; _blankMass = value; OnPropertyChanged("BlankMass"); } }
 
 		public Decimal? FactMass { get { return _factMass; } set { if (Equals(_factMass, value)) return; _factMass = value; OnPropertyChanged("FactMass"); } }
 
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
+
+		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
 
 		public ContragentViewModel Customer { get { return _customer; } set { _customer = value; OnPropertyChanged("Customer"); } }
 
@@ -1861,8 +1861,6 @@ namespace Rti.ViewModel.Entities
 
 		protected override void MapPropertiesToEntity()
 		{
-
-			Entity.DrawingId = DrawingId; 
 
 			Entity.BlankMass = BlankMass; 
 
@@ -1881,8 +1879,6 @@ namespace Rti.ViewModel.Entities
 
 			Id = Entity.Id; 
 
-			DrawingId = Entity.DrawingId; 
-
 			BlankMass = Entity.BlankMass; 
 
 			FactMass = Entity.FactMass; 
@@ -1898,13 +1894,13 @@ namespace Rti.ViewModel.Entities
 		public override void CopyTo(FlowsheetViewModel target)
 		{
 
-			target.DrawingId = DrawingId; 
-
 			target.BlankMass = BlankMass; 
 
 			target.FactMass = FactMass; 
 
 			target.Note = Note; 
+
+			target.Drawing = Drawing; 
 
 			target.Customer = Customer; 
 

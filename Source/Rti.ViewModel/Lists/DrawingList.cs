@@ -73,6 +73,8 @@ namespace Rti.ViewModel.Lists
         {
             if (SelectedItem.Flowsheet == null)
                 SelectedItem.Flowsheet = new FlowsheetViewModel(null, RepositoryFactory);
+            if (SelectedItem.Flowsheet.Drawing == null)
+                SelectedItem.Flowsheet.Drawing = SelectedItem;
             var viewModel = new FlowsheetEdit("Технологическая карта", SelectedItem.Flowsheet, !EditMode, ViewService, RepositoryFactory);
             viewModel.Refresh();
             if (ViewService.ShowViewDialog(viewModel) == true)

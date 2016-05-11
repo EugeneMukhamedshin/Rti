@@ -102,7 +102,7 @@ namespace Rti.ViewModel.Entities
 <#
 		            }
                     var refAttribute = prop.GetCustomAttributes(typeof (ReferenceAttribute), false).FirstOrDefault() as ReferenceAttribute;
-                    if (refAttribute != null)
+                    if (refAttribute != null && !refAttribute.IsManuallyMapped)
 					{
 #>
 			Entity.<#= prop.Name #> = <#= prop.Name #> == null ? null : <#= prop.Name #>.Entity; 
@@ -125,7 +125,7 @@ namespace Rti.ViewModel.Entities
 <#
 		            }
                     var refAttribute = prop.GetCustomAttributes(typeof (ReferenceAttribute), false).FirstOrDefault() as ReferenceAttribute;
-                    if (refAttribute != null)
+                    if (refAttribute != null && !refAttribute.IsManuallyMapped)
 					{
 #>
 			<#= prop.Name #> = Entity.<#= prop.Name #> == null ? null : new <#= prop.PropertyType.Name #>ViewModel(Entity.<#= prop.Name #>, RepositoryFactory); 

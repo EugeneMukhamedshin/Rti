@@ -53,7 +53,7 @@ namespace Rti.Model.Domain
 	{
 		var refType = pluralizationService.Singularize(reference.ReferencedEntityName);
 #>
-		[Reference("<#= reference.ColumnName.ToLower() #>")]
+		[Reference("<#= reference.ColumnName.ToLower() #>", <#= reference.IsManuallyMapped.ToString().ToLower() #>)]
 		public virtual <#= refType #> <#= reference.Name #> { get; set; }
 <#
 	}

@@ -6,9 +6,12 @@ namespace Rti.Model.Domain.Generator
     {
         public String ColumnName { get; set; }
 
-        public ReferenceAttribute(String columnName)
+        public bool IsManuallyMapped { get; set; }
+
+        public ReferenceAttribute(String columnName, bool isManuallyMapped = false)
         {
             ColumnName = columnName;
+            IsManuallyMapped = isManuallyMapped;
         }
     }
 }
