@@ -8,7 +8,7 @@
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     xmlns:lists="clr-namespace:Rti.App.View.Lists"
     xmlns:domain="clr-namespace:Rti.Model.Domain;assembly=Rti.Model"
-    Title="{Binding Name}" Height="768" Width="1024"
+    Title="{Binding Name}" Height="412.5" Width="1144"
     >
     <Grid>
         <Grid>
@@ -43,9 +43,9 @@
                 </dxg:GridControl.Resources>
                 <dxg:GridControl.Columns>
                     <dxg:GridColumn UnboundType="Integer" Header="№" ReadOnly="True" Width="50" Name="_rowNumberColumn"/>
-                    <dxg:GridColumn FieldName="Drawing.Detail.Name" Header="Наименование" Width="180" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="Drawing.Detail.Name" Header="Наименование" Width="80" ReadOnly="True"/>
                     <dxg:GridColumn FieldName="Drawing.Group.Name" Header="Группа" Width="80" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="Drawing" Header="Чертеж" Width="100">
+                    <dxg:GridColumn FieldName="Drawing" Header="Чертеж" Width="80">
                         <dxg:GridColumn.EditSettings>
                             <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding DrawingsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                                 <dxg:LookUpEditSettings.StyleSettings>
@@ -68,9 +68,9 @@
                             </dxg:LookUpEditSettings>
                         </dxg:GridColumn.EditSettings>
                     </dxg:GridColumn>
-                    <dxg:GridColumn FieldName="Drawing.MaterialByPassport.Name" Header="Материал" Width="120" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="Drawing.Method.Name" Header="Способ изготовления" Width="120" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="Employee" Header="Исполнитель" Width="180">
+                    <dxg:GridColumn FieldName="Drawing.MaterialByPassport.Name" Header="Материал" Width="80" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="Drawing.Method.Name" Header="Способ изготовления" Width="85" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="Employee" Header="Исполнитель" Width="100">
                         <dxg:GridColumn.EditSettings>
                             <dxg:LookUpEditSettings DisplayMember="FullName" ItemsSource="{Binding EmployeesSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                                 <dxg:LookUpEditSettings.StyleSettings>
@@ -93,17 +93,25 @@
                             </dxg:LookUpEditSettings>
                         </dxg:GridColumn.EditSettings>
                     </dxg:GridColumn>
-                    <dxg:GridColumn FieldName="TaskCount" Header="Дневное задание" Width="80">
+                    <dxg:GridColumn FieldName="TaskCount" Header="Дневное задание" Width="60">
                         <dxg:GridColumn.EditSettings>
                             <dxe:TextEditSettings Mask="f0" MaskType="Numeric" MaskCulture="ru-RU"/>
                         </dxg:GridColumn.EditSettings>
                     </dxg:GridColumn>
-                    <dxg:GridColumn FieldName="DoneCount" Header="Выполнено" Width="80">
+                    <dxg:GridColumn FieldName="DoneCount" Header="Выполнено" Width="60">
                         <dxg:GridColumn.EditSettings>
                             <dxe:TextEditSettings Mask="f0" MaskType="Numeric" MaskCulture="ru-RU"/>
                         </dxg:GridColumn.EditSettings>
                     </dxg:GridColumn>
                     <dxg:GridColumn FieldName="BatchNumber" Header="Партия" Width="80"/>
+                    <dxg:GridColumn FieldName="Drawing.PlanCalculation.MainSalary" Header="Основная з.п., руб." Width="65"/>
+                    <dxg:GridColumn FieldName="Drawing.PlanCalculation.Price" Header="Цена, без НДС, руб." Width="65"/>
+                    <dxg:GridColumn FieldName="Sum" Header="Сумма, с НДС, руб." Width="65"/>
+                    <dxg:GridColumn FieldName="Note" Header="Примечание" Width="120">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>
                     <dxg:TableView AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>

@@ -31,7 +31,7 @@ namespace Rti.ViewModel.EditViewModel
             base.Refresh();
             DailyWorkPackageDetailList.Refresh();
 
-            DrawingsSource = new Lazy<List<DrawingViewModel>>(() => RepositoryFactory.GetDrawingRepository().GetAll().OrderBy(o => o.Id).Select(o => new DrawingViewModel(o, RepositoryFactory)).ToList());
+            DrawingsSource = new Lazy<List<DrawingViewModel>>(() => RepositoryFactory.GetDrawingRepository().GetAllActive().OrderBy(o => o.Id).Select(o => new DrawingViewModel(o, RepositoryFactory)).ToList());
             EmployeesSource = new Lazy<List<EmployeeViewModel>>(() => RepositoryFactory.GetEmployeeRepository().GetAllActive().OrderBy(o => o.FullName).Select(o => new EmployeeViewModel(o, RepositoryFactory)).ToList());
         }
 

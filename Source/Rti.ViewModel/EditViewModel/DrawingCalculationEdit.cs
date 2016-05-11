@@ -30,7 +30,7 @@ namespace Rti.ViewModel.EditViewModel
             var calculation = calculationType == CalculationType.Plan
                 ? drawing.PlanCalculation
                 : drawing.FactCalculation;
-            var flowsheet = drawing.Flowsheet;// RepositoryFactory.GetFlowsheetRepository().GetByDrawingId(drawing.Id);
+            var flowsheet = drawing.Flowsheet;
             if (flowsheet == null)
                 throw new InvalidOperationException("Не заполнена технологическая карта");
             var flowsheetProcesses = RepositoryFactory.GetFlowsheetProcessRepository().GetByFlowsheetId(flowsheet.Id);
