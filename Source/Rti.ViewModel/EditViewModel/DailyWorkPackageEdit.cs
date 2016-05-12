@@ -4,6 +4,7 @@ using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
+using Rti.ViewModel.Entities.Commands;
 using Rti.ViewModel.Lists;
 
 namespace Rti.ViewModel.EditViewModel
@@ -13,11 +14,35 @@ namespace Rti.ViewModel.EditViewModel
         public Lazy<List<DrawingViewModel>> DrawingsSource { get; set; }
         public Lazy<List<EmployeeViewModel>> EmployeesSource { get; set; }
 
+        public List<EmployeeViewModel> SelectableEmployeesSource
+        {
+            get { return DailyWorkPackageDetailList.Items.Select(o => o.Employee).Distinct().ToList(); }
+        }
+
+        public EmployeeViewModel SelectedEmployee { get; set; }
+
+        public DelegateCommand OpenIndividualWorkPackageCommand { get; set; }
+
         public DailyWorkPackageDetailList DailyWorkPackageDetailList { get; set; }
 
         public DailyWorkPackageEdit(string name, DailyWorkPackageViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) : base(name, entity, readOnly, viewService, repositoryFactory)
         {
             DailyWorkPackageDetailList = new DailyWorkPackageDetailList(entity, Editable, ViewService, RepositoryFactory);
+            DailyWorkPackageDetailList.Items.CollectionChanged += DailyWorkPackageDetailListItemsChanged;
+
+            OpenIndividualWorkPackageCommand = new DelegateCommand(
+                "Открыть индивидуальный наряд",
+                o => SelectedEmployee != null,
+                o => OpenIndividualWorkPackage());
+        }
+
+        private void OpenIndividualWorkPackage()
+        {
+        }
+
+        private void DailyWorkPackageDetailListItemsChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged("SelectableEmployeesSource");
         }
 
         protected override void DoSave()
