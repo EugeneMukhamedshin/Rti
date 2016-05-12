@@ -104,6 +104,8 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Map(o => o.Summary, "summary");
 
+			Map(o => o.Note, "note");
+
 			OnInitialized();
 		}
 	}
@@ -472,8 +474,8 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 	}
 
 
-    // The classmap for flowsheets
-    public partial class FlowsheetMap : BaseMap<Rti.Model.Domain.Flowsheet>
+	// The classmap for flowsheets
+	public partial class FlowsheetMap : BaseMap<Rti.Model.Domain.Flowsheet>
 	{
 		public FlowsheetMap()
 		{
@@ -485,6 +487,8 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Table("flowsheets");
 
 			Id(o => o.Id, "id");
+
+			Map(o => o.DrawingId, "drawing_id");
 
 			Map(o => o.BlankMass, "blank_mass");
 
@@ -840,7 +844,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Map(o => o.Count, "count");
 
-			Map(o => o.ForwardedCount, "forwarded_count");
+			Map(o => o.ForwardedTo, "forwarded_to");
 
 			Map(o => o.IsDeleted, "is_deleted");
 

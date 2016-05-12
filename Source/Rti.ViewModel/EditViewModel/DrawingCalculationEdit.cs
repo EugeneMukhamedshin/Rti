@@ -51,7 +51,6 @@ namespace Rti.ViewModel.EditViewModel
                 calculation.MainMaterial = material.Price * mass / 1000;
             else
                 calculation.MainMaterial = 0;
-            calculation.MainMaterial = calculation.MainMaterial + calculation.Rubber ?? 0 + calculation.Clue ?? 0 + calculation.Armature ?? 0 + calculation.Sand ?? 0 + calculation.Textile ?? 0 + calculation.OtherMaterial ?? 0;
             // Транспортные
             calculation.Transport = constants.KTr / 100 * calculation.MainMaterial;
             // Основная зарплата

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Windows.Media.Animation;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
@@ -25,6 +26,7 @@ namespace Rti.ViewModel.Lists
         public DrawingList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
         {
             TypeMaps.Add(new Tuple<Type, Type>(typeof(DrawingViewModel), typeof(DrawingEdit)));
+            IsLastPage = true;
 
             AddDrawingCommand = new DelegateCommand(
                 "Добавить чертеж",
@@ -87,6 +89,7 @@ namespace Rti.ViewModel.Lists
                 SelectedItem.PlanCalculation = new CalculationViewModel(null, RepositoryFactory);
             if (SelectedItem.FactCalculation == null)
                 SelectedItem.FactCalculation = new CalculationViewModel(null, RepositoryFactory);
+            SelectedItem.PlanCalculation.IsReadOnly = true;
             var calculationEdit = new DrawingCalculationEdit("Калькуляция", SelectedItem, !EditMode, ViewService, RepositoryFactory);
             if (ViewService.ShowViewDialog(calculationEdit) == true)
             {
@@ -103,7 +106,7 @@ namespace Rti.ViewModel.Lists
 
         protected override IEnumerable<DrawingViewModel> GetItems()
         {
-            var items = RepositoryFactory.GetDrawingRepository().GetPage(Page, PageSize);
+            var items = RepositoryFactory.GetDrawingRepository().GetPage(Page, PageSize, new List<Expression<Func<Drawing, object>>> {});
             IsLastPage = !(items.Count > PageSize);
             return items.Take(PageSize).Select(o => new DrawingViewModel(o, RepositoryFactory)).ToList(); ;
         }

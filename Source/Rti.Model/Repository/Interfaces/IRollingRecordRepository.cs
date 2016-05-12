@@ -6,7 +6,7 @@ namespace Rti.Model.Repository.Interfaces
 {
     public partial interface IRollingRecordRepository
     {
-        IList<RollingRecord> GetByInterval(DateTime startDate, DateTime endDate, int? customerId);
+        IList<RollingRecord> GetByInterval(DateTime startDate, DateTime endDate);
         int GetNextSortOrder();
     }
 }

@@ -6,8 +6,9 @@ using Rti.Model.Repository.Interfaces;
 
 namespace Rti.ViewModel.Entities
 {
-    public abstract class EntityViewModel<TEntity, TEntityViewModel> : BaseViewModel where TEntityViewModel : EntityViewModel<TEntity, TEntityViewModel>
-        where TEntity: class, IIdentifiedEntity, new()
+    public abstract class EntityViewModel<TEntity, TEntityViewModel> : BaseViewModel
+        where TEntityViewModel : EntityViewModel<TEntity, TEntityViewModel>
+        where TEntity : class, IIdentifiedEntity, new()
     {
         private bool _isNewEntity;
         private bool _isChanged;
@@ -162,8 +163,10 @@ namespace Rti.ViewModel.Entities
                 throw new ValidateException(ValidationErrorMessage);
             return IsValid;
         }
-        
-        protected virtual void AfterSave() { }
+
+        protected virtual void AfterSave()
+        {
+        }
 
         private void DoSave()
         {
@@ -194,7 +197,12 @@ namespace Rti.ViewModel.Entities
 
         public virtual void CopyTo(TEntityViewModel target)
         {
-            
+
+        }
+
+        public virtual void CustomCopyTo(TEntityViewModel target)
+        {
+
         }
 
         public virtual TEntityViewModel Clone()

@@ -7,7 +7,7 @@ namespace Rti.Model.Repository.NHibernate
 {
     public partial class RollingRecordRepository
     {
-        public IList<RollingRecord> GetByInterval(DateTime startDate, DateTime endDate, int? customerId)
+        public IList<RollingRecord> GetByInterval(DateTime startDate, DateTime endDate)
         {
             return
                 ExecuteFuncOnQueryOver(
@@ -17,8 +17,6 @@ namespace Rti.Model.Repository.NHibernate
                             .IsBetween(startDate)
                             .And(endDate)
                             .And(o => !o.IsDeleted);
-                        if (customerId.HasValue)
-                            result = result.And(o => o.Customer.Id == customerId);
                         return result.List();
                     });
         }

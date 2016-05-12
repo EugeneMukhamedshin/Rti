@@ -86,6 +86,7 @@
     <Compile Include="EditViewModel\SelectorViewModel.cs" />
     <Compile Include="EditViewModel\ShavingRecordEdit.cs" />
     <Compile Include="EditViewModel\ShippingOrderRecordEdit.cs" />
+    <Compile Include="Entities\CalculationViewModel.cs" />
     <Compile Include="Entities\Commands\DelegateCommand.cs" />
     <Compile Include="Entities\Commands\RequeryableCommand.cs" />
     <Compile Include="Entities\DailyWorkPackageDetailViewModel.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Entities\EntityViewModel.cs" />
     <Compile Include="Entities\EquipmentViewModel.cs" />
     <Compile Include="Entities\FlowsheetProcessViewModel.cs" />
+    <Compile Include="Entities\FlowsheetViewModel.cs" />
     <Compile Include="Entities\GeneratedViewModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -120,6 +122,7 @@
     <Compile Include="Lists\MaterialList.cs" />
     <Compile Include="Lists\RollingRecordList.cs" />
     <Compile Include="Lists\ShavingRecordList.cs" />
+    <Compile Include="Lists\ShippingOrderRecordList.cs" />
     <Compile Include="ListViewModel\DetailList.cs" />
     <Compile Include="ListViewModel\DetailListItem.cs" />
     <Compile Include="ListViewModel\DictionaryList.cs" />

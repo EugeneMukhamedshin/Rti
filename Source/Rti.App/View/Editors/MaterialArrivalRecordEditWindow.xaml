@@ -96,7 +96,7 @@
                 <dxprg:PropertyDefinition Header="Цена" Path="Price"/>
                 <dxprg:PropertyDefinition Header="Количество" Path="Count"/>
                 <dxprg:PropertyDefinition Header="Сумма" Path="Sum" IsReadOnly="True"/>
-                <dxprg:PropertyDefinition Header="Передано" Path="ForwardedCount"/>
+                <dxprg:PropertyDefinition Header="Передано" Path="ForwardedTo"/>
             </components:PropertyGridResponsible.PropertyDefinitions>
         </components:PropertyGridResponsible>
         <StackPanel Grid.Row="1" Orientation="Horizontal">

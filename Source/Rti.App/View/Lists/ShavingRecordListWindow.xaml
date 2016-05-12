@@ -80,7 +80,7 @@
                 <dxg:GridColumn FieldName="" Header="ФИО изготовителя" Width="100"/>
                 <dxg:GridColumn FieldName="InputCount" Header="Входное количество" Width="100"/>
                 <dxg:GridColumn FieldName="FlawCount" Header="Количество брака" Width="100"/>
-                <dxg:GridColumn FieldName="Drawing.MaterialByPassport.Name" Header="Материал детали" Width="100"/>
+                <dxg:GridColumn FieldName="Drawing.Material.Name" Header="Материал детали" Width="100"/>
                 <dxg:GridColumn FieldName="Drawing.ShavingPrice" Header="Цена обрезки" Width="100"/>
                 <dxg:GridColumn FieldName="Salary" Header="Заработная плата" Width="100"/>
             </dxg:GridControl.Columns>

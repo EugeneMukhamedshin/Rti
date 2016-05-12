@@ -152,6 +152,7 @@ namespace Rti.ViewModel.Entities
 		            }
 				}
 #>
+			CustomCopyTo(target);
 		}
 
 		public override <#= viewModelTypeName #> Clone()

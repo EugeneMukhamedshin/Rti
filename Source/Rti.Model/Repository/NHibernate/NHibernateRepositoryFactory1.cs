@@ -269,7 +269,6 @@ namespace Rti.Model.Repository.NHibernate
         protected override IQueryOver<Rti.Model.Domain.Flowsheet, Rti.Model.Domain.Flowsheet> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Flowsheet, Rti.Model.Domain.Flowsheet> queryOver)
         {
 			var result = queryOver;
-			result = result.Fetch(o => o.Drawing).Default;
 			result = result.Fetch(o => o.Customer).Default;
 			result = result.Fetch(o => o.SecondaryCustomer).Default;
             return result;

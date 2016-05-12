@@ -88,6 +88,7 @@ namespace Rti.ViewModel.Entities
 
 			target.IsDeleted = IsDeleted; 
 
+			CustomCopyTo(target);
 		}
 
 		public override AdditionalInfoViewModel Clone()
@@ -166,6 +167,8 @@ namespace Rti.ViewModel.Entities
 
 		private Decimal? _summary;
 
+		private String _note;
+
 
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
@@ -216,6 +219,8 @@ namespace Rti.ViewModel.Entities
 
 		public Decimal? Summary { get { return _summary; } set { if (Equals(_summary, value)) return; _summary = value; OnPropertyChanged("Summary"); } }
 
+		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
+
 
 		protected override void MapPropertiesToEntity()
 		{
@@ -265,6 +270,8 @@ namespace Rti.ViewModel.Entities
 			Entity.NdsTax = NdsTax; 
 
 			Entity.Summary = Summary; 
+
+			Entity.Note = Note; 
 
 		}
 
@@ -319,6 +326,8 @@ namespace Rti.ViewModel.Entities
 
 			Summary = Entity.Summary; 
 
+			Note = Entity.Note; 
+
 		}
 
 		public override void CopyTo(CalculationViewModel target)
@@ -370,6 +379,9 @@ namespace Rti.ViewModel.Entities
 
 			target.Summary = Summary; 
 
+			target.Note = Note; 
+
+			CustomCopyTo(target);
 		}
 
 		public override CalculationViewModel Clone()
@@ -542,6 +554,7 @@ namespace Rti.ViewModel.Entities
 
 			target.IsDeleted = IsDeleted; 
 
+			CustomCopyTo(target);
 		}
 
 		public override ConstantViewModel Clone()
@@ -804,6 +817,7 @@ namespace Rti.ViewModel.Entities
 
 			target.IsDeleted = IsDeleted; 
 
+			CustomCopyTo(target);
 		}
 
 		public override ContragentViewModel Clone()
@@ -886,6 +900,7 @@ namespace Rti.ViewModel.Entities
 
 			target.IsDeleted = IsDeleted; 
 
+			CustomCopyTo(target);
 		}
 
 		public override DailyWorkPackageViewModel Clone()
@@ -1008,6 +1023,7 @@ namespace Rti.ViewModel.Entities
 
 			target.Employee = Employee; 
 
+			CustomCopyTo(target);
 		}
 
 		public override DailyWorkPackageDetailViewModel Clone()
@@ -1100,6 +1116,7 @@ namespace Rti.ViewModel.Entities
 
 			target.IsDeleted = IsDeleted; 
 
+			CustomCopyTo(target);
 		}
 
 		public override DetailViewModel Clone()
@@ -1432,6 +1449,7 @@ namespace Rti.ViewModel.Entities
 
 			target.Flowsheet = Flowsheet; 
 
+			CustomCopyTo(target);
 		}
 
 		public override DrawingViewModel Clone()
@@ -1544,6 +1562,7 @@ namespace Rti.ViewModel.Entities
 
 			target.IsDeleted = IsDeleted; 
 
+			CustomCopyTo(target);
 		}
 
 		public override DriverViewModel Clone()
@@ -1656,6 +1675,7 @@ namespace Rti.ViewModel.Entities
 
 			target.Job = Job; 
 
+			CustomCopyTo(target);
 		}
 
 		public override EmployeeViewModel Clone()
@@ -1798,6 +1818,7 @@ namespace Rti.ViewModel.Entities
 
 			target.IsDeleted = IsDeleted; 
 
+			CustomCopyTo(target);
 		}
 
 		public override EquipmentViewModel Clone()
@@ -1830,13 +1851,13 @@ namespace Rti.ViewModel.Entities
 
 		private Int32 _id;
 
+		private Int32 _drawingId;
+
 		private Decimal? _blankMass;
 
 		private Decimal? _factMass;
 
 		private String _note;
-
-		private DrawingViewModel _drawing;
 
 		private ContragentViewModel _customer;
 
@@ -1846,13 +1867,13 @@ namespace Rti.ViewModel.Entities
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 
+		public Int32 DrawingId { get { return _drawingId; } set { if (Equals(_drawingId, value)) return; _drawingId = value; OnPropertyChanged("DrawingId"); } }
+
 		public Decimal? BlankMass { get { return _blankMass; } set { if (Equals(_blankMass, value)) return; _blankMass = value; OnPropertyChanged("BlankMass"); } }
 
 		public Decimal? FactMass { get { return _factMass; } set { if (Equals(_factMass, value)) return; _factMass = value; OnPropertyChanged("FactMass"); } }
 
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
-
-		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
 
 		public ContragentViewModel Customer { get { return _customer; } set { _customer = value; OnPropertyChanged("Customer"); } }
 
@@ -1861,6 +1882,8 @@ namespace Rti.ViewModel.Entities
 
 		protected override void MapPropertiesToEntity()
 		{
+
+			Entity.DrawingId = DrawingId; 
 
 			Entity.BlankMass = BlankMass; 
 
@@ -1879,6 +1902,8 @@ namespace Rti.ViewModel.Entities
 
 			Id = Entity.Id; 
 
+			DrawingId = Entity.DrawingId; 
+
 			BlankMass = Entity.BlankMass; 
 
 			FactMass = Entity.FactMass; 
@@ -1894,18 +1919,19 @@ namespace Rti.ViewModel.Entities
 		public override void CopyTo(FlowsheetViewModel target)
 		{
 
+			target.DrawingId = DrawingId; 
+
 			target.BlankMass = BlankMass; 
 
 			target.FactMass = FactMass; 
 
 			target.Note = Note; 
 
-			target.Drawing = Drawing; 
-
 			target.Customer = Customer; 
 
 			target.SecondaryCustomer = SecondaryCustomer; 
 
+			CustomCopyTo(target);
 		}
 
 		public override FlowsheetViewModel Clone()
@@ -2008,6 +2034,7 @@ namespace Rti.ViewModel.Entities
 
 			target.Machine = Machine; 
 
+			CustomCopyTo(target);
 		}
 
 		public override FlowsheetMachineViewModel Clone()
@@ -2150,6 +2177,7 @@ namespace Rti.ViewModel.Entities
 
 			target.Process = Process; 
 
+			CustomCopyTo(target);
 		}
 
 		public override FlowsheetProcessViewModel Clone()
@@ -2242,6 +2270,7 @@ namespace Rti.ViewModel.Entities
 
 			target.IsDeleted = IsDeleted; 
 
+			CustomCopyTo(target);
 		}
 
 		public override GroupViewModel Clone()
@@ -2304,6 +2333,7 @@ namespace Rti.ViewModel.Entities
 
 			target.Data = Data; 
 
+			CustomCopyTo(target);
 		}
 
 		public override ImageViewModel Clone()
@@ -2396,6 +2426,7 @@ namespace Rti.ViewModel.Entities
 
 			target.Request = Request; 
 
+			CustomCopyTo(target);
 		}
 
 		public override InvoiceViewModel Clone()
@@ -2498,6 +2529,7 @@ namespace Rti.ViewModel.Entities
 
 			target.IsDeleted = IsDeleted; 
 
+			CustomCopyTo(target);
 		}
 
 		public override JobViewModel Clone()
@@ -2670,6 +2702,7 @@ namespace Rti.ViewModel.Entities
 
 			target.IsDeleted = IsDeleted; 
 
+			CustomCopyTo(target);
 		}
 
 		public override MachineViewModel Clone()
@@ -2932,6 +2965,7 @@ namespace Rti.ViewModel.Entities
 
 			target.MassFormula = MassFormula; 
 
+			CustomCopyTo(target);
 		}
 
 		public override MassCalculationViewModel Clone()
@@ -3084,6 +3118,7 @@ namespace Rti.ViewModel.Entities
 
 			target.IsDeleted = IsDeleted; 
 
+			CustomCopyTo(target);
 		}
 
 		public override MaterialViewModel Clone()
@@ -3130,7 +3165,7 @@ namespace Rti.ViewModel.Entities
 
 		private Decimal _count;
 
-		private Decimal? _forwardedCount;
+		private String _forwardedTo;
 
 		private Boolean _isDeleted;
 
@@ -3158,7 +3193,7 @@ namespace Rti.ViewModel.Entities
 
 		public Decimal Count { get { return _count; } set { if (Equals(_count, value)) return; _count = value; OnPropertyChanged("Count"); } }
 
-		public Decimal? ForwardedCount { get { return _forwardedCount; } set { if (Equals(_forwardedCount, value)) return; _forwardedCount = value; OnPropertyChanged("ForwardedCount"); } }
+		public String ForwardedTo { get { return _forwardedTo; } set { if (Equals(_forwardedTo, value)) return; _forwardedTo = value; OnPropertyChanged("ForwardedTo"); } }
 
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
 
@@ -3186,7 +3221,7 @@ namespace Rti.ViewModel.Entities
 
 			Entity.Count = Count; 
 
-			Entity.ForwardedCount = ForwardedCount; 
+			Entity.ForwardedTo = ForwardedTo; 
 
 			Entity.IsDeleted = IsDeleted; 
 
@@ -3217,7 +3252,7 @@ namespace Rti.ViewModel.Entities
 
 			Count = Entity.Count; 
 
-			ForwardedCount = Entity.ForwardedCount; 
+			ForwardedTo = Entity.ForwardedTo; 
 
 			IsDeleted = Entity.IsDeleted; 
 
@@ -3246,7 +3281,7 @@ namespace Rti.ViewModel.Entities
 
 			target.Count = Count; 
 
-			target.ForwardedCount = ForwardedCount; 
+			target.ForwardedTo = ForwardedTo; 
 
 			target.IsDeleted = IsDeleted; 
 
@@ -3256,6 +3291,7 @@ namespace Rti.ViewModel.Entities
 
 			target.MeasureUnit = MeasureUnit; 
 
+			CustomCopyTo(target);
 		}
 
 		public override MaterialArrivalRecordViewModel Clone()
@@ -3348,6 +3384,7 @@ namespace Rti.ViewModel.Entities
 
 			target.IsDeleted = IsDeleted; 
 
+			CustomCopyTo(target);
 		}
 
 		public override MeasureUnitViewModel Clone()
@@ -3440,6 +3477,7 @@ namespace Rti.ViewModel.Entities
 
 			target.IsDeleted = IsDeleted; 
 
+			CustomCopyTo(target);
 		}
 
 		public override MethodViewModel Clone()
@@ -3552,6 +3590,7 @@ namespace Rti.ViewModel.Entities
 
 			target.DefaultNormTime = DefaultNormTime; 
 
+			CustomCopyTo(target);
 		}
 
 		public override ProcessViewModel Clone()
@@ -3664,6 +3703,7 @@ namespace Rti.ViewModel.Entities
 
 			target.Customer = Customer; 
 
+			CustomCopyTo(target);
 		}
 
 		public override RequestViewModel Clone()
@@ -3866,6 +3906,7 @@ namespace Rti.ViewModel.Entities
 
 			target.Material = Material; 
 
+			CustomCopyTo(target);
 		}
 
 		public override RequestDetailViewModel Clone()
@@ -3998,6 +4039,7 @@ namespace Rti.ViewModel.Entities
 
 			target.Material = Material; 
 
+			CustomCopyTo(target);
 		}
 
 		public override RollingRecordViewModel Clone()
@@ -4120,6 +4162,7 @@ namespace Rti.ViewModel.Entities
 
 			target.Drawing = Drawing; 
 
+			CustomCopyTo(target);
 		}
 
 		public override ShavingRecordViewModel Clone()
@@ -4292,6 +4335,7 @@ namespace Rti.ViewModel.Entities
 
 			target.Employee = Employee; 
 
+			CustomCopyTo(target);
 		}
 
 		public override ShippedProductRecordViewModel Clone()
@@ -4404,6 +4448,7 @@ namespace Rti.ViewModel.Entities
 
 			target.Drawing = Drawing; 
 
+			CustomCopyTo(target);
 		}
 
 		public override ShippingOrderRecordViewModel Clone()

@@ -79,7 +79,7 @@
                 <dxg:GridColumn FieldName="Price" Header="Цена" Width="100"/>
                 <dxg:GridColumn FieldName="Count" Header="Количество" Width="100"/>
                 <dxg:GridColumn FieldName="Sum" Header="Сумма" Width="100"/>
-                <dxg:GridColumn FieldName="ForwardedCount" Header="Передано" Width="100"/>
+                <dxg:GridColumn FieldName="ForwardedTo" Header="Передано" Width="100"/>
             </dxg:GridControl.Columns>
             <dxg:GridControl.View>
                 <dxg:TableView AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>

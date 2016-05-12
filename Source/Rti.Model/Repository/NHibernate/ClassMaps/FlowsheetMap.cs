@@ -5,7 +5,7 @@
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            HasOne(o => o.Drawing).ForeignKey("drawing_id").PropertyRef(o => o.Flowsheet).Fetch.Join();
+            //HasOne(o => o.Drawing).ForeignKey("drawing_id").PropertyRef(o => o.Flowsheet).Fetch.Join();
         }
     }
 }
