@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
 using Rti.ViewModel.Lists;
-using Rti.ViewModel.ListViewModel;
-using DrawingList = Rti.ViewModel.Lists.DrawingList;
-using EmployeeList = Rti.ViewModel.Lists.EmployeeList;
-using EquipmentList = Rti.ViewModel.Lists.EquipmentList;
-using MaterialList = Rti.ViewModel.Lists.MaterialList;
 
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 namespace Rti.ViewModel
 {
     public class MainViewModel : BaseViewModel, IClosable
@@ -21,11 +15,10 @@ namespace Rti.ViewModel
 
         public RequestViewModel SelectedRequest { get; set; }
         public int? SelectedRequestNumber { get; set; }
-        public List<RequestViewModel> Requests { get; set; }
+        //public List<RequestViewModel> Requests { get; set; }
 
         public DelegateCommand CreateNewRequestCommand { get; set; }
         public DelegateCommand OpenRequestCommand { get; set; }
-        public DelegateCommand OpenDictionaryListCommand { get; set; }
 
         public DelegateCommand OpenDrawingsCommand { get; set; }
 
@@ -63,10 +56,6 @@ namespace Rti.ViewModel
                 "Открыть заявку",
                 o => true,
                 o => OpenRequest());
-            OpenDictionaryListCommand = new DelegateCommand(
-                "Справочники",
-                o => true,
-                o => OpenDictionaryList());
 
             OpenDrawingsCommand = new DelegateCommand(
                 "Чертежи",
@@ -146,7 +135,7 @@ namespace Rti.ViewModel
             OpenConstantsCommand = new DelegateCommand(
                 "Справочники",
                 o => true,
-                o => OpenDictionary(new ConstantEdit("Константы", false, ViewService, RepositoryFactory)));
+                o => OpenDictionary(new ConstantEdit("Константы", new ConstantViewModel(RepositoryFactory.GetConstantRepository().GetActual(), RepositoryFactory), false, ViewService, RepositoryFactory)));
         }
 
         private void OpenDrawingList()
@@ -193,23 +182,17 @@ namespace Rti.ViewModel
 
         private void OpenDictionary(BaseViewModel viewModel)
         {
-            if (viewModel.GetType() == typeof(ConstantEdit))
-            {
-                var constant = new ConstantViewModel(RepositoryFactory.GetConstantRepository().GetActual(), RepositoryFactory);
-                ((ConstantEdit)viewModel).Entity = constant;
-                if (ViewService.ShowViewDialog(viewModel) == true)
-                    constant.SaveEntity();
-                return;
-            }
             viewModel.Refresh();
             ViewService.ShowViewDialog(viewModel);
         }
 
         private void CreateNewRequest()
         {
-            var request = new RequestViewModel(null, RepositoryFactory);
-            request.RegDate = DateTime.Today;
-            request.Number = RepositoryFactory.GetRequestRepository().GetNewRequestNumber();
+            var request = new RequestViewModel(null, RepositoryFactory)
+            {
+                RegDate = DateTime.Today,
+                Number = RepositoryFactory.GetRequestRepository().GetNewRequestNumber()
+            };
             request.SaveEntity();
             var editViewModel = new RequestEdit("Новая заявка", request, false, ViewService, RepositoryFactory);
             editViewModel.Refresh();
@@ -226,11 +209,6 @@ namespace Rti.ViewModel
             var editViewModel = new RequestEdit("Заявка", SelectedRequest, false, ViewService, RepositoryFactory);
             editViewModel.Refresh();
             ViewService.ShowViewDialog(editViewModel);
-        }
-
-        private void OpenDictionaryList()
-        {
-            ViewService.ShowViewDialog(new DictionaryList(false, ViewService, RepositoryFactory));
         }
 
         public bool CanClose()

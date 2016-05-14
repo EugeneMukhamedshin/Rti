@@ -77,7 +77,7 @@
                 <dxg:GridColumn FieldName="Drawing.Group.Name" Header="Группа" Width="100"/>
                 <dxg:GridColumn FieldName="Drawing.Name" Header="Чертеж" Width="100"/>
                 <dxg:GridColumn FieldName="Drawing.Detail.Name" Header="Наименование" Width="100"/>
-                <dxg:GridColumn FieldName="" Header="ФИО изготовителя" Width="100"/>
+                <dxg:GridColumn FieldName="MakerEmployee.FullName" Header="ФИО изготовителя" Width="100"/>
                 <dxg:GridColumn FieldName="InputCount" Header="Входное количество" Width="100"/>
                 <dxg:GridColumn FieldName="FlawCount" Header="Количество брака" Width="100"/>
                 <dxg:GridColumn FieldName="Drawing.Material.Name" Header="Материал детали" Width="100"/>

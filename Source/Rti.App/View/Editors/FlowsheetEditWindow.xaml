@@ -9,15 +9,15 @@
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="180"/>
-                <RowDefinition Height="95"/>
-                <RowDefinition Height="110"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="130"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="75"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="32"/>
                 <RowDefinition Height="32"/>
             </Grid.RowDefinitions>
-            <GroupBox Grid.Row="0" Margin="2" Header="Общая информация">
+            <GroupBox Grid.Row="0" Margin="2" Header="Общая информация" Padding="5,0,5,5">
                 <dxg:GridControl TabIndex="0" AutoGenerateColumns="None" ItemsSource="{Binding FlowsheetSource}">
                     <dxg:GridControl.Resources>
                         <Style TargetType="dxg:GridColumn">
@@ -102,15 +102,15 @@
                 </dxg:GridControl>
 
             </GroupBox>
-            <GroupBox Grid.Row="1" Margin="2" Header="Перечень оборудования">
+            <GroupBox Grid.Row="1" Margin="2" Header="Перечень оборудования" Padding="5,0,5,5">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Row="0">
-                        <Button Content="+" Command="{Binding FlowsheetMachineList.AddFlowsheetMachineCommand}" Width="32" Height="32" Margin="0,5,0,5"></Button>
-                        <Button Content="-" Command="{Binding FlowsheetMachineList.RemoveFlowsheetMachineCommand}" Width="32" Height="32" Margin="5,5,0,5"></Button>
+                        <Button Padding="0" Content="+" Command="{Binding FlowsheetMachineList.AddFlowsheetMachineCommand}" Width="24" Height="24" Margin="0,5,0,5"></Button>
+                        <Button Padding="0" Content="-" Command="{Binding FlowsheetMachineList.RemoveFlowsheetMachineCommand}" Width="24" Height="24" Margin="5,5,0,5"></Button>
                     </StackPanel>
                     <dxg:GridControl Grid.Row="1" TabIndex="2" AutoGenerateColumns="None" ItemsSource="{Binding FlowsheetMachineList.Items}" SelectedItem="{Binding FlowsheetMachineList.SelectedItem}" SelectionMode="Row">
                         <dxg:GridControl.Resources>
@@ -165,7 +165,7 @@
                     </dxg:GridControl>
                 </Grid>
             </GroupBox>
-            <GroupBox Grid.Row="2" Margin="2" Header="Оснастка">
+            <GroupBox Grid.Row="2" Margin="2" Header="Оснастка" Padding="5,0,5,5">
                 <dxg:GridControl TabIndex="0" AutoGenerateColumns="None" ItemsSource="{Binding FlowsheetSource}">
                     <dxg:GridControl.Resources>
                         <Style TargetType="dxg:GridColumn">
@@ -189,7 +189,7 @@
                     </dxg:GridControl.View>
                 </dxg:GridControl>
             </GroupBox>
-            <GroupBox Grid.Row="3" Margin="2" Header="Материал">
+            <GroupBox Grid.Row="3" Margin="2" Header="Материал" Padding="5,0,5,5">
                 <dxg:GridControl TabIndex="0" AutoGenerateColumns="None" ItemsSource="{Binding FlowsheetSource}">
                     <dxg:GridControl.Resources>
                         <Style TargetType="dxg:GridColumn">
@@ -203,28 +203,28 @@
                         </Style>
                     </dxg:GridControl.Resources>
                     <dxg:GridControl.Columns>
-                        <dxg:GridColumn FieldName="Drawing.MaterialByPassport.Name" Header="Марка материала по чертежу" Width="120" ReadOnly="True"/>
+                        <dxg:GridColumn FieldName="Drawing.MaterialByPassport.Name" Header="Марка мат. по черт." Width="120" ReadOnly="True"/>
                         <dxg:GridColumn FieldName="Drawing.MaterialByPassport.TechConditions" Header="ТУ (ГОСТ)" Width="100" ReadOnly="True"/>
-                        <dxg:GridColumn FieldName="Drawing.Material.Name" Header="Марка материала фактическая" Width="120" ReadOnly="True"/>
+                        <dxg:GridColumn FieldName="Drawing.Material.Name" Header="Марка мат. факт." Width="120" ReadOnly="True"/>
                         <dxg:GridColumn FieldName="Drawing.Material.TechConditions" Header="ТУ (ГОСТ)" Width="100" ReadOnly="True"/>
-                        <dxg:GridColumn FieldName="BlankMass" Header="Масса заготовки, г" Width="80"/>
-                        <dxg:GridColumn FieldName="Drawing.MassCalculation.CalculatedMass" Header="Масса детали по чертежу, г" Width="100" ReadOnly="True"/>
-                        <dxg:GridColumn FieldName="FactMass" Header="Масса фактическая, г" Width="100"/>
+                        <dxg:GridColumn FieldName="Drawing.MassWithShruff" Header="Масса загот., кг" Width="120" ReadOnly="True"/>
+                        <dxg:GridColumn FieldName="Drawing.MassCalculation.CalculatedMass" Header="Масса дет. по черт., кг" Width="150" ReadOnly="True"/>
+                        <dxg:GridColumn FieldName="FactMass" Header="Масса факт., кг" Width="100"/>
                     </dxg:GridControl.Columns>
                     <dxg:GridControl.View>
                         <dxg:TableView AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                     </dxg:GridControl.View>
                 </dxg:GridControl>
             </GroupBox>
-            <GroupBox Grid.Row="4" Margin="2" Header="Нормирование времени">
+            <GroupBox Grid.Row="4" Margin="2" Header="Нормирование времени" Padding="5,0,5,5">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Row="0">
-                        <Button Content="+" Command="{Binding FlowsheetProcessList.AddFlowsheetProcessCommand}" Width="32" Height="32" Margin="0,5,0,5"></Button>
-                        <Button Content="-" Command="{Binding FlowsheetProcessList.RemoveFlowsheetProcessCommand}" Width="32" Height="32" Margin="5,5,0,5"></Button>
+                        <Button Padding="0" Content="+" Command="{Binding FlowsheetProcessList.AddFlowsheetProcessCommand}" Width="24" Height="24" Margin="0,5,0,5"></Button>
+                        <Button Padding="0" Content="-" Command="{Binding FlowsheetProcessList.RemoveFlowsheetProcessCommand}" Width="24" Height="24" Margin="5,5,0,5"></Button>
                     </StackPanel>
                     <dxg:GridControl Grid.Row="1" TabIndex="2" AutoGenerateColumns="None" ItemsSource="{Binding FlowsheetProcessList.Items}" SelectedItem="{Binding FlowsheetProcessList.SelectedItem}" SelectionMode="Row">
                         <dxg:GridControl.Resources>
@@ -277,8 +277,8 @@
                 </Grid>
             </GroupBox>
             <StackPanel Orientation="Horizontal" Grid.Row="5">
-                <TextBlock Text="Примечание" Width="150"/>
-                <TextBox Text="{Binding Entity.Note}" Margin="5,0,0,0" Width="600" TextWrapping="Wrap"/>
+                <TextBlock Text="Примечание" Width="77" Margin="5,8" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Entity.Note}" Margin="5,0,0,0" Width="600" TextWrapping="Wrap" VerticalAlignment="Center"/>
             </StackPanel>
             <StackPanel Grid.Row="6" Orientation="Horizontal">
                 <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"/>

@@ -8,7 +8,7 @@
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     xmlns:lists="clr-namespace:Rti.App.View.Lists"
     xmlns:components="clr-namespace:Rti.App.View.Components"
-    Width="470" Height="460" MinWidth="470" MinHeight="460" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
+    Width="470" Height="500" MinWidth="470" MinHeight="500" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
@@ -21,11 +21,7 @@
         <components:PropertyGridResponsible Margin="5" SortMode="Definitions" Grid.Row="1" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
             <components:PropertyGridResponsible.PropertyDefinitions>
                 <dxprg:PropertyDefinition Path="SortOrder" Header="Артикул" IsReadOnly="True" Width="40"/>
-                <dxprg:PropertyDefinition Path="Name" Header="Чертеж" Width="80">
-                    <dxprg:PropertyDefinition.EditSettings>
-                        <dxe:TextEditSettings/>
-                    </dxprg:PropertyDefinition.EditSettings>
-                </dxprg:PropertyDefinition>
+                <dxprg:PropertyDefinition Path="Name" Header="Чертеж" Width="80"/>
                 <dxprg:PropertyDefinition Path="Group" Header="Группа" Width="80">
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding GroupsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
@@ -150,21 +146,10 @@
                         </dxe:ButtonEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
-                <dxprg:PropertyDefinition Path="MassWithShruff" Header="Масса с отходами, кг" Width="65">
-                    <dxprg:PropertyDefinition.EditSettings>
-                        <dxe:TextEditSettings Mask="f3" MaskType="Numeric" MaskCulture="ru-RU"/>
-                    </dxprg:PropertyDefinition.EditSettings>
-                </dxprg:PropertyDefinition>
-                <dxprg:PropertyDefinition Path="Price" Header="Цена по чертежу, руб. без НДС">
-                    <dxprg:PropertyDefinition.EditSettings>
-                        <dxe:TextEditSettings Mask="f3" MaskType="Numeric" MaskCulture="ru-RU"/>
-                    </dxprg:PropertyDefinition.EditSettings>
-                </dxprg:PropertyDefinition>
-                <dxprg:PropertyDefinition Path="ShavingPrice" Header="Цена обрезки, руб." Width="60">
-                    <dxprg:PropertyDefinition.EditSettings>
-                        <dxe:TextEditSettings Mask="f3" MaskType="Numeric" MaskCulture="ru-RU"/>
-                    </dxprg:PropertyDefinition.EditSettings>
-                </dxprg:PropertyDefinition>
+                <dxprg:PropertyDefinition Path="ShruffPercent" Header="Процент отходов, %" Width="65" EditSettings="{components:Float2TextEditSettings}"/>
+                <dxprg:PropertyDefinition Path="MassWithShruff" Header="Масса с отходами, кг" Width="65" EditSettings="{components:Float3TextEditSettings}"/>
+                <dxprg:PropertyDefinition Path="Price" Header="Цена по чертежу, руб. без НДС" EditSettings="{components:Float2TextEditSettings}"/>
+                <dxprg:PropertyDefinition Path="ShavingPrice" Header="Цена обрезки, руб." Width="60" EditSettings="{components:Float2TextEditSettings}"/>
                 <dxprg:PropertyDefinition Path="Equipment" Header="Оснастка">
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding EquipmentsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
@@ -211,7 +196,7 @@
                         </dxg:LookUpEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
-                <dxprg:PropertyDefinition Path="CalculationPrice" Header="Цена по калькуляции, руб" IsReadOnly="True"/>
+                <dxprg:PropertyDefinition Path="CalculationPrice" Header="Цена по калькуляции, руб" IsReadOnly="True" EditSettings="{components:Float2TextEditSettings}"/>
                 <dxprg:PropertyDefinition Path="Measurements" Header="Размеры, мм">
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxe:ButtonEditSettings AllowDefaultButton="False" IsTextEditable="False">

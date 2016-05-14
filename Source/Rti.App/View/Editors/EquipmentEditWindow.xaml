@@ -22,6 +22,7 @@
                 <dxprg:PropertyDefinition Header="№" Path="SortOrder" IsReadOnly="True"/>
                 <dxprg:PropertyDefinition Header="Оснастка" Path="Name"/>
                 <dxprg:PropertyDefinition Header="Площадь оснастки" Path="Square" EditSettings="{dxe:TextSettings Mask=f3}"/>
+                <dxprg:PropertyDefinition Header="Высота оснастки" Path="Height" EditSettings="{dxe:TextSettings Mask=f2}"/>
                 <dxprg:PropertyDefinition Header="Наличие оснастки" Path="ExistanceEnum">
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxe:ComboBoxEditSettings DisplayMember="DisplayName" ValueMember="Value">

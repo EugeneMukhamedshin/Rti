@@ -9,6 +9,7 @@ using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Lists;
 using Rti.ViewModel.ListViewModel;
 using Application = System.Windows.Application;
+using ContragentList = Rti.ViewModel.Lists.ContragentList;
 using DrawingList = Rti.ViewModel.Lists.DrawingList;
 using EmployeeList = Rti.ViewModel.Lists.EmployeeList;
 using EquipmentList = Rti.ViewModel.Lists.EquipmentList;
@@ -28,7 +29,6 @@ namespace Rti.App
             AddToRegistry<MainViewModel, MainWindow>();
 
             // Справочники
-            AddToRegistry<DictionaryList, DictionaryListWindow>();
             AddToRegistry<MaterialList, MaterialListWindow>();
             AddToRegistry<MaterialEdit, MaterialEditWindow>();
             AddToRegistry<GroupList, GroupListWindow>();

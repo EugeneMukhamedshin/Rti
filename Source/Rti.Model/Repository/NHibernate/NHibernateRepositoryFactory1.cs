@@ -460,6 +460,7 @@ namespace Rti.Model.Repository.NHibernate
 			var result = queryOver;
 			result = result.Fetch(o => o.ShaverEmployee).Default;
 			result = result.Fetch(o => o.Drawing).Default;
+			result = result.Fetch(o => o.MakerEmployee).Default;
             return result;
         }
     }

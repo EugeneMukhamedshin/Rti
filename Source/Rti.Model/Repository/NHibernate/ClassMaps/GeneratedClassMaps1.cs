@@ -324,6 +324,8 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Map(o => o.Code, "code");
 
+			Map(o => o.ShruffPercent, "shruff_percent");
+
 			Map(o => o.MassWithShruff, "mass_with_shruff");
 
 			Map(o => o.Price, "price");
@@ -459,6 +461,8 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Map(o => o.Square, "square");
 
+			Map(o => o.Height, "height");
+
 			Map(o => o.FormCount, "form_count");
 
 			Map(o => o.SlotCount, "slot_count");
@@ -489,8 +493,6 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Id(o => o.Id, "id");
 
 			Map(o => o.DrawingId, "drawing_id");
-
-			Map(o => o.BlankMass, "blank_mass");
 
 			Map(o => o.FactMass, "fact_mass");
 
@@ -1086,6 +1088,8 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			References(o => o.ShaverEmployee, "shaver_employee_id").Fetch.Join().Not.LazyLoad();
 
 			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
+
+			References(o => o.MakerEmployee, "maker_employee_id").Fetch.Join().Not.LazyLoad();
 
 			OnInitialized();
 		}

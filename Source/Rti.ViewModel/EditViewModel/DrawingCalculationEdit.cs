@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Management.Instrumentation;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
@@ -9,8 +11,14 @@ namespace Rti.ViewModel.EditViewModel
 {
     public class DrawingCalculationEdit: EditEntityViewModel<DrawingViewModel, Drawing>
     {
+        private List<DrawingViewModel> _drawingSource;
         public DelegateCommand CalculatePlanCommand { get; set; }
         public DelegateCommand CalculateFactCommand { get; set; }
+
+        public List<DrawingViewModel> DrawingSource
+        {
+            get { return _drawingSource ?? (_drawingSource = new List<DrawingViewModel> {Entity}); }
+        }
 
         public DrawingCalculationEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) : base(name, entity, readOnly, viewService, repositoryFactory)
         {
@@ -45,20 +53,26 @@ namespace Rti.ViewModel.EditViewModel
             var material = calculationType == CalculationType.Plan ? drawing.MaterialByPassport : drawing.Material;
             var mass = calculationType == CalculationType.Plan
                 ? drawing.MassCalculation == null ? null : drawing.MassCalculation.CalculatedMass
-                : flowsheet.FactMass;
+                : drawing.MassWithShruff;
             // Сырье и материалы
-            if (material != null && mass != null)
-                calculation.MainMaterial = material.Price * mass / 1000;
-            else
-                calculation.MainMaterial = 0;
+            if (calculationType == CalculationType.Fact)
+            {
+                if (material != null && mass != null)
+                    calculation.MainMaterial = material.Price*mass;
+                else
+                    calculation.MainMaterial = 0;
+            }
             // Транспортные
-            calculation.Transport = constants.KTr / 100 * calculation.MainMaterial;
+            calculation.Transport = constants.KTr / 100 * calculation.AllMaterials;
             // Основная зарплата
-            if (drawing.Equipment != null && drawing.Equipment.Output != 0)
-                calculation.MainSalary = (getTime(ProcessType.Loading) + getTime(ProcessType.CuringOrCutting) +
-                              getTime(ProcessType.Unloading)) / drawing.Equipment.Output * constants.KSt / 100;
-            else
-                calculation.MainSalary = 0;
+            if (calculationType == CalculationType.Fact)
+            {
+                if (drawing.Equipment != null && drawing.Equipment.Output != 0)
+                    calculation.MainSalary = (getTime(ProcessType.Loading) + getTime(ProcessType.CuringOrCutting) +
+                                              getTime(ProcessType.Unloading))/drawing.Equipment.Output*constants.KSt;
+                else
+                    calculation.MainSalary = 0;
+            }
             // Дополнительная зарплата
             calculation.AdditionalSalary = calculation.MainSalary / 11;
             // Отчисления ЕСН
@@ -66,9 +80,9 @@ namespace Rti.ViewModel.EditViewModel
             // Общецеховые
             calculation.TotalDivision = (calculation.MainSalary + calculation.AdditionalSalary) * constants.KObCeh / 100;
             // Общепроизводственные
-            calculation.TotalManufacture = (calculation.MainSalary + calculation.AdditionalSalary) * constants.KObPr;
+            calculation.TotalManufacture = (calculation.MainSalary + calculation.AdditionalSalary) * constants.KObPr / 100;
             // Итого (1)
-            calculation.MainSummary = calculation.MainMaterial + calculation.Transport + calculation.MainSalary + calculation.AdditionalSalary + calculation.FixedTax + calculation.TotalDivision +
+            calculation.MainSummary = calculation.AllMaterials + calculation.Transport + calculation.MainSalary + calculation.AdditionalSalary + calculation.FixedTax + calculation.TotalDivision +
                          calculation.TotalManufacture;
             // Электроэнергия для формовых
             if (drawing.Equipment != null && drawing.Equipment.Output != 0)

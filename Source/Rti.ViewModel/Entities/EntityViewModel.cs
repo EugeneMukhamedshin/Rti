@@ -195,12 +195,19 @@ namespace Rti.ViewModel.Entities
         {
         }
 
-        public virtual void CopyTo(TEntityViewModel target)
+        public void CopyTo(TEntityViewModel source)
+        {
+            if (source == null)
+                return;
+            source.CopyFrom((TEntityViewModel)this);
+        }
+
+        public virtual void CopyFrom(TEntityViewModel source)
         {
 
         }
 
-        public virtual void CustomCopyTo(TEntityViewModel target)
+        public virtual void CustomCopyFrom(TEntityViewModel source)
         {
 
         }

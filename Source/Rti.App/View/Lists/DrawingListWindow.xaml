@@ -7,7 +7,8 @@
         xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:domain="clr-namespace:Rti.Model.Domain;assembly=Rti.Model"
-        Title="Чертежи" Height="600" Width="1500" x:ClassModifier="internal" WindowState="Maximized">
+        xmlns:components="clr-namespace:Rti.App.View.Components"
+        Title="Чертежи (технологические карты, калькуляции)" Height="600" Width="1500" x:ClassModifier="internal" WindowState="Maximized">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -18,7 +19,7 @@
             <StackPanel Orientation="Horizontal" Grid.Row="0">
                 <Button Content="+" Command="{Binding AddDrawingCommand}" Width="32" Height="32" Margin="5"/>
                 <Button Content="-" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5"/>
-                <Button Content="..." Command="{Binding EditEntityCommand}" Width="32" Height="32" Margin="5"/>
+                <Button Content="..." Command="{Binding EditEntityCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5"/>
                 <Button Content="&lt;" Command="{Binding PrevPageCommand}" Width="32" Height="32" Margin="5"/>
                 <Button Content="&gt;" Command="{Binding NextPageCommand}" Width="32" Height="32" Margin="5"/>
             </StackPanel>
@@ -50,10 +51,10 @@
                     <dxg:GridColumn FieldName="Material.Name" Header="Материал" Width="80"/>
                     <dxg:GridColumn FieldName="MeasureUnit.Name" Header="Ед. изм." Width="40"/>
                     <dxg:GridColumn FieldName="MeasureUnit.Code" Header="Код" Width="40"/>
-                    <dxg:GridColumn FieldName="MassCalculation.CalculatedMass" Header="Масса по чертежу" Width="60"/>
-                    <dxg:GridColumn FieldName="MassWithShruff" Header="Масса с отходами" Width="65"/>
-                    <dxg:GridColumn FieldName="Price" Header="Цена по чертежу, руб. без НДС" Width="60"/>
-                    <dxg:GridColumn FieldName="ShavingPrice" Header="Цена обрезки" Width="60"/>
+                    <dxg:GridColumn FieldName="MassCalculation.CalculatedMass" Header="Масса по чертежу, кг" Width="60" EditSettings="{components:Float3TextEditSettings}"/>
+                    <dxg:GridColumn FieldName="MassWithShruff" Header="Масса с отходами, кг" Width="65" EditSettings="{components:Float3TextEditSettings}"/>
+                    <dxg:GridColumn FieldName="Price" Header="Цена по чертежу, руб. без НДС" Width="60" EditSettings="{components:Float2TextEditSettings}"/>
+                    <dxg:GridColumn FieldName="ShavingPrice" Header="Цена обрезки, руб." Width="60" EditSettings="{components:Float2TextEditSettings}"/>
                     <dxg:GridColumn FieldName="Equipment.Name" Header="Оснастка" Width="80"/>
                     <dxg:GridColumn FieldName="Equipment.ExistanceEnum" Header="Наличие оснастки" Width="90" ReadOnly="True">
                         <dxg:GridColumn.EditSettings>
@@ -67,7 +68,7 @@
                     <dxg:GridColumn FieldName="Equipment.FormCount" Header="Кол-во форм" Width="40" ReadOnly="True"/>
                     <dxg:GridColumn FieldName="Equipment.SlotCount" Header="Гнездность" Width="40" ReadOnly="True"/>
                     <dxg:GridColumn FieldName="Method.Name" Header="Способ изготовления" Width="90"/>
-                    <dxg:GridColumn FieldName="CalculationPrice" Header="Цена по калькуляции" Width="60"/>
+                    <dxg:GridColumn FieldName="CalculationPrice" Header="Цена по калькуляции, руб." Width="60" EditSettings="{components:Float2TextEditSettings}"/>
                     <dxg:GridColumn FieldName="Note" Header="Примечание" Width="100"/>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>

@@ -156,6 +156,10 @@
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Reporting.cs" />
+    <Compile Include="View\Components\Float2TextEditSettings.cs" />
+    <Compile Include="View\Components\Float3TextEditSettings.cs" />
+    <Compile Include="View\Components\ImageContentExtension.cs" />
     <Compile Include="View\Components\PropertyGridResponsible.cs" />
     <Compile Include="View\Editors\AdditionalInfoEditWindow.xaml.cs">
       <DependentUpon>AdditionalInfoEditWindow.xaml</DependentUpon>
@@ -249,9 +253,6 @@
     </Compile>
     <Compile Include="View\Lists\DetailListWindow.xaml.cs">
       <DependentUpon>DetailListWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Lists\DictionaryListWindow.xaml.cs">
-      <DependentUpon>DictionaryListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lists\DrawingListWindow.xaml.cs">
       <DependentUpon>DrawingListWindow.xaml</DependentUpon>
@@ -353,7 +354,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rti.Model\Rti.Model.csproj">
@@ -504,10 +507,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Lists\DictionaryListWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\Lists\DrawingListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -579,6 +578,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\DetailTypes.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\materials.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Content\Images\add.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Images\delete.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

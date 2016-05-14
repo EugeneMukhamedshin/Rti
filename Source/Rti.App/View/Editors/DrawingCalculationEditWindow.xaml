@@ -4,36 +4,49 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:editors="clr-namespace:Rti.App.View.Editors"
-    Width="470" Height="390" MinWidth="470" MinHeight="390" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:lists="clr-namespace:Rti.App.View.Lists"
+    Width="600" Height="500" MinWidth="600" MinHeight="500" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="32"/>
-            <RowDefinition Height="32"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="0">
-            <TextBlock Text="Наименование детали" Width="150"/>
-            <TextBox Text="{Binding Entity.Detail.Name}" IsReadOnly="True" Width="150"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="1">
-            <TextBlock Text="Чертеж" Width="150"/>
-            <TextBox Text="{Binding Entity.Group.Name}" IsReadOnly="True" Width="50"/>
-            <TextBox Text="{Binding Entity.Name}" IsReadOnly="True" Width="95" Margin="5 0 0 0"/>
-        </StackPanel>
-        <TabControl Padding="5" Grid.Row="2">
-            <TabItem Header="Плановая">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="32"/>
-                    </Grid.RowDefinitions>
-                    <editors:CalculationEditControl DataContext="{Binding Entity.PlanCalculation}"/>
-                    <StackPanel Grid.Row="1" Orientation="Horizontal">
-                        <Button Content="Расчет" Command="{Binding CalculatePlanCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="900"></Button>
-                    </StackPanel>
-                </Grid>
-            </TabItem>
+        <dxg:GridControl TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding DrawingSource}" SelectionMode="Row" Grid.Row="0">
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding EditEntityCommand}" PassEventArgsToCommand="True">
+                    <dxmvvm:EventToCommand.EventArgsConverter>
+                        <dx:EventArgsToDataRowConverter/>
+                    </dxmvvm:EventToCommand.EventArgsConverter>
+                </dxmvvm:EventToCommand>
+            </dxmvvm:Interaction.Behaviors>
+            <dxg:GridControl.Resources>
+                <Style TargetType="dxg:GridColumn">
+                    <Setter Property="HeaderTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </dxg:GridControl.Resources>
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn FieldName="Detail.Name" Header="Наименование" Width="95"/>
+                <dxg:GridColumn FieldName="FullName" Header="Чертеж" Width="95"/>
+                <dxg:GridColumn FieldName="Material.Name" Header="Исп. материал" Width="70"/>
+                <dxg:GridColumn FieldName="MassCalculation.CalculatedMass" Header="Масса по чертежу, кг" Width="80" EditSettings="{DynamicResource Float3TextEditSettings}"/>
+                <dxg:GridColumn FieldName="MassWithShruff" Header="Масса с отходами, кг" Width="80" EditSettings="{DynamicResource Float3TextEditSettings}"/>
+                <dxg:GridColumn FieldName="Material.Price" Header="Цена исп. материала, руб. без НДС" Width="100" EditSettings="{DynamicResource Float2TextEditSettings}"/>
+            </dxg:GridControl.Columns>
+            <dxg:GridControl.View>
+                <dxg:TableView AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+        <TabControl Padding="5" Grid.Row="1">
             <TabItem Header="Фактическая">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -46,8 +59,20 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
+            <TabItem Header="Плановая">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="32"/>
+                    </Grid.RowDefinitions>
+                    <editors:CalculationEditControl DataContext="{Binding Entity.PlanCalculation}"/>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Button Content="Расчет" Command="{Binding CalculatePlanCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="900"></Button>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
         </TabControl>
-        <StackPanel Grid.Row="3" Orientation="Horizontal">
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>
             <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
         </StackPanel>

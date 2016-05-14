@@ -19,7 +19,7 @@ namespace Rti.ViewModel.Entities
         {
             get
             {
-                return CalculateMass();
+                return CalculateMass() / 1000;
             }
         }
 
