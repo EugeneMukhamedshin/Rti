@@ -6,15 +6,19 @@ using DevExpress.Xpf.Editors.Settings;
 
 namespace Rti.App.View.Components
 {
-    public class Float2TextEditSettingsExtension : MarkupExtension
+    public class TextEditSettingsExtension : MarkupExtension
     {
+        public string Mask { get; set; }
+
+        public MaskType? MaskType { get; set; }
+
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
             return new TextEditSettings
             {
-                Mask = "f2",
+                Mask = Mask,
                 MaskCulture = CultureInfo.GetCultureInfo("ru-RU"),
-                MaskType = MaskType.Numeric,
+                MaskType = MaskType ?? DevExpress.Xpf.Editors.MaskType.Numeric,
                 MaskUseAsDisplayFormat = true,
             };
         }

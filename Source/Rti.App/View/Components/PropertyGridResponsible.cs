@@ -3,7 +3,7 @@ using DevExpress.Xpf.PropertyGrid;
 
 namespace Rti.App.View.Components
 {
-    public class PropertyGridResponsible: PropertyGridControl
+    public class PropertyGridResponsible : PropertyGridControl
     {
         protected override void OnSelectedObjectChanged(object oldValue, object newValue)
         {

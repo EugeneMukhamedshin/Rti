@@ -688,8 +688,6 @@ namespace Rti.Model.Domain
 		public virtual Int32 Id { get; protected set; }
 		[Field("sort_order")]
 		public virtual Int32 SortOrder { get; set; }
-		[Field("equipment_existance")]
-		public virtual Int32? EquipmentExistance { get; set; }
 		[Field("additional_info")]
 		public virtual String AdditionalInfo { get; set; }
 		[Field("equipment_lead_time")]

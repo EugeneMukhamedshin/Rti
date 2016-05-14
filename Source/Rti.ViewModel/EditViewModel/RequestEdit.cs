@@ -40,9 +40,9 @@ namespace Rti.ViewModel.EditViewModel
         }
 
         public Lazy<List<ContragentViewModel>> CustomersSource { get; set; }
-        public Lazy<List<DetailViewModel>> DetailsSource { get; set; }
-        public Lazy<List<MaterialViewModel>> MaterialsSource { get; set; }
-        public Lazy<List<GroupViewModel>> GroupsSource { get; set; }
+        //public Lazy<List<DetailViewModel>> DetailsSource { get; set; }
+        //public Lazy<List<MaterialViewModel>> MaterialsSource { get; set; }
+        //public Lazy<List<GroupViewModel>> GroupsSource { get; set; }
         public Lazy<List<DrawingViewModel>> DrawingsSource { get; set; }
 
         public RequestEdit(string name, RequestViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
@@ -94,10 +94,10 @@ namespace Rti.ViewModel.EditViewModel
                 res => RequestDetails = new ObservableCollection<RequestDetailViewModel>(res));
 
             CustomersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(0).Select(m => new ContragentViewModel(m, RepositoryFactory)).ToList());
-            DrawingsSource = new Lazy<List<DrawingViewModel>>(() => RepositoryFactory.GetDrawingRepository().GetAll().OrderBy(o => o.Id).Select(o => new DrawingViewModel(o, RepositoryFactory)).ToList());
-            GroupsSource = new Lazy<List<GroupViewModel>>(() => RepositoryFactory.GetGroupRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new GroupViewModel(o, RepositoryFactory)).ToList());
-            MaterialsSource = new Lazy<List<MaterialViewModel>>(() => RepositoryFactory.GetMaterialRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new MaterialViewModel(o, RepositoryFactory)).ToList());
-            DetailsSource = new Lazy<List<DetailViewModel>>(() => RepositoryFactory.GetDetailRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new DetailViewModel(o, RepositoryFactory)).ToList());
+            DrawingsSource = new Lazy<List<DrawingViewModel>>(() => RepositoryFactory.GetDrawingRepository().GetAllActive().OrderBy(o => o.Id).Select(o => new DrawingViewModel(o, RepositoryFactory)).ToList());
+            //GroupsSource = new Lazy<List<GroupViewModel>>(() => RepositoryFactory.GetGroupRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new GroupViewModel(o, RepositoryFactory)).ToList());
+            //MaterialsSource = new Lazy<List<MaterialViewModel>>(() => RepositoryFactory.GetMaterialRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new MaterialViewModel(o, RepositoryFactory)).ToList());
+            //DetailsSource = new Lazy<List<DetailViewModel>>(() => RepositoryFactory.GetDetailRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new DetailViewModel(o, RepositoryFactory)).ToList());
         }
 
         protected override void DoSave()

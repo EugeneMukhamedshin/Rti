@@ -993,8 +993,6 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Map(o => o.SortOrder, "sort_order");
 
-			Map(o => o.EquipmentExistance, "equipment_existance");
-
 			Map(o => o.AdditionalInfo, "additional_info");
 
 			Map(o => o.EquipmentLeadTime, "equipment_lead_time");

@@ -3,11 +3,10 @@
              xmlns:editors1="clr-namespace:Rti.App.View.Editors"
              xmlns:lists="clr-namespace:Rti.App.View.Lists"
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:converters="clr-namespace:Rti.App.View.Converters"
              Startup="OnAppStartup_UpdateThemeName">
     <Application.Resources>
-        <dxe:TextEditSettings x:Key="Float2TextEditSettings" Mask="f2" MaskType="Numeric" MaskCulture="ru-RU" DisplayFormat="f2"/>
-        <dxe:TextEditSettings x:Key="Float3TextEditSettings" Mask="f3" MaskType="Numeric" MaskCulture="ru-RU" DisplayFormat="f3"/>
-
+        <converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
 
         <Image x:Key="AddFolderImage" Source="Images/folder_add.png" />
         <Image x:Key="AddFolderImage1" Source="Images/folder_add.png" />

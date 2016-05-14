@@ -2551,7 +2551,6 @@ namespace Rti.ViewModel.Entities
 
 		private Int32 _id;
 		private Int32 _sortOrder;
-		private Int32? _equipmentExistance;
 		private String _additionalInfo;
 		private Int32? _equipmentLeadTime;
 		private Decimal _count;
@@ -2568,7 +2567,6 @@ namespace Rti.ViewModel.Entities
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
-		public Int32? EquipmentExistance { get { return _equipmentExistance; } set { if (Equals(_equipmentExistance, value)) return; _equipmentExistance = value; OnPropertyChanged("EquipmentExistance"); } }
 		public String AdditionalInfo { get { return _additionalInfo; } set { if (Equals(_additionalInfo, value)) return; _additionalInfo = value; OnPropertyChanged("AdditionalInfo"); } }
 		public Int32? EquipmentLeadTime { get { return _equipmentLeadTime; } set { if (Equals(_equipmentLeadTime, value)) return; _equipmentLeadTime = value; OnPropertyChanged("EquipmentLeadTime"); } }
 		public Decimal Count { get { return _count; } set { if (Equals(_count, value)) return; _count = value; OnPropertyChanged("Count"); } }
@@ -2586,7 +2584,6 @@ namespace Rti.ViewModel.Entities
 		protected override void MapPropertiesToEntity()
 		{
 			Entity.SortOrder = SortOrder; 
-			Entity.EquipmentExistance = EquipmentExistance; 
 			Entity.AdditionalInfo = AdditionalInfo; 
 			Entity.EquipmentLeadTime = EquipmentLeadTime; 
 			Entity.Count = Count; 
@@ -2608,7 +2605,6 @@ namespace Rti.ViewModel.Entities
 			IsMapping = true;
 			Id = Entity.Id; 
 			SortOrder = Entity.SortOrder; 
-			EquipmentExistance = Entity.EquipmentExistance; 
 			AdditionalInfo = Entity.AdditionalInfo; 
 			EquipmentLeadTime = Entity.EquipmentLeadTime; 
 			Count = Entity.Count; 
@@ -2629,7 +2625,6 @@ namespace Rti.ViewModel.Entities
 		{
 			IsMapping = true;
 			SortOrder = source.SortOrder;
-			EquipmentExistance = source.EquipmentExistance;
 			AdditionalInfo = source.AdditionalInfo;
 			EquipmentLeadTime = source.EquipmentLeadTime;
 			Count = source.Count;

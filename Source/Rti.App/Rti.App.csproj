@@ -161,6 +161,8 @@
     <Compile Include="View\Components\Float3TextEditSettings.cs" />
     <Compile Include="View\Components\ImageContentExtension.cs" />
     <Compile Include="View\Components\PropertyGridResponsible.cs" />
+    <Compile Include="View\Components\TextEditSettingsExtension.cs" />
+    <Compile Include="View\Converters\ExistanceToStringConverter.cs" />
     <Compile Include="View\Editors\AdditionalInfoEditWindow.xaml.cs">
       <DependentUpon>AdditionalInfoEditWindow.xaml</DependentUpon>
     </Compile>

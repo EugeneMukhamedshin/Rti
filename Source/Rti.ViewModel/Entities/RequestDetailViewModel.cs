@@ -6,17 +6,20 @@ namespace Rti.ViewModel.Entities
 {
     partial class RequestDetailViewModel
     {
-        public Existance? EquipmentExistanceEnum
-        {
-            get { return EquipmentExistance.HasValue ? (Existance)EquipmentExistance.Value : (Existance?)null; }
-            set { EquipmentExistance = value.HasValue ? (int)value.Value : (int?)null; }
-        }
-
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
-            if (propertyName == "Count" || propertyName == "Price")
+            if (IsMapping)
+                return;
+            if (propertyName.In("Count", "Price"))
                 Sum = Count * Price;
+            if (propertyName == "Drawing")
+            {
+                Group = Drawing == null ? null : Drawing.Group;
+                Detail = Drawing == null ? null : Drawing.Detail;
+                Material = Drawing == null ? null : Drawing.MaterialByPassport;
+                CalculationPrice = Drawing == null || Drawing.PlanCalculation == null ? null : Drawing.PlanCalculation.Summary;
+            }
         }
     }
 }

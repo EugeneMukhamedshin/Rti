@@ -6,7 +6,7 @@ using DevExpress.Xpf.Editors.Settings;
 
 namespace Rti.App.View.Components
 {
-    public class Float3TextEditSettings : MarkupExtension
+    public class Float3TextEditSettingsExtension : MarkupExtension
     {
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
