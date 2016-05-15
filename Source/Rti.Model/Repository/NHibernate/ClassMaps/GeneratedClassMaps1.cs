@@ -619,33 +619,6 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 	}
 
 
-	// The classmap for invoices
-	public partial class InvoiceMap : BaseMap<Rti.Model.Domain.Invoice>
-	{
-		public InvoiceMap()
-		{
-			Initialize();
-		}
-
-		private void Initialize()
-		{
-			Table("invoices");
-
-			Id(o => o.Id, "id");
-
-			Map(o => o.IsDeleted, "is_deleted");
-
-			Map(o => o.InvoiceNumber, "invoice_number");
-
-			Map(o => o.InvoiceDate, "invoice_date");
-
-			References(o => o.Request, "request_id").Fetch.Join().Not.LazyLoad();
-
-			OnInitialized();
-		}
-	}
-
-
 	// The classmap for jobs
 	public partial class JobMap : BaseMap<Rti.Model.Domain.Job>
 	{
@@ -966,11 +939,15 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Map(o => o.ShipDate, "ship_date");
 
+			Map(o => o.InvoiceDate, "invoice_date");
+
 			Map(o => o.LeadTime, "lead_time");
 
 			Map(o => o.IsDeleted, "is_deleted");
 
 			References(o => o.Customer, "customer_id").Fetch.Join().Not.LazyLoad();
+
+			References(o => o.Manufacturer, "manufacturer_id").Fetch.Join().Not.LazyLoad();
 
 			OnInitialized();
 		}
@@ -1126,7 +1103,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Map(o => o.Note, "note");
 
-			References(o => o.Invoice, "invoice_id").Fetch.Join().Not.LazyLoad();
+			References(o => o.Request, "request_id").Fetch.Join().Not.LazyLoad();
 
 			References(o => o.Equipment, "equipment_id").Fetch.Join().Not.LazyLoad();
 

@@ -7,6 +7,8 @@ namespace Rti.Model.Domain
         [Display(Name = "Заказчик")]
         Customer = 0,
         [Display(Name = "Поставщик")]
-        Supplier = 1
+        Supplier = 1,
+        [Display(Name = "Изготовитель")]
+        Manufacturer = 2
     }
 }

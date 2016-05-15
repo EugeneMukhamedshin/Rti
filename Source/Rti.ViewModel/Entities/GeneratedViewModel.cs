@@ -11,6 +11,7 @@
 
 
 using System;
+using System.Xml.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 
@@ -75,6 +76,20 @@ namespace Rti.ViewModel.Entities
 			var copy = new AdditionalInfoViewModel(null, RepositoryFactory);
 			copy.CopyFrom(this);
 			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (Name != null)
+				element.Add(new XAttribute("Name", Name));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+
+			return element;
 		}
 
         public override int GetHashCode() { return _id; }
@@ -249,6 +264,62 @@ namespace Rti.ViewModel.Entities
 			return copy;
 		}
 
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			if (MainMaterial != null)
+				element.Add(new XAttribute("MainMaterial", MainMaterial));
+			if (Rubber != null)
+				element.Add(new XAttribute("Rubber", Rubber));
+			if (Clue != null)
+				element.Add(new XAttribute("Clue", Clue));
+			if (Armature != null)
+				element.Add(new XAttribute("Armature", Armature));
+			if (Sand != null)
+				element.Add(new XAttribute("Sand", Sand));
+			if (Textile != null)
+				element.Add(new XAttribute("Textile", Textile));
+			if (OtherMaterial != null)
+				element.Add(new XAttribute("OtherMaterial", OtherMaterial));
+			if (Transport != null)
+				element.Add(new XAttribute("Transport", Transport));
+			if (MainSalary != null)
+				element.Add(new XAttribute("MainSalary", MainSalary));
+			if (AdditionalSalary != null)
+				element.Add(new XAttribute("AdditionalSalary", AdditionalSalary));
+			if (FixedTax != null)
+				element.Add(new XAttribute("FixedTax", FixedTax));
+			if (TotalDivision != null)
+				element.Add(new XAttribute("TotalDivision", TotalDivision));
+			if (TotalManufacture != null)
+				element.Add(new XAttribute("TotalManufacture", TotalManufacture));
+			if (MainSummary != null)
+				element.Add(new XAttribute("MainSummary", MainSummary));
+			if (PowerForFormed != null)
+				element.Add(new XAttribute("PowerForFormed", PowerForFormed));
+			if (OtherPower != null)
+				element.Add(new XAttribute("OtherPower", OtherPower));
+			if (MainAndPowerSummary != null)
+				element.Add(new XAttribute("MainAndPowerSummary", MainAndPowerSummary));
+			if (Unforseen != null)
+				element.Add(new XAttribute("Unforseen", Unforseen));
+			if (NetCost != null)
+				element.Add(new XAttribute("NetCost", NetCost));
+			if (Profitability != null)
+				element.Add(new XAttribute("Profitability", Profitability));
+			if (Price != null)
+				element.Add(new XAttribute("Price", Price));
+			if (NdsTax != null)
+				element.Add(new XAttribute("NdsTax", NdsTax));
+			if (Summary != null)
+				element.Add(new XAttribute("Summary", Summary));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+
+			return element;
+		}
+
         public override int GetHashCode() { return _id; }
         protected bool Equals(CalculationViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
         public override bool Equals(object obj)
@@ -359,6 +430,26 @@ namespace Rti.ViewModel.Entities
 			var copy = new ConstantViewModel(null, RepositoryFactory);
 			copy.CopyFrom(this);
 			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("KTr", KTr));
+			element.Add(new XAttribute("KEsn", KEsn));
+			element.Add(new XAttribute("KObCeh", KObCeh));
+			element.Add(new XAttribute("KObPr", KObPr));
+			element.Add(new XAttribute("KEl", KEl));
+			element.Add(new XAttribute("KNep", KNep));
+			element.Add(new XAttribute("KRen", KRen));
+			element.Add(new XAttribute("Nds", Nds));
+			element.Add(new XAttribute("KSt", KSt));
+			element.Add(new XAttribute("DateFrom", DateFrom));
+			element.Add(new XAttribute("DateTo", DateTo));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+
+			return element;
 		}
 
         public override int GetHashCode() { return _id; }
@@ -518,6 +609,53 @@ namespace Rti.ViewModel.Entities
 			return copy;
 		}
 
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (Name != null)
+				element.Add(new XAttribute("Name", Name));
+			element.Add(new XAttribute("ContragentTypeEnum", ContragentTypeEnum));
+			if (Address != null)
+				element.Add(new XAttribute("Address", Address));
+			if (Director != null)
+				element.Add(new XAttribute("Director", Director));
+			if (Trustee != null)
+				element.Add(new XAttribute("Trustee", Trustee));
+			if (Phone != null)
+				element.Add(new XAttribute("Phone", Phone));
+			if (Grounding != null)
+				element.Add(new XAttribute("Grounding", Grounding));
+			if (Inn != null)
+				element.Add(new XAttribute("Inn", Inn));
+			if (Kpp != null)
+				element.Add(new XAttribute("Kpp", Kpp));
+			if (Account != null)
+				element.Add(new XAttribute("Account", Account));
+			if (CorrAccount != null)
+				element.Add(new XAttribute("CorrAccount", CorrAccount));
+			if (Okved != null)
+				element.Add(new XAttribute("Okved", Okved));
+			if (Okato != null)
+				element.Add(new XAttribute("Okato", Okato));
+			if (Okpo != null)
+				element.Add(new XAttribute("Okpo", Okpo));
+			if (Ogrn != null)
+				element.Add(new XAttribute("Ogrn", Ogrn));
+			if (Bik != null)
+				element.Add(new XAttribute("Bik", Bik));
+			if (Bank != null)
+				element.Add(new XAttribute("Bank", Bank));
+			if (Email != null)
+				element.Add(new XAttribute("Email", Email));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+
+			return element;
+		}
+
         public override int GetHashCode() { return _id; }
         protected bool Equals(ContragentViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
         public override bool Equals(object obj)
@@ -583,6 +721,17 @@ namespace Rti.ViewModel.Entities
 			var copy = new DailyWorkPackageViewModel(null, RepositoryFactory);
 			copy.CopyFrom(this);
 			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			element.Add(new XAttribute("Date", Date));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+
+			return element;
 		}
 
         public override int GetHashCode() { return _id; }
@@ -672,6 +821,27 @@ namespace Rti.ViewModel.Entities
 			return copy;
 		}
 
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (TaskCount != null)
+				element.Add(new XAttribute("TaskCount", TaskCount));
+			if (DoneCount != null)
+				element.Add(new XAttribute("DoneCount", DoneCount));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+			if (DailyWorkPackage != null)
+				element.Add(DailyWorkPackage.GetXElement("DailyWorkPackage"));
+			if (Drawing != null)
+				element.Add(Drawing.GetXElement("Drawing"));
+			if (Employee != null)
+				element.Add(Employee.GetXElement("Employee"));
+
+			return element;
+		}
+
         public override int GetHashCode() { return _id; }
         protected bool Equals(DailyWorkPackageDetailViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
         public override bool Equals(object obj)
@@ -742,6 +912,20 @@ namespace Rti.ViewModel.Entities
 			var copy = new DetailViewModel(null, RepositoryFactory);
 			copy.CopyFrom(this);
 			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (Name != null)
+				element.Add(new XAttribute("Name", Name));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+
+			return element;
 		}
 
         public override int GetHashCode() { return _id; }
@@ -941,6 +1125,70 @@ namespace Rti.ViewModel.Entities
 			return copy;
 		}
 
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			if (CreationDate != null)
+				element.Add(new XAttribute("CreationDate", CreationDate));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (Name != null)
+				element.Add(new XAttribute("Name", Name));
+			if (AdditionalInfo != null)
+				element.Add(new XAttribute("AdditionalInfo", AdditionalInfo));
+			if (Code != null)
+				element.Add(new XAttribute("Code", Code));
+			if (ShruffPercent != null)
+				element.Add(new XAttribute("ShruffPercent", ShruffPercent));
+			if (MassWithShruff != null)
+				element.Add(new XAttribute("MassWithShruff", MassWithShruff));
+			if (Price != null)
+				element.Add(new XAttribute("Price", Price));
+			if (ShavingPrice != null)
+				element.Add(new XAttribute("ShavingPrice", ShavingPrice));
+			if (CalculationPriceManual != null)
+				element.Add(new XAttribute("CalculationPriceManual", CalculationPriceManual));
+			if (Width != null)
+				element.Add(new XAttribute("Width", Width));
+			if (Length != null)
+				element.Add(new XAttribute("Length", Length));
+			if (Thickness != null)
+				element.Add(new XAttribute("Thickness", Thickness));
+			if (InnerDiameter != null)
+				element.Add(new XAttribute("InnerDiameter", InnerDiameter));
+			if (OuterDiameter != null)
+				element.Add(new XAttribute("OuterDiameter", OuterDiameter));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+			if (Group != null)
+				element.Add(Group.GetXElement("Group"));
+			if (Detail != null)
+				element.Add(Detail.GetXElement("Detail"));
+			if (MaterialByPassport != null)
+				element.Add(MaterialByPassport.GetXElement("MaterialByPassport"));
+			if (Material != null)
+				element.Add(Material.GetXElement("Material"));
+			if (MeasureUnit != null)
+				element.Add(MeasureUnit.GetXElement("MeasureUnit"));
+			if (MassCalculation != null)
+				element.Add(MassCalculation.GetXElement("MassCalculation"));
+			if (PlanCalculation != null)
+				element.Add(PlanCalculation.GetXElement("PlanCalculation"));
+			if (FactCalculation != null)
+				element.Add(FactCalculation.GetXElement("FactCalculation"));
+			if (Equipment != null)
+				element.Add(Equipment.GetXElement("Equipment"));
+			if (Method != null)
+				element.Add(Method.GetXElement("Method"));
+			if (DrawingImage != null)
+				element.Add(DrawingImage.GetXElement("DrawingImage"));
+			if (Flowsheet != null)
+				element.Add(Flowsheet.GetXElement("Flowsheet"));
+
+			return element;
+		}
+
         public override int GetHashCode() { return _id; }
         protected bool Equals(DrawingViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
         public override bool Equals(object obj)
@@ -1023,6 +1271,24 @@ namespace Rti.ViewModel.Entities
 			return copy;
 		}
 
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (CarModel != null)
+				element.Add(new XAttribute("CarModel", CarModel));
+			if (Number != null)
+				element.Add(new XAttribute("Number", Number));
+			if (Name != null)
+				element.Add(new XAttribute("Name", Name));
+			if (Document != null)
+				element.Add(new XAttribute("Document", Document));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+
+			return element;
+		}
+
         public override int GetHashCode() { return _id; }
         protected bool Equals(DriverViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
         public override bool Equals(object obj)
@@ -1103,6 +1369,24 @@ namespace Rti.ViewModel.Entities
 			var copy = new EmployeeViewModel(null, RepositoryFactory);
 			copy.CopyFrom(this);
 			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (Code != null)
+				element.Add(new XAttribute("Code", Code));
+			if (FullName != null)
+				element.Add(new XAttribute("FullName", FullName));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+			if (Job != null)
+				element.Add(Job.GetXElement("Job"));
+
+			return element;
 		}
 
         public override int GetHashCode() { return _id; }
@@ -1207,6 +1491,26 @@ namespace Rti.ViewModel.Entities
 			return copy;
 		}
 
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (Name != null)
+				element.Add(new XAttribute("Name", Name));
+			element.Add(new XAttribute("ExistanceEnum", ExistanceEnum));
+			element.Add(new XAttribute("Square", Square));
+			element.Add(new XAttribute("Height", Height));
+			element.Add(new XAttribute("FormCount", FormCount));
+			element.Add(new XAttribute("SlotCount", SlotCount));
+			element.Add(new XAttribute("Output", Output));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+
+			return element;
+		}
+
         public override int GetHashCode() { return _id; }
         protected bool Equals(EquipmentViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
         public override bool Equals(object obj)
@@ -1284,6 +1588,23 @@ namespace Rti.ViewModel.Entities
 			return copy;
 		}
 
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("DrawingId", DrawingId));
+			if (FactMass != null)
+				element.Add(new XAttribute("FactMass", FactMass));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+			if (Customer != null)
+				element.Add(Customer.GetXElement("Customer"));
+			if (SecondaryCustomer != null)
+				element.Add(SecondaryCustomer.GetXElement("SecondaryCustomer"));
+
+			return element;
+		}
+
         public override int GetHashCode() { return _id; }
         protected bool Equals(FlowsheetViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
         public override bool Equals(object obj)
@@ -1359,6 +1680,23 @@ namespace Rti.ViewModel.Entities
 			var copy = new FlowsheetMachineViewModel(null, RepositoryFactory);
 			copy.CopyFrom(this);
 			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (PlateTemperature != null)
+				element.Add(new XAttribute("PlateTemperature", PlateTemperature));
+			if (CureTime != null)
+				element.Add(new XAttribute("CureTime", CureTime));
+			if (Flowsheet != null)
+				element.Add(Flowsheet.GetXElement("Flowsheet"));
+			if (Machine != null)
+				element.Add(Machine.GetXElement("Machine"));
+
+			return element;
 		}
 
         public override int GetHashCode() { return _id; }
@@ -1458,6 +1796,31 @@ namespace Rti.ViewModel.Entities
 			return copy;
 		}
 
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			if (SortOrder != null)
+				element.Add(new XAttribute("SortOrder", SortOrder));
+			if (Name != null)
+				element.Add(new XAttribute("Name", Name));
+			if (Operation != null)
+				element.Add(new XAttribute("Operation", Operation));
+			if (Executor != null)
+				element.Add(new XAttribute("Executor", Executor));
+			if (VarName != null)
+				element.Add(new XAttribute("VarName", VarName));
+			element.Add(new XAttribute("NormTime", NormTime));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+			if (Flowsheet != null)
+				element.Add(Flowsheet.GetXElement("Flowsheet"));
+			if (Process != null)
+				element.Add(Process.GetXElement("Process"));
+
+			return element;
+		}
+
         public override int GetHashCode() { return _id; }
         protected bool Equals(FlowsheetProcessViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
         public override bool Equals(object obj)
@@ -1530,6 +1893,20 @@ namespace Rti.ViewModel.Entities
 			return copy;
 		}
 
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (Name != null)
+				element.Add(new XAttribute("Name", Name));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+
+			return element;
+		}
+
         public override int GetHashCode() { return _id; }
         protected bool Equals(GroupViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
         public override bool Equals(object obj)
@@ -1587,6 +1964,16 @@ namespace Rti.ViewModel.Entities
 			return copy;
 		}
 
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			if (Data != null)
+				element.Add(new XAttribute("Data", Data));
+
+			return element;
+		}
+
         public override int GetHashCode() { return _id; }
         protected bool Equals(ImageViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
         public override bool Equals(object obj)
@@ -1595,78 +1982,6 @@ namespace Rti.ViewModel.Entities
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((ImageViewModel) obj);
-        }
-	}
-
-
-	// The viewmodel for Invoice
-	public partial class InvoiceViewModel : EntityViewModel<Rti.Model.Domain.Invoice, InvoiceViewModel>
-	{
-		// Конструктор для маппинга
-		public InvoiceViewModel() { }
-
-        public InvoiceViewModel(Rti.Model.Domain.Invoice entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		protected bool IsMapping = false;
-
-		private Int32 _id;
-		private Boolean _isDeleted;
-		private String _invoiceNumber;
-		private DateTime _invoiceDate;
-		private RequestViewModel _request;
-
-		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
-		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
-		public String InvoiceNumber { get { return _invoiceNumber; } set { if (Equals(_invoiceNumber, value)) return; _invoiceNumber = value; OnPropertyChanged("InvoiceNumber"); } }
-		public DateTime InvoiceDate { get { return _invoiceDate; } set { if (Equals(_invoiceDate, value)) return; _invoiceDate = value; OnPropertyChanged("InvoiceDate"); } }
-		public RequestViewModel Request { get { return _request; } set { _request = value; OnPropertyChanged("Request"); } }
-
-		protected override void MapPropertiesToEntity()
-		{
-			Entity.IsDeleted = IsDeleted; 
-			Entity.InvoiceNumber = InvoiceNumber; 
-			Entity.InvoiceDate = InvoiceDate; 
-			Entity.Request = Request == null ? null : Request.Entity; 
-
-		}
-
-		protected override void MapPropertiesFromEntity()
-		{
-			IsMapping = true;
-			Id = Entity.Id; 
-			IsDeleted = Entity.IsDeleted; 
-			InvoiceNumber = Entity.InvoiceNumber; 
-			InvoiceDate = Entity.InvoiceDate; 
-			Request = Entity.Request == null ? null : new RequestViewModel(Entity.Request, RepositoryFactory); 
-			IsMapping = false;
-		}
-
-		public override void CopyFrom(InvoiceViewModel source)
-		{
-			IsMapping = true;
-			IsDeleted = source.IsDeleted;
-			InvoiceNumber = source.InvoiceNumber;
-			InvoiceDate = source.InvoiceDate;
-			Request = source.Request;
-			CustomCopyFrom(source);
-			IsMapping = false;
-		}
-
-		public override InvoiceViewModel Clone()
-		{
-			var copy = new InvoiceViewModel(null, RepositoryFactory);
-			copy.CopyFrom(this);
-			return copy;
-		}
-
-        public override int GetHashCode() { return _id; }
-        protected bool Equals(InvoiceViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((InvoiceViewModel) obj);
         }
 	}
 
@@ -1734,6 +2049,22 @@ namespace Rti.ViewModel.Entities
 			var copy = new JobViewModel(null, RepositoryFactory);
 			copy.CopyFrom(this);
 			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (Name != null)
+				element.Add(new XAttribute("Name", Name));
+			if (Login != null)
+				element.Add(new XAttribute("Login", Login));
+			if (Password != null)
+				element.Add(new XAttribute("Password", Password));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+
+			return element;
 		}
 
         public override int GetHashCode() { return _id; }
@@ -1846,6 +2177,36 @@ namespace Rti.ViewModel.Entities
 			var copy = new MachineViewModel(null, RepositoryFactory);
 			copy.CopyFrom(this);
 			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (Name != null)
+				element.Add(new XAttribute("Name", Name));
+			if (PlateSize != null)
+				element.Add(new XAttribute("PlateSize", PlateSize));
+			if (InvNumber != null)
+				element.Add(new XAttribute("InvNumber", InvNumber));
+			if (PlateCount != null)
+				element.Add(new XAttribute("PlateCount", PlateCount));
+			if (PlatePower != null)
+				element.Add(new XAttribute("PlatePower", PlatePower));
+			if (EnginePower != null)
+				element.Add(new XAttribute("EnginePower", EnginePower));
+			if (TotalPower != null)
+				element.Add(new XAttribute("TotalPower", TotalPower));
+			if (PowerPrice != null)
+				element.Add(new XAttribute("PowerPrice", PowerPrice));
+			if (TimePrice != null)
+				element.Add(new XAttribute("TimePrice", TimePrice));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+
+			return element;
 		}
 
         public override int GetHashCode() { return _id; }
@@ -2005,6 +2366,55 @@ namespace Rti.ViewModel.Entities
 			return copy;
 		}
 
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("DetailTypeEnum", DetailTypeEnum));
+			if (MaterialDensity != null)
+				element.Add(new XAttribute("MaterialDensity", MaterialDensity));
+			if (RndDShn != null)
+				element.Add(new XAttribute("RndDShn", RndDShn));
+			if (RndS1 != null)
+				element.Add(new XAttribute("RndS1", RndS1));
+			if (RndS2 != null)
+				element.Add(new XAttribute("RndS2", RndS2));
+			if (RndDNar != null)
+				element.Add(new XAttribute("RndDNar", RndDNar));
+			if (RndDVn != null)
+				element.Add(new XAttribute("RndDVn", RndDVn));
+			if (RndDSr != null)
+				element.Add(new XAttribute("RndDSr", RndDSr));
+			if (RndMRas != null)
+				element.Add(new XAttribute("RndMRas", RndMRas));
+			if (SqS != null)
+				element.Add(new XAttribute("SqS", SqS));
+			if (SqL != null)
+				element.Add(new XAttribute("SqL", SqL));
+			if (SqB != null)
+				element.Add(new XAttribute("SqB", SqB));
+			if (SqL1 != null)
+				element.Add(new XAttribute("SqL1", SqL1));
+			if (SqB1 != null)
+				element.Add(new XAttribute("SqB1", SqB1));
+			if (SqDVn != null)
+				element.Add(new XAttribute("SqDVn", SqDVn));
+			if (VlS != null)
+				element.Add(new XAttribute("VlS", VlS));
+			if (VlL != null)
+				element.Add(new XAttribute("VlL", VlL));
+			if (VlB != null)
+				element.Add(new XAttribute("VlB", VlB));
+			if (VlL1 != null)
+				element.Add(new XAttribute("VlL1", VlL1));
+			if (VlB1 != null)
+				element.Add(new XAttribute("VlB1", VlB1));
+			if (MassFormula != null)
+				element.Add(new XAttribute("MassFormula", MassFormula));
+
+			return element;
+		}
+
         public override int GetHashCode() { return _id; }
         protected bool Equals(MassCalculationViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
         public override bool Equals(object obj)
@@ -2105,6 +2515,32 @@ namespace Rti.ViewModel.Entities
 			var copy = new MaterialViewModel(null, RepositoryFactory);
 			copy.CopyFrom(this);
 			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (Name != null)
+				element.Add(new XAttribute("Name", Name));
+			if (TechConditions != null)
+				element.Add(new XAttribute("TechConditions", TechConditions));
+			if (Density != null)
+				element.Add(new XAttribute("Density", Density));
+			if (Thickness != null)
+				element.Add(new XAttribute("Thickness", Thickness));
+			if (Length != null)
+				element.Add(new XAttribute("Length", Length));
+			if (Width != null)
+				element.Add(new XAttribute("Width", Width));
+			if (Price != null)
+				element.Add(new XAttribute("Price", Price));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+
+			return element;
 		}
 
         public override int GetHashCode() { return _id; }
@@ -2219,6 +2655,32 @@ namespace Rti.ViewModel.Entities
 			return copy;
 		}
 
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (InvoiceNumber != null)
+				element.Add(new XAttribute("InvoiceNumber", InvoiceNumber));
+			element.Add(new XAttribute("InvoiceSum", InvoiceSum));
+			element.Add(new XAttribute("WaybillDate", WaybillDate));
+			if (WaybillNumber != null)
+				element.Add(new XAttribute("WaybillNumber", WaybillNumber));
+			element.Add(new XAttribute("Price", Price));
+			element.Add(new XAttribute("Count", Count));
+			if (ForwardedTo != null)
+				element.Add(new XAttribute("ForwardedTo", ForwardedTo));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+			if (Supplier != null)
+				element.Add(Supplier.GetXElement("Supplier"));
+			if (Material != null)
+				element.Add(Material.GetXElement("Material"));
+			if (MeasureUnit != null)
+				element.Add(MeasureUnit.GetXElement("MeasureUnit"));
+
+			return element;
+		}
+
         public override int GetHashCode() { return _id; }
         protected bool Equals(MaterialArrivalRecordViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
         public override bool Equals(object obj)
@@ -2291,6 +2753,20 @@ namespace Rti.ViewModel.Entities
 			return copy;
 		}
 
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (Name != null)
+				element.Add(new XAttribute("Name", Name));
+			if (Code != null)
+				element.Add(new XAttribute("Code", Code));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+
+			return element;
+		}
+
         public override int GetHashCode() { return _id; }
         protected bool Equals(MeasureUnitViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
         public override bool Equals(object obj)
@@ -2361,6 +2837,20 @@ namespace Rti.ViewModel.Entities
 			var copy = new MethodViewModel(null, RepositoryFactory);
 			copy.CopyFrom(this);
 			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (Name != null)
+				element.Add(new XAttribute("Name", Name));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+
+			return element;
 		}
 
         public override int GetHashCode() { return _id; }
@@ -2445,6 +2935,25 @@ namespace Rti.ViewModel.Entities
 			return copy;
 		}
 
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("ProcessTypeEnum", ProcessTypeEnum));
+			if (Name != null)
+				element.Add(new XAttribute("Name", Name));
+			if (DefaultOperation != null)
+				element.Add(new XAttribute("DefaultOperation", DefaultOperation));
+			if (DefaultExecutor != null)
+				element.Add(new XAttribute("DefaultExecutor", DefaultExecutor));
+			if (VariableName != null)
+				element.Add(new XAttribute("VariableName", VariableName));
+			if (DefaultNormTime != null)
+				element.Add(new XAttribute("DefaultNormTime", DefaultNormTime));
+
+			return element;
+		}
+
         public override int GetHashCode() { return _id; }
         protected bool Equals(ProcessViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
         public override bool Equals(object obj)
@@ -2471,26 +2980,32 @@ namespace Rti.ViewModel.Entities
 		private Int32 _number;
 		private DateTime _regDate;
 		private DateTime? _shipDate;
+		private DateTime? _invoiceDate;
 		private Int32? _leadTime;
 		private Boolean _isDeleted;
 		private ContragentViewModel _customer;
+		private ContragentViewModel _manufacturer;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public Int32 Number { get { return _number; } set { if (Equals(_number, value)) return; _number = value; OnPropertyChanged("Number"); } }
 		public DateTime RegDate { get { return _regDate; } set { if (Equals(_regDate, value)) return; _regDate = value; OnPropertyChanged("RegDate"); } }
 		public DateTime? ShipDate { get { return _shipDate; } set { if (Equals(_shipDate, value)) return; _shipDate = value; OnPropertyChanged("ShipDate"); } }
+		public DateTime? InvoiceDate { get { return _invoiceDate; } set { if (Equals(_invoiceDate, value)) return; _invoiceDate = value; OnPropertyChanged("InvoiceDate"); } }
 		public Int32? LeadTime { get { return _leadTime; } set { if (Equals(_leadTime, value)) return; _leadTime = value; OnPropertyChanged("LeadTime"); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
 		public ContragentViewModel Customer { get { return _customer; } set { _customer = value; OnPropertyChanged("Customer"); } }
+		public ContragentViewModel Manufacturer { get { return _manufacturer; } set { _manufacturer = value; OnPropertyChanged("Manufacturer"); } }
 
 		protected override void MapPropertiesToEntity()
 		{
 			Entity.Number = Number; 
 			Entity.RegDate = RegDate; 
 			Entity.ShipDate = ShipDate; 
+			Entity.InvoiceDate = InvoiceDate; 
 			Entity.LeadTime = LeadTime; 
 			Entity.IsDeleted = IsDeleted; 
 			Entity.Customer = Customer == null ? null : Customer.Entity; 
+			Entity.Manufacturer = Manufacturer == null ? null : Manufacturer.Entity; 
 
 		}
 
@@ -2501,9 +3016,11 @@ namespace Rti.ViewModel.Entities
 			Number = Entity.Number; 
 			RegDate = Entity.RegDate; 
 			ShipDate = Entity.ShipDate; 
+			InvoiceDate = Entity.InvoiceDate; 
 			LeadTime = Entity.LeadTime; 
 			IsDeleted = Entity.IsDeleted; 
 			Customer = Entity.Customer == null ? null : new ContragentViewModel(Entity.Customer, RepositoryFactory); 
+			Manufacturer = Entity.Manufacturer == null ? null : new ContragentViewModel(Entity.Manufacturer, RepositoryFactory); 
 			IsMapping = false;
 		}
 
@@ -2513,9 +3030,11 @@ namespace Rti.ViewModel.Entities
 			Number = source.Number;
 			RegDate = source.RegDate;
 			ShipDate = source.ShipDate;
+			InvoiceDate = source.InvoiceDate;
 			LeadTime = source.LeadTime;
 			IsDeleted = source.IsDeleted;
 			Customer = source.Customer;
+			Manufacturer = source.Manufacturer;
 			CustomCopyFrom(source);
 			IsMapping = false;
 		}
@@ -2525,6 +3044,27 @@ namespace Rti.ViewModel.Entities
 			var copy = new RequestViewModel(null, RepositoryFactory);
 			copy.CopyFrom(this);
 			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("Number", Number));
+			element.Add(new XAttribute("RegDate", RegDate));
+			if (ShipDate != null)
+				element.Add(new XAttribute("ShipDate", ShipDate));
+			if (InvoiceDate != null)
+				element.Add(new XAttribute("InvoiceDate", InvoiceDate));
+			if (LeadTime != null)
+				element.Add(new XAttribute("LeadTime", LeadTime));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+			if (Customer != null)
+				element.Add(Customer.GetXElement("Customer"));
+			if (Manufacturer != null)
+				element.Add(Manufacturer.GetXElement("Manufacturer"));
+
+			return element;
 		}
 
         public override int GetHashCode() { return _id; }
@@ -2649,6 +3189,37 @@ namespace Rti.ViewModel.Entities
 			return copy;
 		}
 
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (AdditionalInfo != null)
+				element.Add(new XAttribute("AdditionalInfo", AdditionalInfo));
+			if (EquipmentLeadTime != null)
+				element.Add(new XAttribute("EquipmentLeadTime", EquipmentLeadTime));
+			element.Add(new XAttribute("Count", Count));
+			element.Add(new XAttribute("Price", Price));
+			if (CalculationPrice != null)
+				element.Add(new XAttribute("CalculationPrice", CalculationPrice));
+			element.Add(new XAttribute("Sum", Sum));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+			if (Request != null)
+				element.Add(Request.GetXElement("Request"));
+			if (Drawing != null)
+				element.Add(Drawing.GetXElement("Drawing"));
+			if (Group != null)
+				element.Add(Group.GetXElement("Group"));
+			if (Detail != null)
+				element.Add(Detail.GetXElement("Detail"));
+			if (Material != null)
+				element.Add(Material.GetXElement("Material"));
+
+			return element;
+		}
+
         public override int GetHashCode() { return _id; }
         protected bool Equals(RequestDetailViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
         public override bool Equals(object obj)
@@ -2739,6 +3310,26 @@ namespace Rti.ViewModel.Entities
 			var copy = new RollingRecordViewModel(null, RepositoryFactory);
 			copy.CopyFrom(this);
 			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			element.Add(new XAttribute("RollingDate", RollingDate));
+			element.Add(new XAttribute("Count", Count));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+			if (Customer != null)
+				element.Add(Customer.GetXElement("Customer"));
+			if (Drawing != null)
+				element.Add(Drawing.GetXElement("Drawing"));
+			if (Material != null)
+				element.Add(Material.GetXElement("Material"));
+
+			return element;
 		}
 
         public override int GetHashCode() { return _id; }
@@ -2833,6 +3424,25 @@ namespace Rti.ViewModel.Entities
 			return copy;
 		}
 
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			element.Add(new XAttribute("ShaveDate", ShaveDate));
+			element.Add(new XAttribute("InputCount", InputCount));
+			element.Add(new XAttribute("FlawCount", FlawCount));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+			if (ShaverEmployee != null)
+				element.Add(ShaverEmployee.GetXElement("ShaverEmployee"));
+			if (Drawing != null)
+				element.Add(Drawing.GetXElement("Drawing"));
+			if (MakerEmployee != null)
+				element.Add(MakerEmployee.GetXElement("MakerEmployee"));
+
+			return element;
+		}
+
         public override int GetHashCode() { return _id; }
         protected bool Equals(ShavingRecordViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
         public override bool Equals(object obj)
@@ -2865,7 +3475,7 @@ namespace Rti.ViewModel.Entities
 		private Decimal _sum;
 		private Decimal? _equipmentSum;
 		private String _note;
-		private InvoiceViewModel _invoice;
+		private RequestViewModel _request;
 		private EquipmentViewModel _equipment;
 		private EmployeeViewModel _employee;
 
@@ -2879,7 +3489,7 @@ namespace Rti.ViewModel.Entities
 		public Decimal Sum { get { return _sum; } set { if (Equals(_sum, value)) return; _sum = value; OnPropertyChanged("Sum"); } }
 		public Decimal? EquipmentSum { get { return _equipmentSum; } set { if (Equals(_equipmentSum, value)) return; _equipmentSum = value; OnPropertyChanged("EquipmentSum"); } }
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
-		public InvoiceViewModel Invoice { get { return _invoice; } set { _invoice = value; OnPropertyChanged("Invoice"); } }
+		public RequestViewModel Request { get { return _request; } set { _request = value; OnPropertyChanged("Request"); } }
 		public EquipmentViewModel Equipment { get { return _equipment; } set { _equipment = value; OnPropertyChanged("Equipment"); } }
 		public EmployeeViewModel Employee { get { return _employee; } set { _employee = value; OnPropertyChanged("Employee"); } }
 
@@ -2894,7 +3504,7 @@ namespace Rti.ViewModel.Entities
 			Entity.Sum = Sum; 
 			Entity.EquipmentSum = EquipmentSum; 
 			Entity.Note = Note; 
-			Entity.Invoice = Invoice == null ? null : Invoice.Entity; 
+			Entity.Request = Request == null ? null : Request.Entity; 
 			Entity.Equipment = Equipment == null ? null : Equipment.Entity; 
 			Entity.Employee = Employee == null ? null : Employee.Entity; 
 
@@ -2913,7 +3523,7 @@ namespace Rti.ViewModel.Entities
 			Sum = Entity.Sum; 
 			EquipmentSum = Entity.EquipmentSum; 
 			Note = Entity.Note; 
-			Invoice = Entity.Invoice == null ? null : new InvoiceViewModel(Entity.Invoice, RepositoryFactory); 
+			Request = Entity.Request == null ? null : new RequestViewModel(Entity.Request, RepositoryFactory); 
 			Equipment = Entity.Equipment == null ? null : new EquipmentViewModel(Entity.Equipment, RepositoryFactory); 
 			Employee = Entity.Employee == null ? null : new EmployeeViewModel(Entity.Employee, RepositoryFactory); 
 			IsMapping = false;
@@ -2931,7 +3541,7 @@ namespace Rti.ViewModel.Entities
 			Sum = source.Sum;
 			EquipmentSum = source.EquipmentSum;
 			Note = source.Note;
-			Invoice = source.Invoice;
+			Request = source.Request;
 			Equipment = source.Equipment;
 			Employee = source.Employee;
 			CustomCopyFrom(source);
@@ -2943,6 +3553,34 @@ namespace Rti.ViewModel.Entities
 			var copy = new ShippedProductRecordViewModel(null, RepositoryFactory);
 			copy.CopyFrom(this);
 			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (PayDocNumber != null)
+				element.Add(new XAttribute("PayDocNumber", PayDocNumber));
+			element.Add(new XAttribute("PayDocDate", PayDocDate));
+			if (AdvanceSum != null)
+				element.Add(new XAttribute("AdvanceSum", AdvanceSum));
+			element.Add(new XAttribute("ShipmentDate", ShipmentDate));
+			if (TaxInvoiceNumber != null)
+				element.Add(new XAttribute("TaxInvoiceNumber", TaxInvoiceNumber));
+			element.Add(new XAttribute("Sum", Sum));
+			if (EquipmentSum != null)
+				element.Add(new XAttribute("EquipmentSum", EquipmentSum));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+			if (Request != null)
+				element.Add(Request.GetXElement("Request"));
+			if (Equipment != null)
+				element.Add(Equipment.GetXElement("Equipment"));
+			if (Employee != null)
+				element.Add(Employee.GetXElement("Employee"));
+
+			return element;
 		}
 
         public override int GetHashCode() { return _id; }
@@ -3025,6 +3663,22 @@ namespace Rti.ViewModel.Entities
 			var copy = new ShippingOrderRecordViewModel(null, RepositoryFactory);
 			copy.CopyFrom(this);
 			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			element.Add(new XAttribute("OrderDate", OrderDate));
+			element.Add(new XAttribute("Count", Count));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+			if (Customer != null)
+				element.Add(Customer.GetXElement("Customer"));
+			if (Drawing != null)
+				element.Add(Drawing.GetXElement("Drawing"));
+
+			return element;
 		}
 
         public override int GetHashCode() { return _id; }

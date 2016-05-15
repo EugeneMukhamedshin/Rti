@@ -19,6 +19,7 @@ using Rti.ViewModel;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Lists;
+using Rti.ViewModel.Reporting.Generator;
 
 namespace Rti.App
 {
@@ -42,38 +43,6 @@ namespace Rti.App
                     new FrameworkPropertyMetadata(language));
                 base.OnStartup(e);
                 var repositoryFactory = new NHibernateRepositoryFactory();
-
-                var drawings = repositoryFactory.GetDrawingRepository().GetAll();
-
-                var tempFile = Guid.NewGuid().ToString("d");
-                using (var writer = XmlWriter.Create(tempFile))
-                {
-                    writer.WriteStartDocument();
-                    writer.WriteStartElement("root");
-                    writer.WriteStartElement("set");
-                    writer.WriteAttributeString("name", "Materials");
-                    foreach (var drawing in drawings)
-                    {
-                        writer.WriteStartElement("row");
-                        writer.WriteElementString("Id", drawing.Id.ToString());
-                        writer.WriteElementString("Name", drawing.Name);
-                        writer.WriteEndElement();
-                    }
-                    writer.WriteEndElement();
-                    writer.WriteEndElement();
-                }
-
-                var xslt =
-                    File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content", "materials.xslt"));
-
-                using (var reader = XmlReader.Create(tempFile))
-                {
-                    var result = new ReportGenerator().GetReport(reader, xslt);
-                    var resFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content", "materials.xls");
-                    File.WriteAllBytes(resFile, result.Content);
-                }
-
-
                 _viewService = new ViewService();
 
                 var isDebug = e.Args.Any(arg => arg.ToLower().Equals("debug=true"));
@@ -89,12 +58,7 @@ namespace Rti.App
                 }
                 else
                 {
-                    //var request = repositoryFactory.GetRequestRepository().GetById(41);
-                    //var editViewModel = new RequestEdit("Заявка", new RequestViewModel(request, repositoryFactory), false, _viewService, repositoryFactory);
-                    //editViewModel.Refresh();
-                    //_viewService.ShowView(editViewModel, false, true);
-                    //var viewModel = new MassCalculationEdit("", new MassCalculationViewModel(repositoryFactory.GetMassCalculationRepository().GetById(0), repositoryFactory), false, _viewService, repositoryFactory);
-                    var viewModel = new MainViewModel(_viewService, repositoryFactory);
+                    var viewModel = new RequestEdit("", new RequestViewModel(repositoryFactory.GetRequestRepository().GetById(41), repositoryFactory), false, _viewService, repositoryFactory);
                     viewModel.Refresh();
                     _viewService.ShowView(viewModel, false, true);
                 }

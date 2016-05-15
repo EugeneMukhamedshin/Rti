@@ -11,6 +11,7 @@
 <#@ import namespace="Rti.Model.Domain.Generator" #>
 <#@ output extension=".cs" #>
 using System;
+using System.Xml.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 
@@ -153,6 +154,39 @@ namespace Rti.ViewModel.Entities
 			var copy = new <#= viewModelTypeName #>(null, RepositoryFactory);
 			copy.CopyFrom(this);
 			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+<#
+                foreach (var prop in props)
+                {
+                    var fieldAttribute = prop.GetCustomAttributes(typeof (FieldAttribute), false).FirstOrDefault() as FieldAttribute;
+                    var refAttribute = prop.GetCustomAttributes(typeof (ReferenceAttribute), false).FirstOrDefault() as ReferenceAttribute;
+                    if (fieldAttribute != null)
+					{
+						if (prop.PropertyType.IsValueType && !prop.PropertyType.Name.StartsWith("Nullable"))
+						{
+#>			element.Add(new XAttribute("<#= prop.Name #>", <#= prop.Name #>));
+<#						
+						}
+						else
+						{
+#>			if (<#= prop.Name #> != null)
+				element.Add(new XAttribute("<#= prop.Name #>", <#= prop.Name #>));
+<#
+						}
+		            }
+                    if (refAttribute != null)
+					{
+#>			if (<#= prop.Name #> != null)
+				element.Add(<#= prop.Name #>.GetXElement("<#= prop.Name #>"));
+<#						
+		            }
+				}
+#>
+			return element;
 		}
 
         public override int GetHashCode() { return _id; }

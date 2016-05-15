@@ -30,7 +30,8 @@ namespace Rti.ViewModel
         public DelegateCommand OpenShippingOrderRecordsCommand { get; set; }
 
         public DelegateCommand OpenCustomersCommand { get; set; }
-        public DelegateCommand OpenVendorsCommand { get; set; }
+        public DelegateCommand OpenSuppliersCommand { get; set; }
+        public DelegateCommand OpenManufacturersCommand { get; set; }
         public DelegateCommand OpenDriversCommand { get; set; }
         public DelegateCommand OpenJobsCommand { get; set; }
         public DelegateCommand OpenEmployeesCommand { get; set; }
@@ -88,11 +89,15 @@ namespace Rti.ViewModel
                 "Справочники",
                 o => true,
                 o => OpenDictionary(new ContragentList(ContragentType.Customer, true, ViewService, RepositoryFactory)));
-            OpenVendorsCommand  = new DelegateCommand(
+            OpenSuppliersCommand = new DelegateCommand(
                 "Справочники",
                 o => true,
                 o => OpenDictionary(new ContragentList(ContragentType.Supplier, true, ViewService, RepositoryFactory)));
-            OpenDriversCommand  = new DelegateCommand(
+            OpenManufacturersCommand = new DelegateCommand(
+                "Справочники",
+                o => true,
+                o => OpenDictionary(new ContragentList(ContragentType.Manufacturer, true, ViewService, RepositoryFactory)));
+            OpenDriversCommand = new DelegateCommand(
                 "Справочники",
                 o => true,
                 o => OpenDictionary(new DriverList(true, ViewService, RepositoryFactory)));

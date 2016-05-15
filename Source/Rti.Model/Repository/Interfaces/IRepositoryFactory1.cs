@@ -23,7 +23,6 @@ namespace Rti.Model.Repository.Interfaces
 		IFlowsheetProcessRepository GetFlowsheetProcessRepository();
 		IGroupRepository GetGroupRepository();
 		IImageRepository GetImageRepository();
-		IInvoiceRepository GetInvoiceRepository();
 		IJobRepository GetJobRepository();
 		IMachineRepository GetMachineRepository();
 		IMassCalculationRepository GetMassCalculationRepository();
@@ -56,7 +55,6 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IFlowsheetProcessRepository : IRepository<Rti.Model.Domain.FlowsheetProcess> { }
 	public partial interface IGroupRepository : IRepository<Rti.Model.Domain.Group> { }
 	public partial interface IImageRepository : IRepository<Rti.Model.Domain.Image> { }
-	public partial interface IInvoiceRepository : IRepository<Rti.Model.Domain.Invoice> { }
 	public partial interface IJobRepository : IRepository<Rti.Model.Domain.Job> { }
 	public partial interface IMachineRepository : IRepository<Rti.Model.Domain.Machine> { }
 	public partial interface IMassCalculationRepository : IRepository<Rti.Model.Domain.MassCalculation> { }

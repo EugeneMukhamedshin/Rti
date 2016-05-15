@@ -76,6 +76,9 @@
     <Reference Include="DevExpress.Xpf.Themes.Seven.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
+    <Reference Include="ExcelViewer">
+      <HintPath>..\Lib\ExcelViewer.dll</HintPath>
+    </Reference>
     <Reference Include="GalaSoft.MvvmLight">
       <HintPath>..\packages\MvvmLightLibs.5.2.0.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
     </Reference>
@@ -156,7 +159,6 @@
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Reporting.cs" />
     <Compile Include="View\Components\Float2TextEditSettings.cs" />
     <Compile Include="View\Components\Float3TextEditSettings.cs" />
     <Compile Include="View\Components\ImageContentExtension.cs" />
@@ -588,7 +590,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Reports\invoice.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <None Include="Content\Images\add.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

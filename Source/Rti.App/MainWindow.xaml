@@ -49,7 +49,8 @@
                         <dxr:RibbonPage Caption="Справочники">
                             <dxr:RibbonPageGroup Caption="Справочники">
                                 <dxb:BarButtonItem Content="Заказчики" Command="{Binding OpenCustomersCommand}"/>
-                                <dxb:BarButtonItem Content="Поставщики" Command="{Binding OpenVendorsCommand}"/>
+                                <dxb:BarButtonItem Content="Поставщики" Command="{Binding OpenSuppliersCommand}"/>
+                                <dxb:BarButtonItem Content="Исполнители" Command="{Binding OpenManufacturersCommand}"/>
                                 <dxb:BarButtonItem Content="Водители" Command="{Binding OpenDriversCommand}"/>
                                 <dxb:BarButtonItem Content="Должности" Command="{Binding OpenJobsCommand}"/>
                                 <dxb:BarButtonItem Content="Сотрудники" Command="{Binding OpenEmployeesCommand}"/>
@@ -57,10 +58,10 @@
                                 <dxb:BarButtonItem Content="Группы" Command="{Binding OpenGroupsCommand}"/>
                                 <dxb:BarButtonItem Content="Оснастка" Command="{Binding OpenEquipmentsCommand}"/>
                                 <dxb:BarButtonItem Content="Детали" Command="{Binding OpenDetailsCommand}"/>
-                                <dxb:BarButtonItem Content="Способы изготовления" Command="{Binding OpenMethodsCommand}"/>
-                                <dxb:BarButtonItem Content="Единицы измерения" Command="{Binding OpenMeasureUnitsCommand}"/>
                                 <dxb:BarButtonItem Content="Оборудование" Command="{Binding OpenMachinesCommand}"/>
                                 <dxb:BarButtonItem Content="Константы" Command="{Binding OpenConstantsCommand}"/>
+                                <dxb:BarButtonItem Content="Способы изготовления" Command="{Binding OpenMethodsCommand}"/>
+                                <dxb:BarButtonItem Content="Единицы измерения" Command="{Binding OpenMeasureUnitsCommand}"/>
                             </dxr:RibbonPageGroup>
                         </dxr:RibbonPage>
                     </dxr:RibbonDefaultPageCategory>

@@ -155,7 +155,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReleasableObject.cs" />
     <Compile Include="ReleasableObjectContext.cs" />
-    <Compile Include="Reports\InvoiceReport.cs" />
+    <Compile Include="Reporting\Generator\ReportGenerator.cs" />
+    <Compile Include="Reporting\Generator\XslExtensions.cs" />
+    <Compile Include="Reporting\InvoiceReportGenerator.cs" />
     <Compile Include="StringExtension.cs" />
     <Compile Include="TreeViewModel\ITreeItemViewModel.cs" />
     <Compile Include="TreeViewModel\TreeItemViewModel.cs" />
@@ -174,10 +176,12 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GeneratedViewModel.cs</LastGenOutput>
     </None>
-    <None Include="Reports\Templates\Invoice.xls" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Reporting\Templates\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

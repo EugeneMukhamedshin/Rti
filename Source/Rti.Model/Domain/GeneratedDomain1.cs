@@ -432,22 +432,6 @@ namespace Rti.Model.Domain
 		public virtual byte[] Data { get; set; }
 	}
 
-	// The class for invoices
-	[Table("invoices")]
-	public partial class Invoice: IIdentifiedEntity
-	{
-		[Field("id")]
-		public virtual Int32 Id { get; protected set; }
-		[Field("is_deleted")]
-		public virtual Boolean IsDeleted { get; set; }
-		[Field("invoice_number")]
-		public virtual String InvoiceNumber { get; set; }
-		[Field("invoice_date")]
-		public virtual DateTime InvoiceDate { get; set; }
-		[Reference("request_id", false)]
-		public virtual Request Request { get; set; }
-	}
-
 	// The class for jobs
 	[Table("jobs")]
 	public partial class Job: IIdentifiedEntity
@@ -672,12 +656,16 @@ namespace Rti.Model.Domain
 		public virtual DateTime RegDate { get; set; }
 		[Field("ship_date")]
 		public virtual DateTime? ShipDate { get; set; }
+		[Field("invoice_date")]
+		public virtual DateTime? InvoiceDate { get; set; }
 		[Field("lead_time")]
 		public virtual Int32? LeadTime { get; set; }
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
 		[Reference("customer_id", false)]
 		public virtual Contragent Customer { get; set; }
+		[Reference("manufacturer_id", false)]
+		public virtual Contragent Manufacturer { get; set; }
 	}
 
 	// The class for request_details
@@ -788,8 +776,8 @@ namespace Rti.Model.Domain
 		public virtual decimal? EquipmentSum { get; set; }
 		[Field("note")]
 		public virtual String Note { get; set; }
-		[Reference("invoice_id", false)]
-		public virtual Invoice Invoice { get; set; }
+		[Reference("request_id", false)]
+		public virtual Request Request { get; set; }
 		[Reference("equipment_id", false)]
 		public virtual Equipment Equipment { get; set; }
 		[Reference("employee_id", false)]

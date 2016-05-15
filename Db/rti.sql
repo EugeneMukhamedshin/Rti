@@ -1,7 +1,7 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.0.49.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 14.05.2016 20:15:09
+-- Дата скрипта: 16.05.2016 0:08:32
 -- Версия сервера: 5.7.9-log
 -- Версия клиента: 4.1
 --
@@ -121,7 +121,7 @@ CREATE TABLE contragents (
   id INT(11) NOT NULL AUTO_INCREMENT,
   sort_order INT(11) NOT NULL,
   name VARCHAR(1000) NOT NULL,
-  contragent_type_enum INT(11) NOT NULL COMMENT 'тип контрагента (0 - заказчик, 1 - поставщик)',
+  contragent_type_enum INT(11) NOT NULL COMMENT 'тип контрагента (0 - заказчик, 1 - поставщик, 2 - изготовитель)',
   address VARCHAR(1000) DEFAULT NULL,
   director VARCHAR(1000) DEFAULT NULL,
   trustee VARCHAR(1000) DEFAULT NULL,
@@ -143,7 +143,7 @@ CREATE TABLE contragents (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 7
 AVG_ROW_LENGTH = 4096
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -536,15 +536,19 @@ CREATE TABLE requests (
   number INT(11) NOT NULL,
   reg_date DATETIME NOT NULL,
   ship_date DATETIME DEFAULT NULL,
+  invoice_date DATETIME DEFAULT NULL COMMENT 'Дата счета',
   lead_time INT(11) DEFAULT NULL,
   customer_id INT(11) DEFAULT NULL,
+  manufacturer_id INT(11) DEFAULT NULL COMMENT 'изготовитель',
   is_deleted INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (id),
-  CONSTRAINT FK_requests_contragents_id FOREIGN KEY (customer_id)
+  CONSTRAINT FK_requests_customer_id FOREIGN KEY (customer_id)
+    REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_requests_manufacturer_id FOREIGN KEY (manufacturer_id)
     REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 51
+AUTO_INCREMENT = 53
 AVG_ROW_LENGTH = 3276
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -673,24 +677,36 @@ COMMENT = 'технологические процессы'
 ROW_FORMAT = DYNAMIC;
 
 --
--- Описание для таблицы invoices
+-- Описание для таблицы shipped_product_records
 --
-DROP TABLE IF EXISTS invoices;
-CREATE TABLE invoices (
+DROP TABLE IF EXISTS shipped_product_records;
+CREATE TABLE shipped_product_records (
   id INT(11) NOT NULL AUTO_INCREMENT,
+  sort_order INT(11) NOT NULL,
   request_id INT(11) NOT NULL,
-  is_deleted INT(11) NOT NULL DEFAULT 0,
-  invoice_number VARCHAR(255) NOT NULL,
-  invoice_date DATETIME NOT NULL,
+  pay_doc_number VARCHAR(255) NOT NULL,
+  pay_doc_date DATETIME NOT NULL,
+  advance_sum DECIMAL(10, 2) DEFAULT NULL,
+  shipment_date DATETIME NOT NULL,
+  tax_invoice_number VARCHAR(255) DEFAULT NULL,
+  sum DECIMAL(10, 2) NOT NULL,
+  equipment_sum DECIMAL(10, 2) DEFAULT NULL,
+  equipment_id INT(11) NOT NULL,
+  employee_id INT(11) NOT NULL,
+  note VARCHAR(500) DEFAULT NULL,
   PRIMARY KEY (id),
-  CONSTRAINT FK_invoices_requests_id FOREIGN KEY (request_id)
+  CONSTRAINT FK_shipped_product_records_employees_id FOREIGN KEY (employee_id)
+    REFERENCES employees(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_shipped_product_records_equipments_id FOREIGN KEY (equipment_id)
+    REFERENCES equipments(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_shipped_product_records_request_id FOREIGN KEY (request_id)
     REFERENCES requests(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
 AUTO_INCREMENT = 1
 CHARACTER SET utf8
 COLLATE utf8_general_ci
-COMMENT = 'счета на оплату'
+COMMENT = 'Журнал учета оплаченной и отгруженной продукции'
 ROW_FORMAT = DYNAMIC;
 
 --
@@ -822,39 +838,6 @@ COMMENT = 'Журнал обрезки облоя'
 ROW_FORMAT = DYNAMIC;
 
 --
--- Описание для таблицы shipped_product_records
---
-DROP TABLE IF EXISTS shipped_product_records;
-CREATE TABLE shipped_product_records (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  sort_order INT(11) NOT NULL,
-  invoice_id INT(11) NOT NULL,
-  pay_doc_number VARCHAR(255) NOT NULL,
-  pay_doc_date DATETIME NOT NULL,
-  advance_sum DECIMAL(10, 2) DEFAULT NULL,
-  shipment_date DATETIME NOT NULL,
-  tax_invoice_number VARCHAR(255) DEFAULT NULL,
-  sum DECIMAL(10, 2) NOT NULL,
-  equipment_sum DECIMAL(10, 2) DEFAULT NULL,
-  equipment_id INT(11) NOT NULL,
-  employee_id INT(11) NOT NULL,
-  note VARCHAR(500) DEFAULT NULL,
-  PRIMARY KEY (id),
-  CONSTRAINT FK_shipped_product_records_employees_id FOREIGN KEY (employee_id)
-    REFERENCES employees(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_shipped_product_records_equipments_id FOREIGN KEY (equipment_id)
-    REFERENCES equipments(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_shipped_product_records_invoices_id FOREIGN KEY (invoice_id)
-    REFERENCES invoices(id) ON DELETE RESTRICT ON UPDATE RESTRICT
-)
-ENGINE = INNODB
-AUTO_INCREMENT = 1
-CHARACTER SET utf8
-COLLATE utf8_general_ci
-COMMENT = 'Журнал учета оплаченной и отгруженной продукции'
-ROW_FORMAT = DYNAMIC;
-
---
 -- Описание для таблицы shipping_order_records
 --
 DROP TABLE IF EXISTS shipping_order_records;
@@ -933,7 +916,9 @@ INSERT INTO contragents VALUES
 (1, 1, 'З1', 0, '1', 'Мухамедшин', '1', '89263706340', '1', '1', '1', '4700181012384234980', '1', '1', '1', '1', '1', '1', '1', '1', '111', 0),
 (2, 2, '2', 0, '2', '2', '2', '2', '2', '2989867547636', '2', '2', '2', '22132346243653456', '2', '2', '2', '2', '2', 'email@server.ru', '22222', 0),
 (3, 1, 'П1', 0, '11', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', NULL, 0),
-(4, 1, 'G2', 1, '1', '1', '1', '1', '1', '1', '2', '2', '2', '2', '4', '4', '4', '4', '6', '7', '8', 0);
+(4, 1, 'G2', 1, '1', '1', '1', '1', '1', '1', '2', '2', '2', '2', '4', '4', '4', '4', '6', '7', '8', 0),
+(5, 1, 'Исполнитель1', 2, 'Адрес', 'Директор', 'Лицо по доверенности', 'Телефон', 'Основание', 'ИНН', 'КПП', 'Расчетный счет', 'Корр счет', 'ОКВЭД', 'ОКАТО', 'ОКПО', 'ОГРН', 'БИК', 'Банк', 'емэйл', 'Примечание', 0),
+(6, 2, 'Исполнитель2', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы daily_work_package
@@ -1087,16 +1072,17 @@ INSERT INTO material_arrival_records VALUES
 -- Вывод данных для таблицы requests
 --
 INSERT INTO requests VALUES
-(21, 1, '2016-03-30 00:00:00', NULL, NULL, 2, 0),
-(23, 2, '2016-03-30 00:00:00', NULL, NULL, NULL, 0),
-(25, 3, '2016-03-30 00:00:00', NULL, NULL, 3, 0),
-(26, 4, '2016-03-30 00:00:00', NULL, NULL, NULL, 0),
-(28, 5, '2016-03-30 00:00:00', NULL, NULL, 2, 0),
-(31, 6, '2016-03-30 00:00:00', NULL, NULL, NULL, 0),
-(40, 7, '2016-03-30 00:00:00', NULL, NULL, 3, 0),
-(41, 8, '2016-03-30 00:00:00', '2016-04-21 00:00:00', NULL, 1, 0),
-(47, 9, '2016-05-05 00:00:00', '2016-05-31 00:00:00', 160, 2, 0),
-(48, 10, '2016-05-05 00:00:00', '2016-06-05 00:00:00', 500, 2, 0);
+(21, 1, '2016-03-30 00:00:00', NULL, NULL, NULL, 2, NULL, 0),
+(23, 2, '2016-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, 0),
+(25, 3, '2016-03-30 00:00:00', NULL, NULL, NULL, 3, NULL, 0),
+(26, 4, '2016-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, 0),
+(28, 5, '2016-03-30 00:00:00', NULL, NULL, NULL, 2, NULL, 0),
+(31, 6, '2016-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, 0),
+(40, 7, '2016-03-30 00:00:00', NULL, NULL, NULL, 3, NULL, 0),
+(41, 8, '2016-03-30 00:00:00', '2016-04-21 00:00:00', '2016-05-15 00:00:00', NULL, 1, 5, 0),
+(47, 9, '2016-05-05 00:00:00', '2016-05-31 00:00:00', NULL, 160, 2, NULL, 0),
+(48, 10, '2016-05-05 00:00:00', '2016-06-05 00:00:00', NULL, 500, 2, NULL, 0),
+(51, 11, '2016-05-15 00:00:00', NULL, NULL, NULL, 2, 5, 0);
 
 -- 
 -- Вывод данных для таблицы drawings
@@ -1221,10 +1207,10 @@ INSERT INTO flowsheet_processes VALUES
 (111, 13, 12, 12, NULL, NULL, NULL, NULL, 0.00, NULL);
 
 -- 
--- Вывод данных для таблицы invoices
+-- Вывод данных для таблицы shipped_product_records
 --
 
--- Таблица rti.invoices не содержит данных
+-- Таблица rti.shipped_product_records не содержит данных
 
 -- 
 -- Вывод данных для таблицы daily_work_package_details
@@ -1263,12 +1249,6 @@ INSERT INTO rolling_records VALUES
 --
 INSERT INTO shaving_records VALUES
 (1, 1, 1, '2016-05-06 00:00:00', 8, 1, 1000, 10, 0);
-
--- 
--- Вывод данных для таблицы shipped_product_records
---
-
--- Таблица rti.shipped_product_records не содержит данных
 
 -- 
 -- Вывод данных для таблицы shipping_order_records

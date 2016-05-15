@@ -6,7 +6,7 @@ using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
-using Rti.ViewModel.Reports;
+using Rti.ViewModel.Reporting;
 
 namespace Rti.ViewModel.EditViewModel
 {
@@ -40,6 +40,7 @@ namespace Rti.ViewModel.EditViewModel
         }
 
         public Lazy<List<ContragentViewModel>> CustomersSource { get; set; }
+        public Lazy<List<ContragentViewModel>> ManufacturersSource { get; set; }
         //public Lazy<List<DetailViewModel>> DetailsSource { get; set; }
         //public Lazy<List<MaterialViewModel>> MaterialsSource { get; set; }
         //public Lazy<List<GroupViewModel>> GroupsSource { get; set; }
@@ -58,15 +59,15 @@ namespace Rti.ViewModel.EditViewModel
                 "Удалить строку",
                 o => SelectedRequestDetail != null,
                 o => RemoveRequestDetail());
-            GenerateInvoiceCommand = new DelegateCommand(
+            CreateInvoiceCommand = new DelegateCommand(
                 "Текущий счет",
                 o => true,
-                o => new InvoiceReport().BuildReport(entity.Id, RepositoryFactory));
+                o => CreateInvoice());
         }
 
         public DelegateCommand AddRequestDetailCommand { get; set; }
         public DelegateCommand RemoveRequestDetailCommand { get; set; }
-        public DelegateCommand GenerateInvoiceCommand { get; set; }
+        public DelegateCommand CreateInvoiceCommand { get; set; }
 
         private void AddRequestDetail()
         {
@@ -84,6 +85,19 @@ namespace Rti.ViewModel.EditViewModel
             RequestDetails.Remove(SelectedRequestDetail);
         }
 
+        private void CreateInvoice()
+        {
+            if (ViewService.ShowConfirmation(new MessageViewModel("Внимание",
+                    "После формирования счета заявку нельзя будет менять.\r\nСформировать счет?")))
+            {
+                Entity.InvoiceDate = DateTime.Today;
+                DoSave();
+
+                var reportGenerator = new InvoiceReportGenerator();
+                reportGenerator.BuildReport(Source.Id, RepositoryFactory);
+            }
+        }
+
         public override void Refresh()
         {
             base.Refresh();
@@ -93,7 +107,8 @@ namespace Rti.ViewModel.EditViewModel
                 .Select(m => new RequestDetailViewModel(m, RepositoryFactory)),
                 res => RequestDetails = new ObservableCollection<RequestDetailViewModel>(res));
 
-            CustomersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(0).Select(m => new ContragentViewModel(m, RepositoryFactory)).ToList());
+            CustomersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(ContragentType.Customer).Select(m => new ContragentViewModel(m, RepositoryFactory)).ToList());
+            ManufacturersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(ContragentType.Manufacturer).Select(m => new ContragentViewModel(m, RepositoryFactory)).ToList());
             DrawingsSource = new Lazy<List<DrawingViewModel>>(() => RepositoryFactory.GetDrawingRepository().GetAllActive().OrderBy(o => o.Id).Select(o => new DrawingViewModel(o, RepositoryFactory)).ToList());
             //GroupsSource = new Lazy<List<GroupViewModel>>(() => RepositoryFactory.GetGroupRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new GroupViewModel(o, RepositoryFactory)).ToList());
             //MaterialsSource = new Lazy<List<MaterialViewModel>>(() => RepositoryFactory.GetMaterialRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new MaterialViewModel(o, RepositoryFactory)).ToList());
