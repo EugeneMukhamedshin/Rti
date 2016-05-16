@@ -177,8 +177,8 @@
     <Compile Include="View\Editors\ContragentEditWindow.xaml.cs">
       <DependentUpon>ContragentEditWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Editors\DailyWorkPackageEditWindow.xaml.cs">
-      <DependentUpon>DailyWorkPackageEditWindow.xaml</DependentUpon>
+    <Compile Include="View\Lists\WorkItemListWindow.xaml.cs">
+      <DependentUpon>WorkItemListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Editors\DetailEditWindow.xaml.cs">
       <DependentUpon>DetailEditWindow.xaml</DependentUpon>
@@ -251,9 +251,6 @@
     </Compile>
     <Compile Include="View\Lists\ContragentListWindow.xaml.cs">
       <DependentUpon>ContragentListWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Lists\DailyWorkPackageListWindow.xaml.cs">
-      <DependentUpon>DailyWorkPackageListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lists\DetailListWindow.xaml.cs">
       <DependentUpon>DetailListWindow.xaml</DependentUpon>
@@ -403,7 +400,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Editors\DailyWorkPackageEditWindow.xaml">
+    <Page Include="View\Lists\WorkItemListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -500,10 +497,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Lists\ContragentListWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Lists\DailyWorkPackageListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

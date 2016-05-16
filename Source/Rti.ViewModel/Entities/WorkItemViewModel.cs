@@ -1,10 +1,10 @@
 namespace Rti.ViewModel.Entities
 {
-    public partial class DailyWorkPackageDetailViewModel
+    public partial class WorkItemViewModel
     {
         public string BatchNumber
         {
-            get { return string.Format("{0:dd.MM.yyyy}/{1}", DailyWorkPackage.Date, SortOrder); }
+            get { return string.Format("{0:dd.MM.yyyy}/{1}", WorkDate, SortOrder); }
         }
 
         public decimal? Sum
@@ -17,12 +17,8 @@ namespace Rti.ViewModel.Entities
             base.OnPropertyChanged(propertyName);
             if (propertyName.In("DoneCount", "Drawing"))
                 OnPropertyChanged("Sum");
-            if (propertyName == "DailyWorkPackage" && DailyWorkPackage != null)
-                DailyWorkPackage.PropertyChanged += (sender, args) =>
-                {
-                    if (args.PropertyName == "Date")
-                        OnPropertyChanged("BatchNumber");
-                };
+            if (propertyName == "Date")
+                OnPropertyChanged("BatchNumber");
         }
     }
 }

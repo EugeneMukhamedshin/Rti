@@ -11,8 +11,6 @@ namespace Rti.Model.Repository.Interfaces
 		ICalculationRepository GetCalculationRepository();
 		IConstantRepository GetConstantRepository();
 		IContragentRepository GetContragentRepository();
-		IDailyWorkPackageRepository GetDailyWorkPackageRepository();
-		IDailyWorkPackageDetailRepository GetDailyWorkPackageDetailRepository();
 		IDetailRepository GetDetailRepository();
 		IDrawingRepository GetDrawingRepository();
 		IDriverRepository GetDriverRepository();
@@ -37,14 +35,13 @@ namespace Rti.Model.Repository.Interfaces
 		IShavingRecordRepository GetShavingRecordRepository();
 		IShippedProductRecordRepository GetShippedProductRecordRepository();
 		IShippingOrderRecordRepository GetShippingOrderRecordRepository();
+		IWorkItemRepository GetWorkItemRepository();
     }
 
 	public partial interface IAdditionalInfoRepository : IRepository<Rti.Model.Domain.AdditionalInfo> { }
 	public partial interface ICalculationRepository : IRepository<Rti.Model.Domain.Calculation> { }
 	public partial interface IConstantRepository : IRepository<Rti.Model.Domain.Constant> { }
 	public partial interface IContragentRepository : IRepository<Rti.Model.Domain.Contragent> { }
-	public partial interface IDailyWorkPackageRepository : IRepository<Rti.Model.Domain.DailyWorkPackage> { }
-	public partial interface IDailyWorkPackageDetailRepository : IRepository<Rti.Model.Domain.DailyWorkPackageDetail> { }
 	public partial interface IDetailRepository : IRepository<Rti.Model.Domain.Detail> { }
 	public partial interface IDrawingRepository : IRepository<Rti.Model.Domain.Drawing> { }
 	public partial interface IDriverRepository : IRepository<Rti.Model.Domain.Driver> { }
@@ -69,4 +66,5 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IShavingRecordRepository : IRepository<Rti.Model.Domain.ShavingRecord> { }
 	public partial interface IShippedProductRecordRepository : IRepository<Rti.Model.Domain.ShippedProductRecord> { }
 	public partial interface IShippingOrderRecordRepository : IRepository<Rti.Model.Domain.ShippingOrderRecord> { }
+	public partial interface IWorkItemRepository : IRepository<Rti.Model.Domain.WorkItem> { }
 }

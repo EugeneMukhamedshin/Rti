@@ -55,7 +55,6 @@
     <Compile Include="Commands\CommandExecutionInfo.cs" />
     <Compile Include="Commands\HistoryContext.cs" />
     <Compile Include="EditViewModel\CalculationEdit.cs" />
-    <Compile Include="EditViewModel\DailyWorkPackageEdit.cs" />
     <Compile Include="EditViewModel\DrawingCalculationEdit.cs" />
     <Compile Include="EditViewModel\DrawingCalculationViewModel.cs" />
     <Compile Include="EditViewModel\DrawingEdit.cs" />
@@ -89,7 +88,8 @@
     <Compile Include="Entities\CalculationViewModel.cs" />
     <Compile Include="Entities\Commands\DelegateCommand.cs" />
     <Compile Include="Entities\Commands\RequeryableCommand.cs" />
-    <Compile Include="Entities\DailyWorkPackageDetailViewModel.cs" />
+    <Compile Include="Entities\ContragentViewModel.cs" />
+    <Compile Include="Entities\WorkItemViewModel.cs" />
     <Compile Include="Entities\DrawingViewModel.cs" />
     <Compile Include="Entities\EmployeeViewModel.cs" />
     <Compile Include="Entities\EntityViewModel.cs" />
@@ -112,8 +112,7 @@
     <Compile Include="IViewService.cs" />
     <Compile Include="IWindowCloser.cs" />
     <Compile Include="Lists\ContragentList.cs" />
-    <Compile Include="Lists\DailyWorkPackageDetailList.cs" />
-    <Compile Include="Lists\DailyWorkPackageList.cs" />
+    <Compile Include="Lists\WorkItemList.cs" />
     <Compile Include="Lists\DetailList.cs" />
     <Compile Include="Lists\DrawingList.cs" />
     <Compile Include="Lists\DriverList.cs" />
@@ -182,6 +181,35 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reporting\Templates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

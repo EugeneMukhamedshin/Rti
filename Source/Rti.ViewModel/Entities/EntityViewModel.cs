@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 
@@ -210,6 +211,11 @@ namespace Rti.ViewModel.Entities
         public virtual void CustomCopyFrom(TEntityViewModel source)
         {
 
+        }
+
+        public virtual void CustomFillXElement(XElement element)
+        {
+            
         }
 
         public virtual TEntityViewModel Clone()

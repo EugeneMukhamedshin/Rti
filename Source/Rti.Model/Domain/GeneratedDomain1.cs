@@ -158,42 +158,6 @@ namespace Rti.Model.Domain
 		public virtual Boolean IsDeleted { get; set; }
 	}
 
-	// The class for daily_work_package
-	[Table("daily_work_package")]
-	public partial class DailyWorkPackage: IIdentifiedEntity
-	{
-		[Field("id")]
-		public virtual Int32 Id { get; protected set; }
-		[Field("sort_order")]
-		public virtual Int32 SortOrder { get; set; }
-		[Field("date")]
-		public virtual DateTime Date { get; set; }
-		[Field("is_deleted")]
-		public virtual Boolean IsDeleted { get; set; }
-	}
-
-	// The class for daily_work_package_details
-	[Table("daily_work_package_details")]
-	public partial class DailyWorkPackageDetail: IIdentifiedEntity
-	{
-		[Field("id")]
-		public virtual Int32 Id { get; protected set; }
-		[Field("sort_order")]
-		public virtual Int32 SortOrder { get; set; }
-		[Field("task_count")]
-		public virtual Int32? TaskCount { get; set; }
-		[Field("done_count")]
-		public virtual Int32? DoneCount { get; set; }
-		[Field("note")]
-		public virtual String Note { get; set; }
-		[Reference("daily_work_package_id", false)]
-		public virtual DailyWorkPackage DailyWorkPackage { get; set; }
-		[Reference("drawing_id", false)]
-		public virtual Drawing Drawing { get; set; }
-		[Reference("employee_id", false)]
-		public virtual Employee Employee { get; set; }
-	}
-
 	// The class for details
 	[Table("details")]
 	public partial class Detail: IIdentifiedEntity
@@ -802,6 +766,28 @@ namespace Rti.Model.Domain
 		public virtual Contragent Customer { get; set; }
 		[Reference("drawing_id", false)]
 		public virtual Drawing Drawing { get; set; }
+	}
+
+	// The class for work_items
+	[Table("work_items")]
+	public partial class WorkItem: IIdentifiedEntity
+	{
+		[Field("id")]
+		public virtual Int32 Id { get; protected set; }
+		[Field("work_date")]
+		public virtual DateTime WorkDate { get; set; }
+		[Field("sort_order")]
+		public virtual Int32 SortOrder { get; set; }
+		[Field("task_count")]
+		public virtual Int32? TaskCount { get; set; }
+		[Field("done_count")]
+		public virtual Int32? DoneCount { get; set; }
+		[Field("note")]
+		public virtual String Note { get; set; }
+		[Reference("drawing_id", false)]
+		public virtual Drawing Drawing { get; set; }
+		[Reference("employee_id", false)]
+		public virtual Employee Employee { get; set; }
 	}
 
 }

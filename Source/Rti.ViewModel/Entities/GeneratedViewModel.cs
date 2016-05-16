@@ -89,6 +89,7 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("Note", Note));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -317,6 +318,7 @@ namespace Rti.ViewModel.Entities
 			if (Note != null)
 				element.Add(new XAttribute("Note", Note));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -449,6 +451,7 @@ namespace Rti.ViewModel.Entities
 			element.Add(new XAttribute("DateTo", DateTo));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -653,6 +656,7 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("Note", Note));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -664,192 +668,6 @@ namespace Rti.ViewModel.Entities
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((ContragentViewModel) obj);
-        }
-	}
-
-
-	// The viewmodel for DailyWorkPackage
-	public partial class DailyWorkPackageViewModel : EntityViewModel<Rti.Model.Domain.DailyWorkPackage, DailyWorkPackageViewModel>
-	{
-		// Конструктор для маппинга
-		public DailyWorkPackageViewModel() { }
-
-        public DailyWorkPackageViewModel(Rti.Model.Domain.DailyWorkPackage entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		protected bool IsMapping = false;
-
-		private Int32 _id;
-		private Int32 _sortOrder;
-		private DateTime _date;
-		private Boolean _isDeleted;
-
-		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
-		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
-		public DateTime Date { get { return _date; } set { if (Equals(_date, value)) return; _date = value; OnPropertyChanged("Date"); } }
-		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
-
-		protected override void MapPropertiesToEntity()
-		{
-			Entity.SortOrder = SortOrder; 
-			Entity.Date = Date; 
-			Entity.IsDeleted = IsDeleted; 
-
-		}
-
-		protected override void MapPropertiesFromEntity()
-		{
-			IsMapping = true;
-			Id = Entity.Id; 
-			SortOrder = Entity.SortOrder; 
-			Date = Entity.Date; 
-			IsDeleted = Entity.IsDeleted; 
-			IsMapping = false;
-		}
-
-		public override void CopyFrom(DailyWorkPackageViewModel source)
-		{
-			IsMapping = true;
-			SortOrder = source.SortOrder;
-			Date = source.Date;
-			IsDeleted = source.IsDeleted;
-			CustomCopyFrom(source);
-			IsMapping = false;
-		}
-
-		public override DailyWorkPackageViewModel Clone()
-		{
-			var copy = new DailyWorkPackageViewModel(null, RepositoryFactory);
-			copy.CopyFrom(this);
-			return copy;
-		}
-
-		public XElement GetXElement(string name)
-		{
-			var element = new XElement(name);
-			element.Add(new XAttribute("Id", Id));
-			element.Add(new XAttribute("SortOrder", SortOrder));
-			element.Add(new XAttribute("Date", Date));
-			element.Add(new XAttribute("IsDeleted", IsDeleted));
-
-			return element;
-		}
-
-        public override int GetHashCode() { return _id; }
-        protected bool Equals(DailyWorkPackageViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((DailyWorkPackageViewModel) obj);
-        }
-	}
-
-
-	// The viewmodel for DailyWorkPackageDetail
-	public partial class DailyWorkPackageDetailViewModel : EntityViewModel<Rti.Model.Domain.DailyWorkPackageDetail, DailyWorkPackageDetailViewModel>
-	{
-		// Конструктор для маппинга
-		public DailyWorkPackageDetailViewModel() { }
-
-        public DailyWorkPackageDetailViewModel(Rti.Model.Domain.DailyWorkPackageDetail entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		protected bool IsMapping = false;
-
-		private Int32 _id;
-		private Int32 _sortOrder;
-		private Int32? _taskCount;
-		private Int32? _doneCount;
-		private String _note;
-		private DailyWorkPackageViewModel _dailyWorkPackage;
-		private DrawingViewModel _drawing;
-		private EmployeeViewModel _employee;
-
-		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
-		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
-		public Int32? TaskCount { get { return _taskCount; } set { if (Equals(_taskCount, value)) return; _taskCount = value; OnPropertyChanged("TaskCount"); } }
-		public Int32? DoneCount { get { return _doneCount; } set { if (Equals(_doneCount, value)) return; _doneCount = value; OnPropertyChanged("DoneCount"); } }
-		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
-		public DailyWorkPackageViewModel DailyWorkPackage { get { return _dailyWorkPackage; } set { _dailyWorkPackage = value; OnPropertyChanged("DailyWorkPackage"); } }
-		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
-		public EmployeeViewModel Employee { get { return _employee; } set { _employee = value; OnPropertyChanged("Employee"); } }
-
-		protected override void MapPropertiesToEntity()
-		{
-			Entity.SortOrder = SortOrder; 
-			Entity.TaskCount = TaskCount; 
-			Entity.DoneCount = DoneCount; 
-			Entity.Note = Note; 
-			Entity.DailyWorkPackage = DailyWorkPackage == null ? null : DailyWorkPackage.Entity; 
-			Entity.Drawing = Drawing == null ? null : Drawing.Entity; 
-			Entity.Employee = Employee == null ? null : Employee.Entity; 
-
-		}
-
-		protected override void MapPropertiesFromEntity()
-		{
-			IsMapping = true;
-			Id = Entity.Id; 
-			SortOrder = Entity.SortOrder; 
-			TaskCount = Entity.TaskCount; 
-			DoneCount = Entity.DoneCount; 
-			Note = Entity.Note; 
-			DailyWorkPackage = Entity.DailyWorkPackage == null ? null : new DailyWorkPackageViewModel(Entity.DailyWorkPackage, RepositoryFactory); 
-			Drawing = Entity.Drawing == null ? null : new DrawingViewModel(Entity.Drawing, RepositoryFactory); 
-			Employee = Entity.Employee == null ? null : new EmployeeViewModel(Entity.Employee, RepositoryFactory); 
-			IsMapping = false;
-		}
-
-		public override void CopyFrom(DailyWorkPackageDetailViewModel source)
-		{
-			IsMapping = true;
-			SortOrder = source.SortOrder;
-			TaskCount = source.TaskCount;
-			DoneCount = source.DoneCount;
-			Note = source.Note;
-			DailyWorkPackage = source.DailyWorkPackage;
-			Drawing = source.Drawing;
-			Employee = source.Employee;
-			CustomCopyFrom(source);
-			IsMapping = false;
-		}
-
-		public override DailyWorkPackageDetailViewModel Clone()
-		{
-			var copy = new DailyWorkPackageDetailViewModel(null, RepositoryFactory);
-			copy.CopyFrom(this);
-			return copy;
-		}
-
-		public XElement GetXElement(string name)
-		{
-			var element = new XElement(name);
-			element.Add(new XAttribute("Id", Id));
-			element.Add(new XAttribute("SortOrder", SortOrder));
-			if (TaskCount != null)
-				element.Add(new XAttribute("TaskCount", TaskCount));
-			if (DoneCount != null)
-				element.Add(new XAttribute("DoneCount", DoneCount));
-			if (Note != null)
-				element.Add(new XAttribute("Note", Note));
-			if (DailyWorkPackage != null)
-				element.Add(DailyWorkPackage.GetXElement("DailyWorkPackage"));
-			if (Drawing != null)
-				element.Add(Drawing.GetXElement("Drawing"));
-			if (Employee != null)
-				element.Add(Employee.GetXElement("Employee"));
-
-			return element;
-		}
-
-        public override int GetHashCode() { return _id; }
-        protected bool Equals(DailyWorkPackageDetailViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((DailyWorkPackageDetailViewModel) obj);
         }
 	}
 
@@ -925,6 +743,7 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("Note", Note));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -1186,6 +1005,7 @@ namespace Rti.ViewModel.Entities
 			if (Flowsheet != null)
 				element.Add(Flowsheet.GetXElement("Flowsheet"));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -1286,6 +1106,7 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("Document", Document));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -1386,6 +1207,7 @@ namespace Rti.ViewModel.Entities
 			if (Job != null)
 				element.Add(Job.GetXElement("Job"));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -1508,6 +1330,7 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("Note", Note));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -1602,6 +1425,7 @@ namespace Rti.ViewModel.Entities
 			if (SecondaryCustomer != null)
 				element.Add(SecondaryCustomer.GetXElement("SecondaryCustomer"));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -1696,6 +1520,7 @@ namespace Rti.ViewModel.Entities
 			if (Machine != null)
 				element.Add(Machine.GetXElement("Machine"));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -1818,6 +1643,7 @@ namespace Rti.ViewModel.Entities
 			if (Process != null)
 				element.Add(Process.GetXElement("Process"));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -1904,6 +1730,7 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("Note", Note));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -1971,6 +1798,7 @@ namespace Rti.ViewModel.Entities
 			if (Data != null)
 				element.Add(new XAttribute("Data", Data));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -2064,6 +1892,7 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("Password", Password));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -2206,6 +2035,7 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("Note", Note));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -2412,6 +2242,7 @@ namespace Rti.ViewModel.Entities
 			if (MassFormula != null)
 				element.Add(new XAttribute("MassFormula", MassFormula));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -2540,6 +2371,7 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("Note", Note));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -2678,6 +2510,7 @@ namespace Rti.ViewModel.Entities
 			if (MeasureUnit != null)
 				element.Add(MeasureUnit.GetXElement("MeasureUnit"));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -2764,6 +2597,7 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("Code", Code));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -2850,6 +2684,7 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("Note", Note));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -2951,6 +2786,7 @@ namespace Rti.ViewModel.Entities
 			if (DefaultNormTime != null)
 				element.Add(new XAttribute("DefaultNormTime", DefaultNormTime));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -3064,6 +2900,7 @@ namespace Rti.ViewModel.Entities
 			if (Manufacturer != null)
 				element.Add(Manufacturer.GetXElement("Manufacturer"));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -3217,6 +3054,7 @@ namespace Rti.ViewModel.Entities
 			if (Material != null)
 				element.Add(Material.GetXElement("Material"));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -3329,6 +3167,7 @@ namespace Rti.ViewModel.Entities
 			if (Material != null)
 				element.Add(Material.GetXElement("Material"));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -3440,6 +3279,7 @@ namespace Rti.ViewModel.Entities
 			if (MakerEmployee != null)
 				element.Add(MakerEmployee.GetXElement("MakerEmployee"));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -3580,6 +3420,7 @@ namespace Rti.ViewModel.Entities
 			if (Employee != null)
 				element.Add(Employee.GetXElement("Employee"));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -3678,6 +3519,7 @@ namespace Rti.ViewModel.Entities
 			if (Drawing != null)
 				element.Add(Drawing.GetXElement("Drawing"));
 
+			CustomFillXElement(element);
 			return element;
 		}
 
@@ -3689,6 +3531,114 @@ namespace Rti.ViewModel.Entities
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((ShippingOrderRecordViewModel) obj);
+        }
+	}
+
+
+	// The viewmodel for WorkItem
+	public partial class WorkItemViewModel : EntityViewModel<Rti.Model.Domain.WorkItem, WorkItemViewModel>
+	{
+		// Конструктор для маппинга
+		public WorkItemViewModel() { }
+
+        public WorkItemViewModel(Rti.Model.Domain.WorkItem entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+		protected bool IsMapping = false;
+
+		private Int32 _id;
+		private DateTime _workDate;
+		private Int32 _sortOrder;
+		private Int32? _taskCount;
+		private Int32? _doneCount;
+		private String _note;
+		private DrawingViewModel _drawing;
+		private EmployeeViewModel _employee;
+
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+		public DateTime WorkDate { get { return _workDate; } set { if (Equals(_workDate, value)) return; _workDate = value; OnPropertyChanged("WorkDate"); } }
+		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
+		public Int32? TaskCount { get { return _taskCount; } set { if (Equals(_taskCount, value)) return; _taskCount = value; OnPropertyChanged("TaskCount"); } }
+		public Int32? DoneCount { get { return _doneCount; } set { if (Equals(_doneCount, value)) return; _doneCount = value; OnPropertyChanged("DoneCount"); } }
+		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
+		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
+		public EmployeeViewModel Employee { get { return _employee; } set { _employee = value; OnPropertyChanged("Employee"); } }
+
+		protected override void MapPropertiesToEntity()
+		{
+			Entity.WorkDate = WorkDate; 
+			Entity.SortOrder = SortOrder; 
+			Entity.TaskCount = TaskCount; 
+			Entity.DoneCount = DoneCount; 
+			Entity.Note = Note; 
+			Entity.Drawing = Drawing == null ? null : Drawing.Entity; 
+			Entity.Employee = Employee == null ? null : Employee.Entity; 
+
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+			IsMapping = true;
+			Id = Entity.Id; 
+			WorkDate = Entity.WorkDate; 
+			SortOrder = Entity.SortOrder; 
+			TaskCount = Entity.TaskCount; 
+			DoneCount = Entity.DoneCount; 
+			Note = Entity.Note; 
+			Drawing = Entity.Drawing == null ? null : new DrawingViewModel(Entity.Drawing, RepositoryFactory); 
+			Employee = Entity.Employee == null ? null : new EmployeeViewModel(Entity.Employee, RepositoryFactory); 
+			IsMapping = false;
+		}
+
+		public override void CopyFrom(WorkItemViewModel source)
+		{
+			IsMapping = true;
+			WorkDate = source.WorkDate;
+			SortOrder = source.SortOrder;
+			TaskCount = source.TaskCount;
+			DoneCount = source.DoneCount;
+			Note = source.Note;
+			Drawing = source.Drawing;
+			Employee = source.Employee;
+			CustomCopyFrom(source);
+			IsMapping = false;
+		}
+
+		public override WorkItemViewModel Clone()
+		{
+			var copy = new WorkItemViewModel(null, RepositoryFactory);
+			copy.CopyFrom(this);
+			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("WorkDate", WorkDate));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (TaskCount != null)
+				element.Add(new XAttribute("TaskCount", TaskCount));
+			if (DoneCount != null)
+				element.Add(new XAttribute("DoneCount", DoneCount));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+			if (Drawing != null)
+				element.Add(Drawing.GetXElement("Drawing"));
+			if (Employee != null)
+				element.Add(Employee.GetXElement("Employee"));
+
+			CustomFillXElement(element);
+			return element;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(WorkItemViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((WorkItemViewModel) obj);
         }
 	}
 

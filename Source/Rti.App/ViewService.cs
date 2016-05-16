@@ -68,8 +68,7 @@ namespace Rti.App
             AddToRegistry<DrawingCalculationEdit, DrawingCalculationEditWindow>();
 
             // Дневные наряды
-            AddToRegistry<DailyWorkPackageList, DailyWorkPackageListWindow>();
-            AddToRegistry<DailyWorkPackageEdit, DailyWorkPackageEditWindow>();
+            AddToRegistry<WorkItemList, WorkItemListWindow>();
 
             // Журналы
             // Журнал обрезки облоя

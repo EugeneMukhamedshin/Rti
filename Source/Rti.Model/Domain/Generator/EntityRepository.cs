@@ -135,6 +135,8 @@ Order By utc.Table_Name, utc.ordinal_position",
                     return typeof(String).Name;
                 case "DATE":
                     return typeof(DateTime).Name;
+                case "date":
+                    return typeof(DateTime).Name;
                 case "datetime":
                     return typeof(DateTime).Name;
             }

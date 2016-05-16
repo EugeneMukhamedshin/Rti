@@ -1,7 +1,7 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.0.49.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 16.05.2016 0:08:32
+-- Дата скрипта: 17.05.2016 0:20:46
 -- Версия сервера: 5.7.9-log
 -- Версия клиента: 4.1
 --
@@ -147,25 +147,6 @@ AUTO_INCREMENT = 7
 AVG_ROW_LENGTH = 4096
 CHARACTER SET utf8
 COLLATE utf8_general_ci
-ROW_FORMAT = DYNAMIC;
-
---
--- Описание для таблицы daily_work_package
---
-DROP TABLE IF EXISTS daily_work_package;
-CREATE TABLE daily_work_package (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  sort_order INT(11) NOT NULL,
-  date DATETIME NOT NULL,
-  is_deleted INT(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (id)
-)
-ENGINE = INNODB
-AUTO_INCREMENT = 8
-AVG_ROW_LENGTH = 8192
-CHARACTER SET utf8
-COLLATE utf8_general_ci
-COMMENT = 'Дневной наряд'
 ROW_FORMAT = DYNAMIC;
 
 --
@@ -548,7 +529,7 @@ CREATE TABLE requests (
     REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 53
+AUTO_INCREMENT = 52
 AVG_ROW_LENGTH = 3276
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -710,35 +691,6 @@ COMMENT = 'Журнал учета оплаченной и отгруженно�
 ROW_FORMAT = DYNAMIC;
 
 --
--- Описание для таблицы daily_work_package_details
---
-DROP TABLE IF EXISTS daily_work_package_details;
-CREATE TABLE daily_work_package_details (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  daily_work_package_id INT(11) NOT NULL,
-  sort_order INT(11) NOT NULL,
-  drawing_id INT(11) NOT NULL,
-  task_count INT(11) DEFAULT NULL,
-  done_count INT(11) DEFAULT NULL,
-  note VARCHAR(500) DEFAULT NULL,
-  employee_id INT(11) NOT NULL COMMENT 'Исполнитель',
-  PRIMARY KEY (id),
-  CONSTRAINT FK_daily_work_package_details_daily_work_package_id FOREIGN KEY (daily_work_package_id)
-    REFERENCES daily_work_package(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_daily_work_package_details_drawings_id FOREIGN KEY (drawing_id)
-    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_daily_work_package_details_employees_id FOREIGN KEY (employee_id)
-    REFERENCES employees(id) ON DELETE RESTRICT ON UPDATE RESTRICT
-)
-ENGINE = INNODB
-AUTO_INCREMENT = 7
-AVG_ROW_LENGTH = 8192
-CHARACTER SET utf8
-COLLATE utf8_general_ci
-COMMENT = 'Строки дневного наряда'
-ROW_FORMAT = DYNAMIC;
-
---
 -- Описание для таблицы request_details
 --
 DROP TABLE IF EXISTS request_details;
@@ -863,6 +815,33 @@ COLLATE utf8_general_ci
 COMMENT = 'журнал распоряжений на отгрузку'
 ROW_FORMAT = DYNAMIC;
 
+--
+-- Описание для таблицы work_items
+--
+DROP TABLE IF EXISTS work_items;
+CREATE TABLE work_items (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  work_date DATETIME NOT NULL COMMENT 'дата',
+  sort_order INT(11) NOT NULL,
+  drawing_id INT(11) NOT NULL,
+  task_count INT(11) DEFAULT NULL,
+  done_count INT(11) DEFAULT NULL,
+  note VARCHAR(500) DEFAULT NULL,
+  employee_id INT(11) NOT NULL COMMENT 'Исполнитель',
+  PRIMARY KEY (id),
+  CONSTRAINT FK_daily_work_package_details_drawings_id FOREIGN KEY (drawing_id)
+    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_daily_work_package_details_employees_id FOREIGN KEY (employee_id)
+    REFERENCES employees(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 7
+AVG_ROW_LENGTH = 8192
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'Строки дневного наряда'
+ROW_FORMAT = DYNAMIC;
+
 DELIMITER $$
 
 --
@@ -919,15 +898,6 @@ INSERT INTO contragents VALUES
 (4, 1, 'G2', 1, '1', '1', '1', '1', '1', '1', '2', '2', '2', '2', '4', '4', '4', '4', '6', '7', '8', 0),
 (5, 1, 'Исполнитель1', 2, 'Адрес', 'Директор', 'Лицо по доверенности', 'Телефон', 'Основание', 'ИНН', 'КПП', 'Расчетный счет', 'Корр счет', 'ОКВЭД', 'ОКАТО', 'ОКПО', 'ОГРН', 'БИК', 'Банк', 'емэйл', 'Примечание', 0),
 (6, 2, 'Исполнитель2', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
-
--- 
--- Вывод данных для таблицы daily_work_package
---
-INSERT INTO daily_work_package VALUES
-(2, 1, '2016-05-04 00:00:00', 0),
-(4, 2, '2016-05-27 00:00:00', 1),
-(6, 3, '2016-05-06 00:00:00', 0),
-(7, 4, '2016-05-07 00:00:00', 0);
 
 -- 
 -- Вывод данных для таблицы details
@@ -1213,16 +1183,6 @@ INSERT INTO flowsheet_processes VALUES
 -- Таблица rti.shipped_product_records не содержит данных
 
 -- 
--- Вывод данных для таблицы daily_work_package_details
---
-INSERT INTO daily_work_package_details VALUES
-(1, 2, 1, 7, NULL, NULL, NULL, 1),
-(3, 4, 1, 7, NULL, NULL, NULL, 1),
-(4, 4, 2, 6, NULL, NULL, NULL, 1),
-(5, 4, 3, 7, NULL, NULL, NULL, 1),
-(6, 4, 4, 7, NULL, NULL, NULL, 1);
-
--- 
 -- Вывод данных для таблицы request_details
 --
 INSERT INTO request_details VALUES
@@ -1257,6 +1217,16 @@ INSERT INTO shipping_order_records VALUES
 (1, 1, '2016-05-08 00:00:00', 3, 6, 0, 0),
 (2, 2, '2016-05-08 00:00:00', 3, 10, 0, 0),
 (3, 3, '2016-05-08 00:00:00', 1, 5, 0, 0);
+
+-- 
+-- Вывод данных для таблицы work_items
+--
+INSERT INTO work_items VALUES
+(1, '2016-05-16 00:00:00', 1, 7, NULL, NULL, NULL, 1),
+(3, '2016-05-13 00:00:00', 1, 7, NULL, NULL, NULL, 1),
+(4, '2016-05-16 00:00:00', 2, 6, NULL, NULL, NULL, 1),
+(5, '2016-05-15 00:00:00', 3, 7, NULL, NULL, NULL, 1),
+(6, '2016-05-13 00:00:00', 4, 7, NULL, NULL, NULL, 1);
 
 -- 
 -- Восстановить предыдущий режим SQL (SQL mode)

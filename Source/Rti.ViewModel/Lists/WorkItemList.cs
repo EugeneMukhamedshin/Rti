@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
@@ -7,19 +8,29 @@ using Rti.ViewModel.Entities.Commands;
 
 namespace Rti.ViewModel.Lists
 {
-    public class DailyWorkPackageDetailList: EntityList<DailyWorkPackageDetailViewModel, DailyWorkPackageDetail>
+    public class WorkItemList: EntityList<WorkItemViewModel, WorkItem>
     {
-        private readonly List<DailyWorkPackageDetailViewModel> _deletedItems = new List<DailyWorkPackageDetailViewModel>(); 
+        private readonly List<WorkItemViewModel> _deletedItems = new List<WorkItemViewModel>();
+        private DateTime _date;
 
-        public DailyWorkPackageViewModel DailyWorkPackage { get; set; }
-
-        public DelegateCommand AddDetailCommand { get; set; }
-
-        public DailyWorkPackageDetailList(DailyWorkPackageViewModel dailyWorkPackage, bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
+        public DateTime Date
         {
-            DailyWorkPackage = dailyWorkPackage;
+            get { return _date; }
+            set
+            {
+                if (value.Equals(_date)) return;
+                _date = value;
+                OnPropertyChanged();
+                Refresh();
+            }
+        }
 
-            AddDetailCommand = new DelegateCommand(
+        public DelegateCommand AddWorkItemCommand { get; set; }
+
+        public WorkItemList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
+        {
+            Date = DateTime.Today;
+            AddWorkItemCommand = new DelegateCommand(
                 "Добавить строку",
                 o => true,
                 o => AddDetail());
@@ -32,26 +43,26 @@ namespace Rti.ViewModel.Lists
             SelectedItem = detail;
         }
 
-        protected override IEnumerable<DailyWorkPackageDetailViewModel> GetItems()
+        protected override IEnumerable<WorkItemViewModel> GetItems()
         {
-            return RepositoryFactory.GetDailyWorkPackageDetailRepository().GetByDailyWorkPackageId(DailyWorkPackage.Id).Select(o => new DailyWorkPackageDetailViewModel(o, RepositoryFactory));
+            return RepositoryFactory.GetWorkItemRepository().GetByDate(Date).Select(o => new WorkItemViewModel(o, RepositoryFactory));
         }
 
-        protected override DailyWorkPackageDetailViewModel DoCreateNewEntity()
+        protected override WorkItemViewModel DoCreateNewEntity()
         {
-            return new DailyWorkPackageDetailViewModel(null, RepositoryFactory)
+            return new WorkItemViewModel(null, RepositoryFactory)
             {
-                DailyWorkPackage = DailyWorkPackage,
+                WorkDate = Date,
                 SortOrder = Items.Any() ? Items.Max(o => o.SortOrder) + 1 : 1
             };
         }
 
-        protected override void DoDeleteEntity(DailyWorkPackageDetailViewModel entity)
+        protected override void DoDeleteEntity(WorkItemViewModel entity)
         {
             _deletedItems.Add(entity);
         }
          public void SaveChanges()         {             foreach (var deletedItem in _deletedItems)             {                 deletedItem.DeleteEntity();             }             _deletedItems.Clear();             foreach (var item in Items)             {                 if (item.IsChanged || item.IsNewEntity)                     item.SaveEntity();             }         } 
-        protected override bool AcceptFind(DailyWorkPackageDetailViewModel entity, string searchText)
+        protected override bool AcceptFind(WorkItemViewModel entity, string searchText)
         {
             return searchText.ContainedIn(entity.BatchNumber, entity.Note) ||
                    entity.Drawing != null &&

@@ -94,7 +94,7 @@ namespace Rti.ViewModel.EditViewModel
                 DoSave();
 
                 var reportGenerator = new InvoiceReportGenerator();
-                reportGenerator.BuildReport(Source.Id, RepositoryFactory);
+                reportGenerator.BuildReport(Source.Id, ViewService, RepositoryFactory);
             }
         }
 

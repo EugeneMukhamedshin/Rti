@@ -14,14 +14,14 @@ using DevExpress.Xpf.Core;
 using DevExpress.Xpf.Grid;
 
 
-namespace Rti.App.View.Editors
+namespace Rti.App.View.Lists
 {
     /// <summary>
-    /// Interaction logic for DailyWorkPackageEditWindow.xaml
+    /// Interaction logic for WorkItemListWindow.xaml
     /// </summary>
-    public partial class DailyWorkPackageEditWindow : DXWindow
+    public partial class WorkItemListWindow : DXWindow
     {
-        public DailyWorkPackageEditWindow()
+        public WorkItemListWindow()
         {
             InitializeComponent();
         }

@@ -86,8 +86,6 @@
     <Compile Include="Repository\Interfaces\IAdditionalInfoRepository.cs" />
     <Compile Include="Repository\Interfaces\IConstantRepository.cs" />
     <Compile Include="Repository\Interfaces\IContragentRepository.cs" />
-    <Compile Include="Repository\Interfaces\IDailyWorkPackageDetailRepository.cs" />
-    <Compile Include="Repository\Interfaces\IDailyWorkPackageRepository.cs" />
     <Compile Include="Repository\Interfaces\IDetailRepository.cs" />
     <Compile Include="Repository\Interfaces\IDrawingRepository.cs" />
     <Compile Include="Repository\Interfaces\IDriverRepository.cs" />
@@ -115,6 +113,7 @@
     <Compile Include="Repository\Interfaces\IRollingRecordRepository.cs" />
     <Compile Include="Repository\Interfaces\IShavingRecordRepository.cs" />
     <Compile Include="Repository\Interfaces\IShippingOrderRecordRepository.cs" />
+    <Compile Include="Repository\Interfaces\IWorkItemRepository.cs" />
     <Compile Include="Repository\NHibernate\AdditionalInfoRepository.cs" />
     <Compile Include="Repository\NHibernate\ClassMaps\BaseMap.cs" />
     <Compile Include="Repository\NHibernate\ClassMaps\FlowsheetMap.cs" />
@@ -126,8 +125,6 @@
     <Compile Include="Repository\NHibernate\ClassMaps\ReferencesConvention.cs" />
     <Compile Include="Repository\NHibernate\ConstantRepository.cs" />
     <Compile Include="Repository\NHibernate\ContragentRepository.cs" />
-    <Compile Include="Repository\NHibernate\DailyWorkPackageDetailRepository.cs" />
-    <Compile Include="Repository\NHibernate\DailyWorkPackageRepository.cs" />
     <Compile Include="Repository\NHibernate\DetailRepository.cs" />
     <Compile Include="Repository\NHibernate\DrawingRepository.cs" />
     <Compile Include="Repository\NHibernate\DriverRepository.cs" />
@@ -156,6 +153,7 @@
     <Compile Include="Repository\NHibernate\RollingRecordRepository.cs" />
     <Compile Include="Repository\NHibernate\ShavingRecordRepository.cs" />
     <Compile Include="Repository\NHibernate\ShippingOrderRecordRepository.cs" />
+    <Compile Include="Repository\NHibernate\WorkItemRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Domain\domain.xml" />

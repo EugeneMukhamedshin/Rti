@@ -215,64 +215,6 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 	}
 
 
-	// The classmap for daily_work_package
-	public partial class DailyWorkPackageMap : BaseMap<Rti.Model.Domain.DailyWorkPackage>
-	{
-		public DailyWorkPackageMap()
-		{
-			Initialize();
-		}
-
-		private void Initialize()
-		{
-			Table("daily_work_package");
-
-			Id(o => o.Id, "id");
-
-			Map(o => o.SortOrder, "sort_order");
-
-			Map(o => o.Date, "date");
-
-			Map(o => o.IsDeleted, "is_deleted");
-
-			OnInitialized();
-		}
-	}
-
-
-	// The classmap for daily_work_package_details
-	public partial class DailyWorkPackageDetailMap : BaseMap<Rti.Model.Domain.DailyWorkPackageDetail>
-	{
-		public DailyWorkPackageDetailMap()
-		{
-			Initialize();
-		}
-
-		private void Initialize()
-		{
-			Table("daily_work_package_details");
-
-			Id(o => o.Id, "id");
-
-			Map(o => o.SortOrder, "sort_order");
-
-			Map(o => o.TaskCount, "task_count");
-
-			Map(o => o.DoneCount, "done_count");
-
-			Map(o => o.Note, "note");
-
-			References(o => o.DailyWorkPackage, "daily_work_package_id").Fetch.Join().Not.LazyLoad();
-
-			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
-
-			References(o => o.Employee, "employee_id").Fetch.Join().Not.LazyLoad();
-
-			OnInitialized();
-		}
-	}
-
-
 	// The classmap for details
 	public partial class DetailMap : BaseMap<Rti.Model.Domain.Detail>
 	{
@@ -1139,6 +1081,39 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			References(o => o.Customer, "customer_id").Fetch.Join().Not.LazyLoad();
 
 			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
+
+			OnInitialized();
+		}
+	}
+
+
+	// The classmap for work_items
+	public partial class WorkItemMap : BaseMap<Rti.Model.Domain.WorkItem>
+	{
+		public WorkItemMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("work_items");
+
+			Id(o => o.Id, "id");
+
+			Map(o => o.WorkDate, "work_date");
+
+			Map(o => o.SortOrder, "sort_order");
+
+			Map(o => o.TaskCount, "task_count");
+
+			Map(o => o.DoneCount, "done_count");
+
+			Map(o => o.Note, "note");
+
+			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
+
+			References(o => o.Employee, "employee_id").Fetch.Join().Not.LazyLoad();
 
 			OnInitialized();
 		}

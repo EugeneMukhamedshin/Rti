@@ -4,8 +4,8 @@
 <ExportTemplate FormatVersion="1">
   <LastSuccessfullDate>0001-01-01T00:00:00</LastSuccessfullDate>
   <Provider>00000000-0000-0000-0000-000000000000</Provider>
-  <ConnectionName>estimation.localhost</ConnectionName>
-  <ConnectionString>User Id=root;Host=localhost;Database=estimation;Character Set=AUTO</ConnectionString>
+  <ConnectionName>rti.localhost</ConnectionName>
+  <ConnectionString>User Id=root;Host=localhost;Database=rti;Character Set=utf8</ConnectionString>
   <Database>rti</Database>
   <OutputDirectory>D:\Projects\Rti\Rti\Db</OutputDirectory>
   <BaseFileName>rti</BaseFileName>

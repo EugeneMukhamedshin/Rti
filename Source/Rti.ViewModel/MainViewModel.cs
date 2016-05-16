@@ -66,7 +66,7 @@ namespace Rti.ViewModel
             OpenDailyWorkPackagesCommand = new DelegateCommand(
                 "Дневные наряды",
                 o => true,
-                o => OpenDailyWorkPackages());
+                o => OpenWorkItems());
 
             OpenShavingRecordsCommand = new DelegateCommand(
                 "Открыть журнал обрезки облоя",
@@ -150,9 +150,9 @@ namespace Rti.ViewModel
             ViewService.ShowViewDialog(viewModel);
         }
 
-        private void OpenDailyWorkPackages()
+        private void OpenWorkItems()
         {
-            var viewModel = new DailyWorkPackageList(true, ViewService, RepositoryFactory);
+            var viewModel = new WorkItemList(true, ViewService, RepositoryFactory);
             viewModel.Refresh();
             ViewService.ShowViewDialog(viewModel);
         }

@@ -186,6 +186,7 @@ namespace Rti.ViewModel.Entities
 		            }
 				}
 #>
+			CustomFillXElement(element);
 			return element;
 		}
 

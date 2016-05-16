@@ -58,7 +58,8 @@ namespace Rti.App
                 }
                 else
                 {
-                    var viewModel = new RequestEdit("", new RequestViewModel(repositoryFactory.GetRequestRepository().GetById(41), repositoryFactory), false, _viewService, repositoryFactory);
+                    //var viewModel = new RequestEdit("", new RequestViewModel(repositoryFactory.GetRequestRepository().GetById(41), repositoryFactory), false, _viewService, repositoryFactory);
+                    var viewModel = new MainViewModel(_viewService, repositoryFactory);
                     viewModel.Refresh();
                     _viewService.ShowView(viewModel, false, true);
                 }
