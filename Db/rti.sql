@@ -1,8 +1,8 @@
 ﻿--
--- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.0.49.0
+-- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 6.3.358.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 17.05.2016 0:20:46
--- Версия сервера: 5.7.9-log
+-- Дата скрипта: 18.05.2016 20:49:02
+-- Версия сервера: 5.6.26-log
 -- Версия клиента: 4.1
 --
 
@@ -521,6 +521,7 @@ CREATE TABLE requests (
   lead_time INT(11) DEFAULT NULL,
   customer_id INT(11) DEFAULT NULL,
   manufacturer_id INT(11) DEFAULT NULL COMMENT 'изготовитель',
+  is_paid INT(11) DEFAULT NULL COMMENT 'Признак полной оплаты заявки',
   is_deleted INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (id),
   CONSTRAINT FK_requests_customer_id FOREIGN KEY (customer_id)
@@ -529,7 +530,7 @@ CREATE TABLE requests (
     REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 52
+AUTO_INCREMENT = 60
 AVG_ROW_LENGTH = 3276
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -658,6 +659,26 @@ COMMENT = 'технологические процессы'
 ROW_FORMAT = DYNAMIC;
 
 --
+-- Описание для таблицы invoices
+--
+DROP TABLE IF EXISTS invoices;
+CREATE TABLE invoices (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  request_id INT(11) NOT NULL,
+  is_deleted INT(11) NOT NULL DEFAULT 0,
+  invoice_number VARCHAR(255) NOT NULL,
+  invoice_date DATETIME NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_invoices_requests_id FOREIGN KEY (request_id)
+    REFERENCES requests(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 1
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'счета на оплату';
+
+--
 -- Описание для таблицы shipped_product_records
 --
 DROP TABLE IF EXISTS shipped_product_records;
@@ -703,14 +724,17 @@ CREATE TABLE request_details (
   detail_id INT(11) DEFAULT NULL,
   additional_info VARCHAR(1000) DEFAULT NULL,
   equipment_lead_time INT(11) DEFAULT NULL,
-  count DECIMAL(10, 2) NOT NULL,
+  count INT(11) NOT NULL,
+  done_count INT(11) NOT NULL COMMENT 'количество изготовленных',
   price DECIMAL(10, 2) NOT NULL,
   calculation_price DECIMAL(10, 2) DEFAULT NULL,
   sum DECIMAL(10, 2) NOT NULL,
   material_id INT(11) DEFAULT NULL,
   note VARCHAR(1000) DEFAULT NULL,
+  request_detail_state_enum INT(11) NOT NULL DEFAULT 0 COMMENT 'Статус строки заявки: 0 - новая, 1 - готова к производству, 2 - в производстве, 3 - выполнена, 4 - отгружена',
   is_deleted INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (id),
+  INDEX IDX_request_details_drawing_id (drawing_id),
   UNIQUE INDEX UK_request_details (request_id, sort_order),
   CONSTRAINT FK_request_details_details_id FOREIGN KEY (detail_id)
     REFERENCES details(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -724,7 +748,7 @@ CREATE TABLE request_details (
     REFERENCES requests(id) ON DELETE NO ACTION ON UPDATE NO ACTION
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 17
+AUTO_INCREMENT = 21
 AVG_ROW_LENGTH = 2340
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -821,26 +845,52 @@ ROW_FORMAT = DYNAMIC;
 DROP TABLE IF EXISTS work_items;
 CREATE TABLE work_items (
   id INT(11) NOT NULL AUTO_INCREMENT,
-  work_date DATETIME NOT NULL COMMENT 'дата',
+  work_date DATE NOT NULL COMMENT 'дата',
   sort_order INT(11) NOT NULL,
   drawing_id INT(11) NOT NULL,
+  requested_count INT(11) DEFAULT NULL COMMENT 'Количество по заявкам',
   task_count INT(11) DEFAULT NULL,
   done_count INT(11) DEFAULT NULL,
   note VARCHAR(500) DEFAULT NULL,
   employee_id INT(11) NOT NULL COMMENT 'Исполнитель',
   PRIMARY KEY (id),
+  UNIQUE INDEX UK_work_items (work_date, sort_order),
   CONSTRAINT FK_daily_work_package_details_drawings_id FOREIGN KEY (drawing_id)
     REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT FK_daily_work_package_details_employees_id FOREIGN KEY (employee_id)
     REFERENCES employees(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 7
+AUTO_INCREMENT = 19
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 COMMENT = 'Строки дневного наряда'
 ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы work_item_request_details
+--
+DROP TABLE IF EXISTS work_item_request_details;
+CREATE TABLE work_item_request_details (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  work_item_id INT(11) NOT NULL,
+  request_detail_id INT(11) NOT NULL,
+  sort_order INT(11) DEFAULT NULL,
+  task_count INT(11) NOT NULL,
+  done_count INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_work_item_request_details_request_details_id FOREIGN KEY (request_detail_id)
+    REFERENCES request_details(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_work_item_request_details_work_items_id FOREIGN KEY (work_item_id)
+    REFERENCES work_items(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 31
+AVG_ROW_LENGTH = 2730
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'привязка строк дневного наряда к строкам заявок';
 
 DELIMITER $$
 
@@ -878,7 +928,7 @@ INSERT INTO calculations VALUES
 (3, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL),
 (4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (5, 50.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.76, 120.00, 10.91, 2.78, 5.11, 5.24, 200.78, 16.67, 0.83, 218.28, 13.10, 231.38, 16.20, 247.58, 19.81, 267.38, 'sd gfds hgfdgh '),
-(6, 43905.33, 100.00, NULL, NULL, NULL, NULL, NULL, 594.07, 46605.00, 4236.82, 1077.85, 1982.83, 2033.67, 100535.57, 16.67, 0.83, 100553.07, 6033.18, 106586.25, 7461.04, 114047.29, 9123.78, 123171.07, NULL),
+(6, 19.32, 100.00, NULL, NULL, NULL, NULL, NULL, 1.61, 50.00, 4.55, 1.16, 2.13, 2.18, 180.94, 16.67, 0.83, 198.44, 11.91, 210.35, 14.72, 225.07, 18.01, 243.08, NULL),
 (7, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL),
 (8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
@@ -886,7 +936,7 @@ INSERT INTO calculations VALUES
 -- Вывод данных для таблицы constants
 --
 INSERT INTO constants VALUES
-(1, 1.35, 2.12, 3.90, 4.00, 5.00, 6.00, 7.00, 8.00, 9321.00, '2016-01-04 00:00:00', '3000-12-31 00:00:00', 0);
+(1, 1.35, 2.12, 3.90, 4.00, 5.00, 6.00, 7.00, 8.00, 10.00, '2016-01-04 00:00:00', '3000-12-31 00:00:00', 0);
 
 -- 
 -- Вывод данных для таблицы contragents
@@ -1042,17 +1092,24 @@ INSERT INTO material_arrival_records VALUES
 -- Вывод данных для таблицы requests
 --
 INSERT INTO requests VALUES
-(21, 1, '2016-03-30 00:00:00', NULL, NULL, NULL, 2, NULL, 0),
-(23, 2, '2016-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, 0),
-(25, 3, '2016-03-30 00:00:00', NULL, NULL, NULL, 3, NULL, 0),
-(26, 4, '2016-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, 0),
-(28, 5, '2016-03-30 00:00:00', NULL, NULL, NULL, 2, NULL, 0),
-(31, 6, '2016-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, 0),
-(40, 7, '2016-03-30 00:00:00', NULL, NULL, NULL, 3, NULL, 0),
-(41, 8, '2016-03-30 00:00:00', '2016-04-21 00:00:00', '2016-05-15 00:00:00', NULL, 1, 5, 0),
-(47, 9, '2016-05-05 00:00:00', '2016-05-31 00:00:00', NULL, 160, 2, NULL, 0),
-(48, 10, '2016-05-05 00:00:00', '2016-06-05 00:00:00', NULL, 500, 2, NULL, 0),
-(51, 11, '2016-05-15 00:00:00', NULL, NULL, NULL, 2, 5, 0);
+(21, 1, '2016-03-30 00:00:00', NULL, NULL, NULL, 2, NULL, NULL, 0),
+(23, 2, '2016-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(25, 3, '2016-03-30 00:00:00', NULL, NULL, NULL, 3, NULL, NULL, 0),
+(26, 4, '2016-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(28, 5, '2016-03-30 00:00:00', NULL, NULL, NULL, 2, NULL, NULL, 0),
+(31, 6, '2016-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(40, 7, '2016-03-30 00:00:00', NULL, NULL, NULL, 3, NULL, NULL, 0),
+(41, 8, '2016-03-30 00:00:00', '2016-04-21 00:00:00', '2016-05-15 00:00:00', NULL, 1, 5, NULL, 0),
+(47, 9, '2016-05-05 00:00:00', '2016-05-31 00:00:00', NULL, 160, 2, NULL, NULL, 0),
+(48, 10, '2016-05-05 00:00:00', '2016-06-05 00:00:00', NULL, 500, 2, NULL, NULL, 0),
+(51, 11, '2016-05-15 00:00:00', NULL, NULL, NULL, 2, 5, NULL, 0),
+(52, 12, '2016-05-17 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(53, 13, '2016-05-17 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(54, 14, '2016-05-17 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(56, 15, '2016-05-17 00:00:00', NULL, NULL, NULL, 1, 5, NULL, 0),
+(57, 16, '2016-05-17 00:00:00', NULL, NULL, NULL, 2, 5, NULL, 0),
+(58, 17, '2016-05-17 00:00:00', NULL, NULL, NULL, 3, 5, NULL, 0),
+(59, 18, '2016-05-18 00:00:00', NULL, '2016-05-18 00:00:00', NULL, 2, 5, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы drawings
@@ -1064,7 +1121,7 @@ INSERT INTO drawings VALUES
 (5, '2016-04-12 22:39:14', 5, 'Чэртеж4', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, NULL, 0),
 (6, '2016-04-12 22:39:11', 6, 'Чыртеж5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 0),
 (7, '2016-04-12 22:39:17', 7, 'Чяртеж6', 3, 1, NULL, 5, 7, 1, NULL, 1, 5.00, 0.163, 1200.00, 201.00, 1, 2, 1500.00, 2, 1, 12, 3, 23, 4, NULL, 1, 'qq af sdfg rtg werg wergf', 7, 0),
-(8, '2016-04-28 14:25:41', 8, 'Новый чертеж', 1, 1, NULL, 6, 7, 1, NULL, 3, 150.00, 0.627, 150.00, 654.00, 5, 6, 654.00, 2, 1, 10, 110, 10, 10, 10, 7, 'rfvesrg dst hdh dyh', 12, 0),
+(8, '2016-04-28 14:25:41', 8, 'Можно юзать', 1, 1, NULL, 6, 7, 1, NULL, 3, 10.00, 0.276, 250.00, 100.00, 5, 6, 654.00, 4, 1, 10, 110, 10, 10, 10, 7, 'rfvesrg dst hdh dyh', 12, 0),
 (9, '2016-04-28 15:51:37', 9, 'Новый чертеж', 1, 1, NULL, 5, 7, 1, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
 (10, '2016-04-28 15:59:29', 10, 'Новый чертеж', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 1, NULL, NULL, NULL, NULL, NULL, 6, NULL, NULL, 0),
 (11, '2016-04-28 16:01:19', 11, 'Новый чертеж', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 4, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 10, 0),
@@ -1177,6 +1234,12 @@ INSERT INTO flowsheet_processes VALUES
 (111, 13, 12, 12, NULL, NULL, NULL, NULL, 0.00, NULL);
 
 -- 
+-- Вывод данных для таблицы invoices
+--
+
+-- Таблица rti.invoices не содержит данных
+
+-- 
 -- Вывод данных для таблицы shipped_product_records
 --
 
@@ -1186,17 +1249,21 @@ INSERT INTO flowsheet_processes VALUES
 -- Вывод данных для таблицы request_details
 --
 INSERT INTO request_details VALUES
-(1, 41, 1, 4, 1, 1, NULL, NULL, 12.00, 15.31, NULL, 183.74, NULL, NULL, 0),
-(2, 41, 2, 3, NULL, 1, '123', 12, 2.00, 0.00, NULL, 0.00, 5, NULL, 0),
-(3, 41, 3, 8, 1, 1, '321', NULL, 3.00, 600.00, 267.38, 1800.00, 6, NULL, 0),
-(8, 41, 8, 7, 3, 1, NULL, NULL, 4.00, 300.00, 5626.91, 1200.00, 5, 'примечание примечание примечание примечание', 0),
-(9, 41, 9, 3, 3, NULL, 'asdfasdfs', 123, 50.00, 200.00, NULL, 10000.00, NULL, NULL, 0),
-(10, 41, 10, 4, 1, 1, NULL, NULL, 6.30, 0.00, NULL, 0.00, NULL, NULL, 0),
-(12, 41, 12, 13, 2, 1, NULL, 323, 8.90, 0.00, 0.00, 0.00, 5, NULL, 0),
-(13, 47, 1, 7, 4, 1, NULL, NULL, 0.00, 0.00, NULL, 0.00, NULL, NULL, 0),
-(14, 47, 2, 6, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, 0.00, NULL, NULL, 0),
-(15, 48, 1, 3, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, 0.00, NULL, NULL, 0),
-(16, 48, 2, 7, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, 0.00, NULL, NULL, 0);
+(1, 41, 1, 4, 1, 1, NULL, NULL, 12, 0, 15.31, NULL, 183.74, NULL, NULL, 0, 0),
+(2, 41, 2, 3, NULL, 1, '123', 12, 2, 0, 0.00, NULL, 0.00, 5, NULL, 0, 0),
+(3, 41, 3, 8, 1, 1, '321', NULL, 3, 0, 250.00, 267.38, 750.00, 6, NULL, 3, 0),
+(8, 41, 8, 7, 3, 1, NULL, NULL, 4, 0, 300.00, 5626.91, 1200.00, 5, 'примечание примечание примечание примечание', 0, 0),
+(9, 41, 9, 3, 3, NULL, 'asdfasdfs', 123, 50, 0, 200.00, NULL, 10000.00, NULL, NULL, 0, 0),
+(10, 41, 10, 4, 1, 1, NULL, NULL, 6, 0, 0.00, NULL, 0.00, NULL, NULL, 0, 0),
+(12, 41, 12, 13, 2, 1, NULL, 323, 9, 0, 0.00, 0.00, 0.00, 5, NULL, 0, 0),
+(13, 47, 1, 7, 4, 1, NULL, NULL, 0, 0, 0.00, NULL, 0.00, NULL, NULL, 0, 0),
+(14, 47, 2, 6, NULL, NULL, NULL, NULL, 0, 0, 0.00, NULL, 0.00, NULL, NULL, 0, 0),
+(15, 48, 1, 3, NULL, NULL, NULL, NULL, 0, 0, 0.00, NULL, 0.00, NULL, NULL, 0, 0),
+(16, 48, 2, 7, NULL, NULL, NULL, NULL, 0, 0, 0.00, NULL, 0.00, NULL, NULL, 0, 0),
+(17, 56, 1, 8, 1, 1, NULL, NULL, 10, 10, 250.00, 267.38, 2500.00, 6, NULL, 3, 0),
+(18, 57, 1, 8, 1, 1, NULL, NULL, 50, 50, 250.00, 267.38, 12500.00, 6, NULL, 3, 0),
+(19, 58, 1, 8, 1, 1, NULL, NULL, 100, 80, 250.00, 267.38, 25000.00, 6, NULL, 2, 0),
+(20, 59, 1, 8, 1, 1, NULL, NULL, 20, 0, 250.00, 267.38, 5000.00, 6, NULL, 3, 0);
 
 -- 
 -- Вывод данных для таблицы rolling_records
@@ -1222,11 +1289,24 @@ INSERT INTO shipping_order_records VALUES
 -- Вывод данных для таблицы work_items
 --
 INSERT INTO work_items VALUES
-(1, '2016-05-16 00:00:00', 1, 7, NULL, NULL, NULL, 1),
-(3, '2016-05-13 00:00:00', 1, 7, NULL, NULL, NULL, 1),
-(4, '2016-05-16 00:00:00', 2, 6, NULL, NULL, NULL, 1),
-(5, '2016-05-15 00:00:00', 3, 7, NULL, NULL, NULL, 1),
-(6, '2016-05-13 00:00:00', 4, 7, NULL, NULL, NULL, 1);
+(7, '2016-05-16', 1, 8, NULL, 12, 10, NULL, 1),
+(9, '2016-05-13', 1, 7, NULL, NULL, NULL, NULL, 1),
+(10, '2016-05-13', 2, 6, NULL, NULL, NULL, NULL, 1),
+(11, '2016-05-13', 3, 5, NULL, NULL, NULL, NULL, 1),
+(12, '2016-05-13', 4, 1, NULL, 50, NULL, NULL, 1),
+(17, '2016-05-17', 1, 8, 160, 100, 50, NULL, 1),
+(18, '2016-05-18', 1, 8, 110, 110, 100, NULL, 1);
+
+-- 
+-- Вывод данных для таблицы work_item_request_details
+--
+INSERT INTO work_item_request_details VALUES
+(25, 7, 3, 0, 0, 3),
+(26, 7, 17, 1, 0, 7),
+(27, 17, 17, 0, 0, 3),
+(28, 17, 18, 1, 0, 47),
+(29, 18, 18, 0, 0, 3),
+(30, 18, 19, 1, 0, 97);
 
 -- 
 -- Восстановить предыдущий режим SQL (SQL mode)

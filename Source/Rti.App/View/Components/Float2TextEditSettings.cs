@@ -8,6 +8,8 @@ namespace Rti.App.View.Components
 {
     public class Float2TextEditSettingsExtension : MarkupExtension
     {
+        public Float2TextEditSettingsExtension() : base() { }
+
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
             return new TextEditSettings

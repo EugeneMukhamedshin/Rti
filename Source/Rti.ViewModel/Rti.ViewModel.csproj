@@ -55,6 +55,7 @@
     <Compile Include="Commands\CommandExecutionInfo.cs" />
     <Compile Include="Commands\HistoryContext.cs" />
     <Compile Include="EditViewModel\CalculationEdit.cs" />
+    <Compile Include="EditViewModel\ContragentEdit.cs" />
     <Compile Include="EditViewModel\DrawingCalculationEdit.cs" />
     <Compile Include="EditViewModel\DrawingCalculationViewModel.cs" />
     <Compile Include="EditViewModel\DrawingEdit.cs" />
@@ -63,7 +64,7 @@
     <Compile Include="EditViewModel\EditViewModel.cs" />
     <Compile Include="EditViewModel\EditViewModelBase.cs" />
     <Compile Include="EditViewModel\DetailEdit.cs" />
-    <Compile Include="EditViewModel\ContragentEdit.cs" />
+    <Compile Include="EditViewModel\WorkItemEdit.cs" />
     <Compile Include="EditViewModel\EmployeeEdit.cs" />
     <Compile Include="EditViewModel\DriverEdit.cs" />
     <Compile Include="EditViewModel\EquipmentEdit.cs" />

@@ -69,6 +69,7 @@ namespace Rti.App
 
             // Дневные наряды
             AddToRegistry<WorkItemList, WorkItemListWindow>();
+            AddToRegistry<WorkItemEdit, WorkItemEditWindow>();
 
             // Журналы
             // Журнал обрезки облоя

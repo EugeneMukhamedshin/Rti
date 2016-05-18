@@ -43,6 +43,7 @@ namespace Rti.App
                     new FrameworkPropertyMetadata(language));
                 base.OnStartup(e);
                 var repositoryFactory = new NHibernateRepositoryFactory();
+
                 _viewService = new ViewService();
 
                 var isDebug = e.Args.Any(arg => arg.ToLower().Equals("debug=true"));

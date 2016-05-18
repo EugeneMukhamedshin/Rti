@@ -11,12 +11,12 @@ namespace Rti.Model.Repository.NHibernate
     {
         public IList<WorkItem> GetByDate(DateTime date)
         {
-            //return ExecuteFuncOnQueryOver(q => q.Where(o => o.WorkDate == date).OrderBy(o => o.SortOrder).Asc.List());
-            return ExecuteFuncOnSession(s =>
-            {
-                var criteria = s.CreateCriteria(typeof (WorkItem));
-                return criteria.Add(Restrictions.Eq("WorkDate", date.Date)).List<WorkItem>();
-            }, "");
+            return ExecuteFuncOnQueryOver(q => q.Where(o => o.WorkDate == date).OrderBy(o => o.SortOrder).Asc.List());
+            //return ExecuteFuncOnSession(s =>
+            //{
+            //    var criteria = s.CreateCriteria(typeof(WorkItem));
+            //    return criteria.Add(Restrictions.Between("WorkDate", date.Date.AddSeconds(-1), date.Date.AddDays(1).AddSeconds(-1))).List<WorkItem>();
+            //}, "");
         }
     }
 }

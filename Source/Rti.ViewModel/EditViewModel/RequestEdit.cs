@@ -117,7 +117,9 @@ namespace Rti.ViewModel.EditViewModel
 
         protected override void DoSave()
         {
+            // Сохраняем заявку
             base.DoSave();
+            // Сохраняем детали заявки
             foreach (var deletedDetail in _deletedDetails)
             {
                 deletedDetail.DeleteEntity();
@@ -126,7 +128,15 @@ namespace Rti.ViewModel.EditViewModel
             foreach (var detail in RequestDetails)
             {
                 if (detail.IsNewEntity || detail.IsChanged)
+                {
+                    if (detail.Drawing == null || detail.Drawing.Equipment == null || detail.Drawing.CalculationPrice == null || detail.Drawing.Price == null)
+                        detail.RequestDetailStateEnum = RequestDetailState.New;
+                    else
+                        // Если есть чертеж, и он заполнен, отправляем деталь в производство
+                        detail.RequestDetailStateEnum = RequestDetailState.ReadyToProduce;
+
                     detail.SaveEntity();
+                }
             }
         }
 

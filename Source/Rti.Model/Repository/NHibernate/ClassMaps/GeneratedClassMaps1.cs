@@ -561,6 +561,33 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 	}
 
 
+	// The classmap for invoices
+	public partial class InvoiceMap : BaseMap<Rti.Model.Domain.Invoice>
+	{
+		public InvoiceMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("invoices");
+
+			Id(o => o.Id, "id");
+
+			Map(o => o.IsDeleted, "is_deleted");
+
+			Map(o => o.InvoiceNumber, "invoice_number");
+
+			Map(o => o.InvoiceDate, "invoice_date");
+
+			References(o => o.Request, "request_id").Fetch.Join().Not.LazyLoad();
+
+			OnInitialized();
+		}
+	}
+
+
 	// The classmap for jobs
 	public partial class JobMap : BaseMap<Rti.Model.Domain.Job>
 	{
@@ -885,6 +912,8 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Map(o => o.LeadTime, "lead_time");
 
+			Map(o => o.IsPaid, "is_paid");
+
 			Map(o => o.IsDeleted, "is_deleted");
 
 			References(o => o.Customer, "customer_id").Fetch.Join().Not.LazyLoad();
@@ -918,6 +947,8 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Map(o => o.Count, "count");
 
+			Map(o => o.DoneCount, "done_count");
+
 			Map(o => o.Price, "price");
 
 			Map(o => o.CalculationPrice, "calculation_price");
@@ -925,6 +956,8 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.Sum, "sum");
 
 			Map(o => o.Note, "note");
+
+			Map(o => o.RequestDetailStateEnum, "request_detail_state_enum").CustomType<RequestDetailState>();
 
 			Map(o => o.IsDeleted, "is_deleted");
 
@@ -1105,6 +1138,8 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Map(o => o.SortOrder, "sort_order");
 
+			Map(o => o.RequestedCount, "requested_count");
+
 			Map(o => o.TaskCount, "task_count");
 
 			Map(o => o.DoneCount, "done_count");
@@ -1114,6 +1149,35 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
 
 			References(o => o.Employee, "employee_id").Fetch.Join().Not.LazyLoad();
+
+			OnInitialized();
+		}
+	}
+
+
+	// The classmap for work_item_request_details
+	public partial class WorkItemRequestDetailMap : BaseMap<Rti.Model.Domain.WorkItemRequestDetail>
+	{
+		public WorkItemRequestDetailMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("work_item_request_details");
+
+			Id(o => o.Id, "id");
+
+			Map(o => o.SortOrder, "sort_order");
+
+			Map(o => o.TaskCount, "task_count");
+
+			Map(o => o.DoneCount, "done_count");
+
+			References(o => o.WorkItem, "work_item_id").Fetch.Join().Not.LazyLoad();
+
+			References(o => o.RequestDetail, "request_detail_id").Fetch.Join().Not.LazyLoad();
 
 			OnInitialized();
 		}

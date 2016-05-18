@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
+using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
 
@@ -29,18 +30,20 @@ namespace Rti.ViewModel.Lists
 
         public WorkItemList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
         {
-            Date = DateTime.Today;
+            TypeMaps.Add(new Tuple<Type, Type>(typeof(WorkItemViewModel), typeof(WorkItemEdit)));
+
+            _date = DateTime.Today;
             AddWorkItemCommand = new DelegateCommand(
                 "Добавить строку",
                 o => true,
-                o => AddDetail());
+                o => AddWorkItem());
         }
 
-        private void AddDetail()
+        private void AddWorkItem()
         {
-            var detail = DoCreateNewEntity();
-            Items.Add(detail);
-            SelectedItem = detail;
+            var workItem = DoCreateNewEntity();
+            if (OpenViewModelEditWindow(workItem, "Новая запись дневного наряда", false))
+                Items.Add(workItem);
         }
 
         protected override IEnumerable<WorkItemViewModel> GetItems()
@@ -59,9 +62,12 @@ namespace Rti.ViewModel.Lists
 
         protected override void DoDeleteEntity(WorkItemViewModel entity)
         {
-            _deletedItems.Add(entity);
+            var details = RepositoryFactory.GetWorkItemRequestDetailRepository().GetByWorkItemId(entity.Id).Select(o => new WorkItemRequestDetailViewModel(o, RepositoryFactory)).ToList();
+            details.ForEach(o => o.DeleteEntity());
+            entity.DeleteEntity();
+            //_deletedItems.Add(entity);
         }
-         public void SaveChanges()         {             foreach (var deletedItem in _deletedItems)             {                 deletedItem.DeleteEntity();             }             _deletedItems.Clear();             foreach (var item in Items)             {                 if (item.IsChanged || item.IsNewEntity)                     item.SaveEntity();             }         } 
+         //public void SaveChanges()         //{         //    foreach (var deletedItem in _deletedItems)         //    {         //        deletedItem.DeleteEntity();         //    }         //    _deletedItems.Clear();         //    foreach (var item in Items)         //    {         //        if (item.IsChanged || item.IsNewEntity)         //            item.SaveEntity();         //    }         //} 
         protected override bool AcceptFind(WorkItemViewModel entity, string searchText)
         {
             return searchText.ContainedIn(entity.BatchNumber, entity.Note) ||
