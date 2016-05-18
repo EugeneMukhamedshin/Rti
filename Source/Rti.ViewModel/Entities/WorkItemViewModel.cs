@@ -1,3 +1,5 @@
+using System;
+
 namespace Rti.ViewModel.Entities
 {
     public partial class WorkItemViewModel
@@ -12,6 +14,19 @@ namespace Rti.ViewModel.Entities
             get { return Drawing != null && Drawing.PlanCalculation != null ? DoneCount * Drawing.PlanCalculation.Summary : null; }
         }
 
+        public int RemainedCount
+        {
+            get { return (RequestCount ?? 0) - (DoneCount ?? 0); }
+        }
+
+        /// <summary>
+        /// Количество съемов
+        /// </summary>
+        public int TakeOffCount
+        {
+            get { return (int)Math.Round((double)((TaskCount ?? 0)/Drawing.Equipment.Output), 0); }
+        }
+
         protected override void OnPropertyChanged(string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
@@ -19,6 +34,10 @@ namespace Rti.ViewModel.Entities
                 OnPropertyChanged("Sum");
             if (propertyName == "Date")
                 OnPropertyChanged("BatchNumber");
+            if (propertyName.In("DoneCount", "RequestCount"))
+                OnPropertyChanged("RemainedCount");
+            if (propertyName.In("TaskCount", "Drawing"))
+                OnPropertyChanged("TakeOffCount");
         }
     }
 }

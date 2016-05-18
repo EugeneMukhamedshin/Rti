@@ -1138,11 +1138,13 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Map(o => o.SortOrder, "sort_order");
 
-			Map(o => o.RequestedCount, "requested_count");
+			Map(o => o.RequestCount, "request_count");
 
 			Map(o => o.TaskCount, "task_count");
 
 			Map(o => o.DoneCount, "done_count");
+
+			Map(o => o.RejectedCount, "rejected_count");
 
 			Map(o => o.Note, "note");
 

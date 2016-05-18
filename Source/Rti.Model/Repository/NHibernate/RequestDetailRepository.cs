@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NHibernate.Criterion;
 using NHibernate.Linq;
 using NHibernate.Transform;
 using Rti.Model.Domain;
@@ -62,6 +63,20 @@ WHERE r.count > r.done")
         public IList<RequestDetail> GetRequestDetailsByIds(int[] ids)
         {
             return ExecuteFuncOnQueryOver(q => q.WhereRestrictionOn(o => o.Id).IsIn(ids).List());
+        }
+
+        public int GetNotShippedCount(int drawingId, DateTime date)
+        {
+            return
+                ExecuteFuncOnQueryOver(
+                    q =>
+                        q.Where(
+                            o =>
+                                !o.IsDeleted && o.Drawing.Id == drawingId &&
+                                o.RequestDetailStateEnum != RequestDetailState.New &&
+                                o.RequestDetailStateEnum != RequestDetailState.Shipped &&
+                                o.Request.RegDate <= date)
+                            .Select(Projections.Sum<RequestDetail>(o => o.Count)).UnderlyingCriteria.UniqueResult<int>());
         }
     }
 }

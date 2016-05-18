@@ -1,8 +1,8 @@
 ﻿--
--- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 6.3.358.0
+-- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.0.49.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 18.05.2016 20:49:02
--- Версия сервера: 5.6.26-log
+-- Дата скрипта: 19.05.2016 0:54:05
+-- Версия сервера: 5.7.9-log
 -- Версия клиента: 4.1
 --
 
@@ -676,7 +676,8 @@ ENGINE = INNODB
 AUTO_INCREMENT = 1
 CHARACTER SET utf8
 COLLATE utf8_general_ci
-COMMENT = 'счета на оплату';
+COMMENT = 'счета на оплату'
+ROW_FORMAT = DYNAMIC;
 
 --
 -- Описание для таблицы shipped_product_records
@@ -848,9 +849,10 @@ CREATE TABLE work_items (
   work_date DATE NOT NULL COMMENT 'дата',
   sort_order INT(11) NOT NULL,
   drawing_id INT(11) NOT NULL,
-  requested_count INT(11) DEFAULT NULL COMMENT 'Количество по заявкам',
+  request_count INT(11) DEFAULT NULL COMMENT 'количество по текущим заявкам. Рассчитывается каждый раз при сохранении (BL)',
   task_count INT(11) DEFAULT NULL,
   done_count INT(11) DEFAULT NULL,
+  rejected_count INT(11) DEFAULT NULL COMMENT 'количество брака',
   note VARCHAR(500) DEFAULT NULL,
   employee_id INT(11) NOT NULL COMMENT 'Исполнитель',
   PRIMARY KEY (id),
@@ -890,7 +892,8 @@ AUTO_INCREMENT = 31
 AVG_ROW_LENGTH = 2730
 CHARACTER SET utf8
 COLLATE utf8_general_ci
-COMMENT = 'привязка строк дневного наряда к строкам заявок';
+COMMENT = 'привязка строк дневного наряда к строкам заявок'
+ROW_FORMAT = DYNAMIC;
 
 DELIMITER $$
 
@@ -1289,13 +1292,13 @@ INSERT INTO shipping_order_records VALUES
 -- Вывод данных для таблицы work_items
 --
 INSERT INTO work_items VALUES
-(7, '2016-05-16', 1, 8, NULL, 12, 10, NULL, 1),
-(9, '2016-05-13', 1, 7, NULL, NULL, NULL, NULL, 1),
-(10, '2016-05-13', 2, 6, NULL, NULL, NULL, NULL, 1),
-(11, '2016-05-13', 3, 5, NULL, NULL, NULL, NULL, 1),
-(12, '2016-05-13', 4, 1, NULL, 50, NULL, NULL, 1),
-(17, '2016-05-17', 1, 8, 160, 100, 50, NULL, 1),
-(18, '2016-05-18', 1, 8, 110, 110, 100, NULL, 1);
+(7, '2016-05-16', 1, 8, NULL, 12, 10, NULL, NULL, 1),
+(9, '2016-05-13', 1, 7, NULL, NULL, NULL, NULL, NULL, 1),
+(10, '2016-05-13', 2, 6, NULL, NULL, NULL, NULL, NULL, 1),
+(11, '2016-05-13', 3, 5, NULL, NULL, NULL, NULL, NULL, 1),
+(12, '2016-05-13', 4, 1, NULL, 50, NULL, NULL, NULL, 1),
+(17, '2016-05-17', 1, 8, NULL, 100, 50, NULL, NULL, 1),
+(18, '2016-05-18', 1, 8, NULL, 110, 100, NULL, NULL, 1);
 
 -- 
 -- Вывод данных для таблицы work_item_request_details

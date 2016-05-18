@@ -15,5 +15,14 @@ namespace Rti.Model.Repository.NHibernate
         {
             return ExecuteFuncOnQueryOver(q => q.Where(o => o.RequestDetail.Id == requestDetailId).List());
         }
+
+        public void DeleteByWorkItemId(int workItemId)
+        {
+            ExecuteActionOnSession(
+                s =>
+                    s.CreateSQLQuery("delete from work_item_request_details where work_item_id = :p_work_item_id")
+                        .SetInt32("p_work_item_id", workItemId)
+                        .ExecuteUpdate(), "");
+        }
     }
 }

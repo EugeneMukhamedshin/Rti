@@ -10,5 +10,6 @@ namespace Rti.Model.Repository.Interfaces
         IList<RequestDetail> GetReadyToProduceByDrawingId(int drawingId);
         IList<Tuple<int, decimal>> GetRequestsInProductionWithActualDoneCounts(int drawingId, DateTime date);
         IList<RequestDetail> GetRequestDetailsByIds(int[] ids);
+        int GetNotShippedCount(int drawingId, DateTime date);
     }
 }

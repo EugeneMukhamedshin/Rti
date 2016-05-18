@@ -12,8 +12,6 @@ namespace Rti.ViewModel.EditViewModel
         public Lazy<List<EmployeeViewModel>> EmployeesSource { get; set; }
         public Lazy<List<DrawingViewModel>> DrawingsSource { get; set; }
 
-        private IList<RequestDetail> _requestDetails;
-
         public WorkItemEdit(string name, WorkItemViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {
@@ -28,17 +26,12 @@ namespace Rti.ViewModel.EditViewModel
 
         protected override void DoSave()
         {
-            var workItemRequestDetails = new List<WorkItemRequestDetailViewModel>();
             if (!Source.IsNewEntity)
             {
-                workItemRequestDetails = RepositoryFactory.GetWorkItemRequestDetailRepository()
-                    .GetByWorkItemId(Source.Id)
-                    .Select(o => new WorkItemRequestDetailViewModel(o, RepositoryFactory)).ToList();
-                foreach (var detail in workItemRequestDetails)
-                {
-                    detail.DeleteEntity();
-                }
+                RepositoryFactory.GetWorkItemRequestDetailRepository()
+                    .DeleteByWorkItemId(Source.Id);
             }
+            Entity.RequestCount = RepositoryFactory.GetRequestDetailRepository().GetNotShippedCount(Entity.Drawing.Id, Entity.WorkDate);
             base.DoSave();
 
             var requestDetailDoneCounts =

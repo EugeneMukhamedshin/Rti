@@ -3654,9 +3654,10 @@ namespace Rti.ViewModel.Entities
 		private Int32 _id;
 		private DateTime _workDate;
 		private Int32 _sortOrder;
-		private Int32? _requestedCount;
+		private Int32? _requestCount;
 		private Int32? _taskCount;
 		private Int32? _doneCount;
+		private Int32? _rejectedCount;
 		private String _note;
 		private DrawingViewModel _drawing;
 		private EmployeeViewModel _employee;
@@ -3664,9 +3665,10 @@ namespace Rti.ViewModel.Entities
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public DateTime WorkDate { get { return _workDate; } set { if (Equals(_workDate, value)) return; _workDate = value; OnPropertyChanged("WorkDate"); } }
 		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
-		public Int32? RequestedCount { get { return _requestedCount; } set { if (Equals(_requestedCount, value)) return; _requestedCount = value; OnPropertyChanged("RequestedCount"); } }
+		public Int32? RequestCount { get { return _requestCount; } set { if (Equals(_requestCount, value)) return; _requestCount = value; OnPropertyChanged("RequestCount"); } }
 		public Int32? TaskCount { get { return _taskCount; } set { if (Equals(_taskCount, value)) return; _taskCount = value; OnPropertyChanged("TaskCount"); } }
 		public Int32? DoneCount { get { return _doneCount; } set { if (Equals(_doneCount, value)) return; _doneCount = value; OnPropertyChanged("DoneCount"); } }
+		public Int32? RejectedCount { get { return _rejectedCount; } set { if (Equals(_rejectedCount, value)) return; _rejectedCount = value; OnPropertyChanged("RejectedCount"); } }
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
 		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
 		public EmployeeViewModel Employee { get { return _employee; } set { _employee = value; OnPropertyChanged("Employee"); } }
@@ -3675,9 +3677,10 @@ namespace Rti.ViewModel.Entities
 		{
 			Entity.WorkDate = WorkDate; 
 			Entity.SortOrder = SortOrder; 
-			Entity.RequestedCount = RequestedCount; 
+			Entity.RequestCount = RequestCount; 
 			Entity.TaskCount = TaskCount; 
 			Entity.DoneCount = DoneCount; 
+			Entity.RejectedCount = RejectedCount; 
 			Entity.Note = Note; 
 			Entity.Drawing = Drawing == null ? null : Drawing.Entity; 
 			Entity.Employee = Employee == null ? null : Employee.Entity; 
@@ -3690,9 +3693,10 @@ namespace Rti.ViewModel.Entities
 			Id = Entity.Id; 
 			WorkDate = Entity.WorkDate; 
 			SortOrder = Entity.SortOrder; 
-			RequestedCount = Entity.RequestedCount; 
+			RequestCount = Entity.RequestCount; 
 			TaskCount = Entity.TaskCount; 
 			DoneCount = Entity.DoneCount; 
+			RejectedCount = Entity.RejectedCount; 
 			Note = Entity.Note; 
 			Drawing = Entity.Drawing == null ? null : new DrawingViewModel(Entity.Drawing, RepositoryFactory); 
 			Employee = Entity.Employee == null ? null : new EmployeeViewModel(Entity.Employee, RepositoryFactory); 
@@ -3704,9 +3708,10 @@ namespace Rti.ViewModel.Entities
 			IsMapping = true;
 			WorkDate = source.WorkDate;
 			SortOrder = source.SortOrder;
-			RequestedCount = source.RequestedCount;
+			RequestCount = source.RequestCount;
 			TaskCount = source.TaskCount;
 			DoneCount = source.DoneCount;
+			RejectedCount = source.RejectedCount;
 			Note = source.Note;
 			Drawing = source.Drawing;
 			Employee = source.Employee;
@@ -3727,12 +3732,14 @@ namespace Rti.ViewModel.Entities
 			element.Add(new XAttribute("Id", Id));
 			element.Add(new XAttribute("WorkDate", WorkDate));
 			element.Add(new XAttribute("SortOrder", SortOrder));
-			if (RequestedCount != null)
-				element.Add(new XAttribute("RequestedCount", RequestedCount));
+			if (RequestCount != null)
+				element.Add(new XAttribute("RequestCount", RequestCount));
 			if (TaskCount != null)
 				element.Add(new XAttribute("TaskCount", TaskCount));
 			if (DoneCount != null)
 				element.Add(new XAttribute("DoneCount", DoneCount));
+			if (RejectedCount != null)
+				element.Add(new XAttribute("RejectedCount", RejectedCount));
 			if (Note != null)
 				element.Add(new XAttribute("Note", Note));
 			if (Drawing != null)
