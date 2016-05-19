@@ -15,7 +15,6 @@ namespace Rti.Model.Repository.Interfaces
 		IDrawingRepository GetDrawingRepository();
 		IDriverRepository GetDriverRepository();
 		IEmployeeRepository GetEmployeeRepository();
-		IEmployeeWorkItemPackageRepository GetEmployeeWorkItemPackageRepository();
 		IEquipmentRepository GetEquipmentRepository();
 		IFlowsheetRepository GetFlowsheetRepository();
 		IFlowsheetMachineRepository GetFlowsheetMachineRepository();
@@ -38,6 +37,8 @@ namespace Rti.Model.Repository.Interfaces
 		IShippedProductRecordRepository GetShippedProductRecordRepository();
 		IShippingOrderRecordRepository GetShippingOrderRecordRepository();
 		IWorkItemRepository GetWorkItemRepository();
+		IWorkItemPackageRepository GetWorkItemPackageRepository();
+		IWorkItemPackageMachineRepository GetWorkItemPackageMachineRepository();
 		IWorkItemRequestDetailRepository GetWorkItemRequestDetailRepository();
     }
 
@@ -49,7 +50,6 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IDrawingRepository : IRepository<Rti.Model.Domain.Drawing> { }
 	public partial interface IDriverRepository : IRepository<Rti.Model.Domain.Driver> { }
 	public partial interface IEmployeeRepository : IRepository<Rti.Model.Domain.Employee> { }
-	public partial interface IEmployeeWorkItemPackageRepository : IRepository<Rti.Model.Domain.EmployeeWorkItemPackage> { }
 	public partial interface IEquipmentRepository : IRepository<Rti.Model.Domain.Equipment> { }
 	public partial interface IFlowsheetRepository : IRepository<Rti.Model.Domain.Flowsheet> { }
 	public partial interface IFlowsheetMachineRepository : IRepository<Rti.Model.Domain.FlowsheetMachine> { }
@@ -72,5 +72,7 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IShippedProductRecordRepository : IRepository<Rti.Model.Domain.ShippedProductRecord> { }
 	public partial interface IShippingOrderRecordRepository : IRepository<Rti.Model.Domain.ShippingOrderRecord> { }
 	public partial interface IWorkItemRepository : IRepository<Rti.Model.Domain.WorkItem> { }
+	public partial interface IWorkItemPackageRepository : IRepository<Rti.Model.Domain.WorkItemPackage> { }
+	public partial interface IWorkItemPackageMachineRepository : IRepository<Rti.Model.Domain.WorkItemPackageMachine> { }
 	public partial interface IWorkItemRequestDetailRepository : IRepository<Rti.Model.Domain.WorkItemRequestDetail> { }
 }

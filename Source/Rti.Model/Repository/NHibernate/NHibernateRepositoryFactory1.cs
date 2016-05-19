@@ -25,8 +25,6 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new DriverRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Employee))
                 return (IRepository<TEntity>)new EmployeeRepository();
-            if (typeof(TEntity) == typeof(Rti.Model.Domain.EmployeeWorkItemPackage))
-                return (IRepository<TEntity>)new EmployeeWorkItemPackageRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Equipment))
                 return (IRepository<TEntity>)new EquipmentRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Flowsheet))
@@ -71,6 +69,10 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new ShippingOrderRecordRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.WorkItem))
                 return (IRepository<TEntity>)new WorkItemRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.WorkItemPackage))
+                return (IRepository<TEntity>)new WorkItemPackageRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.WorkItemPackageMachine))
+                return (IRepository<TEntity>)new WorkItemPackageMachineRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.WorkItemRequestDetail))
                 return (IRepository<TEntity>)new WorkItemRequestDetailRepository();
 			return new NHibernateRepository<TEntity>();
@@ -91,8 +93,6 @@ namespace Rti.Model.Repository.NHibernate
 		public IDriverRepository GetDriverRepository() { return (IDriverRepository) GetRepository<Rti.Model.Domain.Driver>(); }
 
 		public IEmployeeRepository GetEmployeeRepository() { return (IEmployeeRepository) GetRepository<Rti.Model.Domain.Employee>(); }
-
-		public IEmployeeWorkItemPackageRepository GetEmployeeWorkItemPackageRepository() { return (IEmployeeWorkItemPackageRepository) GetRepository<Rti.Model.Domain.EmployeeWorkItemPackage>(); }
 
 		public IEquipmentRepository GetEquipmentRepository() { return (IEquipmentRepository) GetRepository<Rti.Model.Domain.Equipment>(); }
 
@@ -137,6 +137,10 @@ namespace Rti.Model.Repository.NHibernate
 		public IShippingOrderRecordRepository GetShippingOrderRecordRepository() { return (IShippingOrderRecordRepository) GetRepository<Rti.Model.Domain.ShippingOrderRecord>(); }
 
 		public IWorkItemRepository GetWorkItemRepository() { return (IWorkItemRepository) GetRepository<Rti.Model.Domain.WorkItem>(); }
+
+		public IWorkItemPackageRepository GetWorkItemPackageRepository() { return (IWorkItemPackageRepository) GetRepository<Rti.Model.Domain.WorkItemPackage>(); }
+
+		public IWorkItemPackageMachineRepository GetWorkItemPackageMachineRepository() { return (IWorkItemPackageMachineRepository) GetRepository<Rti.Model.Domain.WorkItemPackageMachine>(); }
 
 		public IWorkItemRequestDetailRepository GetWorkItemRequestDetailRepository() { return (IWorkItemRequestDetailRepository) GetRepository<Rti.Model.Domain.WorkItemRequestDetail>(); }
 
@@ -230,17 +234,6 @@ namespace Rti.Model.Repository.NHibernate
         {
 			var result = queryOver;
 			result = result.Fetch(o => o.Job).Default;
-            return result;
-        }
-    }
-
-	public partial class EmployeeWorkItemPackageRepository : NHibernateRepository<Rti.Model.Domain.EmployeeWorkItemPackage>, IEmployeeWorkItemPackageRepository
-    {
-
-        protected override IQueryOver<Rti.Model.Domain.EmployeeWorkItemPackage, Rti.Model.Domain.EmployeeWorkItemPackage> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.EmployeeWorkItemPackage, Rti.Model.Domain.EmployeeWorkItemPackage> queryOver)
-        {
-			var result = queryOver;
-			result = result.Fetch(o => o.Employee).Default;
             return result;
         }
     }
@@ -491,6 +484,29 @@ namespace Rti.Model.Repository.NHibernate
 			var result = queryOver;
 			result = result.Fetch(o => o.Drawing).Default;
 			result = result.Fetch(o => o.Employee).Default;
+			result = result.Fetch(o => o.FlowsheetMachine).Default;
+            return result;
+        }
+    }
+
+	public partial class WorkItemPackageRepository : NHibernateRepository<Rti.Model.Domain.WorkItemPackage>, IWorkItemPackageRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.WorkItemPackage, Rti.Model.Domain.WorkItemPackage> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.WorkItemPackage, Rti.Model.Domain.WorkItemPackage> queryOver)
+        {
+			var result = queryOver;
+			result = result.Fetch(o => o.Employee).Default;
+            return result;
+        }
+    }
+
+	public partial class WorkItemPackageMachineRepository : NHibernateRepository<Rti.Model.Domain.WorkItemPackageMachine>, IWorkItemPackageMachineRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.WorkItemPackageMachine, Rti.Model.Domain.WorkItemPackageMachine> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.WorkItemPackageMachine, Rti.Model.Domain.WorkItemPackageMachine> queryOver)
+        {
+			var result = queryOver;
+			result = result.Fetch(o => o.WorkItemPackage).Default;
 			result = result.Fetch(o => o.FlowsheetMachine).Default;
             return result;
         }

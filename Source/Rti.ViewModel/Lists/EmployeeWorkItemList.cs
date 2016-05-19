@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.Linq;
 using Rti.Model.Domain;
@@ -11,9 +11,9 @@ namespace Rti.ViewModel.Lists
 {
     public class EmployeeWorkItemList : EntityList<WorkItemViewModel, WorkItem>, IClosable
     {
-        private EmployeeWorkItemPackageViewModel _employeeWorkItemPackage;
+        private WorkItemPackageViewModel _employeeWorkItemPackage;
 
-        public EmployeeWorkItemPackageViewModel EmployeeWorkItemPackage
+        public WorkItemPackageViewModel EmployeeWorkItemPackage
         {
             get { return _employeeWorkItemPackage; }
             set
@@ -29,6 +29,8 @@ namespace Rti.ViewModel.Lists
 
         public DelegateCommand OkCommand { get; set; }
         public DelegateCommand CloseCommand { get; set; }
+
+        private Dictionary<int, List<FlowsheetMachine>> _drawingMachines;
 
         public EmployeeWorkItemList(EmployeeViewModel employee, DateTime date, bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
         {
@@ -52,19 +54,22 @@ namespace Rti.ViewModel.Lists
             var controller = new WorkItemControllerViewModel(ViewService, RepositoryFactory);
             foreach (var workItem in Items)
             {
-                workItem.SaveEntity();
-                controller.PostWorkItem(workItem);
+                if (!workItem.IsChanged)
+                    continue;
+                DoAsync(() => controller.PostWorkItem(workItem), () => Close(true), 
+                    "РџРѕРґРѕР¶РґРёС‚Рµ, РїСЂРѕРёР·РІРѕРґРёС‚СЃСЏ РїРµСЂРµСЂР°СЃРїСЂРµРґРµР»РµРЅРёРµ РІС‹РїРѕР»РЅРµРЅРЅС‹С… РґРµС‚Р°Р»РµР№ РїРѕ Р·Р°СЏРІРєР°Рј...");
             }
-            Close(true);
         }
 
         public override void Refresh()
         {
             base.Refresh();
-            EmployeeWorkItemPackage = new EmployeeWorkItemPackageViewModel(RepositoryFactory.GetEmployeeWorkItemPackageRepository().GetByEmployeeId(Employee.Id, Date), RepositoryFactory)
+            var package = RepositoryFactory.GetWorkItemPackageRepository().GetByEmployeeId(Employee.Id, Date);
+            EmployeeWorkItemPackage = new WorkItemPackageViewModel(package, RepositoryFactory);
+            if (EmployeeWorkItemPackage.IsNewEntity)
             {
-                Employee = Employee,
-                Date = Date
+                EmployeeWorkItemPackage.Employee = Employee;
+                EmployeeWorkItemPackage.Date = Date;
             };
         }
 
@@ -78,12 +83,12 @@ namespace Rti.ViewModel.Lists
 
         protected override WorkItemViewModel DoCreateNewEntity()
         {
-            throw new InvalidOperationException("В индивидуальном наряде нельзя добавлять строки");
+            throw new InvalidOperationException("Р’ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅРѕРј РЅР°СЂСЏРґРµ РЅРµР»СЊР·СЏ РґРѕР±Р°РІР»СЏС‚СЊ СЃС‚СЂРѕРєРё");
         }
 
         protected override void DoDeleteEntity(WorkItemViewModel entity)
         {
-            throw new InvalidOperationException("В индивидуальном наряде нельзя удалять строки");
+            throw new InvalidOperationException("Р’ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅРѕРј РЅР°СЂСЏРґРµ РЅРµР»СЊР·СЏ СѓРґР°Р»СЏС‚СЊ СЃС‚СЂРѕРєРё");
         }
 
         protected override bool AcceptFind(WorkItemViewModel entity, string searchText)

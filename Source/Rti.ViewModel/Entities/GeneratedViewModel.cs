@@ -1207,85 +1207,6 @@ namespace Rti.ViewModel.Entities
 	}
 
 
-	// The viewmodel for EmployeeWorkItemPackage
-	public partial class EmployeeWorkItemPackageViewModel : EntityViewModel<Rti.Model.Domain.EmployeeWorkItemPackage, EmployeeWorkItemPackageViewModel>
-	{
-		// Конструктор для маппинга
-		public EmployeeWorkItemPackageViewModel() { }
-
-        public EmployeeWorkItemPackageViewModel(Rti.Model.Domain.EmployeeWorkItemPackage entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		private Int32 _id;
-		private DateTime _date;
-		private String _block;
-		private EmployeeViewModel _employee;
-
-		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
-		public DateTime Date { get { return _date; } set { if (Equals(_date, value)) return; _date = value; OnPropertyChanged("Date"); } }
-		public String Block { get { return _block; } set { if (Equals(_block, value)) return; _block = value; OnPropertyChanged("Block"); } }
-		public EmployeeViewModel Employee { get { return _employee; } set { _employee = value; OnPropertyChanged("Employee"); } }
-
-		protected override void MapPropertiesToEntity()
-		{
-			Entity.Date = Date; 
-			Entity.Block = Block; 
-			Entity.Employee = Employee == null ? null : Employee.Entity; 
-
-		}
-
-		protected override void MapPropertiesFromEntity()
-		{
-			IsMapping = true;
-			Id = Entity.Id; 
-			Date = Entity.Date; 
-			Block = Entity.Block; 
-			Employee = Entity.Employee == null ? null : new EmployeeViewModel(Entity.Employee, RepositoryFactory); 
-			IsMapping = false;
-		}
-
-		public override void CopyFrom(EmployeeWorkItemPackageViewModel source)
-		{
-			IsMapping = true;
-			Date = source.Date;
-			Block = source.Block;
-			Employee = source.Employee;
-			CustomCopyFrom(source);
-			IsMapping = false;
-		}
-
-		public override EmployeeWorkItemPackageViewModel Clone()
-		{
-			var copy = new EmployeeWorkItemPackageViewModel(null, RepositoryFactory);
-			copy.CopyFrom(this);
-			return copy;
-		}
-
-		public XElement GetXElement(string name)
-		{
-			var element = new XElement(name);
-			element.Add(new XAttribute("Id", Id));
-			element.Add(new XAttribute("Date", Date));
-			if (Block != null)
-				element.Add(new XAttribute("Block", Block));
-			if (Employee != null)
-				element.Add(Employee.GetXElement("Employee"));
-
-			CustomFillXElement(element);
-			return element;
-		}
-
-        public override int GetHashCode() { return _id; }
-        protected bool Equals(EmployeeWorkItemPackageViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((EmployeeWorkItemPackageViewModel) obj);
-        }
-	}
-
-
 	// The viewmodel for Equipment
 	public partial class EquipmentViewModel : EntityViewModel<Rti.Model.Domain.Equipment, EquipmentViewModel>
 	{
@@ -3785,6 +3706,170 @@ namespace Rti.ViewModel.Entities
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((WorkItemViewModel) obj);
+        }
+	}
+
+
+	// The viewmodel for WorkItemPackage
+	public partial class WorkItemPackageViewModel : EntityViewModel<Rti.Model.Domain.WorkItemPackage, WorkItemPackageViewModel>
+	{
+		// Конструктор для маппинга
+		public WorkItemPackageViewModel() { }
+
+        public WorkItemPackageViewModel(Rti.Model.Domain.WorkItemPackage entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+		private Int32 _id;
+		private DateTime _date;
+		private String _block;
+		private EmployeeViewModel _employee;
+
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+		public DateTime Date { get { return _date; } set { if (Equals(_date, value)) return; _date = value; OnPropertyChanged("Date"); } }
+		public String Block { get { return _block; } set { if (Equals(_block, value)) return; _block = value; OnPropertyChanged("Block"); } }
+		public EmployeeViewModel Employee { get { return _employee; } set { _employee = value; OnPropertyChanged("Employee"); } }
+
+		protected override void MapPropertiesToEntity()
+		{
+			Entity.Date = Date; 
+			Entity.Block = Block; 
+			Entity.Employee = Employee == null ? null : Employee.Entity; 
+
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+			IsMapping = true;
+			Id = Entity.Id; 
+			Date = Entity.Date; 
+			Block = Entity.Block; 
+			Employee = Entity.Employee == null ? null : new EmployeeViewModel(Entity.Employee, RepositoryFactory); 
+			IsMapping = false;
+		}
+
+		public override void CopyFrom(WorkItemPackageViewModel source)
+		{
+			IsMapping = true;
+			Date = source.Date;
+			Block = source.Block;
+			Employee = source.Employee;
+			CustomCopyFrom(source);
+			IsMapping = false;
+		}
+
+		public override WorkItemPackageViewModel Clone()
+		{
+			var copy = new WorkItemPackageViewModel(null, RepositoryFactory);
+			copy.CopyFrom(this);
+			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("Date", Date));
+			if (Block != null)
+				element.Add(new XAttribute("Block", Block));
+			if (Employee != null)
+				element.Add(Employee.GetXElement("Employee"));
+
+			CustomFillXElement(element);
+			return element;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(WorkItemPackageViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((WorkItemPackageViewModel) obj);
+        }
+	}
+
+
+	// The viewmodel for WorkItemPackageMachine
+	public partial class WorkItemPackageMachineViewModel : EntityViewModel<Rti.Model.Domain.WorkItemPackageMachine, WorkItemPackageMachineViewModel>
+	{
+		// Конструктор для маппинга
+		public WorkItemPackageMachineViewModel() { }
+
+        public WorkItemPackageMachineViewModel(Rti.Model.Domain.WorkItemPackageMachine entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+		private Int32 _id;
+		private Int32 _workingTime;
+		private Int32 _freeTime;
+		private WorkItemPackageViewModel _workItemPackage;
+		private FlowsheetMachineViewModel _flowsheetMachine;
+
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+		public Int32 WorkingTime { get { return _workingTime; } set { if (Equals(_workingTime, value)) return; _workingTime = value; OnPropertyChanged("WorkingTime"); } }
+		public Int32 FreeTime { get { return _freeTime; } set { if (Equals(_freeTime, value)) return; _freeTime = value; OnPropertyChanged("FreeTime"); } }
+		public WorkItemPackageViewModel WorkItemPackage { get { return _workItemPackage; } set { _workItemPackage = value; OnPropertyChanged("WorkItemPackage"); } }
+		public FlowsheetMachineViewModel FlowsheetMachine { get { return _flowsheetMachine; } set { _flowsheetMachine = value; OnPropertyChanged("FlowsheetMachine"); } }
+
+		protected override void MapPropertiesToEntity()
+		{
+			Entity.WorkingTime = WorkingTime; 
+			Entity.FreeTime = FreeTime; 
+			Entity.WorkItemPackage = WorkItemPackage == null ? null : WorkItemPackage.Entity; 
+			Entity.FlowsheetMachine = FlowsheetMachine == null ? null : FlowsheetMachine.Entity; 
+
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+			IsMapping = true;
+			Id = Entity.Id; 
+			WorkingTime = Entity.WorkingTime; 
+			FreeTime = Entity.FreeTime; 
+			WorkItemPackage = Entity.WorkItemPackage == null ? null : new WorkItemPackageViewModel(Entity.WorkItemPackage, RepositoryFactory); 
+			FlowsheetMachine = Entity.FlowsheetMachine == null ? null : new FlowsheetMachineViewModel(Entity.FlowsheetMachine, RepositoryFactory); 
+			IsMapping = false;
+		}
+
+		public override void CopyFrom(WorkItemPackageMachineViewModel source)
+		{
+			IsMapping = true;
+			WorkingTime = source.WorkingTime;
+			FreeTime = source.FreeTime;
+			WorkItemPackage = source.WorkItemPackage;
+			FlowsheetMachine = source.FlowsheetMachine;
+			CustomCopyFrom(source);
+			IsMapping = false;
+		}
+
+		public override WorkItemPackageMachineViewModel Clone()
+		{
+			var copy = new WorkItemPackageMachineViewModel(null, RepositoryFactory);
+			copy.CopyFrom(this);
+			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("WorkingTime", WorkingTime));
+			element.Add(new XAttribute("FreeTime", FreeTime));
+			if (WorkItemPackage != null)
+				element.Add(WorkItemPackage.GetXElement("WorkItemPackage"));
+			if (FlowsheetMachine != null)
+				element.Add(FlowsheetMachine.GetXElement("FlowsheetMachine"));
+
+			CustomFillXElement(element);
+			return element;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(WorkItemPackageMachineViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((WorkItemPackageMachineViewModel) obj);
         }
 	}
 

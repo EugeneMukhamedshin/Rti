@@ -66,8 +66,8 @@
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
                 <dxprg:PropertyDefinition Header="Дневное задание" Path="TaskCount" EditSettings="{components:TextEditSettings Mask=f0}"/>
-                <dxprg:PropertyDefinition Header="Выполнено" Path="DoneCount" EditSettings="{components:TextEditSettings Mask=f0}"/>
-                <dxprg:PropertyDefinition Header="Партия" Path="BatchNumber" IsReadOnly="True"/>
+                <!--<dxprg:PropertyDefinition Header="Выполнено" Path="DoneCount" EditSettings="{components:TextEditSettings Mask=f0}"/>
+                <dxprg:PropertyDefinition Header="Партия" Path="BatchNumber" IsReadOnly="True"/>-->
                 <dxprg:PropertyDefinition Header="Примечание" Path="Note" Height="100"/>
             </components:PropertyGridResponsible.PropertyDefinitions>
         </components:PropertyGridResponsible>

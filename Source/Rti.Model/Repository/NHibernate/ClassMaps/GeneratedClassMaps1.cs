@@ -381,31 +381,6 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 	}
 
 
-	// The classmap for employee_work_item_package
-	public partial class EmployeeWorkItemPackageMap : BaseMap<Rti.Model.Domain.EmployeeWorkItemPackage>
-	{
-		public EmployeeWorkItemPackageMap()
-		{
-			Initialize();
-		}
-
-		private void Initialize()
-		{
-			Table("employee_work_item_package");
-
-			Id(o => o.Id, "id");
-
-			Map(o => o.Date, "date");
-
-			Map(o => o.Block, "block");
-
-			References(o => o.Employee, "employee_id").Fetch.Join().Not.LazyLoad();
-
-			OnInitialized();
-		}
-	}
-
-
 	// The classmap for equipments
 	public partial class EquipmentMap : BaseMap<Rti.Model.Domain.Equipment>
 	{
@@ -1176,6 +1151,58 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
 
 			References(o => o.Employee, "employee_id").Fetch.Join().Not.LazyLoad();
+
+			References(o => o.FlowsheetMachine, "flowsheet_machine_id").Fetch.Join().Not.LazyLoad();
+
+			OnInitialized();
+		}
+	}
+
+
+	// The classmap for work_item_package
+	public partial class WorkItemPackageMap : BaseMap<Rti.Model.Domain.WorkItemPackage>
+	{
+		public WorkItemPackageMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("work_item_package");
+
+			Id(o => o.Id, "id");
+
+			Map(o => o.Date, "date");
+
+			Map(o => o.Block, "block");
+
+			References(o => o.Employee, "employee_id").Fetch.Join().Not.LazyLoad();
+
+			OnInitialized();
+		}
+	}
+
+
+	// The classmap for work_item_package_machines
+	public partial class WorkItemPackageMachineMap : BaseMap<Rti.Model.Domain.WorkItemPackageMachine>
+	{
+		public WorkItemPackageMachineMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("work_item_package_machines");
+
+			Id(o => o.Id, "id");
+
+			Map(o => o.WorkingTime, "working_time");
+
+			Map(o => o.FreeTime, "free_time");
+
+			References(o => o.WorkItemPackage, "work_item_package_id").Fetch.Join().Not.LazyLoad();
 
 			References(o => o.FlowsheetMachine, "flowsheet_machine_id").Fetch.Join().Not.LazyLoad();
 

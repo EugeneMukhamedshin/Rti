@@ -83,7 +83,7 @@
         <Border Opacity="0.8" Visibility="{Binding IsLoading,Converter={StaticResource BooleanToVisibilityConverter}}" Background="AliceBlue">
             <StackPanel VerticalAlignment="Center">
                 <ProgressBar IsIndeterminate="True" Width="200" Height="32" Opacity="0.5"/>
-                <Label Content="Подождите, идет загрузка..." HorizontalContentAlignment="Center"/>
+                <Label Content="{Binding LoadingMessage}" HorizontalContentAlignment="Center"/>
             </StackPanel>
         </Border>
     </Grid>

@@ -92,7 +92,7 @@
     <Compile Include="Repository\Interfaces\IDrawingRepository.cs" />
     <Compile Include="Repository\Interfaces\IDriverRepository.cs" />
     <Compile Include="Repository\Interfaces\IEmployeeRepository.cs" />
-    <Compile Include="Repository\Interfaces\IEmployeeWorkItemPackageRepository.cs" />
+    <Compile Include="Repository\Interfaces\IWorkItemPackageRepository.cs" />
     <Compile Include="Repository\Interfaces\IEquipmentRepository.cs" />
     <Compile Include="Repository\Interfaces\IFlowsheetEquipmentRepository.cs" />
     <Compile Include="Repository\Interfaces\IFlowsheetProcessRepository.cs" />
@@ -133,7 +133,7 @@
     <Compile Include="Repository\NHibernate\DrawingRepository.cs" />
     <Compile Include="Repository\NHibernate\DriverRepository.cs" />
     <Compile Include="Repository\NHibernate\EmployeeRepository.cs" />
-    <Compile Include="Repository\NHibernate\EmployeeWorkItemPackageRepository.cs" />
+    <Compile Include="Repository\NHibernate\WorkItemPackageRepository.cs" />
     <Compile Include="Repository\NHibernate\EquipmentRepository.cs" />
     <Compile Include="Repository\NHibernate\FlowsheetEquipmentRepository.cs" />
     <Compile Include="Repository\NHibernate\FlowsheetProcessRepository.cs" />

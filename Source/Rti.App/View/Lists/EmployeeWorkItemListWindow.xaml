@@ -51,23 +51,23 @@
                     </Style>
                 </dxg:GridControl.Resources>
                 <dxg:GridControl.Columns>
-                    <dxg:GridColumn UnboundType="Integer" Header="№ пп" IsEnabled="False" Width="40" Name="_rowNumberColumn"/>
-                    <dxg:GridColumn FieldName="Drawing.Detail.Name" Header="Наименование детали" Width="120" IsEnabled="False"/>
-                    <dxg:GridColumn FieldName="Drawing.FullName" Header="Номер детали" Width="40" IsEnabled="False"/>
-                    <dxg:GridColumn FieldName="RequestCount" Header="Количество по заявке, шт" Width="40" IsEnabled="False"/>
-                    <dxg:GridColumn FieldName="FlowsheetMachine.CureTime" Header="Время вулканизации, мин" Width="40" IsEnabled="False"/>
-                    <dxg:GridColumn FieldName="FlowsheetMachine.PlateTemperature" Header="Температура вулканизации, град" Width="40" IsEnabled="False"/>
-                    <dxg:GridColumn FieldName="Employee.FullName" Header="Время работы пресса в смене" Width="40" IsEnabled="False"/>
-                    <dxg:GridColumn FieldName="FlowsheetMachine.Machine.Name" Header="Пресс" Width="40" IsEnabled="False"/>
-                    <dxg:GridColumn FieldName="" Header="Одновременная работа" Width="40" IsEnabled="False"/>
-                    <dxg:GridColumn FieldName="Drawing.Equipment.FormCount" Header="Кол-во прессформ, шт" Width="40" IsEnabled="False"/>
-                    <dxg:GridColumn FieldName="Drawing.Equipment.SlotCount" Header="Гнездность, шт" Width="40" IsEnabled="False"/>
-                    <dxg:GridColumn FieldName="Drawing.Equipment.Output" Header="Выход партии, шт" Width="40" IsEnabled="False"/>
-                    <dxg:GridColumn FieldName="TaskCount" Header="Задание сменное, шт" Width="40" IsEnabled="False"/>
-                    <dxg:GridColumn FieldName="TakeOffCount" Header="Количество съемов, шт" Width="40" IsEnabled="False"/>
-                    <dxg:GridColumn FieldName="" Header="Время использования пресса, мин" Width="40" IsEnabled="False"/>
-                    <dxg:GridColumn FieldName="" Header="Время работы пресса свободное, мин" Width="40" IsEnabled="False"/>
-                    <dxg:GridColumn FieldName="RemainedCount" Header="Невыполненное количество деталей по заявке, шт" Width="40" IsEnabled="False"/>
+                    <dxg:GridColumn UnboundType="Integer" Header="№ пп" ReadOnly="True" Width="40" Name="_rowNumberColumn"/>
+                    <dxg:GridColumn FieldName="Drawing.Detail.Name" Header="Наименование детали" Width="120" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="Drawing.FullName" Header="Номер детали" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="RequestCount" Header="Количество по заявке, шт" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="FlowsheetMachine.CureTime" Header="Время вулканизации, мин" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="FlowsheetMachine.PlateTemperature" Header="Температура вулканизации, град" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="" Header="Время работы пресса в смене" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="FlowsheetMachine.Machine.Name" Header="Пресс" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="" Header="Одновременная работа" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="Drawing.Equipment.FormCount" Header="Кол-во прессформ, шт" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="Drawing.Equipment.SlotCount" Header="Гнездность, шт" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="Drawing.Equipment.Output" Header="Выход партии, шт" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="TaskCount" Header="Задание сменное, шт" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="TakeOffCount" Header="Количество съемов, шт" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="" Header="Время использования пресса, мин" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="" Header="Время работы пресса свободное, мин" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="RemainedCount" Header="Невыполненное количество деталей по заявке, шт" Width="40" ReadOnly="True"/>
                     <dxg:GridColumn FieldName="DoneCount" Header="Фактически выполненное, шт" Width="40" EditSettings="{components:TextEditSettings MaskType=None}"/>
                     <dxg:GridColumn FieldName="RejectedCount" Header="Брак, шт" Width="40" EditSettings="{components:TextEditSettings MaskType=None}"/>
                 </dxg:GridControl.Columns>
@@ -83,7 +83,7 @@
         <Border Opacity="0.8" Visibility="{Binding IsLoading,Converter={StaticResource BooleanToVisibilityConverter}}" Background="AliceBlue">
             <StackPanel VerticalAlignment="Center">
                 <ProgressBar IsIndeterminate="True" Width="200" Height="32" Opacity="0.5"/>
-                <Label Content="Подождите, идет загрузка..." HorizontalContentAlignment="Center"/>
+                <Label Content="{Binding LoadingMessage}" HorizontalContentAlignment="Center"/>
             </StackPanel>
         </Border>
     </Grid>

@@ -1,8 +1,8 @@
 ﻿--
--- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 6.3.358.0
+-- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.0.49.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 19.05.2016 17:13:23
--- Версия сервера: 5.6.26-log
+-- Дата скрипта: 19.05.2016 23:09:30
+-- Версия сервера: 5.7.9-log
 -- Версия клиента: 4.1
 --
 
@@ -294,7 +294,7 @@ CREATE TABLE machines (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 4
 AVG_ROW_LENGTH = 16384
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -441,7 +441,7 @@ CREATE TABLE employees (
     REFERENCES jobs(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 3
 AVG_ROW_LENGTH = 16384
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -605,27 +605,6 @@ COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
 
 --
--- Описание для таблицы employee_work_item_package
---
-DROP TABLE IF EXISTS employee_work_item_package;
-CREATE TABLE employee_work_item_package (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  date DATETIME NOT NULL,
-  employee_id INT(11) NOT NULL,
-  block VARCHAR(255) DEFAULT NULL COMMENT 'Участок',
-  PRIMARY KEY (id),
-  UNIQUE INDEX UK_employee_work_item_package (employee_id, date),
-  CONSTRAINT FK_employee_work_item_package_employees_id FOREIGN KEY (employee_id)
-    REFERENCES employees(id) ON DELETE RESTRICT ON UPDATE RESTRICT
-)
-ENGINE = INNODB
-AUTO_INCREMENT = 3
-AVG_ROW_LENGTH = 8192
-CHARACTER SET utf8
-COLLATE utf8_general_ci
-COMMENT = 'индивидуальный наряд';
-
---
 -- Описание для таблицы flowsheet_machines
 --
 DROP TABLE IF EXISTS flowsheet_machines;
@@ -731,6 +710,28 @@ AUTO_INCREMENT = 1
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 COMMENT = 'Журнал учета оплаченной и отгруженной продукции'
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы work_item_package
+--
+DROP TABLE IF EXISTS work_item_package;
+CREATE TABLE work_item_package (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  date DATETIME NOT NULL,
+  employee_id INT(11) NOT NULL,
+  block VARCHAR(255) DEFAULT NULL COMMENT 'Участок',
+  PRIMARY KEY (id),
+  UNIQUE INDEX UK_employee_work_item_package (employee_id, date),
+  CONSTRAINT FK_employee_work_item_package_employees_id FOREIGN KEY (employee_id)
+    REFERENCES employees(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 4
+AVG_ROW_LENGTH = 8192
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'индивидуальный наряд'
 ROW_FORMAT = DYNAMIC;
 
 --
@@ -862,6 +863,30 @@ COMMENT = 'журнал распоряжений на отгрузку'
 ROW_FORMAT = DYNAMIC;
 
 --
+-- Описание для таблицы work_item_package_machines
+--
+DROP TABLE IF EXISTS work_item_package_machines;
+CREATE TABLE work_item_package_machines (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  work_item_package_id INT(11) NOT NULL,
+  flowsheet_machine_id INT(11) NOT NULL,
+  working_time INT(11) NOT NULL COMMENT 'время работы пресса в смене',
+  free_time INT(11) NOT NULL COMMENT 'свободное время пресса в смене',
+  PRIMARY KEY (id),
+  UNIQUE INDEX UK_work_item_package_machines (work_item_package_id, flowsheet_machine_id),
+  CONSTRAINT FK_work_item_package_machines_flowsheet_machines_id FOREIGN KEY (flowsheet_machine_id)
+    REFERENCES flowsheet_machines(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_work_item_package_machines_work_item_package_id FOREIGN KEY (work_item_package_id)
+    REFERENCES work_item_package(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 1
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'оборудование по индивидуальному наряду'
+ROW_FORMAT = DYNAMIC;
+
+--
 -- Описание для таблицы work_items
 --
 DROP TABLE IF EXISTS work_items;
@@ -879,6 +904,7 @@ CREATE TABLE work_items (
   flowsheet_machine_id INT(11) DEFAULT NULL,
   PRIMARY KEY (id),
   UNIQUE INDEX UK_work_items (work_date, sort_order),
+  UNIQUE INDEX UK_work_items2 (work_date, drawing_id),
   CONSTRAINT FK_daily_work_package_details_drawings_id FOREIGN KEY (drawing_id)
     REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT FK_daily_work_package_details_employees_id FOREIGN KEY (employee_id)
@@ -887,7 +913,7 @@ CREATE TABLE work_items (
     REFERENCES flowsheet_machines(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 20
+AUTO_INCREMENT = 21
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -913,7 +939,7 @@ CREATE TABLE work_item_request_details (
     REFERENCES work_items(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 59
+AUTO_INCREMENT = 111
 AVG_ROW_LENGTH = 2730
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -1036,7 +1062,9 @@ INSERT INTO jobs VALUES
 -- Вывод данных для таблицы machines
 --
 INSERT INTO machines VALUES
-(1, 1, '2', '3', '4', 5, 6.000, 7.000, 8.000, 9.00, 10.00, '11', 0);
+(1, 1, '1', '3', '1', 5, 6.000, 7.000, 8.000, 9.00, 10.00, '11', 0),
+(2, 2, '2', NULL, '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(3, 3, '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы mass_calculations
@@ -1095,7 +1123,8 @@ INSERT INTO processes VALUES
 -- Вывод данных для таблицы employees
 --
 INSERT INTO employees VALUES
-(1, 1, '1236546', 'Я Я Я321', 1, NULL, 0);
+(1, 1, '1236546', 'Иванов Иван Иванович', 2, NULL, 0),
+(2, 2, '3', 'Петров Петр Петрович', 2, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы flowsheets
@@ -1157,13 +1186,6 @@ INSERT INTO drawings VALUES
 (13, '2016-05-05 15:54:06', 13, 'Новый чертеж', 2, 1, NULL, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 7, 8, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 13, 0);
 
 -- 
--- Вывод данных для таблицы employee_work_item_package
---
-INSERT INTO employee_work_item_package VALUES
-(1, '2016-05-17 00:00:00', 1, 'формовой'),
-(2, '2016-05-16 00:00:00', 1, 'формовой');
-
--- 
 -- Вывод данных для таблицы flowsheet_machines
 --
 INSERT INTO flowsheet_machines VALUES
@@ -1171,8 +1193,8 @@ INSERT INTO flowsheet_machines VALUES
 (6, 9, 1, 1, 130.00, 150.00),
 (7, 10, 1, 1, 123.00, 1233.00),
 (8, 7, 2, 1, 1.00, 2.00),
-(9, 12, 1, 1, 500.00, 30.00),
-(10, 12, 2, 1, 300.00, 15.00),
+(9, 12, 1, 1, 500.00, 10.00),
+(10, 12, 2, 2, 300.00, 15.00),
 (11, 13, 1, 1, NULL, NULL);
 
 -- 
@@ -1281,6 +1303,14 @@ INSERT INTO flowsheet_processes VALUES
 -- Таблица rti.shipped_product_records не содержит данных
 
 -- 
+-- Вывод данных для таблицы work_item_package
+--
+INSERT INTO work_item_package VALUES
+(1, '2016-05-17 00:00:00', 1, 'формовой'),
+(2, '2016-05-16 00:00:00', 1, 'формовой'),
+(3, '2016-05-19 00:00:00', 1, 'участок');
+
+-- 
 -- Вывод данных для таблицы request_details
 --
 INSERT INTO request_details VALUES
@@ -1298,7 +1328,7 @@ INSERT INTO request_details VALUES
 (17, 56, 1, 8, 1, 1, NULL, NULL, 10, 10, 250.00, 267.38, 2500.00, 6, NULL, 3, 0),
 (18, 57, 1, 8, 1, 1, NULL, NULL, 50, 50, 250.00, 267.38, 12500.00, 6, NULL, 3, 0),
 (19, 58, 1, 8, 1, 1, NULL, NULL, 100, 80, 250.00, 267.38, 25000.00, 6, NULL, 3, 0),
-(20, 59, 1, 8, 1, 1, NULL, NULL, 20, 0, 250.00, 267.38, 5000.00, 6, NULL, 3, 0);
+(20, 59, 1, 8, 1, 1, NULL, NULL, 20, 0, 250.00, 267.38, 5000.00, 6, NULL, 2, 0);
 
 -- 
 -- Вывод данных для таблицы rolling_records
@@ -1321,30 +1351,37 @@ INSERT INTO shipping_order_records VALUES
 (3, 3, '2016-05-08 00:00:00', 1, 5, 0, 0);
 
 -- 
+-- Вывод данных для таблицы work_item_package_machines
+--
+
+-- Таблица rti.work_item_package_machines не содержит данных
+
+-- 
 -- Вывод данных для таблицы work_items
 --
 INSERT INTO work_items VALUES
-(7, '2016-05-16', 1, 8, 183, 12, 12, 2, NULL, 1, NULL),
+(7, '2016-05-16', 1, 8, 183, 15, 15, 4, NULL, 1, NULL),
 (9, '2016-05-13', 1, 7, NULL, NULL, NULL, NULL, NULL, 1, NULL),
 (10, '2016-05-13', 2, 6, NULL, NULL, NULL, NULL, NULL, 1, NULL),
 (11, '2016-05-13', 3, 5, NULL, NULL, NULL, NULL, NULL, 1, NULL),
 (12, '2016-05-13', 4, 1, NULL, 50, NULL, NULL, NULL, 1, NULL),
-(17, '2016-05-17', 1, 8, 173, 100, 50, NULL, NULL, 1, NULL),
-(18, '2016-05-18', 1, 8, 123, 110, 100, NULL, NULL, 1, NULL),
-(19, '2016-05-19', 1, 8, 23, 25, 25, NULL, NULL, 1, NULL);
+(17, '2016-05-17', 1, 8, 172, 100, 50, NULL, NULL, 1, NULL),
+(18, '2016-05-18', 1, 8, 122, 110, 100, NULL, NULL, 1, NULL),
+(19, '2016-05-19', 1, 8, 22, 25, 25, 10, NULL, 1, NULL),
+(20, '2016-05-20', 1, 8, 7, 15, NULL, NULL, NULL, 2, NULL);
 
 -- 
 -- Вывод данных для таблицы work_item_request_details
 --
 INSERT INTO work_item_request_details VALUES
-(43, 7, 3, 0, 0, 3, 0),
-(44, 7, 17, 1, 0, 7, 0),
-(45, 17, 17, 0, 0, 3, 0),
-(46, 17, 18, 1, 0, 47, 0),
-(53, 18, 18, 0, 0, 3, 0),
-(54, 18, 19, 1, 0, 97, 0),
-(57, 19, 19, 0, 0, 3, 0),
-(58, 19, 20, 1, 0, 20, 0);
+(103, 7, 3, 0, 0, 3, 0),
+(104, 7, 17, 1, 0, 8, 0),
+(105, 17, 17, 0, 0, 2, 0),
+(106, 17, 18, 1, 0, 48, 0),
+(107, 18, 18, 0, 0, 2, 0),
+(108, 18, 19, 1, 0, 98, 0),
+(109, 19, 19, 0, 0, 2, 0),
+(110, 19, 20, 1, 0, 13, 0);
 
 -- 
 -- Восстановить предыдущий режим SQL (SQL mode)

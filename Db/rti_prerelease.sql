@@ -1,7 +1,7 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.0.49.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 08.05.2016 22:47:59
+-- Дата скрипта: 19.05.2016 23:08:23
 -- Версия сервера: 5.7.12
 -- Версия клиента: 4.1
 --
@@ -44,6 +44,46 @@ AUTO_INCREMENT = 1
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 COMMENT = 'дополнительная информация'
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы calculations
+--
+DROP TABLE IF EXISTS calculations;
+CREATE TABLE calculations (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  Main_Material DECIMAL(20, 2) DEFAULT 0.00,
+  Rubber DECIMAL(20, 2) DEFAULT 0.00,
+  Clue DECIMAL(20, 2) DEFAULT 0.00,
+  Armature DECIMAL(20, 2) DEFAULT 0.00,
+  Sand DECIMAL(20, 2) DEFAULT 0.00,
+  Textile DECIMAL(20, 2) DEFAULT 0.00,
+  Other_Material DECIMAL(20, 2) DEFAULT 0.00,
+  Transport DECIMAL(20, 2) DEFAULT 0.00,
+  Main_Salary DECIMAL(20, 2) DEFAULT 0.00,
+  Additional_Salary DECIMAL(20, 2) DEFAULT 0.00,
+  Fixed_Tax DECIMAL(20, 2) DEFAULT 0.00,
+  Total_Division DECIMAL(20, 2) DEFAULT 0.00,
+  Total_Manufacture DECIMAL(20, 2) DEFAULT 0.00,
+  Main_Summary DECIMAL(20, 2) DEFAULT 0.00,
+  Power_For_Formed DECIMAL(20, 2) DEFAULT 0.00,
+  Other_Power DECIMAL(20, 2) DEFAULT 0.00,
+  Main_And_Power_Summary DECIMAL(20, 2) DEFAULT 0.00,
+  Unforseen DECIMAL(20, 2) DEFAULT 0.00,
+  Net_Cost DECIMAL(20, 2) DEFAULT 0.00,
+  Profitability DECIMAL(20, 2) DEFAULT 0.00,
+  Price DECIMAL(20, 2) DEFAULT 0.00,
+  Nds_Tax DECIMAL(20, 2) DEFAULT 0.00,
+  Summary DECIMAL(20, 2) DEFAULT 0.00,
+  Note VARCHAR(500) DEFAULT NULL,
+  PRIMARY KEY (id)
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 13
+AVG_ROW_LENGTH = 4096
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'калькуляции'
 ROW_FORMAT = DYNAMIC;
 
 --
@@ -110,6 +150,24 @@ COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
 
 --
+-- Описание для таблицы daily_work_package
+--
+DROP TABLE IF EXISTS daily_work_package;
+CREATE TABLE daily_work_package (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  sort_order INT(11) NOT NULL,
+  date DATETIME NOT NULL,
+  is_deleted INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (id)
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 2
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'Дневной наряд'
+ROW_FORMAT = DYNAMIC;
+
+--
 -- Описание для таблицы details
 --
 DROP TABLE IF EXISTS details;
@@ -129,11 +187,11 @@ COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
 
 --
--- Описание для таблицы drawings
+-- Описание для таблицы drawings_temp
 --
-DROP TABLE IF EXISTS drawings;
-CREATE TABLE drawings (
-  id INT(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS drawings_temp;
+CREATE TABLE drawings_temp (
+  id INT(11) NOT NULL DEFAULT 0,
   creation_date DATETIME NOT NULL,
   sort_order INT(11) NOT NULL,
   name VARCHAR(500) NOT NULL,
@@ -158,22 +216,9 @@ CREATE TABLE drawings (
   outer_diameter DECIMAL(10, 2) DEFAULT NULL,
   drawing_image_id INT(11) DEFAULT NULL,
   note VARCHAR(500) DEFAULT NULL,
-  is_deleted INT(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (id),
-  INDEX FK_drawings_details_id (detail_id),
-  INDEX FK_drawings_equipments_id (equipment_id),
-  INDEX FK_drawings_groups_id (group_id),
-  INDEX FK_drawings_images_id (drawing_image_id),
-  INDEX FK_drawings_mass_calculations_id (mass_calculation_id),
-  INDEX FK_drawings_materials_bp_id (material_by_passport_id),
-  INDEX FK_drawings_materials_id (material_id),
-  INDEX FK_drawings_measure_units_id (measure_unit_id),
-  INDEX FK_drawings_methods_id (method_id),
-  CONSTRAINT FK_calculations_drawings_id FOREIGN KEY (drawing_id)
-    REFERENCES drawings(id) ON DELETE NO ACTION ON UPDATE NO ACTIONNGS_ID
+  is_deleted INT(11) NOT NULL DEFAULT 0
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 14
 AVG_ROW_LENGTH = 1365
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -256,7 +301,7 @@ CREATE TABLE images (
 )
 ENGINE = INNODB
 AUTO_INCREMENT = 6
-AVG_ROW_LENGTH = 32768
+AVG_ROW_LENGTH = 40960
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
@@ -341,7 +386,7 @@ CREATE TABLE mass_calculations (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 11
+AUTO_INCREMENT = 15
 AVG_ROW_LENGTH = 16384
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -366,7 +411,7 @@ CREATE TABLE materials (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 13
+AUTO_INCREMENT = 15
 AVG_ROW_LENGTH = 2730
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -435,49 +480,6 @@ COMMENT = 'типы процессов'
 ROW_FORMAT = DYNAMIC;
 
 --
--- Описание для таблицы calculations
---
-DROP TABLE IF EXISTS calculations;
-CREATE TABLE calculations (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  drawing_id INT(11) NOT NULL,
-  calculation_type_enum INT(11) NOT NULL DEFAULT 0 COMMENT '0 - плановая, 1 - фактическая',
-  Main_Material DECIMAL(20, 2) DEFAULT 0.00,
-  Rubber DECIMAL(20, 2) DEFAULT 0.00,
-  Clue DECIMAL(20, 2) DEFAULT 0.00,
-  Armature DECIMAL(20, 2) DEFAULT 0.00,
-  Sand DECIMAL(20, 2) DEFAULT 0.00,
-  Textile DECIMAL(20, 2) DEFAULT 0.00,
-  Other_Material DECIMAL(20, 2) DEFAULT 0.00,
-  Transport DECIMAL(20, 2) DEFAULT 0.00,
-  Main_Salary DECIMAL(20, 2) DEFAULT 0.00,
-  Additional_Salary DECIMAL(20, 2) DEFAULT 0.00,
-  Fixed_Tax DECIMAL(20, 2) DEFAULT 0.00,
-  Total_Division DECIMAL(20, 2) DEFAULT 0.00,
-  Total_Manufacture DECIMAL(20, 2) DEFAULT 0.00,
-  Main_Summary DECIMAL(20, 2) DEFAULT 0.00,
-  Power_For_Formed DECIMAL(20, 2) DEFAULT 0.00,
-  Other_Power DECIMAL(20, 2) DEFAULT 0.00,
-  Main_And_Power_Summary DECIMAL(20, 2) DEFAULT 0.00,
-  Unforseen DECIMAL(20, 2) DEFAULT 0.00,
-  Net_Cost DECIMAL(20, 2) DEFAULT 0.00,
-  Profitability DECIMAL(20, 2) DEFAULT 0.00,
-  Price DECIMAL(20, 2) DEFAULT 0.00,
-  Nds_Tax DECIMAL(20, 2) DEFAULT 0.00,
-  Summary DECIMAL(20, 2) DEFAULT 0.00,
-  PRIMARY KEY (id),
-  CONSTRAINT FK_calculations_drawings_id FOREIGN KEY (drawing_id)
-    REFERENCES drawings(id) ON DELETE NO ACTION ON UPDATE NO ACTION
-)
-ENGINE = INNODB
-AUTO_INCREMENT = 5
-AVG_ROW_LENGTH = 4096
-CHARACTER SET utf8
-COLLATE utf8_general_ci
-COMMENT = 'калькуляции'
-ROW_FORMAT = DYNAMIC;
-
---
 -- Описание для таблицы employees
 --
 DROP TABLE IF EXISTS employees;
@@ -514,19 +516,52 @@ CREATE TABLE flowsheets (
   fact_mass DECIMAL(10, 3) DEFAULT NULL COMMENT 'фактическая масса',
   note VARCHAR(1000) DEFAULT NULL,
   PRIMARY KEY (id),
+  INDEX FK_flowsheets_drawings_id (drawing_id),
   CONSTRAINT FK_flowsheets_customers_id FOREIGN KEY (customer_id)
     REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_flowsheets_drawings_id FOREIGN KEY (drawing_id)
-    REFERENCES drawings(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT FK_flowsheets_sec_customers_id FOREIGN KEY (secondary_customer_id)
     REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 13
-AVG_ROW_LENGTH = 2048
+AUTO_INCREMENT = 16
+AVG_ROW_LENGTH = 1638
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 COMMENT = 'технологические карты'
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы material_arrival_records
+--
+DROP TABLE IF EXISTS material_arrival_records;
+CREATE TABLE material_arrival_records (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  sort_order INT(11) NOT NULL,
+  invoice_number VARCHAR(255) NOT NULL,
+  supplier_id INT(11) NOT NULL,
+  invoice_sum DECIMAL(10, 2) NOT NULL,
+  waybill_date DATETIME NOT NULL,
+  waybill_number VARCHAR(255) NOT NULL,
+  material_id INT(11) NOT NULL,
+  measure_unit_id INT(11) NOT NULL,
+  price DECIMAL(19, 2) NOT NULL,
+  count DECIMAL(10, 3) NOT NULL,
+  forwarded_to VARCHAR(255) DEFAULT NULL,
+  is_deleted INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_material_arrival_records_contragents_id FOREIGN KEY (supplier_id)
+    REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_material_arrival_records_materials_id FOREIGN KEY (material_id)
+    REFERENCES materials(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_material_arrival_records_measure_units_id FOREIGN KEY (measure_unit_id)
+    REFERENCES measure_units(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 2
+AVG_ROW_LENGTH = 16384
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'журнал прихода материала'
 ROW_FORMAT = DYNAMIC;
 
 --
@@ -546,8 +581,69 @@ CREATE TABLE requests (
     REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 59
+AUTO_INCREMENT = 63
 AVG_ROW_LENGTH = 3276
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы drawings
+--
+DROP TABLE IF EXISTS drawings;
+CREATE TABLE drawings (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  creation_date DATETIME DEFAULT NULL,
+  sort_order INT(11) NOT NULL,
+  name VARCHAR(500) NOT NULL,
+  group_id INT(11) DEFAULT NULL,
+  detail_id INT(11) DEFAULT NULL,
+  additional_info VARCHAR(500) DEFAULT NULL,
+  material_by_passport_id INT(11) DEFAULT NULL,
+  material_id INT(11) DEFAULT NULL,
+  measure_unit_id INT(11) DEFAULT NULL,
+  code VARCHAR(255) DEFAULT NULL,
+  mass_calculation_id INT(11) DEFAULT NULL,
+  mass_with_shruff DECIMAL(10, 3) DEFAULT NULL,
+  price DECIMAL(10, 2) DEFAULT NULL,
+  shaving_price DECIMAL(10, 2) DEFAULT NULL,
+  plan_calculation_id INT(11) DEFAULT NULL COMMENT 'плановая калькуляция',
+  fact_calculation_id INT(11) DEFAULT NULL COMMENT 'фактическая калькуляция',
+  calculation_price_manual DECIMAL(10, 2) DEFAULT NULL,
+  equipment_id INT(11) DEFAULT NULL,
+  method_id INT(11) DEFAULT NULL,
+  width DOUBLE DEFAULT NULL,
+  length DOUBLE DEFAULT NULL,
+  thickness DOUBLE DEFAULT NULL,
+  inner_diameter DOUBLE DEFAULT NULL,
+  outer_diameter DOUBLE DEFAULT NULL,
+  drawing_image_id INT(11) DEFAULT NULL,
+  note VARCHAR(500) DEFAULT NULL,
+  flowsheet_id INT(11) DEFAULT NULL COMMENT 'технологическая карта',
+  is_deleted INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (id),
+  INDEX FK_drawings_details_id (detail_id),
+  INDEX FK_drawings_equipments_id (equipment_id),
+  INDEX FK_drawings_fact_calculations_id (fact_calculation_id),
+  INDEX FK_drawings_flowsheets_id (flowsheet_id),
+  INDEX FK_drawings_groups_id (group_id),
+  INDEX FK_drawings_images_id (drawing_image_id),
+  INDEX FK_drawings_mass_calculations_id (mass_calculation_id),
+  INDEX FK_drawings_materials_bp_id (material_by_passport_id),
+  INDEX FK_drawings_materials_id (material_id),
+  INDEX FK_drawings_measure_units_id (measure_unit_id),
+  INDEX FK_drawings_methods_id (method_id),
+  INDEX FK_drawings_plan_calculations_id (plan_calculation_id),
+  CONSTRAINT FK_daily_work_package_details_daily_work_package_id FOREIGN KEY (daily_work_package_id)
+    REFERENCES daily_work_package(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_daily_work_package_details_drawings_id FOREIGN KEY (drawing_id)
+    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_daily_work_package_details_employees_id FOREIGN KEY (employee_id)
+    REFERENCES employees(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 19
+AVG_ROW_LENGTH = 1024
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
@@ -570,8 +666,8 @@ CREATE TABLE flowsheet_machines (
     REFERENCES machines(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 11
-AVG_ROW_LENGTH = 2340
+AUTO_INCREMENT = 14
+AVG_ROW_LENGTH = 1820
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 COMMENT = 'Оборудование технологической карты'
@@ -599,11 +695,61 @@ CREATE TABLE flowsheet_processes (
     REFERENCES processes(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 87
-AVG_ROW_LENGTH = 197
+AUTO_INCREMENT = 123
+AVG_ROW_LENGTH = 140
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 COMMENT = 'технологические процессы'
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы invoices
+--
+DROP TABLE IF EXISTS invoices;
+CREATE TABLE invoices (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  request_id INT(11) NOT NULL,
+  is_deleted INT(11) NOT NULL DEFAULT 0,
+  invoice_number VARCHAR(255) NOT NULL,
+  invoice_date DATETIME NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_invoices_requests_id FOREIGN KEY (request_id)
+    REFERENCES requests(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 1
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'счета на оплату'
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы daily_work_package_details
+--
+DROP TABLE IF EXISTS daily_work_package_details;
+CREATE TABLE daily_work_package_details (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  daily_work_package_id INT(11) NOT NULL,
+  sort_order INT(11) NOT NULL,
+  drawing_id INT(11) NOT NULL,
+  task_count INT(11) DEFAULT NULL,
+  done_count INT(11) DEFAULT NULL,
+  note VARCHAR(500) DEFAULT NULL,
+  employee_id INT(11) NOT NULL COMMENT 'Исполнитель',
+  PRIMARY KEY (id),
+  CONSTRAINT FK_daily_work_package_details_daily_work_package_id FOREIGN KEY (daily_work_package_id)
+    REFERENCES daily_work_package(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_daily_work_package_details_drawings_id FOREIGN KEY (drawing_id)
+    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_daily_work_package_details_employees_id FOREIGN KEY (employee_id)
+    REFERENCES employees(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 3
+AVG_ROW_LENGTH = 8192
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'Строки дневного наряда'
 ROW_FORMAT = DYNAMIC;
 
 --
@@ -641,10 +787,124 @@ CREATE TABLE request_details (
     REFERENCES requests(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 26
+AUTO_INCREMENT = 27
 AVG_ROW_LENGTH = 2340
 CHARACTER SET utf8
 COLLATE utf8_general_ci
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы rolling_records
+--
+DROP TABLE IF EXISTS rolling_records;
+CREATE TABLE rolling_records (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  sort_order INT(11) NOT NULL,
+  rolling_date DATETIME NOT NULL,
+  customer_id INT(11) NOT NULL,
+  drawing_id INT(11) NOT NULL,
+  material_id INT(11) NOT NULL,
+  count INT(11) NOT NULL,
+  note VARCHAR(500) DEFAULT NULL,
+  is_deleted INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_rolling_records_contragents_id FOREIGN KEY (customer_id)
+    REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_rolling_records_drawings_id FOREIGN KEY (drawing_id)
+    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_rolling_records_materials_id FOREIGN KEY (material_id)
+    REFERENCES materials(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 2
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы shaving_records
+--
+DROP TABLE IF EXISTS shaving_records;
+CREATE TABLE shaving_records (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  sort_order INT(11) NOT NULL,
+  shaver_employee_id INT(11) NOT NULL COMMENT 'Сотрудник - обрезчик',
+  shave_date DATETIME NOT NULL,
+  drawing_id INT(11) NOT NULL,
+  input_count INT(11) NOT NULL COMMENT 'Входное количество',
+  flaw_count INT(11) NOT NULL COMMENT 'Количество брака',
+  is_deleted INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_shaving_records_drawings_id FOREIGN KEY (drawing_id)
+    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_shaving_records_shaver_employees_id FOREIGN KEY (shaver_employee_id)
+    REFERENCES employees(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 3
+AVG_ROW_LENGTH = 8192
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'Журнал обрезки облоя'
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы shipped_product_records
+--
+DROP TABLE IF EXISTS shipped_product_records;
+CREATE TABLE shipped_product_records (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  sort_order INT(11) NOT NULL,
+  invoice_id INT(11) NOT NULL,
+  pay_doc_number VARCHAR(255) NOT NULL,
+  pay_doc_date DATETIME NOT NULL,
+  advance_sum DECIMAL(10, 2) DEFAULT NULL,
+  shipment_date DATETIME NOT NULL,
+  tax_invoice_number VARCHAR(255) DEFAULT NULL,
+  sum DECIMAL(10, 2) NOT NULL,
+  equipment_sum DECIMAL(10, 2) DEFAULT NULL,
+  equipment_id INT(11) NOT NULL,
+  employee_id INT(11) NOT NULL,
+  note VARCHAR(500) DEFAULT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_shipped_product_records_employees_id FOREIGN KEY (employee_id)
+    REFERENCES employees(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_shipped_product_records_equipments_id FOREIGN KEY (equipment_id)
+    REFERENCES equipments(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_shipped_product_records_invoices_id FOREIGN KEY (invoice_id)
+    REFERENCES invoices(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 1
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'Журнал учета оплаченной и отгруженной продукции'
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы shipping_order_records
+--
+DROP TABLE IF EXISTS shipping_order_records;
+CREATE TABLE shipping_order_records (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  sort_order INT(11) NOT NULL,
+  order_date DATETIME NOT NULL,
+  customer_id INT(11) NOT NULL,
+  drawing_id INT(11) NOT NULL,
+  count INT(11) NOT NULL,
+  is_deleted INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_shipping_order_records_contragents_id FOREIGN KEY (customer_id)
+    REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_shipping_order_records_drawings_id FOREIGN KEY (drawing_id)
+    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 3
+AVG_ROW_LENGTH = 8192
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'журнал распоряжений на отгрузку'
 ROW_FORMAT = DYNAMIC;
 
 -- 
@@ -652,6 +912,15 @@ ROW_FORMAT = DYNAMIC;
 --
 
 -- Таблица rti.additional_infos не содержит данных
+
+-- 
+-- Вывод данных для таблицы calculations
+--
+INSERT INTO calculations VALUES
+(9, 1.30, 10.00, 30.00, NULL, NULL, NULL, NULL, 0.09, 0.06, 0.01, 0.02, 0.06, 5.05, 6.58, 4.96, 0.35, 11.88, 0.12, 12.00, 3.00, 15.00, 2.70, 17.70, NULL),
+(10, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.06, 0.01, 0.02, 0.06, 5.05, 5.19, 4.96, 0.35, 10.49, 0.10, 10.60, 2.65, 13.25, 2.38, 15.63, NULL),
+(11, 0.02, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.05, 0.00, 0.02, 0.05, 4.54, 4.69, 6.38, 0.45, 11.51, 0.12, 11.63, 2.91, 14.53, 2.62, 17.15, NULL),
+(12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- 
 -- Вывод данных для таблицы constants
@@ -675,6 +944,12 @@ INSERT INTO contragents VALUES
 (10, 3, 'ООО "Техрезина"', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 
 -- 
+-- Вывод данных для таблицы daily_work_package
+--
+INSERT INTO daily_work_package VALUES
+(1, 1, '2016-05-11 00:00:00', 0);
+
+-- 
 -- Вывод данных для таблицы details
 --
 INSERT INTO details VALUES
@@ -686,9 +961,9 @@ INSERT INTO details VALUES
 (6, 5, 'Диафрагма', NULL, 0);
 
 -- 
--- Вывод данных для таблицы drawings
+-- Вывод данных для таблицы drawings_temp
 --
-INSERT INTO drawings VALUES
+INSERT INTO drawings_temp VALUES
 (1, '2016-04-12 22:38:59', 1, 'Чертеж1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
 (3, '2016-04-12 22:39:02', 3, 'Чуртеж2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
 (4, '2016-04-12 22:39:04', 4, 'Чартеж3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
@@ -784,7 +1059,11 @@ INSERT INTO mass_calculations VALUES
 (7, 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20'),
 (8, 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '23'),
 (9, 4, 1.700, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 23.000, 12.000, 123.000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, 0, 0.900, 10.000, NULL, NULL, 5.000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(10, 0, 0.900, 10.000, NULL, NULL, 5.000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, 8, 2.000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '5'),
+(12, 8, 1.700, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0,19'),
+(13, 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0,11'),
+(14, 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0,15');
 
 -- 
 -- Вывод данных для таблицы materials
@@ -801,7 +1080,9 @@ INSERT INTO materials VALUES
 (9, 3, '????? ????????', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
 (10, 4, 'Новый материал', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
 (11, 3, 'В-14', 'ТУ 34-56', 2.000, 3.000, 100.000, 20.000, 100.00, NULL, 0),
-(12, 4, 'Войлок - 6', 'ГОСТ 3456', 0.400, 6.000, 1000.000, 1000.000, 377.10, NULL, 0);
+(12, 4, 'Войлок - 6', 'ГОСТ 3456', 0.400, 6.000, 1000.000, 1000.000, 377.10, NULL, 0),
+(13, 5, 'ИРП-1375', 'ТУ 005.1166-87', 1.700, NULL, NULL, NULL, 111.27, NULL, 0),
+(14, 6, '51-1481', 'ТУ 21.45', NULL, NULL, NULL, NULL, 180.00, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы measure_units
@@ -842,15 +1123,6 @@ INSERT INTO processes VALUES
 (13, 13, 'Процесс', 'Операция', 'Исполнитель', 'Обозначение', NULL);
 
 -- 
--- Вывод данных для таблицы calculations
---
-INSERT INTO calculations VALUES
-(1, 7, 0, 1933964.44, 123.00, 234.00, 345.00, 456.00, 567.00, NULL, 2610851.99, 37284.00, 3389.45, 86227.72, 158626.47, 162693.82, 4993037.90, 15.00, 75.00, 4993127.90, 29958767.38, 34951895.28, 244663266.97, 279615162.25, 2236921298.01, 2516536460.26),
-(2, 7, 1, 246240.00, 1.00, 2.00, 3.00, 4.00, 5.00, NULL, 332424.00, 37284.00, 3389.45, 86227.72, 158626.47, 162693.82, 1026885.47, 15.00, 75.00, 1026975.47, 6161852.81, 7188828.28, 50321797.99, 57510626.27, 460085010.15, 517595636.42),
-(3, 10, 0, 1300.00, 0.00, 1.00, 0.00, 0.00, 0.00, NULL, 9100.00, 5.78, 0.53, 195.58, 567.82, 504.73, 11674.44, 4.96, 34.71, 11714.10, 11714.10, 23428.21, 585705.15, 609133.36, 10964400.44, 11573533.79),
-(4, 10, 1, 1235.00, NULL, 1.00, NULL, NULL, NULL, NULL, 8645.00, 5.78, 0.53, 195.58, 567.82, 504.73, 11154.44, 4.96, 34.71, 11194.10, 11194.10, 22388.21, 559705.15, 582093.36, 10477680.44, 11059773.79);
-
--- 
 -- Вывод данных для таблицы employees
 --
 INSERT INTO employees VALUES
@@ -871,7 +1143,16 @@ INSERT INTO flowsheets VALUES
 (9, 3, 1, 3, 100.000, 200.000, NULL),
 (10, 8, 5, 5, 45.000, 57.000, NULL),
 (11, 11, 5, NULL, NULL, NULL, NULL),
-(12, 10, 5, 5, 25.000, 19.000, NULL);
+(12, 10, 5, 5, 25.000, 19.000, NULL),
+(13, 0, 5, NULL, 6.000, 4.500, NULL),
+(14, 0, 7, NULL, 0.480, NULL, NULL),
+(15, 0, 7, NULL, 0.150, NULL, NULL);
+
+-- 
+-- Вывод данных для таблицы material_arrival_records
+--
+INSERT INTO material_arrival_records VALUES
+(1, 1, '1', 9, 0.00, '2016-05-11 00:00:00', '11/05/16', 11, 1, 10.00, 150.000, 'склад', 0);
 
 -- 
 -- Вывод данных для таблицы requests
@@ -889,7 +1170,30 @@ INSERT INTO requests VALUES
 (49, 10, '2016-04-05 00:00:00', NULL, NULL, 1, 0),
 (51, 11, '2016-04-15 00:00:00', NULL, NULL, 2, 0),
 (55, 12, '2016-04-18 00:00:00', '2016-05-02 00:00:00', 10, 5, 0),
-(57, 13, '2016-04-18 00:00:00', '2016-05-05 00:00:00', 9, 5, 0);
+(57, 13, '2016-04-18 00:00:00', '2016-05-05 00:00:00', 9, 5, 0),
+(61, 14, '2016-05-12 00:00:00', NULL, NULL, 7, 0);
+
+-- 
+-- Вывод данных для таблицы drawings
+--
+INSERT INTO drawings VALUES
+(1, '2016-04-12 22:38:59', 1, 'Чертеж1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 8, 1),
+(3, '2016-04-12 22:39:02', 3, 'Чуртеж2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 9, 1),
+(4, '2016-04-12 22:39:04', 4, 'Чартеж3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 6, 1),
+(5, '2016-04-12 22:39:14', 5, 'Чэртеж4', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, NULL, 1),
+(6, '2016-04-12 22:39:11', 6, 'Чыртеж5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 1),
+(7, '2016-04-12 22:39:17', 7, 'Чяртеж6', 3, 1, NULL, 5, 5, 1, NULL, 1, NULL, 1200.00, 201.00, NULL, NULL, 1500.00, 2, 1, 12, 3, 23, 4, NULL, 1, 'qq af sdfg rtg werg wergf', 7, 1),
+(8, '2016-04-28 16:01:33', 1, '230.456', 6, 1, NULL, 8, 8, 1, NULL, 5, 61.000, 120.00, 2.00, NULL, NULL, 0.00, 4, 4, 1, 2, 3, 1, 1, 1, NULL, 10, 1),
+(9, '2016-04-28 16:19:55', 1, '320.567', 6, 1, NULL, 8, 8, 2, NULL, 6, 35.000, 60.00, 2.00, NULL, NULL, NULL, 3, 3, 1, 2, 3, 4, 1, 2, NULL, 12, 1),
+(10, '2016-04-28 16:30:41', 1, '320.678', 7, 1, NULL, 8, 8, 1, NULL, 7, 21.000, 45.00, 2.00, 9, 10, NULL, 4, 3, 1, 1, 1, 1, 1, 3, NULL, 12, 0),
+(11, '2016-04-28 16:32:17', 2, '120.780', 7, 1, NULL, 7, 7, 2, NULL, 8, 25.000, 25.00, 2.00, NULL, NULL, NULL, 4, 3, 2, 2, 3, 4, 3, 4, NULL, 11, 1),
+(12, '2016-04-29 12:28:34', 2, '589.245', 11, 4, NULL, 7, 8, 2, NULL, 9, 59.000, 40.00, 2.00, NULL, NULL, NULL, 5, 5, 1, 3, 5, 3, 1, 5, NULL, NULL, 0),
+(13, '2016-04-29 12:31:25', 3, '167.345', 9, 5, NULL, 12, 12, 1, NULL, 10, 0.190, 20.00, 0.50, NULL, NULL, NULL, 3, 4, 4, 1, 1, 1, 1, NULL, NULL, NULL, 0),
+(14, '2016-05-12 15:14:04', 4, '210.055', 6, 3, NULL, 11, 11, 1, NULL, 11, 6.000, NULL, NULL, NULL, NULL, NULL, 5, 3, 20, 500, 3, NULL, NULL, NULL, NULL, 13, 0),
+(15, '2016-05-12 15:14:04', 4, 'Новый чертеж', 6, 3, NULL, 11, 11, 1, NULL, 11, 6.000, NULL, NULL, NULL, NULL, NULL, 5, 3, 20, 500, 3, NULL, NULL, NULL, NULL, NULL, 1),
+(16, '2016-05-12 16:00:55', 5, '370.570', 7, 5, NULL, 13, 13, 1, NULL, 12, 0.190, NULL, NULL, 11, 12, NULL, 3, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14, 0),
+(17, '2016-05-13 15:36:24', 6, 'Новый чертеж', 6, NULL, NULL, NULL, NULL, NULL, NULL, 13, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(18, '2016-05-13 16:26:09', 7, '370.166', 8, NULL, NULL, NULL, NULL, NULL, NULL, 14, 0.150, NULL, NULL, NULL, NULL, NULL, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 15, 1);
 
 -- 
 -- Вывод данных для таблицы flowsheet_machines
@@ -901,7 +1205,10 @@ INSERT INTO flowsheet_machines VALUES
 (7, 10, 1, 1, 135.00, 7.00),
 (8, 11, 1, 1, 145.00, 11.00),
 (9, 12, 1, 1, 135.00, 7.00),
-(10, 12, 2, 2, 150.00, 9.00);
+(10, 12, 2, 2, 150.00, 9.00),
+(11, 13, 1, 1, 170.00, 7.00),
+(12, 14, 1, 1, 170.00, 6.00),
+(13, 15, 1, 2, NULL, NULL);
 
 -- 
 -- Вывод данных для таблицы flowsheet_processes
@@ -989,7 +1296,56 @@ INSERT INTO flowsheet_processes VALUES
 (83, 12, 9, 9, NULL, NULL, NULL, NULL, 2.00, NULL),
 (84, 12, 10, 10, NULL, NULL, NULL, NULL, 1.00, NULL),
 (85, 12, 11, 11, NULL, NULL, NULL, NULL, 0.00, NULL),
-(86, 12, 12, 12, NULL, NULL, NULL, NULL, 0.00, NULL);
+(86, 12, 12, 12, NULL, NULL, NULL, NULL, 0.00, NULL),
+(87, 13, 1, 1, NULL, NULL, NULL, NULL, 10.00, NULL),
+(88, 13, 2, 2, NULL, NULL, NULL, NULL, 1.00, NULL),
+(89, 13, 3, 3, NULL, NULL, NULL, NULL, 0.00, NULL),
+(90, 13, 4, 4, NULL, NULL, NULL, NULL, 0.00, NULL),
+(91, 13, 5, 5, NULL, NULL, NULL, NULL, 0.00, NULL),
+(92, 13, 6, 6, NULL, NULL, NULL, NULL, 0.00, NULL),
+(93, 13, 7, 7, NULL, NULL, NULL, NULL, 2.00, NULL),
+(94, 13, 8, 8, NULL, NULL, NULL, NULL, 7.00, NULL),
+(95, 13, 9, 9, NULL, NULL, NULL, NULL, 2.00, NULL),
+(96, 13, 10, 10, NULL, NULL, NULL, NULL, 1.00, NULL),
+(97, 13, 11, 11, NULL, NULL, NULL, NULL, 0.00, NULL),
+(98, 13, 12, 12, NULL, NULL, NULL, NULL, 0.00, NULL),
+(99, 14, 1, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(100, 14, 2, 2, NULL, NULL, NULL, NULL, 0.00, NULL),
+(101, 14, 3, 3, NULL, NULL, NULL, NULL, 0.00, NULL),
+(102, 14, 4, 4, NULL, NULL, NULL, NULL, 0.00, NULL),
+(103, 14, 5, 5, NULL, NULL, NULL, NULL, 0.00, NULL),
+(104, 14, 6, 6, NULL, NULL, NULL, NULL, 0.00, NULL),
+(105, 14, 7, 7, NULL, NULL, NULL, NULL, 0.00, NULL),
+(106, 14, 8, 8, NULL, NULL, NULL, NULL, 6.00, NULL),
+(107, 14, 9, 9, NULL, NULL, NULL, NULL, 0.00, NULL),
+(108, 14, 10, 10, NULL, NULL, NULL, NULL, 0.00, NULL),
+(109, 14, 11, 11, NULL, NULL, NULL, NULL, 0.00, NULL),
+(110, 14, 12, 12, NULL, NULL, NULL, NULL, 0.00, NULL),
+(111, 15, 1, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(112, 15, 2, 2, NULL, NULL, NULL, NULL, 0.00, NULL),
+(113, 15, 3, 3, NULL, NULL, NULL, NULL, 0.00, NULL),
+(114, 15, 4, 4, NULL, NULL, NULL, NULL, 0.00, NULL),
+(115, 15, 5, 5, NULL, NULL, NULL, NULL, 0.00, NULL),
+(116, 15, 6, 6, NULL, NULL, NULL, NULL, 0.00, NULL),
+(117, 15, 7, 7, NULL, NULL, NULL, NULL, 1.00, NULL),
+(118, 15, 8, 8, NULL, NULL, NULL, NULL, 1.00, NULL),
+(119, 15, 9, 9, NULL, NULL, NULL, NULL, 1.00, NULL),
+(120, 15, 10, 10, NULL, NULL, NULL, NULL, 0.00, NULL),
+(121, 15, 11, 11, NULL, NULL, NULL, NULL, 0.00, NULL),
+(122, 15, 12, 12, NULL, NULL, NULL, NULL, 0.00, NULL);
+
+-- 
+-- Вывод данных для таблицы invoices
+--
+
+-- Таблица rti.invoices не содержит данных
+
+-- 
+-- Вывод данных для таблицы daily_work_package_details
+--
+INSERT INTO daily_work_package_details VALUES
+(1, 1, 1, 12, 150, 140, NULL, 2),
+(2, 1, 2, 10, 100, 100, 'добавлено 11/05', 5);
 
 -- 
 -- Вывод данных для таблицы request_details
@@ -1013,7 +1369,34 @@ INSERT INTO request_details VALUES
 (22, 51, 8, 1, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, 0.00, NULL, NULL, 0),
 (23, 51, 9, 4, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, 0.00, NULL, NULL, 0),
 (24, 55, 1, 9, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, 0.00, NULL, NULL, 0),
-(25, 57, 1, 9, 7, 1, 0, NULL, NULL, 2.00, 12.00, 23.00, 24.00, 7, NULL, 0);
+(25, 57, 1, 9, 7, 1, 0, NULL, NULL, 2.00, 12.00, 23.00, 24.00, 7, NULL, 0),
+(26, 61, 1, 10, NULL, NULL, NULL, NULL, NULL, 5.00, 10.00, NULL, 50.00, NULL, NULL, 0);
+
+-- 
+-- Вывод данных для таблицы rolling_records
+--
+INSERT INTO rolling_records VALUES
+(1, 1, '2016-05-11 00:00:00', 7, 12, 8, 10, NULL, 0);
+
+-- 
+-- Вывод данных для таблицы shaving_records
+--
+INSERT INTO shaving_records VALUES
+(1, 1, 5, '2016-05-11 00:00:00', 12, 15, 2, 0),
+(2, 2, 2, '2016-05-11 00:00:00', 10, 20, 1, 0);
+
+-- 
+-- Вывод данных для таблицы shipped_product_records
+--
+
+-- Таблица rti.shipped_product_records не содержит данных
+
+-- 
+-- Вывод данных для таблицы shipping_order_records
+--
+INSERT INTO shipping_order_records VALUES
+(1, 1, '2016-05-11 00:00:00', 7, 13, 15, 0),
+(2, 2, '2016-05-12 00:00:00', 7, 13, 14, 0);
 
 -- 
 -- Восстановить предыдущий режим SQL (SQL mode)

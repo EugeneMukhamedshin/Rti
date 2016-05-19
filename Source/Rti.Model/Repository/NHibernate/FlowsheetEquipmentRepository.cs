@@ -9,5 +9,10 @@ namespace Rti.Model.Repository.NHibernate
         {
             return ExecuteFuncOnQueryOver(q => q.Where(o => o.Flowsheet.Id == flowsheetId).List());
         }
+
+        public IList<FlowsheetMachine> GetByDrawingIds(int[] drawingIds)
+        {
+            return null;
+        }
     }
 }
