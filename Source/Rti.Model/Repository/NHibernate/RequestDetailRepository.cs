@@ -27,12 +27,13 @@ namespace Rti.Model.Repository.NHibernate
                                  o.RequestDetailStateEnum == RequestDetailState.InProduction)).List());
         }
 
-        public IList<Tuple<int, decimal>> GetRequestsInProductionWithActualDoneCounts(int drawingId, DateTime date)
+        public IList<Tuple<int, int, int>> GetRequestsInProductionWithActualDoneCounts(int drawingId, DateTime date)
         {
             return ExecuteFuncOnSession(
                 s => s.CreateSQLQuery(@"
 SELECT
   rd.id,
+  r.count AS request_count,
   r.done AS done_count
 FROM (SELECT
     rd.id,
@@ -56,8 +57,15 @@ FROM (SELECT
 WHERE r.count > r.done")
                     .SetInt32("p_drawing_id", drawingId)
                     .SetDateTime("p_date", date)
-                    .SetResultTransformer(new ResultTransformer(fields => new Tuple<int, decimal>((int)fields[0], (decimal)fields[1]), objects => objects.Cast<Tuple<int, decimal>>().ToList()))
-                    .List<Tuple<int, decimal>>(), "");
+                    .SetResultTransformer(
+                        new ResultTransformer(
+                            fields =>
+                                new Tuple<int, int, int>(
+                                    (int) fields[0], 
+                                    (int)fields[1],
+                                    decimal.ToInt32((decimal) fields[2])),
+                            objects => objects.Cast<Tuple<int, int, int>>().ToList()))
+                    .List<Tuple<int, int, int>>(), "");
         }
 
         public IList<RequestDetail> GetRequestDetailsByIds(int[] ids)

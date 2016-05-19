@@ -71,6 +71,9 @@ namespace Rti.App
             AddToRegistry<WorkItemList, WorkItemListWindow>();
             AddToRegistry<WorkItemEdit, WorkItemEditWindow>();
 
+            // Индивидуальный наряд
+            AddToRegistry<EmployeeWorkItemList, EmployeeWorkItemListWindow>();
+
             // Журналы
             // Журнал обрезки облоя
             AddToRegistry<ShavingRecordList, ShavingRecordListWindow>();

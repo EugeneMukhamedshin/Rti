@@ -155,10 +155,10 @@
                 <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="80" Margin="5" TabIndex="1001"/>
             </StackPanel>
         </Grid>
-        <Border Opacity="0.8" Visibility="{Binding IsLoading,Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Border Opacity="0.8" Visibility="{Binding IsLoading,Converter={StaticResource BooleanToVisibilityConverter}}" Background="AliceBlue">
             <StackPanel VerticalAlignment="Center">
                 <ProgressBar IsIndeterminate="True" Width="200" Height="32" Opacity="0.5"/>
-                <Label Content="Подождите, идет загруза..." HorizontalContentAlignment="Center"/>
+                <Label Content="Подождите, идет загрузка..." HorizontalContentAlignment="Center"/>
             </StackPanel>
         </Border>
     </Grid>

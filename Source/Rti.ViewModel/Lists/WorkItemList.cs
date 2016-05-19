@@ -9,10 +9,11 @@ using Rti.ViewModel.Entities.Commands;
 
 namespace Rti.ViewModel.Lists
 {
-    public class WorkItemList: EntityList<WorkItemViewModel, WorkItem>
+    public class WorkItemList: EntityList<WorkItemViewModel, WorkItem>, IClosable
     {
-        private readonly List<WorkItemViewModel> _deletedItems = new List<WorkItemViewModel>();
         private DateTime _date;
+        private List<EmployeeViewModel> _employeesSource;
+        private EmployeeViewModel _employee;
 
         public DateTime Date
         {
@@ -28,6 +29,33 @@ namespace Rti.ViewModel.Lists
 
         public DelegateCommand AddWorkItemCommand { get; set; }
 
+        public DelegateCommand OpenEmployeeWorkItemListCommand { get; set; }
+
+        public DelegateCommand CloseCommand{ get; set; }
+
+        public EmployeeViewModel Employee
+        {
+            get { return _employee; }
+            set
+            {
+                if (Equals(value, _employee)) return;
+                _employee = value;
+                OnPropertyChanged();
+                OpenEmployeeWorkItemListCommand.RequeryCanExecute();
+            }
+        }
+
+        public List<EmployeeViewModel> EmployeesSource
+        {
+            get { return _employeesSource; }
+            set
+            {
+                if (Equals(value, _employeesSource)) return;
+                _employeesSource = value;
+                OnPropertyChanged();
+            }
+        }
+
         public WorkItemList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
         {
             TypeMaps.Add(new Tuple<Type, Type>(typeof(WorkItemViewModel), typeof(WorkItemEdit)));
@@ -35,8 +63,16 @@ namespace Rti.ViewModel.Lists
             _date = DateTime.Today;
             AddWorkItemCommand = new DelegateCommand(
                 "Добавить строку",
-                o => true,
+                o => EditMode,
                 o => AddWorkItem());
+            OpenEmployeeWorkItemListCommand = new DelegateCommand(
+                "Открыть индивидуальный наряд",
+                o => Employee != null,
+                o => OpenEmployeeWorkItemList());
+            CloseCommand = new DelegateCommand(
+                "",
+                o => true,
+                o => Close(true));
         }
 
         private void AddWorkItem()
@@ -44,6 +80,13 @@ namespace Rti.ViewModel.Lists
             var workItem = DoCreateNewEntity();
             if (OpenViewModelEditWindow(workItem, "Новая запись дневного наряда", false))
                 Items.Add(workItem);
+        }
+
+        private void OpenEmployeeWorkItemList()
+        {
+            var list = new EmployeeWorkItemList(Employee, Date, EditMode, ViewService, RepositoryFactory);
+            list.Refresh();
+            ViewService.ShowViewDialog(list);
         }
 
         protected override IEnumerable<WorkItemViewModel> GetItems()
@@ -65,9 +108,8 @@ namespace Rti.ViewModel.Lists
             var details = RepositoryFactory.GetWorkItemRequestDetailRepository().GetByWorkItemId(entity.Id).Select(o => new WorkItemRequestDetailViewModel(o, RepositoryFactory)).ToList();
             details.ForEach(o => o.DeleteEntity());
             entity.DeleteEntity();
-            //_deletedItems.Add(entity);
         }
-         //public void SaveChanges()         //{         //    foreach (var deletedItem in _deletedItems)         //    {         //        deletedItem.DeleteEntity();         //    }         //    _deletedItems.Clear();         //    foreach (var item in Items)         //    {         //        if (item.IsChanged || item.IsNewEntity)         //            item.SaveEntity();         //    }         //} 
+
         protected override bool AcceptFind(WorkItemViewModel entity, string searchText)
         {
             return searchText.ContainedIn(entity.BatchNumber, entity.Note) ||
@@ -78,5 +120,24 @@ namespace Rti.ViewModel.Lists
                     entity.Drawing.Material != null && searchText.ContainedIn(entity.Drawing.Material.Name)) ||
                     entity.Employee != null && searchText.ContainedIn(entity.Employee.FullName);
         }
+
+        protected override void OnItemsChanged()
+        {
+            base.OnItemsChanged();
+            RefreshEmployeesSource();
+            Items.CollectionChanged += (sender, args) => RefreshEmployeesSource();
+        }
+
+        private void RefreshEmployeesSource()
+        {
+            EmployeesSource = Items.Select(o => o.Employee).Distinct().OrderBy(o => o.FullName).ToList();
+        }
+
+        public bool CanClose()
+        {
+            return true;
+        }
+
+        public Action<bool?> Close { get; set; }
     }
 }

@@ -25,6 +25,8 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new DriverRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Employee))
                 return (IRepository<TEntity>)new EmployeeRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.EmployeeWorkItemPackage))
+                return (IRepository<TEntity>)new EmployeeWorkItemPackageRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Equipment))
                 return (IRepository<TEntity>)new EquipmentRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Flowsheet))
@@ -89,6 +91,8 @@ namespace Rti.Model.Repository.NHibernate
 		public IDriverRepository GetDriverRepository() { return (IDriverRepository) GetRepository<Rti.Model.Domain.Driver>(); }
 
 		public IEmployeeRepository GetEmployeeRepository() { return (IEmployeeRepository) GetRepository<Rti.Model.Domain.Employee>(); }
+
+		public IEmployeeWorkItemPackageRepository GetEmployeeWorkItemPackageRepository() { return (IEmployeeWorkItemPackageRepository) GetRepository<Rti.Model.Domain.EmployeeWorkItemPackage>(); }
 
 		public IEquipmentRepository GetEquipmentRepository() { return (IEquipmentRepository) GetRepository<Rti.Model.Domain.Equipment>(); }
 
@@ -226,6 +230,17 @@ namespace Rti.Model.Repository.NHibernate
         {
 			var result = queryOver;
 			result = result.Fetch(o => o.Job).Default;
+            return result;
+        }
+    }
+
+	public partial class EmployeeWorkItemPackageRepository : NHibernateRepository<Rti.Model.Domain.EmployeeWorkItemPackage>, IEmployeeWorkItemPackageRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.EmployeeWorkItemPackage, Rti.Model.Domain.EmployeeWorkItemPackage> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.EmployeeWorkItemPackage, Rti.Model.Domain.EmployeeWorkItemPackage> queryOver)
+        {
+			var result = queryOver;
+			result = result.Fetch(o => o.Employee).Default;
             return result;
         }
     }
@@ -476,6 +491,7 @@ namespace Rti.Model.Repository.NHibernate
 			var result = queryOver;
 			result = result.Fetch(o => o.Drawing).Default;
 			result = result.Fetch(o => o.Employee).Default;
+			result = result.Fetch(o => o.FlowsheetMachine).Default;
             return result;
         }
     }

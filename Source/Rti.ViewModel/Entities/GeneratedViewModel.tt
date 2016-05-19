@@ -34,8 +34,6 @@ namespace Rti.ViewModel.Entities
 
         public <#= viewModelTypeName #>(<#= type.FullName #> entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
-		protected bool IsMapping = false;
-
 <#
                 var props =
                     type.GetProperties();

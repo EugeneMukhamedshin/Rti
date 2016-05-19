@@ -113,6 +113,7 @@
     <Compile Include="IViewService.cs" />
     <Compile Include="IWindowCloser.cs" />
     <Compile Include="Lists\ContragentList.cs" />
+    <Compile Include="Lists\EmployeeWorkItemList.cs" />
     <Compile Include="Lists\WorkItemList.cs" />
     <Compile Include="Lists\DetailList.cs" />
     <Compile Include="Lists\DrawingList.cs" />

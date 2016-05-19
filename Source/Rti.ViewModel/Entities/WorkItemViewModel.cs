@@ -16,7 +16,7 @@ namespace Rti.ViewModel.Entities
 
         public int RemainedCount
         {
-            get { return (RequestCount ?? 0) - (DoneCount ?? 0); }
+            get { return (RequestCount ?? 0) - (DoneCount ?? 0) + (RejectedCount ?? 0); }
         }
 
         /// <summary>
@@ -24,7 +24,12 @@ namespace Rti.ViewModel.Entities
         /// </summary>
         public int TakeOffCount
         {
-            get { return (int)Math.Round((double)((TaskCount ?? 0)/Drawing.Equipment.Output), 0); }
+            get
+            {
+                return Drawing == null || Drawing.Equipment == null || Drawing.Equipment.Output == 0
+                    ? 0
+                    : (int) Math.Round((double) ((TaskCount ?? 0)/Drawing.Equipment.Output), 0);
+            }
         }
 
         protected override void OnPropertyChanged(string propertyName = null)
@@ -34,7 +39,7 @@ namespace Rti.ViewModel.Entities
                 OnPropertyChanged("Sum");
             if (propertyName == "Date")
                 OnPropertyChanged("BatchNumber");
-            if (propertyName.In("DoneCount", "RequestCount"))
+            if (propertyName.In("DoneCount", "RequestCount", "RejectedCount"))
                 OnPropertyChanged("RemainedCount");
             if (propertyName.In("TaskCount", "Drawing"))
                 OnPropertyChanged("TakeOffCount");

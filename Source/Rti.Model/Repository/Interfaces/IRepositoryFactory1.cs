@@ -15,6 +15,7 @@ namespace Rti.Model.Repository.Interfaces
 		IDrawingRepository GetDrawingRepository();
 		IDriverRepository GetDriverRepository();
 		IEmployeeRepository GetEmployeeRepository();
+		IEmployeeWorkItemPackageRepository GetEmployeeWorkItemPackageRepository();
 		IEquipmentRepository GetEquipmentRepository();
 		IFlowsheetRepository GetFlowsheetRepository();
 		IFlowsheetMachineRepository GetFlowsheetMachineRepository();
@@ -48,6 +49,7 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IDrawingRepository : IRepository<Rti.Model.Domain.Drawing> { }
 	public partial interface IDriverRepository : IRepository<Rti.Model.Domain.Driver> { }
 	public partial interface IEmployeeRepository : IRepository<Rti.Model.Domain.Employee> { }
+	public partial interface IEmployeeWorkItemPackageRepository : IRepository<Rti.Model.Domain.EmployeeWorkItemPackage> { }
 	public partial interface IEquipmentRepository : IRepository<Rti.Model.Domain.Equipment> { }
 	public partial interface IFlowsheetRepository : IRepository<Rti.Model.Domain.Flowsheet> { }
 	public partial interface IFlowsheetMachineRepository : IRepository<Rti.Model.Domain.FlowsheetMachine> { }

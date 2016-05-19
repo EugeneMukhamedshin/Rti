@@ -17,6 +17,8 @@ namespace Rti.ViewModel.Entities
         private string _validationErrorMessage;
 
         protected bool SuppressIsChanged;
+        protected bool IsMapping = false;
+
         public TEntity Entity { get; private set; }
 
         public Boolean IsNewEntity
@@ -225,7 +227,7 @@ namespace Rti.ViewModel.Entities
 
         protected override void OnPropertyChanged(string propertyName = null)
         {
-            if (!SuppressIsChanged)
+            if (!SuppressIsChanged && !IsMapping)
                 IsChanged = true;
             base.OnPropertyChanged(propertyName);
         }

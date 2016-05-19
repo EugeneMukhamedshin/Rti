@@ -8,7 +8,7 @@ namespace Rti.Model.Repository.Interfaces
     {
         IList<RequestDetail> GetByRequestId(int requestId);
         IList<RequestDetail> GetReadyToProduceByDrawingId(int drawingId);
-        IList<Tuple<int, decimal>> GetRequestsInProductionWithActualDoneCounts(int drawingId, DateTime date);
+        IList<Tuple<int, int, int>> GetRequestsInProductionWithActualDoneCounts(int drawingId, DateTime date);
         IList<RequestDetail> GetRequestDetailsByIds(int[] ids);
         int GetNotShippedCount(int drawingId, DateTime date);
     }

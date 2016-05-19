@@ -13,7 +13,7 @@
                 <RowDefinition Height="32"/>
                 <RowDefinition Height="48"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="32"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="32"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="0">
@@ -64,15 +64,46 @@
                     <dxg:TableView AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>
             </dxg:GridControl>
-
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1" Width="300">
+                    <StackPanel Orientation="Horizontal" Margin="5,5,0,0" HorizontalAlignment="Center">
+                        <TextBlock Text="Исполнитель" VerticalAlignment="Center"/>
+                        <dxg:LookUpEdit TabIndex="3" Margin="5" ItemsSource="{Binding EmployeesSource}" SelectedItem="{Binding Employee}" DisplayMember="FullName" Width="200" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True">
+                            <dxg:LookUpEdit.StyleSettings>
+                                <dxg:SearchLookUpEditStyleSettings/>
+                            </dxg:LookUpEdit.StyleSettings>
+                            <dxg:LookUpEdit.PopupContentTemplate>
+                                <ControlTemplate>
+                                    <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
+                                        <dxg:GridControl.Columns>
+                                            <dxg:GridColumn FieldName="SortOrder" Header="№"/>
+                                            <dxg:GridColumn FieldName="Code" Header="Код"/>
+                                            <dxg:GridColumn FieldName="FullName" Header="Полное имя"/>
+                                            <dxg:GridColumn FieldName="Job.Name" Header="Должность"/>
+                                        </dxg:GridControl.Columns>
+                                        <dxg:GridControl.View>
+                                            <dxg:TableView AutoWidth="True"/>
+                                        </dxg:GridControl.View>
+                                    </dxg:GridControl>
+                                </ControlTemplate>
+                            </dxg:LookUpEdit.PopupContentTemplate>
+                        </dxg:LookUpEdit>
+                    </StackPanel>
+                    <Button Content="Индивидуальный наряд" Command="{Binding OpenEmployeeWorkItemListCommand}" Margin="5,0,5,5" HorizontalAlignment="Stretch"/>
+                </StackPanel>
+            </Grid>
             <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal">
                 <Button Content="Закрыть"  Command="{Binding CloseCommand}" Width="80" Margin="5" TabIndex="1001"/>
             </StackPanel>
         </Grid>
-        <Border Opacity="0.8" Visibility="{Binding IsLoading,Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Border Opacity="0.8" Visibility="{Binding IsLoading,Converter={StaticResource BooleanToVisibilityConverter}}" Background="AliceBlue">
             <StackPanel VerticalAlignment="Center">
                 <ProgressBar IsIndeterminate="True" Width="200" Height="32" Opacity="0.5"/>
-                <Label Content="Подождите, идет загруза..." HorizontalContentAlignment="Center"/>
+                <Label Content="Подождите, идет загрузка..." HorizontalContentAlignment="Center"/>
             </StackPanel>
         </Border>
     </Grid>

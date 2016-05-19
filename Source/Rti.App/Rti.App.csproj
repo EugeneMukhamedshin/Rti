@@ -163,7 +163,7 @@
     <Compile Include="View\Components\Float3TextEditSettings.cs" />
     <Compile Include="View\Components\ImageContentExtension.cs" />
     <Compile Include="View\Components\PropertyGridResponsible.cs" />
-    <Compile Include="View\Components\TextEditSettingsExtension.cs" />
+    <Compile Include="View\Components\NumericEditSettingsExtension.cs" />
     <Compile Include="View\Converters\ExistanceToStringConverter.cs" />
     <Compile Include="View\Editors\AdditionalInfoEditWindow.xaml.cs">
       <DependentUpon>AdditionalInfoEditWindow.xaml</DependentUpon>
@@ -179,6 +179,9 @@
     </Compile>
     <Compile Include="View\Editors\WorkItemEditWindow.xaml.cs">
       <DependentUpon>WorkItemEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\EmployeeWorkItemListWindow.xaml.cs">
+      <DependentUpon>EmployeeWorkItemListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lists\WorkItemListWindow.xaml.cs">
       <DependentUpon>WorkItemListWindow.xaml</DependentUpon>
@@ -404,6 +407,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Editors\WorkItemEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Lists\EmployeeWorkItemListWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

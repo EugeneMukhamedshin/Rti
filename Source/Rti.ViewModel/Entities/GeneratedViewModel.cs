@@ -26,8 +26,6 @@ namespace Rti.ViewModel.Entities
 
         public AdditionalInfoViewModel(Rti.Model.Domain.AdditionalInfo entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
-		protected bool IsMapping = false;
-
 		private Int32 _id;
 		private Int32 _sortOrder;
 		private String _name;
@@ -112,8 +110,6 @@ namespace Rti.ViewModel.Entities
 		public CalculationViewModel() { }
 
         public CalculationViewModel(Rti.Model.Domain.Calculation entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		protected bool IsMapping = false;
 
 		private Int32 _id;
 		private Decimal? _mainMaterial;
@@ -342,8 +338,6 @@ namespace Rti.ViewModel.Entities
 
         public ConstantViewModel(Rti.Model.Domain.Constant entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
-		protected bool IsMapping = false;
-
 		private Int32 _id;
 		private Decimal _kTr;
 		private Decimal _kEsn;
@@ -474,8 +468,6 @@ namespace Rti.ViewModel.Entities
 		public ContragentViewModel() { }
 
         public ContragentViewModel(Rti.Model.Domain.Contragent entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		protected bool IsMapping = false;
 
 		private Int32 _id;
 		private Int32 _sortOrder;
@@ -680,8 +672,6 @@ namespace Rti.ViewModel.Entities
 
         public DetailViewModel(Rti.Model.Domain.Detail entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
-		protected bool IsMapping = false;
-
 		private Int32 _id;
 		private Int32 _sortOrder;
 		private String _name;
@@ -766,8 +756,6 @@ namespace Rti.ViewModel.Entities
 		public DrawingViewModel() { }
 
         public DrawingViewModel(Rti.Model.Domain.Drawing entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		protected bool IsMapping = false;
 
 		private Int32 _id;
 		private DateTime? _creationDate;
@@ -1029,8 +1017,6 @@ namespace Rti.ViewModel.Entities
 
         public DriverViewModel(Rti.Model.Domain.Driver entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
-		protected bool IsMapping = false;
-
 		private Int32 _id;
 		private Int32 _sortOrder;
 		private String _carModel;
@@ -1130,8 +1116,6 @@ namespace Rti.ViewModel.Entities
 
         public EmployeeViewModel(Rti.Model.Domain.Employee entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
-		protected bool IsMapping = false;
-
 		private Int32 _id;
 		private Int32 _sortOrder;
 		private String _code;
@@ -1223,6 +1207,85 @@ namespace Rti.ViewModel.Entities
 	}
 
 
+	// The viewmodel for EmployeeWorkItemPackage
+	public partial class EmployeeWorkItemPackageViewModel : EntityViewModel<Rti.Model.Domain.EmployeeWorkItemPackage, EmployeeWorkItemPackageViewModel>
+	{
+		// Конструктор для маппинга
+		public EmployeeWorkItemPackageViewModel() { }
+
+        public EmployeeWorkItemPackageViewModel(Rti.Model.Domain.EmployeeWorkItemPackage entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+		private Int32 _id;
+		private DateTime _date;
+		private String _block;
+		private EmployeeViewModel _employee;
+
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+		public DateTime Date { get { return _date; } set { if (Equals(_date, value)) return; _date = value; OnPropertyChanged("Date"); } }
+		public String Block { get { return _block; } set { if (Equals(_block, value)) return; _block = value; OnPropertyChanged("Block"); } }
+		public EmployeeViewModel Employee { get { return _employee; } set { _employee = value; OnPropertyChanged("Employee"); } }
+
+		protected override void MapPropertiesToEntity()
+		{
+			Entity.Date = Date; 
+			Entity.Block = Block; 
+			Entity.Employee = Employee == null ? null : Employee.Entity; 
+
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+			IsMapping = true;
+			Id = Entity.Id; 
+			Date = Entity.Date; 
+			Block = Entity.Block; 
+			Employee = Entity.Employee == null ? null : new EmployeeViewModel(Entity.Employee, RepositoryFactory); 
+			IsMapping = false;
+		}
+
+		public override void CopyFrom(EmployeeWorkItemPackageViewModel source)
+		{
+			IsMapping = true;
+			Date = source.Date;
+			Block = source.Block;
+			Employee = source.Employee;
+			CustomCopyFrom(source);
+			IsMapping = false;
+		}
+
+		public override EmployeeWorkItemPackageViewModel Clone()
+		{
+			var copy = new EmployeeWorkItemPackageViewModel(null, RepositoryFactory);
+			copy.CopyFrom(this);
+			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("Date", Date));
+			if (Block != null)
+				element.Add(new XAttribute("Block", Block));
+			if (Employee != null)
+				element.Add(Employee.GetXElement("Employee"));
+
+			CustomFillXElement(element);
+			return element;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(EmployeeWorkItemPackageViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((EmployeeWorkItemPackageViewModel) obj);
+        }
+	}
+
+
 	// The viewmodel for Equipment
 	public partial class EquipmentViewModel : EntityViewModel<Rti.Model.Domain.Equipment, EquipmentViewModel>
 	{
@@ -1230,8 +1293,6 @@ namespace Rti.ViewModel.Entities
 		public EquipmentViewModel() { }
 
         public EquipmentViewModel(Rti.Model.Domain.Equipment entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		protected bool IsMapping = false;
 
 		private Int32 _id;
 		private Int32 _sortOrder;
@@ -1354,8 +1415,6 @@ namespace Rti.ViewModel.Entities
 
         public FlowsheetViewModel(Rti.Model.Domain.Flowsheet entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
-		protected bool IsMapping = false;
-
 		private Int32 _id;
 		private Int32 _drawingId;
 		private Decimal? _factMass;
@@ -1449,8 +1508,6 @@ namespace Rti.ViewModel.Entities
 
         public FlowsheetMachineViewModel(Rti.Model.Domain.FlowsheetMachine entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
-		protected bool IsMapping = false;
-
 		private Int32 _id;
 		private Int32 _sortOrder;
 		private Decimal? _plateTemperature;
@@ -1543,8 +1600,6 @@ namespace Rti.ViewModel.Entities
 		public FlowsheetProcessViewModel() { }
 
         public FlowsheetProcessViewModel(Rti.Model.Domain.FlowsheetProcess entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		protected bool IsMapping = false;
 
 		private Int32 _id;
 		private Int32? _sortOrder;
@@ -1667,8 +1722,6 @@ namespace Rti.ViewModel.Entities
 
         public GroupViewModel(Rti.Model.Domain.Group entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
-		protected bool IsMapping = false;
-
 		private Int32 _id;
 		private Int32 _sortOrder;
 		private String _name;
@@ -1754,8 +1807,6 @@ namespace Rti.ViewModel.Entities
 
         public ImageViewModel(Rti.Model.Domain.Image entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
-		protected bool IsMapping = false;
-
 		private Int32 _id;
 		private Byte[] _data;
 
@@ -1821,8 +1872,6 @@ namespace Rti.ViewModel.Entities
 		public InvoiceViewModel() { }
 
         public InvoiceViewModel(Rti.Model.Domain.Invoice entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		protected bool IsMapping = false;
 
 		private Int32 _id;
 		private Boolean _isDeleted;
@@ -1908,8 +1957,6 @@ namespace Rti.ViewModel.Entities
 		public JobViewModel() { }
 
         public JobViewModel(Rti.Model.Domain.Job entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		protected bool IsMapping = false;
 
 		private Int32 _id;
 		private Int32 _sortOrder;
@@ -2002,8 +2049,6 @@ namespace Rti.ViewModel.Entities
 		public MachineViewModel() { }
 
         public MachineViewModel(Rti.Model.Domain.Machine entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		protected bool IsMapping = false;
 
 		private Int32 _id;
 		private Int32 _sortOrder;
@@ -2145,8 +2190,6 @@ namespace Rti.ViewModel.Entities
 		public MassCalculationViewModel() { }
 
         public MassCalculationViewModel(Rti.Model.Domain.MassCalculation entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		protected bool IsMapping = false;
 
 		private Int32 _id;
 		private DetailType _detailTypeEnum;
@@ -2353,8 +2396,6 @@ namespace Rti.ViewModel.Entities
 
         public MaterialViewModel(Rti.Model.Domain.Material entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
-		protected bool IsMapping = false;
-
 		private Int32 _id;
 		private Int32 _sortOrder;
 		private String _name;
@@ -2481,8 +2522,6 @@ namespace Rti.ViewModel.Entities
 		public MaterialArrivalRecordViewModel() { }
 
         public MaterialArrivalRecordViewModel(Rti.Model.Domain.MaterialArrivalRecord entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		protected bool IsMapping = false;
 
 		private Int32 _id;
 		private Int32 _sortOrder;
@@ -2621,8 +2660,6 @@ namespace Rti.ViewModel.Entities
 
         public MeasureUnitViewModel(Rti.Model.Domain.MeasureUnit entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
-		protected bool IsMapping = false;
-
 		private Int32 _id;
 		private Int32 _sortOrder;
 		private String _name;
@@ -2708,8 +2745,6 @@ namespace Rti.ViewModel.Entities
 
         public MethodViewModel(Rti.Model.Domain.Method entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
-		protected bool IsMapping = false;
-
 		private Int32 _id;
 		private Int32 _sortOrder;
 		private String _name;
@@ -2794,8 +2829,6 @@ namespace Rti.ViewModel.Entities
 		public ProcessViewModel() { }
 
         public ProcessViewModel(Rti.Model.Domain.Process entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		protected bool IsMapping = false;
 
 		private Int32 _id;
 		private ProcessType _processTypeEnum;
@@ -2896,8 +2929,6 @@ namespace Rti.ViewModel.Entities
 		public RequestViewModel() { }
 
         public RequestViewModel(Rti.Model.Domain.Request entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		protected bool IsMapping = false;
 
 		private Int32 _id;
 		private Int32 _number;
@@ -3017,8 +3048,6 @@ namespace Rti.ViewModel.Entities
 		public RequestDetailViewModel() { }
 
         public RequestDetailViewModel(Rti.Model.Domain.RequestDetail entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		protected bool IsMapping = false;
 
 		private Int32 _id;
 		private Int32 _sortOrder;
@@ -3184,8 +3213,6 @@ namespace Rti.ViewModel.Entities
 
         public RollingRecordViewModel(Rti.Model.Domain.RollingRecord entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
-		protected bool IsMapping = false;
-
 		private Int32 _id;
 		private Int32 _sortOrder;
 		private DateTime _rollingDate;
@@ -3297,8 +3324,6 @@ namespace Rti.ViewModel.Entities
 
         public ShavingRecordViewModel(Rti.Model.Domain.ShavingRecord entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
-		protected bool IsMapping = false;
-
 		private Int32 _id;
 		private Int32 _sortOrder;
 		private DateTime _shaveDate;
@@ -3408,8 +3433,6 @@ namespace Rti.ViewModel.Entities
 		public ShippedProductRecordViewModel() { }
 
         public ShippedProductRecordViewModel(Rti.Model.Domain.ShippedProductRecord entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		protected bool IsMapping = false;
 
 		private Int32 _id;
 		private Int32 _sortOrder;
@@ -3550,8 +3573,6 @@ namespace Rti.ViewModel.Entities
 
         public ShippingOrderRecordViewModel(Rti.Model.Domain.ShippingOrderRecord entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
-		protected bool IsMapping = false;
-
 		private Int32 _id;
 		private Int32 _sortOrder;
 		private DateTime _orderDate;
@@ -3649,8 +3670,6 @@ namespace Rti.ViewModel.Entities
 
         public WorkItemViewModel(Rti.Model.Domain.WorkItem entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
-		protected bool IsMapping = false;
-
 		private Int32 _id;
 		private DateTime _workDate;
 		private Int32 _sortOrder;
@@ -3661,6 +3680,7 @@ namespace Rti.ViewModel.Entities
 		private String _note;
 		private DrawingViewModel _drawing;
 		private EmployeeViewModel _employee;
+		private FlowsheetMachineViewModel _flowsheetMachine;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public DateTime WorkDate { get { return _workDate; } set { if (Equals(_workDate, value)) return; _workDate = value; OnPropertyChanged("WorkDate"); } }
@@ -3672,6 +3692,7 @@ namespace Rti.ViewModel.Entities
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
 		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
 		public EmployeeViewModel Employee { get { return _employee; } set { _employee = value; OnPropertyChanged("Employee"); } }
+		public FlowsheetMachineViewModel FlowsheetMachine { get { return _flowsheetMachine; } set { _flowsheetMachine = value; OnPropertyChanged("FlowsheetMachine"); } }
 
 		protected override void MapPropertiesToEntity()
 		{
@@ -3684,6 +3705,7 @@ namespace Rti.ViewModel.Entities
 			Entity.Note = Note; 
 			Entity.Drawing = Drawing == null ? null : Drawing.Entity; 
 			Entity.Employee = Employee == null ? null : Employee.Entity; 
+			Entity.FlowsheetMachine = FlowsheetMachine == null ? null : FlowsheetMachine.Entity; 
 
 		}
 
@@ -3700,6 +3722,7 @@ namespace Rti.ViewModel.Entities
 			Note = Entity.Note; 
 			Drawing = Entity.Drawing == null ? null : new DrawingViewModel(Entity.Drawing, RepositoryFactory); 
 			Employee = Entity.Employee == null ? null : new EmployeeViewModel(Entity.Employee, RepositoryFactory); 
+			FlowsheetMachine = Entity.FlowsheetMachine == null ? null : new FlowsheetMachineViewModel(Entity.FlowsheetMachine, RepositoryFactory); 
 			IsMapping = false;
 		}
 
@@ -3715,6 +3738,7 @@ namespace Rti.ViewModel.Entities
 			Note = source.Note;
 			Drawing = source.Drawing;
 			Employee = source.Employee;
+			FlowsheetMachine = source.FlowsheetMachine;
 			CustomCopyFrom(source);
 			IsMapping = false;
 		}
@@ -3746,6 +3770,8 @@ namespace Rti.ViewModel.Entities
 				element.Add(Drawing.GetXElement("Drawing"));
 			if (Employee != null)
 				element.Add(Employee.GetXElement("Employee"));
+			if (FlowsheetMachine != null)
+				element.Add(FlowsheetMachine.GetXElement("FlowsheetMachine"));
 
 			CustomFillXElement(element);
 			return element;
@@ -3771,12 +3797,11 @@ namespace Rti.ViewModel.Entities
 
         public WorkItemRequestDetailViewModel(Rti.Model.Domain.WorkItemRequestDetail entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
-		protected bool IsMapping = false;
-
 		private Int32 _id;
 		private Int32? _sortOrder;
 		private Int32 _taskCount;
 		private Int32 _doneCount;
+		private Int32 _rejectedCount;
 		private WorkItemViewModel _workItem;
 		private RequestDetailViewModel _requestDetail;
 
@@ -3784,6 +3809,7 @@ namespace Rti.ViewModel.Entities
 		public Int32? SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
 		public Int32 TaskCount { get { return _taskCount; } set { if (Equals(_taskCount, value)) return; _taskCount = value; OnPropertyChanged("TaskCount"); } }
 		public Int32 DoneCount { get { return _doneCount; } set { if (Equals(_doneCount, value)) return; _doneCount = value; OnPropertyChanged("DoneCount"); } }
+		public Int32 RejectedCount { get { return _rejectedCount; } set { if (Equals(_rejectedCount, value)) return; _rejectedCount = value; OnPropertyChanged("RejectedCount"); } }
 		public WorkItemViewModel WorkItem { get { return _workItem; } set { _workItem = value; OnPropertyChanged("WorkItem"); } }
 		public RequestDetailViewModel RequestDetail { get { return _requestDetail; } set { _requestDetail = value; OnPropertyChanged("RequestDetail"); } }
 
@@ -3792,6 +3818,7 @@ namespace Rti.ViewModel.Entities
 			Entity.SortOrder = SortOrder; 
 			Entity.TaskCount = TaskCount; 
 			Entity.DoneCount = DoneCount; 
+			Entity.RejectedCount = RejectedCount; 
 			Entity.WorkItem = WorkItem == null ? null : WorkItem.Entity; 
 			Entity.RequestDetail = RequestDetail == null ? null : RequestDetail.Entity; 
 
@@ -3804,6 +3831,7 @@ namespace Rti.ViewModel.Entities
 			SortOrder = Entity.SortOrder; 
 			TaskCount = Entity.TaskCount; 
 			DoneCount = Entity.DoneCount; 
+			RejectedCount = Entity.RejectedCount; 
 			WorkItem = Entity.WorkItem == null ? null : new WorkItemViewModel(Entity.WorkItem, RepositoryFactory); 
 			RequestDetail = Entity.RequestDetail == null ? null : new RequestDetailViewModel(Entity.RequestDetail, RepositoryFactory); 
 			IsMapping = false;
@@ -3815,6 +3843,7 @@ namespace Rti.ViewModel.Entities
 			SortOrder = source.SortOrder;
 			TaskCount = source.TaskCount;
 			DoneCount = source.DoneCount;
+			RejectedCount = source.RejectedCount;
 			WorkItem = source.WorkItem;
 			RequestDetail = source.RequestDetail;
 			CustomCopyFrom(source);
@@ -3836,6 +3865,7 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("SortOrder", SortOrder));
 			element.Add(new XAttribute("TaskCount", TaskCount));
 			element.Add(new XAttribute("DoneCount", DoneCount));
+			element.Add(new XAttribute("RejectedCount", RejectedCount));
 			if (WorkItem != null)
 				element.Add(WorkItem.GetXElement("WorkItem"));
 			if (RequestDetail != null)

@@ -381,6 +381,31 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 	}
 
 
+	// The classmap for employee_work_item_package
+	public partial class EmployeeWorkItemPackageMap : BaseMap<Rti.Model.Domain.EmployeeWorkItemPackage>
+	{
+		public EmployeeWorkItemPackageMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("employee_work_item_package");
+
+			Id(o => o.Id, "id");
+
+			Map(o => o.Date, "date");
+
+			Map(o => o.Block, "block");
+
+			References(o => o.Employee, "employee_id").Fetch.Join().Not.LazyLoad();
+
+			OnInitialized();
+		}
+	}
+
+
 	// The classmap for equipments
 	public partial class EquipmentMap : BaseMap<Rti.Model.Domain.Equipment>
 	{
@@ -1152,6 +1177,8 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			References(o => o.Employee, "employee_id").Fetch.Join().Not.LazyLoad();
 
+			References(o => o.FlowsheetMachine, "flowsheet_machine_id").Fetch.Join().Not.LazyLoad();
+
 			OnInitialized();
 		}
 	}
@@ -1176,6 +1203,8 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.TaskCount, "task_count");
 
 			Map(o => o.DoneCount, "done_count");
+
+			Map(o => o.RejectedCount, "rejected_count");
 
 			References(o => o.WorkItem, "work_item_id").Fetch.Join().Not.LazyLoad();
 

@@ -2,11 +2,95 @@
 using System.Collections.Generic;
 using System.Linq;
 using Rti.Model.Domain;
+using Rti.Model.Domain.BusinessLogic;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
 
 namespace Rti.ViewModel.EditViewModel
 {
+    public class WorkItemControllerViewModel
+    {
+        private WorkItemController _workItemController;
+        
+        public IViewService ViewService { get; set; }
+        public IRepositoryFactory RepositoryFactory { get; set; }
+
+        public WorkItemControllerViewModel(IViewService viewService, IRepositoryFactory repositoryFactory)
+        {
+            ViewService = viewService;
+            RepositoryFactory = repositoryFactory;
+            _workItemController = new WorkItemController(RepositoryFactory);
+        }
+
+        public bool ValidatePost(WorkItemViewModel workItem)
+        {
+            var workItems = RepositoryFactory.GetWorkItemRepository().GetByDrawingId(workItem.Drawing.Id, workItem.WorkDate.AddDays(1));
+            if (workItems.Any())
+            {
+                if (
+                    !ViewService.ShowConfirmation(new MessageViewModel("Внимание",
+                        "Будет произведено перераспределение выполненного количества деталей по заявкам. Подтвердите изменение.")))
+                    return false;
+            }
+            return true;
+        }
+
+        public void PostWorkItem(WorkItemViewModel workItem)
+        {
+            if (workItem.IsNewEntity)
+                workItem.SaveEntity();
+            _workItemController.PostWorkItem(workItem.Entity);
+            return;
+            // Удаляем предыдущие записи распределения
+            RepositoryFactory.GetWorkItemRequestDetailRepository().DeleteByWorkItemId(workItem.Id);
+
+            // Получаем актуальные остатки по заявкам на текущую дату
+            var requestDetailDoneCounts =
+               RepositoryFactory.GetRequestDetailRepository()
+                   .GetRequestsInProductionWithActualDoneCounts(workItem.Drawing.Id, workItem.WorkDate);
+
+            // Пересчитываем количество деталей по заявкам на текущую дату
+            workItem.RequestCount = requestDetailDoneCounts.Sum(o => o.Item2 - o.Item3);
+            workItem.SaveEntity();
+
+            // Получаем строки заявок для распределения фактически выполненной работы
+            var requestDetails = RepositoryFactory.GetRequestDetailRepository().GetRequestDetailsByIds(requestDetailDoneCounts.Select(o => o.Item1).ToArray());
+            var index = 0;
+            var dayDoneCount = (workItem.DoneCount ?? 0) - (workItem.RejectedCount ?? 0);
+            foreach (var requestDetail in requestDetails.OrderBy(o => o.Request.RegDate).ThenBy(o => o.SortOrder))
+            {
+                if (dayDoneCount == 0)
+                    break;
+                var detail = new WorkItemRequestDetailViewModel(null, RepositoryFactory)
+                {
+                    WorkItem = workItem,
+                    RequestDetail = new RequestDetailViewModel(requestDetail, RepositoryFactory),
+                    SortOrder = index++,
+                };
+                // Получаем выполненное количество по заявке на текущий момент
+                var currentlyDoneCount = decimal.ToInt32(requestDetailDoneCounts.Single(o => o.Item1 == detail.RequestDetail.Id).Item3);
+                // Вычисляем оставшееся количество по заявке
+                var requestedCount = detail.RequestDetail.Count - currentlyDoneCount;
+                var doneCount = Math.Min(dayDoneCount, requestedCount);
+                detail.DoneCount = doneCount;
+                detail.SaveEntity();
+                dayDoneCount -= doneCount;
+
+                if (detail.RequestDetail.Count == currentlyDoneCount + doneCount)
+                    detail.RequestDetail.RequestDetailStateEnum = RequestDetailState.Done;
+                else
+                    detail.RequestDetail.RequestDetailStateEnum = RequestDetailState.InProduction;
+                detail.RequestDetail.SaveEntity();
+            }
+
+            var nextWorkItem = RepositoryFactory.GetWorkItemRepository().GetByDrawingId(workItem.Drawing.Id, workItem.WorkDate.AddDays(1)).OrderBy(o => o.WorkDate).FirstOrDefault();
+            if (nextWorkItem != null)
+            {
+                PostWorkItem(new WorkItemViewModel(nextWorkItem, RepositoryFactory));
+            }
+        }
+    }
+
     public class WorkItemEdit : EditEntityViewModel<WorkItemViewModel, WorkItem>
     {
         public Lazy<List<EmployeeViewModel>> EmployeesSource { get; set; }
@@ -26,48 +110,60 @@ namespace Rti.ViewModel.EditViewModel
 
         protected override void DoSave()
         {
-            if (!Source.IsNewEntity)
-            {
-                RepositoryFactory.GetWorkItemRequestDetailRepository()
-                    .DeleteByWorkItemId(Source.Id);
-            }
-            Entity.RequestCount = RepositoryFactory.GetRequestDetailRepository().GetNotShippedCount(Entity.Drawing.Id, Entity.WorkDate);
+            if (!Entity.IsChanged)
+                return;
+            var controller = new WorkItemControllerViewModel(ViewService, RepositoryFactory);
+            if (!controller.ValidatePost(Entity))
+                return;
             base.DoSave();
 
-            var requestDetailDoneCounts =
-               RepositoryFactory.GetRequestDetailRepository()
-                   .GetRequestsInProductionWithActualDoneCounts(Source.Drawing.Id, Source.WorkDate);
+            controller.PostWorkItem(Source);
+            return;
 
-            var requestDetails = RepositoryFactory.GetRequestDetailRepository().GetRequestDetailsByIds(requestDetailDoneCounts.Select(o => o.Item1).ToArray());
-            var index = 0;
-            var dayDoneCount = Source.DoneCount ?? 0;
-            foreach (var requestDetail in requestDetails.OrderBy(o => o.Request.RegDate).ThenBy(o => o.SortOrder))
-            {
-                if (dayDoneCount == 0)
-                    break;
-                var detail = new WorkItemRequestDetailViewModel(null, RepositoryFactory)
-                {
-                    WorkItem = Source,
-                    RequestDetail = new RequestDetailViewModel(requestDetail, RepositoryFactory),
-                    SortOrder = index++,
-                };
-                //var requestDetailWorkItems = RepositoryFactory.GetWorkItemRequestDetailRepository().GetByRequestDetailId(detail.RequestDetail.Id);
-                // Получаем выполненное количество на текущий момент
-                //var currentlyDoneCount = requestDetailWorkItems.Where(o => o.WorkItem.WorkDate < Source.WorkDate).Sum(o => o.DoneCount);
-                var currentlyDoneCount = decimal.ToInt32(requestDetailDoneCounts.Single(o => o.Item1 == detail.RequestDetail.Id).Item2);
-                // Вычисляем оставшееся количество по заявке
-                var requestedCount = detail.RequestDetail.Count - currentlyDoneCount;
-                var doneCount = Math.Min(dayDoneCount, requestedCount);
-                detail.DoneCount = doneCount;
-                detail.SaveEntity();
-                dayDoneCount -= doneCount;
+            //if (!Source.IsNewEntity)
+            //{
+            //    RepositoryFactory.GetWorkItemRequestDetailRepository()
+            //        .DeleteByWorkItemId(Source.Id);
+            //}
+            //Entity.RequestCount = RepositoryFactory.GetRequestDetailRepository().GetNotShippedCount(Entity.Drawing.Id, Entity.WorkDate);
+            //base.DoSave();
 
-                if (detail.RequestDetail.Count == currentlyDoneCount + doneCount)
-                    detail.RequestDetail.RequestDetailStateEnum = RequestDetailState.Done;
-                else
-                    detail.RequestDetail.RequestDetailStateEnum = RequestDetailState.InProduction;
-                detail.RequestDetail.SaveEntity();
-            }
+            //var requestDetailDoneCounts =
+            //   RepositoryFactory.GetRequestDetailRepository()
+            //       .GetRequestsInProductionWithActualDoneCounts(Source.Drawing.Id, Source.WorkDate);
+
+            //var requestDetails = RepositoryFactory.GetRequestDetailRepository().GetRequestDetailsByIds(requestDetailDoneCounts.Select(o => o.Item1).ToArray());
+            //var index = 0;
+            //var dayDoneCount = Source.DoneCount ?? 0;
+            //var dayRejectedCount = Source.RejectedCount ?? 0;
+            //foreach (var requestDetail in requestDetails.OrderBy(o => o.Request.RegDate).ThenBy(o => o.SortOrder))
+            //{
+            //    if (dayDoneCount == 0)
+            //        break;
+            //    var detail = new WorkItemRequestDetailViewModel(null, RepositoryFactory)
+            //    {
+            //        WorkItem = Source,
+            //        RequestDetail = new RequestDetailViewModel(requestDetail, RepositoryFactory),
+            //        SortOrder = index++,
+            //    };
+            //    // Получаем выполненное количество на текущий момент
+            //    var currentlyDoneCount = decimal.ToInt32(requestDetailDoneCounts.Single(o => o.Item1 == detail.RequestDetail.Id).Item2);
+            //    // Вычисляем оставшееся количество по заявке
+            //    var requestedCount = detail.RequestDetail.Count - currentlyDoneCount;
+            //    var doneCount = Math.Min(dayDoneCount, requestedCount);
+            //    var rejectedCount = Math.Min(dayRejectedCount, doneCount);
+            //    detail.DoneCount = doneCount;
+            //    detail.RejectedCount = rejectedCount;
+            //    detail.SaveEntity();
+            //    dayDoneCount -= doneCount;
+            //    dayRejectedCount -= rejectedCount;
+
+            //    if (detail.RequestDetail.Count == currentlyDoneCount + doneCount)
+            //        detail.RequestDetail.RequestDetailStateEnum = RequestDetailState.Done;
+            //    else
+            //        detail.RequestDetail.RequestDetailStateEnum = RequestDetailState.InProduction;
+            //    detail.RequestDetail.SaveEntity();
+            //}
         }
 
         protected override bool DoValidate()

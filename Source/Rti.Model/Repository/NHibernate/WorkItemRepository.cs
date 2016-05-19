@@ -12,11 +12,16 @@ namespace Rti.Model.Repository.NHibernate
         public IList<WorkItem> GetByDate(DateTime date)
         {
             return ExecuteFuncOnQueryOver(q => q.Where(o => o.WorkDate == date).OrderBy(o => o.SortOrder).Asc.List());
-            //return ExecuteFuncOnSession(s =>
-            //{
-            //    var criteria = s.CreateCriteria(typeof(WorkItem));
-            //    return criteria.Add(Restrictions.Between("WorkDate", date.Date.AddSeconds(-1), date.Date.AddDays(1).AddSeconds(-1))).List<WorkItem>();
-            //}, "");
+        }
+
+        public IList<WorkItem> GetByEmployeeId(int employeeId, DateTime date)
+        {
+            return ExecuteFuncOnQueryOver(q => q.Where(o => o.WorkDate == date && o.Employee.Id == employeeId).OrderBy(o => o.SortOrder).Asc.List());
+        }
+
+        public IList<WorkItem> GetByDrawingId(int drawingId, DateTime startDate, DateTime? endDate = null)
+        {
+            return ExecuteFuncOnQueryOver(q => q.Where(o => o.Drawing.Id == drawingId && o.WorkDate >= startDate).List());
         }
     }
 }
