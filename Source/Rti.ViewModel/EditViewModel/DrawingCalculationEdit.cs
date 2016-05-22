@@ -34,15 +34,14 @@ namespace Rti.ViewModel.EditViewModel
 
         public void Calculate(CalculationType calculationType)
         {
-            var drawing = Entity;
+            var drawing = Source;
             var calculation = calculationType == CalculationType.Plan
                 ? drawing.PlanCalculation
                 : drawing.FactCalculation;
-            var flowsheet = drawing.Flowsheet;
-            if (flowsheet == null)
+            var flowsheetProcesses = RepositoryFactory.GetDrawingFlowsheetProcessRepository().GetByDrawingId(drawing.Id);
+            var flowsheetMachines = RepositoryFactory.GetDrawingFlowsheetMachineRepository().GetByDrawingId(drawing.Id);
+            if (!flowsheetProcesses.Any())
                 throw new InvalidOperationException("Не заполнена технологическая карта");
-            var flowsheetProcesses = RepositoryFactory.GetFlowsheetProcessRepository().GetByFlowsheetId(flowsheet.Id);
-            var flowsheetMachines = RepositoryFactory.GetFlowsheetMachineRepository().GetByFlowsheetId(flowsheet.Id);
             var getTime = new Func<ProcessType, decimal>(processType =>
             {
                 var process = flowsheetProcesses.FirstOrDefault(fp => fp.Process.ProcessTypeEnum == processType);

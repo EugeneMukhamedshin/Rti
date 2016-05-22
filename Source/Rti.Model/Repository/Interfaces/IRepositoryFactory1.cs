@@ -13,12 +13,11 @@ namespace Rti.Model.Repository.Interfaces
 		IContragentRepository GetContragentRepository();
 		IDetailRepository GetDetailRepository();
 		IDrawingRepository GetDrawingRepository();
+		IDrawingFlowsheetMachineRepository GetDrawingFlowsheetMachineRepository();
+		IDrawingFlowsheetProcessRepository GetDrawingFlowsheetProcessRepository();
 		IDriverRepository GetDriverRepository();
 		IEmployeeRepository GetEmployeeRepository();
 		IEquipmentRepository GetEquipmentRepository();
-		IFlowsheetRepository GetFlowsheetRepository();
-		IFlowsheetMachineRepository GetFlowsheetMachineRepository();
-		IFlowsheetProcessRepository GetFlowsheetProcessRepository();
 		IGroupRepository GetGroupRepository();
 		IImageRepository GetImageRepository();
 		IInvoiceRepository GetInvoiceRepository();
@@ -48,12 +47,11 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IContragentRepository : IRepository<Rti.Model.Domain.Contragent> { }
 	public partial interface IDetailRepository : IRepository<Rti.Model.Domain.Detail> { }
 	public partial interface IDrawingRepository : IRepository<Rti.Model.Domain.Drawing> { }
+	public partial interface IDrawingFlowsheetMachineRepository : IRepository<Rti.Model.Domain.DrawingFlowsheetMachine> { }
+	public partial interface IDrawingFlowsheetProcessRepository : IRepository<Rti.Model.Domain.DrawingFlowsheetProcess> { }
 	public partial interface IDriverRepository : IRepository<Rti.Model.Domain.Driver> { }
 	public partial interface IEmployeeRepository : IRepository<Rti.Model.Domain.Employee> { }
 	public partial interface IEquipmentRepository : IRepository<Rti.Model.Domain.Equipment> { }
-	public partial interface IFlowsheetRepository : IRepository<Rti.Model.Domain.Flowsheet> { }
-	public partial interface IFlowsheetMachineRepository : IRepository<Rti.Model.Domain.FlowsheetMachine> { }
-	public partial interface IFlowsheetProcessRepository : IRepository<Rti.Model.Domain.FlowsheetProcess> { }
 	public partial interface IGroupRepository : IRepository<Rti.Model.Domain.Group> { }
 	public partial interface IImageRepository : IRepository<Rti.Model.Domain.Image> { }
 	public partial interface IInvoiceRepository : IRepository<Rti.Model.Domain.Invoice> { }

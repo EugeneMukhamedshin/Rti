@@ -8,12 +8,13 @@
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     xmlns:components="clr-namespace:Rti.App.View.Components"
-    Title="{Binding Name}" Height="412.5" Width="1144">
+    Title="Индивидуальный наряд" Height="600" Width="950">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="32"/>
                 <RowDefinition Height="32"/>
+                <RowDefinition Height="128"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="32"/>
@@ -27,14 +28,28 @@
                 <TextBlock Text="Участок" Margin="5" VerticalAlignment="Center" Width="60"/>
                 <TextBox Text="{Binding EmployeeWorkItemPackage.Block}" Margin="5" VerticalAlignment="Center" Width="100"/>
             </StackPanel>
-            <dxg:GridControl CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2">
-                <dxmvvm:Interaction.Behaviors>
-                    <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding EditEntityCommand}" PassEventArgsToCommand="True">
-                        <dxmvvm:EventToCommand.EventArgsConverter>
-                            <dx:EventArgsToDataRowConverter/>
-                        </dxmvvm:EventToCommand.EventArgsConverter>
-                    </dxmvvm:EventToCommand>
-                </dxmvvm:Interaction.Behaviors>
+            <dxg:GridControl CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding PackageMachines}" SelectionMode="Row" Grid.Row="2">
+                <dxg:GridControl.Resources>
+                    <Style TargetType="dxg:GridColumn">
+                        <Setter Property="HeaderTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" TextWrapping="Wrap" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </dxg:GridControl.Resources>
+                <dxg:GridControl.Columns>
+                    <dxg:GridColumn Binding="{Binding FlowsheetMachine.MachineInvNum}" Header="Пресс" Width="60" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding FullWorkingTime,Mode=TwoWay}" Header="Время работы в смене, мин" Width="100" EditSettings="{components:TextEditSettings Mask=f0}"/>
+                    <dxg:GridColumn Binding="{Binding FreeTime}" Header="Свободное время, мин" Width="100" ReadOnly="True"/>
+                </dxg:GridControl.Columns>
+                <dxg:GridControl.View>
+                    <dxg:TableView AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                </dxg:GridControl.View>
+            </dxg:GridControl>
+            <dxg:GridControl CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="3">
                 <dxg:GridControl.Resources>
                     <Style TargetType="dxg:GridColumn">
                         <Setter Property="HeaderTemplate">
@@ -52,30 +67,54 @@
                 </dxg:GridControl.Resources>
                 <dxg:GridControl.Columns>
                     <dxg:GridColumn UnboundType="Integer" Header="№ пп" ReadOnly="True" Width="40" Name="_rowNumberColumn"/>
-                    <dxg:GridColumn FieldName="Drawing.Detail.Name" Header="Наименование детали" Width="120" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="Drawing.FullName" Header="Номер детали" Width="40" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="RequestCount" Header="Количество по заявке, шт" Width="40" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="FlowsheetMachine.CureTime" Header="Время вулканизации, мин" Width="40" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="FlowsheetMachine.PlateTemperature" Header="Температура вулканизации, град" Width="40" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="" Header="Время работы пресса в смене" Width="40" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="FlowsheetMachine.Machine.Name" Header="Пресс" Width="40" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="" Header="Одновременная работа" Width="40" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="Drawing.Equipment.FormCount" Header="Кол-во прессформ, шт" Width="40" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="Drawing.Equipment.SlotCount" Header="Гнездность, шт" Width="40" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="Drawing.Equipment.Output" Header="Выход партии, шт" Width="40" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="TaskCount" Header="Задание сменное, шт" Width="40" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="TakeOffCount" Header="Количество съемов, шт" Width="40" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="" Header="Время использования пресса, мин" Width="40" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="" Header="Время работы пресса свободное, мин" Width="40" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="RemainedCount" Header="Невыполненное количество деталей по заявке, шт" Width="40" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="DoneCount" Header="Фактически выполненное, шт" Width="40" EditSettings="{components:TextEditSettings MaskType=None}"/>
-                    <dxg:GridColumn FieldName="RejectedCount" Header="Брак, шт" Width="40" EditSettings="{components:TextEditSettings MaskType=None}"/>
+                    <dxg:GridColumn Binding="{Binding Drawing.Detail.Name}" Header="Наименование детали" Width="120" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding Drawing.FullName}" Header="Номер детали" Width="80" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding RequestCount}" Header="Количество по заявке, шт" Width="50" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding FlowsheetMachine.CureTime, StringFormat=f0}" Header="Время вулканизации, мин" Width="50" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding FlowsheetMachine.PlateTemperature, StringFormat=f0}" Header="Температура вулканизации, град" Width="60" ReadOnly="True"/>
+                    <dxg:GridColumn FieldName="FlowsheetMachine" Header="Пресс" Width="50">
+                        <dxg:GridColumn.EditSettings>
+                            <dxg:LookUpEditSettings DisplayMember="MachineInvNum" ItemsSource="{Binding MachinesSource}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                                <dxg:LookUpEditSettings.StyleSettings>
+                                    <dxg:SearchLookUpEditStyleSettings/>
+                                </dxg:LookUpEditSettings.StyleSettings>
+                                <dxg:LookUpEditSettings.PopupContentTemplate>
+                                    <ControlTemplate>
+                                        <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
+                                            <dxg:GridControl.Columns>
+                                                <dxg:GridColumn FieldName="Machine.InvNumber" Header="Инв. №" Width="80"/>
+                                                <dxg:GridColumn FieldName="PlateTemperature" Header="Температура" Width="100"/>
+                                                <dxg:GridColumn FieldName="CureTime" Header="Время вулканизации" Width="180"/>
+                                            </dxg:GridControl.Columns>
+                                            <dxg:GridControl.View>
+                                                <dxg:TableView AutoWidth="True"/>
+                                            </dxg:GridControl.View>
+                                        </dxg:GridControl>
+                                    </ControlTemplate>
+                                </dxg:LookUpEditSettings.PopupContentTemplate>
+                            </dxg:LookUpEditSettings>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Binding="{Binding IsParallel,Mode=TwoWay}" Header="Одновременная работа" Width="40">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:CheckEditSettings/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Binding="{Binding Drawing.Equipment.FormCount}" Header="Кол-во прессформ, шт" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding Drawing.Equipment.SlotCount}" Header="Гнездность, шт" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding Drawing.Equipment.Output}" Header="Выход партии, шт" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding TaskCount}" Header="Задание сменное, шт" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding TakeOffCount}" Header="Количество съемов, шт" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding MachineUsageTime}" Header="Время использования пресса, мин" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding RemainedCount}" Header="Невыполненное количество деталей по заявке, шт" Width="40" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding DoneCount,Mode=TwoWay}" Header="Фактически выполненное, шт" Width="40" EditSettings="{components:TextEditSettings Mask=f0}"/>
+                    <dxg:GridColumn Binding="{Binding RejectedCount,Mode=TwoWay}" Header="Брак, шт" Width="40" EditSettings="{components:TextEditSettings Mask=f0}"/>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>
-                    <dxg:TableView AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                    <dxg:TableView AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>
             </dxg:GridControl>
-            <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal">
+            <StackPanel Grid.Row="5" Grid.Column="0" Orientation="Horizontal">
                 <Button Content="Сохранить"  Command="{Binding OkCommand}" Width="100" Margin="5" TabIndex="1001"/>
                 <Button Content="Отмена"  Command="{Binding CloseCommand}" Width="100" Margin="5" TabIndex="1001"/>
             </StackPanel>

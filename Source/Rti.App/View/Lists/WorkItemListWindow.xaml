@@ -6,7 +6,7 @@
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
-    Title="{Binding Name}" Height="412.5" Width="1144">
+    Title="Дневной наряд" Height="412.5" Width="1144">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>

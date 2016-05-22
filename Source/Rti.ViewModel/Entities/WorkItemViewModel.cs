@@ -28,8 +28,16 @@ namespace Rti.ViewModel.Entities
             {
                 return Drawing == null || Drawing.Equipment == null || Drawing.Equipment.Output == 0
                     ? 0
-                    : (int) Math.Round((double) ((TaskCount ?? 0)/Drawing.Equipment.Output), 0);
+                    : (int)Math.Round((double)((TaskCount ?? 0) / Drawing.Equipment.Output), 0);
             }
+        }
+
+        /// <summary>
+        /// Время использования пресса
+        /// </summary>
+        public decimal MachineUsageTime
+        {
+            get { return TakeOffCount * (FlowsheetMachine == null ? 0 : (FlowsheetMachine.CureTime ?? 0)); }
         }
 
         protected override void OnPropertyChanged(string propertyName = null)
@@ -43,6 +51,8 @@ namespace Rti.ViewModel.Entities
                 OnPropertyChanged("RemainedCount");
             if (propertyName.In("TaskCount", "Drawing"))
                 OnPropertyChanged("TakeOffCount");
+            if (propertyName.In("TakeOffCount", "FlowsheetMachine"))
+                OnPropertyChanged("MachineUsageTime");
         }
     }
 }

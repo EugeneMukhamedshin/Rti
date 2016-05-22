@@ -8,20 +8,21 @@ using Rti.ViewModel.Entities.Commands;
 
 namespace Rti.ViewModel.Lists
 {
-    public class FlowsheetMachineList: EntityList<FlowsheetMachineViewModel, FlowsheetMachine>
+    public class DrawingFlowsheetMachineList: EntityList<DrawingFlowsheetMachineViewModel, DrawingFlowsheetMachine>
     {
-        private readonly List<FlowsheetMachineViewModel> _deletedItems = new List<FlowsheetMachineViewModel>();
+        private readonly List<DrawingFlowsheetMachineViewModel> _deletedItems = new List<DrawingFlowsheetMachineViewModel>();
 
-        public FlowsheetViewModel Flowsheet { get; set; }
+        public DrawingViewModel Drawing { get; set; }
 
         public DelegateCommand AddFlowsheetMachineCommand { get; set; }
         public DelegateCommand RemoveFlowsheetMachineCommand { get; set; }
 
         public Lazy<List<MachineViewModel>> MachinesSource { get; private set; }
 
-        public FlowsheetMachineList(FlowsheetViewModel flowsheet, bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
+        public DrawingFlowsheetMachineList(DrawingViewModel drawing, bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory)
+            : base(editMode, viewService, repositoryFactory)
         {
-            Flowsheet = flowsheet;
+            Drawing = drawing;
             AddFlowsheetMachineCommand = new DelegateCommand(
               "Добавить строку",
               o => true,
@@ -50,21 +51,21 @@ namespace Rti.ViewModel.Lists
             MachinesSource = new Lazy<List<MachineViewModel>>(() => RepositoryFactory.GetMachineRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new MachineViewModel(o, RepositoryFactory)).ToList());
         }
 
-        protected override IEnumerable<FlowsheetMachineViewModel> GetItems()
+        protected override IEnumerable<DrawingFlowsheetMachineViewModel> GetItems()
         {
             return
-                RepositoryFactory.GetFlowsheetMachineRepository()
-                    .GetByFlowsheetId(Flowsheet.Id)
+                RepositoryFactory.GetDrawingFlowsheetMachineRepository()
+                    .GetByDrawingId(Drawing.Id)
                     .OrderBy(o => o.SortOrder)
-                    .Select(o => new FlowsheetMachineViewModel(o, RepositoryFactory))
+                    .Select(o => new DrawingFlowsheetMachineViewModel(o, RepositoryFactory))
                     .ToList();
         }
 
-        protected override FlowsheetMachineViewModel DoCreateNewEntity()
+        protected override DrawingFlowsheetMachineViewModel DoCreateNewEntity()
         {
-            return new FlowsheetMachineViewModel(null, RepositoryFactory)
+            return new DrawingFlowsheetMachineViewModel(null, RepositoryFactory)
             {
-                Flowsheet = Flowsheet,
+                Drawing = Drawing,
                 SortOrder = Items.Any() ? Items.Max(o => o.SortOrder) + 1 : 1
             };
         }
@@ -83,12 +84,12 @@ namespace Rti.ViewModel.Lists
             }
         }
 
-        protected override void DoDeleteEntity(FlowsheetMachineViewModel entity)
+        protected override void DoDeleteEntity(DrawingFlowsheetMachineViewModel entity)
         {
             _deletedItems.Add(entity);
         }
 
-        protected override bool AcceptFind(FlowsheetMachineViewModel entity, string searchText)
+        protected override bool AcceptFind(DrawingFlowsheetMachineViewModel entity, string searchText)
         {
             return searchText.ContainedIn(entity.Machine.Name, entity.Machine.SortOrder);
         }

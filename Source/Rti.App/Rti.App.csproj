@@ -201,11 +201,11 @@
     <Compile Include="View\Editors\DriverEditWindow.xaml.cs">
       <DependentUpon>DriverEditWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Editors\FlowsheetEditWindow.xaml.cs">
-      <DependentUpon>FlowsheetEditWindow.xaml</DependentUpon>
+    <Compile Include="View\Editors\DrawingFlowsheetEditWindow.xaml.cs">
+      <DependentUpon>DrawingFlowsheetEditWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Editors\FlowsheetProcessEditWindow.xaml.cs">
-      <DependentUpon>FlowsheetProcessEditWindow.xaml</DependentUpon>
+    <Compile Include="View\Editors\DrawingFlowsheetProcessEditWindow.xaml.cs">
+      <DependentUpon>DrawingFlowsheetProcessEditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Editors\ImageEditWindow.xaml.cs">
       <DependentUpon>ImageEditWindow.xaml</DependentUpon>
@@ -438,11 +438,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Editors\FlowsheetEditWindow.xaml">
+    <Page Include="View\Editors\DrawingFlowsheetEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Editors\FlowsheetProcessEditWindow.xaml">
+    <Page Include="View\Editors\DrawingFlowsheetProcessEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

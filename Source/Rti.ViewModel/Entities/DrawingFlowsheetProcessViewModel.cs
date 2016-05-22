@@ -1,6 +1,6 @@
 namespace Rti.ViewModel.Entities
 {
-    partial class FlowsheetProcessViewModel
+    partial class DrawingFlowsheetProcessViewModel
     {
         public string DisplayName
         {

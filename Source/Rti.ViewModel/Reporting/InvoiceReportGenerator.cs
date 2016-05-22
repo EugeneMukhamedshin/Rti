@@ -80,8 +80,6 @@ namespace Rti.ViewModel.Reporting
             {
                 ReleasableObjectContext.Release();
             }
-
-            return;
         }
     }
 }

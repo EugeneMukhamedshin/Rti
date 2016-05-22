@@ -92,10 +92,11 @@
     <Compile Include="Repository\Interfaces\IDrawingRepository.cs" />
     <Compile Include="Repository\Interfaces\IDriverRepository.cs" />
     <Compile Include="Repository\Interfaces\IEmployeeRepository.cs" />
+    <Compile Include="Repository\Interfaces\IWorkItemPackageMachineRepository.cs" />
     <Compile Include="Repository\Interfaces\IWorkItemPackageRepository.cs" />
     <Compile Include="Repository\Interfaces\IEquipmentRepository.cs" />
-    <Compile Include="Repository\Interfaces\IFlowsheetEquipmentRepository.cs" />
-    <Compile Include="Repository\Interfaces\IFlowsheetProcessRepository.cs" />
+    <Compile Include="Repository\Interfaces\IDrawingFlowsheetMachineRepository.cs" />
+    <Compile Include="Repository\Interfaces\IDrawingFlowsheetProcessRepository.cs" />
     <Compile Include="Repository\Interfaces\IFlowsheetRepository.cs" />
     <Compile Include="Repository\Interfaces\IGroupRepository.cs" />
     <Compile Include="Repository\Interfaces\IImageRepository.cs" />
@@ -120,7 +121,6 @@
     <Compile Include="Repository\Interfaces\IWorkItemRequestDetailRepository.cs" />
     <Compile Include="Repository\NHibernate\AdditionalInfoRepository.cs" />
     <Compile Include="Repository\NHibernate\ClassMaps\BaseMap.cs" />
-    <Compile Include="Repository\NHibernate\ClassMaps\FlowsheetMap.cs" />
     <Compile Include="Repository\NHibernate\ClassMaps\GeneratedClassMaps1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -133,10 +133,11 @@
     <Compile Include="Repository\NHibernate\DrawingRepository.cs" />
     <Compile Include="Repository\NHibernate\DriverRepository.cs" />
     <Compile Include="Repository\NHibernate\EmployeeRepository.cs" />
+    <Compile Include="Repository\NHibernate\WorkItemPackageMachineRepository.cs" />
     <Compile Include="Repository\NHibernate\WorkItemPackageRepository.cs" />
     <Compile Include="Repository\NHibernate\EquipmentRepository.cs" />
-    <Compile Include="Repository\NHibernate\FlowsheetEquipmentRepository.cs" />
-    <Compile Include="Repository\NHibernate\FlowsheetProcessRepository.cs" />
+    <Compile Include="Repository\NHibernate\DrawingFlowsheetMachineRepository.cs" />
+    <Compile Include="Repository\NHibernate\DrawingFlowsheetProcessRepository.cs" />
     <Compile Include="Repository\NHibernate\FlowsheetRepository.cs" />
     <Compile Include="Repository\NHibernate\GroupRepository.cs" />
     <Compile Include="Repository\NHibernate\ImageRepository.cs" />

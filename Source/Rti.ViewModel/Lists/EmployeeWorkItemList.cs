@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
@@ -30,12 +32,29 @@ namespace Rti.ViewModel.Lists
         public DelegateCommand OkCommand { get; set; }
         public DelegateCommand CloseCommand { get; set; }
 
-        private Dictionary<int, List<FlowsheetMachine>> _drawingMachines;
+        private Dictionary<int, List<DrawingFlowsheetMachineViewModel>> _drawingMachines;
 
-        public EmployeeWorkItemList(EmployeeViewModel employee, DateTime date, bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
+        private List<DrawingFlowsheetMachineViewModel> _machinesSource;
+
+        public List<DrawingFlowsheetMachineViewModel> MachinesSource
+        {
+            get { return _machinesSource; }
+            set
+            {
+                if (Equals(value, _machinesSource)) return;
+                _machinesSource = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<WorkItemPackageMachineViewModel> PackageMachines { get; set; }
+
+        public EmployeeWorkItemList(EmployeeViewModel employee, DateTime date, bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory)
+            : base(editMode, viewService, repositoryFactory)
         {
             Employee = employee;
             Date = date;
+            PackageMachines = new ObservableCollection<WorkItemPackageMachineViewModel>();
 
             OkCommand = new DelegateCommand(
                 "",
@@ -44,7 +63,7 @@ namespace Rti.ViewModel.Lists
             CloseCommand = new DelegateCommand(
                 "",
                 o => true,
-                o => Close(false));
+                o => Close(null));
         }
 
         private void SaveAndClose()
@@ -56,8 +75,14 @@ namespace Rti.ViewModel.Lists
             {
                 if (!workItem.IsChanged)
                     continue;
-                DoAsync(() => controller.PostWorkItem(workItem), () => Close(true), 
+                var closure = workItem;
+                DoAsync(() => controller.PostWorkItem(closure), () => Close(null),
                     "Подождите, производится перераспределение выполненных деталей по заявкам...");
+            }
+
+            foreach (var machine in PackageMachines)
+            {
+                machine.SaveEntity();
             }
         }
 
@@ -70,7 +95,12 @@ namespace Rti.ViewModel.Lists
             {
                 EmployeeWorkItemPackage.Employee = Employee;
                 EmployeeWorkItemPackage.Date = Date;
-            };
+            }
+            else
+            {
+                DoAsync(() => RepositoryFactory.GetWorkItemPackageMachineRepository().GetByWorkItemPackageId(EmployeeWorkItemPackage.Id),
+                    res => PackageMachines.ClearAndAddRange(res.Select(o => new WorkItemPackageMachineViewModel(o, RepositoryFactory))));
+            }
         }
 
         protected override IEnumerable<WorkItemViewModel> GetItems()
@@ -79,6 +109,63 @@ namespace Rti.ViewModel.Lists
                 RepositoryFactory.GetWorkItemRepository()
                     .GetByEmployeeId(Employee.Id, Date)
                     .Select(o => new WorkItemViewModel(o, RepositoryFactory));
+        }
+
+        protected override void OnItemsChanged()
+        {
+            base.OnItemsChanged();
+
+            foreach (var item in Items)
+            {
+                item.PropertyChanged += ItemPropertyChanged;
+            }
+
+            _drawingMachines = RepositoryFactory.GetDrawingFlowsheetMachineRepository()
+                .GetByDrawingIds(Items.Select(o => o.Drawing.Id).ToArray())
+                .ToLookup(o => o.Drawing.Id, o => new DrawingFlowsheetMachineViewModel(o, RepositoryFactory))
+                .ToDictionary(o => o.Key, o => o.ToList());
+
+            RefreshMachinesSource();
+        }
+
+        private void ItemPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var workItem = (WorkItemViewModel)sender;
+            if (e.PropertyName.In("FlowsheetMachine", "IsParallel", "MachineUsageTime"))
+            {
+                var packageMachine =
+                    PackageMachines.FirstOrDefault(
+                        o =>
+                            workItem.FlowsheetMachine != null && workItem.FlowsheetMachine.Machine != null &&
+                            o.FlowsheetMachine != null && o.FlowsheetMachine.Machine != null &&
+                            workItem.FlowsheetMachine.Machine.Equals(o.FlowsheetMachine.Machine));
+                if (packageMachine == null)
+                {
+                    packageMachine = new WorkItemPackageMachineViewModel(null, RepositoryFactory)
+                    {
+                        WorkItemPackage = EmployeeWorkItemPackage,
+                        FlowsheetMachine = workItem.FlowsheetMachine
+                    };
+                    PackageMachines.Add(packageMachine);
+                }
+                packageMachine.PackageWorkingTime =
+                    decimal.ToInt32(Items.Where(o => Equals(o.FlowsheetMachine, workItem.FlowsheetMachine))
+                        .Sum(o => o.MachineUsageTime * (o.IsParallel ? 0 : 1)));
+            }
+        }
+
+        protected override void OnSelectedItemChanged()
+        {
+            base.OnSelectedItemChanged();
+            RefreshMachinesSource();
+        }
+
+        public void RefreshMachinesSource()
+        {
+            if (SelectedItem != null && SelectedItem.Drawing != null && _drawingMachines.ContainsKey(SelectedItem.Drawing.Id))
+                MachinesSource = _drawingMachines[SelectedItem.Drawing.Id];
+            else
+                MachinesSource = null;
         }
 
         protected override WorkItemViewModel DoCreateNewEntity()

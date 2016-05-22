@@ -21,8 +21,6 @@ namespace Rti.ViewModel.EditViewModel
         public DelegateCommand OpenDrawingMeasurementEditCommand { get; set; }
         public DelegateCommand OpenDrawingImageCommand { get; set; }
 
-        public FlowsheetViewModel Flowsheet { get; set; }
-
         public DrawingEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {

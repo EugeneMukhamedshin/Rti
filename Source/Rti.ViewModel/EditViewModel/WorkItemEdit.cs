@@ -37,8 +37,7 @@ namespace Rti.ViewModel.EditViewModel
 
         public void PostWorkItem(WorkItemViewModel workItem)
         {
-            if (workItem.IsNewEntity)
-                workItem.SaveEntity();
+            workItem.SaveEntity();
             _workItemController.PostWorkItem(workItem.Entity);
         }
     }

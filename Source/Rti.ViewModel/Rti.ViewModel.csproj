@@ -70,8 +70,8 @@
     <Compile Include="EditViewModel\EquipmentEdit.cs" />
     <Compile Include="EditViewModel\AdditionalInfoEdit.cs" />
     <Compile Include="EditViewModel\ConstantEdit.cs" />
-    <Compile Include="EditViewModel\FlowsheetEdit.cs" />
-    <Compile Include="EditViewModel\FlowsheetProcessEdit.cs" />
+    <Compile Include="EditViewModel\DrawingFlowsheetEdit.cs" />
+    <Compile Include="EditViewModel\DrawingFlowsheetProcessEdit.cs" />
     <Compile Include="EditViewModel\ImageEdit.cs" />
     <Compile Include="EditViewModel\MassCalculationEdit.cs" />
     <Compile Include="EditViewModel\MaterialArrivalRecordEdit.cs" />
@@ -90,13 +90,14 @@
     <Compile Include="Entities\Commands\DelegateCommand.cs" />
     <Compile Include="Entities\Commands\RequeryableCommand.cs" />
     <Compile Include="Entities\ContragentViewModel.cs" />
+    <Compile Include="Entities\DrawingFlowsheetMachineViewModel.cs" />
+    <Compile Include="Entities\WorkItemPackageMachineViewModel.cs" />
     <Compile Include="Entities\WorkItemViewModel.cs" />
     <Compile Include="Entities\DrawingViewModel.cs" />
     <Compile Include="Entities\EmployeeViewModel.cs" />
     <Compile Include="Entities\EntityViewModel.cs" />
     <Compile Include="Entities\EquipmentViewModel.cs" />
-    <Compile Include="Entities\FlowsheetProcessViewModel.cs" />
-    <Compile Include="Entities\FlowsheetViewModel.cs" />
+    <Compile Include="Entities\DrawingFlowsheetProcessViewModel.cs" />
     <Compile Include="Entities\GeneratedViewModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -121,7 +122,7 @@
     <Compile Include="Lists\EmployeeList.cs" />
     <Compile Include="Lists\EquipmentList.cs" />
     <Compile Include="Lists\FlowsheetProcessList.cs" />
-    <Compile Include="Lists\FlowsheetMachineList.cs" />
+    <Compile Include="Lists\DrawingFlowsheetMachineList.cs" />
     <Compile Include="Lists\GroupList.cs" />
     <Compile Include="Lists\JobList.cs" />
     <Compile Include="Lists\MachineList.cs" />

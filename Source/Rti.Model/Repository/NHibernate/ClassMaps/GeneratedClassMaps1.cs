@@ -290,6 +290,10 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Map(o => o.IsDeleted, "is_deleted");
 
+			Map(o => o.FactMass, "fact_mass");
+
+			Map(o => o.TechNote, "tech_note");
+
 			References(o => o.Group, "group_id").Fetch.Join().Not.LazyLoad();
 
 			References(o => o.Detail, "detail_id").Fetch.Join().Not.LazyLoad();
@@ -312,7 +316,75 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			References(o => o.DrawingImage, "drawing_image_id").Fetch.Join().Not.LazyLoad();
 
-			References(o => o.Flowsheet, "flowsheet_id").Fetch.Join().Not.LazyLoad();
+			References(o => o.Customer, "customer_id").Fetch.Join().Not.LazyLoad();
+
+			References(o => o.SecondaryCustomer, "secondary_customer_id").Fetch.Join().Not.LazyLoad();
+
+			OnInitialized();
+		}
+	}
+
+
+	// The classmap for drawing_flowsheet_machines
+	public partial class DrawingFlowsheetMachineMap : BaseMap<Rti.Model.Domain.DrawingFlowsheetMachine>
+	{
+		public DrawingFlowsheetMachineMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("drawing_flowsheet_machines");
+
+			Id(o => o.Id, "id");
+
+			Map(o => o.SortOrder, "sort_order");
+
+			Map(o => o.PlateTemperature, "plate_temperature");
+
+			Map(o => o.CureTime, "cure_time");
+
+			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
+
+			References(o => o.Machine, "machine_id").Fetch.Join().Not.LazyLoad();
+
+			OnInitialized();
+		}
+	}
+
+
+	// The classmap for drawing_flowsheet_processes
+	public partial class DrawingFlowsheetProcessMap : BaseMap<Rti.Model.Domain.DrawingFlowsheetProcess>
+	{
+		public DrawingFlowsheetProcessMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("drawing_flowsheet_processes");
+
+			Id(o => o.Id, "id");
+
+			Map(o => o.SortOrder, "sort_order");
+
+			Map(o => o.Name, "name");
+
+			Map(o => o.Operation, "operation");
+
+			Map(o => o.Executor, "executor");
+
+			Map(o => o.VarName, "var_name");
+
+			Map(o => o.NormTime, "norm_time");
+
+			Map(o => o.Note, "note");
+
+			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
+
+			References(o => o.Process, "process_id").Fetch.Join().Not.LazyLoad();
 
 			OnInitialized();
 		}
@@ -414,101 +486,6 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.Note, "note");
 
 			Map(o => o.IsDeleted, "is_deleted");
-
-			OnInitialized();
-		}
-	}
-
-
-	// The classmap for flowsheets
-	public partial class FlowsheetMap : BaseMap<Rti.Model.Domain.Flowsheet>
-	{
-		public FlowsheetMap()
-		{
-			Initialize();
-		}
-
-		private void Initialize()
-		{
-			Table("flowsheets");
-
-			Id(o => o.Id, "id");
-
-			Map(o => o.DrawingId, "drawing_id");
-
-			Map(o => o.FactMass, "fact_mass");
-
-			Map(o => o.Note, "note");
-
-			References(o => o.Customer, "customer_id").Fetch.Join().Not.LazyLoad();
-
-			References(o => o.SecondaryCustomer, "secondary_customer_id").Fetch.Join().Not.LazyLoad();
-
-			OnInitialized();
-		}
-	}
-
-
-	// The classmap for flowsheet_machines
-	public partial class FlowsheetMachineMap : BaseMap<Rti.Model.Domain.FlowsheetMachine>
-	{
-		public FlowsheetMachineMap()
-		{
-			Initialize();
-		}
-
-		private void Initialize()
-		{
-			Table("flowsheet_machines");
-
-			Id(o => o.Id, "id");
-
-			Map(o => o.SortOrder, "sort_order");
-
-			Map(o => o.PlateTemperature, "plate_temperature");
-
-			Map(o => o.CureTime, "cure_time");
-
-			References(o => o.Flowsheet, "flowsheet_id").Fetch.Join().Not.LazyLoad();
-
-			References(o => o.Machine, "machine_id").Fetch.Join().Not.LazyLoad();
-
-			OnInitialized();
-		}
-	}
-
-
-	// The classmap for flowsheet_processes
-	public partial class FlowsheetProcessMap : BaseMap<Rti.Model.Domain.FlowsheetProcess>
-	{
-		public FlowsheetProcessMap()
-		{
-			Initialize();
-		}
-
-		private void Initialize()
-		{
-			Table("flowsheet_processes");
-
-			Id(o => o.Id, "id");
-
-			Map(o => o.SortOrder, "sort_order");
-
-			Map(o => o.Name, "name");
-
-			Map(o => o.Operation, "operation");
-
-			Map(o => o.Executor, "executor");
-
-			Map(o => o.VarName, "var_name");
-
-			Map(o => o.NormTime, "norm_time");
-
-			Map(o => o.Note, "note");
-
-			References(o => o.Flowsheet, "flowsheet_id").Fetch.Join().Not.LazyLoad();
-
-			References(o => o.Process, "process_id").Fetch.Join().Not.LazyLoad();
 
 			OnInitialized();
 		}
@@ -1148,6 +1125,8 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Map(o => o.Note, "note");
 
+			Map(o => o.IsParallel, "is_parallel");
+
 			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
 
 			References(o => o.Employee, "employee_id").Fetch.Join().Not.LazyLoad();
@@ -1198,9 +1177,9 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Id(o => o.Id, "id");
 
-			Map(o => o.WorkingTime, "working_time");
+			Map(o => o.FullWorkingTime, "full_working_time");
 
-			Map(o => o.FreeTime, "free_time");
+			Map(o => o.PackageWorkingTime, "package_working_time");
 
 			References(o => o.WorkItemPackage, "work_item_package_id").Fetch.Join().Not.LazyLoad();
 

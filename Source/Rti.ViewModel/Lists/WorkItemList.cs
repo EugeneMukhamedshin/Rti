@@ -126,6 +126,7 @@ namespace Rti.ViewModel.Lists
             base.OnItemsChanged();
             RefreshEmployeesSource();
             Items.CollectionChanged += (sender, args) => RefreshEmployeesSource();
+            Employee = Items.Select(o => o.Employee).Distinct().SingleOrDefault();
         }
 
         private void RefreshEmployeesSource()

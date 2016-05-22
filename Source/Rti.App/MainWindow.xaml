@@ -36,7 +36,7 @@
                                 <dxb:BarButtonItem Content="Чертежи" RibbonStyle="Large" Command="{Binding OpenDrawingsCommand}"/>
                             </dxr:RibbonPageGroup>
                             <dxr:RibbonPageGroup Caption="Наряды">
-                                <dxb:BarButtonItem Content="Дневные наряды" RibbonStyle="Large" Command="{Binding OpenDailyWorkPackagesCommand}"/>
+                                <dxb:BarButtonItem Content="Дневной наряд" RibbonStyle="Large" Command="{Binding OpenDailyWorkPackagesCommand}"/>
                             </dxr:RibbonPageGroup>
                             <dxr:RibbonPageGroup Caption="Журналы">
                                 <dxb:BarButtonItem Content="Обрезка облоя" RibbonStyle="SmallWithText" Command="{Binding OpenShavingRecordsCommand}"/>

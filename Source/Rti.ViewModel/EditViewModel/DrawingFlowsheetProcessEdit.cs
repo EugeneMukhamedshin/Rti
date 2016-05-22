@@ -4,11 +4,11 @@ using Rti.ViewModel.Entities;
 
 namespace Rti.ViewModel.EditViewModel
 {
-    public class FlowsheetProcessEdit: EditEntityViewModel<FlowsheetProcessViewModel, FlowsheetProcess>
+    public class DrawingFlowsheetProcessEdit: EditEntityViewModel<DrawingFlowsheetProcessViewModel, DrawingFlowsheetProcess>
     {
         public ProcessType ProcessType { get; set; }
 
-        public FlowsheetProcessEdit(string name, FlowsheetProcessViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) 
+        public DrawingFlowsheetProcessEdit(string name, DrawingFlowsheetProcessViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) 
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {
         }

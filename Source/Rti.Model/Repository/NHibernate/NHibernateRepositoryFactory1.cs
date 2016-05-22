@@ -21,18 +21,16 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new DetailRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Drawing))
                 return (IRepository<TEntity>)new DrawingRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.DrawingFlowsheetMachine))
+                return (IRepository<TEntity>)new DrawingFlowsheetMachineRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.DrawingFlowsheetProcess))
+                return (IRepository<TEntity>)new DrawingFlowsheetProcessRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Driver))
                 return (IRepository<TEntity>)new DriverRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Employee))
                 return (IRepository<TEntity>)new EmployeeRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Equipment))
                 return (IRepository<TEntity>)new EquipmentRepository();
-            if (typeof(TEntity) == typeof(Rti.Model.Domain.Flowsheet))
-                return (IRepository<TEntity>)new FlowsheetRepository();
-            if (typeof(TEntity) == typeof(Rti.Model.Domain.FlowsheetMachine))
-                return (IRepository<TEntity>)new FlowsheetMachineRepository();
-            if (typeof(TEntity) == typeof(Rti.Model.Domain.FlowsheetProcess))
-                return (IRepository<TEntity>)new FlowsheetProcessRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Group))
                 return (IRepository<TEntity>)new GroupRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Image))
@@ -90,17 +88,15 @@ namespace Rti.Model.Repository.NHibernate
 
 		public IDrawingRepository GetDrawingRepository() { return (IDrawingRepository) GetRepository<Rti.Model.Domain.Drawing>(); }
 
+		public IDrawingFlowsheetMachineRepository GetDrawingFlowsheetMachineRepository() { return (IDrawingFlowsheetMachineRepository) GetRepository<Rti.Model.Domain.DrawingFlowsheetMachine>(); }
+
+		public IDrawingFlowsheetProcessRepository GetDrawingFlowsheetProcessRepository() { return (IDrawingFlowsheetProcessRepository) GetRepository<Rti.Model.Domain.DrawingFlowsheetProcess>(); }
+
 		public IDriverRepository GetDriverRepository() { return (IDriverRepository) GetRepository<Rti.Model.Domain.Driver>(); }
 
 		public IEmployeeRepository GetEmployeeRepository() { return (IEmployeeRepository) GetRepository<Rti.Model.Domain.Employee>(); }
 
 		public IEquipmentRepository GetEquipmentRepository() { return (IEquipmentRepository) GetRepository<Rti.Model.Domain.Equipment>(); }
-
-		public IFlowsheetRepository GetFlowsheetRepository() { return (IFlowsheetRepository) GetRepository<Rti.Model.Domain.Flowsheet>(); }
-
-		public IFlowsheetMachineRepository GetFlowsheetMachineRepository() { return (IFlowsheetMachineRepository) GetRepository<Rti.Model.Domain.FlowsheetMachine>(); }
-
-		public IFlowsheetProcessRepository GetFlowsheetProcessRepository() { return (IFlowsheetProcessRepository) GetRepository<Rti.Model.Domain.FlowsheetProcess>(); }
 
 		public IGroupRepository GetGroupRepository() { return (IGroupRepository) GetRepository<Rti.Model.Domain.Group>(); }
 
@@ -212,7 +208,32 @@ namespace Rti.Model.Repository.NHibernate
 			result = result.Fetch(o => o.Equipment).Default;
 			result = result.Fetch(o => o.Method).Default;
 			result = result.Fetch(o => o.DrawingImage).Default;
-			result = result.Fetch(o => o.Flowsheet).Default;
+			result = result.Fetch(o => o.Customer).Default;
+			result = result.Fetch(o => o.SecondaryCustomer).Default;
+            return result;
+        }
+    }
+
+	public partial class DrawingFlowsheetMachineRepository : NHibernateRepository<Rti.Model.Domain.DrawingFlowsheetMachine>, IDrawingFlowsheetMachineRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.DrawingFlowsheetMachine, Rti.Model.Domain.DrawingFlowsheetMachine> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.DrawingFlowsheetMachine, Rti.Model.Domain.DrawingFlowsheetMachine> queryOver)
+        {
+			var result = queryOver;
+			result = result.Fetch(o => o.Drawing).Default;
+			result = result.Fetch(o => o.Machine).Default;
+            return result;
+        }
+    }
+
+	public partial class DrawingFlowsheetProcessRepository : NHibernateRepository<Rti.Model.Domain.DrawingFlowsheetProcess>, IDrawingFlowsheetProcessRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.DrawingFlowsheetProcess, Rti.Model.Domain.DrawingFlowsheetProcess> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.DrawingFlowsheetProcess, Rti.Model.Domain.DrawingFlowsheetProcess> queryOver)
+        {
+			var result = queryOver;
+			result = result.Fetch(o => o.Drawing).Default;
+			result = result.Fetch(o => o.Process).Default;
             return result;
         }
     }
@@ -244,42 +265,6 @@ namespace Rti.Model.Repository.NHibernate
         protected override IQueryOver<Rti.Model.Domain.Equipment, Rti.Model.Domain.Equipment> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Equipment, Rti.Model.Domain.Equipment> queryOver)
         {
 			var result = queryOver;
-            return result;
-        }
-    }
-
-	public partial class FlowsheetRepository : NHibernateRepository<Rti.Model.Domain.Flowsheet>, IFlowsheetRepository
-    {
-
-        protected override IQueryOver<Rti.Model.Domain.Flowsheet, Rti.Model.Domain.Flowsheet> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Flowsheet, Rti.Model.Domain.Flowsheet> queryOver)
-        {
-			var result = queryOver;
-			result = result.Fetch(o => o.Customer).Default;
-			result = result.Fetch(o => o.SecondaryCustomer).Default;
-            return result;
-        }
-    }
-
-	public partial class FlowsheetMachineRepository : NHibernateRepository<Rti.Model.Domain.FlowsheetMachine>, IFlowsheetMachineRepository
-    {
-
-        protected override IQueryOver<Rti.Model.Domain.FlowsheetMachine, Rti.Model.Domain.FlowsheetMachine> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.FlowsheetMachine, Rti.Model.Domain.FlowsheetMachine> queryOver)
-        {
-			var result = queryOver;
-			result = result.Fetch(o => o.Flowsheet).Default;
-			result = result.Fetch(o => o.Machine).Default;
-            return result;
-        }
-    }
-
-	public partial class FlowsheetProcessRepository : NHibernateRepository<Rti.Model.Domain.FlowsheetProcess>, IFlowsheetProcessRepository
-    {
-
-        protected override IQueryOver<Rti.Model.Domain.FlowsheetProcess, Rti.Model.Domain.FlowsheetProcess> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.FlowsheetProcess, Rti.Model.Domain.FlowsheetProcess> queryOver)
-        {
-			var result = queryOver;
-			result = result.Fetch(o => o.Flowsheet).Default;
-			result = result.Fetch(o => o.Process).Default;
             return result;
         }
     }

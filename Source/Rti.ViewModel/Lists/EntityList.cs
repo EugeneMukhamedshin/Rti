@@ -44,6 +44,7 @@ namespace Rti.ViewModel.Lists
             {
                 OnSelectedItemChanging();
                 _selectedItem = value;
+                OnSelectedItemChanged();
                 OnPropertyChanged();
                 RequeryCommandsOnSelectionChanged();
             }
@@ -163,5 +164,7 @@ namespace Rti.ViewModel.Lists
         }
 
         protected virtual void OnSelectedItemChanging() { }
+
+        protected virtual void OnSelectedItemChanged() { }
     }
 }

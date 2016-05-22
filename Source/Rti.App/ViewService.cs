@@ -63,8 +63,8 @@ namespace Rti.App
             AddToRegistry<DrawingEdit, DrawingEditWindow>();
             AddToRegistry<DrawingMeasurementEdit, DrawingMeasurementEditWindow>();
             AddToRegistry<MassCalculationEdit, MassCalculationEditWindow>();
-            AddToRegistry<FlowsheetEdit, FlowsheetEditWindow>();
-            AddToRegistry<FlowsheetProcessEdit, FlowsheetProcessEditWindow>();
+            AddToRegistry<DrawingFlowsheetEdit, DrawingFlowsheetEditWindow>();
+            AddToRegistry<DrawingFlowsheetProcessEdit, DrawingFlowsheetProcessEditWindow>();
             AddToRegistry<DrawingCalculationEdit, DrawingCalculationEditWindow>();
 
             // ƒневные нар€ды
@@ -185,9 +185,6 @@ namespace Rti.App
                 window.Closing += (sender, args) => args.Cancel = !closable.CanClose();
                 closable.Close = res =>
                 {
-                    //if ((res == null || res.Value) && (closable is IValidatable) &&
-                    //    !((IValidatable)closable).Validate())
-                    //    return;
                     if (!closable.CanClose())
                         return;
                     if (res != null)
@@ -197,12 +194,5 @@ namespace Rti.App
             }
             return window;
         }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Window MainWindow { get; set; }
     }
 }

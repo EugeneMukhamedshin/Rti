@@ -659,19 +659,19 @@
       ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeAcross="6" ss:StyleID="m49138772">
-              <Data ss:Type="Number">
+              <Data ss:Type="String">
                 <xsl:value-of select="set[@name='Requests']/row/Manufacturer/@Inn"/>
               </Data>
               <NamedCell
       ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeAcross="1" ss:StyleID="s111">
-              <Data ss:Type="String">КПП  </Data>
+              <Data ss:Type="String">КПП</Data>
               <NamedCell
       ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeAcross="7" ss:StyleID="m49138812">
-              <Data ss:Type="Number">
+              <Data ss:Type="String">
                 <xsl:value-of select="set[@name='Requests']/row/Manufacturer/@Kpp"/>
               </Data>
               <NamedCell

@@ -73,11 +73,7 @@ namespace Rti.ViewModel.Lists
 
         private void OpenFlowsheet()
         {
-            if (SelectedItem.Flowsheet == null)
-                SelectedItem.Flowsheet = new FlowsheetViewModel(null, RepositoryFactory);
-            if (SelectedItem.Flowsheet.Drawing == null)
-                SelectedItem.Flowsheet.Drawing = SelectedItem;
-            var viewModel = new FlowsheetEdit("Технологическая карта", SelectedItem.Flowsheet, !EditMode, ViewService, RepositoryFactory);
+            var viewModel = new DrawingFlowsheetEdit("Технологическая карта", SelectedItem, !EditMode, ViewService, RepositoryFactory);
             viewModel.Refresh();
             if (ViewService.ShowViewDialog(viewModel) == true)
                 SelectedItem.SaveEntity();

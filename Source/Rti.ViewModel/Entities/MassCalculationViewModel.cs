@@ -19,7 +19,8 @@ namespace Rti.ViewModel.Entities
         {
             get
             {
-                return CalculateMass() / 1000;
+                var calculated = CalculateMass();
+                return calculated.HasValue ? Math.Round(calculated.Value / 1000, 3) : (decimal?)null;
             }
         }
 

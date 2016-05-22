@@ -775,6 +775,8 @@ namespace Rti.ViewModel.Entities
 		private Double? _outerDiameter;
 		private String _note;
 		private Boolean _isDeleted;
+		private Double? _factMass;
+		private String _techNote;
 		private GroupViewModel _group;
 		private DetailViewModel _detail;
 		private MaterialViewModel _materialByPassport;
@@ -786,7 +788,8 @@ namespace Rti.ViewModel.Entities
 		private EquipmentViewModel _equipment;
 		private MethodViewModel _method;
 		private ImageViewModel _drawingImage;
-		private FlowsheetViewModel _flowsheet;
+		private ContragentViewModel _customer;
+		private ContragentViewModel _secondaryCustomer;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public DateTime? CreationDate { get { return _creationDate; } set { if (Equals(_creationDate, value)) return; _creationDate = value; OnPropertyChanged("CreationDate"); } }
@@ -806,6 +809,8 @@ namespace Rti.ViewModel.Entities
 		public Double? OuterDiameter { get { return _outerDiameter; } set { if (Equals(_outerDiameter, value)) return; _outerDiameter = value; OnPropertyChanged("OuterDiameter"); } }
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
+		public Double? FactMass { get { return _factMass; } set { if (Equals(_factMass, value)) return; _factMass = value; OnPropertyChanged("FactMass"); } }
+		public String TechNote { get { return _techNote; } set { if (Equals(_techNote, value)) return; _techNote = value; OnPropertyChanged("TechNote"); } }
 		public GroupViewModel Group { get { return _group; } set { _group = value; OnPropertyChanged("Group"); } }
 		public DetailViewModel Detail { get { return _detail; } set { _detail = value; OnPropertyChanged("Detail"); } }
 		public MaterialViewModel MaterialByPassport { get { return _materialByPassport; } set { _materialByPassport = value; OnPropertyChanged("MaterialByPassport"); } }
@@ -817,7 +822,8 @@ namespace Rti.ViewModel.Entities
 		public EquipmentViewModel Equipment { get { return _equipment; } set { _equipment = value; OnPropertyChanged("Equipment"); } }
 		public MethodViewModel Method { get { return _method; } set { _method = value; OnPropertyChanged("Method"); } }
 		public ImageViewModel DrawingImage { get { return _drawingImage; } set { _drawingImage = value; OnPropertyChanged("DrawingImage"); } }
-		public FlowsheetViewModel Flowsheet { get { return _flowsheet; } set { _flowsheet = value; OnPropertyChanged("Flowsheet"); } }
+		public ContragentViewModel Customer { get { return _customer; } set { _customer = value; OnPropertyChanged("Customer"); } }
+		public ContragentViewModel SecondaryCustomer { get { return _secondaryCustomer; } set { _secondaryCustomer = value; OnPropertyChanged("SecondaryCustomer"); } }
 
 		protected override void MapPropertiesToEntity()
 		{
@@ -838,6 +844,8 @@ namespace Rti.ViewModel.Entities
 			Entity.OuterDiameter = OuterDiameter; 
 			Entity.Note = Note; 
 			Entity.IsDeleted = IsDeleted; 
+			Entity.FactMass = FactMass; 
+			Entity.TechNote = TechNote; 
 			Entity.Group = Group == null ? null : Group.Entity; 
 			Entity.Detail = Detail == null ? null : Detail.Entity; 
 			Entity.MaterialByPassport = MaterialByPassport == null ? null : MaterialByPassport.Entity; 
@@ -849,7 +857,8 @@ namespace Rti.ViewModel.Entities
 			Entity.Equipment = Equipment == null ? null : Equipment.Entity; 
 			Entity.Method = Method == null ? null : Method.Entity; 
 			Entity.DrawingImage = DrawingImage == null ? null : DrawingImage.Entity; 
-			Entity.Flowsheet = Flowsheet == null ? null : Flowsheet.Entity; 
+			Entity.Customer = Customer == null ? null : Customer.Entity; 
+			Entity.SecondaryCustomer = SecondaryCustomer == null ? null : SecondaryCustomer.Entity; 
 
 		}
 
@@ -874,6 +883,8 @@ namespace Rti.ViewModel.Entities
 			OuterDiameter = Entity.OuterDiameter; 
 			Note = Entity.Note; 
 			IsDeleted = Entity.IsDeleted; 
+			FactMass = Entity.FactMass; 
+			TechNote = Entity.TechNote; 
 			Group = Entity.Group == null ? null : new GroupViewModel(Entity.Group, RepositoryFactory); 
 			Detail = Entity.Detail == null ? null : new DetailViewModel(Entity.Detail, RepositoryFactory); 
 			MaterialByPassport = Entity.MaterialByPassport == null ? null : new MaterialViewModel(Entity.MaterialByPassport, RepositoryFactory); 
@@ -885,7 +896,8 @@ namespace Rti.ViewModel.Entities
 			Equipment = Entity.Equipment == null ? null : new EquipmentViewModel(Entity.Equipment, RepositoryFactory); 
 			Method = Entity.Method == null ? null : new MethodViewModel(Entity.Method, RepositoryFactory); 
 			DrawingImage = Entity.DrawingImage == null ? null : new ImageViewModel(Entity.DrawingImage, RepositoryFactory); 
-			Flowsheet = Entity.Flowsheet == null ? null : new FlowsheetViewModel(Entity.Flowsheet, RepositoryFactory); 
+			Customer = Entity.Customer == null ? null : new ContragentViewModel(Entity.Customer, RepositoryFactory); 
+			SecondaryCustomer = Entity.SecondaryCustomer == null ? null : new ContragentViewModel(Entity.SecondaryCustomer, RepositoryFactory); 
 			IsMapping = false;
 		}
 
@@ -909,6 +921,8 @@ namespace Rti.ViewModel.Entities
 			OuterDiameter = source.OuterDiameter;
 			Note = source.Note;
 			IsDeleted = source.IsDeleted;
+			FactMass = source.FactMass;
+			TechNote = source.TechNote;
 			Group = source.Group;
 			Detail = source.Detail;
 			MaterialByPassport = source.MaterialByPassport;
@@ -920,7 +934,8 @@ namespace Rti.ViewModel.Entities
 			Equipment = source.Equipment;
 			Method = source.Method;
 			DrawingImage = source.DrawingImage;
-			Flowsheet = source.Flowsheet;
+			Customer = source.Customer;
+			SecondaryCustomer = source.SecondaryCustomer;
 			CustomCopyFrom(source);
 			IsMapping = false;
 		}
@@ -968,6 +983,10 @@ namespace Rti.ViewModel.Entities
 			if (Note != null)
 				element.Add(new XAttribute("Note", Note));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
+			if (FactMass != null)
+				element.Add(new XAttribute("FactMass", FactMass));
+			if (TechNote != null)
+				element.Add(new XAttribute("TechNote", TechNote));
 			if (Group != null)
 				element.Add(Group.GetXElement("Group"));
 			if (Detail != null)
@@ -990,8 +1009,10 @@ namespace Rti.ViewModel.Entities
 				element.Add(Method.GetXElement("Method"));
 			if (DrawingImage != null)
 				element.Add(DrawingImage.GetXElement("DrawingImage"));
-			if (Flowsheet != null)
-				element.Add(Flowsheet.GetXElement("Flowsheet"));
+			if (Customer != null)
+				element.Add(Customer.GetXElement("Customer"));
+			if (SecondaryCustomer != null)
+				element.Add(SecondaryCustomer.GetXElement("SecondaryCustomer"));
 
 			CustomFillXElement(element);
 			return element;
@@ -1005,6 +1026,219 @@ namespace Rti.ViewModel.Entities
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((DrawingViewModel) obj);
+        }
+	}
+
+    // The viewmodel for DrawingFlowsheetMachine
+	public partial class DrawingFlowsheetMachineViewModel : EntityViewModel<Rti.Model.Domain.DrawingFlowsheetMachine, DrawingFlowsheetMachineViewModel>
+	{
+		// Конструктор для маппинга
+		public DrawingFlowsheetMachineViewModel() { }
+
+        public DrawingFlowsheetMachineViewModel(Rti.Model.Domain.DrawingFlowsheetMachine entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+		private Int32 _id;
+		private Int32 _sortOrder;
+		private Decimal? _plateTemperature;
+		private Decimal? _cureTime;
+		private DrawingViewModel _drawing;
+		private MachineViewModel _machine;
+
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
+		public Decimal? PlateTemperature { get { return _plateTemperature; } set { if (Equals(_plateTemperature, value)) return; _plateTemperature = value; OnPropertyChanged("PlateTemperature"); } }
+		public Decimal? CureTime { get { return _cureTime; } set { if (Equals(_cureTime, value)) return; _cureTime = value; OnPropertyChanged("CureTime"); } }
+		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
+		public MachineViewModel Machine { get { return _machine; } set { _machine = value; OnPropertyChanged("Machine"); } }
+
+		protected override void MapPropertiesToEntity()
+		{
+			Entity.SortOrder = SortOrder; 
+			Entity.PlateTemperature = PlateTemperature; 
+			Entity.CureTime = CureTime; 
+			Entity.Drawing = Drawing == null ? null : Drawing.Entity; 
+			Entity.Machine = Machine == null ? null : Machine.Entity; 
+
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+			IsMapping = true;
+			Id = Entity.Id; 
+			SortOrder = Entity.SortOrder; 
+			PlateTemperature = Entity.PlateTemperature; 
+			CureTime = Entity.CureTime; 
+			Drawing = Entity.Drawing == null ? null : new DrawingViewModel(Entity.Drawing, RepositoryFactory); 
+			Machine = Entity.Machine == null ? null : new MachineViewModel(Entity.Machine, RepositoryFactory); 
+			IsMapping = false;
+		}
+
+		public override void CopyFrom(DrawingFlowsheetMachineViewModel source)
+		{
+			IsMapping = true;
+			SortOrder = source.SortOrder;
+			PlateTemperature = source.PlateTemperature;
+			CureTime = source.CureTime;
+			Drawing = source.Drawing;
+			Machine = source.Machine;
+			CustomCopyFrom(source);
+			IsMapping = false;
+		}
+
+		public override DrawingFlowsheetMachineViewModel Clone()
+		{
+			var copy = new DrawingFlowsheetMachineViewModel(null, RepositoryFactory);
+			copy.CopyFrom(this);
+			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("SortOrder", SortOrder));
+			if (PlateTemperature != null)
+				element.Add(new XAttribute("PlateTemperature", PlateTemperature));
+			if (CureTime != null)
+				element.Add(new XAttribute("CureTime", CureTime));
+			if (Drawing != null)
+				element.Add(Drawing.GetXElement("Drawing"));
+			if (Machine != null)
+				element.Add(Machine.GetXElement("Machine"));
+
+			CustomFillXElement(element);
+			return element;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(DrawingFlowsheetMachineViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((DrawingFlowsheetMachineViewModel) obj);
+        }
+	}
+
+
+	// The viewmodel for DrawingFlowsheetProcess
+	public partial class DrawingFlowsheetProcessViewModel : EntityViewModel<Rti.Model.Domain.DrawingFlowsheetProcess, DrawingFlowsheetProcessViewModel>
+	{
+		// Конструктор для маппинга
+		public DrawingFlowsheetProcessViewModel() { }
+
+        public DrawingFlowsheetProcessViewModel(Rti.Model.Domain.DrawingFlowsheetProcess entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+		private Int32 _id;
+		private Int32? _sortOrder;
+		private String _name;
+		private String _operation;
+		private String _executor;
+		private String _varName;
+		private Decimal _normTime;
+		private String _note;
+		private DrawingViewModel _drawing;
+		private ProcessViewModel _process;
+
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+		public Int32? SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
+		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged("Name"); } }
+		public String Operation { get { return _operation; } set { if (Equals(_operation, value)) return; _operation = value; OnPropertyChanged("Operation"); } }
+		public String Executor { get { return _executor; } set { if (Equals(_executor, value)) return; _executor = value; OnPropertyChanged("Executor"); } }
+		public String VarName { get { return _varName; } set { if (Equals(_varName, value)) return; _varName = value; OnPropertyChanged("VarName"); } }
+		public Decimal NormTime { get { return _normTime; } set { if (Equals(_normTime, value)) return; _normTime = value; OnPropertyChanged("NormTime"); } }
+		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
+		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
+		public ProcessViewModel Process { get { return _process; } set { _process = value; OnPropertyChanged("Process"); } }
+
+		protected override void MapPropertiesToEntity()
+		{
+			Entity.SortOrder = SortOrder; 
+			Entity.Name = Name; 
+			Entity.Operation = Operation; 
+			Entity.Executor = Executor; 
+			Entity.VarName = VarName; 
+			Entity.NormTime = NormTime; 
+			Entity.Note = Note; 
+			Entity.Drawing = Drawing == null ? null : Drawing.Entity; 
+			Entity.Process = Process == null ? null : Process.Entity; 
+
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+			IsMapping = true;
+			Id = Entity.Id; 
+			SortOrder = Entity.SortOrder; 
+			Name = Entity.Name; 
+			Operation = Entity.Operation; 
+			Executor = Entity.Executor; 
+			VarName = Entity.VarName; 
+			NormTime = Entity.NormTime; 
+			Note = Entity.Note; 
+			Drawing = Entity.Drawing == null ? null : new DrawingViewModel(Entity.Drawing, RepositoryFactory); 
+			Process = Entity.Process == null ? null : new ProcessViewModel(Entity.Process, RepositoryFactory); 
+			IsMapping = false;
+		}
+
+		public override void CopyFrom(DrawingFlowsheetProcessViewModel source)
+		{
+			IsMapping = true;
+			SortOrder = source.SortOrder;
+			Name = source.Name;
+			Operation = source.Operation;
+			Executor = source.Executor;
+			VarName = source.VarName;
+			NormTime = source.NormTime;
+			Note = source.Note;
+			Drawing = source.Drawing;
+			Process = source.Process;
+			CustomCopyFrom(source);
+			IsMapping = false;
+		}
+
+		public override DrawingFlowsheetProcessViewModel Clone()
+		{
+			var copy = new DrawingFlowsheetProcessViewModel(null, RepositoryFactory);
+			copy.CopyFrom(this);
+			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			if (SortOrder != null)
+				element.Add(new XAttribute("SortOrder", SortOrder));
+			if (Name != null)
+				element.Add(new XAttribute("Name", Name));
+			if (Operation != null)
+				element.Add(new XAttribute("Operation", Operation));
+			if (Executor != null)
+				element.Add(new XAttribute("Executor", Executor));
+			if (VarName != null)
+				element.Add(new XAttribute("VarName", VarName));
+			element.Add(new XAttribute("NormTime", NormTime));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+			if (Drawing != null)
+				element.Add(Drawing.GetXElement("Drawing"));
+			if (Process != null)
+				element.Add(Process.GetXElement("Process"));
+
+			CustomFillXElement(element);
+			return element;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(DrawingFlowsheetProcessViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((DrawingFlowsheetProcessViewModel) obj);
         }
 	}
 
@@ -1324,313 +1558,6 @@ namespace Rti.ViewModel.Entities
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((EquipmentViewModel) obj);
-        }
-	}
-
-
-	// The viewmodel for Flowsheet
-	public partial class FlowsheetViewModel : EntityViewModel<Rti.Model.Domain.Flowsheet, FlowsheetViewModel>
-	{
-		// Конструктор для маппинга
-		public FlowsheetViewModel() { }
-
-        public FlowsheetViewModel(Rti.Model.Domain.Flowsheet entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		private Int32 _id;
-		private Int32 _drawingId;
-		private Decimal? _factMass;
-		private String _note;
-		private ContragentViewModel _customer;
-		private ContragentViewModel _secondaryCustomer;
-
-		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
-		public Int32 DrawingId { get { return _drawingId; } set { if (Equals(_drawingId, value)) return; _drawingId = value; OnPropertyChanged("DrawingId"); } }
-		public Decimal? FactMass { get { return _factMass; } set { if (Equals(_factMass, value)) return; _factMass = value; OnPropertyChanged("FactMass"); } }
-		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
-		public ContragentViewModel Customer { get { return _customer; } set { _customer = value; OnPropertyChanged("Customer"); } }
-		public ContragentViewModel SecondaryCustomer { get { return _secondaryCustomer; } set { _secondaryCustomer = value; OnPropertyChanged("SecondaryCustomer"); } }
-
-		protected override void MapPropertiesToEntity()
-		{
-			Entity.DrawingId = DrawingId; 
-			Entity.FactMass = FactMass; 
-			Entity.Note = Note; 
-			Entity.Customer = Customer == null ? null : Customer.Entity; 
-			Entity.SecondaryCustomer = SecondaryCustomer == null ? null : SecondaryCustomer.Entity; 
-
-		}
-
-		protected override void MapPropertiesFromEntity()
-		{
-			IsMapping = true;
-			Id = Entity.Id; 
-			DrawingId = Entity.DrawingId; 
-			FactMass = Entity.FactMass; 
-			Note = Entity.Note; 
-			Customer = Entity.Customer == null ? null : new ContragentViewModel(Entity.Customer, RepositoryFactory); 
-			SecondaryCustomer = Entity.SecondaryCustomer == null ? null : new ContragentViewModel(Entity.SecondaryCustomer, RepositoryFactory); 
-			IsMapping = false;
-		}
-
-		public override void CopyFrom(FlowsheetViewModel source)
-		{
-			IsMapping = true;
-			DrawingId = source.DrawingId;
-			FactMass = source.FactMass;
-			Note = source.Note;
-			Customer = source.Customer;
-			SecondaryCustomer = source.SecondaryCustomer;
-			CustomCopyFrom(source);
-			IsMapping = false;
-		}
-
-		public override FlowsheetViewModel Clone()
-		{
-			var copy = new FlowsheetViewModel(null, RepositoryFactory);
-			copy.CopyFrom(this);
-			return copy;
-		}
-
-		public XElement GetXElement(string name)
-		{
-			var element = new XElement(name);
-			element.Add(new XAttribute("Id", Id));
-			element.Add(new XAttribute("DrawingId", DrawingId));
-			if (FactMass != null)
-				element.Add(new XAttribute("FactMass", FactMass));
-			if (Note != null)
-				element.Add(new XAttribute("Note", Note));
-			if (Customer != null)
-				element.Add(Customer.GetXElement("Customer"));
-			if (SecondaryCustomer != null)
-				element.Add(SecondaryCustomer.GetXElement("SecondaryCustomer"));
-
-			CustomFillXElement(element);
-			return element;
-		}
-
-        public override int GetHashCode() { return _id; }
-        protected bool Equals(FlowsheetViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((FlowsheetViewModel) obj);
-        }
-	}
-
-
-	// The viewmodel for FlowsheetMachine
-	public partial class FlowsheetMachineViewModel : EntityViewModel<Rti.Model.Domain.FlowsheetMachine, FlowsheetMachineViewModel>
-	{
-		// Конструктор для маппинга
-		public FlowsheetMachineViewModel() { }
-
-        public FlowsheetMachineViewModel(Rti.Model.Domain.FlowsheetMachine entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		private Int32 _id;
-		private Int32 _sortOrder;
-		private Decimal? _plateTemperature;
-		private Decimal? _cureTime;
-		private FlowsheetViewModel _flowsheet;
-		private MachineViewModel _machine;
-
-		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
-		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
-		public Decimal? PlateTemperature { get { return _plateTemperature; } set { if (Equals(_plateTemperature, value)) return; _plateTemperature = value; OnPropertyChanged("PlateTemperature"); } }
-		public Decimal? CureTime { get { return _cureTime; } set { if (Equals(_cureTime, value)) return; _cureTime = value; OnPropertyChanged("CureTime"); } }
-		public FlowsheetViewModel Flowsheet { get { return _flowsheet; } set { _flowsheet = value; OnPropertyChanged("Flowsheet"); } }
-		public MachineViewModel Machine { get { return _machine; } set { _machine = value; OnPropertyChanged("Machine"); } }
-
-		protected override void MapPropertiesToEntity()
-		{
-			Entity.SortOrder = SortOrder; 
-			Entity.PlateTemperature = PlateTemperature; 
-			Entity.CureTime = CureTime; 
-			Entity.Flowsheet = Flowsheet == null ? null : Flowsheet.Entity; 
-			Entity.Machine = Machine == null ? null : Machine.Entity; 
-
-		}
-
-		protected override void MapPropertiesFromEntity()
-		{
-			IsMapping = true;
-			Id = Entity.Id; 
-			SortOrder = Entity.SortOrder; 
-			PlateTemperature = Entity.PlateTemperature; 
-			CureTime = Entity.CureTime; 
-			Flowsheet = Entity.Flowsheet == null ? null : new FlowsheetViewModel(Entity.Flowsheet, RepositoryFactory); 
-			Machine = Entity.Machine == null ? null : new MachineViewModel(Entity.Machine, RepositoryFactory); 
-			IsMapping = false;
-		}
-
-		public override void CopyFrom(FlowsheetMachineViewModel source)
-		{
-			IsMapping = true;
-			SortOrder = source.SortOrder;
-			PlateTemperature = source.PlateTemperature;
-			CureTime = source.CureTime;
-			Flowsheet = source.Flowsheet;
-			Machine = source.Machine;
-			CustomCopyFrom(source);
-			IsMapping = false;
-		}
-
-		public override FlowsheetMachineViewModel Clone()
-		{
-			var copy = new FlowsheetMachineViewModel(null, RepositoryFactory);
-			copy.CopyFrom(this);
-			return copy;
-		}
-
-		public XElement GetXElement(string name)
-		{
-			var element = new XElement(name);
-			element.Add(new XAttribute("Id", Id));
-			element.Add(new XAttribute("SortOrder", SortOrder));
-			if (PlateTemperature != null)
-				element.Add(new XAttribute("PlateTemperature", PlateTemperature));
-			if (CureTime != null)
-				element.Add(new XAttribute("CureTime", CureTime));
-			if (Flowsheet != null)
-				element.Add(Flowsheet.GetXElement("Flowsheet"));
-			if (Machine != null)
-				element.Add(Machine.GetXElement("Machine"));
-
-			CustomFillXElement(element);
-			return element;
-		}
-
-        public override int GetHashCode() { return _id; }
-        protected bool Equals(FlowsheetMachineViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((FlowsheetMachineViewModel) obj);
-        }
-	}
-
-
-	// The viewmodel for FlowsheetProcess
-	public partial class FlowsheetProcessViewModel : EntityViewModel<Rti.Model.Domain.FlowsheetProcess, FlowsheetProcessViewModel>
-	{
-		// Конструктор для маппинга
-		public FlowsheetProcessViewModel() { }
-
-        public FlowsheetProcessViewModel(Rti.Model.Domain.FlowsheetProcess entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		private Int32 _id;
-		private Int32? _sortOrder;
-		private String _name;
-		private String _operation;
-		private String _executor;
-		private String _varName;
-		private Decimal _normTime;
-		private String _note;
-		private FlowsheetViewModel _flowsheet;
-		private ProcessViewModel _process;
-
-		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
-		public Int32? SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
-		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged("Name"); } }
-		public String Operation { get { return _operation; } set { if (Equals(_operation, value)) return; _operation = value; OnPropertyChanged("Operation"); } }
-		public String Executor { get { return _executor; } set { if (Equals(_executor, value)) return; _executor = value; OnPropertyChanged("Executor"); } }
-		public String VarName { get { return _varName; } set { if (Equals(_varName, value)) return; _varName = value; OnPropertyChanged("VarName"); } }
-		public Decimal NormTime { get { return _normTime; } set { if (Equals(_normTime, value)) return; _normTime = value; OnPropertyChanged("NormTime"); } }
-		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
-		public FlowsheetViewModel Flowsheet { get { return _flowsheet; } set { _flowsheet = value; OnPropertyChanged("Flowsheet"); } }
-		public ProcessViewModel Process { get { return _process; } set { _process = value; OnPropertyChanged("Process"); } }
-
-		protected override void MapPropertiesToEntity()
-		{
-			Entity.SortOrder = SortOrder; 
-			Entity.Name = Name; 
-			Entity.Operation = Operation; 
-			Entity.Executor = Executor; 
-			Entity.VarName = VarName; 
-			Entity.NormTime = NormTime; 
-			Entity.Note = Note; 
-			Entity.Flowsheet = Flowsheet == null ? null : Flowsheet.Entity; 
-			Entity.Process = Process == null ? null : Process.Entity; 
-
-		}
-
-		protected override void MapPropertiesFromEntity()
-		{
-			IsMapping = true;
-			Id = Entity.Id; 
-			SortOrder = Entity.SortOrder; 
-			Name = Entity.Name; 
-			Operation = Entity.Operation; 
-			Executor = Entity.Executor; 
-			VarName = Entity.VarName; 
-			NormTime = Entity.NormTime; 
-			Note = Entity.Note; 
-			Flowsheet = Entity.Flowsheet == null ? null : new FlowsheetViewModel(Entity.Flowsheet, RepositoryFactory); 
-			Process = Entity.Process == null ? null : new ProcessViewModel(Entity.Process, RepositoryFactory); 
-			IsMapping = false;
-		}
-
-		public override void CopyFrom(FlowsheetProcessViewModel source)
-		{
-			IsMapping = true;
-			SortOrder = source.SortOrder;
-			Name = source.Name;
-			Operation = source.Operation;
-			Executor = source.Executor;
-			VarName = source.VarName;
-			NormTime = source.NormTime;
-			Note = source.Note;
-			Flowsheet = source.Flowsheet;
-			Process = source.Process;
-			CustomCopyFrom(source);
-			IsMapping = false;
-		}
-
-		public override FlowsheetProcessViewModel Clone()
-		{
-			var copy = new FlowsheetProcessViewModel(null, RepositoryFactory);
-			copy.CopyFrom(this);
-			return copy;
-		}
-
-		public XElement GetXElement(string name)
-		{
-			var element = new XElement(name);
-			element.Add(new XAttribute("Id", Id));
-			if (SortOrder != null)
-				element.Add(new XAttribute("SortOrder", SortOrder));
-			if (Name != null)
-				element.Add(new XAttribute("Name", Name));
-			if (Operation != null)
-				element.Add(new XAttribute("Operation", Operation));
-			if (Executor != null)
-				element.Add(new XAttribute("Executor", Executor));
-			if (VarName != null)
-				element.Add(new XAttribute("VarName", VarName));
-			element.Add(new XAttribute("NormTime", NormTime));
-			if (Note != null)
-				element.Add(new XAttribute("Note", Note));
-			if (Flowsheet != null)
-				element.Add(Flowsheet.GetXElement("Flowsheet"));
-			if (Process != null)
-				element.Add(Process.GetXElement("Process"));
-
-			CustomFillXElement(element);
-			return element;
-		}
-
-        public override int GetHashCode() { return _id; }
-        protected bool Equals(FlowsheetProcessViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((FlowsheetProcessViewModel) obj);
         }
 	}
 
@@ -3599,9 +3526,10 @@ namespace Rti.ViewModel.Entities
 		private Int32? _doneCount;
 		private Int32? _rejectedCount;
 		private String _note;
+		private Boolean _isParallel;
 		private DrawingViewModel _drawing;
 		private EmployeeViewModel _employee;
-		private FlowsheetMachineViewModel _flowsheetMachine;
+		private DrawingFlowsheetMachineViewModel _flowsheetMachine;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public DateTime WorkDate { get { return _workDate; } set { if (Equals(_workDate, value)) return; _workDate = value; OnPropertyChanged("WorkDate"); } }
@@ -3611,9 +3539,10 @@ namespace Rti.ViewModel.Entities
 		public Int32? DoneCount { get { return _doneCount; } set { if (Equals(_doneCount, value)) return; _doneCount = value; OnPropertyChanged("DoneCount"); } }
 		public Int32? RejectedCount { get { return _rejectedCount; } set { if (Equals(_rejectedCount, value)) return; _rejectedCount = value; OnPropertyChanged("RejectedCount"); } }
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
+		public Boolean IsParallel { get { return _isParallel; } set { if (Equals(_isParallel, value)) return; _isParallel = value; OnPropertyChanged("IsParallel"); } }
 		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
 		public EmployeeViewModel Employee { get { return _employee; } set { _employee = value; OnPropertyChanged("Employee"); } }
-		public FlowsheetMachineViewModel FlowsheetMachine { get { return _flowsheetMachine; } set { _flowsheetMachine = value; OnPropertyChanged("FlowsheetMachine"); } }
+		public DrawingFlowsheetMachineViewModel FlowsheetMachine { get { return _flowsheetMachine; } set { _flowsheetMachine = value; OnPropertyChanged("FlowsheetMachine"); } }
 
 		protected override void MapPropertiesToEntity()
 		{
@@ -3624,6 +3553,7 @@ namespace Rti.ViewModel.Entities
 			Entity.DoneCount = DoneCount; 
 			Entity.RejectedCount = RejectedCount; 
 			Entity.Note = Note; 
+			Entity.IsParallel = IsParallel; 
 			Entity.Drawing = Drawing == null ? null : Drawing.Entity; 
 			Entity.Employee = Employee == null ? null : Employee.Entity; 
 			Entity.FlowsheetMachine = FlowsheetMachine == null ? null : FlowsheetMachine.Entity; 
@@ -3641,9 +3571,10 @@ namespace Rti.ViewModel.Entities
 			DoneCount = Entity.DoneCount; 
 			RejectedCount = Entity.RejectedCount; 
 			Note = Entity.Note; 
+			IsParallel = Entity.IsParallel; 
 			Drawing = Entity.Drawing == null ? null : new DrawingViewModel(Entity.Drawing, RepositoryFactory); 
 			Employee = Entity.Employee == null ? null : new EmployeeViewModel(Entity.Employee, RepositoryFactory); 
-			FlowsheetMachine = Entity.FlowsheetMachine == null ? null : new FlowsheetMachineViewModel(Entity.FlowsheetMachine, RepositoryFactory); 
+			FlowsheetMachine = Entity.FlowsheetMachine == null ? null : new DrawingFlowsheetMachineViewModel(Entity.FlowsheetMachine, RepositoryFactory); 
 			IsMapping = false;
 		}
 
@@ -3657,6 +3588,7 @@ namespace Rti.ViewModel.Entities
 			DoneCount = source.DoneCount;
 			RejectedCount = source.RejectedCount;
 			Note = source.Note;
+			IsParallel = source.IsParallel;
 			Drawing = source.Drawing;
 			Employee = source.Employee;
 			FlowsheetMachine = source.FlowsheetMachine;
@@ -3687,6 +3619,7 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("RejectedCount", RejectedCount));
 			if (Note != null)
 				element.Add(new XAttribute("Note", Note));
+			element.Add(new XAttribute("IsParallel", IsParallel));
 			if (Drawing != null)
 				element.Add(Drawing.GetXElement("Drawing"));
 			if (Employee != null)
@@ -3788,8 +3721,7 @@ namespace Rti.ViewModel.Entities
         }
 	}
 
-
-	// The viewmodel for WorkItemPackageMachine
+    // The viewmodel for WorkItemPackageMachine
 	public partial class WorkItemPackageMachineViewModel : EntityViewModel<Rti.Model.Domain.WorkItemPackageMachine, WorkItemPackageMachineViewModel>
 	{
 		// Конструктор для маппинга
@@ -3798,21 +3730,21 @@ namespace Rti.ViewModel.Entities
         public WorkItemPackageMachineViewModel(Rti.Model.Domain.WorkItemPackageMachine entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
 		private Int32 _id;
-		private Int32 _workingTime;
-		private Int32 _freeTime;
+		private Int32 _fullWorkingTime;
+		private Int32 _packageWorkingTime;
 		private WorkItemPackageViewModel _workItemPackage;
-		private FlowsheetMachineViewModel _flowsheetMachine;
+		private DrawingFlowsheetMachineViewModel _flowsheetMachine;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
-		public Int32 WorkingTime { get { return _workingTime; } set { if (Equals(_workingTime, value)) return; _workingTime = value; OnPropertyChanged("WorkingTime"); } }
-		public Int32 FreeTime { get { return _freeTime; } set { if (Equals(_freeTime, value)) return; _freeTime = value; OnPropertyChanged("FreeTime"); } }
+		public Int32 FullWorkingTime { get { return _fullWorkingTime; } set { if (Equals(_fullWorkingTime, value)) return; _fullWorkingTime = value; OnPropertyChanged("FullWorkingTime"); } }
+		public Int32 PackageWorkingTime { get { return _packageWorkingTime; } set { if (Equals(_packageWorkingTime, value)) return; _packageWorkingTime = value; OnPropertyChanged("PackageWorkingTime"); } }
 		public WorkItemPackageViewModel WorkItemPackage { get { return _workItemPackage; } set { _workItemPackage = value; OnPropertyChanged("WorkItemPackage"); } }
-		public FlowsheetMachineViewModel FlowsheetMachine { get { return _flowsheetMachine; } set { _flowsheetMachine = value; OnPropertyChanged("FlowsheetMachine"); } }
+		public DrawingFlowsheetMachineViewModel FlowsheetMachine { get { return _flowsheetMachine; } set { _flowsheetMachine = value; OnPropertyChanged("FlowsheetMachine"); } }
 
 		protected override void MapPropertiesToEntity()
 		{
-			Entity.WorkingTime = WorkingTime; 
-			Entity.FreeTime = FreeTime; 
+			Entity.FullWorkingTime = FullWorkingTime; 
+			Entity.PackageWorkingTime = PackageWorkingTime; 
 			Entity.WorkItemPackage = WorkItemPackage == null ? null : WorkItemPackage.Entity; 
 			Entity.FlowsheetMachine = FlowsheetMachine == null ? null : FlowsheetMachine.Entity; 
 
@@ -3822,18 +3754,18 @@ namespace Rti.ViewModel.Entities
 		{
 			IsMapping = true;
 			Id = Entity.Id; 
-			WorkingTime = Entity.WorkingTime; 
-			FreeTime = Entity.FreeTime; 
+			FullWorkingTime = Entity.FullWorkingTime; 
+			PackageWorkingTime = Entity.PackageWorkingTime; 
 			WorkItemPackage = Entity.WorkItemPackage == null ? null : new WorkItemPackageViewModel(Entity.WorkItemPackage, RepositoryFactory); 
-			FlowsheetMachine = Entity.FlowsheetMachine == null ? null : new FlowsheetMachineViewModel(Entity.FlowsheetMachine, RepositoryFactory); 
+			FlowsheetMachine = Entity.FlowsheetMachine == null ? null : new DrawingFlowsheetMachineViewModel(Entity.FlowsheetMachine, RepositoryFactory); 
 			IsMapping = false;
 		}
 
 		public override void CopyFrom(WorkItemPackageMachineViewModel source)
 		{
 			IsMapping = true;
-			WorkingTime = source.WorkingTime;
-			FreeTime = source.FreeTime;
+			FullWorkingTime = source.FullWorkingTime;
+			PackageWorkingTime = source.PackageWorkingTime;
 			WorkItemPackage = source.WorkItemPackage;
 			FlowsheetMachine = source.FlowsheetMachine;
 			CustomCopyFrom(source);
@@ -3851,8 +3783,8 @@ namespace Rti.ViewModel.Entities
 		{
 			var element = new XElement(name);
 			element.Add(new XAttribute("Id", Id));
-			element.Add(new XAttribute("WorkingTime", WorkingTime));
-			element.Add(new XAttribute("FreeTime", FreeTime));
+			element.Add(new XAttribute("FullWorkingTime", FullWorkingTime));
+			element.Add(new XAttribute("PackageWorkingTime", PackageWorkingTime));
 			if (WorkItemPackage != null)
 				element.Add(WorkItemPackage.GetXElement("WorkItemPackage"));
 			if (FlowsheetMachine != null)
