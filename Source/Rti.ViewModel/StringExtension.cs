@@ -25,5 +25,16 @@ namespace Rti.ViewModel
             return false;
         }
 
+        public static bool In(this object value, params object[] args)
+        {
+            if (value == null)
+                return false;
+            if (args == null || !args.Any())
+                return false;
+            if (args.Any(value.Equals))
+                return true;
+            return false;
+        }
+
     }
 }

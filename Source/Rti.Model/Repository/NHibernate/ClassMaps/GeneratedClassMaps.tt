@@ -46,7 +46,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 						if (fieldAttribute.FieldName.ToLower() == "id")
 						{
 #>
-			Id(o => o.Id, "ID");
+			Id(o => o.Id, "id");
 <#
 						}
 						else
@@ -59,7 +59,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 						}
 					}
                     var refAttribute = prop.GetCustomAttributes(typeof (ReferenceAttribute), false).FirstOrDefault() as ReferenceAttribute;
-                    if (refAttribute != null)
+                    if (refAttribute != null && !refAttribute.IsManuallyMapped)
 					{
 #>
 			References(o => o.<#= prop.Name #>, "<#= refAttribute.ColumnName #>").Fetch.Join().Not.LazyLoad();

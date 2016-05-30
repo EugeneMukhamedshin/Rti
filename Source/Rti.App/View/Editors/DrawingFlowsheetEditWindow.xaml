@@ -1,0 +1,296 @@
+﻿<dx:DXWindow xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
+    x:Class="Rti.App.View.Editors.DrawingFlowsheetEditWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:lists="clr-namespace:Rti.App.View.Lists"
+    xmlns:components="clr-namespace:Rti.App.View.Components"
+    Title="{Binding Name}" Height="750" Width="1080" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="130"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+            </Grid.RowDefinitions>
+            <GroupBox Grid.Row="0" Margin="2" Header="Общая информация" Padding="5,0,5,5">
+                <dxg:GridControl TabIndex="0" AutoGenerateColumns="None" ItemsSource="{Binding DrawingSource}">
+                    <dxg:GridControl.Resources>
+                        <Style TargetType="dxg:GridColumn">
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Stretch"></TextBlock>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </dxg:GridControl.Resources>
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn FieldName="Customer" Header="Заказчик" Width="250">
+                            <dxg:GridColumn.EditSettings>
+                                <dxg:LookUpEditSettings IsEnabled="{Binding Editable}" ItemsSource="{Binding CustomersSource.Value}" DisplayMember="Name" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True" PopupWidth="500">
+                                    <dxg:LookUpEditSettings.StyleSettings>
+                                        <dxg:SearchLookUpEditStyleSettings/>
+                                    </dxg:LookUpEditSettings.StyleSettings>
+                                    <dxg:LookUpEditSettings.PopupContentTemplate>
+                                        <ControlTemplate>
+                                            <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
+                                                <dxg:GridControl.Columns>
+                                                    <dxg:GridColumn FieldName="SortOrder" Header="№"/>
+                                                    <dxg:GridColumn FieldName="Name" Header="Наименование"/>
+                                                    <dxg:GridColumn FieldName="Inn" Header="ИНН"/>
+                                                    <dxg:GridColumn FieldName="Ogrn" Header="ОГРН"/>
+                                                    <dxg:GridColumn FieldName="Address" Header="Адрес"/>
+                                                    <dxg:GridColumn FieldName="Director" Header="Директор"/>
+                                                    <dxg:GridColumn FieldName="Phone" Header="Телефон"/>
+                                                </dxg:GridControl.Columns>
+                                                <dxg:GridControl.View>
+                                                    <dxg:TableView AutoWidth="True"/>
+                                                </dxg:GridControl.View>
+                                            </dxg:GridControl>
+                                        </ControlTemplate>
+                                    </dxg:LookUpEditSettings.PopupContentTemplate>
+                                </dxg:LookUpEditSettings>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="Detail.Name" Header="Наименование" Width="150" ReadOnly="True">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="SortOrder" Header="Номер" Width="150" ReadOnly="True">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="SecondaryCustomer" Header="Вторичный заказчик" Width="250">
+                            <dxg:GridColumn.EditSettings>
+                                <dxg:LookUpEditSettings IsEnabled="{Binding Editable}" ItemsSource="{Binding CustomersSource.Value}" DisplayMember="Name" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True" PopupWidth="500">
+                                    <dxg:LookUpEditSettings.StyleSettings>
+                                        <dxg:SearchLookUpEditStyleSettings/>
+                                    </dxg:LookUpEditSettings.StyleSettings>
+                                    <dxg:LookUpEditSettings.PopupContentTemplate>
+                                        <ControlTemplate>
+                                            <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
+                                                <dxg:GridControl.Columns>
+                                                    <dxg:GridColumn FieldName="SortOrder" Header="№"/>
+                                                    <dxg:GridColumn FieldName="Name" Header="Наименование"/>
+                                                    <dxg:GridColumn FieldName="Inn" Header="ИНН"/>
+                                                    <dxg:GridColumn FieldName="Ogrn" Header="ОГРН"/>
+                                                    <dxg:GridColumn FieldName="Address" Header="Адрес"/>
+                                                    <dxg:GridColumn FieldName="Director" Header="Директор"/>
+                                                    <dxg:GridColumn FieldName="Phone" Header="Телефон"/>
+                                                </dxg:GridControl.Columns>
+                                                <dxg:GridControl.View>
+                                                    <dxg:TableView AutoWidth="True"/>
+                                                </dxg:GridControl.View>
+                                            </dxg:GridControl>
+                                        </ControlTemplate>
+                                    </dxg:LookUpEditSettings.PopupContentTemplate>
+                                </dxg:LookUpEditSettings>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                    </dxg:GridControl.Columns>
+                    <dxg:GridControl.View>
+                        <dxg:TableView AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                    </dxg:GridControl.View>
+                </dxg:GridControl>
+
+            </GroupBox>
+            <GroupBox Grid.Row="1" Margin="2" Header="Перечень оборудования" Padding="5,0,5,5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                        <Button Padding="0" Content="+" Command="{Binding DrawingFlowsheetMachineList.AddFlowsheetMachineCommand}" Width="24" Height="24" Margin="0,5,0,5"></Button>
+                        <Button Padding="0" Content="-" Command="{Binding DrawingFlowsheetMachineList.RemoveFlowsheetMachineCommand}" Width="24" Height="24" Margin="5,5,0,5"></Button>
+                    </StackPanel>
+                    <dxg:GridControl Grid.Row="1" TabIndex="2" AutoGenerateColumns="None" ItemsSource="{Binding DrawingFlowsheetMachineList.Items}" SelectedItem="{Binding DrawingFlowsheetMachineList.SelectedItem}" SelectionMode="Row">
+                        <dxg:GridControl.Resources>
+                            <Style TargetType="dxg:GridColumn">
+                                <Setter Property="HeaderTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Stretch"></TextBlock>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </dxg:GridControl.Resources>
+                        <dxg:GridControl.Columns>
+                            <dxg:GridColumn FieldName="Machine" Header="Инв. №" Width="80">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxg:LookUpEditSettings DisplayMember="InvNumber" ItemsSource="{Binding DrawingFlowsheetMachineList.MachinesSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                                        <dxg:LookUpEditSettings.StyleSettings>
+                                            <dxg:SearchLookUpEditStyleSettings/>
+                                        </dxg:LookUpEditSettings.StyleSettings>
+                                        <dxg:LookUpEditSettings.PopupContentTemplate>
+                                            <ControlTemplate>
+                                                <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
+                                                    <dxg:GridControl.Columns>
+                                                        <dxg:GridColumn FieldName="InvNumber" Header="Инв. №" Width="80"/>
+                                                        <dxg:GridColumn FieldName="Name" Header="Наименование" Width="100"/>
+                                                        <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
+                                                    </dxg:GridControl.Columns>
+                                                    <dxg:GridControl.View>
+                                                        <dxg:TableView AutoWidth="True"/>
+                                                    </dxg:GridControl.View>
+                                                </dxg:GridControl>
+                                            </ControlTemplate>
+                                        </dxg:LookUpEditSettings.PopupContentTemplate>
+                                    </dxg:LookUpEditSettings>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="PlateTemperature" Header="Температура плит, град." Width="150">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings Mask="f2" MaskType="Numeric" MaskCulture="ru-RU"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="CureTime" Header="Время вулканизации, мин." Width="180">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings Mask="f2" MaskType="Numeric" MaskCulture="ru-RU"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                        </dxg:GridControl.Columns>
+                        <dxg:GridControl.View>
+                            <dxg:TableView AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                        </dxg:GridControl.View>
+                    </dxg:GridControl>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Row="2" Margin="2" Header="Оснастка" Padding="5,0,5,5">
+                <dxg:GridControl TabIndex="0" AutoGenerateColumns="None" ItemsSource="{Binding DrawingSource}">
+                    <dxg:GridControl.Resources>
+                        <Style TargetType="dxg:GridColumn">
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Stretch"></TextBlock>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </dxg:GridControl.Resources>
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn FieldName="Equipment.Name" Header="Наименование" Width="150" ReadOnly="True"/>
+                        <dxg:GridColumn FieldName="Equipment.FormCount" Header="Кол-во форм" Width="150" ReadOnly="True"/>
+                        <dxg:GridColumn FieldName="Equipment.SlotCount" Header="Гнездность" Width="150" ReadOnly="True"/>
+                        <dxg:GridColumn FieldName="Equipment.Output" Header="Выход партии" Width="150" ReadOnly="True"/>
+                    </dxg:GridControl.Columns>
+                    <dxg:GridControl.View>
+                        <dxg:TableView AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                    </dxg:GridControl.View>
+                </dxg:GridControl>
+            </GroupBox>
+            <GroupBox Grid.Row="3" Margin="2" Header="Материал" Padding="5,0,5,5">
+                <dxg:GridControl TabIndex="0" AutoGenerateColumns="None" ItemsSource="{Binding DrawingSource}">
+                    <dxg:GridControl.Resources>
+                        <Style TargetType="dxg:GridColumn">
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Stretch"></TextBlock>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </dxg:GridControl.Resources>
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn FieldName="MaterialByPassport.Name" Header="Марка мат. по черт." Width="120" ReadOnly="True"/>
+                        <dxg:GridColumn FieldName="MaterialByPassport.TechConditions" Header="ТУ (ГОСТ)" Width="100" ReadOnly="True"/>
+                        <dxg:GridColumn FieldName="Material.Name" Header="Марка мат. факт." Width="120" ReadOnly="True"/>
+                        <dxg:GridColumn FieldName="Material.TechConditions" Header="ТУ (ГОСТ)" Width="100" ReadOnly="True"/>
+                        <dxg:GridColumn FieldName="MassWithShruff" Header="Масса загот., кг" Width="120" ReadOnly="True"/>
+                        <dxg:GridColumn FieldName="MassCalculation.CalculatedMass" Header="Масса дет. по черт., кг" Width="150" ReadOnly="True"/>
+                        <dxg:GridColumn FieldName="FactMass" Header="Масса факт., кг" Width="100" EditSettings="{components:Float3TextEditSettings}"/>
+                    </dxg:GridControl.Columns>
+                    <dxg:GridControl.View>
+                        <dxg:TableView AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                    </dxg:GridControl.View>
+                </dxg:GridControl>
+            </GroupBox>
+            <GroupBox Grid.Row="4" Margin="2" Header="Нормирование времени" Padding="5,0,5,5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                        <Button Padding="0" Content="+" Command="{Binding DrawingFlowsheetProcessList.AddFlowsheetProcessCommand}" Width="24" Height="24" Margin="0,5,0,5"></Button>
+                        <Button Padding="0" Content="-" Command="{Binding DrawingFlowsheetProcessList.RemoveFlowsheetProcessCommand}" Width="24" Height="24" Margin="5,5,0,5"></Button>
+                    </StackPanel>
+                    <dxg:GridControl Grid.Row="1" TabIndex="2" AutoGenerateColumns="None" ItemsSource="{Binding DrawingFlowsheetProcessList.Items}" SelectedItem="{Binding DrawingFlowsheetProcessList.SelectedItem}" SelectionMode="Row">
+                        <dxg:GridControl.Resources>
+                            <Style TargetType="dxg:GridColumn">
+                                <Setter Property="HeaderTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Stretch"></TextBlock>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </dxg:GridControl.Resources>
+                        <dxg:GridControl.Columns>
+                            <dxg:GridColumn FieldName="DisplayName" Header="Наименование процесса" Width="150">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings IsEnabled="{Binding AreNamesReadOnly}"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="DisplayOperation" Header="Выполняемая операция" Width="150">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings IsEnabled="{Binding AreNamesReadOnly}"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="DisplayExecutor" Header="Исполнитель" Width="150">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings IsEnabled="{Binding AreNamesReadOnly}"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="DisplayVarName" Header="t" Width="50">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings IsEnabled="{Binding AreNamesReadOnly}"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="DisplayNormTime" Header="Время по норме" Width="120">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="Note" Header="Примечание" Width="250">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                        </dxg:GridControl.Columns>
+                        <dxg:GridControl.View>
+                            <dxg:TableView AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                        </dxg:GridControl.View>
+                    </dxg:GridControl>
+                </Grid>
+            </GroupBox>
+            <StackPanel Orientation="Horizontal" Grid.Row="5">
+                <TextBlock Text="Примечание" Width="77" Margin="5,8" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Entity.TechNote}" Margin="5,0,0,0" Width="600" TextWrapping="Wrap" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Row="6" Orientation="Horizontal">
+                <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"/>
+                <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"/>
+            </StackPanel>
+        </Grid>
+        <Border Opacity="0.8" Visibility="{Binding IsLoading,Converter={StaticResource BooleanToVisibilityConverter}}" Background="AliceBlue">
+            <StackPanel VerticalAlignment="Center">
+                <ProgressBar IsIndeterminate="True" Width="200" Height="32" Opacity="0.5"/>
+                <Label Content="{Binding LoadingMessage}" HorizontalContentAlignment="Center"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</dx:DXWindow>

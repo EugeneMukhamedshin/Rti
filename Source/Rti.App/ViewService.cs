@@ -6,8 +6,10 @@ using Rti.App.View.Editors;
 using Rti.App.View.Lists;
 using Rti.ViewModel;
 using Rti.ViewModel.EditViewModel;
+using Rti.ViewModel.Lists;
 using Rti.ViewModel.ListViewModel;
 using Application = System.Windows.Application;
+using ContragentList = Rti.ViewModel.Lists.ContragentList;
 using DrawingList = Rti.ViewModel.Lists.DrawingList;
 using EmployeeList = Rti.ViewModel.Lists.EmployeeList;
 using EquipmentList = Rti.ViewModel.Lists.EquipmentList;
@@ -24,10 +26,9 @@ namespace Rti.App
         {
             AddToRegistry<LoginViewModel, LoginWindow>();
 
-            AddToRegistry<MainViewModel, MainDxWindow>();
+            AddToRegistry<MainViewModel, MainWindow>();
 
             // Справочники
-            AddToRegistry<DictionaryList, DictionaryListWindow>();
             AddToRegistry<MaterialList, MaterialListWindow>();
             AddToRegistry<MaterialEdit, MaterialEditWindow>();
             AddToRegistry<GroupList, GroupListWindow>();
@@ -62,7 +63,30 @@ namespace Rti.App
             AddToRegistry<DrawingEdit, DrawingEditWindow>();
             AddToRegistry<DrawingMeasurementEdit, DrawingMeasurementEditWindow>();
             AddToRegistry<MassCalculationEdit, MassCalculationEditWindow>();
-            AddToRegistry<FlowsheetEdit, FlowsheetEditWindow>();
+            AddToRegistry<DrawingFlowsheetEdit, DrawingFlowsheetEditWindow>();
+            AddToRegistry<DrawingFlowsheetProcessEdit, DrawingFlowsheetProcessEditWindow>();
+            AddToRegistry<DrawingCalculationEdit, DrawingCalculationEditWindow>();
+
+            // Дневные наряды
+            AddToRegistry<WorkItemList, WorkItemListWindow>();
+            AddToRegistry<WorkItemEdit, WorkItemEditWindow>();
+
+            // Индивидуальный наряд
+            AddToRegistry<EmployeeWorkItemList, EmployeeWorkItemListWindow>();
+
+            // Журналы
+            // Журнал обрезки облоя
+            AddToRegistry<ShavingRecordList, ShavingRecordListWindow>();
+            AddToRegistry<ShavingRecordEdit, ShavingRecordEditWindow>();
+            // Журнал прихода материала
+            AddToRegistry<MaterialArrivalRecordList, MaterialArrivalRecordListWindow>();
+            AddToRegistry<MaterialArrivalRecordEdit, MaterialArrivalRecordEditWindow>();
+            // Журнал прихода материала
+            AddToRegistry<RollingRecordList, RollingRecordListWindow>();
+            AddToRegistry<RollingRecordEdit, RollingRecordEditWindow>();
+            // Журнал распоряжений на отгрузку
+            AddToRegistry<ShippingOrderRecordList, ShippingOrderRecordListWindow>();
+            AddToRegistry<ShippingOrderRecordEdit, ShippingOrderRecordEditWindow>();
 
             // Изображения
             AddToRegistry<ImageEdit, ImageEditWindow>();
@@ -161,9 +185,6 @@ namespace Rti.App
                 window.Closing += (sender, args) => args.Cancel = !closable.CanClose();
                 closable.Close = res =>
                 {
-                    if ((res == null || res.Value) && (closable is IValidatable) &&
-                        !((IValidatable)closable).Validate())
-                        return;
                     if (!closable.CanClose())
                         return;
                     if (res != null)
@@ -173,12 +194,5 @@ namespace Rti.App
             }
             return window;
         }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Window MainWindow { get; set; }
     }
 }

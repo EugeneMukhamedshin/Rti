@@ -1,4 +1,4 @@
-п»їusing System;
+using System;
 using Rti.Model.Domain;
 using Rti.ViewModel.Calculation;
 
@@ -6,18 +6,27 @@ namespace Rti.ViewModel.Entities
 {
     public partial class MassCalculationViewModel
     {
-        public string CalculatedMass
+        public string DisplayCalculatedMass
         {
             get
             {
-                var mass = CalculateMass();
-                return mass == null ? "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґР°РЅРЅС‹С…" : string.Format("{0:f3}", mass);
+                var mass = CalculatedMass;
+                return mass == null ? "Недостаточно данных" : string.Format("{0:f3}", mass);
             }
         }
 
-        public double? CalculateMass()
+        public decimal? CalculatedMass
         {
-            var pi = Math.PI;
+            get
+            {
+                var calculated = CalculateMass();
+                return calculated.HasValue ? Math.Round(calculated.Value / 1000, 3) : (decimal?)null;
+            }
+        }
+
+        public decimal? CalculateMass()
+        {
+            var pi = (decimal)Math.PI;
 
             switch (DetailTypeEnum)
             {
@@ -36,7 +45,7 @@ namespace Rti.ViewModel.Entities
                 case DetailType.MoldingSquare3:
                     return SqB * SqL * SqS * MaterialDensity / 1000 - pi * SqDVn * SqDVn / 4000;
                 case DetailType.LaserCutting:
-                    return (VlS * VlL * VlB * MaterialDensity * 1000) / ((VlL / (VlL1 + 5)) * (VlB / (VlB1 + 5)));
+                    return (VlS * VlL * VlB * MaterialDensity / 1000) / ((VlL / (VlL1 + 5)) * (VlB / (VlB1 + 5)));
                 case DetailType.Other:
                     return new Calculator().Calculate(MassFormula);
             }
@@ -47,11 +56,12 @@ namespace Rti.ViewModel.Entities
         {
             base.OnPropertyChanged(propertyName);
             base.OnPropertyChanged("CalculatedMass");
+            base.OnPropertyChanged("DisplayCalculatedMass");
         }
 
         public override string ToString()
         {
-            return CalculatedMass;
+            return DisplayCalculatedMass;
         }
     }
 }

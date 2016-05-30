@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Windows.Media.Animation;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.EditViewModel;
@@ -11,17 +13,25 @@ namespace Rti.ViewModel.Lists
 {
     public class DrawingList : EntityList<DrawingViewModel, Drawing>, IClosable
     {
+        public DelegateCommand AddDrawingCommand { get; set; }
         public DelegateCommand PrevPageCommand { get; set; }
         public DelegateCommand NextPageCommand { get; set; }
         public DelegateCommand OpenFlowsheetCommand { get; set; }
+        public DelegateCommand OpenCalculationCommand { get; set; }
 
         public int Page { get; set; }
         public int PageSize { get; set; }
+        public bool IsLastPage { get; set; }
 
         public DrawingList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
         {
             TypeMaps.Add(new Tuple<Type, Type>(typeof(DrawingViewModel), typeof(DrawingEdit)));
+            IsLastPage = true;
 
+            AddDrawingCommand = new DelegateCommand(
+                "Добавить чертеж",
+                o => true,
+                o => AddDrawing());
             PrevPageCommand = new DelegateCommand(
                 "Предыдущая страница",
                 o => Page > 0,
@@ -32,7 +42,7 @@ namespace Rti.ViewModel.Lists
                 });
             NextPageCommand = new DelegateCommand(
                 "Следующая страница",
-                o => true,
+                o => !IsLastPage,
                 o =>
                 {
                     Page++;
@@ -42,48 +52,67 @@ namespace Rti.ViewModel.Lists
                "Технологическая карта",
                o => SelectedItem != null,
                o => OpenFlowsheet());
+            OpenCalculationCommand = new DelegateCommand(
+                "Калькуляция",
+                o => SelectedItem != null,
+                o => OpenCalculation());
 
             Page = 0;
             PageSize = 15;
-
-            InitializeSources();
         }
 
-        private void InitializeSources()
+        private void AddDrawing()
         {
+            var drawing = DoCreateNewEntity();
+            if (OpenViewModelEditWindow(drawing, "Новый чертеж", false))
+            {
+                Page = 0;
+                Refresh();
+            }
         }
 
         private void OpenFlowsheet()
         {
-            var flowsheet = new FlowsheetViewModel(RepositoryFactory.GetFlowsheetRepository().GetByDrawingId(SelectedItem.Id), RepositoryFactory);
-            flowsheet.Drawing = SelectedItem;
-            var viewModel = new FlowsheetEdit("Технологическая карта", flowsheet, !EditMode, ViewService, RepositoryFactory);
+            var viewModel = new DrawingFlowsheetEdit("Технологическая карта", SelectedItem, !EditMode, ViewService, RepositoryFactory);
             viewModel.Refresh();
             if (ViewService.ShowViewDialog(viewModel) == true)
+                SelectedItem.SaveEntity();
+        }
+
+        private void OpenCalculation()
+        {
+            if (SelectedItem.PlanCalculation == null)
+                SelectedItem.PlanCalculation = new CalculationViewModel(null, RepositoryFactory);
+            if (SelectedItem.FactCalculation == null)
+                SelectedItem.FactCalculation = new CalculationViewModel(null, RepositoryFactory);
+            SelectedItem.PlanCalculation.IsReadOnly = true;
+            var calculationEdit = new DrawingCalculationEdit("Калькуляция", SelectedItem, !EditMode, ViewService, RepositoryFactory);
+            if (ViewService.ShowViewDialog(calculationEdit) == true)
             {
-                viewModel.Entity.SaveEntity();
-                viewModel.FlowsheetMachineList.SaveChanges();
-                viewModel.FlowsheetProcessList.SaveChanges();
+                SelectedItem.RaiseCalculationPriceChanged();
             }
         }
 
-        public override void Refresh()
+        protected override void OnItemsChanged()
         {
-            base.Refresh();
+            base.OnItemsChanged();
             PrevPageCommand.RequeryCanExecute();
             NextPageCommand.RequeryCanExecute();
         }
 
         protected override IEnumerable<DrawingViewModel> GetItems()
         {
-            return RepositoryFactory.GetDrawingRepository().GetPage(Page, PageSize).Select(o => new DrawingViewModel(o, RepositoryFactory));
+            var items = RepositoryFactory.GetDrawingRepository().GetPage(Page, PageSize, new List<Expression<Func<Drawing, object>>> {});
+            IsLastPage = !(items.Count > PageSize);
+            return items.Take(PageSize).Select(o => new DrawingViewModel(o, RepositoryFactory)).ToList(); ;
         }
 
         protected override DrawingViewModel DoCreateNewEntity()
         {
             return new DrawingViewModel(null, RepositoryFactory)
             {
-                SortOrder = Items.Any() ? Items.Max(o => o.SortOrder) + 1 : 1,
+                SortOrder = RepositoryFactory.GetDrawingRepository().GetNextSortOrder(),
+                CreationDate = DateTime.Now,
                 Name = "Новый чертеж"
             };
         }
@@ -103,6 +132,7 @@ namespace Rti.ViewModel.Lists
         {
             base.RequeryCommandsOnSelectionChanged();
             OpenFlowsheetCommand.RequeryCanExecute();
+            OpenCalculationCommand.RequeryCanExecute();
         }
 
         public bool CanClose()

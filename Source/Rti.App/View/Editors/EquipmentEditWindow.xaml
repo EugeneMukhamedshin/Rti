@@ -8,6 +8,8 @@
         xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
         xmlns:lists="clr-namespace:Rti.App.View.Lists"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:domain="clr-namespace:Rti.Model.Domain;assembly=Rti.Model"
+        xmlns:components="clr-namespace:Rti.App.View.Components"
         mc:Ignorable="d"
         Width="470" Height="390" MinWidth="470" MinHeight="390" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
@@ -15,60 +17,19 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
-        <dxprg:PropertyGridControl SortMode="Definitions" Grid.Row="0" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
-            <dxprg:PropertyGridControl.PropertyDefinitions>
+        <components:PropertyGridResponsible SortMode="Definitions" Grid.Row="0" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
+            <components:PropertyGridResponsible.PropertyDefinitions>
                 <dxprg:PropertyDefinition Header="№" Path="SortOrder" IsReadOnly="True"/>
-                <!--<dxprg:PropertyDefinition Header="Группа" Path="Group">
-                    <dxprg:PropertyDefinition.EditSettings>
-                        <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding GroupsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
-                            <dxg:LookUpEditSettings.StyleSettings>
-                                <dxg:SearchLookUpEditStyleSettings/>
-                            </dxg:LookUpEditSettings.StyleSettings>
-                            <dxg:LookUpEditSettings.PopupContentTemplate>
-                                <ControlTemplate>
-                                    <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
-                                        <dxg:GridControl.Columns>
-                                            <dxg:GridColumn FieldName="SortOrder" Header="№" Width="50"/>
-                                            <dxg:GridColumn FieldName="Name" Header="Наименование" Width="100"/>
-                                            <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
-                                        </dxg:GridControl.Columns>
-                                        <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
-                                        </dxg:GridControl.View>
-                                    </dxg:GridControl>
-                                </ControlTemplate>
-                            </dxg:LookUpEditSettings.PopupContentTemplate>
-                        </dxg:LookUpEditSettings>
-                    </dxprg:PropertyDefinition.EditSettings>
-                </dxprg:PropertyDefinition>-->
-                <!--<dxprg:PropertyDefinition Header="Чертеж" Path="Drawing">
-                    <dxprg:PropertyDefinition.EditSettings>
-                        <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding DrawingsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
-                            <dxg:LookUpEditSettings.StyleSettings>
-                                <dxg:SearchLookUpEditStyleSettings/>
-                            </dxg:LookUpEditSettings.StyleSettings>
-                            <dxg:LookUpEditSettings.PopupContentTemplate>
-                                <ControlTemplate>
-                                    <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
-                                        <dxg:GridControl.Columns>
-                                            <dxg:GridColumn FieldName="SortOrder" Header="№" Width="50"/>
-                                            <dxg:GridColumn FieldName="Name" Header="Наименование" Width="100"/>
-                                            <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
-                                        </dxg:GridControl.Columns>
-                                        <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
-                                        </dxg:GridControl.View>
-                                    </dxg:GridControl>
-                                </ControlTemplate>
-                            </dxg:LookUpEditSettings.PopupContentTemplate>
-                        </dxg:LookUpEditSettings>
-                    </dxprg:PropertyDefinition.EditSettings>
-                </dxprg:PropertyDefinition>-->
                 <dxprg:PropertyDefinition Header="Оснастка" Path="Name"/>
                 <dxprg:PropertyDefinition Header="Площадь оснастки" Path="Square" EditSettings="{dxe:TextSettings Mask=f3}"/>
+                <dxprg:PropertyDefinition Header="Высота оснастки" Path="Height" EditSettings="{dxe:TextSettings Mask=f2}"/>
                 <dxprg:PropertyDefinition Header="Наличие оснастки" Path="ExistanceEnum">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxe:ComboBoxEditSettings ItemsSource="{lists:ExistanceToItemsSource}" DisplayMember="DisplayName" ValueMember="Value"/>
+                        <dxe:ComboBoxEditSettings DisplayMember="DisplayName" ValueMember="Value">
+                            <dxe:ComboBoxEditSettings.ItemsSource>
+                                <lists:EnumToItemsSource EnumType="domain:Existance"/>
+                            </dxe:ComboBoxEditSettings.ItemsSource>
+                        </dxe:ComboBoxEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
                 <dxprg:PropertyDefinition Header="Количество форм" Path="FormCount"/>
@@ -79,34 +40,11 @@
                         <dxe:TextSettings TextWrapping="Wrap" AcceptsReturn="False"/>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
-            </dxprg:PropertyGridControl.PropertyDefinitions>
-        </dxprg:PropertyGridControl>
+            </components:PropertyGridResponsible.PropertyDefinitions>
+        </components:PropertyGridResponsible>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>
             <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
         </StackPanel>
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="120"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="20"/>
-        </Grid.ColumnDefinitions>
-        <Grid.Resources>
-            <Style TargetType="Label">
-                <Setter Property="Background" Value="LightGray"></Setter>
-            </Style>
-        </Grid.Resources>
-        <Label Content="№" Grid.Row="0" Grid.Column="0"/>
-        <Label Content="Группа" Grid.Row="1" Grid.Column="0"/>
-        <Label Content="Чертеж" Grid.Row="2" Grid.Column="0"/>
-        <Label Content="Оснастка" Grid.Row="3" Grid.Column="0"/>
-        <Label Content="Наличие" Grid.Row="4" Grid.Column="0"/>
-        <Label Content="Количество форм" Grid.Row="5" Grid.Column="0"/>
-        <Label Content="Гнездность" Grid.Row="6" Grid.Column="0"/>
-        <Label Content="Выход партии" Grid.Row="7" Grid.Column="0"/>
-        <Label Content="Примечание" Grid.Row="8" Grid.Column="0"/>
-
-        <TextBox Grid.Row="0" Grid.Column="1" TabIndex="0" Text="{Binding Entity.SortOrder}" IsReadOnly="True"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="1" TabIndex="1" Text="{Binding Entity.Name}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
-        <TextBox Grid.Row="8" Grid.Column="1" TabIndex="2" Text="{Binding Entity.Note}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>-->
     </Grid>
 </dx:DXWindow>

@@ -1,18 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Threading;
+using System.Xml;
+using System.Xml.Serialization;
 using DevExpress.Xpf.Core;
 using log4net;
 using log4net.Config;
 using log4net.Util;
+using Rti.Model.Domain;
 using Rti.Model.Repository.NHibernate;
 using Rti.ViewModel;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Lists;
+using Rti.ViewModel.Reporting.Generator;
 
 namespace Rti.App
 {
@@ -36,6 +43,7 @@ namespace Rti.App
                     new FrameworkPropertyMetadata(language));
                 base.OnStartup(e);
                 var repositoryFactory = new NHibernateRepositoryFactory();
+
                 _viewService = new ViewService();
 
                 var isDebug = e.Args.Any(arg => arg.ToLower().Equals("debug=true"));
@@ -49,13 +57,10 @@ namespace Rti.App
                     if (!loginViewModel.LoggedOn)
                         mainViewModel.Close(null);
                 }
-                else{
-                    //var request = repositoryFactory.GetRequestRepository().GetById(41);
-                    //var editViewModel = new RequestEdit("Заявка", new RequestViewModel(request, repositoryFactory), false, _viewService, repositoryFactory);
-                    //editViewModel.Refresh();
-                    //_viewService.ShowView(editViewModel, false, true);
-                    //var viewModel = new MassCalculationEdit("", new MassCalculationViewModel(repositoryFactory.GetMassCalculationRepository().GetById(0), repositoryFactory), false, _viewService, repositoryFactory);
-                    var viewModel = new DrawingList(true, _viewService, repositoryFactory);
+                else
+                {
+                    //var viewModel = new RequestEdit("", new RequestViewModel(repositoryFactory.GetRequestRepository().GetById(41), repositoryFactory), false, _viewService, repositoryFactory);
+                    var viewModel = new MainViewModel(_viewService, repositoryFactory);
                     viewModel.Refresh();
                     _viewService.ShowView(viewModel, false, true);
                 }

@@ -47,6 +47,7 @@
       <HintPath>..\packages\NHibernate.4.0.0.4000\lib\net40\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -61,6 +62,9 @@
     </Compile>
     <Compile Include="Domain\ActionType.cs" />
     <Compile Include="Domain\Authorization\ActionCode.cs" />
+    <Compile Include="Domain\BusinessLogic\WorkItemController.cs" />
+    <Compile Include="Domain\CalculationRowType.cs" />
+    <Compile Include="Domain\CalculationType.cs" />
     <Compile Include="Domain\ContragentType.cs" />
     <Compile Include="Domain\DetailType.cs" />
     <Compile Include="Domain\Existance.cs" />
@@ -78,6 +82,8 @@
     <Compile Include="Domain\Generator\ReferenceAttribute.cs" />
     <Compile Include="Domain\Generator\TableAttribute.cs" />
     <Compile Include="Domain\IIdentifiedEntity.cs" />
+    <Compile Include="Domain\ProcessType.cs" />
+    <Compile Include="Domain\RequestDetailState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Interfaces\IAdditionalInfoRepository.cs" />
     <Compile Include="Repository\Interfaces\IConstantRepository.cs" />
@@ -86,14 +92,19 @@
     <Compile Include="Repository\Interfaces\IDrawingRepository.cs" />
     <Compile Include="Repository\Interfaces\IDriverRepository.cs" />
     <Compile Include="Repository\Interfaces\IEmployeeRepository.cs" />
+    <Compile Include="Repository\Interfaces\IShipmentItemRepository.cs" />
+    <Compile Include="Repository\Interfaces\IShipmentRepository.cs" />
+    <Compile Include="Repository\Interfaces\IWorkItemPackageMachineRepository.cs" />
+    <Compile Include="Repository\Interfaces\IWorkItemPackageRepository.cs" />
     <Compile Include="Repository\Interfaces\IEquipmentRepository.cs" />
-    <Compile Include="Repository\Interfaces\IFlowsheetEquipmentRepository.cs" />
-    <Compile Include="Repository\Interfaces\IFlowsheetProcessRepository.cs" />
+    <Compile Include="Repository\Interfaces\IDrawingFlowsheetMachineRepository.cs" />
+    <Compile Include="Repository\Interfaces\IDrawingFlowsheetProcessRepository.cs" />
     <Compile Include="Repository\Interfaces\IFlowsheetRepository.cs" />
     <Compile Include="Repository\Interfaces\IGroupRepository.cs" />
     <Compile Include="Repository\Interfaces\IImageRepository.cs" />
     <Compile Include="Repository\Interfaces\IJobRepository.cs" />
     <Compile Include="Repository\Interfaces\IMachineRepository.cs" />
+    <Compile Include="Repository\Interfaces\IMaterialArrivalRecordRepository.cs" />
     <Compile Include="Repository\Interfaces\IMaterialRepository.cs" />
     <Compile Include="Repository\Interfaces\IMeasureUnitRepository.cs" />
     <Compile Include="Repository\Interfaces\IMethodRepository.cs" />
@@ -105,6 +116,11 @@
     </Compile>
     <Compile Include="Repository\Interfaces\IRequestDetailRepository.cs" />
     <Compile Include="Repository\Interfaces\IRequestRepository.cs" />
+    <Compile Include="Repository\Interfaces\IRollingRecordRepository.cs" />
+    <Compile Include="Repository\Interfaces\IShavingRecordRepository.cs" />
+    <Compile Include="Repository\Interfaces\IShippingOrderRecordRepository.cs" />
+    <Compile Include="Repository\Interfaces\IWorkItemRepository.cs" />
+    <Compile Include="Repository\Interfaces\IWorkItemRequestDetailRepository.cs" />
     <Compile Include="Repository\NHibernate\AdditionalInfoRepository.cs" />
     <Compile Include="Repository\NHibernate\ClassMaps\BaseMap.cs" />
     <Compile Include="Repository\NHibernate\ClassMaps\GeneratedClassMaps1.cs">
@@ -119,14 +135,19 @@
     <Compile Include="Repository\NHibernate\DrawingRepository.cs" />
     <Compile Include="Repository\NHibernate\DriverRepository.cs" />
     <Compile Include="Repository\NHibernate\EmployeeRepository.cs" />
+    <Compile Include="Repository\NHibernate\ShipmentItemRepository.cs" />
+    <Compile Include="Repository\NHibernate\ShipmentRepository.cs" />
+    <Compile Include="Repository\NHibernate\WorkItemPackageMachineRepository.cs" />
+    <Compile Include="Repository\NHibernate\WorkItemPackageRepository.cs" />
     <Compile Include="Repository\NHibernate\EquipmentRepository.cs" />
-    <Compile Include="Repository\NHibernate\FlowsheetEquipmentRepository.cs" />
-    <Compile Include="Repository\NHibernate\FlowsheetProcessRepository.cs" />
+    <Compile Include="Repository\NHibernate\DrawingFlowsheetMachineRepository.cs" />
+    <Compile Include="Repository\NHibernate\DrawingFlowsheetProcessRepository.cs" />
     <Compile Include="Repository\NHibernate\FlowsheetRepository.cs" />
     <Compile Include="Repository\NHibernate\GroupRepository.cs" />
     <Compile Include="Repository\NHibernate\ImageRepository.cs" />
     <Compile Include="Repository\NHibernate\JobRepository.cs" />
     <Compile Include="Repository\NHibernate\MachineRepository.cs" />
+    <Compile Include="Repository\NHibernate\MaterialArrivalRecordRepository.cs" />
     <Compile Include="Repository\NHibernate\MaterialRepository.cs" />
     <Compile Include="Repository\NHibernate\MeasureUnitRepository.cs" />
     <Compile Include="Repository\NHibernate\MethodRepository.cs" />
@@ -139,6 +160,11 @@
     </Compile>
     <Compile Include="Repository\NHibernate\RequestDetailRepository.cs" />
     <Compile Include="Repository\NHibernate\RequestRepository.cs" />
+    <Compile Include="Repository\NHibernate\RollingRecordRepository.cs" />
+    <Compile Include="Repository\NHibernate\ShavingRecordRepository.cs" />
+    <Compile Include="Repository\NHibernate\ShippingOrderRecordRepository.cs" />
+    <Compile Include="Repository\NHibernate\WorkItemRepository.cs" />
+    <Compile Include="Repository\NHibernate\WorkItemRequestDetailRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Domain\domain.xml" />

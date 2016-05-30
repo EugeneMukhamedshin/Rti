@@ -50,7 +50,19 @@ namespace Rti.ViewModel
             }
         }
 
+        public string LoadingMessage
+        {
+            get { return _loadingMessage; }
+            set
+            {
+                if (value == _loadingMessage) return;
+                _loadingMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
         private readonly ConcurrentDictionary<Task, bool> _currentTasks = new ConcurrentDictionary<Task, bool>();
+        private string _loadingMessage = "Подождите, идет загрузка...";
 
         protected async void DoAsync<TResult>(
             Func<TResult> loadData,
@@ -77,11 +89,14 @@ namespace Rti.ViewModel
 
         protected async void DoAsync(
             Action loadData,
-            Action updateViewModel)
+            Action updateViewModel,
+            string loadingMessage = null)
         {
             try
             {
                 IsLoading = true;
+                if (loadingMessage != null)
+                    LoadingMessage = loadingMessage;
                 var task = new TaskFactory().StartNew(loadData);
                 await task;
                 if (updateViewModel != null) 

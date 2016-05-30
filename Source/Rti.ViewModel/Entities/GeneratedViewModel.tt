@@ -11,6 +11,7 @@
 <#@ import namespace="Rti.Model.Domain.Generator" #>
 <#@ output extension=".cs" #>
 using System;
+using System.Xml.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 
@@ -45,8 +46,7 @@ namespace Rti.ViewModel.Entities
 						if (propertyTypeName.StartsWith("Nullable"))
 							propertyTypeName = prop.PropertyType.GenericTypeArguments[0].Name + "?";
 						var fieldName = String.Format("_{0}{1}", prop.Name[0].ToString().ToLower(), prop.Name.Substring(1));
-#>
-		private <#= propertyTypeName #> <#= fieldName #>;
+#>		private <#= propertyTypeName #> <#= fieldName #>;
 <#
 					}
                     var refAttribute = prop.GetCustomAttributes(typeof (ReferenceAttribute), false).FirstOrDefault() as ReferenceAttribute;
@@ -54,13 +54,11 @@ namespace Rti.ViewModel.Entities
 					{
 						var propertyTypeName = prop.PropertyType.Name;
 						var fieldName = String.Format("_{0}{1}", prop.Name[0].ToString().ToLower(), prop.Name.Substring(1));
-#>
-		private <#= propertyTypeName #>ViewModel <#= fieldName #>;
+#>		private <#= propertyTypeName #>ViewModel <#= fieldName #>;
 <#
 					}
 				}
 #>
-
 <#
                 foreach (var prop in props)
                 {
@@ -71,8 +69,7 @@ namespace Rti.ViewModel.Entities
 						if (propertyTypeName.StartsWith("Nullable"))
 							propertyTypeName = prop.PropertyType.GenericTypeArguments[0].Name + "?";
 						var fieldName = String.Format("_{0}{1}", prop.Name[0].ToString().ToLower(), prop.Name.Substring(1));
-#>
-		public <#= propertyTypeName #> <#= prop.Name #> { get { return <#= fieldName #>; } set { if (Equals(<#= fieldName #>, value)) return; <#= fieldName #> = value; OnPropertyChanged("<#= prop.Name #>"); } }
+#>		public <#= propertyTypeName #> <#= prop.Name #> { get { return <#= fieldName #>; } set { if (Equals(<#= fieldName #>, value)) return; <#= fieldName #> = value; OnPropertyChanged("<#= prop.Name #>"); } }
 <#
 		            }
                     var refAttribute = prop.GetCustomAttributes(typeof (ReferenceAttribute), false).FirstOrDefault() as ReferenceAttribute;
@@ -80,13 +77,11 @@ namespace Rti.ViewModel.Entities
 					{
 						var propertyTypeName = prop.PropertyType.Name;
 						var fieldName = String.Format("_{0}{1}", prop.Name[0].ToString().ToLower(), prop.Name.Substring(1));
-#>
-		public <#= propertyTypeName #>ViewModel <#= prop.Name #> { get { return <#= fieldName #>; } set { <#= fieldName #> = value; OnPropertyChanged("<#= prop.Name #>"); } }
+#>		public <#= propertyTypeName #>ViewModel <#= prop.Name #> { get { return <#= fieldName #>; } set { <#= fieldName #> = value; OnPropertyChanged("<#= prop.Name #>"); } }
 <#
 		            }
 				}
 #>
-
 		protected override void MapPropertiesToEntity()
 		{
 <#
@@ -97,15 +92,13 @@ namespace Rti.ViewModel.Entities
                     var fieldAttribute = prop.GetCustomAttributes(typeof (FieldAttribute), false).FirstOrDefault() as FieldAttribute;
                     if (fieldAttribute != null)
 					{
-#>
-			Entity.<#= prop.Name #> = <#= prop.Name #>; 
+#>			Entity.<#= prop.Name #> = <#= prop.Name #>; 
 <#
 		            }
                     var refAttribute = prop.GetCustomAttributes(typeof (ReferenceAttribute), false).FirstOrDefault() as ReferenceAttribute;
-                    if (refAttribute != null)
+                    if (refAttribute != null && !refAttribute.IsManuallyMapped)
 					{
-#>
-			Entity.<#= prop.Name #> = <#= prop.Name #> == null ? null : <#= prop.Name #>.Entity; 
+#>			Entity.<#= prop.Name #> = <#= prop.Name #> == null ? null : <#= prop.Name #>.Entity; 
 <#
 		            }
 				}
@@ -114,29 +107,29 @@ namespace Rti.ViewModel.Entities
 
 		protected override void MapPropertiesFromEntity()
 		{
+			IsMapping = true;
 <#
                 foreach (var prop in props)
                 {
                     var fieldAttribute = prop.GetCustomAttributes(typeof (FieldAttribute), false).FirstOrDefault() as FieldAttribute;
                     if (fieldAttribute != null)
 					{
-#>
-			<#= prop.Name #> = Entity.<#= prop.Name #>; 
+#>			<#= prop.Name #> = Entity.<#= prop.Name #>; 
 <#
 		            }
                     var refAttribute = prop.GetCustomAttributes(typeof (ReferenceAttribute), false).FirstOrDefault() as ReferenceAttribute;
-                    if (refAttribute != null)
+                    if (refAttribute != null && !refAttribute.IsManuallyMapped)
 					{
-#>
-			<#= prop.Name #> = Entity.<#= prop.Name #> == null ? null : new <#= prop.PropertyType.Name #>ViewModel(Entity.<#= prop.Name #>, RepositoryFactory); 
+#>			<#= prop.Name #> = Entity.<#= prop.Name #> == null ? null : new <#= prop.PropertyType.Name #>ViewModel(Entity.<#= prop.Name #>, RepositoryFactory); 
 <#
 		            }
 				}
-#>
+#>			IsMapping = false;
 		}
 
-		public override void CopyTo(<#= viewModelTypeName #> target)
+		public override void CopyFrom(<#= viewModelTypeName #> source)
 		{
+			IsMapping = true;
 <#
                 foreach (var prop in props)
                 {
@@ -146,23 +139,57 @@ namespace Rti.ViewModel.Entities
                     var refAttribute = prop.GetCustomAttributes(typeof (ReferenceAttribute), false).FirstOrDefault() as ReferenceAttribute;
                     if (fieldAttribute != null || refAttribute != null)
 					{
-#>
-			target.<#= prop.Name #> = <#= prop.Name #>; 
+#>			<#= prop.Name #> = source.<#= prop.Name #>;
 <#
 		            }
 				}
-#>
+#>			CustomCopyFrom(source);
+			IsMapping = false;
 		}
 
 		public override <#= viewModelTypeName #> Clone()
 		{
 			var copy = new <#= viewModelTypeName #>(null, RepositoryFactory);
-			CopyTo(copy);
+			copy.CopyFrom(this);
 			return copy;
 		}
 
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+<#
+                foreach (var prop in props)
+                {
+                    var fieldAttribute = prop.GetCustomAttributes(typeof (FieldAttribute), false).FirstOrDefault() as FieldAttribute;
+                    var refAttribute = prop.GetCustomAttributes(typeof (ReferenceAttribute), false).FirstOrDefault() as ReferenceAttribute;
+                    if (fieldAttribute != null)
+					{
+						if (prop.PropertyType.IsValueType && !prop.PropertyType.Name.StartsWith("Nullable"))
+						{
+#>			element.Add(new XAttribute("<#= prop.Name #>", <#= prop.Name #>));
+<#						
+						}
+						else
+						{
+#>			if (<#= prop.Name #> != null)
+				element.Add(new XAttribute("<#= prop.Name #>", <#= prop.Name #>));
+<#
+						}
+		            }
+                    if (refAttribute != null)
+					{
+#>			if (<#= prop.Name #> != null)
+				element.Add(<#= prop.Name #>.GetXElement("<#= prop.Name #>"));
+<#						
+		            }
+				}
+#>
+			CustomFillXElement(element);
+			return element;
+		}
+
         public override int GetHashCode() { return _id; }
-        protected bool Equals(<#= viewModelTypeName #> other) { return _id == other._id; }
+        protected bool Equals(<#= viewModelTypeName #> other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;

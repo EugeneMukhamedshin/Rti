@@ -33,7 +33,7 @@
         <Label Grid.Row="2" Grid.Column="0" Content="Коб.цех (Общецеховые)"/>
         <Label Grid.Row="3" Grid.Column="0" Content="Коб.пр	(Общепроизводственные)"/>
         <Label Grid.Row="4" Grid.Column="0" Content="Кэл (Электроэнергия прочая)"/>
-        <Label Grid.Row="5" Grid.Column="0" Content="Кнеп (Непредвиденные)"/>
+        <Label Grid.Row="5" Grid.Column="0" Content="Кком (Коммерческие)"/>
         <Label Grid.Row="6" Grid.Column="0" Content="Крен (Рентабельность)"/>
         <Label Grid.Row="7" Grid.Column="0" Content="НДС (НДС)"/>
         <Label Grid.Row="8" Grid.Column="0" Content="Кст (Стоимость 1 мин времени, руб.)"/>

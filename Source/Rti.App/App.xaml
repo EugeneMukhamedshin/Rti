@@ -1,8 +1,13 @@
 <Application x:Class="Rti.App.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:d1P1="http://schemas.openxmlformats.org/markup-compatibility/2006" d1P1:Ignorable="d"
              xmlns:editors1="clr-namespace:Rti.App.View.Editors"
-             xmlns:lists="clr-namespace:Rti.App.View.Lists" Startup="OnAppStartup_UpdateThemeName">
+             xmlns:lists="clr-namespace:Rti.App.View.Lists"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:converters="clr-namespace:Rti.App.View.Converters"
+             Startup="OnAppStartup_UpdateThemeName">
     <Application.Resources>
+        <converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
+
         <Image x:Key="AddFolderImage" Source="Images/folder_add.png" />
         <Image x:Key="AddFolderImage1" Source="Images/folder_add.png" />
         <Image x:Key="AddEstimationImage" Source="Images/table_add.png" />

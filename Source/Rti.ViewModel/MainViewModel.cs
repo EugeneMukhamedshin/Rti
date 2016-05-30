@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
 using Rti.ViewModel.Lists;
-using Rti.ViewModel.ListViewModel;
-using DrawingList = Rti.ViewModel.Lists.DrawingList;
-using EmployeeList = Rti.ViewModel.Lists.EmployeeList;
-using EquipmentList = Rti.ViewModel.Lists.EquipmentList;
-using MaterialList = Rti.ViewModel.Lists.MaterialList;
 
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 namespace Rti.ViewModel
 {
     public class MainViewModel : BaseViewModel, IClosable
@@ -21,16 +15,23 @@ namespace Rti.ViewModel
 
         public RequestViewModel SelectedRequest { get; set; }
         public int? SelectedRequestNumber { get; set; }
-        public List<RequestViewModel> Requests { get; set; }
+        //public List<RequestViewModel> Requests { get; set; }
 
         public DelegateCommand CreateNewRequestCommand { get; set; }
         public DelegateCommand OpenRequestCommand { get; set; }
-        public DelegateCommand OpenDictionaryListCommand { get; set; }
 
         public DelegateCommand OpenDrawingsCommand { get; set; }
 
+        public DelegateCommand OpenDailyWorkPackagesCommand { get; set; }
+
+        public DelegateCommand OpenShavingRecordsCommand { get; set; }
+        public DelegateCommand OpenMaterialArrivalRecordsCommand { get; set; }
+        public DelegateCommand OpenRollingRecordsCommand { get; set; }
+        public DelegateCommand OpenShippingOrderRecordsCommand { get; set; }
+
         public DelegateCommand OpenCustomersCommand { get; set; }
-        public DelegateCommand OpenVendorsCommand { get; set; }
+        public DelegateCommand OpenSuppliersCommand { get; set; }
+        public DelegateCommand OpenManufacturersCommand { get; set; }
         public DelegateCommand OpenDriversCommand { get; set; }
         public DelegateCommand OpenJobsCommand { get; set; }
         public DelegateCommand OpenEmployeesCommand { get; set; }
@@ -56,25 +57,47 @@ namespace Rti.ViewModel
                 "Открыть заявку",
                 o => true,
                 o => OpenRequest());
-            OpenDictionaryListCommand = new DelegateCommand(
-                "Справочники",
-                o => true,
-                o => OpenDictionaryList());
 
             OpenDrawingsCommand = new DelegateCommand(
                 "Чертежи",
                 o => true,
                 o => OpenDrawingList());
 
+            OpenDailyWorkPackagesCommand = new DelegateCommand(
+                "Дневные наряды",
+                o => true,
+                o => OpenWorkItems());
+
+            OpenShavingRecordsCommand = new DelegateCommand(
+                "Открыть журнал обрезки облоя",
+                o => true,
+                o => OpenShavingRecords());
+            OpenMaterialArrivalRecordsCommand = new DelegateCommand(
+                "Открыть журнал прихода материала",
+                o => true,
+                o => OpenMaterialArrivalRecords());
+            OpenRollingRecordsCommand = new DelegateCommand(
+                "Открыть журнал вальцовщика",
+                o => true,
+                o => OpenRollingRecords());
+            OpenShippingOrderRecordsCommand = new DelegateCommand(
+                "Открыть журнал вальцовщика",
+                o => true,
+                o => OpenShippingOrderRecords());
+
             OpenCustomersCommand = new DelegateCommand(
                 "Справочники",
                 o => true,
                 o => OpenDictionary(new ContragentList(ContragentType.Customer, true, ViewService, RepositoryFactory)));
-            OpenVendorsCommand  = new DelegateCommand(
+            OpenSuppliersCommand = new DelegateCommand(
                 "Справочники",
                 o => true,
                 o => OpenDictionary(new ContragentList(ContragentType.Supplier, true, ViewService, RepositoryFactory)));
-            OpenDriversCommand  = new DelegateCommand(
+            OpenManufacturersCommand = new DelegateCommand(
+                "Справочники",
+                o => true,
+                o => OpenDictionary(new ContragentList(ContragentType.Manufacturer, true, ViewService, RepositoryFactory)));
+            OpenDriversCommand = new DelegateCommand(
                 "Справочники",
                 o => true,
                 o => OpenDictionary(new DriverList(true, ViewService, RepositoryFactory)));
@@ -117,12 +140,7 @@ namespace Rti.ViewModel
             OpenConstantsCommand = new DelegateCommand(
                 "Справочники",
                 o => true,
-                o => OpenDictionary(new ConstantEdit("Константы", false, ViewService, RepositoryFactory)));
-            Requests =
-                RepositoryFactory.GetRequestRepository()
-                    .GetAll()
-                    .Select(o => new RequestViewModel(o, RepositoryFactory))
-                    .ToList();
+                o => OpenDictionary(new ConstantEdit("Константы", new ConstantViewModel(RepositoryFactory.GetConstantRepository().GetActual(), RepositoryFactory), false, ViewService, RepositoryFactory)));
         }
 
         private void OpenDrawingList()
@@ -132,25 +150,54 @@ namespace Rti.ViewModel
             ViewService.ShowViewDialog(viewModel);
         }
 
+        private void OpenWorkItems()
+        {
+            var viewModel = new WorkItemList(true, ViewService, RepositoryFactory);
+            viewModel.Refresh();
+            ViewService.ShowViewDialog(viewModel);
+        }
+
+        private void OpenShavingRecords()
+        {
+            var viewModel = new ShavingRecordList(true, ViewService, RepositoryFactory);
+            viewModel.Refresh();
+            ViewService.ShowViewDialog(viewModel);
+        }
+
+        private void OpenMaterialArrivalRecords()
+        {
+            var viewModel = new MaterialArrivalRecordList(true, ViewService, RepositoryFactory);
+            viewModel.Refresh();
+            ViewService.ShowViewDialog(viewModel);
+        }
+
+        private void OpenRollingRecords()
+        {
+            var viewModel = new RollingRecordList(true, ViewService, RepositoryFactory);
+            viewModel.Refresh();
+            ViewService.ShowViewDialog(viewModel);
+        }
+
+        private void OpenShippingOrderRecords()
+        {
+            var viewModel = new ShippingOrderRecordList(true, ViewService, RepositoryFactory);
+            viewModel.Refresh();
+            ViewService.ShowViewDialog(viewModel);
+        }
+
         private void OpenDictionary(BaseViewModel viewModel)
         {
-            if (viewModel.GetType() == typeof(ConstantEdit))
-            {
-                var constant = new ConstantViewModel(RepositoryFactory.GetConstantRepository().GetActual(), RepositoryFactory);
-                ((ConstantEdit)viewModel).Entity = constant;
-                if (ViewService.ShowViewDialog(viewModel) == true)
-                    constant.SaveEntity();
-                return;
-            }
             viewModel.Refresh();
             ViewService.ShowViewDialog(viewModel);
         }
 
         private void CreateNewRequest()
         {
-            var request = new RequestViewModel(null, RepositoryFactory);
-            request.RegDate = DateTime.Today;
-            request.Number = RepositoryFactory.GetRequestRepository().GetNewRequestNumber();
+            var request = new RequestViewModel(null, RepositoryFactory)
+            {
+                RegDate = DateTime.Today,
+                Number = RepositoryFactory.GetRequestRepository().GetNewRequestNumber()
+            };
             request.SaveEntity();
             var editViewModel = new RequestEdit("Новая заявка", request, false, ViewService, RepositoryFactory);
             editViewModel.Refresh();
@@ -167,11 +214,6 @@ namespace Rti.ViewModel
             var editViewModel = new RequestEdit("Заявка", SelectedRequest, false, ViewService, RepositoryFactory);
             editViewModel.Refresh();
             ViewService.ShowViewDialog(editViewModel);
-        }
-
-        private void OpenDictionaryList()
-        {
-            ViewService.ShowViewDialog(new DictionaryList(false, ViewService, RepositoryFactory));
         }
 
         public bool CanClose()

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using log4net;
 using log4net.Util;
 using NHibernate;
@@ -31,7 +33,7 @@ namespace Rti.Model.Repository.NHibernate
 
         public virtual IEnumerable<TEntity> GetAll()
         {
-            return ExecuteFuncOnQueryOver(query => query.List(),
+            return ExecuteFuncOnQueryOver(query => query.List(), null,
                                           String.Format("Read all {0}", typeof (TEntity).Name));
         }
 
@@ -39,6 +41,7 @@ namespace Rti.Model.Repository.NHibernate
         {
             return ExecuteFuncOnQueryOver(
                 query => query.Where(entity => entity.Id == id).SingleOrDefault(),
+                null,
                 String.Format("Read one {0} by Id=[{1}]", typeof(TEntity), id));
         }
 
@@ -47,14 +50,23 @@ namespace Rti.Model.Repository.NHibernate
             return queryOver;
         }
 
-        public TResult ExecuteFuncOnQueryOver<TResult>(Func<IQueryOver<TEntity, TEntity>, TResult> func, String description = null)
+        public TResult ExecuteFuncOnQueryOver<TResult>(Func<IQueryOver<TEntity, TEntity>, TResult> func, IEnumerable<Expression<Func<TEntity, object>>> expressions = null, String description = null)
         {
             try
             {
                 using (var session = new NHibernateContext().SessionFactory.OpenSession())
                 {
                     var dbSet = session.QueryOver<TEntity>();
-                    var result = func(GetDefaultQueryOver(dbSet));
+                    if (expressions == null)
+                        dbSet = GetDefaultQueryOver(dbSet);
+                    else
+                    {
+                        foreach (var expression in expressions)
+                        {
+                            dbSet = dbSet.Fetch(expression).Default;
+                        }
+                    }
+                    var result = func(dbSet);
                     return result;
                 }
             }

@@ -72,11 +72,13 @@ namespace Rti.ViewModel.EditViewModel
 
         public void SaveAndClose()
         {
-            DoInternalSave();
+            if (!Validate()) 
+                return;
+            DoSave();
             Close(true);
         }
 
-        protected virtual void DoInternalSave() { }
+        protected virtual void DoSave() { }
 
         public bool CanClose()
         {
@@ -84,14 +86,5 @@ namespace Rti.ViewModel.EditViewModel
         }
 
         public Action<bool?> Close { get; set; }
-    }
-
-    public class EditEntityViewModel<TEntityViewModel, TEntity> : EditViewModel<TEntityViewModel>
-        where TEntityViewModel : EntityViewModel<TEntity, TEntityViewModel> 
-        where TEntity : class, IIdentifiedEntity, new()
-    {
-        public EditEntityViewModel(string name, TEntityViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) : base(name, entity, readOnly, viewService, repositoryFactory)
-        {
-        }
     }
 }

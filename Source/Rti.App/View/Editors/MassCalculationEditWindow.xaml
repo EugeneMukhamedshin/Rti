@@ -7,6 +7,8 @@
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     xmlns:lists="clr-namespace:Rti.App.View.Lists"
     xmlns:editViewModel="clr-namespace:Rti.ViewModel.EditViewModel;assembly=Rti.ViewModel"
+    xmlns:domain="clr-namespace:Rti.Model.Domain;assembly=Rti.Model"
+    xmlns:components="clr-namespace:Rti.App.View.Components"
     Width="400" Height="290" MinWidth="380" MinHeight="290" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
@@ -17,11 +19,11 @@
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <Button Content="Типовые детали" Command="{Binding ShowDetailTypesCommand}" Margin="5" Width="120" HorizontalAlignment="Left"/>
             <Label Content="Рассчитанная масса" Margin="5"/>
-            <Label Content="{Binding Entity.CalculatedMass}" Margin="5"/>
+            <Label Content="{Binding Entity.DisplayCalculatedMass}" Margin="5"/>
         </StackPanel>
         <Grid Grid.Row="1">
-            <dxprg:PropertyGridControl HeaderColumnMinWidth="300" SortMode="Definitions" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False" PropertyDefinitionsSource="{Binding Properties}">
-                    <dxprg:PropertyGridControl.PropertyDefinitionTemplateSelector>
+            <components:PropertyGridResponsible HeaderColumnMinWidth="300" SortMode="Definitions" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False" PropertyDefinitionsSource="{Binding Properties}">
+                    <components:PropertyGridResponsible.PropertyDefinitionTemplateSelector>
                     <lists:MapTemplateSelector>
                         <lists:MapTemplateSelector.DefaultTemplate>
                             <DataTemplate DataType="editViewModel:Property">
@@ -38,7 +40,11 @@
                                     <DataTemplate DataType="editViewModel:DetailTypeProperty">
                                         <dxprg:PropertyDefinition Path="{Binding Path}" Header="{Binding Header}">
                                             <dxprg:PropertyDefinition.EditSettings>
-                                                <dxe:ComboBoxEditSettings ItemsSource="{lists:DetailTypeToItemsSource}" DisplayMember="DisplayName" ValueMember="Value"/>
+                                                <dxe:ComboBoxEditSettings DisplayMember="DisplayName" ValueMember="Value">
+                                                    <dxe:ComboBoxEditSettings.ItemsSource>
+                                                        <lists:EnumToItemsSource EnumType="domain:DetailType"/>
+                                                    </dxe:ComboBoxEditSettings.ItemsSource>
+                                                </dxe:ComboBoxEditSettings>
                                             </dxprg:PropertyDefinition.EditSettings>
                                         </dxprg:PropertyDefinition>
                                     </DataTemplate>
@@ -46,8 +52,8 @@
                             </lists:TemplateMap>
                         </lists:MapTemplateSelector.TemplateMaps>
                     </lists:MapTemplateSelector>
-                </dxprg:PropertyGridControl.PropertyDefinitionTemplateSelector>
-            </dxprg:PropertyGridControl>
+                </components:PropertyGridResponsible.PropertyDefinitionTemplateSelector>
+            </components:PropertyGridResponsible>
         </Grid>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>

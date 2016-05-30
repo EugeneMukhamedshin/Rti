@@ -21,8 +21,6 @@ namespace Rti.ViewModel.EditViewModel
         public DelegateCommand OpenDrawingMeasurementEditCommand { get; set; }
         public DelegateCommand OpenDrawingImageCommand { get; set; }
 
-        public FlowsheetViewModel Flowsheet { get; set; }
-
         public DrawingEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {
@@ -52,26 +50,27 @@ namespace Rti.ViewModel.EditViewModel
             MethodsSource = new Lazy<List<MethodViewModel>>(() => RepositoryFactory.GetMethodRepository().GetAllActive().Select(o => new MethodViewModel(o, RepositoryFactory)).ToList());
         }
 
-        protected override void DoInternalSave()
+        protected override void DoSave()
         {
-            base.DoInternalSave();
-            Entity.DrawingImage.SaveEntity();
-            RepositoryFactory.GetImageRepository().SaveData(Entity.DrawingImage.Id, Entity.DrawingImage.Data);
+            if (Entity.DrawingImage != null)
+            {
+                Entity.DrawingImage.SaveEntity();
+                RepositoryFactory.GetImageRepository().SaveData(Entity.DrawingImage.Id, Entity.DrawingImage.Data);
+            }
+            base.DoSave();
         }
 
         private void OpenMassCalculationEdit()
         {
-            var massCalculation = Entity.MassCalculation == null
-                ? new MassCalculationViewModel(null, RepositoryFactory)
-                : Entity.MassCalculation.Clone();
+            var massCalculation = Entity.MassCalculation ?? new MassCalculationViewModel(null, RepositoryFactory)
+            {
+                MaterialDensity = Entity.MaterialByPassport != null ? Entity.MaterialByPassport.Density : null
+            };
             var editor = new MassCalculationEdit("Расчет массы", massCalculation, ReadOnly, ViewService, RepositoryFactory);
             if (ViewService.ShowViewDialog(editor) == true)
             {
                 if (Entity.MassCalculation == null)
                     Entity.MassCalculation = massCalculation;
-                else
-                    massCalculation.CopyTo(Entity.MassCalculation);
-                Entity.MassCalculation.SaveEntity();
             }
         }
 

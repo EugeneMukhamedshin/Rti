@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 
 namespace Rti.ViewModel.Entities
 {
-    public abstract class EntityViewModel<TEntity, TEntityViewModel> : BaseViewModel where TEntityViewModel : EntityViewModel<TEntity, TEntityViewModel>
-        where TEntity: class, IIdentifiedEntity, new()
+    public abstract class EntityViewModel<TEntity, TEntityViewModel> : BaseViewModel
+        where TEntityViewModel : EntityViewModel<TEntity, TEntityViewModel>
+        where TEntity : class, IIdentifiedEntity, new()
     {
         private bool _isNewEntity;
         private bool _isChanged;
@@ -15,6 +17,8 @@ namespace Rti.ViewModel.Entities
         private string _validationErrorMessage;
 
         protected bool SuppressIsChanged;
+        protected bool IsMapping = false;
+
         public TEntity Entity { get; private set; }
 
         public Boolean IsNewEntity
@@ -162,8 +166,10 @@ namespace Rti.ViewModel.Entities
                 throw new ValidateException(ValidationErrorMessage);
             return IsValid;
         }
-        
-        protected virtual void AfterSave() { }
+
+        protected virtual void AfterSave()
+        {
+        }
 
         private void DoSave()
         {
@@ -192,7 +198,24 @@ namespace Rti.ViewModel.Entities
         {
         }
 
-        public virtual void CopyTo(TEntityViewModel target)
+        public void CopyTo(TEntityViewModel source)
+        {
+            if (source == null)
+                return;
+            source.CopyFrom((TEntityViewModel)this);
+        }
+
+        public virtual void CopyFrom(TEntityViewModel source)
+        {
+
+        }
+
+        public virtual void CustomCopyFrom(TEntityViewModel source)
+        {
+
+        }
+
+        public virtual void CustomFillXElement(XElement element)
         {
             
         }
@@ -204,7 +227,7 @@ namespace Rti.ViewModel.Entities
 
         protected override void OnPropertyChanged(string propertyName = null)
         {
-            if (!SuppressIsChanged)
+            if (!SuppressIsChanged && !IsMapping)
                 IsChanged = true;
             base.OnPropertyChanged(propertyName);
         }

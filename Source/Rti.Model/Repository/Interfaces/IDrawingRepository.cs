@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using Rti.Model.Domain;
 
 namespace Rti.Model.Repository.Interfaces
 {
     public partial interface IDrawingRepository
     {
-        IList<Drawing> GetAllActive();
+        IList<Drawing> GetAllActive(IEnumerable<Expression<Func<Drawing, object>>> expressions = null);
 
-        IList<Drawing> GetPage(int page, int pageSize);
+        IList<Drawing> GetPage(int page, int pageSize, IEnumerable<Expression<Func<Drawing, object>>> expressions = null);
+
+        int GetNextSortOrder();
     }
 }

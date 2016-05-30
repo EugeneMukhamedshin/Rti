@@ -6,7 +6,7 @@ using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
-using Rti.ViewModel.Reports;
+using Rti.ViewModel.Reporting;
 
 namespace Rti.ViewModel.EditViewModel
 {
@@ -40,9 +40,10 @@ namespace Rti.ViewModel.EditViewModel
         }
 
         public Lazy<List<ContragentViewModel>> CustomersSource { get; set; }
-        public Lazy<List<DetailViewModel>> DetailsSource { get; set; }
-        public Lazy<List<MaterialViewModel>> MaterialsSource { get; set; }
-        public Lazy<List<GroupViewModel>> GroupsSource { get; set; }
+        public Lazy<List<ContragentViewModel>> ManufacturersSource { get; set; }
+        //public Lazy<List<DetailViewModel>> DetailsSource { get; set; }
+        //public Lazy<List<MaterialViewModel>> MaterialsSource { get; set; }
+        //public Lazy<List<GroupViewModel>> GroupsSource { get; set; }
         public Lazy<List<DrawingViewModel>> DrawingsSource { get; set; }
 
         public RequestEdit(string name, RequestViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
@@ -58,21 +59,21 @@ namespace Rti.ViewModel.EditViewModel
                 "Удалить строку",
                 o => SelectedRequestDetail != null,
                 o => RemoveRequestDetail());
-            GenerateInvoiceCommand = new DelegateCommand(
+            CreateInvoiceCommand = new DelegateCommand(
                 "Текущий счет",
                 o => true,
-                o => new InvoiceReport().BuildReport(entity.Id, RepositoryFactory));
+                o => CreateInvoice());
         }
 
         public DelegateCommand AddRequestDetailCommand { get; set; }
         public DelegateCommand RemoveRequestDetailCommand { get; set; }
-        public DelegateCommand GenerateInvoiceCommand { get; set; }
+        public DelegateCommand CreateInvoiceCommand { get; set; }
 
         private void AddRequestDetail()
         {
             var newDetail = new RequestDetailViewModel(null, RepositoryFactory)
             {
-                Request = Entity,
+                Request = Source,
                 SortOrder = RequestDetails.Any() ? RequestDetails.Max(item => item.SortOrder) + 1 : 1
             };
             RequestDetails.Add(newDetail);
@@ -84,27 +85,42 @@ namespace Rti.ViewModel.EditViewModel
             RequestDetails.Remove(SelectedRequestDetail);
         }
 
+        private void CreateInvoice()
+        {
+            if (ViewService.ShowConfirmation(new MessageViewModel("Внимание",
+                    "После формирования счета заявку нельзя будет менять.\r\nСформировать счет?")))
+            {
+                Entity.InvoiceDate = DateTime.Today;
+                DoSave();
+
+                var reportGenerator = new InvoiceReportGenerator();
+                reportGenerator.BuildReport(Source.Id, ViewService, RepositoryFactory);
+            }
+        }
+
         public override void Refresh()
         {
             base.Refresh();
             DoAsync(() => RepositoryFactory.GetRequestDetailRepository()
-                .GetByRequestId(Entity.Id)
+                .GetByRequestId(Source.Id)
                 .OrderBy(o => o.SortOrder)
                 .Select(m => new RequestDetailViewModel(m, RepositoryFactory)),
                 res => RequestDetails = new ObservableCollection<RequestDetailViewModel>(res));
 
-            CustomersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(0).Select(m => new ContragentViewModel(m, RepositoryFactory)).ToList());
-            DrawingsSource = new Lazy<List<DrawingViewModel>>(() => RepositoryFactory.GetDrawingRepository().GetAll().OrderBy(o => o.Id).Select(o => new DrawingViewModel(o, RepositoryFactory)).ToList());
-            GroupsSource = new Lazy<List<GroupViewModel>>(() => RepositoryFactory.GetGroupRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new GroupViewModel(o, RepositoryFactory)).ToList());
-            MaterialsSource = new Lazy<List<MaterialViewModel>>(() => RepositoryFactory.GetMaterialRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new MaterialViewModel(o, RepositoryFactory)).ToList());
-            DetailsSource = new Lazy<List<DetailViewModel>>(() => RepositoryFactory.GetDetailRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new DetailViewModel(o, RepositoryFactory)).ToList());
+            CustomersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(ContragentType.Customer).Select(m => new ContragentViewModel(m, RepositoryFactory)).ToList());
+            ManufacturersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(ContragentType.Manufacturer).Select(m => new ContragentViewModel(m, RepositoryFactory)).ToList());
+            DrawingsSource = new Lazy<List<DrawingViewModel>>(() => RepositoryFactory.GetDrawingRepository().GetAllActive().OrderBy(o => o.Id).Select(o => new DrawingViewModel(o, RepositoryFactory)).ToList());
+            //GroupsSource = new Lazy<List<GroupViewModel>>(() => RepositoryFactory.GetGroupRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new GroupViewModel(o, RepositoryFactory)).ToList());
+            //MaterialsSource = new Lazy<List<MaterialViewModel>>(() => RepositoryFactory.GetMaterialRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new MaterialViewModel(o, RepositoryFactory)).ToList());
+            //DetailsSource = new Lazy<List<DetailViewModel>>(() => RepositoryFactory.GetDetailRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new DetailViewModel(o, RepositoryFactory)).ToList());
         }
 
-        protected override void DoInternalSave()
+        protected override void DoSave()
         {
-            base.DoInternalSave();
-            if (Entity.IsChanged)
-                Entity.SaveEntity();foreach (var deletedDetail in _deletedDetails)
+            // Сохраняем заявку
+            base.DoSave();
+            // Сохраняем детали заявки
+            foreach (var deletedDetail in _deletedDetails)
             {
                 deletedDetail.DeleteEntity();
             }
@@ -112,7 +128,15 @@ namespace Rti.ViewModel.EditViewModel
             foreach (var detail in RequestDetails)
             {
                 if (detail.IsNewEntity || detail.IsChanged)
+                {
+                    if (detail.Drawing == null || detail.Drawing.Equipment == null || detail.Drawing.CalculationPrice == null || detail.Drawing.Price == null)
+                        detail.RequestDetailStateEnum = RequestDetailState.New;
+                    else
+                        // Если есть чертеж, и он заполнен, отправляем деталь в производство
+                        detail.RequestDetailStateEnum = RequestDetailState.ReadyToProduce;
+
                     detail.SaveEntity();
+                }
             }
         }
 
@@ -122,6 +146,14 @@ namespace Rti.ViewModel.EditViewModel
             {
                 ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задан заказчик"));
                 return false;
+            }
+            foreach (var requestDetail in RequestDetails)
+            {
+                if (requestDetail.Drawing == null)
+                {
+                    ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задан чертеж"));
+                    return false;
+                }
             }
             return base.DoValidate();
         }

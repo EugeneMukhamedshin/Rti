@@ -63,13 +63,14 @@ Order By utc.Table_Name, utc.ordinal_position",
                             if (!reader.IsDBNull(3))
                             {
                                 entity.References.Add(new Reference
-                                    {
-                                        ReferencedTable = reader.GetString(3),
-                                        ReferencedEntityName = GetNotation(reader.GetString(3), false),
-                                        ColumnName = reader.GetString(1),
-                                        Name = GetNotation(reader.GetString(1), true),
-                                        IsNullable = reader.GetString(5) == "YES"
-                                    });
+                                {
+                                    ReferencedTable = reader.GetString(3),
+                                    ReferencedEntityName = GetNotation(reader.GetString(3), false),
+                                    ColumnName = reader.GetString(1),
+                                    Name = GetNotation(reader.GetString(1), true),
+                                    IsNullable = reader.GetString(5) == "YES",
+                                    IsManuallyMapped = reader.GetString(1).Contains("manual")
+                                });
                             }
                             else
                             {
@@ -94,12 +95,13 @@ Order By utc.Table_Name, utc.ordinal_position",
         {
             var parts = (IEnumerable<String>)input.Split('_');
             if (isReference)
-                parts = parts
-                    .Take(parts.Count() - 1);
-            return 
+            {
+                parts = parts.Take(parts.Count() - (input.Contains("manual") ? 2 : 1));
+            }
+            return
                 parts
                 .Aggregate(String.Empty,
-                    (res, part) => 
+                    (res, part) =>
                         String.Format("{0}{1}{2}", res, part.Substring(0, 1).ToUpper(), part.Remove(0, 1).ToLower()));
         }
 
@@ -132,6 +134,8 @@ Order By utc.Table_Name, utc.ordinal_position",
                 case "CLOB":
                     return typeof(String).Name;
                 case "DATE":
+                    return typeof(DateTime).Name;
+                case "date":
                     return typeof(DateTime).Name;
                 case "datetime":
                     return typeof(DateTime).Name;
