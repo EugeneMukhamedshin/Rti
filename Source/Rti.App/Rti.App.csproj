@@ -207,9 +207,6 @@
     <Compile Include="View\Editors\DrawingFlowsheetProcessEditWindow.xaml.cs">
       <DependentUpon>DrawingFlowsheetProcessEditWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Editors\FlowsheetProcessEditWindow.xaml.cs">
-      <DependentUpon>FlowsheetProcessEditWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Editors\ImageEditWindow.xaml.cs">
       <DependentUpon>ImageEditWindow.xaml</DependentUpon>
     </Compile>
@@ -446,10 +443,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Editors\DrawingFlowsheetProcessEditWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Editors\FlowsheetProcessEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
