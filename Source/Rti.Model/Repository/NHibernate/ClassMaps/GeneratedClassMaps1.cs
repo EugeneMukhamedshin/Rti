@@ -951,8 +951,6 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Map(o => o.Count, "count");
 
-			Map(o => o.DoneCount, "done_count");
-
 			Map(o => o.Price, "price");
 
 			Map(o => o.CalculationPrice, "calculation_price");
@@ -1122,11 +1120,11 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Id(o => o.Id, "id");
 
-			Map(o => o.ShipmentItemId, "shipment_item_id");
-
-			Map(o => o.WorkItemId, "work_item_id");
-
 			Map(o => o.Count, "count");
+
+			References(o => o.ShipmentItem, "shipment_item_id").Fetch.Join().Not.LazyLoad();
+
+			References(o => o.WorkItem, "work_item_id").Fetch.Join().Not.LazyLoad();
 
 			OnInitialized();
 		}
@@ -1316,11 +1314,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			Map(o => o.SortOrder, "sort_order");
 
-			Map(o => o.TaskCount, "task_count");
-
 			Map(o => o.DoneCount, "done_count");
-
-			Map(o => o.RejectedCount, "rejected_count");
 
 			References(o => o.WorkItem, "work_item_id").Fetch.Join().Not.LazyLoad();
 

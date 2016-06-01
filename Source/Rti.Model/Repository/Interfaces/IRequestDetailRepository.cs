@@ -9,7 +9,7 @@ namespace Rti.Model.Repository.Interfaces
         IList<RequestDetail> GetByRequestId(int requestId);
         IList<RequestDetail> GetReadyToProduceByDrawingId(int drawingId);
         /// <summary>
-        /// Возвращает набор кортежей, Item1 - requestId, Item2 - requestCount, Item3 - doneCount
+        /// Возвращает набор кортежей, Item1 - requestDetailId, Item2 - requestCount, Item3 - doneCount
         /// </summary>
         /// <param name="drawingId"></param>
         /// <param name="date"></param>

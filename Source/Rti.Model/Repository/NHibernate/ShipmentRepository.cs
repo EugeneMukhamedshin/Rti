@@ -9,7 +9,7 @@ namespace Rti.Model.Repository.NHibernate
     {
         public IList<Shipment> GetByPeriod(DateTime startDate, DateTime endDate)
         {
-            return ExecuteFuncOnQueryOver(q => q.WhereRestrictionOn(o => o.Date).IsBetween(startDate).And(endDate).List());
+            return ExecuteFuncOnQueryOver(q => q.Where(o => !o.IsDeleted).AndRestrictionOn(o => o.Date).IsBetween(startDate).And(endDate).List());
         }
 
         public int GetNextSortOrder()

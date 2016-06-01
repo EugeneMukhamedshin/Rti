@@ -65,6 +65,8 @@
     <Compile Include="EditViewModel\EditViewModelBase.cs" />
     <Compile Include="EditViewModel\DetailEdit.cs" />
     <Compile Include="EditViewModel\ShipmentEdit.cs" />
+    <Compile Include="EditViewModel\ShipmentItemControllerViewModel.cs" />
+    <Compile Include="EditViewModel\WorkItemControllerViewModel.cs" />
     <Compile Include="EditViewModel\WorkItemEdit.cs" />
     <Compile Include="EditViewModel\EmployeeEdit.cs" />
     <Compile Include="EditViewModel\DriverEdit.cs" />

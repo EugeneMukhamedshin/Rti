@@ -93,6 +93,7 @@
     <Compile Include="Repository\Interfaces\IDriverRepository.cs" />
     <Compile Include="Repository\Interfaces\IEmployeeRepository.cs" />
     <Compile Include="Repository\Interfaces\IShipmentItemRepository.cs" />
+    <Compile Include="Repository\Interfaces\IShipmentItemWorkItemRepository.cs" />
     <Compile Include="Repository\Interfaces\IShipmentRepository.cs" />
     <Compile Include="Repository\Interfaces\IWorkItemPackageMachineRepository.cs" />
     <Compile Include="Repository\Interfaces\IWorkItemPackageRepository.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Repository\NHibernate\DriverRepository.cs" />
     <Compile Include="Repository\NHibernate\EmployeeRepository.cs" />
     <Compile Include="Repository\NHibernate\ShipmentItemRepository.cs" />
+    <Compile Include="Repository\NHibernate\ShipmentItemWorkItemRepository.cs" />
     <Compile Include="Repository\NHibernate\ShipmentRepository.cs" />
     <Compile Include="Repository\NHibernate\WorkItemPackageMachineRepository.cs" />
     <Compile Include="Repository\NHibernate\WorkItemPackageRepository.cs" />

@@ -64,4 +64,53 @@ namespace Rti.Model.Domain.BusinessLogic
             }
         }
     }
+
+    public class ShipmentItemController
+    {
+        public IRepositoryFactory RepositoryFactory { get; set; }
+
+        public ShipmentItemController(IRepositoryFactory repositoryFactory)
+        {
+            RepositoryFactory = repositoryFactory;
+        }
+
+        public void PostShipmentItem(ShipmentItem shipmentItem)
+        {
+            // Удаляем предыдущие записи распределения
+            RepositoryFactory.GetShipmentItemWorkItemRepository().DeleteByShipmentItemId(shipmentItem.Id);
+
+            // Получаем неотгруженное количество
+            var notShippedWorkItems =
+               RepositoryFactory.GetWorkItemRepository()
+                   .GetNotShippedByDrawingId(shipmentItem.RequestDetail.Drawing.Id, shipmentItem.Shipment.Date, shipmentItem.Shipment.SortOrder);
+
+            // Получаем строки дневных нарядов для распределения отгруженных деталей
+            var workItems = RepositoryFactory.GetWorkItemRepository().GetWorkItemsByIds(notShippedWorkItems.Select(o => o.Item1).ToArray());
+            var index = 0;
+            var shippedCount = shipmentItem.Count;
+            foreach (var workItem in workItems.OrderBy(o => o.WorkDate).ThenBy(o => o.SortOrder))
+            {
+                if (shippedCount == 0)
+                    break;
+                var detail = new ShipmentItemWorkItem
+                {
+                    ShipmentItem = shipmentItem,
+                    WorkItem = workItem
+                };
+                // Получаем отгруженное количество по строке дневного наряда
+                var workItemNotShippedCount = decimal.ToInt32(notShippedWorkItems.Single(o => o.Item1 == detail.WorkItem.Id).Item2);
+                var workItemShippedCount = Math.Min(shippedCount, workItemNotShippedCount);
+                detail.Count = workItemShippedCount;
+                RepositoryFactory.GetShipmentItemWorkItemRepository().Insert(detail);
+                shippedCount -= workItemShippedCount;
+            }
+
+            var nextWorkItem = RepositoryFactory.GetShipmentItemRepository().GetFollowingItems(shipmentItem).OrderBy(o => o.Shipment.Date).ThenBy(o => o.Shipment.SortOrder).ThenBy(o => o.SortOrder).FirstOrDefault();
+            if (nextWorkItem != null)
+            {
+                PostShipmentItem(nextWorkItem);
+            }
+        }
+    }
+
 }

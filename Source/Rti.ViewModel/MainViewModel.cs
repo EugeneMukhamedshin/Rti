@@ -24,6 +24,8 @@ namespace Rti.ViewModel
 
         public DelegateCommand OpenDailyWorkPackagesCommand { get; set; }
 
+        public DelegateCommand OpenShipmentsCommand { get; set; }
+
         public DelegateCommand OpenShavingRecordsCommand { get; set; }
         public DelegateCommand OpenMaterialArrivalRecordsCommand { get; set; }
         public DelegateCommand OpenRollingRecordsCommand { get; set; }
@@ -67,6 +69,11 @@ namespace Rti.ViewModel
                 "Дневные наряды",
                 o => true,
                 o => OpenWorkItems());
+
+            OpenShipmentsCommand = new DelegateCommand(
+                "Открыть журнал распоряжений на отгрузку",
+                o => true,
+                o => OpenShipments());
 
             OpenShavingRecordsCommand = new DelegateCommand(
                 "Открыть журнал обрезки облоя",
@@ -153,6 +160,13 @@ namespace Rti.ViewModel
         private void OpenWorkItems()
         {
             var viewModel = new WorkItemList(true, ViewService, RepositoryFactory);
+            viewModel.Refresh();
+            ViewService.ShowViewDialog(viewModel);
+        }
+
+        private void OpenShipments()
+        {
+            var viewModel = new ShipmentList(true, ViewService, RepositoryFactory);
             viewModel.Refresh();
             ViewService.ShowViewDialog(viewModel);
         }

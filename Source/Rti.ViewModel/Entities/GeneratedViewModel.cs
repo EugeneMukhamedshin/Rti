@@ -2988,7 +2988,6 @@ namespace Rti.ViewModel.Entities
 		private String _additionalInfo;
 		private Int32? _equipmentLeadTime;
 		private Int32 _count;
-		private Int32 _doneCount;
 		private Decimal _price;
 		private Decimal? _calculationPrice;
 		private Decimal _sum;
@@ -3006,7 +3005,6 @@ namespace Rti.ViewModel.Entities
 		public String AdditionalInfo { get { return _additionalInfo; } set { if (Equals(_additionalInfo, value)) return; _additionalInfo = value; OnPropertyChanged("AdditionalInfo"); } }
 		public Int32? EquipmentLeadTime { get { return _equipmentLeadTime; } set { if (Equals(_equipmentLeadTime, value)) return; _equipmentLeadTime = value; OnPropertyChanged("EquipmentLeadTime"); } }
 		public Int32 Count { get { return _count; } set { if (Equals(_count, value)) return; _count = value; OnPropertyChanged("Count"); } }
-		public Int32 DoneCount { get { return _doneCount; } set { if (Equals(_doneCount, value)) return; _doneCount = value; OnPropertyChanged("DoneCount"); } }
 		public Decimal Price { get { return _price; } set { if (Equals(_price, value)) return; _price = value; OnPropertyChanged("Price"); } }
 		public Decimal? CalculationPrice { get { return _calculationPrice; } set { if (Equals(_calculationPrice, value)) return; _calculationPrice = value; OnPropertyChanged("CalculationPrice"); } }
 		public Decimal Sum { get { return _sum; } set { if (Equals(_sum, value)) return; _sum = value; OnPropertyChanged("Sum"); } }
@@ -3025,7 +3023,6 @@ namespace Rti.ViewModel.Entities
 			Entity.AdditionalInfo = AdditionalInfo; 
 			Entity.EquipmentLeadTime = EquipmentLeadTime; 
 			Entity.Count = Count; 
-			Entity.DoneCount = DoneCount; 
 			Entity.Price = Price; 
 			Entity.CalculationPrice = CalculationPrice; 
 			Entity.Sum = Sum; 
@@ -3048,7 +3045,6 @@ namespace Rti.ViewModel.Entities
 			AdditionalInfo = Entity.AdditionalInfo; 
 			EquipmentLeadTime = Entity.EquipmentLeadTime; 
 			Count = Entity.Count; 
-			DoneCount = Entity.DoneCount; 
 			Price = Entity.Price; 
 			CalculationPrice = Entity.CalculationPrice; 
 			Sum = Entity.Sum; 
@@ -3070,7 +3066,6 @@ namespace Rti.ViewModel.Entities
 			AdditionalInfo = source.AdditionalInfo;
 			EquipmentLeadTime = source.EquipmentLeadTime;
 			Count = source.Count;
-			DoneCount = source.DoneCount;
 			Price = source.Price;
 			CalculationPrice = source.CalculationPrice;
 			Sum = source.Sum;
@@ -3103,7 +3098,6 @@ namespace Rti.ViewModel.Entities
 			if (EquipmentLeadTime != null)
 				element.Add(new XAttribute("EquipmentLeadTime", EquipmentLeadTime));
 			element.Add(new XAttribute("Count", Count));
-			element.Add(new XAttribute("DoneCount", DoneCount));
 			element.Add(new XAttribute("Price", Price));
 			if (CalculationPrice != null)
 				element.Add(new XAttribute("CalculationPrice", CalculationPrice));
@@ -3370,7 +3364,7 @@ namespace Rti.ViewModel.Entities
 
 		private Int32 _id;
 		private Int32 _sortOrder;
-		private DateTime? _date;
+		private DateTime _date;
 		private Boolean _isReplace;
 		private Boolean _isAddition;
 		private Boolean _isDeleted;
@@ -3378,7 +3372,7 @@ namespace Rti.ViewModel.Entities
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
-		public DateTime? Date { get { return _date; } set { if (Equals(_date, value)) return; _date = value; OnPropertyChanged("Date"); } }
+		public DateTime Date { get { return _date; } set { if (Equals(_date, value)) return; _date = value; OnPropertyChanged("Date"); } }
 		public Boolean IsReplace { get { return _isReplace; } set { if (Equals(_isReplace, value)) return; _isReplace = value; OnPropertyChanged("IsReplace"); } }
 		public Boolean IsAddition { get { return _isAddition; } set { if (Equals(_isAddition, value)) return; _isAddition = value; OnPropertyChanged("IsAddition"); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
@@ -3433,8 +3427,7 @@ namespace Rti.ViewModel.Entities
 			var element = new XElement(name);
 			element.Add(new XAttribute("Id", Id));
 			element.Add(new XAttribute("SortOrder", SortOrder));
-			if (Date != null)
-				element.Add(new XAttribute("Date", Date));
+			element.Add(new XAttribute("Date", Date));
 			element.Add(new XAttribute("IsReplace", IsReplace));
 			element.Add(new XAttribute("IsAddition", IsAddition));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
@@ -3551,20 +3544,20 @@ namespace Rti.ViewModel.Entities
         public ShipmentItemWorkItemViewModel(Rti.Model.Domain.ShipmentItemWorkItem entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
 		private Int32 _id;
-		private Int32 _shipmentItemId;
-		private Int32 _workItemId;
 		private Int32 _count;
+		private ShipmentItemViewModel _shipmentItem;
+		private WorkItemViewModel _workItem;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
-		public Int32 ShipmentItemId { get { return _shipmentItemId; } set { if (Equals(_shipmentItemId, value)) return; _shipmentItemId = value; OnPropertyChanged("ShipmentItemId"); } }
-		public Int32 WorkItemId { get { return _workItemId; } set { if (Equals(_workItemId, value)) return; _workItemId = value; OnPropertyChanged("WorkItemId"); } }
 		public Int32 Count { get { return _count; } set { if (Equals(_count, value)) return; _count = value; OnPropertyChanged("Count"); } }
+		public ShipmentItemViewModel ShipmentItem { get { return _shipmentItem; } set { _shipmentItem = value; OnPropertyChanged("ShipmentItem"); } }
+		public WorkItemViewModel WorkItem { get { return _workItem; } set { _workItem = value; OnPropertyChanged("WorkItem"); } }
 
 		protected override void MapPropertiesToEntity()
 		{
-			Entity.ShipmentItemId = ShipmentItemId; 
-			Entity.WorkItemId = WorkItemId; 
 			Entity.Count = Count; 
+			Entity.ShipmentItem = ShipmentItem == null ? null : ShipmentItem.Entity; 
+			Entity.WorkItem = WorkItem == null ? null : WorkItem.Entity; 
 
 		}
 
@@ -3572,18 +3565,18 @@ namespace Rti.ViewModel.Entities
 		{
 			IsMapping = true;
 			Id = Entity.Id; 
-			ShipmentItemId = Entity.ShipmentItemId; 
-			WorkItemId = Entity.WorkItemId; 
 			Count = Entity.Count; 
+			ShipmentItem = Entity.ShipmentItem == null ? null : new ShipmentItemViewModel(Entity.ShipmentItem, RepositoryFactory); 
+			WorkItem = Entity.WorkItem == null ? null : new WorkItemViewModel(Entity.WorkItem, RepositoryFactory); 
 			IsMapping = false;
 		}
 
 		public override void CopyFrom(ShipmentItemWorkItemViewModel source)
 		{
 			IsMapping = true;
-			ShipmentItemId = source.ShipmentItemId;
-			WorkItemId = source.WorkItemId;
 			Count = source.Count;
+			ShipmentItem = source.ShipmentItem;
+			WorkItem = source.WorkItem;
 			CustomCopyFrom(source);
 			IsMapping = false;
 		}
@@ -3599,9 +3592,11 @@ namespace Rti.ViewModel.Entities
 		{
 			var element = new XElement(name);
 			element.Add(new XAttribute("Id", Id));
-			element.Add(new XAttribute("ShipmentItemId", ShipmentItemId));
-			element.Add(new XAttribute("WorkItemId", WorkItemId));
 			element.Add(new XAttribute("Count", Count));
+			if (ShipmentItem != null)
+				element.Add(ShipmentItem.GetXElement("ShipmentItem"));
+			if (WorkItem != null)
+				element.Add(WorkItem.GetXElement("WorkItem"));
 
 			CustomFillXElement(element);
 			return element;
@@ -4162,26 +4157,20 @@ namespace Rti.ViewModel.Entities
 
 		private Int32 _id;
 		private Int32? _sortOrder;
-		private Int32 _taskCount;
 		private Int32 _doneCount;
-		private Int32 _rejectedCount;
 		private WorkItemViewModel _workItem;
 		private RequestDetailViewModel _requestDetail;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public Int32? SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
-		public Int32 TaskCount { get { return _taskCount; } set { if (Equals(_taskCount, value)) return; _taskCount = value; OnPropertyChanged("TaskCount"); } }
 		public Int32 DoneCount { get { return _doneCount; } set { if (Equals(_doneCount, value)) return; _doneCount = value; OnPropertyChanged("DoneCount"); } }
-		public Int32 RejectedCount { get { return _rejectedCount; } set { if (Equals(_rejectedCount, value)) return; _rejectedCount = value; OnPropertyChanged("RejectedCount"); } }
 		public WorkItemViewModel WorkItem { get { return _workItem; } set { _workItem = value; OnPropertyChanged("WorkItem"); } }
 		public RequestDetailViewModel RequestDetail { get { return _requestDetail; } set { _requestDetail = value; OnPropertyChanged("RequestDetail"); } }
 
 		protected override void MapPropertiesToEntity()
 		{
 			Entity.SortOrder = SortOrder; 
-			Entity.TaskCount = TaskCount; 
 			Entity.DoneCount = DoneCount; 
-			Entity.RejectedCount = RejectedCount; 
 			Entity.WorkItem = WorkItem == null ? null : WorkItem.Entity; 
 			Entity.RequestDetail = RequestDetail == null ? null : RequestDetail.Entity; 
 
@@ -4192,9 +4181,7 @@ namespace Rti.ViewModel.Entities
 			IsMapping = true;
 			Id = Entity.Id; 
 			SortOrder = Entity.SortOrder; 
-			TaskCount = Entity.TaskCount; 
 			DoneCount = Entity.DoneCount; 
-			RejectedCount = Entity.RejectedCount; 
 			WorkItem = Entity.WorkItem == null ? null : new WorkItemViewModel(Entity.WorkItem, RepositoryFactory); 
 			RequestDetail = Entity.RequestDetail == null ? null : new RequestDetailViewModel(Entity.RequestDetail, RepositoryFactory); 
 			IsMapping = false;
@@ -4204,9 +4191,7 @@ namespace Rti.ViewModel.Entities
 		{
 			IsMapping = true;
 			SortOrder = source.SortOrder;
-			TaskCount = source.TaskCount;
 			DoneCount = source.DoneCount;
-			RejectedCount = source.RejectedCount;
 			WorkItem = source.WorkItem;
 			RequestDetail = source.RequestDetail;
 			CustomCopyFrom(source);
@@ -4226,9 +4211,7 @@ namespace Rti.ViewModel.Entities
 			element.Add(new XAttribute("Id", Id));
 			if (SortOrder != null)
 				element.Add(new XAttribute("SortOrder", SortOrder));
-			element.Add(new XAttribute("TaskCount", TaskCount));
 			element.Add(new XAttribute("DoneCount", DoneCount));
-			element.Add(new XAttribute("RejectedCount", RejectedCount));
 			if (WorkItem != null)
 				element.Add(WorkItem.GetXElement("WorkItem"));
 			if (RequestDetail != null)

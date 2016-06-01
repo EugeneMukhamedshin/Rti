@@ -6,5 +6,6 @@ namespace Rti.Model.Repository.Interfaces
     public partial interface IShipmentItemRepository
     {
         IList<ShipmentItem> GetByShipmentId(int shipmentId);
+        IList<ShipmentItem> GetFollowingItems(ShipmentItem shipmentItem);
     }
 }

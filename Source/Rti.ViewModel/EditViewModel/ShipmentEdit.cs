@@ -1,5 +1,7 @@
-﻿using Rti.Model.Domain;
+﻿using System.Linq;
+using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
+using Rti.ViewModel.Annotations;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Lists;
 
@@ -28,8 +30,18 @@ namespace Rti.ViewModel.EditViewModel
 
         protected override bool DoValidate()
         {
-            return base.DoValidate();
             // Здесь надо добавить проверку количества
+            foreach (var shipmentItem in ShipmentItemList.Items)
+            {
+                var notShippedWorkItems = RepositoryFactory.GetWorkItemRepository().GetNotShippedByDrawingId(shipmentItem.RequestDetail.Drawing.Id, Entity.Date, Entity.SortOrder);
+                var doneCount = notShippedWorkItems.Sum(o => o.Item2);
+                if (shipmentItem.Count > doneCount)
+                {
+                    ViewService.ShowMessage(new MessageViewModel("Ошибка", string.Format("По чертежу {0} невозможно отгрузить {1} деталей, т.к. изготовлено всего {2} деталей", shipmentItem.RequestDetail.Drawing.FullName, shipmentItem.Count, doneCount)));
+                    return false;
+                }
+            }
+            return base.DoValidate();
         }
     }
 }

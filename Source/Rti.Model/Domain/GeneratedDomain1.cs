@@ -991,9 +991,6 @@ namespace Rti.Model.Domain
 		[Field("count")]
 		public virtual Int32 Count { get; set; }
 
-		[Field("done_count")]
-		public virtual Int32 DoneCount { get; set; }
-
 		[Field("price")]
 		public virtual decimal Price { get; set; }
 
@@ -1112,7 +1109,7 @@ namespace Rti.Model.Domain
 		public virtual Int32 SortOrder { get; set; }
 
 		[Field("date")]
-		public virtual DateTime? Date { get; set; }
+		public virtual DateTime Date { get; set; }
 
 		[Field("is_replace")]
 		public virtual Boolean IsReplace { get; set; }
@@ -1160,14 +1157,14 @@ namespace Rti.Model.Domain
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
 
-		[Field("shipment_item_id")]
-		public virtual Int32 ShipmentItemId { get; set; }
-
-		[Field("work_item_id")]
-		public virtual Int32 WorkItemId { get; set; }
-
 		[Field("count")]
 		public virtual Int32 Count { get; set; }
+
+		[Reference("shipment_item_id", false)]
+		public virtual ShipmentItem ShipmentItem { get; set; }
+
+		[Reference("work_item_id", false)]
+		public virtual WorkItem WorkItem { get; set; }
 
 	}
 
@@ -1346,14 +1343,8 @@ namespace Rti.Model.Domain
 		[Field("sort_order")]
 		public virtual Int32? SortOrder { get; set; }
 
-		[Field("task_count")]
-		public virtual Int32 TaskCount { get; set; }
-
 		[Field("done_count")]
 		public virtual Int32 DoneCount { get; set; }
-
-		[Field("rejected_count")]
-		public virtual Int32 RejectedCount { get; set; }
 
 		[Reference("work_item_id", false)]
 		public virtual WorkItem WorkItem { get; set; }

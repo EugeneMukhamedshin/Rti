@@ -1,7 +1,7 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 6.3.358.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 30.05.2016 21:53:06
+-- Дата скрипта: 01.06.2016 21:20:51
 -- Версия сервера: 5.6.26-log
 -- Версия клиента: 4.1
 --
@@ -425,23 +425,6 @@ COMMENT = 'типы процессов'
 ROW_FORMAT = DYNAMIC;
 
 --
--- Описание для таблицы shipment_item_work_items
---
-DROP TABLE IF EXISTS shipment_item_work_items;
-CREATE TABLE shipment_item_work_items (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  shipment_item_id INT(11) NOT NULL,
-  work_item_id INT(11) NOT NULL,
-  count INT(11) NOT NULL,
-  PRIMARY KEY (id)
-)
-ENGINE = INNODB
-AUTO_INCREMENT = 1
-CHARACTER SET utf8
-COLLATE utf8_general_ci
-COMMENT = 'распределение отгруженных деталей по выполненным партиям';
-
---
 -- Описание для таблицы drawings
 --
 DROP TABLE IF EXISTS drawings;
@@ -709,7 +692,6 @@ CREATE TABLE request_details (
   additional_info VARCHAR(1000) DEFAULT NULL,
   equipment_lead_time INT(11) DEFAULT NULL,
   count INT(11) NOT NULL,
-  done_count INT(11) NOT NULL COMMENT 'количество изготовленных',
   price DECIMAL(10, 2) NOT NULL,
   calculation_price DECIMAL(10, 2) DEFAULT NULL,
   sum DECIMAL(10, 2) NOT NULL,
@@ -804,7 +786,7 @@ DROP TABLE IF EXISTS shipments;
 CREATE TABLE shipments (
   id INT(11) NOT NULL AUTO_INCREMENT,
   sort_order INT(11) NOT NULL,
-  date DATETIME DEFAULT NULL COMMENT 'дата отгрузки',
+  date DATE NOT NULL COMMENT 'дата отгрузки',
   request_id INT(11) NOT NULL COMMENT 'заявка/счет',
   is_replace INT(11) NOT NULL DEFAULT 0 COMMENT 'признак замены брака',
   is_addition INT(11) NOT NULL DEFAULT 0 COMMENT 'признак довоза продукции',
@@ -814,7 +796,8 @@ CREATE TABLE shipments (
     REFERENCES requests(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 3
+AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 COMMENT = 'отгрузка';
@@ -917,7 +900,8 @@ CREATE TABLE shipment_items (
     REFERENCES shipments(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 3
+AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 COMMENT = 'строки отгрузки';
@@ -975,12 +959,34 @@ CREATE TABLE work_items (
     REFERENCES drawing_flowsheet_machines(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 22
+AUTO_INCREMENT = 23
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 COMMENT = 'Строки дневного наряда'
 ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы shipment_item_work_items
+--
+DROP TABLE IF EXISTS shipment_item_work_items;
+CREATE TABLE shipment_item_work_items (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  shipment_item_id INT(11) NOT NULL,
+  work_item_id INT(11) NOT NULL,
+  count INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_shipment_item_work_items_shipment_items_id FOREIGN KEY (shipment_item_id)
+    REFERENCES shipment_items(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_shipment_item_work_items_work_items_id FOREIGN KEY (work_item_id)
+    REFERENCES work_items(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 3
+AVG_ROW_LENGTH = 8192
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'распределение отгруженных деталей по выполненным партиям';
 
 --
 -- Описание для таблицы work_item_request_details
@@ -991,9 +997,7 @@ CREATE TABLE work_item_request_details (
   work_item_id INT(11) NOT NULL,
   request_detail_id INT(11) NOT NULL,
   sort_order INT(11) DEFAULT NULL,
-  task_count INT(11) NOT NULL DEFAULT 0,
   done_count INT(11) NOT NULL DEFAULT 0,
-  rejected_count INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (id),
   CONSTRAINT FK_work_item_request_details_request_details_id FOREIGN KEY (request_detail_id)
     REFERENCES request_details(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
@@ -1052,7 +1056,7 @@ INSERT INTO calculations VALUES
 -- Вывод данных для таблицы constants
 --
 INSERT INTO constants VALUES
-(1, 1.35, 2.12, 3.90, 4.00, 5.00, 6.00, 7.00, 8.00, 10.00, '2016-01-04 00:00:00', '3000-12-31 00:00:00', 0);
+(1, 1.35, 2.12, 3.90, 4.00, 5.00, 6.00, 7.00, 18.00, 10.00, '2016-01-04 00:00:00', '3000-12-31 00:00:00', 0);
 
 -- 
 -- Вывод данных для таблицы contragents
@@ -1181,12 +1185,6 @@ INSERT INTO processes VALUES
 (13, 13, 'Процесс', 'Операция', 'Исполнитель', 'Обозначение', NULL);
 
 -- 
--- Вывод данных для таблицы shipment_item_work_items
---
-
--- Таблица rti.shipment_item_work_items не содержит данных
-
--- 
 -- Вывод данных для таблицы drawings
 --
 INSERT INTO drawings VALUES
@@ -1236,7 +1234,7 @@ INSERT INTO requests VALUES
 (53, 13, '2016-05-17 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, 0),
 (54, 14, '2016-05-17 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, 0),
 (56, 15, '2016-05-17 00:00:00', NULL, NULL, NULL, 1, 5, NULL, 0),
-(57, 16, '2016-05-17 00:00:00', NULL, NULL, NULL, 2, 5, NULL, 0),
+(57, 16, '2016-05-17 00:00:00', NULL, '2016-06-01 00:00:00', NULL, 2, 5, NULL, 0),
 (58, 17, '2016-05-17 00:00:00', NULL, NULL, NULL, 3, 5, NULL, 0),
 (59, 18, '2016-05-18 00:00:00', NULL, '2016-05-18 00:00:00', NULL, 2, 5, NULL, 0),
 (60, 19, '2016-05-19 00:00:00', NULL, '2016-05-20 00:00:00', NULL, 2, 5, NULL, 0);
@@ -1286,22 +1284,22 @@ INSERT INTO drawing_flowsheet_processes VALUES
 -- Вывод данных для таблицы request_details
 --
 INSERT INTO request_details VALUES
-(1, 41, 1, 4, 1, 1, NULL, NULL, 12, 0, 15.31, NULL, 183.74, NULL, NULL, 0, 0),
-(2, 41, 2, 3, NULL, 1, '123', 12, 2, 0, 0.00, NULL, 0.00, 5, NULL, 0, 0),
-(3, 41, 3, 8, 1, 1, '321', NULL, 3, 0, 250.00, 267.38, 750.00, 6, NULL, 3, 0),
-(8, 41, 8, 7, 3, 1, NULL, NULL, 4, 0, 300.00, 5626.91, 1200.00, 5, 'примечание примечание примечание примечание', 0, 0),
-(9, 41, 9, 3, 3, NULL, 'asdfasdfs', 123, 50, 0, 200.00, NULL, 10000.00, NULL, NULL, 0, 0),
-(10, 41, 10, 4, 1, 1, NULL, NULL, 6, 0, 0.00, NULL, 0.00, NULL, NULL, 0, 0),
-(12, 41, 12, 13, 2, 1, NULL, 323, 9, 0, 0.00, 0.00, 0.00, 5, NULL, 0, 0),
-(13, 47, 1, 7, 4, 1, NULL, NULL, 0, 0, 0.00, NULL, 0.00, NULL, NULL, 0, 0),
-(14, 47, 2, 6, NULL, NULL, NULL, NULL, 0, 0, 0.00, NULL, 0.00, NULL, NULL, 0, 0),
-(15, 48, 1, 3, NULL, NULL, NULL, NULL, 0, 0, 0.00, NULL, 0.00, NULL, NULL, 0, 0),
-(16, 48, 2, 7, NULL, NULL, NULL, NULL, 0, 0, 0.00, NULL, 0.00, NULL, NULL, 0, 0),
-(17, 56, 1, 8, 1, 1, NULL, NULL, 10, 10, 250.00, 267.38, 2500.00, 6, NULL, 3, 0),
-(18, 57, 1, 8, 1, 1, NULL, NULL, 50, 50, 250.00, 267.38, 12500.00, 6, NULL, 3, 0),
-(19, 58, 1, 8, 1, 1, NULL, NULL, 100, 80, 250.00, 267.38, 25000.00, 6, NULL, 3, 0),
-(20, 59, 1, 8, 1, 1, NULL, NULL, 20, 0, 250.00, 267.38, 5000.00, 6, NULL, 3, 0),
-(21, 60, 1, 7, 3, 1, NULL, 0, 100, 0, 1200.00, 5650.49, 120000.00, 5, NULL, 2, 0);
+(1, 41, 1, 4, 1, 1, NULL, NULL, 12, 15.31, NULL, 183.74, NULL, NULL, 0, 0),
+(2, 41, 2, 3, NULL, 1, '123', 12, 2, 0.00, NULL, 0.00, 5, NULL, 0, 0),
+(3, 41, 3, 8, 1, 1, '321', NULL, 3, 250.00, 267.38, 750.00, 6, NULL, 3, 0),
+(8, 41, 8, 7, 3, 1, NULL, NULL, 4, 300.00, 5626.91, 1200.00, 5, 'примечание примечание примечание примечание', 0, 0),
+(9, 41, 9, 3, 3, NULL, 'asdfasdfs', 123, 50, 200.00, NULL, 10000.00, NULL, NULL, 0, 0),
+(10, 41, 10, 4, 1, 1, NULL, NULL, 6, 0.00, NULL, 0.00, NULL, NULL, 0, 0),
+(12, 41, 12, 13, 2, 1, NULL, 323, 9, 0.00, 0.00, 0.00, 5, NULL, 0, 0),
+(13, 47, 1, 7, 4, 1, NULL, NULL, 0, 0.00, NULL, 0.00, NULL, NULL, 0, 0),
+(14, 47, 2, 6, NULL, NULL, NULL, NULL, 0, 0.00, NULL, 0.00, NULL, NULL, 0, 0),
+(15, 48, 1, 3, NULL, NULL, NULL, NULL, 0, 0.00, NULL, 0.00, NULL, NULL, 0, 0),
+(16, 48, 2, 7, NULL, NULL, NULL, NULL, 0, 0.00, NULL, 0.00, NULL, NULL, 0, 0),
+(17, 56, 1, 8, 1, 1, NULL, NULL, 10, 250.00, 267.38, 2500.00, 6, NULL, 3, 0),
+(18, 57, 1, 8, 1, 1, NULL, NULL, 50, 250.00, 267.38, 12500.00, 6, NULL, 3, 0),
+(19, 58, 1, 8, 1, 1, NULL, NULL, 100, 250.00, 267.38, 25000.00, 6, NULL, 3, 0),
+(20, 59, 1, 8, 1, 1, NULL, NULL, 20, 250.00, 267.38, 5000.00, 6, NULL, 3, 0),
+(21, 60, 1, 7, 3, 1, NULL, 0, 100, 1200.00, 5650.49, 120000.00, 5, NULL, 2, 0);
 
 -- 
 -- Вывод данных для таблицы rolling_records
@@ -1318,8 +1316,9 @@ INSERT INTO shaving_records VALUES
 -- 
 -- Вывод данных для таблицы shipments
 --
-
--- Таблица rti.shipments не содержит данных
+INSERT INTO shipments VALUES
+(1, 1, '2016-06-01', 59, 0, 0, 0),
+(2, 2, '2016-06-01', 57, 0, 0, 0);
 
 -- 
 -- Вывод данных для таблицы shipped_product_records
@@ -1347,8 +1346,9 @@ INSERT INTO work_item_package VALUES
 -- 
 -- Вывод данных для таблицы shipment_items
 --
-
--- Таблица rti.shipment_items не содержит данных
+INSERT INTO shipment_items VALUES
+(1, 1, 1, 20, 20),
+(2, 2, 1, 18, 25);
 
 -- 
 -- Вывод данных для таблицы work_item_package_machines
@@ -1374,19 +1374,26 @@ INSERT INTO work_items VALUES
 (21, '2016-05-20', 2, 7, 100, 50, 25, 1, NULL, 2, 14, 0);
 
 -- 
+-- Вывод данных для таблицы shipment_item_work_items
+--
+INSERT INTO shipment_item_work_items VALUES
+(1, 1, 7, 15),
+(2, 1, 17, 5);
+
+-- 
 -- Вывод данных для таблицы work_item_request_details
 --
 INSERT INTO work_item_request_details VALUES
-(124, 7, 3, 0, 0, 3, 0),
-(125, 7, 17, 1, 0, 10, 0),
-(126, 7, 18, 2, 0, 2, 0),
-(127, 17, 18, 0, 0, 48, 0),
-(128, 17, 19, 1, 0, 2, 0),
-(129, 18, 19, 0, 0, 98, 0),
-(130, 18, 20, 1, 0, 2, 0),
-(131, 19, 20, 0, 0, 15, 0),
-(135, 20, 20, 0, 0, 3, 0),
-(137, 21, 21, 0, 0, 24, 0);
+(124, 7, 3, 0, 3),
+(125, 7, 17, 1, 10),
+(126, 7, 18, 2, 2),
+(127, 17, 18, 0, 48),
+(128, 17, 19, 1, 2),
+(129, 18, 19, 0, 98),
+(130, 18, 20, 1, 2),
+(131, 19, 20, 0, 15),
+(135, 20, 20, 0, 3),
+(137, 21, 21, 0, 24);
 
 -- 
 -- Восстановить предыдущий режим SQL (SQL mode)

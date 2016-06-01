@@ -492,6 +492,8 @@ namespace Rti.Model.Repository.NHibernate
         protected override IQueryOver<Rti.Model.Domain.ShipmentItemWorkItem, Rti.Model.Domain.ShipmentItemWorkItem> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.ShipmentItemWorkItem, Rti.Model.Domain.ShipmentItemWorkItem> queryOver)
         {
 			var result = queryOver;
+			result = result.Fetch(o => o.ShipmentItem).Default;
+			result = result.Fetch(o => o.WorkItem).Default;
             return result;
         }
     }
