@@ -1,8 +1,8 @@
 ﻿--
--- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 6.3.358.0
+-- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.0.49.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 01.06.2016 21:20:51
--- Версия сервера: 5.6.26-log
+-- Дата скрипта: 01.06.2016 23:35:58
+-- Версия сервера: 5.7.11-log
 -- Версия клиента: 4.1
 --
 
@@ -595,9 +595,9 @@ CREATE TABLE drawing_flowsheet_machines (
   plate_temperature DECIMAL(10, 2) DEFAULT NULL,
   cure_time DECIMAL(10, 2) DEFAULT NULL,
   PRIMARY KEY (id),
-  CONSTRAINT FK_flowsheet_machines_drawings_id FOREIGN KEY (drawing_id)
+  CONSTRAINT FK_drawing_flowsheet_machines_drawings_id FOREIGN KEY (drawing_id)
     REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_flowsheet_machines_machines_id FOREIGN KEY (machine_id)
+  CONSTRAINT FK_drawing_flowsheet_machines_machines_id FOREIGN KEY (machine_id)
     REFERENCES machines(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
@@ -676,7 +676,8 @@ ENGINE = INNODB
 AUTO_INCREMENT = 1
 CHARACTER SET utf8
 COLLATE utf8_general_ci
-COMMENT = 'платежи';
+COMMENT = 'платежи'
+ROW_FORMAT = DYNAMIC;
 
 --
 -- Описание для таблицы request_details
@@ -788,10 +789,13 @@ CREATE TABLE shipments (
   sort_order INT(11) NOT NULL,
   date DATE NOT NULL COMMENT 'дата отгрузки',
   request_id INT(11) NOT NULL COMMENT 'заявка/счет',
+  recipient_id INT(11) NOT NULL COMMENT 'Грузополучатель (справочник Клиентов)',
   is_replace INT(11) NOT NULL DEFAULT 0 COMMENT 'признак замены брака',
   is_addition INT(11) NOT NULL DEFAULT 0 COMMENT 'признак довоза продукции',
   is_deleted INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (id),
+  CONSTRAINT FK_shipments_recipients_id FOREIGN KEY (recipient_id)
+    REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT FK_shipments_requests_id FOREIGN KEY (request_id)
     REFERENCES requests(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
@@ -800,7 +804,8 @@ AUTO_INCREMENT = 3
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
-COMMENT = 'отгрузка';
+COMMENT = 'отгрузка'
+ROW_FORMAT = DYNAMIC;
 
 --
 -- Описание для таблицы shipped_product_records
@@ -904,7 +909,8 @@ AUTO_INCREMENT = 3
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
-COMMENT = 'строки отгрузки';
+COMMENT = 'строки отгрузки'
+ROW_FORMAT = DYNAMIC;
 
 --
 -- Описание для таблицы work_item_package_machines
@@ -986,7 +992,8 @@ AUTO_INCREMENT = 3
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
-COMMENT = 'распределение отгруженных деталей по выполненным партиям';
+COMMENT = 'распределение отгруженных деталей по выполненным партиям'
+ROW_FORMAT = DYNAMIC;
 
 --
 -- Описание для таблицы work_item_request_details
@@ -1317,8 +1324,8 @@ INSERT INTO shaving_records VALUES
 -- Вывод данных для таблицы shipments
 --
 INSERT INTO shipments VALUES
-(1, 1, '2016-06-01', 59, 0, 0, 0),
-(2, 2, '2016-06-01', 57, 0, 0, 0);
+(1, 1, '2016-06-01', 59, 1, 0, 0, 0),
+(2, 2, '2016-06-01', 57, 1, 0, 0, 0);
 
 -- 
 -- Вывод данных для таблицы shipped_product_records
