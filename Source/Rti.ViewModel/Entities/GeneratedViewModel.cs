@@ -3369,6 +3369,7 @@ namespace Rti.ViewModel.Entities
 		private Boolean _isAddition;
 		private Boolean _isDeleted;
 		private RequestViewModel _request;
+		private ContragentViewModel _recipient;
 
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
@@ -3377,6 +3378,7 @@ namespace Rti.ViewModel.Entities
 		public Boolean IsAddition { get { return _isAddition; } set { if (Equals(_isAddition, value)) return; _isAddition = value; OnPropertyChanged("IsAddition"); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
 		public RequestViewModel Request { get { return _request; } set { _request = value; OnPropertyChanged("Request"); } }
+		public ContragentViewModel Recipient { get { return _recipient; } set { _recipient = value; OnPropertyChanged("Recipient"); } }
 
 		protected override void MapPropertiesToEntity()
 		{
@@ -3386,6 +3388,7 @@ namespace Rti.ViewModel.Entities
 			Entity.IsAddition = IsAddition; 
 			Entity.IsDeleted = IsDeleted; 
 			Entity.Request = Request == null ? null : Request.Entity; 
+			Entity.Recipient = Recipient == null ? null : Recipient.Entity; 
 
 		}
 
@@ -3399,6 +3402,7 @@ namespace Rti.ViewModel.Entities
 			IsAddition = Entity.IsAddition; 
 			IsDeleted = Entity.IsDeleted; 
 			Request = Entity.Request == null ? null : new RequestViewModel(Entity.Request, RepositoryFactory); 
+			Recipient = Entity.Recipient == null ? null : new ContragentViewModel(Entity.Recipient, RepositoryFactory); 
 			IsMapping = false;
 		}
 
@@ -3411,6 +3415,7 @@ namespace Rti.ViewModel.Entities
 			IsAddition = source.IsAddition;
 			IsDeleted = source.IsDeleted;
 			Request = source.Request;
+			Recipient = source.Recipient;
 			CustomCopyFrom(source);
 			IsMapping = false;
 		}
@@ -3433,6 +3438,8 @@ namespace Rti.ViewModel.Entities
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
 			if (Request != null)
 				element.Add(Request.GetXElement("Request"));
+			if (Recipient != null)
+				element.Add(Recipient.GetXElement("Recipient"));
 
 			CustomFillXElement(element);
 			return element;

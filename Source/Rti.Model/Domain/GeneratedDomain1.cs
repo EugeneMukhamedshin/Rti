@@ -1123,6 +1123,9 @@ namespace Rti.Model.Domain
 		[Reference("request_id", false)]
 		public virtual Request Request { get; set; }
 
+		[Reference("recipient_id", false)]
+		public virtual Contragent Recipient { get; set; }
+
 	}
 
 

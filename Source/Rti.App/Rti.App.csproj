@@ -164,7 +164,7 @@
     <Compile Include="View\Components\ImageContentExtension.cs" />
     <Compile Include="View\Components\PropertyGridResponsible.cs" />
     <Compile Include="View\Components\NumericEditSettingsExtension.cs" />
-    <Compile Include="View\Converters\ExistanceToStringConverter.cs" />
+    <Compile Include="View\Editors\Converters\ExistanceToStringConverter.cs" />
     <Compile Include="View\Editors\AdditionalInfoEditWindow.xaml.cs">
       <DependentUpon>AdditionalInfoEditWindow.xaml</DependentUpon>
     </Compile>
@@ -176,6 +176,9 @@
     </Compile>
     <Compile Include="View\Editors\ContragentEditWindow.xaml.cs">
       <DependentUpon>ContragentEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\ShipmentEditWindow.xaml.cs">
+      <DependentUpon>ShipmentEditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Editors\WorkItemEditWindow.xaml.cs">
       <DependentUpon>WorkItemEditWindow.xaml</DependentUpon>
@@ -406,6 +409,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Editors\ContragentEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\ShipmentEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

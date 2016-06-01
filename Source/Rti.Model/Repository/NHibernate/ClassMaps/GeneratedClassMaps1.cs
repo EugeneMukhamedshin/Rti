@@ -1074,6 +1074,8 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 
 			References(o => o.Request, "request_id").Fetch.Join().Not.LazyLoad();
 
+			References(o => o.Recipient, "recipient_id").Fetch.Join().Not.LazyLoad();
+
 			OnInitialized();
 		}
 	}
