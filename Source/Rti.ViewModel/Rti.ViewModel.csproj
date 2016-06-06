@@ -94,6 +94,8 @@
     <Compile Include="Entities\Commands\RequeryableCommand.cs" />
     <Compile Include="Entities\ContragentViewModel.cs" />
     <Compile Include="Entities\DrawingFlowsheetMachineViewModel.cs" />
+    <Compile Include="Entities\PaymentViewModel.cs" />
+    <Compile Include="Entities\RequestViewModel.cs" />
     <Compile Include="Entities\WorkItemPackageMachineViewModel.cs" />
     <Compile Include="Entities\WorkItemViewModel.cs" />
     <Compile Include="Entities\DrawingViewModel.cs" />

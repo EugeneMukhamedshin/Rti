@@ -76,6 +76,7 @@ namespace Rti.App
 
             // Отгрузка
             AddToRegistry<ShipmentList, ShipmentListWindow>();
+            AddToRegistry<ShipmentEdit, ShipmentEditWindow>();
 
             // Журналы
             // Журнал обрезки облоя

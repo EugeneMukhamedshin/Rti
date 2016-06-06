@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using NHibernate.Criterion;
 using Rti.Model.Domain;
 
@@ -14,5 +15,9 @@ namespace Rti.Model.Repository.NHibernate
         {
             return ExecuteFuncOnQueryOver(q => q.Where(o => o.Number == number).SingleOrDefault());
         }
+
+        public IList<Request> GetUnshipped()
+        {
+            return ExecuteFuncOnQueryOver(q => q.List());}
     }
 }

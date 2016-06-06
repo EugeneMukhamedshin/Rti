@@ -12,13 +12,28 @@ namespace Rti.ViewModel.Lists
     public class ShipmentItemList: EntityList<ShipmentItemViewModel, ShipmentItem>
     {
         private readonly List<ShipmentItemViewModel> _deletedItems = new List<ShipmentItemViewModel>();
+        private Lazy<Constant> _constants;
 
         public ShipmentViewModel Shipment { get; set; }
 
         public List<RequestDetailViewModel> RequestDetailsSource { get; set; }
 
+        public decimal? Sum { get { return Items.Sum(o => o.Count * o.RequestDetail.Drawing.Price); } }
+
+        public decimal? SumWithNds { get { return Items.Sum(o => o.Count * o.RequestDetail.Drawing.Price * _constants.Value.Nds / 100); } }
+
+        public double? NetMass { get
+        {
+            return
+                Items.Sum(
+                    o =>
+                        o.RequestDetail.Drawing.FactMass ??
+                        o.RequestDetail.Drawing.MassCalculation.CalculatedMass);
+        } }
+
         public ShipmentItemList(ShipmentViewModel shipment, bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
         {
+            _constants = new Lazy<Constant>(() => RepositoryFactory.GetConstantRepository().GetActual());
             Shipment = shipment;
             Shipment.PropertyChanged += Shipment_PropertyChanged;
         }
@@ -30,6 +45,14 @@ namespace Rti.ViewModel.Lists
                 Items.Clear();
                 RefreshRequestDetails();
             }
+        }
+
+        protected override void OnItemsChanged()
+        {
+            base.OnItemsChanged();
+            OnPropertyChanged("Sum");
+            OnPropertyChanged("SumWithNds");
+            OnPropertyChanged("NetMass");
         }
 
         public override void Refresh()
@@ -45,7 +68,7 @@ namespace Rti.ViewModel.Lists
 
         public void RefreshRequestDetails()
         {
-            RequestDetailsSource = RepositoryFactory.GetRequestDetailRepository().GetByRequestId(Shipment.Request.Id).Select(o => new RequestDetailViewModel(o, RepositoryFactory)).ToList();
+            RequestDetailsSource = Shipment.Request != null ? RepositoryFactory.GetRequestDetailRepository().GetByRequestId(Shipment.Request.Id).Select(o => new RequestDetailViewModel(o, RepositoryFactory)).ToList() : new List<RequestDetailViewModel>();
         }
 
         protected override ShipmentItemViewModel DoCreateNewEntity()

@@ -15,18 +15,18 @@ namespace Rti.ViewModel.Entities
             }
         }
 
-        public decimal? CalculatedMass
+        public double? CalculatedMass
         {
             get
             {
                 var calculated = CalculateMass();
-                return calculated.HasValue ? Math.Round(calculated.Value / 1000, 3) : (decimal?)null;
+                return calculated.HasValue ? Math.Round(calculated.Value / 1000, 3) : (double?)null;
             }
         }
 
-        public decimal? CalculateMass()
+        public double? CalculateMass()
         {
-            var pi = (decimal)Math.PI;
+            var pi = Math.PI;
 
             switch (DetailTypeEnum)
             {

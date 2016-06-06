@@ -19,6 +19,8 @@ namespace Rti.ViewModel.Lists
         public ShipmentList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(editMode, viewService, repositoryFactory)
         {
+            TypeMaps.Add(new Tuple<Type, Type>(typeof(ShipmentViewModel), typeof(EditViewModel.ShipmentEdit)));
+
             AddShipmentCommand = new DelegateCommand(
                "Добавить отгрузку",
                o => true,

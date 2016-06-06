@@ -57,7 +57,7 @@ namespace Rti.ViewModel.EditViewModel
             if (calculationType == CalculationType.Fact)
             {
                 if (material != null && mass != null)
-                    calculation.MainMaterial = material.Price*mass;
+                    calculation.MainMaterial = material.Price*Convert.ToDecimal(mass);
                 else
                     calculation.MainMaterial = 0;
             }
