@@ -25,4 +25,12 @@ namespace Rti.ViewModel
 
         #endregion
     }
+
+    public static class DoubleExtension
+    {
+        public static decimal ToDecimal(this double value)
+        {
+            return Convert.ToDecimal(value);
+        }
+    }
 }

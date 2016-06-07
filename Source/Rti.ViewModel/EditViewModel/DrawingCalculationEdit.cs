@@ -62,24 +62,24 @@ namespace Rti.ViewModel.EditViewModel
                     calculation.MainMaterial = 0;
             }
             // Транспортные
-            calculation.Transport = constants.KTr / 100 * calculation.AllMaterials;
+            calculation.Transport = constants.KTr.ToDecimal() / 100 * calculation.AllMaterials;
             // Основная зарплата
             if (calculationType == CalculationType.Fact)
             {
                 if (drawing.Equipment != null && drawing.Equipment.Output != 0)
                     calculation.MainSalary = (getTime(ProcessType.Loading) + getTime(ProcessType.CuringOrCutting) +
-                                              getTime(ProcessType.Unloading))/drawing.Equipment.Output*constants.KSt;
+                                              getTime(ProcessType.Unloading)) / drawing.Equipment.Output * constants.KSt.ToDecimal();
                 else
                     calculation.MainSalary = 0;
             }
             // Дополнительная зарплата
             calculation.AdditionalSalary = calculation.MainSalary / 11;
             // Отчисления ЕСН
-            calculation.FixedTax = (calculation.MainSalary + calculation.AdditionalSalary) * constants.KEsn / 100;
+            calculation.FixedTax = (calculation.MainSalary + calculation.AdditionalSalary) * constants.KEsn.ToDecimal() / 100;
             // Общецеховые
-            calculation.TotalDivision = (calculation.MainSalary + calculation.AdditionalSalary) * constants.KObCeh / 100;
+            calculation.TotalDivision = (calculation.MainSalary + calculation.AdditionalSalary) * constants.KObCeh.ToDecimal() / 100;
             // Общепроизводственные
-            calculation.TotalManufacture = (calculation.MainSalary + calculation.AdditionalSalary) * constants.KObPr / 100;
+            calculation.TotalManufacture = (calculation.MainSalary + calculation.AdditionalSalary) * constants.KObPr.ToDecimal() / 100;
             // Итого (1)
             calculation.MainSummary = calculation.AllMaterials + calculation.Transport + calculation.MainSalary + calculation.AdditionalSalary + calculation.FixedTax + calculation.TotalDivision +
                          calculation.TotalManufacture;
@@ -90,19 +90,19 @@ namespace Rti.ViewModel.EditViewModel
             else
                 calculation.PowerForFormed = 0;
             // Электроэнергия прочая
-            calculation.OtherPower = calculation.PowerForFormed * constants.KEl / 100;
+            calculation.OtherPower = calculation.PowerForFormed * constants.KEl.ToDecimal() / 100;
             // Итого (2)
             calculation.MainAndPowerSummary = calculation.MainSummary + calculation.PowerForFormed + calculation.OtherPower;
             // Коммерческие (Непредвиденные)
-            calculation.Unforseen = calculation.MainAndPowerSummary * constants.KNep / 100;
+            calculation.Unforseen = calculation.MainAndPowerSummary * constants.KNep.ToDecimal() / 100;
             // Себестоимость
             calculation.NetCost = calculation.MainAndPowerSummary + calculation.Unforseen;
             // Рентабельность
-            calculation.Profitability = calculation.NetCost * constants.KRen / 100;
+            calculation.Profitability = calculation.NetCost * constants.KRen.ToDecimal() / 100;
             // Цена 
             calculation.Price = calculation.NetCost + calculation.Profitability;
             // НДС
-            calculation.NdsTax = calculation.Price * constants.Nds / 100;
+            calculation.NdsTax = calculation.Price * constants.Nds.ToDecimal() / 100;
             // Всего
             calculation.Summary = calculation.Price + calculation.NdsTax;
         }

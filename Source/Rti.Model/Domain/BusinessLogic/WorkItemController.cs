@@ -88,6 +88,7 @@ namespace Rti.Model.Domain.BusinessLogic
             var workItems = RepositoryFactory.GetWorkItemRepository().GetWorkItemsByIds(notShippedWorkItems.Select(o => o.Item1).ToArray());
             var index = 0;
             var shippedCount = shipmentItem.Count;
+            shipmentItem.BatchNumbers = string.Empty;
             foreach (var workItem in workItems.OrderBy(o => o.WorkDate).ThenBy(o => o.SortOrder))
             {
                 if (shippedCount == 0)
@@ -103,9 +104,12 @@ namespace Rti.Model.Domain.BusinessLogic
                 detail.Count = workItemShippedCount;
                 RepositoryFactory.GetShipmentItemWorkItemRepository().Insert(detail);
                 shippedCount -= workItemShippedCount;
+                shipmentItem.BatchNumbers += string.Format("{0}{1}", shipmentItem.BatchNumbers == string.Empty ? string.Empty : ",", workItem.BatchNumber);
             }
 
-            var nextWorkItem = RepositoryFactory.GetShipmentItemRepository().GetFollowingItems(shipmentItem).OrderBy(o => o.Shipment.Date).ThenBy(o => o.Shipment.SortOrder).ThenBy(o => o.SortOrder).FirstOrDefault();
+            RepositoryFactory.GetShipmentItemRepository().Update(shipmentItem);
+
+            var nextWorkItem = RepositoryFactory.GetShipmentItemRepository().GetFollowingItems(shipmentItem.RequestDetail.Drawing.Id, shipmentItem.Shipment.Date, shipmentItem.Shipment.SortOrder).OrderBy(o => o.Shipment.Date).ThenBy(o => o.Shipment.SortOrder).ThenBy(o => o.SortOrder).FirstOrDefault();
             if (nextWorkItem != null)
             {
                 PostShipmentItem(nextWorkItem);

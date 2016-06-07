@@ -42,20 +42,7 @@ namespace Rti.ViewModel.Entities
             }
         }
 
-        protected EntityViewModel()
-        {
-            SuppressIsChanged = true;
-            try
-            {
-                IsNewEntity = true;
-                Entity = new TEntity();
-                MapPropertiesFromEntity();
-            }
-            finally
-            {
-                SuppressIsChanged = false;
-            }
-        }
+        protected EntityViewModel() : this(null, null) { }
 
         protected EntityViewModel(TEntity entity, IRepositoryFactory repositoryFactory)
             : base(repositoryFactory)

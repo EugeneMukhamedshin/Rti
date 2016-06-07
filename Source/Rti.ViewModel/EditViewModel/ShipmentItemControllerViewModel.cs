@@ -21,7 +21,7 @@ namespace Rti.ViewModel.EditViewModel
 
         public bool ValidatePost(ShipmentItemViewModel shipmentItem)
         {
-            var followingShipmentItems = RepositoryFactory.GetShipmentItemRepository().GetFollowingItems(shipmentItem.Entity);
+            var followingShipmentItems = RepositoryFactory.GetShipmentItemRepository().GetFollowingItems(shipmentItem.RequestDetail.Drawing.Id, shipmentItem.Shipment.Date, shipmentItem.Shipment.SortOrder);
             if (followingShipmentItems.Any())
             {
                 if (

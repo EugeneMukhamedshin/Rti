@@ -472,6 +472,7 @@ namespace Rti.Model.Repository.NHibernate
 			result = result.Fetch(o => o.Request).Default;
 			result = result.Fetch(o => o.Recipient).Default;
 			result = result.Fetch(o => o.Payment).Default;
+			result = result.Fetch(o => o.Driver).Default;
             return result;
         }
     }

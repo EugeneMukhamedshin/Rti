@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Rti.Model.Domain;
 
 namespace Rti.Model.Repository.Interfaces
@@ -6,6 +7,6 @@ namespace Rti.Model.Repository.Interfaces
     public partial interface IShipmentItemRepository
     {
         IList<ShipmentItem> GetByShipmentId(int shipmentId);
-        IList<ShipmentItem> GetFollowingItems(ShipmentItem shipmentItem);
+        IList<ShipmentItem> GetFollowingItems(int drawingId, DateTime shipmentDate, int shipmentOrder);
     }
 }

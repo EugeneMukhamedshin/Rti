@@ -5,6 +5,7 @@ using System.Threading;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
+using Rti.ViewModel.Entities.Commands;
 using Rti.ViewModel.Lists;
 
 namespace Rti.ViewModel.EditViewModel
@@ -15,12 +16,25 @@ namespace Rti.ViewModel.EditViewModel
 
         public Lazy<List<RequestViewModel>> RequestsSource { get; set; }
         public Lazy<List<ContragentViewModel>> CustomersSource { get; set; }
-        public Lazy<List<PaymentViewModel>> PaymentsSource { get; set; }
+        public List<PaymentViewModel> PaymentsSource { get; set; }
+
+        public DelegateCommand OpenDeliveryEditCommand { get; set; }
 
         public ShipmentEdit(string name, ShipmentViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) : base(name, entity, readOnly, viewService, repositoryFactory)
         {
+            OpenDeliveryEditCommand = new DelegateCommand(
+                "Открыть ТТН",
+                o => true,
+                o => OpenDeliveryEdit());
             ShipmentItemList = new ShipmentItemList(entity, Editable, ViewService, RepositoryFactory);
             Entity.PropertyChanged += Entity_PropertyChanged;
+        }
+
+        private void OpenDeliveryEdit()
+        {
+            var editViewModel = new DeliveryEdit("ТТН", Entity, ReadOnly, ViewService, RepositoryFactory);
+            editViewModel.Refresh();
+            ViewService.ShowViewDialog(editViewModel);
         }
 
         private void Entity_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -28,6 +42,15 @@ namespace Rti.ViewModel.EditViewModel
             if (e.PropertyName == "Request")
             {
                 RefreshPaymentsSource();
+                ShipmentItemList.Items.Clear();
+                ShipmentItemList.RefreshRequestDetails();
+            }
+            if (e.PropertyName.In("IsReplace", "IsAddition"))
+            {
+                foreach (var item in ShipmentItemList.Items)
+                {
+                    item.ZeroPrice = Entity.IsReplace || Entity.IsAddition;
+                }
             }
         }
 
@@ -56,14 +79,13 @@ namespace Rti.ViewModel.EditViewModel
         private void RefreshPaymentsSource()
         {
             PaymentsSource =
-                new Lazy<List<PaymentViewModel>>(
-                    () =>
                         Entity.Request != null
                             ? RepositoryFactory.GetPaymentRepository()
                                 .GetByRequestId(Entity.Request.Id)
                                 .Select(o => new PaymentViewModel(o, RepositoryFactory))
                                 .ToList()
-                            : new List<PaymentViewModel>());
+                            : new List<PaymentViewModel>();
+            Entity.Payment = PaymentsSource.SingleOrDefault();
             OnPropertyChanged("PaymentsSource");
         }
 

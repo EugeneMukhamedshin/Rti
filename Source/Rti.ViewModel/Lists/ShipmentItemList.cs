@@ -1,58 +1,95 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
+using Rti.ViewModel.Entities.Commands;
 
 namespace Rti.ViewModel.Lists
 {
     public class ShipmentItemList: EntityList<ShipmentItemViewModel, ShipmentItem>
     {
         private readonly List<ShipmentItemViewModel> _deletedItems = new List<ShipmentItemViewModel>();
-        private Lazy<Constant> _constants;
+        private readonly Lazy<Constant> _constants;
+
+        public DelegateCommand AddItemCommand { get; set; }
 
         public ShipmentViewModel Shipment { get; set; }
 
         public List<RequestDetailViewModel> RequestDetailsSource { get; set; }
 
-        public decimal? Sum { get { return Items.Sum(o => o.Count * o.RequestDetail.Drawing.Price); } }
+        public decimal? Sum { get { return Items.Sum(o => o.Sum); } }
 
-        public decimal? SumWithNds { get { return Items.Sum(o => o.Count * o.RequestDetail.Drawing.Price * _constants.Value.Nds / 100); } }
+        public decimal? SumWithNds { get { return Items.Sum(o => o.SumWithNds); } }
 
-        public double? NetMass { get
+        public double? NetMass
         {
-            return
-                Items.Sum(
-                    o =>
-                        o.RequestDetail.Drawing.FactMass ??
-                        o.RequestDetail.Drawing.MassCalculation.CalculatedMass);
-        } }
+            get
+            {
+                return
+                    Items.Sum(
+                        o => o.Count*(
+                            o.RequestDetail != null && o.RequestDetail.Drawing != null &&
+                            o.RequestDetail.Drawing.FactMass != null
+                                ? o.RequestDetail.Drawing.FactMass
+                                : o.RequestDetail != null && o.RequestDetail.Drawing != null &&
+                                  o.RequestDetail.Drawing.MassCalculation != null
+                                    ? o.RequestDetail.Drawing.MassCalculation.CalculatedMass
+                                    : null)) / 1000;
+            }
+        }
 
         public ShipmentItemList(ShipmentViewModel shipment, bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
         {
             _constants = new Lazy<Constant>(() => RepositoryFactory.GetConstantRepository().GetActual());
             Shipment = shipment;
-            Shipment.PropertyChanged += Shipment_PropertyChanged;
+            AddItemCommand = new DelegateCommand(
+                "Добавить строку",
+                o => true,
+                o => AddItem());
         }
 
-        void Shipment_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void AddItem()
         {
-            if (e.PropertyName == "Request")
-            {
-                Items.Clear();
-                RefreshRequestDetails();
-            }
+            var newItem = DoCreateNewEntity();
+            Items.Add(newItem);
         }
 
         protected override void OnItemsChanged()
         {
             base.OnItemsChanged();
+            Items.CollectionChanged += Items_CollectionChanged;
+
+            RefreshAndResubscribeItems();
+        }
+
+        private void RefreshAndResubscribeItems()
+        {
+            RefreshSummary();
+            foreach (var item in Items)
+            {
+                item.PropertyChanged -= item_PropertyChanged;
+                item.PropertyChanged += item_PropertyChanged;
+            }
+        }
+
+        void Items_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            RefreshAndResubscribeItems();
+        }
+
+        private void RefreshSummary()
+        {
             OnPropertyChanged("Sum");
             OnPropertyChanged("SumWithNds");
             OnPropertyChanged("NetMass");
+        }
+
+        void item_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.In("Count", "RealPrice", "Price"))
+                RefreshSummary();
         }
 
         public override void Refresh()
@@ -76,7 +113,8 @@ namespace Rti.ViewModel.Lists
             return new ShipmentItemViewModel(null, RepositoryFactory)
             {
                 Shipment = Shipment,
-                SortOrder = Items.Any() ? Items.Max(o => o.SortOrder) + 1 : 1
+                SortOrder = Items.Any() ? Items.Max(o => o.SortOrder) + 1 : 1,
+                NdsPercent = _constants.Value.Nds
             };
         }
 
@@ -94,6 +132,7 @@ namespace Rti.ViewModel.Lists
         {
             foreach (var deletedItem in _deletedItems)
             {
+                RepositoryFactory.GetShipmentItemWorkItemRepository().DeleteByShipmentItemId(deletedItem.Id);
                 deletedItem.DeleteEntity();
             }
             _deletedItems.Clear();

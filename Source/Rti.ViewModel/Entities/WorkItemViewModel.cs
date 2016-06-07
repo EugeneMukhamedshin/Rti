@@ -4,11 +4,6 @@ namespace Rti.ViewModel.Entities
 {
     public partial class WorkItemViewModel
     {
-        public string BatchNumber
-        {
-            get { return string.Format("{0:dd.MM.yyyy}/{1}", WorkDate, SortOrder); }
-        }
-
         public decimal? Sum
         {
             get { return Drawing != null && Drawing.PlanCalculation != null ? DoneCount * Drawing.PlanCalculation.Summary : null; }
@@ -46,7 +41,7 @@ namespace Rti.ViewModel.Entities
             if (propertyName.In("DoneCount", "Drawing"))
                 OnPropertyChanged("Sum");
             if (propertyName == "Date")
-                OnPropertyChanged("BatchNumber");
+                BatchNumber = string.Format("{0:dd.MM.yyyy}/{1}", WorkDate, SortOrder);
             if (propertyName.In("DoneCount", "RequestCount", "RejectedCount"))
                 OnPropertyChanged("RemainedCount");
             if (propertyName.In("TaskCount", "Drawing"))

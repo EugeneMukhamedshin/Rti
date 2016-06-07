@@ -11,25 +11,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DevExpress.Xpf.Core;
-using DevExpress.Xpf.Grid;
 
 
 namespace Rti.App.View.Editors
 {
     /// <summary>
-    /// Interaction logic for ShipmentEditWindow.xaml
+    /// Interaction logic for DeliveryEditWindow.xaml
     /// </summary>
-    public partial class ShipmentEditWindow : DXWindow
+    public partial class DeliveryEditWindow : DXWindow
     {
-        public ShipmentEditWindow()
+        public DeliveryEditWindow()
         {
             InitializeComponent();
-        }
-
-        private void GridControl_OnCustomColumnDisplayText(object sender, CustomColumnDisplayTextEventArgs e)
-        {
-            if (Equals(e.Column, _rowNumberColumn))
-                e.DisplayText = (e.ListSourceIndex + 1).ToString();
         }
     }
 }
