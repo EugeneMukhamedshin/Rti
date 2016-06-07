@@ -65,6 +65,7 @@
     <Compile Include="EditViewModel\EditViewModel.cs" />
     <Compile Include="EditViewModel\EditViewModelBase.cs" />
     <Compile Include="EditViewModel\DetailEdit.cs" />
+    <Compile Include="EditViewModel\ReportOfCompletionEdit.cs" />
     <Compile Include="EditViewModel\ShipmentEdit.cs" />
     <Compile Include="EditViewModel\ShipmentItemControllerViewModel.cs" />
     <Compile Include="EditViewModel\WorkItemControllerViewModel.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Entities\ContragentViewModel.cs" />
     <Compile Include="Entities\DrawingFlowsheetMachineViewModel.cs" />
     <Compile Include="Entities\PaymentViewModel.cs" />
+    <Compile Include="Entities\ReportOfCompletionItemViewModel.cs" />
     <Compile Include="Entities\RequestViewModel.cs" />
     <Compile Include="Entities\ShipmentItemViewModel.cs" />
     <Compile Include="Entities\ShipmentViewModel.cs" />

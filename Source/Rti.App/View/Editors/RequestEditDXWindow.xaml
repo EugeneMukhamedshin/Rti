@@ -148,7 +148,8 @@
             </dxg:GridControl>
 
             <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal">
-                <Button Content="Текущий счет" Command="{Binding CreateInvoiceCommand}" Width="80" Margin="5" IsDefault="True" TabIndex="999"/>
+                <Button Content="Текущий счет" Command="{Binding CreateInvoiceCommand}" Width="100" Margin="5" IsDefault="True" TabIndex="999"/>
+                <Button Content="Акт выполненных работ" Command="{Binding CreateReportOfCompletionCommand}" Width="170" Margin="5" IsDefault="True" TabIndex="999"/>
             </StackPanel>
             <StackPanel Grid.Row="5" Grid.Column="0" Orientation="Horizontal">
                 <Button Content="Сохранить" Command="{Binding OkCommand}" Width="80" Margin="5" IsDefault="True" TabIndex="1000"/>

@@ -55,6 +55,8 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new PaymentRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Process))
                 return (IRepository<TEntity>)new ProcessRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.ReportOfCompletionItem))
+                return (IRepository<TEntity>)new ReportOfCompletionItemRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Request))
                 return (IRepository<TEntity>)new RequestRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.RequestDetail))
@@ -129,6 +131,8 @@ namespace Rti.Model.Repository.NHibernate
 		public IPaymentRepository GetPaymentRepository() { return (IPaymentRepository) GetRepository<Rti.Model.Domain.Payment>(); }
 
 		public IProcessRepository GetProcessRepository() { return (IProcessRepository) GetRepository<Rti.Model.Domain.Process>(); }
+
+		public IReportOfCompletionItemRepository GetReportOfCompletionItemRepository() { return (IReportOfCompletionItemRepository) GetRepository<Rti.Model.Domain.ReportOfCompletionItem>(); }
 
 		public IRequestRepository GetRequestRepository() { return (IRequestRepository) GetRepository<Rti.Model.Domain.Request>(); }
 
@@ -406,6 +410,17 @@ namespace Rti.Model.Repository.NHibernate
         protected override IQueryOver<Rti.Model.Domain.Process, Rti.Model.Domain.Process> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Process, Rti.Model.Domain.Process> queryOver)
         {
 			var result = queryOver;
+            return result;
+        }
+    }
+
+	public partial class ReportOfCompletionItemRepository : NHibernateRepository<Rti.Model.Domain.ReportOfCompletionItem>, IReportOfCompletionItemRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.ReportOfCompletionItem, Rti.Model.Domain.ReportOfCompletionItem> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.ReportOfCompletionItem, Rti.Model.Domain.ReportOfCompletionItem> queryOver)
+        {
+			var result = queryOver;
+			result = result.Fetch(o => o.Request).Default;
             return result;
         }
     }

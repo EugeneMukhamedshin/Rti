@@ -63,11 +63,16 @@ namespace Rti.ViewModel.EditViewModel
                 "Текущий счет",
                 o => true,
                 o => CreateInvoice());
+            CreateReportOfCompletionCommand = new DelegateCommand(
+                "Акт выполненных работ",
+                o => true,
+                o => CreateReportOfCompletion());
         }
 
         public DelegateCommand AddRequestDetailCommand { get; set; }
         public DelegateCommand RemoveRequestDetailCommand { get; set; }
         public DelegateCommand CreateInvoiceCommand { get; set; }
+        public DelegateCommand CreateReportOfCompletionCommand { get; set; }
 
         private void AddRequestDetail()
         {
@@ -88,7 +93,7 @@ namespace Rti.ViewModel.EditViewModel
         private void CreateInvoice()
         {
             if (ViewService.ShowConfirmation(new MessageViewModel("Внимание",
-                    "После формирования счета заявку нельзя будет менять.\r\nСформировать счет?")))
+                    "Для формирования счета заявка будет сохранена.\r\nПродолжить?")))
             {
                 Entity.InvoiceDate = DateTime.Today;
                 DoSave();
@@ -96,6 +101,20 @@ namespace Rti.ViewModel.EditViewModel
                 var reportGenerator = new InvoiceReportGenerator();
                 reportGenerator.BuildReport(Source.Id, ViewService, RepositoryFactory);
             }
+        }
+
+        private void CreateReportOfCompletion()
+        {
+            if (ViewService.ShowConfirmation(new MessageViewModel("Внимание",
+                "Для формирования акта заявка будет сохранена.\r\nПродолжить?")))
+            {
+                DoSave();
+
+                var edit = new ReportOfCompletionEdit("Акт выполненных работ", Source, ReadOnly, ViewService, RepositoryFactory);
+                edit.Refresh();
+                ViewService.ShowViewDialog(edit);
+
+                Entity.CompleteSum = Source.CompleteSum;}
         }
 
         public override void Refresh()

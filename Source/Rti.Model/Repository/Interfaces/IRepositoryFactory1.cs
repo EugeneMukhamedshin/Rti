@@ -30,6 +30,7 @@ namespace Rti.Model.Repository.Interfaces
 		IMethodRepository GetMethodRepository();
 		IPaymentRepository GetPaymentRepository();
 		IProcessRepository GetProcessRepository();
+		IReportOfCompletionItemRepository GetReportOfCompletionItemRepository();
 		IRequestRepository GetRequestRepository();
 		IRequestDetailRepository GetRequestDetailRepository();
 		IRollingRecordRepository GetRollingRecordRepository();
@@ -68,6 +69,7 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IMethodRepository : IRepository<Rti.Model.Domain.Method> { }
 	public partial interface IPaymentRepository : IRepository<Rti.Model.Domain.Payment> { }
 	public partial interface IProcessRepository : IRepository<Rti.Model.Domain.Process> { }
+	public partial interface IReportOfCompletionItemRepository : IRepository<Rti.Model.Domain.ReportOfCompletionItem> { }
 	public partial interface IRequestRepository : IRepository<Rti.Model.Domain.Request> { }
 	public partial interface IRequestDetailRepository : IRepository<Rti.Model.Domain.RequestDetail> { }
 	public partial interface IRollingRecordRepository : IRepository<Rti.Model.Domain.RollingRecord> { }

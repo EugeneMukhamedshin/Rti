@@ -149,6 +149,9 @@
     <Compile Include="View\Editors\DeliveryEditWindow.xaml.cs">
       <DependentUpon>DeliveryEditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Editors\ReportOfCompletionEditWindow.xaml.cs">
+      <DependentUpon>ReportOfCompletionEditWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Editors\ShipmentEditWindow.xaml.cs">
       <DependentUpon>ShipmentEditWindow.xaml</DependentUpon>
     </Compile>
@@ -388,6 +391,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Editors\ReportOfCompletionEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Editors\ShipmentEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -597,6 +604,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\Images\delete.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\completion_report.xslt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

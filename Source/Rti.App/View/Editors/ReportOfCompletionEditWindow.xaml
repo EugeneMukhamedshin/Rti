@@ -1,0 +1,46 @@
+﻿<dx:DXWindow xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+    x:Class="Rti.App.View.Editors.ReportOfCompletionEditWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:components="clr-namespace:Rti.App.View.Components"
+    Title="{Binding Name}" Height="261.598" Width="340.979"
+    >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+        </Grid.RowDefinitions>
+        <dxg:GridControl Grid.Row="0" ShowLoadingPanel="{Binding IsLoading}" TabIndex="0" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectionMode="Row">
+            <dxg:GridControl.Resources>
+                <Style TargetType="dxg:GridColumn">
+                    <Setter Property="HeaderTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </dxg:GridControl.Resources>
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn Binding="{Binding EquipmentTypeEnum,Converter={StaticResource EnumToStringConverter}}" Header="Наименование" Width="150" ReadOnly="True"/>
+                <dxg:GridColumn Binding="{Binding Count,Mode=TwoWay}" Header="В количестве" Width="100" EditSettings="{components:TextEditSettings Mask=f0,MaskType=Numeric}"/>
+            </dxg:GridControl.Columns>
+            <dxg:GridControl.View>
+                <dxg:TableView AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Margin="5" Text="Стоимость выполненных работ, руб."/>
+            <dxe:TextEdit Text="{Binding Entity.CompleteSum, Mode=TwoWay}" Width="100" Margin="5" Mask="f2" MaskType="Numeric"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button Content="Акт выполненных работ" Width="170" Margin="5" Command="{Binding BuildReportCommand}"/>
+            <Button Content="Закрыть" Width="170" Margin="5" Command="{Binding CancelCommand}"/>
+        </StackPanel>
+    </Grid>
+</dx:DXWindow>

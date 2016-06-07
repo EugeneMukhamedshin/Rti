@@ -98,7 +98,8 @@ namespace Rti.ViewModel.Reporting.Generator
                     }
                 }
             }
-            return string.Format("{0} руб. {1} коп.", result.Length == 0 ? "ноль" : result.ToString(), (int)((number - Math.Floor(number)) * 100));
+            var res = string.Format("{0} руб. {1} коп.", result.Length == 0 ? "ноль" : result.ToString(), (int)((number - Math.Floor(number)) * 100));
+            return res;
         }
 
         private static IFormatProvider GetFormatProvider(string culture)
@@ -140,6 +141,11 @@ namespace Rti.ViewModel.Reporting.Generator
         public string FormatDate(string text)
         {
             return FormatDate(text, "d", null);
+        }
+
+        public string GetCurrentDateTime(string format)
+        {
+            return DateTime.Now.ToString(format);
         }
 
         //public string FormatDecimal(string text, string format, string culture)
