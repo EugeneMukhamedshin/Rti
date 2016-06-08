@@ -67,12 +67,17 @@ namespace Rti.ViewModel.EditViewModel
                 "Акт выполненных работ",
                 o => true,
                 o => CreateReportOfCompletion());
+            CreateContractReportCommand = new DelegateCommand(
+                "Договор",
+                o => true,
+                o => CreateContractReport());
         }
 
         public DelegateCommand AddRequestDetailCommand { get; set; }
         public DelegateCommand RemoveRequestDetailCommand { get; set; }
         public DelegateCommand CreateInvoiceCommand { get; set; }
         public DelegateCommand CreateReportOfCompletionCommand { get; set; }
+        public DelegateCommand CreateContractReportCommand { get; set; }
 
         private void AddRequestDetail()
         {
@@ -114,7 +119,28 @@ namespace Rti.ViewModel.EditViewModel
                 edit.Refresh();
                 ViewService.ShowViewDialog(edit);
 
-                Entity.CompleteSum = Source.CompleteSum;}
+                Entity.CompleteSum = Source.CompleteSum;
+            }
+        }
+
+        private void CreateContractReport()
+        {
+            if (ViewService.ShowConfirmation(new MessageViewModel("Внимание",
+                "Для формирования договора заявка будет сохранена.\r\nПродолжить?")))
+            {
+                var contract = Source.Contract ?? new ContractViewModel(null, RepositoryFactory)
+                {
+                    Date = Entity.RegDate,
+                    Number = RepositoryFactory.GetContractRepository().GetNextNumber(Entity.RegDate)
+                };
+                if (contract.IsNewEntity)
+                    contract.SaveEntity();
+                Entity.Contract = contract;
+                DoSave();
+
+                var reportGenerator = new ContractReportGenerator();
+                reportGenerator.BuildReport(Source.Id, ViewService, RepositoryFactory);
+            }
         }
 
         public override void Refresh()

@@ -18,6 +18,7 @@ namespace Rti.ViewModel
         //public List<RequestViewModel> Requests { get; set; }
 
         public DelegateCommand CreateNewRequestCommand { get; set; }
+        public DelegateCommand CreateNewShipmentCommand { get; set; }
         public DelegateCommand OpenRequestCommand { get; set; }
 
         public DelegateCommand OpenDrawingsCommand { get; set; }
@@ -55,6 +56,10 @@ namespace Rti.ViewModel
                 "Новая заявка",
                 o => true,
                 o => CreateNewRequest());
+            CreateNewShipmentCommand = new DelegateCommand(
+                "Новая заявка",
+                o => true,
+                o => CreateNewShipment());
             OpenRequestCommand = new DelegateCommand(
                 "Открыть заявку",
                 o => true,
@@ -217,6 +222,18 @@ namespace Rti.ViewModel
             editViewModel.Refresh();
             if (ViewService.ShowViewDialog(editViewModel) != true)
                 request.DeleteEntity();
+        }
+
+        private void CreateNewShipment()
+        {
+            var shipment = new ShipmentViewModel(null, RepositoryFactory)
+            {
+                Date = DateTime.Today,
+                SortOrder = RepositoryFactory.GetShipmentRepository().GetNextSortOrder()
+            };
+            var editViewModel = new ShipmentEdit("Отгрузка", shipment, false, ViewService, RepositoryFactory);
+            editViewModel.Refresh();
+            ViewService.ShowViewDialog(editViewModel);
         }
 
         private void OpenRequest()

@@ -61,7 +61,9 @@ namespace Rti.ViewModel.EditViewModel
                 item.SaveEntity();
             }
 
-            var reportGenerator = new ReportOfCompletionReportGenerator();reportGenerator.BuildReport(Source.Id, ViewService, RepositoryFactory);
+            var reportGenerator = new ReportOfCompletionReportGenerator();
+            reportGenerator.BuildReport(Source.Id, ViewService, RepositoryFactory);
+            Close(true);
         }
     }
 }

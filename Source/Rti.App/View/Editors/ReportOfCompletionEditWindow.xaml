@@ -5,7 +5,7 @@
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
     xmlns:components="clr-namespace:Rti.App.View.Components"
-    Title="{Binding Name}" Height="261.598" Width="340.979"
+    Title="{Binding Name}" Height="261.598" Width="369.979"
     >
 
     <Grid>
@@ -36,10 +36,10 @@
         </dxg:GridControl>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <TextBlock Margin="5" Text="Стоимость выполненных работ, руб."/>
-            <dxe:TextEdit Text="{Binding Entity.CompleteSum, Mode=TwoWay}" Width="100" Margin="5" Mask="f2" MaskType="Numeric"/>
+            <dxe:TextEdit Text="{Binding Entity.CompleteSum, Converter={StaticResource StringToNumberConverter}, Mode=TwoWay}" Width="138" Margin="5" Mask="f2" MaskType="Numeric" MaskCulture="ru-RU"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <Button Content="Акт выполненных работ" Width="170" Margin="5" Command="{Binding BuildReportCommand}"/>
+            <Button Content="Акт выполненных работ" IsDefault="True" Width="170" Margin="5" Command="{Binding BuildReportCommand}"/>
             <Button Content="Закрыть" Width="170" Margin="5" Command="{Binding CancelCommand}"/>
         </StackPanel>
     </Grid>

@@ -108,6 +108,18 @@ namespace Rti.Model.Domain
 		public virtual Boolean IsDeleted { get; set; }
 	}
 
+	// The class for contracts
+	[Table("contracts")]
+	public partial class Contract: IIdentifiedEntity
+	{
+		[Field("id")]
+		public virtual Int32 Id { get; protected set; }
+		[Field("date")]
+		public virtual DateTime Date { get; set; }
+		[Field("number")]
+		public virtual Int32 Number { get; set; }
+	}
+
 	// The class for contragents
 	[Table("contragents")]
 	public partial class Contragent: IIdentifiedEntity
@@ -666,6 +678,8 @@ namespace Rti.Model.Domain
 		public virtual decimal? CompleteSum { get; set; }
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+		[Reference("contract_id", false)]
+		public virtual Contract Contract { get; set; }
 		[Reference("customer_id", false)]
 		public virtual Contragent Customer { get; set; }
 		[Reference("manufacturer_id", false)]

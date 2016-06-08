@@ -596,6 +596,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Reports\contract.doc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Reports\invoice.xslt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

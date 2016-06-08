@@ -92,6 +92,24 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 		}
 	}
 
+	// The classmap for contracts
+	public partial class ContractMap : BaseMap<Rti.Model.Domain.Contract>
+	{
+		public ContractMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("contracts");
+			Id(o => o.Id, "id");
+			Map(o => o.Date, "date");
+			Map(o => o.Number, "number");
+			OnInitialized();
+		}
+	}
+
 	// The classmap for contragents
 	public partial class ContragentMap : BaseMap<Rti.Model.Domain.Contragent>
 	{
@@ -631,6 +649,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.IsPaid, "is_paid");
 			Map(o => o.CompleteSum, "complete_sum");
 			Map(o => o.IsDeleted, "is_deleted");
+			References(o => o.Contract, "contract_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Customer, "customer_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Manufacturer, "manufacturer_id").Fetch.Join().Not.LazyLoad();
 			OnInitialized();

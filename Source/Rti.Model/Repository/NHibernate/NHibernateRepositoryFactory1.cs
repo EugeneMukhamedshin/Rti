@@ -15,6 +15,8 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new CalculationRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Constant))
                 return (IRepository<TEntity>)new ConstantRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.Contract))
+                return (IRepository<TEntity>)new ContractRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Contragent))
                 return (IRepository<TEntity>)new ContragentRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Detail))
@@ -91,6 +93,8 @@ namespace Rti.Model.Repository.NHibernate
 		public ICalculationRepository GetCalculationRepository() { return (ICalculationRepository) GetRepository<Rti.Model.Domain.Calculation>(); }
 
 		public IConstantRepository GetConstantRepository() { return (IConstantRepository) GetRepository<Rti.Model.Domain.Constant>(); }
+
+		public IContractRepository GetContractRepository() { return (IContractRepository) GetRepository<Rti.Model.Domain.Contract>(); }
 
 		public IContragentRepository GetContragentRepository() { return (IContragentRepository) GetRepository<Rti.Model.Domain.Contragent>(); }
 
@@ -185,6 +189,16 @@ namespace Rti.Model.Repository.NHibernate
     {
 
         protected override IQueryOver<Rti.Model.Domain.Constant, Rti.Model.Domain.Constant> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Constant, Rti.Model.Domain.Constant> queryOver)
+        {
+			var result = queryOver;
+            return result;
+        }
+    }
+
+	public partial class ContractRepository : NHibernateRepository<Rti.Model.Domain.Contract>, IContractRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.Contract, Rti.Model.Domain.Contract> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Contract, Rti.Model.Domain.Contract> queryOver)
         {
 			var result = queryOver;
             return result;
@@ -431,6 +445,7 @@ namespace Rti.Model.Repository.NHibernate
         protected override IQueryOver<Rti.Model.Domain.Request, Rti.Model.Domain.Request> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Request, Rti.Model.Domain.Request> queryOver)
         {
 			var result = queryOver;
+			result = result.Fetch(o => o.Contract).Default;
 			result = result.Fetch(o => o.Customer).Default;
 			result = result.Fetch(o => o.Manufacturer).Default;
             return result;

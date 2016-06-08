@@ -433,6 +433,73 @@ namespace Rti.ViewModel.Entities
         }
 	}
 
+    // The viewmodel for Contract
+    public partial class ContractViewModel : EntityViewModel<Rti.Model.Domain.Contract, ContractViewModel>
+	{
+		// Конструктор для маппинга
+		public ContractViewModel() { }
+
+        public ContractViewModel(Rti.Model.Domain.Contract entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+		private Int32 _id;
+		private DateTime _date;
+		private Int32 _number;
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+		public DateTime Date { get { return _date; } set { if (Equals(_date, value)) return; _date = value; OnPropertyChanged("Date"); } }
+		public Int32 Number { get { return _number; } set { if (Equals(_number, value)) return; _number = value; OnPropertyChanged("Number"); } }
+
+	    protected override void MapPropertiesToEntity()
+		{
+			Entity.Date = Date; 
+			Entity.Number = Number; 
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+			IsMapping = true;
+			Id = Entity.Id; 
+			Date = Entity.Date; 
+			Number = Entity.Number; 
+			IsMapping = false;
+		}
+
+		public override void CopyFrom(ContractViewModel source)
+		{
+			IsMapping = true;
+			Date = source.Date;
+			Number = source.Number;
+			CustomCopyFrom(source);
+			IsMapping = false;
+		}
+
+		public override ContractViewModel Clone()
+		{
+			var copy = new ContractViewModel(null, RepositoryFactory);
+			copy.CopyFrom(this);
+			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("Date", Date));
+			element.Add(new XAttribute("Number", Number));
+			CustomFillXElement(element);
+			return element;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(ContractViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((ContractViewModel) obj);
+        }
+	}
+
 	// The viewmodel for Contragent
 	public partial class ContragentViewModel : EntityViewModel<Rti.Model.Domain.Contragent, ContragentViewModel>
 	{
@@ -2734,8 +2801,8 @@ namespace Rti.ViewModel.Entities
         }
 	}
 
-    // The viewmodel for ReportOfCompletionItem
-    public partial class ReportOfCompletionItemViewModel : EntityViewModel<Rti.Model.Domain.ReportOfCompletionItem, ReportOfCompletionItemViewModel>
+	// The viewmodel for ReportOfCompletionItem
+	public partial class ReportOfCompletionItemViewModel : EntityViewModel<Rti.Model.Domain.ReportOfCompletionItem, ReportOfCompletionItemViewModel>
 	{
 		// Конструктор для маппинга
 		public ReportOfCompletionItemViewModel() { }
@@ -2824,6 +2891,7 @@ namespace Rti.ViewModel.Entities
 		private Boolean? _isPaid;
 		private Decimal? _completeSum;
 		private Boolean _isDeleted;
+		private ContractViewModel _contract;
 		private ContragentViewModel _customer;
 		private ContragentViewModel _manufacturer;
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
@@ -2835,6 +2903,7 @@ namespace Rti.ViewModel.Entities
 		public Boolean? IsPaid { get { return _isPaid; } set { if (Equals(_isPaid, value)) return; _isPaid = value; OnPropertyChanged("IsPaid"); } }
 		public Decimal? CompleteSum { get { return _completeSum; } set { if (Equals(_completeSum, value)) return; _completeSum = value; OnPropertyChanged("CompleteSum"); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
+		public ContractViewModel Contract { get { return _contract; } set { _contract = value; OnPropertyChanged("Contract"); } }
 		public ContragentViewModel Customer { get { return _customer; } set { _customer = value; OnPropertyChanged("Customer"); } }
 		public ContragentViewModel Manufacturer { get { return _manufacturer; } set { _manufacturer = value; OnPropertyChanged("Manufacturer"); } }
 		protected override void MapPropertiesToEntity()
@@ -2847,6 +2916,7 @@ namespace Rti.ViewModel.Entities
 			Entity.IsPaid = IsPaid; 
 			Entity.CompleteSum = CompleteSum; 
 			Entity.IsDeleted = IsDeleted; 
+			Entity.Contract = Contract == null ? null : Contract.Entity; 
 			Entity.Customer = Customer == null ? null : Customer.Entity; 
 			Entity.Manufacturer = Manufacturer == null ? null : Manufacturer.Entity; 
 		}
@@ -2863,6 +2933,7 @@ namespace Rti.ViewModel.Entities
 			IsPaid = Entity.IsPaid; 
 			CompleteSum = Entity.CompleteSum; 
 			IsDeleted = Entity.IsDeleted; 
+			Contract = Entity.Contract == null ? null : new ContractViewModel(Entity.Contract, RepositoryFactory); 
 			Customer = Entity.Customer == null ? null : new ContragentViewModel(Entity.Customer, RepositoryFactory); 
 			Manufacturer = Entity.Manufacturer == null ? null : new ContragentViewModel(Entity.Manufacturer, RepositoryFactory); 
 			IsMapping = false;
@@ -2879,6 +2950,7 @@ namespace Rti.ViewModel.Entities
 			IsPaid = source.IsPaid;
 			CompleteSum = source.CompleteSum;
 			IsDeleted = source.IsDeleted;
+			Contract = source.Contract;
 			Customer = source.Customer;
 			Manufacturer = source.Manufacturer;
 			CustomCopyFrom(source);
@@ -2909,6 +2981,8 @@ namespace Rti.ViewModel.Entities
 			if (CompleteSum != null)
 				element.Add(new XAttribute("CompleteSum", CompleteSum));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
+			if (Contract != null)
+				element.Add(Contract.GetXElement("Contract"));
 			if (Customer != null)
 				element.Add(Customer.GetXElement("Customer"));
 			if (Manufacturer != null)

@@ -94,6 +94,7 @@
     <Compile Include="Entities\CalculationViewModel.cs" />
     <Compile Include="Entities\Commands\DelegateCommand.cs" />
     <Compile Include="Entities\Commands\RequeryableCommand.cs" />
+    <Compile Include="Entities\ContractViewModel.cs" />
     <Compile Include="Entities\ContragentViewModel.cs" />
     <Compile Include="Entities\DrawingFlowsheetMachineViewModel.cs" />
     <Compile Include="Entities\PaymentViewModel.cs" />
@@ -169,9 +170,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReleasableObject.cs" />
     <Compile Include="ReleasableObjectContext.cs" />
+    <Compile Include="Reporting\ContractReportGenerator.cs" />
     <Compile Include="Reporting\Generator\ReportGenerator.cs" />
     <Compile Include="Reporting\Generator\XslExtensions.cs" />
     <Compile Include="Reporting\InvoiceReportGenerator.cs" />
+    <Compile Include="Reporting\ReportOfCompletionReportGenerator.cs" />
     <Compile Include="StringExtension.cs" />
     <Compile Include="TreeViewModel\ITreeItemViewModel.cs" />
     <Compile Include="TreeViewModel\TreeItemViewModel.cs" />
@@ -211,6 +214,15 @@
       <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
       <VersionMajor>1</VersionMajor>
       <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>5</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
