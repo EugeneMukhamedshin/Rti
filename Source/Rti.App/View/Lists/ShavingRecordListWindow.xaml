@@ -45,6 +45,7 @@
                 </dxg:LookUpEdit.PopupContentTemplate>
             </dxg:LookUpEdit>
             <Button Content="Обновить" Command="{Binding RefreshCommand}" Margin="5"></Button>
+            <Button Content="Реестр брака" Command="{Binding OpenRejectionReportCommand}" Margin="5"></Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Button Content="+" Command="{Binding AddRecordCommand}" Width="32" Height="32" Margin="5" TabIndex="4"></Button>

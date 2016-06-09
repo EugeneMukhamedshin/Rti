@@ -71,6 +71,16 @@ namespace Rti.ViewModel.EditViewModel
                 "Договор",
                 o => true,
                 o => CreateContractReport());
+            OpenRequestReportCommand = new DelegateCommand(
+                "Реестр заявок",
+                o => true,
+                o => OpenRequestReport());
+        }
+
+        private void OpenRequestReport()
+        {
+            var requestReportGenerator = new RequestReportGenerator();
+            requestReportGenerator.BuildReport(RepositoryFactory);
         }
 
         public DelegateCommand AddRequestDetailCommand { get; set; }
@@ -78,6 +88,7 @@ namespace Rti.ViewModel.EditViewModel
         public DelegateCommand CreateInvoiceCommand { get; set; }
         public DelegateCommand CreateReportOfCompletionCommand { get; set; }
         public DelegateCommand CreateContractReportCommand { get; set; }
+        public DelegateCommand OpenRequestReportCommand { get; set; }
 
         private void AddRequestDetail()
         {

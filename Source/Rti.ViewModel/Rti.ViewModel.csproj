@@ -174,7 +174,9 @@
     <Compile Include="Reporting\Generator\ReportGenerator.cs" />
     <Compile Include="Reporting\Generator\XslExtensions.cs" />
     <Compile Include="Reporting\InvoiceReportGenerator.cs" />
+    <Compile Include="Reporting\RejectionReportGenerator.cs" />
     <Compile Include="Reporting\ReportOfCompletionReportGenerator.cs" />
+    <Compile Include="Reporting\RequestReportGenerator.cs" />
     <Compile Include="StringExtension.cs" />
     <Compile Include="TreeViewModel\ITreeItemViewModel.cs" />
     <Compile Include="TreeViewModel\TreeItemViewModel.cs" />

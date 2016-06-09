@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Rti.Model.Domain;
+using Rti.Model.Domain.ReportEntities;
 
 namespace Rti.Model.Repository.Interfaces
 {
@@ -8,5 +9,6 @@ namespace Rti.Model.Repository.Interfaces
         int GetNewRequestNumber();
         Request GetByNumber(int number);
         IList<Request> GetUnshipped();
+        IList<RequestsReportRow> GetRequestReport();
     }
 }

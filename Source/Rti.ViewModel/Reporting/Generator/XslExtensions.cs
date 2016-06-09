@@ -111,7 +111,7 @@ namespace Rti.ViewModel.Reporting.Generator
         {
             DateTime date;
             if (!DateTime.TryParse(text, GetFormatProvider(culture), DateTimeStyles.None, out date))
-                return null;
+                return string.Empty;
             return date.ToString(format, GetFormatProvider(culture));
         }
 

@@ -6,6 +6,7 @@ using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
+using Rti.ViewModel.Reporting;
 
 namespace Rti.ViewModel.Lists
 {
@@ -13,6 +14,8 @@ namespace Rti.ViewModel.Lists
     {
         public DelegateCommand AddRecordCommand { get; set; }
         public DelegateCommand RefreshCommand { get; set; }
+
+        public DelegateCommand OpenRejectionReportCommand { get; set; }
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -33,8 +36,18 @@ namespace Rti.ViewModel.Lists
                 "Обновить",
                 o => true,
                 o => Refresh());
+            OpenRejectionReportCommand = new DelegateCommand(
+                "Реестр брака",
+                o => true,
+                o => OpenRejectionReport());
             StartDate = DateTime.Today.AddMonths(-1);
             EndDate = DateTime.Today;
+        }
+
+        private void OpenRejectionReport()
+        {
+            var rejectionReportGenerator = new RejectionReportGenerator();
+            rejectionReportGenerator.BuildReport(StartDate, EndDate, Shaver == null ? (int?)null : Shaver.Id, ViewService, RepositoryFactory);
         }
 
         public override void Refresh()

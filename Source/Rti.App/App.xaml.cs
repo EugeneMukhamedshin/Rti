@@ -68,7 +68,10 @@ namespace Rti.App
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                _log.ErrorExt("Ошибка при запуске приложения", ex);
+                MessageBox.Show(@"Произошла ошибка в приложении. 
+" + ex.Message + @"
+Информация об ошибке в логе.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -83,7 +86,6 @@ namespace Rti.App
 
         private void OnAppStartup_UpdateThemeName(object sender, StartupEventArgs e)
         {
-
             ApplicationThemeHelper.UpdateApplicationThemeName();
         }
     }
