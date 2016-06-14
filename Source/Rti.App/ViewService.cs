@@ -58,6 +58,7 @@ namespace Rti.App
             // Заявки
             AddToRegistry<RequestEdit, RequestEditDxWindow>();
             AddToRegistry<ReportOfCompletionEdit, ReportOfCompletionEditWindow>();
+            AddToRegistry<RequestList, RequestListWindow>();
 
             // Чертежи
             AddToRegistry<DrawingList, DrawingListWindow>();

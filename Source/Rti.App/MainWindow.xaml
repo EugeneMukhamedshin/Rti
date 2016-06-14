@@ -16,7 +16,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <dxr:RibbonControl Grid.Row="0" RibbonStyle="Office2010">
+                <dxr:RibbonControl Grid.Row="0" RibbonStyle="Office2010" Margin="-10,0,10,0">
                     <dxr:RibbonControl.ApplicationMenu>
                         <dxr:BackstageViewControl/>
                     </dxr:RibbonControl.ApplicationMenu>
@@ -31,6 +31,7 @@
                                     </dxb:BarEditItem.EditSettings>
                                 </dxb:BarEditItem>
                                 <dxb:BarButtonItem Content="Открыть..." Command="{Binding OpenRequestCommand}"/>
+                                <dxb:BarButtonItem Content="Реестр..." Command="{Binding OpenRequestListCommand}"/>
                             </dxr:RibbonPageGroup>
                             <dxr:RibbonPageGroup Caption="Чертежи">
                                 <dxb:BarButtonItem Content="Чертежи" RibbonStyle="Large" Command="{Binding OpenDrawingsCommand}"/>

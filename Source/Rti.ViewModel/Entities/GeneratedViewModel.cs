@@ -433,8 +433,8 @@ namespace Rti.ViewModel.Entities
         }
 	}
 
-    // The viewmodel for Contract
-    public partial class ContractViewModel : EntityViewModel<Rti.Model.Domain.Contract, ContractViewModel>
+	// The viewmodel for Contract
+	public partial class ContractViewModel : EntityViewModel<Rti.Model.Domain.Contract, ContractViewModel>
 	{
 		// Конструктор для маппинга
 		public ContractViewModel() { }
@@ -447,8 +447,7 @@ namespace Rti.ViewModel.Entities
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public DateTime Date { get { return _date; } set { if (Equals(_date, value)) return; _date = value; OnPropertyChanged("Date"); } }
 		public Int32 Number { get { return _number; } set { if (Equals(_number, value)) return; _number = value; OnPropertyChanged("Number"); } }
-
-	    protected override void MapPropertiesToEntity()
+		protected override void MapPropertiesToEntity()
 		{
 			Entity.Date = Date; 
 			Entity.Number = Number; 
@@ -2885,6 +2884,7 @@ namespace Rti.ViewModel.Entities
 		private Int32 _id;
 		private Int32 _number;
 		private DateTime _regDate;
+		private DateTime? _workStartDate;
 		private DateTime? _shipDate;
 		private DateTime? _invoiceDate;
 		private Int32? _leadTime;
@@ -2897,6 +2897,7 @@ namespace Rti.ViewModel.Entities
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public Int32 Number { get { return _number; } set { if (Equals(_number, value)) return; _number = value; OnPropertyChanged("Number"); } }
 		public DateTime RegDate { get { return _regDate; } set { if (Equals(_regDate, value)) return; _regDate = value; OnPropertyChanged("RegDate"); } }
+		public DateTime? WorkStartDate { get { return _workStartDate; } set { if (Equals(_workStartDate, value)) return; _workStartDate = value; OnPropertyChanged("WorkStartDate"); } }
 		public DateTime? ShipDate { get { return _shipDate; } set { if (Equals(_shipDate, value)) return; _shipDate = value; OnPropertyChanged("ShipDate"); } }
 		public DateTime? InvoiceDate { get { return _invoiceDate; } set { if (Equals(_invoiceDate, value)) return; _invoiceDate = value; OnPropertyChanged("InvoiceDate"); } }
 		public Int32? LeadTime { get { return _leadTime; } set { if (Equals(_leadTime, value)) return; _leadTime = value; OnPropertyChanged("LeadTime"); } }
@@ -2910,6 +2911,7 @@ namespace Rti.ViewModel.Entities
 		{
 			Entity.Number = Number; 
 			Entity.RegDate = RegDate; 
+			Entity.WorkStartDate = WorkStartDate; 
 			Entity.ShipDate = ShipDate; 
 			Entity.InvoiceDate = InvoiceDate; 
 			Entity.LeadTime = LeadTime; 
@@ -2927,6 +2929,7 @@ namespace Rti.ViewModel.Entities
 			Id = Entity.Id; 
 			Number = Entity.Number; 
 			RegDate = Entity.RegDate; 
+			WorkStartDate = Entity.WorkStartDate; 
 			ShipDate = Entity.ShipDate; 
 			InvoiceDate = Entity.InvoiceDate; 
 			LeadTime = Entity.LeadTime; 
@@ -2944,6 +2947,7 @@ namespace Rti.ViewModel.Entities
 			IsMapping = true;
 			Number = source.Number;
 			RegDate = source.RegDate;
+			WorkStartDate = source.WorkStartDate;
 			ShipDate = source.ShipDate;
 			InvoiceDate = source.InvoiceDate;
 			LeadTime = source.LeadTime;
@@ -2970,6 +2974,8 @@ namespace Rti.ViewModel.Entities
 			element.Add(new XAttribute("Id", Id));
 			element.Add(new XAttribute("Number", Number));
 			element.Add(new XAttribute("RegDate", RegDate));
+			if (WorkStartDate != null)
+				element.Add(new XAttribute("WorkStartDate", WorkStartDate));
 			if (ShipDate != null)
 				element.Add(new XAttribute("ShipDate", ShipDate));
 			if (InvoiceDate != null)

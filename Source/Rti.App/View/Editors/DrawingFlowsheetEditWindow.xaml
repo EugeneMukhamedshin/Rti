@@ -34,7 +34,7 @@
                     <dxg:GridControl.Columns>
                         <dxg:GridColumn FieldName="Customer" Header="Заказчик" Width="250">
                             <dxg:GridColumn.EditSettings>
-                                <dxg:LookUpEditSettings IsEnabled="{Binding Editable}" ItemsSource="{Binding CustomersSource.Value}" DisplayMember="Name" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True" PopupWidth="500">
+                                <dxg:LookUpEditSettings AllowDefaultButton="true" IsEnabled="{Binding Editable}" ItemsSource="{Binding CustomersSource.Value}" DisplayMember="Name" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True" PopupWidth="500">
                                     <dxg:LookUpEditSettings.StyleSettings>
                                         <dxg:SearchLookUpEditStyleSettings/>
                                     </dxg:LookUpEditSettings.StyleSettings>
@@ -71,7 +71,7 @@
                         </dxg:GridColumn>
                         <dxg:GridColumn FieldName="SecondaryCustomer" Header="Вторичный заказчик" Width="250">
                             <dxg:GridColumn.EditSettings>
-                                <dxg:LookUpEditSettings IsEnabled="{Binding Editable}" ItemsSource="{Binding CustomersSource.Value}" DisplayMember="Name" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True" PopupWidth="500">
+                                <dxg:LookUpEditSettings AllowDefaultButton="true" IsEnabled="{Binding Editable}" ItemsSource="{Binding CustomersSource.Value}" DisplayMember="Name" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True" PopupWidth="500">
                                     <dxg:LookUpEditSettings.StyleSettings>
                                         <dxg:SearchLookUpEditStyleSettings/>
                                     </dxg:LookUpEditSettings.StyleSettings>
@@ -128,7 +128,7 @@
                         <dxg:GridControl.Columns>
                             <dxg:GridColumn FieldName="Machine" Header="Инв. №" Width="80">
                                 <dxg:GridColumn.EditSettings>
-                                    <dxg:LookUpEditSettings DisplayMember="InvNumber" ItemsSource="{Binding DrawingFlowsheetMachineList.MachinesSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                                    <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="InvNumber" ItemsSource="{Binding DrawingFlowsheetMachineList.MachinesSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                                         <dxg:LookUpEditSettings.StyleSettings>
                                             <dxg:SearchLookUpEditStyleSettings/>
                                         </dxg:LookUpEditSettings.StyleSettings>

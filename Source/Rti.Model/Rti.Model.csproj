@@ -86,6 +86,7 @@
     <Compile Include="Domain\ProcessType.cs" />
     <Compile Include="Domain\ReportEntities\RejectionReportRow.cs" />
     <Compile Include="Domain\ReportEntities\RequestsReportRow.cs" />
+    <Compile Include="Domain\ReportEntities\RequestStatus.cs" />
     <Compile Include="Domain\RequestDetailState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Interfaces\IAdditionalInfoRepository.cs" />

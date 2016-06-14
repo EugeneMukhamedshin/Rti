@@ -18,6 +18,7 @@ namespace Rti.ViewModel.EditViewModel
         public Lazy<List<MethodViewModel>> MethodsSource { get; set; }
 
         public DelegateCommand OpenMassCalculationCommand { get; set; }
+        public DelegateCommand OpenEquipmentEditCommand { get; set; }
         public DelegateCommand OpenDrawingMeasurementEditCommand { get; set; }
         public DelegateCommand OpenDrawingImageCommand { get; set; }
 
@@ -28,6 +29,10 @@ namespace Rti.ViewModel.EditViewModel
                 "Рассчитать массу",
                 o => true,
                 o => OpenMassCalculationEdit());
+            OpenEquipmentEditCommand = new DelegateCommand(
+                "Оснастка",
+                o => true,
+                o => OpenEquipmentEdit());
             OpenDrawingMeasurementEditCommand = new DelegateCommand(
                 "Изменить размеры",
                 o => true,
@@ -74,15 +79,25 @@ namespace Rti.ViewModel.EditViewModel
             }
         }
 
+        private void OpenEquipmentEdit()
+        {
+            var equipment = Entity.Equipment ?? new EquipmentViewModel(null, RepositoryFactory)
+            {
+                SortOrder = RepositoryFactory.GetEquipmentRepository().GetNextSortOrder()
+            };
+            var editor = new EquipmentEdit("Оснастка", equipment, ReadOnly, ViewService, RepositoryFactory);
+            if (ViewService.ShowViewDialog(editor) == true)
+            {
+                if (Entity.Equipment == null)
+                    Entity.Equipment = equipment;
+            }
+        }
+
         private void OpenDrawingMeasurementEdit()
         {
-            var clone = Entity.Clone();
-            var viewModel = new DrawingMeasurementEdit("Задание размеров", clone, ReadOnly, ViewService,
+            var viewModel = new DrawingMeasurementEdit("Задание размеров", Entity, ReadOnly, ViewService,
                 RepositoryFactory);
-            if (ViewService.ShowViewDialog(viewModel) == true)
-            {
-                clone.CopyTo(Entity);
-            }
+            ViewService.ShowViewDialog(viewModel);
         }
 
         private void OpenDrawingImage()

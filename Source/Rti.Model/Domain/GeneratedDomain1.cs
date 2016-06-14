@@ -666,6 +666,8 @@ namespace Rti.Model.Domain
 		public virtual Int32 Number { get; set; }
 		[Field("reg_date")]
 		public virtual DateTime RegDate { get; set; }
+		[Field("work_start_date")]
+		public virtual DateTime? WorkStartDate { get; set; }
 		[Field("ship_date")]
 		public virtual DateTime? ShipDate { get; set; }
 		[Field("invoice_date")]

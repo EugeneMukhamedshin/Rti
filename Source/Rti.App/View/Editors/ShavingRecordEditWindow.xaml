@@ -18,7 +18,7 @@
                 <dxprg:PropertyDefinition Header="№" Path="SortOrder" IsReadOnly="True"/>
                 <dxprg:PropertyDefinition Header="ФИО" Path="ShaverEmployee">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxg:LookUpEditSettings DisplayMember="FullName" ItemsSource="{Binding EmployeesSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                        <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="FullName" ItemsSource="{Binding EmployeesSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                             <dxg:LookUpEditSettings.StyleSettings>
                                 <dxg:SearchLookUpEditStyleSettings/>
                             </dxg:LookUpEditSettings.StyleSettings>
@@ -43,7 +43,7 @@
                 <dxprg:PropertyDefinition Header="Дата" Path="ShaveDate"/>
                 <dxprg:PropertyDefinition Header="Чертеж" Path="Drawing">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding DrawingsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                        <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="Name" ItemsSource="{Binding DrawingsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                             <dxg:LookUpEditSettings.StyleSettings>
                                 <dxg:SearchLookUpEditStyleSettings/>
                             </dxg:LookUpEditSettings.StyleSettings>
@@ -65,7 +65,7 @@
                 </dxprg:PropertyDefinition>
                 <dxprg:PropertyDefinition Header="ФИО изготовителя" Path="MakerEmployee">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxg:LookUpEditSettings DisplayMember="FullName" ItemsSource="{Binding EmployeesSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                        <dxg:LookUpEditSettings AllowDefaultButton="True" AllowNullInput="True" DisplayMember="FullName" ItemsSource="{Binding EmployeesSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                             <dxg:LookUpEditSettings.StyleSettings>
                                 <dxg:SearchLookUpEditStyleSettings/>
                             </dxg:LookUpEditSettings.StyleSettings>

@@ -643,6 +643,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Id(o => o.Id, "id");
 			Map(o => o.Number, "number");
 			Map(o => o.RegDate, "reg_date");
+			Map(o => o.WorkStartDate, "work_start_date");
 			Map(o => o.ShipDate, "ship_date");
 			Map(o => o.InvoiceDate, "invoice_date");
 			Map(o => o.LeadTime, "lead_time");

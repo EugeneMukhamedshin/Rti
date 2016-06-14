@@ -40,8 +40,11 @@
                 </dxmvvm:EventToCommand>
             </dxmvvm:Interaction.Behaviors>
             <dxg:GridControl.Columns>
-                <dxg:GridColumn FieldName="SortOrder" Header="№" UnboundType="Integer" ReadOnly="True" Width="50"/>
-                <dxg:GridColumn FieldName="Name" Header="Оснастка" UnboundType="Object" Width="80"/>
+                <dxg:GridColumn FieldName="SortOrder" Header="№" ReadOnly="True" Width="50"/>
+                <dxg:GridColumn FieldName="Name" Header="Оснастка" Width="80"/>
+                <dxg:GridColumn Binding="{Binding Drawing.FullName}" Header="Чертеж" Width="80"/>
+                <dxg:GridColumn FieldName="FormCount" Header="Кол-во форм" Width="100"/>
+                <dxg:GridColumn FieldName="SlotCount" Header="Гнездность" Width="80"/>
             </dxg:GridControl.Columns>
             <dxg:GridControl.View>
                 <dxg:TableView AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>

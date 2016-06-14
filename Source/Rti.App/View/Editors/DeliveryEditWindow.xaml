@@ -19,7 +19,7 @@
                 <dxprg:PropertyDefinition Header="Путевой лист" Path="TripTicket"/>
                 <dxprg:PropertyDefinition Header="Водитель" Path="Driver">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding DriversSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                        <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="Name" ItemsSource="{Binding DriversSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                             <dxg:LookUpEditSettings.StyleSettings>
                                 <dxg:SearchLookUpEditStyleSettings/>
                             </dxg:LookUpEditSettings.StyleSettings>

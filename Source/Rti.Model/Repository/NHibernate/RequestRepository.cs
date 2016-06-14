@@ -22,7 +22,7 @@ namespace Rti.Model.Repository.NHibernate
 
         public IList<Request> GetUnshipped()
         {
-            return ExecuteFuncOnQueryOver(q => q.List());
+            return ExecuteFuncOnQueryOver(q => q.Where(o => !o.IsDeleted).List());
         }
 
         public IList<RequestsReportRow> GetRequestReport()
@@ -37,8 +37,9 @@ SELECT
   r.ship_date,
   p.last_payment_date,
   si.last_shipment_date,
-  DATEDIFF(r.ship_date, r.reg_date) diff,
-  MAX(rd.equipment_lead_time) equipment_lead_time
+  DATEDIFF(r.ship_date, ifnull(r.work_start_date, r.reg_date)) diff,
+  MAX(rd.equipment_lead_time) equipment_lead_time,
+  r.work_start_date
 FROM requests r
   INNER JOIN request_details rd
     ON r.id = rd.request_id
@@ -57,7 +58,7 @@ FROM requests r
     FROM payments p
     GROUP BY p.request_id) p
     ON p.request_id = r.id
-WHERE rd.count > IFNULL(si.shipped_count, 0)
+WHERE r.is_deleted = 0 AND rd.count > IFNULL(si.shipped_count, 0)
 GROUP BY r.id,
          r.number,
          r.reg_date,
@@ -76,7 +77,8 @@ ORDER BY r.reg_date DESC")
                         LastPaymentDate = (DateTime?)objects[5],
                         LastShipmentDate = (DateTime?)objects[6],
                         Diff = (int?)objects[7],
-                        EquipmentLeadTime = (int?)objects[8]
+                        EquipmentLeadTime = (int?)objects[8],
+                        WorkStartDate = (DateTime?)objects[9]
                     }, objects => objects.Cast<RequestsReportRow>().ToList())).List<RequestsReportRow>(), "");
         }
     }

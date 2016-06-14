@@ -20,6 +20,7 @@ namespace Rti.ViewModel
         public DelegateCommand CreateNewRequestCommand { get; set; }
         public DelegateCommand CreateNewShipmentCommand { get; set; }
         public DelegateCommand OpenRequestCommand { get; set; }
+        public DelegateCommand OpenRequestListCommand { get; set; }
 
         public DelegateCommand OpenDrawingsCommand { get; set; }
 
@@ -64,6 +65,10 @@ namespace Rti.ViewModel
                 "Открыть заявку",
                 o => true,
                 o => OpenRequest());
+            OpenRequestListCommand = new DelegateCommand(
+                "Открыть реестр заявок",
+                o => true,
+                o => OpenRequestList());
 
             OpenDrawingsCommand = new DelegateCommand(
                 "Чертежи",
@@ -245,6 +250,13 @@ namespace Rti.ViewModel
             var editViewModel = new RequestEdit("Заявка", SelectedRequest, false, ViewService, RepositoryFactory);
             editViewModel.Refresh();
             ViewService.ShowViewDialog(editViewModel);
+        }
+
+        private void OpenRequestList()
+        {
+            var viewModel = new RequestList(ViewService, RepositoryFactory);
+            viewModel.Refresh();
+            ViewService.ShowViewDialog(viewModel);
         }
 
         public bool CanClose()

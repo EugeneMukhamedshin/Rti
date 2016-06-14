@@ -88,8 +88,10 @@
             <StackPanel Orientation="Horizontal" Grid.Row="2">
                 <Button Content="+" Command="{Binding AddRequestDetailCommand}" Width="32" Height="32" Margin="5"></Button>
                 <Button Content="-" Command="{Binding RemoveRequestDetailCommand}" Width="32" Height="32" Margin="5"></Button>
+                <CheckBox Content="В производстве с" Margin="5" IsChecked="{Binding Entity.IsWorkStarted}"/>
+                <xctk:DateTimePicker TabIndex="5" Margin="5" VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.WorkStartDate}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed" IsEnabled="{Binding Editable}"/>
             </StackPanel>
-            <dxg:GridControl CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding RequestDetails}" SelectedItem="{Binding SelectedRequestDetail}" SelectionMode="Row" Grid.Row="3">
+            <dxg:GridControl Name="GridControl" CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding RequestDetails}" SelectedItem="{Binding SelectedRequestDetail}" SelectionMode="Row" Grid.Row="3">
                 <dxg:GridControl.Resources>
                     <Style TargetType="dxg:GridColumn">
                         <Setter Property="HeaderTemplate">
@@ -106,7 +108,7 @@
                     <dxg:GridColumn Binding="{Binding Group.Name}" Header="Группа" Width="80" ReadOnly="True"/>
                     <dxg:GridColumn Binding="{Binding Drawing,Mode=TwoWay}" Header="Чертеж" Width="100">
                         <dxg:GridColumn.EditSettings>
-                            <dxg:LookUpEditSettings AllowDefaultButton="True" DisplayMember="Name" ItemsSource="{Binding DrawingsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                            <dxg:LookUpEditSettings AllowDefaultButton="True" DisplayMember="FullName" ItemsSource="{Binding DrawingsSource}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350" IsSynchronizedWithCurrentItem="True">
                                 <dxg:LookUpEditSettings.StyleSettings>
                                     <dxg:SearchLookUpEditStyleSettings/>
                                 </dxg:LookUpEditSettings.StyleSettings>
@@ -127,11 +129,25 @@
                             </dxg:LookUpEditSettings>
                         </dxg:GridColumn.EditSettings>
                     </dxg:GridColumn>
+                    <dxg:GridColumn Width="24">
+                        <dxg:GridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Margin="2" Content="..." Padding="0" FontSize="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=Window},Path=DataContext.OpenDrawingEditCommand}" CommandParameter="{Binding RowData.Row}"/>
+                            </DataTemplate>
+                        </dxg:GridColumn.CellTemplate>
+                    </dxg:GridColumn>
                     <dxg:GridColumn Binding="{Binding Detail.Name}" Header="Наименование детали" Width="180" ReadOnly="True"/>
                     <dxg:GridColumn Binding="{Binding Drawing.Equipment.ExistanceEnum,Converter={StaticResource EnumToStringConverter}}" Header="Наличие оснастки" Width="90" ReadOnly="True"/>
                     <dxg:GridColumn Binding="{Binding AdditionalInfo,Mode=TwoWay}" Header="Доп. инфо" Width="180"/>
                     <dxg:GridColumn Binding="{Binding Count,Mode=TwoWay}" Header="Кол-во" Width="80" EditSettings="{components:TextEditSettings Mask=f0,MaskType=Numeric}"/>
                     <dxg:GridColumn Binding="{Binding Price,Mode=TwoWay}" Header="Цена" Width="80" EditSettings="{components:Float2TextEditSettings}" ReadOnly="True"/>
+                    <dxg:GridColumn Width="24">
+                        <dxg:GridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Margin="2" Content="..." Padding="0" FontSize="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=Window},Path=DataContext.OpenDrawingEditCommand}" CommandParameter="{Binding RowData.Row}"/>
+                            </DataTemplate>
+                        </dxg:GridColumn.CellTemplate>
+                    </dxg:GridColumn>
                     <dxg:GridColumn Binding="{Binding CalculationPrice}" Header="Цена по калькуляции" Width="80" EditSettings="{components:Float2TextEditSettings}" ReadOnly="True"/>
                     <dxg:GridColumn Binding="{Binding Sum}" Header="Сумма" ReadOnly="True" Width="100"/>
                     <dxg:GridColumn Binding="{Binding Material.Name}" Header="Материал" Width="120" ReadOnly="True"/>
@@ -143,7 +159,7 @@
                     </dxg:GridColumn>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>
-                    <dxg:TableView AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                    <dxg:TableView EditorButtonShowMode="ShowAlways" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>
             </dxg:GridControl>
 

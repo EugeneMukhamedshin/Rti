@@ -160,7 +160,7 @@
                     <!--<dxg:GridColumn Binding="{Binding RequestDetail.Drawing.Group.Name}" Header="Группа" Width="80" ReadOnly="True"/>-->
                     <dxg:GridColumn Binding="{Binding RequestDetail,Mode=TwoWay}" Header="Чертеж" Width="100">
                         <dxg:GridColumn.EditSettings>
-                            <dxg:LookUpEditSettings AllowDefaultButton="True" DisplayMember="Drawing.FullName" ItemsSource="{Binding ShipmentItemList.RequestDetailsSource}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                            <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="Drawing.FullName" ItemsSource="{Binding ShipmentItemList.RequestDetailsSource}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                                 <dxg:LookUpEditSettings.StyleSettings>
                                     <dxg:SearchLookUpEditStyleSettings/>
                                 </dxg:LookUpEditSettings.StyleSettings>

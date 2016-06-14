@@ -9,7 +9,7 @@ namespace Rti.ViewModel.Entities
 
         public string FullName
         {
-            get { return string.Format("{0}{1}", Group == null ? null : Group.Name, Name); }
+            get { return string.Format("{0}.{1}", Group == null ? null : Group.Name, Name); }
         }
 
         public string Measurements

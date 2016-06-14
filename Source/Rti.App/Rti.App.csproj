@@ -162,6 +162,9 @@
     <Compile Include="View\Lists\EmployeeWorkItemListWindow.xaml.cs">
       <DependentUpon>EmployeeWorkItemListWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Lists\RequestListWindow.xaml.cs">
+      <DependentUpon>RequestListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Lists\ShipmentListWindow.xaml.cs">
       <DependentUpon>ShipmentListWindow.xaml</DependentUpon>
     </Compile>
@@ -407,6 +410,10 @@
     <Page Include="View\Lists\EmployeeWorkItemListWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Lists\RequestListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Lists\ShipmentListWindow.xaml">
       <SubType>Designer</SubType>

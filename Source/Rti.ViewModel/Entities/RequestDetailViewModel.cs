@@ -23,13 +23,18 @@ namespace Rti.ViewModel.Entities
                 Sum = Count * Price;
             if (propertyName == "Drawing")
             {
-                Group = Drawing == null ? null : Drawing.Group;
-                Detail = Drawing == null ? null : Drawing.Detail;
-                Material = Drawing == null ? null : Drawing.MaterialByPassport;
-                Price = Drawing == null || !Drawing.Price.HasValue ? 0 : Drawing.Price.Value;
-                CalculationPrice = Drawing == null || Drawing.PlanCalculation == null ? null : Drawing.PlanCalculation.Summary;
+                FillFromDrawing();
                 OnPropertyChanged("EquipmentLeadTimeReadOnly");
             }
+        }
+
+        public void FillFromDrawing()
+        {
+            Group = Drawing == null ? null : Drawing.Group;
+            Detail = Drawing == null ? null : Drawing.Detail;
+            Material = Drawing == null ? null : Drawing.MaterialByPassport;
+            Price = Drawing == null || !Drawing.Price.HasValue ? 0 : Drawing.Price.Value;
+            CalculationPrice = Drawing == null || Drawing.PlanCalculation == null ? null : Drawing.PlanCalculation.Summary;
         }
     }
 }

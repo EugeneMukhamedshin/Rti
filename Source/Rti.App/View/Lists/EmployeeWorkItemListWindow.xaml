@@ -74,7 +74,7 @@
                     <dxg:GridColumn Binding="{Binding FlowsheetMachine.PlateTemperature, StringFormat=f0}" Header="Температура вулканизации, град" Width="60" ReadOnly="True"/>
                     <dxg:GridColumn FieldName="FlowsheetMachine" Header="Пресс" Width="50">
                         <dxg:GridColumn.EditSettings>
-                            <dxg:LookUpEditSettings DisplayMember="MachineInvNum" ItemsSource="{Binding MachinesSource}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                            <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="MachineInvNum" ItemsSource="{Binding MachinesSource}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                                 <dxg:LookUpEditSettings.StyleSettings>
                                     <dxg:SearchLookUpEditStyleSettings/>
                                 </dxg:LookUpEditSettings.StyleSettings>

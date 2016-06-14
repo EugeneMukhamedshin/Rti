@@ -6,6 +6,7 @@ using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
+using Rti.ViewModel.Lists;
 using Rti.ViewModel.Reporting;
 
 namespace Rti.ViewModel.EditViewModel
@@ -15,6 +16,7 @@ namespace Rti.ViewModel.EditViewModel
         private RequestDetailViewModel _selectedRequestDetail;
         private List<RequestDetailViewModel> _deletedDetails;
         private ObservableCollection<RequestDetailViewModel> _requestDetails;
+        private List<DrawingViewModel> _drawingsSource;
 
         public ObservableCollection<RequestDetailViewModel> RequestDetails
         {
@@ -44,7 +46,16 @@ namespace Rti.ViewModel.EditViewModel
         //public Lazy<List<DetailViewModel>> DetailsSource { get; set; }
         //public Lazy<List<MaterialViewModel>> MaterialsSource { get; set; }
         //public Lazy<List<GroupViewModel>> GroupsSource { get; set; }
-        public Lazy<List<DrawingViewModel>> DrawingsSource { get; set; }
+        public List<DrawingViewModel> DrawingsSource
+        {
+            get { return _drawingsSource; }
+            set
+            {
+                if (Equals(value, _drawingsSource)) return;
+                _drawingsSource = value;
+                OnPropertyChanged();
+            }
+        }
 
         public RequestEdit(string name, RequestViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
@@ -75,12 +86,41 @@ namespace Rti.ViewModel.EditViewModel
                 "Реестр заявок",
                 o => true,
                 o => OpenRequestReport());
+            OpenDrawingEditCommand = new DelegateCommand(
+                "Открыть чертеж",
+                o => true,
+                o => OpenDrawingEdit((RequestDetailViewModel)o));
+        }
+
+        private void OpenDrawingEdit(RequestDetailViewModel detail)
+        {
+            var drawing = detail.Drawing ?? new DrawingViewModel(null, RepositoryFactory)
+            {
+                SortOrder = RepositoryFactory.GetDrawingRepository().GetNextSortOrder(),
+                CreationDate = DateTime.Now,
+                Name = "Новый чертеж"
+            };
+            var editor = new DrawingEdit(detail.Drawing == null ? "Новый чертеж" : drawing.FullName, drawing, ReadOnly, ViewService, RepositoryFactory);
+            editor.Refresh();
+            if (ViewService.ShowViewDialog(editor) == true)
+            {
+                if (detail.Drawing == null)
+                {
+                    detail.Drawing = drawing;
+                    RefreshDrawings();
+                }
+                detail.FillFromDrawing();
+            }
         }
 
         private void OpenRequestReport()
         {
-            var requestReportGenerator = new RequestReportGenerator();
-            requestReportGenerator.BuildReport(RepositoryFactory);
+            //var requestReportGenerator = new RequestReportGenerator();
+            //requestReportGenerator.BuildReport(RepositoryFactory);
+
+            var viewModel = new RequestList(ViewService, RepositoryFactory);
+            viewModel.Refresh();
+            ViewService.ShowViewDialog(viewModel);
         }
 
         public DelegateCommand AddRequestDetailCommand { get; set; }
@@ -89,6 +129,7 @@ namespace Rti.ViewModel.EditViewModel
         public DelegateCommand CreateReportOfCompletionCommand { get; set; }
         public DelegateCommand CreateContractReportCommand { get; set; }
         public DelegateCommand OpenRequestReportCommand { get; set; }
+        public DelegateCommand OpenDrawingEditCommand { get; set; }
 
         private void AddRequestDetail()
         {
@@ -163,13 +204,17 @@ namespace Rti.ViewModel.EditViewModel
                 .Select(m => new RequestDetailViewModel(m, RepositoryFactory)),
                 res => RequestDetails = new ObservableCollection<RequestDetailViewModel>(res));
 
+            RefreshDrawings();
             CustomersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(ContragentType.Customer).Select(m => new ContragentViewModel(m, RepositoryFactory)).ToList());
             ManufacturersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(ContragentType.Manufacturer).Select(m => new ContragentViewModel(m, RepositoryFactory)).ToList());
-            DrawingsSource = new Lazy<List<DrawingViewModel>>(() => RepositoryFactory.GetDrawingRepository().GetAllActive().OrderBy(o => o.Id).Select(o => new DrawingViewModel(o, RepositoryFactory)).ToList());
-            //GroupsSource = new Lazy<List<GroupViewModel>>(() => RepositoryFactory.GetGroupRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new GroupViewModel(o, RepositoryFactory)).ToList());
-            //MaterialsSource = new Lazy<List<MaterialViewModel>>(() => RepositoryFactory.GetMaterialRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new MaterialViewModel(o, RepositoryFactory)).ToList());
-            //DetailsSource = new Lazy<List<DetailViewModel>>(() => RepositoryFactory.GetDetailRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new DetailViewModel(o, RepositoryFactory)).ToList());
         }
+
+        private void RefreshDrawings()
+        {
+            DoAsync(() => RepositoryFactory.GetDrawingRepository().GetAllActive().OrderBy(o => o.Id).Select(o => new DrawingViewModel(o, RepositoryFactory)),
+                res => DrawingsSource = new List<DrawingViewModel>(res));
+        }
+
 
         protected override void DoSave()
         {
