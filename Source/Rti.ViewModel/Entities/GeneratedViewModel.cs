@@ -805,6 +805,7 @@ namespace Rti.ViewModel.Entities
 		private Boolean _isDeleted;
 		private Double? _factMass;
 		private String _techNote;
+		private Decimal? _summaryTime;
 		private GroupViewModel _group;
 		private DetailViewModel _detail;
 		private MaterialViewModel _materialByPassport;
@@ -838,6 +839,7 @@ namespace Rti.ViewModel.Entities
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
 		public Double? FactMass { get { return _factMass; } set { if (Equals(_factMass, value)) return; _factMass = value; OnPropertyChanged("FactMass"); } }
 		public String TechNote { get { return _techNote; } set { if (Equals(_techNote, value)) return; _techNote = value; OnPropertyChanged("TechNote"); } }
+		public Decimal? SummaryTime { get { return _summaryTime; } set { if (Equals(_summaryTime, value)) return; _summaryTime = value; OnPropertyChanged("SummaryTime"); } }
 		public GroupViewModel Group { get { return _group; } set { _group = value; OnPropertyChanged("Group"); } }
 		public DetailViewModel Detail { get { return _detail; } set { _detail = value; OnPropertyChanged("Detail"); } }
 		public MaterialViewModel MaterialByPassport { get { return _materialByPassport; } set { _materialByPassport = value; OnPropertyChanged("MaterialByPassport"); } }
@@ -872,6 +874,7 @@ namespace Rti.ViewModel.Entities
 			Entity.IsDeleted = IsDeleted; 
 			Entity.FactMass = FactMass; 
 			Entity.TechNote = TechNote; 
+			Entity.SummaryTime = SummaryTime; 
 			Entity.Group = Group == null ? null : Group.Entity; 
 			Entity.Detail = Detail == null ? null : Detail.Entity; 
 			Entity.MaterialByPassport = MaterialByPassport == null ? null : MaterialByPassport.Entity; 
@@ -910,6 +913,7 @@ namespace Rti.ViewModel.Entities
 			IsDeleted = Entity.IsDeleted; 
 			FactMass = Entity.FactMass; 
 			TechNote = Entity.TechNote; 
+			SummaryTime = Entity.SummaryTime; 
 			Group = Entity.Group == null ? null : new GroupViewModel(Entity.Group, RepositoryFactory); 
 			Detail = Entity.Detail == null ? null : new DetailViewModel(Entity.Detail, RepositoryFactory); 
 			MaterialByPassport = Entity.MaterialByPassport == null ? null : new MaterialViewModel(Entity.MaterialByPassport, RepositoryFactory); 
@@ -948,6 +952,7 @@ namespace Rti.ViewModel.Entities
 			IsDeleted = source.IsDeleted;
 			FactMass = source.FactMass;
 			TechNote = source.TechNote;
+			SummaryTime = source.SummaryTime;
 			Group = source.Group;
 			Detail = source.Detail;
 			MaterialByPassport = source.MaterialByPassport;
@@ -1012,6 +1017,8 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("FactMass", FactMass));
 			if (TechNote != null)
 				element.Add(new XAttribute("TechNote", TechNote));
+			if (SummaryTime != null)
+				element.Add(new XAttribute("SummaryTime", SummaryTime));
 			if (Group != null)
 				element.Add(Group.GetXElement("Group"));
 			if (Detail != null)
@@ -1151,6 +1158,7 @@ namespace Rti.ViewModel.Entities
 
 		private Int32 _id;
 		private Int32? _sortOrder;
+		private Boolean? _isIncludedToSummary;
 		private String _name;
 		private String _operation;
 		private String _executor;
@@ -1161,6 +1169,7 @@ namespace Rti.ViewModel.Entities
 		private ProcessViewModel _process;
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public Int32? SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
+		public Boolean? IsIncludedToSummary { get { return _isIncludedToSummary; } set { if (Equals(_isIncludedToSummary, value)) return; _isIncludedToSummary = value; OnPropertyChanged("IsIncludedToSummary"); } }
 		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged("Name"); } }
 		public String Operation { get { return _operation; } set { if (Equals(_operation, value)) return; _operation = value; OnPropertyChanged("Operation"); } }
 		public String Executor { get { return _executor; } set { if (Equals(_executor, value)) return; _executor = value; OnPropertyChanged("Executor"); } }
@@ -1172,6 +1181,7 @@ namespace Rti.ViewModel.Entities
 		protected override void MapPropertiesToEntity()
 		{
 			Entity.SortOrder = SortOrder; 
+			Entity.IsIncludedToSummary = IsIncludedToSummary; 
 			Entity.Name = Name; 
 			Entity.Operation = Operation; 
 			Entity.Executor = Executor; 
@@ -1187,6 +1197,7 @@ namespace Rti.ViewModel.Entities
 			IsMapping = true;
 			Id = Entity.Id; 
 			SortOrder = Entity.SortOrder; 
+			IsIncludedToSummary = Entity.IsIncludedToSummary; 
 			Name = Entity.Name; 
 			Operation = Entity.Operation; 
 			Executor = Entity.Executor; 
@@ -1202,6 +1213,7 @@ namespace Rti.ViewModel.Entities
 		{
 			IsMapping = true;
 			SortOrder = source.SortOrder;
+			IsIncludedToSummary = source.IsIncludedToSummary;
 			Name = source.Name;
 			Operation = source.Operation;
 			Executor = source.Executor;
@@ -1227,6 +1239,8 @@ namespace Rti.ViewModel.Entities
 			element.Add(new XAttribute("Id", Id));
 			if (SortOrder != null)
 				element.Add(new XAttribute("SortOrder", SortOrder));
+			if (IsIncludedToSummary != null)
+				element.Add(new XAttribute("IsIncludedToSummary", IsIncludedToSummary));
 			if (Name != null)
 				element.Add(new XAttribute("Name", Name));
 			if (Operation != null)

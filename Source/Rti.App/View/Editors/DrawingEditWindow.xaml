@@ -39,7 +39,7 @@
                                             <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -62,7 +62,7 @@
                                             <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -85,7 +85,7 @@
                                             <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -108,7 +108,7 @@
                                             <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -131,7 +131,7 @@
                                             <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -174,7 +174,7 @@
                                             <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -197,7 +197,7 @@
                                             <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>

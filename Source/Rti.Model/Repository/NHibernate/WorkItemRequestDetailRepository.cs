@@ -45,8 +45,47 @@ select
     rejected_mass,
     rejected_price,
     expences 
-from 
-    rejected_registrations 
+from (
+    SELECT
+      e.full_name employee_name,
+      e.id employee_id,
+      r.number request_number,
+      r.reg_date request_reg_date,
+      d1.name drawing_name,
+      d.name detail_name,
+      rdj.rejected_count rejected_count,
+      m.name material_name,
+      d1.mass_with_shruff * rdj.rejected_count rejected_mass,
+      m.Price * rdj.rejected_count rejected_price,
+      c.Transport + c.Main_Salary + c.Additional_Salary + c.Fixed_Tax + c.Power_For_Formed + c.Other_Power expences
+    FROM (SELECT
+        wird.request_detail_id,
+        e.id employee_id,
+        SUM(wi.rejected_count) AS rejected_count
+      FROM work_items wi
+        INNER JOIN work_item_request_details wird
+          ON wi.id = wird.work_item_id
+        INNER JOIN employees e
+          ON wi.employee_id = e.id
+      GROUP BY e.id,
+               wird.request_detail_id
+      HAVING rejected_count > 0) rdj
+      INNER JOIN request_details rd
+        ON rd.id = rdj.request_detail_id
+        AND rd.is_deleted = 0
+      INNER JOIN requests r
+        ON rd.request_id = r.id
+        AND r.is_deleted = 0
+      INNER JOIN drawings d1
+        ON rd.drawing_id = d1.id
+      INNER JOIN details d
+        ON rd.detail_id = d.id
+      INNER JOIN materials m
+        ON rd.material_id = m.id
+      INNER JOIN calculations c
+        ON d1.fact_calculation_id = c.id
+      INNER JOIN employees e
+        ON rdj.employee_id = e.id) r
 where 
     :p_start_date <= request_reg_date and 
     request_reg_date <= :p_end_date and 

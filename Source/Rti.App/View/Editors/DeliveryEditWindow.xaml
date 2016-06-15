@@ -32,7 +32,7 @@
                                             <dxg:GridColumn FieldName="Document" Header="Удостоверение"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>

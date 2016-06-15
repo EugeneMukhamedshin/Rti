@@ -31,7 +31,7 @@
                 <dxg:GridColumn Binding="{Binding Count,Mode=TwoWay}" Header="В количестве" Width="100" EditSettings="{components:TextEditSettings Mask=f0,MaskType=Numeric}"/>
             </dxg:GridControl.Columns>
             <dxg:GridControl.View>
-                <dxg:TableView AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                <dxg:TableView EnableImmediatePosting="True" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
             </dxg:GridControl.View>
         </dxg:GridControl>
         <StackPanel Grid.Row="1" Orientation="Horizontal">

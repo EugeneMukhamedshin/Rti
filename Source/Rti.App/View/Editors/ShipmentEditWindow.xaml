@@ -59,7 +59,7 @@
                                     <dxg:GridColumn FieldName="Manufacturer.Name" Header="Исполнитель" Width="150"/>
                                 </dxg:GridControl.Columns>
                                 <dxg:GridControl.View>
-                                    <dxg:TableView AutoWidth="True"/>
+                                    <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                 </dxg:GridControl.View>
                             </dxg:GridControl>
                         </ControlTemplate>
@@ -85,7 +85,7 @@
                                     <dxg:GridColumn FieldName="Phone" Header="Телефон"/>
                                 </dxg:GridControl.Columns>
                                 <dxg:GridControl.View>
-                                    <dxg:TableView AutoWidth="True"/>
+                                    <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                 </dxg:GridControl.View>
                             </dxg:GridControl>
                         </ControlTemplate>
@@ -109,7 +109,7 @@
                                     <dxg:GridColumn FieldName="Sum" Header="Сумма"/>
                                 </dxg:GridControl.Columns>
                                 <dxg:GridControl.View>
-                                    <dxg:TableView AutoWidth="True"/>
+                                    <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                 </dxg:GridControl.View>
                             </dxg:GridControl>
                         </ControlTemplate>
@@ -173,7 +173,7 @@
                                                 <dxg:GridColumn FieldName="Drawing.Note" Header="Примечание" Width="180"/>
                                             </dxg:GridControl.Columns>
                                             <dxg:GridControl.View>
-                                                <dxg:TableView AutoWidth="True"/>
+                                                <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                             </dxg:GridControl.View>
                                         </dxg:GridControl>
                                     </ControlTemplate>
@@ -196,7 +196,7 @@
                     <dxg:GridColumn Binding="{Binding SumWithNds}" Header="Сумма с учетом НДС, руб." Width="80" EditSettings="{components:Float2TextEditSettings}" ReadOnly="True"/>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>
-                    <dxg:TableView AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                    <dxg:TableView EnableImmediatePosting="True" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>
             </dxg:GridControl>
             <Grid Grid.Row="3">

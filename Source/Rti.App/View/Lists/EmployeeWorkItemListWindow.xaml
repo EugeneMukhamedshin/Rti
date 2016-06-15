@@ -46,7 +46,7 @@
                     <dxg:GridColumn Binding="{Binding FreeTime}" Header="Свободное время, мин" Width="100" ReadOnly="True"/>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>
-                    <dxg:TableView AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                    <dxg:TableView EnableImmediatePosting="True" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>
             </dxg:GridControl>
             <dxg:GridControl CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="3">
@@ -87,7 +87,7 @@
                                                 <dxg:GridColumn FieldName="CureTime" Header="Время вулканизации" Width="180"/>
                                             </dxg:GridControl.Columns>
                                             <dxg:GridControl.View>
-                                                <dxg:TableView AutoWidth="True"/>
+                                                <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                             </dxg:GridControl.View>
                                         </dxg:GridControl>
                                     </ControlTemplate>
@@ -111,7 +111,7 @@
                     <dxg:GridColumn Binding="{Binding RejectedCount,Mode=TwoWay}" Header="Брак, шт" Width="40" EditSettings="{components:TextEditSettings Mask=f0}"/>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>
-                    <dxg:TableView AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                    <dxg:TableView EnableImmediatePosting="True" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>
             </dxg:GridControl>
             <StackPanel Grid.Row="5" Grid.Column="0" Orientation="Horizontal">

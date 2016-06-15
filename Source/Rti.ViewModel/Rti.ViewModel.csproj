@@ -136,7 +136,7 @@
     <Compile Include="Lists\DriverList.cs" />
     <Compile Include="Lists\EmployeeList.cs" />
     <Compile Include="Lists\EquipmentList.cs" />
-    <Compile Include="Lists\FlowsheetProcessList.cs" />
+    <Compile Include="Lists\DrawingFlowsheetProcessList.cs" />
     <Compile Include="Lists\DrawingFlowsheetMachineList.cs" />
     <Compile Include="Lists\GroupList.cs" />
     <Compile Include="Lists\JobList.cs" />

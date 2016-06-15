@@ -16,7 +16,7 @@
                 </dxg:GridColumn>
             </dxg:GridControl.Columns>
             <dxg:GridControl.View>
-                <dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="True"/>
+                <dxg:TableView EnableImmediatePosting="True" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="True"/>
             </dxg:GridControl.View>
         </dxg:GridControl>
 

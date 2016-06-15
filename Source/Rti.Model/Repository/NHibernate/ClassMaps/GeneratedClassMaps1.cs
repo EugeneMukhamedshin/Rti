@@ -198,6 +198,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.IsDeleted, "is_deleted");
 			Map(o => o.FactMass, "fact_mass");
 			Map(o => o.TechNote, "tech_note");
+			Map(o => o.SummaryTime, "summary_time");
 			References(o => o.Group, "group_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Detail, "detail_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.MaterialByPassport, "material_by_passport_id").Fetch.Join().Not.LazyLoad();
@@ -249,6 +250,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Table("drawing_flowsheet_processes");
 			Id(o => o.Id, "id");
 			Map(o => o.SortOrder, "sort_order");
+			Map(o => o.IsIncludedToSummary, "is_included_to_summary");
 			Map(o => o.Name, "name");
 			Map(o => o.Operation, "operation");
 			Map(o => o.Executor, "executor");

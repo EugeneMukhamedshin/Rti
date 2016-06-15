@@ -22,8 +22,15 @@ namespace Rti.ViewModel.EditViewModel
         {
             DrawingFlowsheetMachineList = new DrawingFlowsheetMachineList(entity, Editable, ViewService, RepositoryFactory);
             DrawingFlowsheetProcessList = new DrawingFlowsheetProcessList(entity, Editable, ViewService, RepositoryFactory);
+            DrawingFlowsheetProcessList.SummaryChanged += DrawingFlowsheetProcessList_SummaryChanged;
 
             CustomersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(ContragentType.Customer).Select(o => new ContragentViewModel(o, RepositoryFactory)).ToList());
+        }
+
+        private void DrawingFlowsheetProcessList_SummaryChanged(object sender, EventArgs e)
+        {
+            Entity.SummaryTime =
+                DrawingFlowsheetProcessList.Items.Where(o => o.IsIncludedToSummary ?? false).Sum(o => o.NormTime);
         }
 
         protected override void DoSave()

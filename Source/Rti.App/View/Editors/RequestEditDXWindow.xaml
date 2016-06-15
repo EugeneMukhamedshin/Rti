@@ -51,7 +51,7 @@
                                         <dxg:GridColumn FieldName="Phone" Header="Телефон"/>
                                     </dxg:GridControl.Columns>
                                     <dxg:GridControl.View>
-                                        <dxg:TableView AutoWidth="True"/>
+                                        <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                     </dxg:GridControl.View>
                                 </dxg:GridControl>
                             </ControlTemplate>
@@ -77,7 +77,7 @@
                                         <dxg:GridColumn FieldName="Phone" Header="Телефон"/>
                                     </dxg:GridControl.Columns>
                                     <dxg:GridControl.View>
-                                        <dxg:TableView AutoWidth="True"/>
+                                        <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                     </dxg:GridControl.View>
                                 </dxg:GridControl>
                             </ControlTemplate>
@@ -121,7 +121,7 @@
                                                 <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
                                             </dxg:GridControl.Columns>
                                             <dxg:GridControl.View>
-                                                <dxg:TableView AutoWidth="True"/>
+                                                <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                             </dxg:GridControl.View>
                                         </dxg:GridControl>
                                     </ControlTemplate>
@@ -159,7 +159,7 @@
                     </dxg:GridColumn>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>
-                    <dxg:TableView EditorButtonShowMode="ShowAlways" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                    <dxg:TableView EnableImmediatePosting="True" EditorButtonShowMode="ShowAlways" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>
             </dxg:GridControl>
 

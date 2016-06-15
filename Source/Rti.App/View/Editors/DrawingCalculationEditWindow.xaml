@@ -43,7 +43,7 @@
                 <dxg:GridColumn FieldName="Material.Price" Header="Цена исп. материала, руб. без НДС" Width="100" EditSettings="{DynamicResource Float2TextEditSettings}"/>
             </dxg:GridControl.Columns>
             <dxg:GridControl.View>
-                <dxg:TableView AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                <dxg:TableView EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
             </dxg:GridControl.View>
         </dxg:GridControl>
         <TabControl Padding="5" Grid.Row="1">

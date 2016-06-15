@@ -230,6 +230,8 @@ namespace Rti.Model.Domain
 		public virtual Double? FactMass { get; set; }
 		[Field("tech_note")]
 		public virtual String TechNote { get; set; }
+		[Field("summary_time")]
+		public virtual decimal? SummaryTime { get; set; }
 		[Reference("group_id", false)]
 		public virtual Group Group { get; set; }
 		[Reference("detail_id", false)]
@@ -284,6 +286,8 @@ namespace Rti.Model.Domain
 		public virtual Int32 Id { get; protected set; }
 		[Field("sort_order")]
 		public virtual Int32? SortOrder { get; set; }
+		[Field("is_included_to_summary")]
+		public virtual Boolean? IsIncludedToSummary { get; set; }
 		[Field("name")]
 		public virtual String Name { get; set; }
 		[Field("operation")]

@@ -31,7 +31,7 @@
                                             <dxg:GridColumn FieldName="Name" Header="Наименование"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -57,7 +57,7 @@
                                             <dxg:GridColumn FieldName="Job.Name" Header="Должность"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>

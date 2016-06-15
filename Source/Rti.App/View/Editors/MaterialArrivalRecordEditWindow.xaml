@@ -35,7 +35,7 @@
                                             <dxg:GridColumn FieldName="Phone" Header="Телефон"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -62,7 +62,7 @@
                                             <dxg:GridColumn FieldName="Note" Header="Примечание"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -85,7 +85,7 @@
                                             <dxg:GridColumn FieldName="Name" Header="Наименование"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>

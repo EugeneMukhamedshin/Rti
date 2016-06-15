@@ -85,7 +85,7 @@
                                             <dxg:GridColumn FieldName="Note" Header="Примечание"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -95,7 +95,7 @@
                 </dxg:GridColumn>
             </dxg:GridControl.Columns>
             <dxg:GridControl.View>
-                <dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False"/>
+                <dxg:TableView EnableImmediatePosting="True" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False"/>
             </dxg:GridControl.View>
         </dxg:GridControl>
 
