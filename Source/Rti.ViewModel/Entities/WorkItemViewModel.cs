@@ -40,7 +40,7 @@ namespace Rti.ViewModel.Entities
             base.OnPropertyChanged(propertyName);
             if (propertyName.In("DoneCount", "Drawing"))
                 OnPropertyChanged("Sum");
-            if (propertyName == "Date")
+            if (propertyName.In("WorkDate", "SortOrder"))
                 BatchNumber = string.Format("{0:dd.MM.yyyy}/{1}", WorkDate, SortOrder);
             if (propertyName.In("DoneCount", "RequestCount", "RejectedCount"))
                 OnPropertyChanged("RemainedCount");

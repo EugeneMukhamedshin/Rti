@@ -34,7 +34,6 @@ namespace Rti.ViewModel.EditViewModel
 
         public void PostWorkItem(WorkItemViewModel workItem)
         {
-            workItem.SaveEntity();
             _workItemController.PostWorkItem(workItem.Entity);
         }
     }

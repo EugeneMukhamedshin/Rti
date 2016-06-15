@@ -17,7 +17,8 @@ namespace Rti.ViewModel.Entities
         private string _validationErrorMessage;
 
         protected bool SuppressIsChanged;
-        protected bool IsMapping = false;
+
+        public bool IsMapping { get; protected set; }
 
         public TEntity Entity { get; private set; }
 

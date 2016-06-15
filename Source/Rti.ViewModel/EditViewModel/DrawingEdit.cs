@@ -21,8 +21,11 @@ namespace Rti.ViewModel.EditViewModel
         public DelegateCommand OpenEquipmentEditCommand { get; set; }
         public DelegateCommand OpenDrawingMeasurementEditCommand { get; set; }
         public DelegateCommand OpenDrawingImageCommand { get; set; }
+        public DelegateCommand OpenFlowsheetCommand { get; set; }
+        public DelegateCommand OpenCalculationCommand { get; set; }
 
-        public DrawingEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
+        public DrawingEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService,
+            IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {
             OpenMassCalculationCommand = new DelegateCommand(
@@ -41,6 +44,14 @@ namespace Rti.ViewModel.EditViewModel
                 "Просмотреть",
                 o => true,
                 o => OpenDrawingImage());
+            OpenFlowsheetCommand = new DelegateCommand(
+                "Технологическая карта",
+                o => true,
+                o => OpenFlowsheet());
+            OpenCalculationCommand = new DelegateCommand(
+                "Калькуляция",
+                o => true,
+                o => OpenCalculation());
         }
 
         public override void Refresh()
@@ -102,10 +113,10 @@ namespace Rti.ViewModel.EditViewModel
 
         private void OpenDrawingImage()
         {
-            var imageData = new byte[] {};
+            var imageData = new byte[] { };
             if (Entity.DrawingImage != null)
                 imageData = Entity.DrawingImage.Data ?? RepositoryFactory.GetImageRepository().GetData(Entity.DrawingImage.Id);
-            
+
             var viewModel = new ImageEdit("Просмотр чертежа", imageData, ReadOnly, ViewService, RepositoryFactory);
             viewModel.Refresh();
             if (ViewService.ShowViewDialog(viewModel) == true)
@@ -116,6 +127,39 @@ namespace Rti.ViewModel.EditViewModel
                     Entity.DrawingImage = image;
                 }
                 Entity.DrawingImage.Data = viewModel.Entity.Data;
+            }
+        }
+
+        private void OpenFlowsheet()
+        {
+            var saved = !Source.IsChanged;
+            if (!saved && ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед открытием необходимо сохранить чертеж. Выполнить сохранение?")))
+                saved = Save();
+            if (saved)
+            {
+                var viewModel = new DrawingFlowsheetEdit("Технологическая карта", Source, ReadOnly, ViewService, RepositoryFactory);
+                viewModel.Refresh();
+                ViewService.ShowViewDialog(viewModel);
+            }
+        }
+
+        private void OpenCalculation()
+        {
+                var saved = !Source.IsChanged;
+            if (!saved && ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед открытием необходимо сохранить чертеж. Выполнить сохранение?")))
+                saved = Save();
+            if (saved)
+            {
+                if (Entity.PlanCalculation == null)
+                    Entity.PlanCalculation = new CalculationViewModel(null, RepositoryFactory);
+                if (Entity.FactCalculation == null)
+                    Entity.FactCalculation = new CalculationViewModel(null, RepositoryFactory);
+                Entity.PlanCalculation.IsReadOnly = true;
+                var calculationEdit = new DrawingCalculationEdit("Калькуляция", Source, ReadOnly, ViewService, RepositoryFactory);
+                if (ViewService.ShowViewDialog(calculationEdit) == true)
+                {
+                    Source.RaiseCalculationPriceChanged();
+                }
             }
         }
 

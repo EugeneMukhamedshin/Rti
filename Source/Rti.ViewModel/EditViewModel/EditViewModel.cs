@@ -70,12 +70,18 @@ namespace Rti.ViewModel.EditViewModel
 
         protected virtual bool DoValidate() { return true; }
 
+        public bool Save()
+        {
+            if (!Validate())
+                return false;
+            DoSave();
+            return true;
+        }
+
         public void SaveAndClose()
         {
-            if (!Validate()) 
-                return;
-            DoSave();
-            Close(true);
+            if (Save())
+                Close(true);
         }
 
         protected virtual void DoSave() { }

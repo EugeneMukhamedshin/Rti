@@ -70,19 +70,36 @@ namespace Rti.ViewModel.Lists
         {
             EmployeeWorkItemPackage.SaveEntity();
 
-            var controller = new WorkItemControllerViewModel(ViewService, RepositoryFactory);
+            var changed = false;
             foreach (var workItem in Items)
             {
                 if (!workItem.IsChanged)
                     continue;
-                var closure = workItem;
-                DoAsync(() => controller.PostWorkItem(closure), () => Close(null),
+                changed = true;
+                workItem.SaveEntity();
+            }
+            if (changed)
+            {
+                DoAsync(PostWorkItems, () => Close(null),
                     "Подождите, производится перераспределение выполненных деталей по заявкам...");
+
             }
 
             foreach (var machine in PackageMachines)
             {
                 machine.SaveEntity();
+            }
+
+            if (!changed)
+                Close(null);
+        }
+
+        private void PostWorkItems()
+        {
+            var controller = new WorkItemControllerViewModel(ViewService, RepositoryFactory);
+            foreach (var workItem in Items)
+            {
+                controller.PostWorkItem(workItem);
             }
         }
 
@@ -131,6 +148,8 @@ namespace Rti.ViewModel.Lists
         private void ItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             var workItem = (WorkItemViewModel)sender;
+            if (workItem.IsMapping)
+                return;
             if (e.PropertyName.In("FlowsheetMachine", "IsParallel", "MachineUsageTime"))
             {
                 var packageMachine =
@@ -139,7 +158,7 @@ namespace Rti.ViewModel.Lists
                             workItem.FlowsheetMachine != null && workItem.FlowsheetMachine.Machine != null &&
                             o.FlowsheetMachine != null && o.FlowsheetMachine.Machine != null &&
                             workItem.FlowsheetMachine.Machine.Equals(o.FlowsheetMachine.Machine));
-                if (packageMachine == null)
+                if (packageMachine == null && workItem.FlowsheetMachine != null)
                 {
                     packageMachine = new WorkItemPackageMachineViewModel(null, RepositoryFactory)
                     {
@@ -147,10 +166,10 @@ namespace Rti.ViewModel.Lists
                         FlowsheetMachine = workItem.FlowsheetMachine
                     };
                     PackageMachines.Add(packageMachine);
+                    packageMachine.PackageWorkingTime =
+                        decimal.ToInt32(Items.Where(o => Equals(o.FlowsheetMachine, workItem.FlowsheetMachine))
+                            .Sum(o => o.MachineUsageTime * (o.IsParallel ? 0 : 1)));
                 }
-                packageMachine.PackageWorkingTime =
-                    decimal.ToInt32(Items.Where(o => Equals(o.FlowsheetMachine, workItem.FlowsheetMachine))
-                        .Sum(o => o.MachineUsageTime * (o.IsParallel ? 0 : 1)));
             }
         }
 

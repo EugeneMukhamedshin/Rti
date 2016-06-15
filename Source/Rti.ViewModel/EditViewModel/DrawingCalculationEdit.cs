@@ -90,7 +90,7 @@ namespace Rti.ViewModel.EditViewModel
             else
                 calculation.PowerForFormed = 0;
             // Электроэнергия прочая
-            calculation.OtherPower = calculation.PowerForFormed * constants.KEl.ToDecimal() / 100;
+            calculation.OtherPower = calculation.MainSummary * constants.KEl.ToDecimal() / 100;
             // Итого (2)
             calculation.MainAndPowerSummary = calculation.MainSummary + calculation.PowerForFormed + calculation.OtherPower;
             // Коммерческие (Непредвиденные)

@@ -16,7 +16,9 @@
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Content="Просмотр" Command="{Binding OpenDrawingImageCommand}" Width="90" Margin="5" TabIndex="0"></Button>
+            <Button Content="Просмотр" Command="{Binding OpenDrawingImageCommand}" Width="100" Margin="5" TabIndex="0"></Button>
+            <Button Content="Тех. карта" Command="{Binding OpenFlowsheetCommand}" Width="100" Margin="5" TabIndex="1"></Button>
+            <Button Content="Калькуляция" Command="{Binding OpenCalculationCommand}" Width="100" Margin="5" TabIndex="2"></Button>
         </StackPanel>
         <components:PropertyGridResponsible Margin="5" SortMode="Definitions" Grid.Row="1" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
             <components:PropertyGridResponsible.PropertyDefinitions>

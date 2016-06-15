@@ -37,10 +37,10 @@ namespace Rti.ViewModel.EditViewModel
         {
             base.Refresh();
             DrawingFlowsheetMachineList.Refresh();
-            if (Source.IsNewEntity)
-                DrawingFlowsheetProcessList.GenerateProcessesForNewFlowsheet();
-            else
-                DrawingFlowsheetProcessList.Refresh();
+            //if (Source.IsNewEntity)
+            //    DrawingFlowsheetProcessList.GenerateProcessesForNewFlowsheet();
+            //else
+            DrawingFlowsheetProcessList.Refresh();
         }
 
         protected override bool DoValidate()

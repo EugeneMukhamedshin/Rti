@@ -1,8 +1,8 @@
 ﻿--
--- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.1.13.0
+-- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 6.3.358.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 15.06.2016 0:27:47
--- Версия сервера: 5.7.13-log
+-- Дата скрипта: 15.06.2016 20:45:38
+-- Версия сервера: 5.6.26-log
 -- Версия клиента: 4.1
 --
 
@@ -79,7 +79,7 @@ CREATE TABLE calculations (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 9
+AUTO_INCREMENT = 13
 AVG_ROW_LENGTH = 4096
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -227,7 +227,7 @@ CREATE TABLE equipments (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 12
+AUTO_INCREMENT = 14
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -509,7 +509,7 @@ CREATE TABLE drawings (
     REFERENCES contragents(id) ON DELETE NO ACTION ON UPDATE NO ACTION
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 23
+AUTO_INCREMENT = 28
 AVG_ROW_LENGTH = 2730
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -600,7 +600,7 @@ CREATE TABLE requests (
     REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 72
+AUTO_INCREMENT = 73
 AVG_ROW_LENGTH = 3276
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -624,7 +624,7 @@ CREATE TABLE drawing_flowsheet_machines (
     REFERENCES machines(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 16
+AUTO_INCREMENT = 18
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -653,7 +653,7 @@ CREATE TABLE drawing_flowsheet_processes (
     REFERENCES processes(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 115
+AUTO_INCREMENT = 139
 AVG_ROW_LENGTH = 273
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -760,7 +760,7 @@ CREATE TABLE request_details (
     REFERENCES requests(id) ON DELETE NO ACTION ON UPDATE NO ACTION
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 22
+AUTO_INCREMENT = 23
 AVG_ROW_LENGTH = 2340
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -899,7 +899,7 @@ CREATE TABLE work_item_package (
     REFERENCES employees(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 8
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -964,7 +964,7 @@ CREATE TABLE work_item_package_machines (
     REFERENCES work_item_package(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 4
+AUTO_INCREMENT = 5
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -991,7 +991,7 @@ CREATE TABLE work_items (
   batch_number VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (id),
   UNIQUE INDEX UK_work_items (work_date, sort_order),
-  UNIQUE INDEX UK_work_items2 (work_date, drawing_id),
+  UNIQUE INDEX UK_work_items2 (work_date, drawing_id, employee_id),
   CONSTRAINT FK_daily_work_package_details_drawings_id FOREIGN KEY (drawing_id)
     REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT FK_daily_work_package_details_employees_id FOREIGN KEY (employee_id)
@@ -1000,7 +1000,7 @@ CREATE TABLE work_items (
     REFERENCES drawing_flowsheet_machines(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 22
+AUTO_INCREMENT = 28
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -1054,7 +1054,7 @@ CREATE TABLE work_item_request_details (
     REFERENCES work_items(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 138
+AUTO_INCREMENT = 146
 AVG_ROW_LENGTH = 2730
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -1084,31 +1084,26 @@ COLLATE utf8_general_ci
 COMMENT = 'распределение отгруженных деталей по выполненным партиям'
 ROW_FORMAT = DYNAMIC;
 
---
--- Описание для представления rejected_registrations
---
-DROP VIEW IF EXISTS rejected_registrations CASCADE;
-CREATE OR REPLACE 
-	DEFINER = 'root'@'localhost'
-VIEW rejected_registrations
-AS
-	;
+DELIMITER $$
 
 --
--- Описание для пользователя `mysql.sys`
+-- Описание для процедуры test
 --
-DROP USER IF EXISTS 'mysql.sys'@'localhost';
-CREATE USER 'mysql.sys'@'localhost' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE DEFAULT ACCOUNT LOCK;
-GRANT ALL PRIVILEGES ON *.* TO 'mysql.sys'@'localhost' 
-WITH GRANT OPTION;
+DROP PROCEDURE IF EXISTS test$$
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE test()
+BEGIN
+  SELECT * FROM calculations c;
 
---
--- Описание для пользователя root
---
-DROP USER IF EXISTS 'root'@'localhost';
-CREATE USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password AS '*81F5E21E35407D884A6CD4A731AEBFB6AF209E1B' PASSWORD EXPIRE DEFAULT;
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' 
-WITH GRANT OPTION;
+  SELECT * FROM drawings d;
+
+  SELECT * FROM requests r;
+
+  SELECT * FROM request_details rd;
+END
+$$
+
+DELIMITER ;
 
 -- 
 -- Вывод данных для таблицы additional_infos
@@ -1127,7 +1122,11 @@ INSERT INTO calculations VALUES
 (5, 50.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.76, 120.00, 10.91, 2.78, 5.11, 5.24, 200.78, 16.67, 0.83, 218.28, 13.10, 231.38, 16.20, 247.58, 19.81, 267.38, 'sd gfds hgfdgh '),
 (6, 19.32, 100.00, NULL, NULL, NULL, NULL, NULL, 1.61, 0.00, 0.00, 0.00, 0.00, 0.00, 120.93, 0.00, 0.00, 120.93, 7.26, 128.19, 8.97, 137.16, 24.69, 161.85, NULL),
 (7, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL),
-(8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- 
 -- Вывод данных для таблицы constants
@@ -1181,7 +1180,9 @@ INSERT INTO equipments VALUES
 (8, 7, '386.315', 0, 0.000, 0.00, 1, 2, 2, NULL, 0),
 (9, 8, '111.222.1', 0, 0.000, 0.00, 2, 3, 6, NULL, 0),
 (10, 9, 'etdthbf', 0, 0.000, 0.00, 1, 2, 2, NULL, 0),
-(11, 10, 'qwef weaf ', 0, 0.000, 0.00, 0, 0, 0, NULL, 0);
+(11, 10, 'qwef weaf ', 0, 0.000, 0.00, 0, 0, 0, NULL, 0),
+(12, 11, '1234', 0, 0.000, 0.00, 0, 0, 0, NULL, 0),
+(13, 12, 'dfsadf', 0, 0.000, 0.00, 0, 0, 0, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы groups
@@ -1292,12 +1293,17 @@ INSERT INTO drawings VALUES
 (12, '2016-05-04 22:48:19', 12, 'Новый чертеж', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL),
 (13, '2016-05-05 15:54:06', 13, 'Новый чертеж', 2, 1, NULL, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 7, 8, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL),
 (14, '2016-04-12 22:39:17', 7, 'Чяртеж6', 3, 1, NULL, 5, 7, 1, NULL, 1, 5, 0.163, 1200.00, 201.00, 1, 2, 1500.00, 2, 1, 12, 3, 23, 4, 10, 1, 'qq af sdfg rtg werg wergf', 1, 3, 3, 160, 'sovjwerofj mrpfwe[rofj w[erofk wer[fpo kwe]fp kwer[gfo ijwerpof weproi jwperh '),
-(15, '2016-06-14 22:08:58', 14, 'Новый чертеж', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL),
+(15, '2016-06-14 22:08:58', 14, 'Новый чертеж', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 9, 10, NULL, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL),
 (16, '2016-06-14 23:21:31', 15, 'Новый чертеж', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL),
 (17, '2016-06-14 23:27:05', 16, 'Новый чертеж', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1500.00, NULL, NULL, NULL, NULL, 7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL),
 (18, '2016-06-14 23:32:10', 17, '386.315', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL),
 (20, '2016-06-14 23:33:47', 18, '111.222', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5000.00, NULL, NULL, NULL, NULL, 9, NULL, 120, 13, 14, 5, 15, NULL, NULL, 0, NULL, NULL, NULL, NULL),
-(22, '2016-06-14 23:45:00', 19, '222.333.1', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 6500.00, NULL, NULL, NULL, NULL, 11, NULL, 1, 2, 3, 4, 5, NULL, NULL, 0, NULL, NULL, NULL, NULL);
+(22, '2016-06-14 23:45:00', 19, '222.333.1', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 6500.00, NULL, NULL, NULL, NULL, 11, NULL, 1, 2, 3, 4, 5, NULL, NULL, 0, NULL, NULL, NULL, NULL),
+(23, '2016-06-14 22:08:58', 14, 'Новый чертеж', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 9, 10, NULL, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL),
+(24, '2016-06-15 20:23:43', 20, 'Новый чертеж', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 11, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL),
+(25, '2016-06-15 20:31:17', 20, 'Новый чертеж', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL),
+(26, '2016-06-15 20:31:17', 20, 'Новый чертеж', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL),
+(27, '2016-06-15 20:43:55', 21, '321', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 13, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL);
 
 -- 
 -- Вывод данных для таблицы employees
@@ -1335,7 +1341,8 @@ INSERT INTO requests VALUES
 (58, 17, '2016-05-17 00:00:00', NULL, NULL, NULL, NULL, NULL, 3, 5, NULL, NULL, 0),
 (59, 18, '2016-05-18 00:00:00', NULL, NULL, '2016-05-18 00:00:00', NULL, NULL, 2, 5, NULL, NULL, 0),
 (60, 19, '2016-05-19 00:00:00', NULL, '2016-05-27 00:00:01', '2016-05-20 00:00:00', NULL, 9, 2, 5, NULL, NULL, 0),
-(62, 20, '2016-06-14 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
+(62, 20, '2016-06-14 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(72, 21, '2016-06-14 00:00:00', '2016-06-14 00:00:00', '2016-06-20 00:00:00', NULL, NULL, 3, 1, 5, NULL, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы drawing_flowsheet_machines
@@ -1345,7 +1352,9 @@ INSERT INTO drawing_flowsheet_machines VALUES
 (12, 8, 2, 2, 250.00, 20.00),
 (13, 8, 3, 3, 200.00, 30.00),
 (14, 7, 1, 2, 250.00, 12.00),
-(15, 5, 1, 2, NULL, NULL);
+(15, 5, 1, 2, NULL, NULL),
+(16, 25, 1, 2, 300.00, 15.00),
+(17, 27, 1, 2, 350.00, 20.00);
 
 -- 
 -- Вывод данных для таблицы drawing_flowsheet_processes
@@ -1364,7 +1373,31 @@ INSERT INTO drawing_flowsheet_processes VALUES
 (24, 8, 13, 13, '321', NULL, '456', NULL, 90.00, 'ер урек'),
 (112, 7, 1, 4, NULL, NULL, NULL, NULL, 15.00, NULL),
 (113, 7, 2, 8, NULL, NULL, NULL, NULL, 20.00, NULL),
-(114, 5, 1, 8, NULL, NULL, NULL, NULL, 10.00, NULL);
+(114, 5, 1, 8, NULL, NULL, NULL, NULL, 10.00, NULL),
+(115, 25, 1, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(116, 25, 2, 2, NULL, NULL, NULL, NULL, 0.00, NULL),
+(117, 25, 3, 3, NULL, NULL, NULL, NULL, 0.00, NULL),
+(118, 25, 4, 4, NULL, NULL, NULL, NULL, 0.00, NULL),
+(119, 25, 5, 5, NULL, NULL, NULL, NULL, 0.00, NULL),
+(120, 25, 6, 6, NULL, NULL, NULL, NULL, 0.00, NULL),
+(121, 25, 7, 7, NULL, NULL, NULL, NULL, 0.00, NULL),
+(122, 25, 8, 8, NULL, NULL, NULL, NULL, 10.00, NULL),
+(123, 25, 9, 9, NULL, NULL, NULL, NULL, 0.00, NULL),
+(124, 25, 10, 10, NULL, NULL, NULL, NULL, 0.00, NULL),
+(125, 25, 11, 11, NULL, NULL, NULL, NULL, 0.00, NULL),
+(126, 25, 12, 12, NULL, NULL, NULL, NULL, 0.00, NULL),
+(127, 27, 1, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(128, 27, 2, 2, NULL, NULL, NULL, NULL, 0.00, NULL),
+(129, 27, 3, 3, NULL, NULL, NULL, NULL, 0.00, NULL),
+(130, 27, 4, 4, NULL, NULL, NULL, NULL, 0.00, NULL),
+(131, 27, 5, 5, NULL, NULL, NULL, NULL, 0.00, NULL),
+(132, 27, 6, 6, NULL, NULL, NULL, NULL, 0.00, NULL),
+(133, 27, 7, 7, NULL, NULL, NULL, NULL, 0.00, NULL),
+(134, 27, 8, 8, NULL, NULL, NULL, NULL, 10.00, NULL),
+(135, 27, 9, 9, NULL, NULL, NULL, NULL, 0.00, NULL),
+(136, 27, 10, 10, NULL, NULL, NULL, NULL, 0.00, NULL),
+(137, 27, 11, 11, NULL, NULL, NULL, NULL, 0.00, NULL),
+(138, 27, 12, 12, NULL, NULL, NULL, NULL, 0.00, NULL);
 
 -- 
 -- Вывод данных для таблицы invoices
@@ -1407,7 +1440,8 @@ INSERT INTO request_details VALUES
 (18, 57, 1, 8, 1, 1, NULL, NULL, 50, 380.00, 267.38, 19000.00, 6, NULL, 1, 0),
 (19, 58, 1, 8, 1, 1, NULL, NULL, 100, 250.00, 267.38, 25000.00, 6, NULL, 3, 0),
 (20, 59, 1, 8, 1, 1, NULL, NULL, 20, 250.00, 267.38, 5000.00, 6, NULL, 3, 0),
-(21, 60, 1, 7, 3, 1, NULL, 0, 100, 1200.00, 5650.49, 120000.00, 5, NULL, 2, 0);
+(21, 60, 1, 7, 3, 1, NULL, 0, 100, 1200.00, 5650.49, 120000.00, 5, NULL, 2, 0),
+(22, 72, 1, 8, 1, 1, NULL, NULL, 20, 380.00, 267.38, 7600.00, 6, NULL, 2, 0);
 
 -- 
 -- Вывод данных для таблицы rolling_records
@@ -1442,7 +1476,10 @@ INSERT INTO work_item_package VALUES
 (1, '2016-05-17 00:00:00', 1, 'формовой'),
 (2, '2016-05-16 00:00:00', 1, 'формовой'),
 (3, '2016-05-19 00:00:00', 1, 'участок'),
-(4, '2016-05-20 00:00:00', 2, 'sdfs dgdsg ');
+(4, '2016-05-20 00:00:00', 2, 'sdfs dgdsg '),
+(5, '2016-06-16 00:00:00', 2, NULL),
+(6, '2016-06-17 00:00:00', 1, NULL),
+(7, '2016-06-16 00:00:00', 1, NULL);
 
 -- 
 -- Вывод данных для таблицы shipments
@@ -1459,7 +1496,8 @@ INSERT INTO shipments VALUES
 INSERT INTO work_item_package_machines VALUES
 (1, 4, 14, 500, 96),
 (2, 4, 4, 0, 0),
-(3, 4, 13, 0, 0);
+(3, 4, 13, 0, 0),
+(4, 7, 4, 50, 0);
 
 -- 
 -- Вывод данных для таблицы work_items
@@ -1474,7 +1512,8 @@ INSERT INTO work_items VALUES
 (18, '2016-05-18', 1, 8, 118, 110, 100, NULL, NULL, 1, NULL, 0, '18.05.2016/1'),
 (19, '2016-05-19', 1, 8, 18, 25, 25, 10, NULL, 1, NULL, 0, '19.05.2016/1'),
 (20, '2016-05-20', 1, 8, 3, 15, 5, 2, NULL, 2, 12, 0, '20.05.2016/1'),
-(21, '2016-05-20', 2, 7, 100, 50, 25, 1, NULL, 2, 14, 0, '20.05.2016/2');
+(21, '2016-05-20', 2, 7, 100, 50, 25, 1, NULL, 2, 14, 0, '20.05.2016/2'),
+(27, '2016-06-16', 1, 8, 20, 10, 10, 2, NULL, 1, 4, 1, '16.06.2016/1');
 
 -- 
 -- Вывод данных для таблицы shipment_items
@@ -1496,7 +1535,8 @@ INSERT INTO work_item_request_details VALUES
 (130, 18, 20, 1, 2),
 (131, 19, 20, 0, 15),
 (135, 20, 20, 0, 3),
-(137, 21, 21, 0, 24);
+(137, 21, 21, 0, 24),
+(145, 27, 22, 0, 8);
 
 -- 
 -- Вывод данных для таблицы shipment_item_work_items

@@ -60,7 +60,7 @@ namespace Rti.ViewModel.Lists
         {
             TypeMaps.Add(new Tuple<Type, Type>(typeof(WorkItemViewModel), typeof(WorkItemEdit)));
 
-            _date = DateTime.Today;
+            _date = DateTime.Today.AddDays(1);
             AddWorkItemCommand = new DelegateCommand(
                 "Добавить строку",
                 o => EditMode,
@@ -87,6 +87,7 @@ namespace Rti.ViewModel.Lists
             var list = new EmployeeWorkItemList(Employee, Date, EditMode, ViewService, RepositoryFactory);
             list.Refresh();
             ViewService.ShowViewDialog(list);
+            Refresh();
         }
 
         protected override IEnumerable<WorkItemViewModel> GetItems()

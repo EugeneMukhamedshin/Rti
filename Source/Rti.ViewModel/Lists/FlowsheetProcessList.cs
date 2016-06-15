@@ -15,6 +15,13 @@
                     .GetByDrawingId(Drawing.Id)                     .OrderBy(o => o.SortOrder)
                     .Select(o => new DrawingFlowsheetProcessViewModel(o, RepositoryFactory))                     .ToList();         }
 
+        protected override void OnItemsChanged()
+        {
+            base.OnItemsChanged();
+            if (!Items.Any() && ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Создать стандартный список процессов?")))
+                GenerateProcessesForNewFlowsheet();
+        }
+
         protected override DrawingFlowsheetProcessViewModel DoCreateNewEntity()         {
             var flowsheetProcess = new DrawingFlowsheetProcessViewModel(null, RepositoryFactory)             {
                 Drawing = Drawing,                 SortOrder = Items.Any() ? Items.Max(o => o.SortOrder) + 1 : 1             };

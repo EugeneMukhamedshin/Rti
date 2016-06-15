@@ -76,8 +76,8 @@
                 </dxg:GridControl.View>
             </dxg:GridControl>
             <StackPanel Orientation="Horizontal" Grid.Row="2">
-                <Button Content="Тех. карта" Command="{Binding OpenFlowsheetCommand}" Width="90" Margin="5" TabIndex="1000"></Button>
-                <Button Content="Калькуляция" Command="{Binding OpenCalculationCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
+                <Button Content="Тех. карта" Command="{Binding OpenFlowsheetCommand}" Width="100" Margin="5" TabIndex="1000"></Button>
+                <Button Content="Калькуляция" Command="{Binding OpenCalculationCommand}" Width="100" Margin="5" TabIndex="1001"></Button>
             </StackPanel>
         </Grid>
         <Border Opacity="0.8" Visibility="{Binding IsLoading,Converter={StaticResource BooleanToVisibilityConverter}}" Background="AliceBlue">

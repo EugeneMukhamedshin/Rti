@@ -34,52 +34,6 @@ namespace Rti.ViewModel.EditViewModel
             base.DoSave();
 
             controller.PostWorkItem(Source);
-            return;
-
-            //if (!Source.IsNewEntity)
-            //{
-            //    RepositoryFactory.GetWorkItemRequestDetailRepository()
-            //        .DeleteByWorkItemId(Source.Id);
-            //}
-            //Entity.RequestCount = RepositoryFactory.GetRequestDetailRepository().GetNotShippedCount(Entity.Drawing.Id, Entity.WorkDate);
-            //base.DoSave();
-
-            //var requestDetailDoneCounts =
-            //   RepositoryFactory.GetRequestDetailRepository()
-            //       .GetRequestsInProductionWithActualDoneCounts(Source.Drawing.Id, Source.WorkDate);
-
-            //var requestDetails = RepositoryFactory.GetRequestDetailRepository().GetRequestDetailsByIds(requestDetailDoneCounts.Select(o => o.Item1).ToArray());
-            //var index = 0;
-            //var dayDoneCount = Source.DoneCount ?? 0;
-            //var dayRejectedCount = Source.RejectedCount ?? 0;
-            //foreach (var requestDetail in requestDetails.OrderBy(o => o.Request.RegDate).ThenBy(o => o.SortOrder))
-            //{
-            //    if (dayDoneCount == 0)
-            //        break;
-            //    var detail = new WorkItemRequestDetailViewModel(null, RepositoryFactory)
-            //    {
-            //        WorkItem = Source,
-            //        RequestDetail = new RequestDetailViewModel(requestDetail, RepositoryFactory),
-            //        SortOrder = index++,
-            //    };
-            //    // Получаем выполненное количество на текущий момент
-            //    var currentlyDoneCount = decimal.ToInt32(requestDetailDoneCounts.Single(o => o.Item1 == detail.RequestDetail.Id).Item2);
-            //    // Вычисляем оставшееся количество по заявке
-            //    var requestedCount = detail.RequestDetail.Count - currentlyDoneCount;
-            //    var doneCount = Math.Min(dayDoneCount, requestedCount);
-            //    var rejectedCount = Math.Min(dayRejectedCount, doneCount);
-            //    detail.DoneCount = doneCount;
-            //    detail.RejectedCount = rejectedCount;
-            //    detail.SaveEntity();
-            //    dayDoneCount -= doneCount;
-            //    dayRejectedCount -= rejectedCount;
-
-            //    if (detail.RequestDetail.Count == currentlyDoneCount + doneCount)
-            //        detail.RequestDetail.RequestDetailStateEnum = RequestDetailState.Done;
-            //    else
-            //        detail.RequestDetail.RequestDetailStateEnum = RequestDetailState.InProduction;
-            //    detail.RequestDetail.SaveEntity();
-            //}
         }
 
         protected override bool DoValidate()
