@@ -10,5 +10,6 @@ namespace Rti.Model.Repository.Interfaces
         Request GetByNumber(int number);
         IList<Request> GetUnshipped();
         IList<RequestsReportRow> GetRequestReport();
+        IList<Request> GetUnpaid();
     }
 }

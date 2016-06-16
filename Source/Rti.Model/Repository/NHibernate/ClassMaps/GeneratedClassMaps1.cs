@@ -583,7 +583,9 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Id(o => o.Id, "id");
 			Map(o => o.PaymentDate, "payment_date");
 			Map(o => o.PaymentDocNumber, "payment_doc_number");
+			Map(o => o.InvoiceFacture, "invoice_facture");
 			Map(o => o.Sum, "sum");
+			Map(o => o.Note, "note");
 			Map(o => o.IsDeleted, "is_deleted");
 			References(o => o.Request, "request_id").Fetch.Join().Not.LazyLoad();
 			OnInitialized();
@@ -649,6 +651,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.ShipDate, "ship_date");
 			Map(o => o.InvoiceDate, "invoice_date");
 			Map(o => o.LeadTime, "lead_time");
+			Map(o => o.Sum, "sum");
 			Map(o => o.IsPaid, "is_paid");
 			Map(o => o.CompleteSum, "complete_sum");
 			Map(o => o.IsDeleted, "is_deleted");

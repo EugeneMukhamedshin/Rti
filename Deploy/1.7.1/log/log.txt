@@ -1,0 +1,110 @@
+2016-06-16 21:00:47,704 [1] INFO  Rti.Model.Repository.NHibernate.NHibernateContext [(null)] - Creating session factory. Connection string = server=81.177.174.193;user=root;database=rti;port=3306;password=root;CharSet=utf8;Allow User Variables=True
+2016-06-16 21:00:47,747 [1] INFO  NHibernate.Cfg.Environment [(null)] - NHibernate 4.0.0.GA (assembly 4.0.0.4000)
+2016-06-16 21:00:47,755 [1] INFO  NHibernate.Cfg.Environment [(null)] - hibernate-configuration section not found in application configuration file
+2016-06-16 21:00:47,756 [1] INFO  NHibernate.Cfg.Environment [(null)] - Bytecode provider name : lcg
+2016-06-16 21:00:47,757 [1] INFO  NHibernate.Cfg.Environment [(null)] - Using reflection optimizer
+2016-06-16 21:00:48,640 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,687 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.AdditionalInfo -> additional_infos
+2016-06-16 21:00:48,734 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,734 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Calculation -> calculations
+2016-06-16 21:00:48,736 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,736 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Constant -> constants
+2016-06-16 21:00:48,736 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,737 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Contract -> contracts
+2016-06-16 21:00:48,738 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,738 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Contragent -> contragents
+2016-06-16 21:00:48,739 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,740 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Detail -> details
+2016-06-16 21:00:48,747 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,747 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.DrawingFlowsheetMachine -> drawing_flowsheet_machines
+2016-06-16 21:00:48,757 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,758 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.DrawingFlowsheetProcess -> drawing_flowsheet_processes
+2016-06-16 21:00:48,761 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,762 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Drawing -> drawings
+2016-06-16 21:00:48,764 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,764 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Driver -> drivers
+2016-06-16 21:00:48,765 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,766 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Employee -> employees
+2016-06-16 21:00:48,766 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,767 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Equipment -> equipments
+2016-06-16 21:00:48,773 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,773 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Group -> groups
+2016-06-16 21:00:48,774 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,774 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Image -> images
+2016-06-16 21:00:48,775 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,775 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Invoice -> invoices
+2016-06-16 21:00:48,776 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,776 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Job -> jobs
+2016-06-16 21:00:48,778 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,778 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Machine -> machines
+2016-06-16 21:00:48,780 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,780 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.MassCalculation -> mass_calculations
+2016-06-16 21:00:48,781 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,782 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.MaterialArrivalRecord -> material_arrival_records
+2016-06-16 21:00:48,782 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,783 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Material -> materials
+2016-06-16 21:00:48,783 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,784 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.MeasureUnit -> measure_units
+2016-06-16 21:00:48,784 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,785 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Method -> methods
+2016-06-16 21:00:48,785 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,786 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Payment -> payments
+2016-06-16 21:00:48,786 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,787 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Process -> processes
+2016-06-16 21:00:48,787 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,788 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.ReportOfCompletionItem -> report_of_completion_items
+2016-06-16 21:00:48,789 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,789 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.RequestDetail -> request_details
+2016-06-16 21:00:48,790 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,791 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Request -> requests
+2016-06-16 21:00:48,791 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,792 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.RollingRecord -> rolling_records
+2016-06-16 21:00:48,793 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,793 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.ShavingRecord -> shaving_records
+2016-06-16 21:00:48,795 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,795 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.ShipmentItem -> shipment_items
+2016-06-16 21:00:48,797 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,797 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.ShipmentItemWorkItem -> shipment_item_work_items
+2016-06-16 21:00:48,799 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,799 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.Shipment -> shipments
+2016-06-16 21:00:48,801 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,801 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.ShippedProductRecord -> shipped_product_records
+2016-06-16 21:00:48,803 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,803 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.ShippingOrderRecord -> shipping_order_records
+2016-06-16 21:00:48,804 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,805 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.WorkItem -> work_items
+2016-06-16 21:00:48,806 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,806 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.WorkItemPackageMachine -> work_item_package_machines
+2016-06-16 21:00:48,807 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,808 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.WorkItemPackage -> work_item_package
+2016-06-16 21:00:48,809 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,809 [1] INFO  NHibernate.Cfg.XmlHbmBinding.Binder [(null)] - Mapping class: Rti.Model.Domain.WorkItemRequestDetail -> work_item_request_details
+2016-06-16 21:00:48,813 [1] INFO  NHibernate.Cfg.Configuration [(null)] - checking mappings queue
+2016-06-16 21:00:48,814 [1] INFO  NHibernate.Cfg.Configuration [(null)] - processing one-to-many association mappings
+2016-06-16 21:00:48,814 [1] INFO  NHibernate.Cfg.Configuration [(null)] - processing one-to-one association property references
+2016-06-16 21:00:48,814 [1] INFO  NHibernate.Cfg.Configuration [(null)] - processing foreign key constraints
+2016-06-16 21:00:48,818 [1] INFO  NHibernate.Cfg.Configuration [(null)] - processing filters (second pass)
+2016-06-16 21:00:48,848 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,852 [1] INFO  NHibernate.Dialect.Dialect [(null)] - Using dialect: NHibernate.Dialect.MySQLDialect
+2016-06-16 21:00:48,904 [1] INFO  NHibernate.Exceptions.SQLExceptionConverterFactory [(null)] - Using dialect defined converter
+2016-06-16 21:00:48,904 [1] INFO  NHibernate.Cfg.SettingsFactory [(null)] - Generate SQL with comments: disabled
+2016-06-16 21:00:48,906 [1] INFO  NHibernate.Connection.ConnectionProviderFactory [(null)] - Initializing connection provider: NHibernate.Connection.DriverConnectionProvider
+2016-06-16 21:00:48,906 [1] INFO  NHibernate.Connection.ConnectionProvider [(null)] - Configuring ConnectionProvider
+2016-06-16 21:00:48,964 [1] INFO  NHibernate.Cfg.SettingsFactory [(null)] - Transaction factory: NHibernate.Transaction.AdoNetWithDistributedTransactionFactory
+2016-06-16 21:00:48,964 [1] INFO  NHibernate.Cfg.SettingsFactory [(null)] - Optimize cache for minimal puts: False
+2016-06-16 21:00:48,965 [1] INFO  NHibernate.Cfg.SettingsFactory [(null)] - Connection release mode: auto
+2016-06-16 21:00:48,965 [1] INFO  NHibernate.Cfg.SettingsFactory [(null)] - Default batch fetch size: 1
+2016-06-16 21:00:48,965 [1] INFO  NHibernate.Cfg.SettingsFactory [(null)] - echoing all SQL to stdout
+2016-06-16 21:00:48,966 [1] INFO  NHibernate.Cfg.SettingsFactory [(null)] - Statistics: disabled
+2016-06-16 21:00:48,966 [1] INFO  NHibernate.Cfg.SettingsFactory [(null)] - Deleted entity synthetic identifier rollback: disabled
+2016-06-16 21:00:48,967 [1] INFO  NHibernate.Cfg.SettingsFactory [(null)] - Query translator: NHibernate.Hql.Ast.ANTLR.ASTQueryTranslatorFactory
+2016-06-16 21:00:48,968 [1] INFO  NHibernate.Cfg.SettingsFactory [(null)] - Query language substitutions: {}
+2016-06-16 21:00:48,969 [1] INFO  NHibernate.Cfg.SettingsFactory [(null)] - cache provider: NHibernate.Cache.NoCacheProvider, NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4
+2016-06-16 21:00:48,969 [1] INFO  NHibernate.Cfg.SettingsFactory [(null)] - Order SQL inserts for batching: disabled
+2016-06-16 21:00:48,971 [1] INFO  NHibernate.Cfg.SettingsFactory [(null)] - Batcher factory: NHibernate.AdoNet.NonBatchingBatcherFactory, NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4
+2016-06-16 21:00:48,971 [1] INFO  NHibernate.Cfg.SettingsFactory [(null)] - Default entity-mode: Poco
+2016-06-16 21:00:48,971 [1] INFO  NHibernate.Cfg.SettingsFactory [(null)] - Named query checking : enabled
+2016-06-16 21:00:48,971 [1] INFO  NHibernate.Cfg.SettingsFactory [(null)] - Ignoring exceptions in BeforeTransactionCompletion : disabled
+2016-06-16 21:00:48,985 [1] INFO  NHibernate.Impl.SessionFactoryImpl [(null)] - building session factory
+2016-06-16 21:00:49,652 [1] INFO  NHibernate.Impl.SessionFactoryObjectFactory [(null)] - no name configured
+2016-06-16 21:00:49,800 [1] INFO  NHibernate.Loader.Loader [(null)] - SELECT this_.id as id15_0_, this_.sort_order as sort2_15_0_, this_.name as name15_0_, this_.login as login15_0_, this_.password as password15_0_, this_.is_deleted as is6_15_0_ FROM jobs this_ WHERE this_.login = ?p0

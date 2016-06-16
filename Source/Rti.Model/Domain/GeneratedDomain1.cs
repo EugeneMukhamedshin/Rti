@@ -618,8 +618,12 @@ namespace Rti.Model.Domain
 		public virtual DateTime PaymentDate { get; set; }
 		[Field("payment_doc_number")]
 		public virtual String PaymentDocNumber { get; set; }
+		[Field("invoice_facture")]
+		public virtual String InvoiceFacture { get; set; }
 		[Field("sum")]
 		public virtual decimal Sum { get; set; }
+		[Field("note")]
+		public virtual String Note { get; set; }
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
 		[Reference("request_id", false)]
@@ -678,8 +682,10 @@ namespace Rti.Model.Domain
 		public virtual DateTime? InvoiceDate { get; set; }
 		[Field("lead_time")]
 		public virtual Int32? LeadTime { get; set; }
+		[Field("sum")]
+		public virtual decimal? Sum { get; set; }
 		[Field("is_paid")]
-		public virtual Boolean? IsPaid { get; set; }
+		public virtual Boolean IsPaid { get; set; }
 		[Field("complete_sum")]
 		public virtual decimal? CompleteSum { get; set; }
 		[Field("is_deleted")]

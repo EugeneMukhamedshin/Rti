@@ -61,6 +61,7 @@
     <Compile Include="EditViewModel\DrawingCalculationViewModel.cs" />
     <Compile Include="EditViewModel\DrawingEdit.cs" />
     <Compile Include="EditViewModel\DrawingMeasurementEdit.cs" />
+    <Compile Include="EditViewModel\PaymentEdit.cs" />
     <Compile Include="EditViewModel\EditEntityViewModel.cs" />
     <Compile Include="EditViewModel\EditViewModel.cs" />
     <Compile Include="EditViewModel\EditViewModelBase.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Lists\EmployeeWorkItemList.cs" />
     <Compile Include="Lists\RequestList.cs" />
     <Compile Include="Lists\ShipmentItemList.cs" />
+    <Compile Include="Lists\PaymentList.cs" />
     <Compile Include="Lists\ShipmentList.cs" />
     <Compile Include="Lists\WorkItemList.cs" />
     <Compile Include="Lists\DetailList.cs" />

@@ -2644,20 +2644,26 @@ namespace Rti.ViewModel.Entities
 		private Int32 _id;
 		private DateTime _paymentDate;
 		private String _paymentDocNumber;
+		private String _invoiceFacture;
 		private Decimal _sum;
+		private String _note;
 		private Boolean _isDeleted;
 		private RequestViewModel _request;
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public DateTime PaymentDate { get { return _paymentDate; } set { if (Equals(_paymentDate, value)) return; _paymentDate = value; OnPropertyChanged("PaymentDate"); } }
 		public String PaymentDocNumber { get { return _paymentDocNumber; } set { if (Equals(_paymentDocNumber, value)) return; _paymentDocNumber = value; OnPropertyChanged("PaymentDocNumber"); } }
+		public String InvoiceFacture { get { return _invoiceFacture; } set { if (Equals(_invoiceFacture, value)) return; _invoiceFacture = value; OnPropertyChanged("InvoiceFacture"); } }
 		public Decimal Sum { get { return _sum; } set { if (Equals(_sum, value)) return; _sum = value; OnPropertyChanged("Sum"); } }
+		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
 		public RequestViewModel Request { get { return _request; } set { _request = value; OnPropertyChanged("Request"); } }
 		protected override void MapPropertiesToEntity()
 		{
 			Entity.PaymentDate = PaymentDate; 
 			Entity.PaymentDocNumber = PaymentDocNumber; 
+			Entity.InvoiceFacture = InvoiceFacture; 
 			Entity.Sum = Sum; 
+			Entity.Note = Note; 
 			Entity.IsDeleted = IsDeleted; 
 			Entity.Request = Request == null ? null : Request.Entity; 
 		}
@@ -2668,7 +2674,9 @@ namespace Rti.ViewModel.Entities
 			Id = Entity.Id; 
 			PaymentDate = Entity.PaymentDate; 
 			PaymentDocNumber = Entity.PaymentDocNumber; 
+			InvoiceFacture = Entity.InvoiceFacture; 
 			Sum = Entity.Sum; 
+			Note = Entity.Note; 
 			IsDeleted = Entity.IsDeleted; 
 			Request = Entity.Request == null ? null : new RequestViewModel(Entity.Request, RepositoryFactory); 
 			IsMapping = false;
@@ -2679,7 +2687,9 @@ namespace Rti.ViewModel.Entities
 			IsMapping = true;
 			PaymentDate = source.PaymentDate;
 			PaymentDocNumber = source.PaymentDocNumber;
+			InvoiceFacture = source.InvoiceFacture;
 			Sum = source.Sum;
+			Note = source.Note;
 			IsDeleted = source.IsDeleted;
 			Request = source.Request;
 			CustomCopyFrom(source);
@@ -2700,7 +2710,11 @@ namespace Rti.ViewModel.Entities
 			element.Add(new XAttribute("PaymentDate", PaymentDate));
 			if (PaymentDocNumber != null)
 				element.Add(new XAttribute("PaymentDocNumber", PaymentDocNumber));
+			if (InvoiceFacture != null)
+				element.Add(new XAttribute("InvoiceFacture", InvoiceFacture));
 			element.Add(new XAttribute("Sum", Sum));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
 			if (Request != null)
 				element.Add(Request.GetXElement("Request"));
@@ -2902,7 +2916,8 @@ namespace Rti.ViewModel.Entities
 		private DateTime? _shipDate;
 		private DateTime? _invoiceDate;
 		private Int32? _leadTime;
-		private Boolean? _isPaid;
+		private Decimal? _sum;
+		private Boolean _isPaid;
 		private Decimal? _completeSum;
 		private Boolean _isDeleted;
 		private ContractViewModel _contract;
@@ -2915,7 +2930,8 @@ namespace Rti.ViewModel.Entities
 		public DateTime? ShipDate { get { return _shipDate; } set { if (Equals(_shipDate, value)) return; _shipDate = value; OnPropertyChanged("ShipDate"); } }
 		public DateTime? InvoiceDate { get { return _invoiceDate; } set { if (Equals(_invoiceDate, value)) return; _invoiceDate = value; OnPropertyChanged("InvoiceDate"); } }
 		public Int32? LeadTime { get { return _leadTime; } set { if (Equals(_leadTime, value)) return; _leadTime = value; OnPropertyChanged("LeadTime"); } }
-		public Boolean? IsPaid { get { return _isPaid; } set { if (Equals(_isPaid, value)) return; _isPaid = value; OnPropertyChanged("IsPaid"); } }
+		public Decimal? Sum { get { return _sum; } set { if (Equals(_sum, value)) return; _sum = value; OnPropertyChanged("Sum"); } }
+		public Boolean IsPaid { get { return _isPaid; } set { if (Equals(_isPaid, value)) return; _isPaid = value; OnPropertyChanged("IsPaid"); } }
 		public Decimal? CompleteSum { get { return _completeSum; } set { if (Equals(_completeSum, value)) return; _completeSum = value; OnPropertyChanged("CompleteSum"); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
 		public ContractViewModel Contract { get { return _contract; } set { _contract = value; OnPropertyChanged("Contract"); } }
@@ -2929,6 +2945,7 @@ namespace Rti.ViewModel.Entities
 			Entity.ShipDate = ShipDate; 
 			Entity.InvoiceDate = InvoiceDate; 
 			Entity.LeadTime = LeadTime; 
+			Entity.Sum = Sum; 
 			Entity.IsPaid = IsPaid; 
 			Entity.CompleteSum = CompleteSum; 
 			Entity.IsDeleted = IsDeleted; 
@@ -2947,6 +2964,7 @@ namespace Rti.ViewModel.Entities
 			ShipDate = Entity.ShipDate; 
 			InvoiceDate = Entity.InvoiceDate; 
 			LeadTime = Entity.LeadTime; 
+			Sum = Entity.Sum; 
 			IsPaid = Entity.IsPaid; 
 			CompleteSum = Entity.CompleteSum; 
 			IsDeleted = Entity.IsDeleted; 
@@ -2965,6 +2983,7 @@ namespace Rti.ViewModel.Entities
 			ShipDate = source.ShipDate;
 			InvoiceDate = source.InvoiceDate;
 			LeadTime = source.LeadTime;
+			Sum = source.Sum;
 			IsPaid = source.IsPaid;
 			CompleteSum = source.CompleteSum;
 			IsDeleted = source.IsDeleted;
@@ -2996,8 +3015,9 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("InvoiceDate", InvoiceDate));
 			if (LeadTime != null)
 				element.Add(new XAttribute("LeadTime", LeadTime));
-			if (IsPaid != null)
-				element.Add(new XAttribute("IsPaid", IsPaid));
+			if (Sum != null)
+				element.Add(new XAttribute("Sum", Sum));
+			element.Add(new XAttribute("IsPaid", IsPaid));
 			if (CompleteSum != null)
 				element.Add(new XAttribute("CompleteSum", CompleteSum));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));

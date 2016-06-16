@@ -81,6 +81,10 @@ namespace Rti.App
             AddToRegistry<ShipmentEdit, ShipmentEditWindow>();
             AddToRegistry<DeliveryEdit, DeliveryEditWindow>();
 
+            // Платежи
+            AddToRegistry<PaymentList, PaymentListWindow>();
+            AddToRegistry<PaymentEdit, PaymentEditWindow>();
+
             // Журналы
             // Журнал обрезки облоя
             AddToRegistry<ShavingRecordList, ShavingRecordListWindow>();

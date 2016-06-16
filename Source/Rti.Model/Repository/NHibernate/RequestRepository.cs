@@ -81,5 +81,10 @@ ORDER BY r.reg_date DESC")
                         WorkStartDate = (DateTime?)objects[9]
                     }, objects => objects.Cast<RequestsReportRow>().ToList())).List<RequestsReportRow>(), "");
         }
+
+        public IList<Request> GetUnpaid()
+        {
+            return ExecuteFuncOnQueryOver(q => q.Where(o => !o.IsPaid).List());
+        }
     }
 }

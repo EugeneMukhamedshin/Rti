@@ -56,6 +56,7 @@ namespace Rti.App
                     _viewService.ShowViewDialog(loginViewModel);
                     if (!loginViewModel.LoggedOn)
                         mainViewModel.Close(null);
+                    mainViewModel.Job = loginViewModel.Job;
                 }
                 else
                 {

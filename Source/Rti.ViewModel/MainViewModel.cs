@@ -11,6 +11,7 @@ namespace Rti.ViewModel
 {
     public class MainViewModel : BaseViewModel, IClosable
     {
+        private Job _job;
         public IViewService ViewService { get; set; }
 
         public RequestViewModel SelectedRequest { get; set; }
@@ -33,7 +34,7 @@ namespace Rti.ViewModel
         public DelegateCommand OpenShavingRecordsCommand { get; set; }
         public DelegateCommand OpenMaterialArrivalRecordsCommand { get; set; }
         public DelegateCommand OpenRollingRecordsCommand { get; set; }
-        public DelegateCommand OpenShippingOrderRecordsCommand { get; set; }
+        public DelegateCommand OpenPaymentsCommand { get; set; }
 
         public DelegateCommand OpenCustomersCommand { get; set; }
         public DelegateCommand OpenSuppliersCommand { get; set; }
@@ -104,10 +105,10 @@ namespace Rti.ViewModel
                 "Открыть журнал вальцовщика",
                 o => true,
                 o => OpenRollingRecords());
-            OpenShippingOrderRecordsCommand = new DelegateCommand(
-                "Открыть журнал вальцовщика",
+            OpenPaymentsCommand = new DelegateCommand(
+                "Открыть журнал оплаты",
                 o => true,
-                o => OpenShippingOrderRecords());
+                o => OpenPayments());
 
             OpenCustomersCommand = new DelegateCommand(
                 "Справочники",
@@ -209,13 +210,12 @@ namespace Rti.ViewModel
             ViewService.ShowViewDialog(viewModel);
         }
 
-        private void OpenShippingOrderRecords()
+        private void OpenPayments()
         {
-            var viewModel = new ShippingOrderRecordList(true, ViewService, RepositoryFactory);
+            var viewModel = new PaymentList(true, ViewService, RepositoryFactory);
             viewModel.Refresh();
             ViewService.ShowViewDialog(viewModel);
         }
-
         private void OpenDictionary(BaseViewModel viewModel)
         {
             viewModel.Refresh();
@@ -272,5 +272,19 @@ namespace Rti.ViewModel
         }
 
         public Action<bool?> Close { get; set; }
+
+        public Job Job
+        {
+            get { return _job; }
+            set
+            {
+                if (Equals(value, _job)) return;
+                _job = value;
+                OnPropertyChanged();
+                OnPropertyChanged("UserDisplayName");
+            }
+        }
+
+        public string UserDisplayName { get { return Job == null ? null : string.Format("Пользователь: {0}", Job.Login); } }
     }
 }

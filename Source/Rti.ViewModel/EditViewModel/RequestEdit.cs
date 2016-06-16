@@ -218,6 +218,7 @@ namespace Rti.ViewModel.EditViewModel
 
         protected override void DoSave()
         {
+            Entity.Sum = RequestDetails.Sum(o => o.Sum);
             // Сохраняем заявку
             base.DoSave();
             // Сохраняем детали заявки
