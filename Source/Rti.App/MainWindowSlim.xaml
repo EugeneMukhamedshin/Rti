@@ -96,6 +96,7 @@
                             <Button Height="32" Content="Приход материала" Command="{Binding OpenMaterialArrivalRecordsCommand}"/>
                             <Button Height="32" Content="Вальцовщик" Command="{Binding OpenRollingRecordsCommand}"/>
                             <Button Height="32" Content="Оплата" Command="{Binding OpenPaymentsCommand}"/>
+                            <Button Height="32" Content="Оплата оснастки" Command="{Binding OpenEquipmentPaymentsCommand}"/>
                         </WrapPanel>
                     </dx:DropDownButton.PopupContent>
                 </dx:DropDownButton>

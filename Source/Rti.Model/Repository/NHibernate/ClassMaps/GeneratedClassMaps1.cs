@@ -327,8 +327,34 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.FormCount, "form_count");
 			Map(o => o.SlotCount, "slot_count");
 			Map(o => o.Output, "output");
+			Map(o => o.Manufacturer, "manufacturer");
+			Map(o => o.LeadTime, "lead_time");
+			Map(o => o.CompleteDate, "complete_date");
+			Map(o => o.Price, "price");
+			Map(o => o.IsPaid, "is_paid");
 			Map(o => o.Note, "note");
 			Map(o => o.IsDeleted, "is_deleted");
+			OnInitialized();
+		}
+	}
+
+	// The classmap for equipment_payments
+	public partial class EquipmentPaymentMap : BaseMap<Rti.Model.Domain.EquipmentPayment>
+	{
+		public EquipmentPaymentMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("equipment_payments");
+			Id(o => o.Id, "id");
+			Map(o => o.PaymentDate, "payment_date");
+			Map(o => o.Sum, "sum");
+			Map(o => o.Note, "note");
+			Map(o => o.IsDeleted, "is_deleted");
+			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
 			OnInitialized();
 		}
 	}

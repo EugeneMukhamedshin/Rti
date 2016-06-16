@@ -35,6 +35,8 @@ namespace Rti.ViewModel
         public DelegateCommand OpenMaterialArrivalRecordsCommand { get; set; }
         public DelegateCommand OpenRollingRecordsCommand { get; set; }
         public DelegateCommand OpenPaymentsCommand { get; set; }
+        public DelegateCommand OpenEquipmentPaymentsCommand { get; set; }
+        
 
         public DelegateCommand OpenCustomersCommand { get; set; }
         public DelegateCommand OpenSuppliersCommand { get; set; }
@@ -109,6 +111,11 @@ namespace Rti.ViewModel
                 "Открыть журнал оплаты",
                 o => true,
                 o => OpenPayments());
+
+            OpenEquipmentPaymentsCommand = new DelegateCommand(
+                "Открыть журнал оплаты",
+                o => true,
+                o => OpenEquipmentPayments());
 
             OpenCustomersCommand = new DelegateCommand(
                 "Справочники",
@@ -216,6 +223,14 @@ namespace Rti.ViewModel
             viewModel.Refresh();
             ViewService.ShowViewDialog(viewModel);
         }
+
+        private void OpenEquipmentPayments()
+        {
+            var viewModel = new EquipmentPaymentList(true, ViewService, RepositoryFactory);
+            viewModel.Refresh();
+            ViewService.ShowViewDialog(viewModel);
+        }
+
         private void OpenDictionary(BaseViewModel viewModel)
         {
             viewModel.Refresh();

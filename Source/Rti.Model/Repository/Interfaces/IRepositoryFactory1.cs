@@ -19,6 +19,7 @@ namespace Rti.Model.Repository.Interfaces
 		IDriverRepository GetDriverRepository();
 		IEmployeeRepository GetEmployeeRepository();
 		IEquipmentRepository GetEquipmentRepository();
+		IEquipmentPaymentRepository GetEquipmentPaymentRepository();
 		IGroupRepository GetGroupRepository();
 		IImageRepository GetImageRepository();
 		IInvoiceRepository GetInvoiceRepository();
@@ -59,6 +60,7 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IDriverRepository : IRepository<Rti.Model.Domain.Driver> { }
 	public partial interface IEmployeeRepository : IRepository<Rti.Model.Domain.Employee> { }
 	public partial interface IEquipmentRepository : IRepository<Rti.Model.Domain.Equipment> { }
+	public partial interface IEquipmentPaymentRepository : IRepository<Rti.Model.Domain.EquipmentPayment> { }
 	public partial interface IGroupRepository : IRepository<Rti.Model.Domain.Group> { }
 	public partial interface IImageRepository : IRepository<Rti.Model.Domain.Image> { }
 	public partial interface IInvoiceRepository : IRepository<Rti.Model.Domain.Invoice> { }

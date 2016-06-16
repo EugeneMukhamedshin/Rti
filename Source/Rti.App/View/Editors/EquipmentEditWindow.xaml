@@ -35,6 +35,10 @@
                 <dxprg:PropertyDefinition Header="Количество форм" Path="FormCount"/>
                 <dxprg:PropertyDefinition Header="Гнездность" Path="SlotCount"/>
                 <dxprg:PropertyDefinition Header="Выход партии" Path="Output" IsReadOnly="True"/>
+                <dxprg:PropertyDefinition Header="Изготовитель" Path="Manufacturer"/>
+                <dxprg:PropertyDefinition Header="Срок изготовления" Path="LeadTime"/>
+                <dxprg:PropertyDefinition Header="Дата изготовления" Path="CompleteDate"/>
+                <dxprg:PropertyDefinition Header="Цена оснастки" Path="Price"/>
                 <dxprg:PropertyDefinition Header="Примечание" Path="Note" MinHeight="96">
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxe:TextSettings TextWrapping="Wrap" AcceptsReturn="False"/>

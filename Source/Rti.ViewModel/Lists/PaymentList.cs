@@ -81,8 +81,7 @@ namespace Rti.ViewModel.Lists
             if (request != null)
             {
                 var requestPayments = RepositoryFactory.GetPaymentRepository().GetByRequestId(request.Id);
-                var requestDetails = RepositoryFactory.GetRequestDetailRepository().GetByRequestId(request.Id);
-                request.IsPaid = requestPayments.Sum(o => o.Sum) >= requestDetails.Sum(o => o.Sum);
+                request.IsPaid = requestPayments.Sum(o => o.Sum) >= request.Sum;
                 request.SaveEntity();
             }
 

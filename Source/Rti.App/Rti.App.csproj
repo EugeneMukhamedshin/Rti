@@ -168,6 +168,9 @@
     <Compile Include="View\Editors\DeliveryEditWindow.xaml.cs">
       <DependentUpon>DeliveryEditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Editors\EquipmentPaymentEditWindow.xaml.cs">
+      <DependentUpon>EquipmentPaymentEditWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Editors\ReportOfCompletionEditWindow.xaml.cs">
       <DependentUpon>ReportOfCompletionEditWindow.xaml</DependentUpon>
     </Compile>
@@ -182,6 +185,9 @@
     </Compile>
     <Compile Include="View\Lists\EmployeeWorkItemListWindow.xaml.cs">
       <DependentUpon>EmployeeWorkItemListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\EquipmentPaymentListWindow.xaml.cs">
+      <DependentUpon>EquipmentPaymentListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lists\RequestListWindow.xaml.cs">
       <DependentUpon>RequestListWindow.xaml</DependentUpon>
@@ -423,6 +429,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Editors\EquipmentPaymentEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Editors\ReportOfCompletionEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -440,6 +450,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Lists\EmployeeWorkItemListWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Lists\EquipmentPaymentListWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

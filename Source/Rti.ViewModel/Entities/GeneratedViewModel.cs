@@ -1476,6 +1476,11 @@ namespace Rti.ViewModel.Entities
 		private Int32 _formCount;
 		private Int32 _slotCount;
 		private Int32 _output;
+		private String _manufacturer;
+		private Int32? _leadTime;
+		private DateTime? _completeDate;
+		private Decimal? _price;
+		private Boolean _isPaid;
 		private String _note;
 		private Boolean _isDeleted;
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
@@ -1487,6 +1492,11 @@ namespace Rti.ViewModel.Entities
 		public Int32 FormCount { get { return _formCount; } set { if (Equals(_formCount, value)) return; _formCount = value; OnPropertyChanged("FormCount"); } }
 		public Int32 SlotCount { get { return _slotCount; } set { if (Equals(_slotCount, value)) return; _slotCount = value; OnPropertyChanged("SlotCount"); } }
 		public Int32 Output { get { return _output; } set { if (Equals(_output, value)) return; _output = value; OnPropertyChanged("Output"); } }
+		public String Manufacturer { get { return _manufacturer; } set { if (Equals(_manufacturer, value)) return; _manufacturer = value; OnPropertyChanged("Manufacturer"); } }
+		public Int32? LeadTime { get { return _leadTime; } set { if (Equals(_leadTime, value)) return; _leadTime = value; OnPropertyChanged("LeadTime"); } }
+		public DateTime? CompleteDate { get { return _completeDate; } set { if (Equals(_completeDate, value)) return; _completeDate = value; OnPropertyChanged("CompleteDate"); } }
+		public Decimal? Price { get { return _price; } set { if (Equals(_price, value)) return; _price = value; OnPropertyChanged("Price"); } }
+		public Boolean IsPaid { get { return _isPaid; } set { if (Equals(_isPaid, value)) return; _isPaid = value; OnPropertyChanged("IsPaid"); } }
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
 		protected override void MapPropertiesToEntity()
@@ -1499,6 +1509,11 @@ namespace Rti.ViewModel.Entities
 			Entity.FormCount = FormCount; 
 			Entity.SlotCount = SlotCount; 
 			Entity.Output = Output; 
+			Entity.Manufacturer = Manufacturer; 
+			Entity.LeadTime = LeadTime; 
+			Entity.CompleteDate = CompleteDate; 
+			Entity.Price = Price; 
+			Entity.IsPaid = IsPaid; 
 			Entity.Note = Note; 
 			Entity.IsDeleted = IsDeleted; 
 		}
@@ -1515,6 +1530,11 @@ namespace Rti.ViewModel.Entities
 			FormCount = Entity.FormCount; 
 			SlotCount = Entity.SlotCount; 
 			Output = Entity.Output; 
+			Manufacturer = Entity.Manufacturer; 
+			LeadTime = Entity.LeadTime; 
+			CompleteDate = Entity.CompleteDate; 
+			Price = Entity.Price; 
+			IsPaid = Entity.IsPaid; 
 			Note = Entity.Note; 
 			IsDeleted = Entity.IsDeleted; 
 			IsMapping = false;
@@ -1531,6 +1551,11 @@ namespace Rti.ViewModel.Entities
 			FormCount = source.FormCount;
 			SlotCount = source.SlotCount;
 			Output = source.Output;
+			Manufacturer = source.Manufacturer;
+			LeadTime = source.LeadTime;
+			CompleteDate = source.CompleteDate;
+			Price = source.Price;
+			IsPaid = source.IsPaid;
 			Note = source.Note;
 			IsDeleted = source.IsDeleted;
 			CustomCopyFrom(source);
@@ -1557,6 +1582,15 @@ namespace Rti.ViewModel.Entities
 			element.Add(new XAttribute("FormCount", FormCount));
 			element.Add(new XAttribute("SlotCount", SlotCount));
 			element.Add(new XAttribute("Output", Output));
+			if (Manufacturer != null)
+				element.Add(new XAttribute("Manufacturer", Manufacturer));
+			if (LeadTime != null)
+				element.Add(new XAttribute("LeadTime", LeadTime));
+			if (CompleteDate != null)
+				element.Add(new XAttribute("CompleteDate", CompleteDate));
+			if (Price != null)
+				element.Add(new XAttribute("Price", Price));
+			element.Add(new XAttribute("IsPaid", IsPaid));
 			if (Note != null)
 				element.Add(new XAttribute("Note", Note));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
@@ -1572,6 +1606,92 @@ namespace Rti.ViewModel.Entities
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((EquipmentViewModel) obj);
+        }
+	}
+
+    // The viewmodel for EquipmentPayment
+    public partial class EquipmentPaymentViewModel : EntityViewModel<Rti.Model.Domain.EquipmentPayment, EquipmentPaymentViewModel>
+	{
+		// Конструктор для маппинга
+		public EquipmentPaymentViewModel() { }
+
+        public EquipmentPaymentViewModel(Rti.Model.Domain.EquipmentPayment entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+		private Int32 _id;
+		private DateTime _paymentDate;
+		private Decimal _sum;
+		private String _note;
+		private Boolean _isDeleted;
+		private DrawingViewModel _drawing;
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+		public DateTime PaymentDate { get { return _paymentDate; } set { if (Equals(_paymentDate, value)) return; _paymentDate = value; OnPropertyChanged("PaymentDate"); } }
+		public Decimal Sum { get { return _sum; } set { if (Equals(_sum, value)) return; _sum = value; OnPropertyChanged("Sum"); } }
+		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
+		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
+		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
+		protected override void MapPropertiesToEntity()
+		{
+			Entity.PaymentDate = PaymentDate; 
+			Entity.Sum = Sum; 
+			Entity.Note = Note; 
+			Entity.IsDeleted = IsDeleted; 
+			Entity.Drawing = Drawing == null ? null : Drawing.Entity; 
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+			IsMapping = true;
+			Id = Entity.Id; 
+			PaymentDate = Entity.PaymentDate; 
+			Sum = Entity.Sum; 
+			Note = Entity.Note; 
+			IsDeleted = Entity.IsDeleted; 
+			Drawing = Entity.Drawing == null ? null : new DrawingViewModel(Entity.Drawing, RepositoryFactory); 
+			IsMapping = false;
+		}
+
+		public override void CopyFrom(EquipmentPaymentViewModel source)
+		{
+			IsMapping = true;
+			PaymentDate = source.PaymentDate;
+			Sum = source.Sum;
+			Note = source.Note;
+			IsDeleted = source.IsDeleted;
+			Drawing = source.Drawing;
+			CustomCopyFrom(source);
+			IsMapping = false;
+		}
+
+		public override EquipmentPaymentViewModel Clone()
+		{
+			var copy = new EquipmentPaymentViewModel(null, RepositoryFactory);
+			copy.CopyFrom(this);
+			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("PaymentDate", PaymentDate));
+			element.Add(new XAttribute("Sum", Sum));
+			if (Note != null)
+				element.Add(new XAttribute("Note", Note));
+			element.Add(new XAttribute("IsDeleted", IsDeleted));
+			if (Drawing != null)
+				element.Add(Drawing.GetXElement("Drawing"));
+			CustomFillXElement(element);
+			return element;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(EquipmentPaymentViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((EquipmentPaymentViewModel) obj);
         }
 	}
 

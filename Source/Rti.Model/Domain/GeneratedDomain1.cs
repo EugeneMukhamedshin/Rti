@@ -368,10 +368,38 @@ namespace Rti.Model.Domain
 		public virtual Int32 SlotCount { get; set; }
 		[Field("output")]
 		public virtual Int32 Output { get; set; }
+		[Field("manufacturer")]
+		public virtual String Manufacturer { get; set; }
+		[Field("lead_time")]
+		public virtual Int32? LeadTime { get; set; }
+		[Field("complete_date")]
+		public virtual DateTime? CompleteDate { get; set; }
+		[Field("price")]
+		public virtual decimal? Price { get; set; }
+		[Field("is_paid")]
+		public virtual Boolean IsPaid { get; set; }
 		[Field("note")]
 		public virtual String Note { get; set; }
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+	}
+
+	// The class for equipment_payments
+	[Table("equipment_payments")]
+	public partial class EquipmentPayment: IIdentifiedEntity
+	{
+		[Field("id")]
+		public virtual Int32 Id { get; protected set; }
+		[Field("payment_date")]
+		public virtual DateTime PaymentDate { get; set; }
+		[Field("sum")]
+		public virtual decimal Sum { get; set; }
+		[Field("note")]
+		public virtual String Note { get; set; }
+		[Field("is_deleted")]
+		public virtual Boolean IsDeleted { get; set; }
+		[Reference("drawing_id", false)]
+		public virtual Drawing Drawing { get; set; }
 	}
 
 	// The class for groups

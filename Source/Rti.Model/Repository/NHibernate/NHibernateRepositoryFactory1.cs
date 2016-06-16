@@ -33,6 +33,8 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new EmployeeRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Equipment))
                 return (IRepository<TEntity>)new EquipmentRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.EquipmentPayment))
+                return (IRepository<TEntity>)new EquipmentPaymentRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Group))
                 return (IRepository<TEntity>)new GroupRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Image))
@@ -111,6 +113,8 @@ namespace Rti.Model.Repository.NHibernate
 		public IEmployeeRepository GetEmployeeRepository() { return (IEmployeeRepository) GetRepository<Rti.Model.Domain.Employee>(); }
 
 		public IEquipmentRepository GetEquipmentRepository() { return (IEquipmentRepository) GetRepository<Rti.Model.Domain.Equipment>(); }
+
+		public IEquipmentPaymentRepository GetEquipmentPaymentRepository() { return (IEquipmentPaymentRepository) GetRepository<Rti.Model.Domain.EquipmentPayment>(); }
 
 		public IGroupRepository GetGroupRepository() { return (IGroupRepository) GetRepository<Rti.Model.Domain.Group>(); }
 
@@ -299,6 +303,17 @@ namespace Rti.Model.Repository.NHibernate
         protected override IQueryOver<Rti.Model.Domain.Equipment, Rti.Model.Domain.Equipment> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Equipment, Rti.Model.Domain.Equipment> queryOver)
         {
 			var result = queryOver;
+            return result;
+        }
+    }
+
+	public partial class EquipmentPaymentRepository : NHibernateRepository<Rti.Model.Domain.EquipmentPayment>, IEquipmentPaymentRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.EquipmentPayment, Rti.Model.Domain.EquipmentPayment> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.EquipmentPayment, Rti.Model.Domain.EquipmentPayment> queryOver)
+        {
+			var result = queryOver;
+			result = result.Fetch(o => o.Drawing).Default;
             return result;
         }
     }

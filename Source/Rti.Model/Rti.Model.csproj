@@ -97,6 +97,7 @@
     <Compile Include="Repository\Interfaces\IDrawingRepository.cs" />
     <Compile Include="Repository\Interfaces\IDriverRepository.cs" />
     <Compile Include="Repository\Interfaces\IEmployeeRepository.cs" />
+    <Compile Include="Repository\Interfaces\IEquipmentPaymentRepository.cs" />
     <Compile Include="Repository\Interfaces\IPaymentRepository.cs" />
     <Compile Include="Repository\Interfaces\IReportOfCompletionItemRepository.cs" />
     <Compile Include="Repository\Interfaces\IShipmentItemRepository.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Repository\NHibernate\DrawingRepository.cs" />
     <Compile Include="Repository\NHibernate\DriverRepository.cs" />
     <Compile Include="Repository\NHibernate\EmployeeRepository.cs" />
+    <Compile Include="Repository\NHibernate\EquipmentPaymentRepository.cs" />
     <Compile Include="Repository\NHibernate\PaymentRepository.cs" />
     <Compile Include="Repository\NHibernate\ReportOfCompletionItemRepository.cs" />
     <Compile Include="Repository\NHibernate\ShipmentItemRepository.cs" />
