@@ -17,6 +17,8 @@ namespace Rti.ViewModel
         public int? SelectedRequestNumber { get; set; }
         //public List<RequestViewModel> Requests { get; set; }
 
+        public DelegateCommand ExitCommand { get; set; }
+
         public DelegateCommand CreateNewRequestCommand { get; set; }
         public DelegateCommand CreateNewShipmentCommand { get; set; }
         public DelegateCommand OpenRequestCommand { get; set; }
@@ -52,6 +54,11 @@ namespace Rti.ViewModel
             : base(repositoryFactory)
         {
             ViewService = viewService;
+
+            ExitCommand = new DelegateCommand(
+                "Выход",
+                o => true,
+                o => Close(null));
 
             CreateNewRequestCommand = new DelegateCommand(
                 "Новая заявка",

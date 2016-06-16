@@ -144,6 +144,9 @@
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainWindowSlim.xaml.cs">
+      <DependentUpon>MainWindowSlim.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Components\Float2TextEditSettings.cs" />
     <Compile Include="View\Components\Float3TextEditSettings.cs" />
     <Compile Include="View\Components\ImageContentExtension.cs" />
@@ -387,6 +390,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindowSlim.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

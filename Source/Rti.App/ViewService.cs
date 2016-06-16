@@ -26,7 +26,7 @@ namespace Rti.App
         {
             AddToRegistry<LoginViewModel, LoginWindow>();
 
-            AddToRegistry<MainViewModel, MainWindow>();
+            AddToRegistry<MainViewModel, MainWindowSlim>();
 
             // Справочники
             AddToRegistry<MaterialList, MaterialListWindow>();
