@@ -1,7 +1,7 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.1.13.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 16.06.2016 1:11:47
+-- Дата скрипта: 17.06.2016 1:38:55
 -- Версия сервера: 5.7.13-log
 -- Версия клиента: 4.1
 --
@@ -222,6 +222,11 @@ CREATE TABLE equipments (
   form_count INT(11) NOT NULL,
   slot_count INT(11) NOT NULL,
   output INT(11) NOT NULL,
+  manufacturer VARCHAR(255) DEFAULT NULL COMMENT 'изготовитель',
+  lead_time INT(11) DEFAULT NULL COMMENT 'срок изготовления',
+  complete_date DATETIME DEFAULT NULL COMMENT 'Дата изготовления',
+  price DECIMAL(19, 2) DEFAULT NULL COMMENT 'цена',
+  is_paid INT(11) NOT NULL DEFAULT 0 COMMENT 'признак оплаты',
   note VARCHAR(1000) DEFAULT NULL,
   is_deleted INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (id)
@@ -589,7 +594,8 @@ CREATE TABLE requests (
   lead_time INT(11) DEFAULT NULL,
   customer_id INT(11) DEFAULT NULL,
   manufacturer_id INT(11) DEFAULT NULL COMMENT 'изготовитель',
-  is_paid INT(11) DEFAULT NULL COMMENT 'Признак полной оплаты заявки',
+  sum DECIMAL(10, 2) DEFAULT NULL COMMENT 'сумма по заявке',
+  is_paid INT(11) NOT NULL DEFAULT 0 COMMENT 'Признак полной оплаты заявки',
   complete_sum DECIMAL(10, 2) DEFAULT NULL,
   is_deleted INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (id),
@@ -601,7 +607,7 @@ CREATE TABLE requests (
     REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 75
+AUTO_INCREMENT = 76
 AVG_ROW_LENGTH = 3276
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -663,6 +669,29 @@ COMMENT = 'технологические процессы'
 ROW_FORMAT = DYNAMIC;
 
 --
+-- Описание для таблицы equipment_payments
+--
+DROP TABLE IF EXISTS equipment_payments;
+CREATE TABLE equipment_payments (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  drawing_id INT(11) NOT NULL,
+  payment_date DATETIME NOT NULL,
+  sum DECIMAL(10, 2) NOT NULL,
+  note VARCHAR(255) DEFAULT NULL,
+  is_deleted INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_equipment_payments_drawings_id FOREIGN KEY (drawing_id)
+    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 3
+AVG_ROW_LENGTH = 8192
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'оплата изготовления оснастки'
+ROW_FORMAT = DYNAMIC;
+
+--
 -- Описание для таблицы invoices
 --
 DROP TABLE IF EXISTS invoices;
@@ -692,14 +721,16 @@ CREATE TABLE payments (
   request_id INT(11) NOT NULL,
   payment_date DATETIME NOT NULL,
   payment_doc_number VARCHAR(255) NOT NULL,
+  invoice_facture VARCHAR(255) DEFAULT NULL COMMENT 'счет фактура',
   sum DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+  note VARCHAR(255) DEFAULT NULL COMMENT 'примечание',
   is_deleted INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (id),
   CONSTRAINT FK_payments_requests_id FOREIGN KEY (request_id)
     REFERENCES requests(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 3
 AVG_ROW_LENGTH = 16384
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -1002,7 +1033,7 @@ CREATE TABLE work_items (
     REFERENCES drawing_flowsheet_machines(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 28
+AUTO_INCREMENT = 30
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -1198,19 +1229,19 @@ INSERT INTO drivers VALUES
 -- Вывод данных для таблицы equipments
 --
 INSERT INTO equipments VALUES
-(1, 1, 'Оснастка1', 1, 1.123, 0.00, 12, 1, 12, '1ыфв сфыва ыфавп ыва ывап ывап ывап ывап выа выап выап выап выап ывап выап вып', 1),
-(2, 1, 'Новая оснастка', 0, 500.000, 50.00, 2, 3, 6, NULL, 0),
-(3, 2, 'Íîâàÿ îñíàñòêà', 0, 0.000, 0.00, 0, 0, 0, NULL, 0),
-(4, 3, 'Нsadsdfvsdf', 0, 0.000, 10.00, 10, 10, 100, NULL, 0),
-(5, 4, 'ШТАНЕЦ', 0, 10.000, 12.00, 13, 14, 182, 'SHTANEC', 0),
-(6, 5, 'НОжик', 0, 1.000, 2.00, 3, 4, 12, 'ывм ыав ывап ', 0),
-(7, 6, 'UPS', 0, 0.000, 0.00, 2, 1, 2, NULL, 0),
-(8, 7, '386.315', 0, 0.000, 0.00, 1, 2, 2, NULL, 0),
-(9, 8, '111.222.1', 0, 0.000, 0.00, 2, 3, 6, NULL, 0),
-(10, 9, 'etdthbf', 0, 0.000, 0.00, 1, 2, 2, NULL, 0),
-(11, 10, 'qwef weaf ', 0, 0.000, 0.00, 0, 0, 0, NULL, 0),
-(12, 11, '1234', 0, 0.000, 0.00, 0, 0, 0, NULL, 0),
-(13, 12, 'dfsadf', 0, 0.000, 0.00, 0, 0, 0, NULL, 0);
+(1, 1, 'Оснастка1', 1, 1.123, 0.00, 12, 1, 12, NULL, NULL, NULL, NULL, 0, '1ыфв сфыва ыфавп ыва ывап ывап ывап ывап выа выап выап выап выап ывап выап вып', 1),
+(2, 1, 'Новая оснастка', 0, 500.000, 50.00, 2, 3, 6, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(3, 2, 'Íîâàÿ îñíàñòêà', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(4, 3, 'Нsadsdfvsdf', 0, 0.000, 10.00, 10, 10, 100, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(5, 4, 'ШТАНЕЦ', 0, 10.000, 12.00, 13, 14, 182, NULL, NULL, NULL, NULL, 0, 'SHTANEC', 0),
+(6, 5, 'НОжик', 0, 1.000, 2.00, 3, 4, 12, NULL, NULL, NULL, NULL, 0, 'ывм ыав ывап ', 0),
+(7, 6, 'UPS', 0, 0.000, 0.00, 2, 1, 2, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(8, 7, '386.315', 0, 0.000, 0.00, 1, 2, 2, 'Z', 10, '2016-06-15 00:00:00', 1000.00, 1, NULL, 0),
+(9, 8, '111.222.1', 0, 0.000, 0.00, 2, 3, 6, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(10, 9, 'etdthbf', 0, 0.000, 0.00, 1, 2, 2, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(11, 10, 'qwef weaf ', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(12, 11, '1234', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(13, 12, 'dfsadf', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы groups
@@ -1350,28 +1381,28 @@ INSERT INTO material_arrival_records VALUES
 -- Вывод данных для таблицы requests
 --
 INSERT INTO requests VALUES
-(21, 1, '2016-03-30 00:00:00', NULL, '2016-03-31 00:00:00', NULL, NULL, 10, 2, NULL, NULL, NULL, 0),
-(23, 2, '2016-03-30 00:00:00', NULL, '2016-06-02 00:00:00', NULL, NULL, 10, NULL, NULL, NULL, NULL, 0),
-(25, 3, '2016-03-30 00:00:00', NULL, '2016-05-30 00:00:00', NULL, NULL, 100, 3, NULL, NULL, NULL, 0),
-(26, 4, '2016-03-30 00:00:00', NULL, '2016-04-11 00:00:00', NULL, NULL, 30, NULL, NULL, NULL, NULL, 0),
-(28, 5, '2016-03-30 00:00:00', NULL, '2016-03-31 00:00:00', NULL, NULL, 1, 2, NULL, NULL, NULL, 0),
-(31, 6, '2016-03-30 00:00:00', NULL, '2016-05-02 00:00:00', NULL, NULL, 100, NULL, NULL, NULL, NULL, 0),
-(40, 7, '2016-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, 0),
-(41, 8, '2016-03-30 00:00:00', NULL, '2016-04-21 00:00:00', '2016-06-08 00:00:00', 1, 20, 1, 5, NULL, 1200.00, 0),
-(47, 9, '2016-05-05 00:00:00', NULL, '2016-05-31 00:00:00', NULL, NULL, 160, 2, NULL, NULL, NULL, 0),
-(48, 10, '2016-05-05 00:00:00', NULL, '2016-06-05 00:00:00', NULL, NULL, 500, 2, NULL, NULL, NULL, 0),
-(51, 11, '2016-05-15 00:00:00', NULL, NULL, NULL, NULL, NULL, 2, 5, NULL, NULL, 0),
-(52, 12, '2016-05-17 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(53, 13, '2016-05-17 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(54, 14, '2016-05-17 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(56, 15, '2016-05-17 00:00:00', '2016-06-14 00:00:00', '2016-06-19 00:00:00', NULL, NULL, 10, 1, 5, NULL, NULL, 0),
-(57, 16, '2016-05-17 00:00:00', NULL, NULL, '2016-06-01 00:00:00', 2, NULL, 2, 5, NULL, NULL, 0),
-(58, 17, '2016-05-17 00:00:00', NULL, NULL, NULL, NULL, NULL, 3, 5, NULL, NULL, 0),
-(59, 18, '2016-05-18 00:00:00', NULL, NULL, '2016-05-18 00:00:00', NULL, NULL, 2, 5, NULL, NULL, 0),
-(60, 19, '2016-05-19 00:00:00', NULL, '2016-05-27 00:00:01', '2016-05-20 00:00:00', NULL, 9, 2, 5, NULL, NULL, 0),
-(62, 20, '2016-06-14 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(72, 21, '2016-06-14 00:00:00', '2016-06-14 00:00:00', '2016-06-20 00:00:00', NULL, NULL, 3, 1, 5, NULL, NULL, 0),
-(73, 22, '2016-06-16 00:00:00', NULL, NULL, '2016-06-16 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, 0);
+(21, 1, '2016-03-30 00:00:00', NULL, '2016-03-31 00:00:00', NULL, NULL, 10, 2, NULL, NULL, 0, NULL, 0),
+(23, 2, '2016-03-30 00:00:00', NULL, '2016-06-02 00:00:00', NULL, NULL, 10, NULL, NULL, NULL, 0, NULL, 0),
+(25, 3, '2016-03-30 00:00:00', NULL, '2016-05-30 00:00:00', NULL, NULL, 100, 3, NULL, NULL, 0, NULL, 0),
+(26, 4, '2016-03-30 00:00:00', NULL, '2016-04-11 00:00:00', NULL, NULL, 30, NULL, NULL, NULL, 0, NULL, 0),
+(28, 5, '2016-03-30 00:00:00', NULL, '2016-03-31 00:00:00', NULL, NULL, 1, 2, NULL, NULL, 0, NULL, 0),
+(31, 6, '2016-03-30 00:00:00', NULL, '2016-05-02 00:00:00', NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, 0),
+(40, 7, '2016-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, 0, NULL, 0),
+(41, 8, '2016-03-30 00:00:00', NULL, '2016-04-21 00:00:00', '2016-06-08 00:00:00', 1, 20, 1, 5, NULL, 0, 1200.00, 0),
+(47, 9, '2016-05-05 00:00:00', NULL, '2016-05-31 00:00:00', NULL, NULL, 160, 2, NULL, NULL, 0, NULL, 0),
+(48, 10, '2016-05-05 00:00:00', NULL, '2016-06-05 00:00:00', NULL, NULL, 500, 2, NULL, NULL, 0, NULL, 0),
+(51, 11, '2016-05-15 00:00:00', NULL, NULL, NULL, NULL, NULL, 2, 5, NULL, 0, NULL, 0),
+(52, 12, '2016-05-17 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(53, 13, '2016-05-17 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(54, 14, '2016-05-17 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(56, 15, '2016-05-17 00:00:00', '2016-06-14 00:00:00', '2016-06-19 00:00:00', NULL, NULL, 10, 1, 5, NULL, 0, NULL, 0),
+(57, 16, '2016-05-17 00:00:00', NULL, NULL, '2016-06-01 00:00:00', 2, NULL, 2, 5, NULL, 0, NULL, 0),
+(58, 17, '2016-05-17 00:00:00', NULL, NULL, NULL, NULL, NULL, 3, 5, NULL, 0, NULL, 0),
+(59, 18, '2016-05-18 00:00:00', NULL, NULL, '2016-05-18 00:00:00', NULL, NULL, 2, 5, NULL, 0, NULL, 0),
+(60, 19, '2016-05-19 00:00:00', NULL, '2016-05-27 00:00:01', '2016-05-20 00:00:00', NULL, 9, 2, 5, 120000.00, 0, NULL, 0),
+(62, 20, '2016-06-14 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(72, 21, '2016-06-14 00:00:00', '2016-06-14 00:00:00', '2016-06-20 00:00:00', NULL, NULL, 3, 1, 5, NULL, 0, NULL, 0),
+(73, 22, '2016-06-16 00:00:00', NULL, NULL, '2016-06-16 00:00:00', NULL, NULL, NULL, NULL, NULL, 0, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы drawing_flowsheet_machines
@@ -1429,6 +1460,13 @@ INSERT INTO drawing_flowsheet_processes VALUES
 (138, 27, 12, 12, 1, NULL, NULL, NULL, NULL, 0.00, NULL);
 
 -- 
+-- Вывод данных для таблицы equipment_payments
+--
+INSERT INTO equipment_payments VALUES
+(1, 18, '2016-06-17 00:00:00', 100.00, NULL, 0),
+(2, 18, '2016-06-17 00:00:00', 900.00, NULL, 0);
+
+-- 
 -- Вывод данных для таблицы invoices
 --
 
@@ -1438,7 +1476,8 @@ INSERT INTO drawing_flowsheet_processes VALUES
 -- Вывод данных для таблицы payments
 --
 INSERT INTO payments VALUES
-(1, 60, '2016-06-01 23:26:40', '36', 1000.00, 0);
+(1, 60, '2016-06-01 23:26:40', '36', '19-1', 12000.00, 'полная оплата', 0),
+(2, 60, '2016-06-17 00:00:00', '37', '19-2', 1000.00, 'еще чуток', 0);
 
 -- 
 -- Вывод данных для таблицы report_of_completion_items
@@ -1543,7 +1582,9 @@ INSERT INTO work_items VALUES
 (19, '2016-05-19', 1, 8, 18, 25, 25, 10, NULL, 1, NULL, 0, '19.05.2016/1'),
 (20, '2016-05-20', 1, 8, 3, 15, 5, 2, NULL, 2, 12, 0, '20.05.2016/1'),
 (21, '2016-05-20', 2, 7, 100, 50, 25, 1, NULL, 2, 14, 0, '20.05.2016/2'),
-(27, '2016-06-16', 1, 8, 20, 10, 10, 2, NULL, 1, 4, 1, '16.06.2016/1');
+(27, '2016-06-16', 1, 8, 20, 10, 10, 2, NULL, 1, 4, 1, '16.06.2016/1'),
+(28, '2016-06-17', 1, 9, 0, 10, NULL, NULL, NULL, 1, NULL, 0, '17.06.2016/1'),
+(29, '2016-06-17', 2, 1, 0, 5, NULL, NULL, NULL, 2, NULL, 0, '17.06.2016/2');
 
 -- 
 -- Вывод данных для таблицы shipment_items
