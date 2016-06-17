@@ -6,7 +6,7 @@ namespace Rti.ViewModel.Entities
     {
         public decimal? Sum
         {
-            get { return Drawing != null && Drawing.PlanCalculation != null ? DoneCount * Drawing.PlanCalculation.Summary : null; }
+            get { return Drawing != null && Drawing.FactCalculation != null ? DoneCount * Drawing.FactCalculation.Summary : null; }
         }
 
         public int RemainedCount

@@ -21,9 +21,9 @@
                 <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Date}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"></xctk:DateTimePicker>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
-                <Button Content="+" Command="{Binding AddWorkItemCommand}" Width="32" Height="32" Margin="5"></Button>
-                <Button Content="-" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5"></Button>
-                <Button Content="..." Command="{Binding EditEntityCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5"></Button>
+                <Button Content="{DynamicResource AddImage}" Command="{Binding AddWorkItemCommand}" Width="32" Height="32" Margin="5"></Button>
+                <Button Content="{DynamicResource DeleteImage}" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5"></Button>
+                <Button Content="{DynamicResource EditImage}" Command="{Binding EditEntityCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5"></Button>
             </StackPanel>
             <dxg:GridControl CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2">
                 <dxmvvm:Interaction.Behaviors>
@@ -55,8 +55,8 @@
                     <dxg:GridColumn FieldName="TaskCount" Header="Дневное задание" Width="60"/>
                     <dxg:GridColumn FieldName="DoneCount" Header="Выполнено" Width="60"/>
                     <dxg:GridColumn FieldName="BatchNumber" Header="Партия" Width="80"/>
-                    <dxg:GridColumn FieldName="Drawing.PlanCalculation.MainSalary" Header="Основная з.п., руб." Width="65"/>
-                    <dxg:GridColumn FieldName="Drawing.PlanCalculation.Price" Header="Цена, без НДС, руб." Width="65"/>
+                    <dxg:GridColumn FieldName="Drawing.ActualCalculation.MainSalary" Header="Основная з.п., руб." Width="65"/>
+                    <dxg:GridColumn FieldName="Drawing.CalculationPrice" Header="Цена, без НДС, руб." Width="65"/>
                     <dxg:GridColumn FieldName="Sum" Header="Сумма, с НДС, руб." Width="65"/>
                     <dxg:GridColumn FieldName="Note" Header="Примечание" Width="120"/>
                 </dxg:GridControl.Columns>

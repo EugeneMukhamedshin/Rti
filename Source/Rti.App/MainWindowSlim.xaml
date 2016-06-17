@@ -13,6 +13,7 @@
                 <Setter Property="Margin" Value="2"/>
                 <Setter Property="Width" Value="150"></Setter>
                 <Setter Property="Height" Value="70"></Setter>
+                <Setter Property="Padding" Value="0"></Setter>
             </Style.Setters>
         </Style>
         <Style TargetType="dx:DropDownButton">
@@ -48,19 +49,46 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Row="1" Grid.Column="1">
-                <Button Height="42" Content="Заявка" FontSize="18" Command="{Binding CreateNewRequestCommand}"></Button>
+                <Button Height="42" FontSize="18" Command="{Binding CreateNewRequestCommand}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Content/Images/request.png" Height="25"/>
+                            <TextBlock Text="  Заявка"></TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
                 <Button Height="24" Content="Реестр заявок" Command="{Binding OpenRequestListCommand}"></Button>
             </StackPanel>
             <StackPanel Grid.Row="2" Grid.Column="1">
-                <Button Content="Наряд" FontSize="18" Command="{Binding OpenDailyWorkPackagesCommand}"></Button>
+                <Button FontSize="18" Command="{Binding OpenDailyWorkPackagesCommand}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Content/Images/work.png" Margin="2" Height="25"/>
+                            <TextBlock Text="  Наряд"></TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </StackPanel>
             <StackPanel Grid.Row="3" Grid.Column="1">
-                <Button Height="42" Content="Отгрузка" FontSize="18" Command="{Binding CreateNewShipmentCommand}"></Button>
+                <Button Height="42" FontSize="18" Command="{Binding CreateNewShipmentCommand}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Content/Images/shipment.png" Margin="2" Height="25"/>
+                            <TextBlock Text="  Отгрузка"></TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
                 <Button Height="24" Content="Реестр отгрузок" Command="{Binding OpenShipmentsCommand}"></Button>
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.Column="2">
-                <dx:DropDownButton ButtonKind="Toggle" PopupDropAlignment="Bottom" Content="Справочники">
+                <dx:DropDownButton ButtonKind="Toggle" PopupDropAlignment="Bottom">
+                    <dx:DropDownButton.Content>
+                        <StackPanel Orientation="Vertical" Margin="0">
+                            <Image Source="Content/Images/dictionaries.jpg" Margin="2" Height="25"/>
+                            <TextBlock Text="  Справочники"></TextBlock>
+                        </StackPanel>
+                    </dx:DropDownButton.Content>
                     <dx:DropDownButton.PopupContent>
                         <WrapPanel Width="320" Margin="5">
                             <Button Height="32" Content="Заказчики" Command="{Binding OpenCustomersCommand}"/>
@@ -84,7 +112,10 @@
             <StackPanel Grid.Row="2" Grid.Column="2">
                 <Button Command="{Binding OpenDrawingsCommand}">
                     <Button.Content>
-                        <TextBlock Text="Чертежи (технологические карты, калькуляции)" TextWrapping="Wrap" TextAlignment="Center" FontSize="13"></TextBlock>
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="Content/Images/drawings.png" Margin="2" Height="25"/>
+                            <TextBlock Text="Чертежи (тех. карты, калькуляции)" TextWrapping="Wrap" TextAlignment="Center" FontSize="10" Margin="1"></TextBlock>
+                        </StackPanel>
                     </Button.Content>
                 </Button>
             </StackPanel>
@@ -114,7 +145,14 @@
                 </dx:DropDownButton>
             </StackPanel>
             <StackPanel Grid.Row="3" Grid.Column="3">
-                <Button Content="Выход" Command="{Binding ExitCommand}"></Button>
+                <Button Command="{Binding ExitCommand}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Content/Images/exit.png" Margin="2" Height="25"/>
+                            <TextBlock Text="  Выход"></TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </StackPanel>
 
         </Grid>

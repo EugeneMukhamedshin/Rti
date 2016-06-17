@@ -64,7 +64,7 @@
                 </editors:FocusableAutoCompleteBox.ItemTemplate>
             </editors:FocusableAutoCompleteBox>
 
-            <Button IsEnabled="{Binding Editable}" HorizontalAlignment="Left" Content="..." Command="{Binding SelectCustomerCommand}" Width="20" Margin="0,5,0,5" TabIndex="5"></Button>
+            <Button IsEnabled="{Binding Editable}" HorizontalAlignment="Left" Content="{DynamicResource EditImage}" Command="{Binding SelectCustomerCommand}" Width="20" Margin="0,5,0,5" TabIndex="5"></Button>
         </StackPanel>
         <!--<lists:RequestDetailListDXControl DataContext="{Binding RequestDetailList}" Grid.Row="2"/>-->
         <dxg:GridControl AutoGenerateColumns="None" ItemsSource="{Binding RequestDetails}" SelectionMode="Row" Grid.Row="2">

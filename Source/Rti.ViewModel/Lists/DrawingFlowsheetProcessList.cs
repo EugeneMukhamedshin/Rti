@@ -67,12 +67,12 @@ namespace Rti.ViewModel.Lists
         protected override void OnItemsChanged()
         {
             base.OnItemsChanged();
+            if (!Items.Any() && ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Создать стандартный список процессов?")))
+                GenerateProcessesForNewFlowsheet();
             foreach (var item in Items)
             {
                 item.IsIncludedToSummaryChanged += (s, e) => { OnSummaryChanged(); };
             }
-            if (!Items.Any() && ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Создать стандартный список процессов?")))
-                GenerateProcessesForNewFlowsheet();
         }
 
         private void OnSummaryChanged()

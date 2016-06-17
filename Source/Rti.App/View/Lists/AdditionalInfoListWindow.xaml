@@ -16,9 +16,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <Button Content="+" Command="{Binding AddItemCommand}" Width="24" Height="24" Margin="2"/>
-            <Button Content="-" Command="{Binding DeleteItemCommand}" Width="24" Height="24" Margin="2"/>
-            <Button Content="..." Command="{Binding EditItemCommand}" Width="24" Height="24" Margin="2"/>
+            <Button Command="{Binding AddItemCommand}" Width="24" Height="24" Margin="2" Content="{DynamicResource AddImage}"/>
+            <Button Content="{DynamicResource DeleteImage}" Command="{Binding DeleteItemCommand}" Width="24" Height="24" Margin="2"/>
+            <Button Content="{DynamicResource EditImage}" Command="{Binding EditItemCommand}" Width="24" Height="24" Margin="2"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Label Content="Найти" VerticalContentAlignment="Center"/>

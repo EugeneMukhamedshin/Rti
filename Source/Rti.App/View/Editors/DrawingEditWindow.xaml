@@ -143,7 +143,7 @@
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxe:ButtonEditSettings AllowDefaultButton="True" IsTextEditable="False">
                             <dxe:ButtonEditSettings.Buttons>
-                                <dxe:ButtonInfo Content="..." Command="{Binding OpenMassCalculationCommand}"></dxe:ButtonInfo>
+                                <dxe:ButtonInfo Content="{DynamicResource EditImage}" Command="{Binding OpenMassCalculationCommand}"></dxe:ButtonInfo>
                             </dxe:ButtonEditSettings.Buttons>
                         </dxe:ButtonEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
@@ -156,7 +156,7 @@
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxe:ButtonEditSettings AllowDefaultButton="True" IsTextEditable="False">
                             <dxe:ButtonEditSettings.Buttons>
-                                <dxe:ButtonInfo Content="..." Command="{Binding OpenEquipmentEditCommand}"></dxe:ButtonInfo>
+                                <dxe:ButtonInfo Content="{DynamicResource EditImage}" Command="{Binding OpenEquipmentEditCommand}"></dxe:ButtonInfo>
                             </dxe:ButtonEditSettings.Buttons>
                         </dxe:ButtonEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
@@ -210,7 +210,7 @@
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxe:ButtonEditSettings AllowDefaultButton="True" IsTextEditable="False">
                             <dxe:ButtonEditSettings.Buttons>
-                                <dxe:ButtonInfo Content="..." Command="{Binding OpenDrawingMeasurementEditCommand}"></dxe:ButtonInfo>
+                                <dxe:ButtonInfo Content="{DynamicResource EditImage}" Command="{Binding OpenDrawingMeasurementEditCommand}"></dxe:ButtonInfo>
                             </dxe:ButtonEditSettings.Buttons>
                         </dxe:ButtonEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>

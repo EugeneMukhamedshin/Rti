@@ -139,8 +139,8 @@
                 </Grid>
             </Grid>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
-                <Button Content="+" Command="{Binding ShipmentItemList.AddItemCommand}" Width="32" Height="32" Margin="5"></Button>
-                <Button Content="-" Command="{Binding ShipmentItemList.DeleteEntityCommand}" Width="32" Height="32" Margin="5"></Button>
+                <Button Content="{DynamicResource AddImage}" Command="{Binding ShipmentItemList.AddItemCommand}" Width="32" Height="32" Margin="5"></Button>
+                <Button Content="{DynamicResource DeleteImage}" Command="{Binding ShipmentItemList.DeleteEntityCommand}" Width="32" Height="32" Margin="5"></Button>
                 <Button Content="ТТН" Command="{Binding OpenDeliveryEditCommand}" Width="48" Height="32" Margin="5"></Button>
             </StackPanel>
             <dxg:GridControl Grid.Row="2" ShowLoadingPanel="{Binding IsLoading}" CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="13" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding ShipmentItemList.Items}" SelectedItem="{Binding ShipmentItemList.SelectedItem}" SelectionMode="Row">

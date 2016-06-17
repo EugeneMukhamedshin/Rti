@@ -24,9 +24,9 @@
                 <Button Content="Обновить" Command="{Binding RefreshCommand}" Margin="5"></Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
-                <Button Content="+" Command="{Binding AddRequestCommand}" Width="32" Height="32" Margin="5" TabIndex="4"></Button>
-                <Button Content="-" Command="{Binding DeleteRequestCommand}" Width="32" Height="32" Margin="5" TabIndex="5"></Button>
-                <Button Content="..." Command="{Binding EditRequestCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5" TabIndex="6"/>
+                <Button Content="{DynamicResource AddImage}" Command="{Binding AddRequestCommand}" Width="32" Height="32" Margin="5" TabIndex="4"></Button>
+                <Button Content="{DynamicResource DeleteImage}" Command="{Binding DeleteRequestCommand}" Width="32" Height="32" Margin="5" TabIndex="5"></Button>
+                <Button Content="{DynamicResource EditImage}" Command="{Binding EditRequestCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5" TabIndex="6"/>
             </StackPanel>
             <dxg:GridControl TabIndex="7" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2">
                 <dxmvvm:Interaction.Behaviors>

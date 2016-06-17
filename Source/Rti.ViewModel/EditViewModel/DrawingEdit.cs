@@ -132,7 +132,7 @@ namespace Rti.ViewModel.EditViewModel
 
         private void OpenFlowsheet()
         {
-            var saved = !Source.IsChanged;
+            var saved = !Entity.IsChanged;
             if (!saved && ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед открытием необходимо сохранить чертеж. Выполнить сохранение?")))
                 saved = Save();
             if (saved)
@@ -145,16 +145,16 @@ namespace Rti.ViewModel.EditViewModel
 
         private void OpenCalculation()
         {
-                var saved = !Source.IsChanged;
+            if (Entity.PlanCalculation == null)
+                Entity.PlanCalculation = new CalculationViewModel(null, RepositoryFactory);
+            if (Entity.FactCalculation == null)
+                Entity.FactCalculation = new CalculationViewModel(null, RepositoryFactory);
+            Entity.PlanCalculation.IsReadOnly = true;
+            var saved = !Entity.IsChanged;
             if (!saved && ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед открытием необходимо сохранить чертеж. Выполнить сохранение?")))
                 saved = Save();
             if (saved)
             {
-                if (Entity.PlanCalculation == null)
-                    Entity.PlanCalculation = new CalculationViewModel(null, RepositoryFactory);
-                if (Entity.FactCalculation == null)
-                    Entity.FactCalculation = new CalculationViewModel(null, RepositoryFactory);
-                Entity.PlanCalculation.IsReadOnly = true;
                 var calculationEdit = new DrawingCalculationEdit("Калькуляция", Source, ReadOnly, ViewService, RepositoryFactory);
                 if (ViewService.ShowViewDialog(calculationEdit) == true)
                 {

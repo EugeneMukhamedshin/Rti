@@ -12,9 +12,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <Button Content="+" Command="{Binding AddEntityCommand}" Width="32" Height="32" Margin="5"/>
-            <Button Content="-" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5"/>
-            <Button Content="..." Command="{Binding EditEntityCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5"/>
+            <Button Content="{DynamicResource AddImage}" Command="{Binding AddEntityCommand}" Width="32" Height="32" Margin="5"/>
+            <Button Content="{DynamicResource DeleteImage}" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5"/>
+            <Button Content="{DynamicResource EditImage}" Command="{Binding EditEntityCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Label Content="Найти" VerticalContentAlignment="Center" Margin="5"/>
@@ -49,9 +49,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <Button Content="+" Command="{Binding AddItemCommand}" Width="24" Height="24" Margin="2"/>
-            <Button Content="-" Command="{Binding DeleteItemCommand}" Width="24" Height="24" Margin="2"/>
-            <Button Content="..." Command="{Binding EditItemCommand}" Width="24" Height="24" Margin="2"/>
+            <Button Content="{DynamicResource AddImage}" Command="{Binding AddItemCommand}" Width="24" Height="24" Margin="2"/>
+            <Button Content="{DynamicResource DeleteImage}" Command="{Binding DeleteItemCommand}" Width="24" Height="24" Margin="2"/>
+            <Button Content="{DynamicResource EditImage}" Command="{Binding EditItemCommand}" Width="24" Height="24" Margin="2"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Label Content="Найти" VerticalContentAlignment="Center"/>

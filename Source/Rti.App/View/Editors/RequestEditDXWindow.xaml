@@ -86,8 +86,8 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="2">
-                <Button Content="+" Command="{Binding AddRequestDetailCommand}" Width="32" Height="32" Margin="5"></Button>
-                <Button Content="-" Command="{Binding RemoveRequestDetailCommand}" Width="32" Height="32" Margin="5"></Button>
+                <Button Content="{DynamicResource AddImage}" Command="{Binding AddRequestDetailCommand}" Width="32" Height="32" Margin="5"></Button>
+                <Button Content="{DynamicResource DeleteImage}" Command="{Binding RemoveRequestDetailCommand}" Width="32" Height="32" Margin="5"></Button>
                 <CheckBox Content="В производстве с" Margin="5" IsChecked="{Binding Entity.IsWorkStarted}"/>
                 <xctk:DateTimePicker TabIndex="5" Margin="5" VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.WorkStartDate}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed" IsEnabled="{Binding Editable}"/>
             </StackPanel>
@@ -132,7 +132,7 @@
                     <dxg:GridColumn Width="24">
                         <dxg:GridColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Margin="2" Content="..." Padding="0" FontSize="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=Window},Path=DataContext.OpenDrawingEditCommand}" CommandParameter="{Binding RowData.Row}"/>
+                                <Button Margin="2" Content="{DynamicResource EditImage}" Padding="0" FontSize="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=Window},Path=DataContext.OpenDrawingEditCommand}" CommandParameter="{Binding RowData.Row}"/>
                             </DataTemplate>
                         </dxg:GridColumn.CellTemplate>
                     </dxg:GridColumn>
@@ -144,7 +144,7 @@
                     <dxg:GridColumn Width="24">
                         <dxg:GridColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Margin="2" Content="..." Padding="0" FontSize="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=Window},Path=DataContext.OpenDrawingEditCommand}" CommandParameter="{Binding RowData.Row}"/>
+                                <Button Margin="2" Content="{DynamicResource EditImage}" Padding="0" FontSize="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=Window},Path=DataContext.OpenDrawingEditCommand}" CommandParameter="{Binding RowData.Row}"/>
                             </DataTemplate>
                         </dxg:GridColumn.CellTemplate>
                     </dxg:GridColumn>

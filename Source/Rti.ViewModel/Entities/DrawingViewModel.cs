@@ -21,6 +21,8 @@ namespace Rti.ViewModel.Entities
             }
         }
 
+        public CalculationViewModel ActualCalculation { get { return FactCalculation ?? PlanCalculation; } }
+
         public decimal? CalculationPrice
         {
             get
