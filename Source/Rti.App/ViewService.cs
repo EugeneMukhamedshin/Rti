@@ -107,16 +107,17 @@ namespace Rti.App
 
             // Изображения
             AddToRegistry<ImageEdit, ImageEditWindow>();
-
             // Отчеты
             AddToRegistry<RequestsByMethodsReportViewModel, ByPeriodReportEdit>();
             AddToRegistry<DrawingShipmentsReportViewModel, ByPeriodReportEdit>();
             AddToRegistry<UsedMaterialsReportViewModel, ByPeriodReportEdit>();
             AddToRegistry<RequestDirectExpencesReportViewModel, ByPeriodReportEdit>();
+            AddToRegistry<WorkItemDirectExpencesReportViewModel, ByPeriodReportEdit>();
+            AddToRegistry<ShipmentDirectExpencesReportViewModel, ByPeriodReportEdit>();
+            AddToRegistry<SalaryReportViewModel, ByPeriodReportEdit>();
         }
 
-        private void AddToRegistry<TViewModel, TView>()
-        {
+        private void AddToRegistry<TViewModel, TView>(){
             _registry.Add(typeof(TViewModel), typeof(TView));
         }
 

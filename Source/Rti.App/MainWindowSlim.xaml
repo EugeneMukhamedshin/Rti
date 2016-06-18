@@ -139,11 +139,14 @@
             <StackPanel Grid.Row="2" Grid.Column="3">
                 <dx:DropDownButton ButtonKind="Toggle" PopupDropAlignment="Bottom" Content="Отчеты">
                     <dx:DropDownButton.PopupContent>
-                        <WrapPanel Width="420" Margin="5">
+                        <WrapPanel Width="280" Margin="5">
                             <Button Height="24" Width="250" FontSize="12" Content="Сводный отчет по способу изготовления" Command="{Binding OpenRequestsByMethodsReportCommand}"/>
                             <Button Height="24" Width="250" FontSize="12" Content="Заказы и отгрузка по чертежу" Command="{Binding OpenDrawingShipmentsReportCommand}"/>
                             <Button Height="24" Width="250" FontSize="12" Content="Учет переработанного материала" Command="{Binding OpenUsedMaterialsReportCommand}"/>
                             <Button Height="24" Width="250" FontSize="12" Content="Учет прямых затрат на заявку" Command="{Binding OpenRequestDirectExpencesReportCommand}"/>
+                            <Button Height="24" Width="250" FontSize="12" Content="Учет прямых затрат на наряд" Command="{Binding OpenWorkItemDirectExpencesReportCommand}"/>
+                            <Button Height="24" Width="250" FontSize="12" Content="Учет прямых затрат на отгрузку" Command="{Binding OpenShipmentDirectExpencesReportCommand}"/>
+                            <Button Height="24" Width="250" FontSize="12" Content="Отчет по заработной плате" Command="{Binding OpenSalaryReportCommand}"/>
                         </WrapPanel>
                     </dx:DropDownButton.PopupContent>
                 </dx:DropDownButton>

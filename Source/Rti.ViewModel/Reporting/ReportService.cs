@@ -79,5 +79,23 @@ namespace Rti.ViewModel.Reporting
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetRequestDirectExpencesReport.xslt"));
             return GetReport(r => r.GetRequestDirectExpencesReport(startDate, endDate, request == null ? (int?)null : request.Id), xsl);
         }
+
+        public byte[] GetWorkItemDirectExpencesReport(DateTime startDate, DateTime endDate)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetWorkItemDirectExpencesReport.xslt"));
+            return GetReport(r => r.GetWorkItemDirectExpencesReport(startDate, endDate), xsl);
+        }
+
+        public byte[] GetShipmentDirectExpencesReport(DateTime startDate, DateTime endDate, ShipmentViewModel shipment)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetShipmentDirectExpencesReport.xslt"));
+            return GetReport(r => r.GetShipmentDirectExpencesReport(startDate, endDate, shipment == null ? (int?)null : shipment.Id), xsl);
+        }
+
+        public byte[] GetSalaryReport(DateTime startDate, DateTime endDate, EmployeeViewModel employee)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetSalaryReport.xslt"));
+            return GetReport(r => r.GetSalaryReport(startDate, endDate, employee == null ? (int?)null : employee.Id), xsl);
+        }
     }
 }

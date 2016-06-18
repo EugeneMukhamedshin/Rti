@@ -63,6 +63,9 @@ namespace Rti.ViewModel
         public DelegateCommand OpenDrawingShipmentsReportCommand { get; set; }
         public DelegateCommand OpenUsedMaterialsReportCommand { get; set; }
         public DelegateCommand OpenRequestDirectExpencesReportCommand { get; set; }
+        public DelegateCommand OpenWorkItemDirectExpencesReportCommand { get; set; }
+        public DelegateCommand OpenShipmentDirectExpencesReportCommand { get; set; }
+        public DelegateCommand OpenSalaryReportCommand { get; set; }
 
         #endregion
 
@@ -111,6 +114,9 @@ namespace Rti.ViewModel
             OpenDrawingShipmentsReportCommand = new DelegateCommand(o => OpenView(new DrawingShipmentsReportViewModel("Заказы и отгрузка по чертежу", ViewService, RepositoryFactory, xsltPath, "Заказы и отгрузка по чертежу.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }));
             OpenUsedMaterialsReportCommand = new DelegateCommand(o => OpenView(new UsedMaterialsReportViewModel("Учет переработанного материала", ViewService, RepositoryFactory, xsltPath, "Учет переработанного материала.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }));
             OpenRequestDirectExpencesReportCommand = new DelegateCommand(o => OpenView(new RequestDirectExpencesReportViewModel("Учет прямых затрат на заявку", ViewService, RepositoryFactory, xsltPath, "Учет прямых затрат на заявку.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }));
+            OpenWorkItemDirectExpencesReportCommand = new DelegateCommand(o => OpenView(new WorkItemDirectExpencesReportViewModel("Учет прямых затрат на наряд", ViewService, RepositoryFactory, xsltPath, "Учет прямых затрат на наряд.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }));
+            OpenShipmentDirectExpencesReportCommand = new DelegateCommand(o => OpenView(new ShipmentDirectExpencesReportViewModel("Учет прямых затрат на отгрузку", ViewService, RepositoryFactory, xsltPath, "Учет прямых затрат на отгрузку.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }));
+            OpenSalaryReportCommand = new DelegateCommand(o => OpenView(new SalaryReportViewModel("Отчет по заработной плате", ViewService, RepositoryFactory, xsltPath, "Отчет по заработной плате.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }));
         }
 
         private bool? OpenView(BaseViewModel viewModel)

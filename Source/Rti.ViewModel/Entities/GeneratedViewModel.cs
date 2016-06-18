@@ -1609,8 +1609,8 @@ namespace Rti.ViewModel.Entities
         }
 	}
 
-    // The viewmodel for EquipmentPayment
-    public partial class EquipmentPaymentViewModel : EntityViewModel<Rti.Model.Domain.EquipmentPayment, EquipmentPaymentViewModel>
+	// The viewmodel for EquipmentPayment
+	public partial class EquipmentPaymentViewModel : EntityViewModel<Rti.Model.Domain.EquipmentPayment, EquipmentPaymentViewModel>
 	{
 		// Конструктор для маппинга
 		public EquipmentPaymentViewModel() { }
@@ -1833,86 +1833,6 @@ namespace Rti.ViewModel.Entities
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((ImageViewModel) obj);
-        }
-	}
-
-	// The viewmodel for Invoice
-	public partial class InvoiceViewModel : EntityViewModel<Rti.Model.Domain.Invoice, InvoiceViewModel>
-	{
-		// Конструктор для маппинга
-		public InvoiceViewModel() { }
-
-        public InvoiceViewModel(Rti.Model.Domain.Invoice entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		private Int32 _id;
-		private Boolean _isDeleted;
-		private String _invoiceNumber;
-		private DateTime _invoiceDate;
-		private RequestViewModel _request;
-		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
-		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
-		public String InvoiceNumber { get { return _invoiceNumber; } set { if (Equals(_invoiceNumber, value)) return; _invoiceNumber = value; OnPropertyChanged("InvoiceNumber"); } }
-		public DateTime InvoiceDate { get { return _invoiceDate; } set { if (Equals(_invoiceDate, value)) return; _invoiceDate = value; OnPropertyChanged("InvoiceDate"); } }
-		public RequestViewModel Request { get { return _request; } set { _request = value; OnPropertyChanged("Request"); } }
-		protected override void MapPropertiesToEntity()
-		{
-			Entity.IsDeleted = IsDeleted; 
-			Entity.InvoiceNumber = InvoiceNumber; 
-			Entity.InvoiceDate = InvoiceDate; 
-			Entity.Request = Request == null ? null : Request.Entity; 
-		}
-
-		protected override void MapPropertiesFromEntity()
-		{
-			IsMapping = true;
-			Id = Entity.Id; 
-			IsDeleted = Entity.IsDeleted; 
-			InvoiceNumber = Entity.InvoiceNumber; 
-			InvoiceDate = Entity.InvoiceDate; 
-			Request = Entity.Request == null ? null : new RequestViewModel(Entity.Request, RepositoryFactory); 
-			IsMapping = false;
-		}
-
-		public override void CopyFrom(InvoiceViewModel source)
-		{
-			IsMapping = true;
-			IsDeleted = source.IsDeleted;
-			InvoiceNumber = source.InvoiceNumber;
-			InvoiceDate = source.InvoiceDate;
-			Request = source.Request;
-			CustomCopyFrom(source);
-			IsMapping = false;
-		}
-
-		public override InvoiceViewModel Clone()
-		{
-			var copy = new InvoiceViewModel(null, RepositoryFactory);
-			copy.CopyFrom(this);
-			return copy;
-		}
-
-		public XElement GetXElement(string name)
-		{
-			var element = new XElement(name);
-			element.Add(new XAttribute("Id", Id));
-			element.Add(new XAttribute("IsDeleted", IsDeleted));
-			if (InvoiceNumber != null)
-				element.Add(new XAttribute("InvoiceNumber", InvoiceNumber));
-			element.Add(new XAttribute("InvoiceDate", InvoiceDate));
-			if (Request != null)
-				element.Add(Request.GetXElement("Request"));
-			CustomFillXElement(element);
-			return element;
-		}
-
-        public override int GetHashCode() { return _id; }
-        protected bool Equals(InvoiceViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((InvoiceViewModel) obj);
         }
 	}
 

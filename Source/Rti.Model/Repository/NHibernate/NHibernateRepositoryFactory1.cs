@@ -39,8 +39,6 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new GroupRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Image))
                 return (IRepository<TEntity>)new ImageRepository();
-            if (typeof(TEntity) == typeof(Rti.Model.Domain.Invoice))
-                return (IRepository<TEntity>)new InvoiceRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Job))
                 return (IRepository<TEntity>)new JobRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Machine))
@@ -119,8 +117,6 @@ namespace Rti.Model.Repository.NHibernate
 		public IGroupRepository GetGroupRepository() { return (IGroupRepository) GetRepository<Rti.Model.Domain.Group>(); }
 
 		public IImageRepository GetImageRepository() { return (IImageRepository) GetRepository<Rti.Model.Domain.Image>(); }
-
-		public IInvoiceRepository GetInvoiceRepository() { return (IInvoiceRepository) GetRepository<Rti.Model.Domain.Invoice>(); }
 
 		public IJobRepository GetJobRepository() { return (IJobRepository) GetRepository<Rti.Model.Domain.Job>(); }
 
@@ -335,17 +331,6 @@ namespace Rti.Model.Repository.NHibernate
         protected override IQueryOver<Rti.Model.Domain.Image, Rti.Model.Domain.Image> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Image, Rti.Model.Domain.Image> queryOver)
         {
 			var result = queryOver;
-            return result;
-        }
-    }
-
-	public partial class InvoiceRepository : NHibernateRepository<Rti.Model.Domain.Invoice>, IInvoiceRepository
-    {
-
-        protected override IQueryOver<Rti.Model.Domain.Invoice, Rti.Model.Domain.Invoice> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Invoice, Rti.Model.Domain.Invoice> queryOver)
-        {
-			var result = queryOver;
-			result = result.Fetch(o => o.Request).Default;
             return result;
         }
     }

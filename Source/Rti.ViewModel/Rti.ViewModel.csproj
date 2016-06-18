@@ -186,8 +186,15 @@
     <Compile Include="Reporting\ReportService.cs" />
     <Compile Include="Reporting\RequestReportGenerator.cs" />
     <Compile Include="Reporting\ViewModel\ByPeriodReportViewModel.cs" />
+    <Compile Include="Reporting\ViewModel\DrawingShipmentsReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\ReportViewModel.cs" />
+    <Compile Include="Reporting\ViewModel\RequestDirectExpencesReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\RequestsByMethodsReportViewModel.cs" />
+    <Compile Include="Reporting\ViewModel\SalaryReportViewModel.cs" />
+    <Compile Include="Reporting\ViewModel\ShipmentDirectExpencesReportViewModel.cs" />
+    <Compile Include="Reporting\ViewModel\UsedMaterialsReportViewModel.cs" />
+    <Compile Include="Reporting\ViewModel\WorkItemDirectExpencesReportViewModel.cs" />
+    <Compile Include="Reporting\ViewModel\XsltReportViewModel.cs" />
     <Compile Include="StringExtension.cs" />
     <Compile Include="TreeViewModel\ITreeItemViewModel.cs" />
     <Compile Include="TreeViewModel\TreeItemViewModel.cs" />

@@ -266,5 +266,185 @@ FROM (SELECT
                             g))));
             return doc;
         }
+
+        public XDocument GetWorkItemDirectExpencesReport(DateTime startDate, DateTime endDate)
+        {
+            var rows = GetXElementsFromQuery(@"
+SELECT
+  t.WorkDate,
+  t.DrawingName,
+  t.GroupName,
+  t.DetailName,
+  t.DoneCount,
+  t.MaterialCost,
+  t.TransportCost,
+  t.SalaryCost,
+  t.PowerForFormedCost,
+  t.OtherPowerCost,
+  t.MaterialCost +
+  t.TransportCost +
+  t.SalaryCost +
+  t.PowerForFormedCost +
+  t.OtherPowerCost SummaryCost
+FROM (SELECT
+    wi.work_date WorkDate,
+    d.name DrawingName,
+    g.name GroupName,
+    d1.name DetailName,
+    wi.done_count - wi.rejected_count DoneCount,
+    IFNULL(c.Main_Material, 0) + IFNULL(c.Rubber, 0) + IFNULL(c.Clue, 0) + IFNULL(c.Armature, 0) + IFNULL(c.Sand, 0) + IFNULL(c.Textile, 0) + IFNULL(c.Other_Material, 0) MaterialCost,
+    IFNULL(c.Transport, 0) TransportCost,
+    IFNULL(c.Main_Salary, 0) SalaryCost,
+    IFNULL(c.Power_For_Formed, 0) PowerForFormedCost,
+    IFNULL(c.Other_Power, 0) OtherPowerCost
+  FROM work_items wi
+    JOIN work_item_package wip
+      ON wip.date = wi.work_date
+    JOIN drawings d
+      ON wi.drawing_id = d.id
+    JOIN groups g
+      ON d.group_id = g.id
+    JOIN details d1
+      ON d.detail_id = d1.id
+    JOIN calculations c
+      ON d.fact_calculation_id = c.id
+  WHERE wi.work_date BETWEEN :p_start_date AND :p_end_date
+  ORDER BY wi.work_date, wi.sort_order) t",
+                query =>
+                    query.SetParameter("p_start_date", startDate)
+                        .SetParameter("p_end_date", endDate));
+            var rowDict = rows.ToLookup(e => new
+            {
+                WorkDate = e.Attribute("WorkDate").Value
+            }, r => r);
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                    rowDict.Select(g =>
+                        new XElement("workItemPackage",
+                            new XAttribute("WorkDate", g.Key.WorkDate),
+                            new XAttribute("MaterialCost", g.Sum(o => Convert.ToDecimal(o.Attribute("MaterialCost").Value))),
+                            new XAttribute("TransportCost", g.Sum(o => Convert.ToDecimal(o.Attribute("TransportCost").Value))),
+                            new XAttribute("SalaryCost", g.Sum(o => Convert.ToDecimal(o.Attribute("SalaryCost").Value))),
+                            new XAttribute("PowerForFormedCost", g.Sum(o => Convert.ToDecimal(o.Attribute("PowerForFormedCost").Value))),
+                            new XAttribute("OtherPowerCost", g.Sum(o => Convert.ToDecimal(o.Attribute("OtherPowerCost").Value))),
+                            new XAttribute("SummaryCost", g.Sum(o => Convert.ToDecimal(o.Attribute("SummaryCost").Value))),
+                            new XAttribute("SummaryDoneCount", g.Sum(o => Convert.ToDecimal(o.Attribute("DoneCount").Value))),
+                            g))));
+            return doc;
+        }
+
+        public XDocument GetShipmentDirectExpencesReport(DateTime startDate, DateTime endDate, int? shipmentId)
+        {
+            var rows = GetXElementsFromQuery(@"
+SELECT
+  t.ShipmentId,
+  t.ShipmentDate,
+  t.DrawingName,
+  t.GroupName,
+  t.DetailName,
+  t.DoneCount,
+  t.MaterialCost,
+  t.TransportCost,
+  t.SalaryCost,
+  t.PowerForFormedCost,
+  t.OtherPowerCost,
+  t.MaterialCost +
+  t.TransportCost +
+  t.SalaryCost +
+  t.PowerForFormedCost +
+  t.OtherPowerCost SummaryCost
+FROM (SELECT
+    s.id ShipmentId,
+    s.date ShipmentDate,
+    d.name DrawingName,
+    g.name GroupName,
+    d1.name DetailName,
+    si.count DoneCount,
+    IFNULL(c.Main_Material, 0) + IFNULL(c.Rubber, 0) + IFNULL(c.Clue, 0) + IFNULL(c.Armature, 0) + IFNULL(c.Sand, 0) + IFNULL(c.Textile, 0) + IFNULL(c.Other_Material, 0) MaterialCost,
+    IFNULL(c.Transport, 0) TransportCost,
+    IFNULL(c.Main_Salary, 0) SalaryCost,
+    IFNULL(c.Power_For_Formed, 0) PowerForFormedCost,
+    IFNULL(c.Other_Power, 0) OtherPowerCost
+  FROM shipment_items si
+    JOIN shipments s
+      ON si.shipment_id = s.id
+    JOIN request_details rd
+      ON si.request_detail_id = rd.id
+    JOIN drawings d
+      ON rd.drawing_id = d.id
+    JOIN groups g
+      ON d.group_id = g.id
+    JOIN details d1
+      ON d.detail_id = d1.id
+    JOIN calculations c
+      ON d.fact_calculation_id = c.id
+  WHERE s.date BETWEEN :p_start_date AND :p_end_date
+  AND s.id = IFNULL(:p_shipment_id, s.id)) t",
+                query =>
+                    query.SetParameter("p_start_date", startDate)
+                        .SetParameter("p_end_date", endDate)
+                        .SetParameter("p_shipment_id", shipmentId));
+            var rowDict = rows.ToLookup(e => new
+            {
+                ShipmentId = e.Attribute("ShipmentId").Value,
+                ShipmentDate = e.Attribute("ShipmentDate").Value
+            }, r => r);
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                    rowDict.Select(g =>
+                        new XElement("shipment",
+                            new XAttribute("ShipmentId", g.Key.ShipmentId),
+                            new XAttribute("ShipmentDate", g.Key.ShipmentDate),
+                            new XAttribute("MaterialCost", g.Sum(o => Convert.ToDecimal(o.Attribute("MaterialCost").Value))),
+                            new XAttribute("TransportCost", g.Sum(o => Convert.ToDecimal(o.Attribute("TransportCost").Value))),
+                            new XAttribute("SalaryCost", g.Sum(o => Convert.ToDecimal(o.Attribute("SalaryCost").Value))),
+                            new XAttribute("PowerForFormedCost", g.Sum(o => Convert.ToDecimal(o.Attribute("PowerForFormedCost").Value))),
+                            new XAttribute("OtherPowerCost", g.Sum(o => Convert.ToDecimal(o.Attribute("OtherPowerCost").Value))),
+                            new XAttribute("SummaryCost", g.Sum(o => Convert.ToDecimal(o.Attribute("SummaryCost").Value))),
+                            new XAttribute("SummaryDoneCount", g.Sum(o => Convert.ToDecimal(o.Attribute("DoneCount").Value))),
+                            g))));
+            return doc;
+        }
+
+        public XDocument GetSalaryReport(DateTime startDate, DateTime endDate, int? employeeId)
+        {
+            var rows = GetXElementsFromQuery(@"
+SELECT
+  e.id EmployeeId,
+  e.full_name EmployeeFullName,
+  IFNULL(wi.done_count - wi.rejected_count, 0) DoneCount,
+  IFNULL(c.Main_Salary, 0) * IFNULL(wi.done_count - wi.rejected_count, 0) MainSalary,
+  IFNULL(c.Additional_Salary, 0) * IFNULL(wi.done_count - wi.rejected_count, 0) AdditionalSalary
+FROM work_items wi
+  INNER JOIN employees e
+    ON wi.employee_id = e.id
+  INNER JOIN drawings d
+    ON wi.drawing_id = d.id
+  INNER JOIN calculations c
+    ON d.fact_calculation_id = c.id
+WHERE wi.work_date BETWEEN :p_start_date AND :p_end_date
+AND e.id = IFNULL(:p_employee_id, e.id)
+ORDER BY e.full_name, wi.work_date",
+                query =>
+                    query.SetParameter("p_start_date", startDate)
+                        .SetParameter("p_end_date", endDate)
+                        .SetParameter("p_employee_id", employeeId));
+            var rowDict = rows.ToLookup(e => new
+            {
+                EmployeeId = e.Attribute("EmployeeId").Value,
+                EmployeeFullName = e.Attribute("EmployeeFullName").Value
+            }, r => r);
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                    rowDict.Select(g =>
+                        new XElement("employee",
+                            new XAttribute("EmployeeId", g.Key.EmployeeId),
+                            new XAttribute("EmployeeFullName", g.Key.EmployeeFullName),
+                            new XAttribute("DoneCount", g.Sum(o => Convert.ToDecimal(o.Attribute("DoneCount").Value))),
+                            new XAttribute("MainSalary", g.Sum(o => Convert.ToDecimal(o.Attribute("MainSalary").Value))),
+                            new XAttribute("AdditionalSalary", g.Sum(o => Convert.ToDecimal(o.Attribute("AdditionalSalary").Value))),
+                            g))));
+            return doc;
+        }
     }
 }
