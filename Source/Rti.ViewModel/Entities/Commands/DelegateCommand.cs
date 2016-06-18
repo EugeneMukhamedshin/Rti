@@ -14,18 +14,23 @@ namespace Rti.ViewModel.Entities.Commands
             _execute = execute;
         }
 
+        public DelegateCommand(Action<Object> execute)
+        {
+            _execute = execute;
+        }
+
         public string Name { get; set; }
 
         public virtual bool IsAvailable { get { return true; } }
 
         public override bool CanExecute(object parameter)
         {
-            return _canExecute(parameter);
+            return _canExecute == null || _canExecute(parameter);
         }
 
         public override void Execute(object parameter)
         {
-            if (!_canExecute(parameter))
+            if (_canExecute != null && !_canExecute(parameter))
                 return;
             bool cancel;
             BeforeExecute(parameter, out cancel);

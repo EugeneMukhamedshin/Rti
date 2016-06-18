@@ -100,6 +100,7 @@
     <Compile Include="Repository\Interfaces\IEquipmentPaymentRepository.cs" />
     <Compile Include="Repository\Interfaces\IPaymentRepository.cs" />
     <Compile Include="Repository\Interfaces\IReportOfCompletionItemRepository.cs" />
+    <Compile Include="Repository\Interfaces\IReportepository.cs" />
     <Compile Include="Repository\Interfaces\IShipmentItemRepository.cs" />
     <Compile Include="Repository\Interfaces\IShipmentItemWorkItemRepository.cs" />
     <Compile Include="Repository\Interfaces\IShipmentRepository.cs" />
@@ -108,7 +109,6 @@
     <Compile Include="Repository\Interfaces\IEquipmentRepository.cs" />
     <Compile Include="Repository\Interfaces\IDrawingFlowsheetMachineRepository.cs" />
     <Compile Include="Repository\Interfaces\IDrawingFlowsheetProcessRepository.cs" />
-    <Compile Include="Repository\Interfaces\IFlowsheetRepository.cs" />
     <Compile Include="Repository\Interfaces\IGroupRepository.cs" />
     <Compile Include="Repository\Interfaces\IImageRepository.cs" />
     <Compile Include="Repository\Interfaces\IJobRepository.cs" />
@@ -148,6 +148,7 @@
     <Compile Include="Repository\NHibernate\EquipmentPaymentRepository.cs" />
     <Compile Include="Repository\NHibernate\PaymentRepository.cs" />
     <Compile Include="Repository\NHibernate\ReportOfCompletionItemRepository.cs" />
+    <Compile Include="Repository\NHibernate\ReportRepository.cs" />
     <Compile Include="Repository\NHibernate\ShipmentItemRepository.cs" />
     <Compile Include="Repository\NHibernate\ShipmentItemWorkItemRepository.cs" />
     <Compile Include="Repository\NHibernate\ShipmentRepository.cs" />

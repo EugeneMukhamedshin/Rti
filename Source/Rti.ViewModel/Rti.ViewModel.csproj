@@ -183,7 +183,11 @@
     <Compile Include="Reporting\InvoiceReportGenerator.cs" />
     <Compile Include="Reporting\RejectionReportGenerator.cs" />
     <Compile Include="Reporting\ReportOfCompletionReportGenerator.cs" />
+    <Compile Include="Reporting\ReportService.cs" />
     <Compile Include="Reporting\RequestReportGenerator.cs" />
+    <Compile Include="Reporting\ViewModel\ByPeriodReportViewModel.cs" />
+    <Compile Include="Reporting\ViewModel\ReportViewModel.cs" />
+    <Compile Include="Reporting\ViewModel\RequestsByMethodsReportViewModel.cs" />
     <Compile Include="StringExtension.cs" />
     <Compile Include="TreeViewModel\ITreeItemViewModel.cs" />
     <Compile Include="TreeViewModel\TreeItemViewModel.cs" />
@@ -206,9 +210,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Reporting\Templates\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>

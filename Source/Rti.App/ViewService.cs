@@ -4,10 +4,12 @@ using System.Windows;
 using System.Windows.Forms;
 using Rti.App.View.Editors;
 using Rti.App.View.Lists;
+using Rti.App.View.Reports;
 using Rti.ViewModel;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Lists;
 using Rti.ViewModel.ListViewModel;
+using Rti.ViewModel.Reporting.ViewModel;
 using Application = System.Windows.Application;
 using ContragentList = Rti.ViewModel.Lists.ContragentList;
 using DrawingList = Rti.ViewModel.Lists.DrawingList;
@@ -105,6 +107,12 @@ namespace Rti.App
 
             // Изображения
             AddToRegistry<ImageEdit, ImageEditWindow>();
+
+            // Отчеты
+            AddToRegistry<RequestsByMethodsReportViewModel, ByPeriodReportEdit>();
+            AddToRegistry<DrawingShipmentsReportViewModel, ByPeriodReportEdit>();
+            AddToRegistry<UsedMaterialsReportViewModel, ByPeriodReportEdit>();
+            AddToRegistry<RequestDirectExpencesReportViewModel, ByPeriodReportEdit>();
         }
 
         private void AddToRegistry<TViewModel, TView>()

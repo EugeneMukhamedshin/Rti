@@ -10,7 +10,69 @@ using Rti.Model.Repository.Interfaces;
 
 namespace Rti.Model.Repository.NHibernate
 {
-    public class NHibernateRepository<TEntity> : IRepository<TEntity> where TEntity : class, IIdentifiedEntity
+    public class NHibernateRepository
+    {
+        private ILog _log = LogManager.GetLogger(typeof(NHibernateRepository));
+
+        protected TResult ExecuteFuncOnSession<TResult>(Func<ISession, TResult> func, String description)
+        {
+            try
+            {
+                using (var session = new NHibernateContext().SessionFactory.OpenSession())
+                {
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        try
+                        {
+                            var result = func(session);
+                            transaction.Commit();
+                            return result;
+                        }
+                        catch
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _log.ErrorExt(String.Format("{0}: Ошибка при выполнении запроса", description), ex);
+                throw;
+            }
+        }
+
+        protected void ExecuteActionOnSession(Action<ISession> action, string description)
+        {
+            try
+            {
+                using (var session = new NHibernateContext().SessionFactory.OpenSession())
+                {
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        try
+                        {
+                            action(session);
+                            transaction.Commit();
+                        }
+                        catch
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _log.ErrorExt(String.Format("{0}: Ошибка при выполнении запроса", description), ex);
+                throw;
+            }
+        }
+    }
+
+    public class NHibernateRepository<TEntity> : NHibernateRepository, IRepository<TEntity> where TEntity : class, IIdentifiedEntity
     {
         private ILog _log = LogManager.GetLogger(typeof (NHibernateRepository<TEntity>));
 
@@ -68,63 +130,6 @@ namespace Rti.Model.Repository.NHibernate
                     }
                     var result = func(dbSet);
                     return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                _log.ErrorExt(String.Format("{0}: Ошибка при выполнении запроса", description), ex);
-                throw;
-            }
-        }
-
-        protected TResult ExecuteFuncOnSession<TResult>(Func<ISession, TResult> func, String description)
-        {
-            try
-            {
-                using (var session = new NHibernateContext().SessionFactory.OpenSession())
-                {
-                    using (var transaction = session.BeginTransaction())
-                    {
-                        try
-                        {
-                            var result = func(session);
-                            transaction.Commit();
-                            return result;
-                        }
-                        catch
-                        {
-                            transaction.Rollback();
-                            throw;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                _log.ErrorExt(String.Format("{0}: Ошибка при выполнении запроса", description), ex);
-                throw;
-            }
-        }
-
-        protected void ExecuteActionOnSession(Action<ISession> action, string description)
-        {
-            try
-            {
-                using (var session = new NHibernateContext().SessionFactory.OpenSession())
-                {
-                    using (var transaction = session.BeginTransaction())
-                    {
-                        try
-                        {
-                            action(session);
-                            transaction.Commit();
-                        }
-                        catch
-                        {
-                            transaction.Rollback();
-                            throw;
-                        }
-                    }
                 }
             }
             catch (Exception ex)

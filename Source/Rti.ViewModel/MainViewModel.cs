@@ -1,10 +1,12 @@
 ﻿using System;
+using System.IO;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
 using Rti.ViewModel.Lists;
+using Rti.ViewModel.Reporting.ViewModel;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 namespace Rti.ViewModel
@@ -53,126 +55,68 @@ namespace Rti.ViewModel
         public DelegateCommand OpenMachinesCommand { get; set; }
         public DelegateCommand OpenConstantsCommand { get; set; }
 
+        #region Reports
+
+        private string xsltPath;
+
+        public DelegateCommand OpenRequestsByMethodsReportCommand { get; set; }
+        public DelegateCommand OpenDrawingShipmentsReportCommand { get; set; }
+        public DelegateCommand OpenUsedMaterialsReportCommand { get; set; }
+        public DelegateCommand OpenRequestDirectExpencesReportCommand { get; set; }
+
+        #endregion
+
         public MainViewModel(IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(repositoryFactory)
         {
+            xsltPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
+
             ViewService = viewService;
 
-            ExitCommand = new DelegateCommand(
-                "Выход",
-                o => true,
-                o => Close(null));
+            ExitCommand = new DelegateCommand(o => Close(null));
 
-            CreateNewRequestCommand = new DelegateCommand(
-                "Новая заявка",
-                o => true,
-                o => CreateNewRequest());
-            CreateNewShipmentCommand = new DelegateCommand(
-                "Новая заявка",
-                o => true,
-                o => CreateNewShipment());
-            OpenRequestCommand = new DelegateCommand(
-                "Открыть заявку",
-                o => true,
-                o => OpenRequest());
-            OpenRequestListCommand = new DelegateCommand(
-                "Открыть реестр заявок",
-                o => true,
-                o => OpenRequestList());
+            CreateNewRequestCommand = new DelegateCommand(o => CreateNewRequest());
+            CreateNewShipmentCommand = new DelegateCommand(o => CreateNewShipment());
+            OpenRequestCommand = new DelegateCommand(o => OpenRequest());
+            OpenRequestListCommand = new DelegateCommand(o => OpenRequestList());
 
-            OpenDrawingsCommand = new DelegateCommand(
-                "Чертежи",
-                o => true,
-                o => OpenDrawingList());
+            OpenDrawingsCommand = new DelegateCommand(o => OpenDrawingList());
 
-            OpenDailyWorkPackagesCommand = new DelegateCommand(
-                "Дневные наряды",
-                o => true,
-                o => OpenWorkItems());
+            OpenDailyWorkPackagesCommand = new DelegateCommand(o => OpenWorkItems());
 
-            OpenShipmentsCommand = new DelegateCommand(
-                "Открыть журнал распоряжений на отгрузку",
-                o => true,
-                o => OpenShipments());
+            OpenShipmentsCommand = new DelegateCommand(o => OpenShipments());
 
-            OpenShavingRecordsCommand = new DelegateCommand(
-                "Открыть журнал обрезки облоя",
-                o => true,
-                o => OpenShavingRecords());
-            OpenMaterialArrivalRecordsCommand = new DelegateCommand(
-                "Открыть журнал прихода материала",
-                o => true,
-                o => OpenMaterialArrivalRecords());
-            OpenRollingRecordsCommand = new DelegateCommand(
-                "Открыть журнал вальцовщика",
-                o => true,
-                o => OpenRollingRecords());
-            OpenPaymentsCommand = new DelegateCommand(
-                "Открыть журнал оплаты",
-                o => true,
-                o => OpenPayments());
+            OpenShavingRecordsCommand = new DelegateCommand(o => OpenShavingRecords());
+            OpenMaterialArrivalRecordsCommand = new DelegateCommand(o => OpenMaterialArrivalRecords());
+            OpenRollingRecordsCommand = new DelegateCommand(o => OpenRollingRecords());
+            OpenPaymentsCommand = new DelegateCommand(o => OpenPayments());
 
-            OpenEquipmentPaymentsCommand = new DelegateCommand(
-                "Открыть журнал оплаты",
-                o => true,
-                o => OpenEquipmentPayments());
+            OpenEquipmentPaymentsCommand = new DelegateCommand(o => OpenEquipmentPayments());
 
-            OpenCustomersCommand = new DelegateCommand(
-                "Справочники",
-                o => true,
-                o => OpenDictionary(new ContragentList(ContragentType.Customer, true, ViewService, RepositoryFactory)));
-            OpenSuppliersCommand = new DelegateCommand(
-                "Справочники",
-                o => true,
-                o => OpenDictionary(new ContragentList(ContragentType.Supplier, true, ViewService, RepositoryFactory)));
-            OpenManufacturersCommand = new DelegateCommand(
-                "Справочники",
-                o => true,
-                o => OpenDictionary(new ContragentList(ContragentType.Manufacturer, true, ViewService, RepositoryFactory)));
-            OpenDriversCommand = new DelegateCommand(
-                "Справочники",
-                o => true,
-                o => OpenDictionary(new DriverList(true, ViewService, RepositoryFactory)));
-            OpenJobsCommand = new DelegateCommand(
-                "Справочники",
-                o => true,
-                o => OpenDictionary(new JobList(true, ViewService, RepositoryFactory)));
-            OpenEmployeesCommand = new DelegateCommand(
-                "Справочники",
-                o => true,
-                o => OpenDictionary(new EmployeeList(true, ViewService, RepositoryFactory)));
-            OpenMaterialsCommand = new DelegateCommand(
-                "Справочники",
-                o => true,
-                o => OpenDictionary(new MaterialList(true, ViewService, RepositoryFactory)));
-            OpenGroupsCommand = new DelegateCommand(
-                "Справочники",
-                o => true,
-                o => OpenDictionary(new GroupList(true, ViewService, RepositoryFactory)));
-            OpenEquipmentsCommand  = new DelegateCommand(
-                "Справочники",
-                o => true,
-                o => OpenDictionary(new EquipmentList(true, ViewService, RepositoryFactory)));
-            OpenDetailsCommand = new DelegateCommand(
-                "Справочники",
-                o => true,
-                o => OpenDictionary(new DetailList(true, ViewService, RepositoryFactory)));
-            OpenMethodsCommand = new DelegateCommand(
-                "Справочники",
-                o => true,
-                o => OpenDictionary(new MethodList(true, ViewService, RepositoryFactory)));
-            OpenMeasureUnitsCommand = new DelegateCommand(
-                "Справочники",
-                o => true,
-                o => OpenDictionary(new MeasureUnitList(true, ViewService, RepositoryFactory)));
-            OpenMachinesCommand = new DelegateCommand(
-                "Справочники",
-                o => true,
-                o => OpenDictionary(new MachineList(true, ViewService, RepositoryFactory)));
-            OpenConstantsCommand = new DelegateCommand(
-                "Справочники",
-                o => true,
-                o => OpenDictionary(new ConstantEdit("Константы", new ConstantViewModel(RepositoryFactory.GetConstantRepository().GetActual(), RepositoryFactory), false, ViewService, RepositoryFactory)));
+            OpenCustomersCommand = new DelegateCommand(o => OpenView(new ContragentList(ContragentType.Customer, true, ViewService, RepositoryFactory)));
+            OpenSuppliersCommand = new DelegateCommand(o => OpenView(new ContragentList(ContragentType.Supplier, true, ViewService, RepositoryFactory)));
+            OpenManufacturersCommand = new DelegateCommand(o => OpenView(new ContragentList(ContragentType.Manufacturer, true, ViewService, RepositoryFactory)));
+            OpenDriversCommand = new DelegateCommand(o => OpenView(new DriverList(true, ViewService, RepositoryFactory)));
+            OpenJobsCommand = new DelegateCommand(o => OpenView(new JobList(true, ViewService, RepositoryFactory)));
+            OpenEmployeesCommand = new DelegateCommand(o => OpenView(new EmployeeList(true, ViewService, RepositoryFactory)));
+            OpenMaterialsCommand = new DelegateCommand(o => OpenView(new MaterialList(true, ViewService, RepositoryFactory)));
+            OpenGroupsCommand = new DelegateCommand(o => OpenView(new GroupList(true, ViewService, RepositoryFactory)));
+            OpenEquipmentsCommand  = new DelegateCommand(o => OpenView(new EquipmentList(true, ViewService, RepositoryFactory)));
+            OpenDetailsCommand = new DelegateCommand(o => OpenView(new DetailList(true, ViewService, RepositoryFactory)));
+            OpenMethodsCommand = new DelegateCommand(o => OpenView(new MethodList(true, ViewService, RepositoryFactory)));
+            OpenMeasureUnitsCommand = new DelegateCommand(o => OpenView(new MeasureUnitList(true, ViewService, RepositoryFactory)));
+            OpenMachinesCommand = new DelegateCommand(o => OpenView(new MachineList(true, ViewService, RepositoryFactory)));
+            OpenConstantsCommand = new DelegateCommand(o => OpenView(new ConstantEdit("Константы", new ConstantViewModel(RepositoryFactory.GetConstantRepository().GetActual(), RepositoryFactory), false, ViewService, RepositoryFactory)));
+            OpenRequestsByMethodsReportCommand = new DelegateCommand(o => OpenView(new RequestsByMethodsReportViewModel("Сводный отчет по способу изготовления", ViewService, RepositoryFactory, xsltPath, "Отчет по способу изготовления.xls") {ExtensionFilter = "Файлы Excel (*.xls)|*.xls"}));
+            OpenDrawingShipmentsReportCommand = new DelegateCommand(o => OpenView(new DrawingShipmentsReportViewModel("Заказы и отгрузка по чертежу", ViewService, RepositoryFactory, xsltPath, "Заказы и отгрузка по чертежу.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }));
+            OpenUsedMaterialsReportCommand = new DelegateCommand(o => OpenView(new UsedMaterialsReportViewModel("Учет переработанного материала", ViewService, RepositoryFactory, xsltPath, "Учет переработанного материала.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }));
+            OpenRequestDirectExpencesReportCommand = new DelegateCommand(o => OpenView(new RequestDirectExpencesReportViewModel("Учет прямых затрат на заявку", ViewService, RepositoryFactory, xsltPath, "Учет прямых затрат на заявку.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }));
+        }
+
+        private bool? OpenView(BaseViewModel viewModel)
+        {
+            viewModel.Refresh();
+            return ViewService.ShowViewDialog(viewModel);
         }
 
         private void OpenDrawingList()
@@ -227,12 +171,6 @@ namespace Rti.ViewModel
         private void OpenEquipmentPayments()
         {
             var viewModel = new EquipmentPaymentList(true, ViewService, RepositoryFactory);
-            viewModel.Refresh();
-            ViewService.ShowViewDialog(viewModel);
-        }
-
-        private void OpenDictionary(BaseViewModel viewModel)
-        {
             viewModel.Refresh();
             ViewService.ShowViewDialog(viewModel);
         }

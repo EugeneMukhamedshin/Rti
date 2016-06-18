@@ -91,20 +91,20 @@
                     </dx:DropDownButton.Content>
                     <dx:DropDownButton.PopupContent>
                         <WrapPanel Width="320" Margin="5">
-                            <Button Height="32" Content="Заказчики" Command="{Binding OpenCustomersCommand}"/>
-                            <Button Height="32" Content="Поставщики" Command="{Binding OpenSuppliersCommand}"/>
-                            <Button Height="32" Content="Исполнители" Command="{Binding OpenManufacturersCommand}"/>
-                            <Button Height="32" Content="Водители" Command="{Binding OpenDriversCommand}"/>
-                            <Button Height="32" Content="Должности" Command="{Binding OpenJobsCommand}"/>
-                            <Button Height="32" Content="Сотрудники" Command="{Binding OpenEmployeesCommand}"/>
-                            <Button Height="32" Content="Материалы" Command="{Binding OpenMaterialsCommand}"/>
-                            <Button Height="32" Content="Группы" Command="{Binding OpenGroupsCommand}"/>
-                            <Button Height="32" Content="Оснастка" Command="{Binding OpenEquipmentsCommand}"/>
-                            <Button Height="32" Content="Детали" Command="{Binding OpenDetailsCommand}"/>
-                            <Button Height="32" Content="Оборудование" Command="{Binding OpenMachinesCommand}"/>
-                            <Button Height="32" Content="Константы" Command="{Binding OpenConstantsCommand}"/>
-                            <Button Height="32" Content="Способы изготовления" Command="{Binding OpenMethodsCommand}"/>
-                            <Button Height="32" Content="Единицы измерения" Command="{Binding OpenMeasureUnitsCommand}"/>
+                            <Button Height="24" Content="Заказчики" Command="{Binding OpenCustomersCommand}"/>
+                            <Button Height="24" Content="Поставщики" Command="{Binding OpenSuppliersCommand}"/>
+                            <Button Height="24" Content="Исполнители" Command="{Binding OpenManufacturersCommand}"/>
+                            <Button Height="24" Content="Водители" Command="{Binding OpenDriversCommand}"/>
+                            <Button Height="24" Content="Должности" Command="{Binding OpenJobsCommand}"/>
+                            <Button Height="24" Content="Сотрудники" Command="{Binding OpenEmployeesCommand}"/>
+                            <Button Height="24" Content="Материалы" Command="{Binding OpenMaterialsCommand}"/>
+                            <Button Height="24" Content="Группы" Command="{Binding OpenGroupsCommand}"/>
+                            <Button Height="24" Content="Оснастка" Command="{Binding OpenEquipmentsCommand}"/>
+                            <Button Height="24" Content="Детали" Command="{Binding OpenDetailsCommand}"/>
+                            <Button Height="24" Content="Оборудование" Command="{Binding OpenMachinesCommand}"/>
+                            <Button Height="24" Content="Константы" Command="{Binding OpenConstantsCommand}"/>
+                            <Button Height="24" Content="Способы изготовления" Command="{Binding OpenMethodsCommand}"/>
+                            <Button Height="24" Content="Единицы измерения" Command="{Binding OpenMeasureUnitsCommand}"/>
                         </WrapPanel>
                     </dx:DropDownButton.PopupContent>
                 </dx:DropDownButton>
@@ -123,11 +123,11 @@
                 <dx:DropDownButton ButtonKind="Toggle" PopupDropAlignment="Bottom" Content="Журналы">
                     <dx:DropDownButton.PopupContent>
                         <WrapPanel Width="320" Margin="5">
-                            <Button Height="32" Content="Обрезка облоя" Command="{Binding OpenShavingRecordsCommand}"/>
-                            <Button Height="32" Content="Приход материала" Command="{Binding OpenMaterialArrivalRecordsCommand}"/>
-                            <Button Height="32" Content="Вальцовщик" Command="{Binding OpenRollingRecordsCommand}"/>
-                            <Button Height="32" Content="Оплата" Command="{Binding OpenPaymentsCommand}"/>
-                            <Button Height="32" Content="Оплата оснастки" Command="{Binding OpenEquipmentPaymentsCommand}"/>
+                            <Button Height="24" Content="Обрезка облоя" Command="{Binding OpenShavingRecordsCommand}"/>
+                            <Button Height="24" Content="Приход материала" Command="{Binding OpenMaterialArrivalRecordsCommand}"/>
+                            <Button Height="24" Content="Вальцовщик" Command="{Binding OpenRollingRecordsCommand}"/>
+                            <Button Height="24" Content="Оплата" Command="{Binding OpenPaymentsCommand}"/>
+                            <Button Height="24" Content="Оплата оснастки" Command="{Binding OpenEquipmentPaymentsCommand}"/>
                         </WrapPanel>
                     </dx:DropDownButton.PopupContent>
                 </dx:DropDownButton>
@@ -139,7 +139,11 @@
             <StackPanel Grid.Row="2" Grid.Column="3">
                 <dx:DropDownButton ButtonKind="Toggle" PopupDropAlignment="Bottom" Content="Отчеты">
                     <dx:DropDownButton.PopupContent>
-                        <WrapPanel Width="320" Margin="5">
+                        <WrapPanel Width="420" Margin="5">
+                            <Button Height="24" Width="250" FontSize="12" Content="Сводный отчет по способу изготовления" Command="{Binding OpenRequestsByMethodsReportCommand}"/>
+                            <Button Height="24" Width="250" FontSize="12" Content="Заказы и отгрузка по чертежу" Command="{Binding OpenDrawingShipmentsReportCommand}"/>
+                            <Button Height="24" Width="250" FontSize="12" Content="Учет переработанного материала" Command="{Binding OpenUsedMaterialsReportCommand}"/>
+                            <Button Height="24" Width="250" FontSize="12" Content="Учет прямых затрат на заявку" Command="{Binding OpenRequestDirectExpencesReportCommand}"/>
                         </WrapPanel>
                     </dx:DropDownButton.PopupContent>
                 </dx:DropDownButton>

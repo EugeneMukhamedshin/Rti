@@ -32,5 +32,9 @@ namespace Rti.ViewModel.Reporting.Generator
             return stream.ToArray();
         }
     }
-}
 
+    public class SqlReportGenerator : ReportGenerator
+    {
+        
+    }
+}

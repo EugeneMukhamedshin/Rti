@@ -46,6 +46,7 @@ namespace Rti.Model.Repository.Interfaces
 		IWorkItemPackageRepository GetWorkItemPackageRepository();
 		IWorkItemPackageMachineRepository GetWorkItemPackageMachineRepository();
 		IWorkItemRequestDetailRepository GetWorkItemRequestDetailRepository();
+		IReportRepository GetReportRepository();
     }
 
 	public partial interface IAdditionalInfoRepository : IRepository<Rti.Model.Domain.AdditionalInfo> { }

@@ -384,6 +384,9 @@
     <Compile Include="View\Lists\TemplateMap.cs" />
     <Compile Include="View\Lists\StyleMap.cs" />
     <Compile Include="View\Lists\TreeListView\TreeListView.cs" />
+    <Compile Include="View\Reports\ByPeriodReportEdit.xaml.cs">
+      <DependentUpon>ByPeriodReportEdit.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -677,6 +680,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Reports\ByPeriodReportEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\DetailTypes.jpg">
@@ -721,6 +728,26 @@
     <Resource Include="Content\Images\request.png" />
     <Resource Include="Content\Images\shipment.png" />
     <Resource Include="Content\Images\work.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetRequestsByMethodsReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetDrawingShipmentsReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetUsedMaterialsReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetRequestDirectExpencesReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

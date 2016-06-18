@@ -168,6 +168,7 @@ namespace Rti.Model.Repository.NHibernate
 
 		public IWorkItemRequestDetailRepository GetWorkItemRequestDetailRepository() { return (IWorkItemRequestDetailRepository) GetRepository<Rti.Model.Domain.WorkItemRequestDetail>(); }
 
+		public IReportRepository GetReportRepository() { return new ReportRepository(); }
 	}
 	public partial class AdditionalInfoRepository : NHibernateRepository<Rti.Model.Domain.AdditionalInfo>, IAdditionalInfoRepository
     {
