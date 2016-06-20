@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using Rti.Model.Domain;
@@ -7,10 +8,11 @@ using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
 using Rti.ViewModel.Lists;
+using Rti.ViewModel.Reporting.ViewModel;
 
 namespace Rti.ViewModel.EditViewModel
 {
-    public class ShipmentEdit: EditEntityViewModel<ShipmentViewModel, Shipment>
+    public class ShipmentEdit : EditEntityViewModel<ShipmentViewModel, Shipment>
     {
         public ShipmentItemList ShipmentItemList { get; set; }
 
@@ -19,6 +21,7 @@ namespace Rti.ViewModel.EditViewModel
         public List<PaymentViewModel> PaymentsSource { get; set; }
 
         public DelegateCommand OpenDeliveryEditCommand { get; set; }
+        public DelegateCommand ShowShipmentTorg12ReportCommand { get; set; }
 
         public ShipmentEdit(string name, ShipmentViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) : base(name, entity, readOnly, viewService, repositoryFactory)
         {
@@ -26,8 +29,22 @@ namespace Rti.ViewModel.EditViewModel
                 "Открыть ТТН",
                 o => true,
                 o => OpenDeliveryEdit());
+            ShowShipmentTorg12ReportCommand = new DelegateCommand(o => ShowShipmentTorg12Report());
             ShipmentItemList = new ShipmentItemList(entity, Editable, ViewService, RepositoryFactory);
             Entity.PropertyChanged += Entity_PropertyChanged;
+        }
+
+        private void ShowShipmentTorg12Report()
+        {
+            if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
+                return;
+            var viewModel = new ShipmentTorg12ReportViewModel("Товарная накладная", ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Товарная накладная.xls")
+            {
+                Shipment = Source,
+                ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
+            };
+            viewModel.GenerateReport();
         }
 
         private void OpenDeliveryEdit()
@@ -36,14 +53,15 @@ namespace Rti.ViewModel.EditViewModel
             editViewModel.Refresh();
             ViewService.ShowViewDialog(editViewModel);
         }
-
         private void Entity_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "Request")
             {
                 RefreshPaymentsSource();
                 ShipmentItemList.Items.Clear();
-                ShipmentItemList.RefreshRequestDetails();
+                ShipmentItemList.RefreshRequestDetails(Entity.Request);
+                Entity.Recipient = Entity.Request.Customer;
+                Entity.Payer = Entity.Request.Customer;
             }
             if (e.PropertyName.In("IsReplace", "IsAddition"))
             {
@@ -85,7 +103,7 @@ namespace Rti.ViewModel.EditViewModel
                                 .Select(o => new PaymentViewModel(o, RepositoryFactory))
                                 .ToList()
                             : new List<PaymentViewModel>();
-            Entity.Payment = PaymentsSource.SingleOrDefault();
+            Entity.Payment = PaymentsSource.FirstOrDefault();
             OnPropertyChanged("PaymentsSource");
         }
 

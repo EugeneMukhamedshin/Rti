@@ -830,6 +830,8 @@ namespace Rti.Model.Domain
 		public virtual Request Request { get; set; }
 		[Reference("recipient_id", false)]
 		public virtual Contragent Recipient { get; set; }
+		[Reference("payer_id", false)]
+		public virtual Contragent Payer { get; set; }
 		[Reference("payment_id", false)]
 		public virtual Payment Payment { get; set; }
 		[Reference("driver_id", false)]

@@ -3469,6 +3469,7 @@ namespace Rti.ViewModel.Entities
 		private Boolean _isDeleted;
 		private RequestViewModel _request;
 		private ContragentViewModel _recipient;
+		private ContragentViewModel _payer;
 		private PaymentViewModel _payment;
 		private DriverViewModel _driver;
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
@@ -3486,6 +3487,7 @@ namespace Rti.ViewModel.Entities
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
 		public RequestViewModel Request { get { return _request; } set { _request = value; OnPropertyChanged("Request"); } }
 		public ContragentViewModel Recipient { get { return _recipient; } set { _recipient = value; OnPropertyChanged("Recipient"); } }
+		public ContragentViewModel Payer { get { return _payer; } set { _payer = value; OnPropertyChanged("Payer"); } }
 		public PaymentViewModel Payment { get { return _payment; } set { _payment = value; OnPropertyChanged("Payment"); } }
 		public DriverViewModel Driver { get { return _driver; } set { _driver = value; OnPropertyChanged("Driver"); } }
 		protected override void MapPropertiesToEntity()
@@ -3504,6 +3506,7 @@ namespace Rti.ViewModel.Entities
 			Entity.IsDeleted = IsDeleted; 
 			Entity.Request = Request == null ? null : Request.Entity; 
 			Entity.Recipient = Recipient == null ? null : Recipient.Entity; 
+			Entity.Payer = Payer == null ? null : Payer.Entity; 
 			Entity.Payment = Payment == null ? null : Payment.Entity; 
 			Entity.Driver = Driver == null ? null : Driver.Entity; 
 		}
@@ -3526,6 +3529,7 @@ namespace Rti.ViewModel.Entities
 			IsDeleted = Entity.IsDeleted; 
 			Request = Entity.Request == null ? null : new RequestViewModel(Entity.Request, RepositoryFactory); 
 			Recipient = Entity.Recipient == null ? null : new ContragentViewModel(Entity.Recipient, RepositoryFactory); 
+			Payer = Entity.Payer == null ? null : new ContragentViewModel(Entity.Payer, RepositoryFactory); 
 			Payment = Entity.Payment == null ? null : new PaymentViewModel(Entity.Payment, RepositoryFactory); 
 			Driver = Entity.Driver == null ? null : new DriverViewModel(Entity.Driver, RepositoryFactory); 
 			IsMapping = false;
@@ -3548,6 +3552,7 @@ namespace Rti.ViewModel.Entities
 			IsDeleted = source.IsDeleted;
 			Request = source.Request;
 			Recipient = source.Recipient;
+			Payer = source.Payer;
 			Payment = source.Payment;
 			Driver = source.Driver;
 			CustomCopyFrom(source);
@@ -3588,6 +3593,8 @@ namespace Rti.ViewModel.Entities
 				element.Add(Request.GetXElement("Request"));
 			if (Recipient != null)
 				element.Add(Recipient.GetXElement("Recipient"));
+			if (Payer != null)
+				element.Add(Payer.GetXElement("Payer"));
 			if (Payment != null)
 				element.Add(Payment.GetXElement("Payment"));
 			if (Driver != null)

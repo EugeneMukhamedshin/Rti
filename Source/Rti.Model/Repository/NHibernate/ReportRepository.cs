@@ -85,9 +85,9 @@ ORDER BY RegDate ASC",
                 new XElement("root",
                     rowDict.Select(
                         g =>
-                            new XElement("method", 
+                            new XElement("method",
                                 new XAttribute("MethodId", g.Key.MethodId),
-                                new XAttribute("MethodName", g.Key.MethodName), 
+                                new XAttribute("MethodName", g.Key.MethodName),
                                 g))));
             return doc;
         }
@@ -188,7 +188,7 @@ ORDER BY m.name, wi.work_date",
                     rowDict.Select(g =>
                         new XElement("material",
                             new XAttribute("id", g.Key.MaterialId),
-                            new XAttribute("name", g.Key.MaterialName), 
+                            new XAttribute("name", g.Key.MaterialName),
                             g))));
             return doc;
         }
@@ -444,6 +444,22 @@ ORDER BY e.full_name, wi.work_date",
                             new XAttribute("MainSalary", g.Sum(o => Convert.ToDecimal(o.Attribute("MainSalary").Value))),
                             new XAttribute("AdditionalSalary", g.Sum(o => Convert.ToDecimal(o.Attribute("AdditionalSalary").Value))),
                             g))));
+            return doc;
+        }
+
+        public XDocument GetShipmentTorg12Report(int shipmentId)
+        {
+            var shipmentRow = GetXElementsFromQuery(@"
+select * from shipments where id = :p_shipment_id",
+                q => q.SetParameter("p_shipment_id", shipmentId)).FirstOrDefault();
+            if (shipmentRow == null)
+                throw new InvalidOperationException("Не найдена отгрузка");
+            var detailRows = GetXElementsFromQuery(@"
+select * from shipment_items where shipment_id = :p_shipment_id",
+                q => q.SetParameter("p_shipment_id", shipmentId));
+            shipmentRow.Add(new XElement("items", detailRows));
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root", shipmentRow));
             return doc;
         }
     }

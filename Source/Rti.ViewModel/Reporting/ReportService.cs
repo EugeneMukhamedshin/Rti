@@ -97,5 +97,11 @@ namespace Rti.ViewModel.Reporting
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetSalaryReport.xslt"));
             return GetReport(r => r.GetSalaryReport(startDate, endDate, employee == null ? (int?)null : employee.Id), xsl);
         }
+
+        public byte[] GetShipmentTorg12Report(ShipmentViewModel shipment)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetShipmentTorg12Report.xslt"));
+            return GetReport(r => r.GetShipmentTorg12Report(shipment.Id), xsl);
+        }
     }
 }

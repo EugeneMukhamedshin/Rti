@@ -773,6 +773,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.IsDeleted, "is_deleted");
 			References(o => o.Request, "request_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Recipient, "recipient_id").Fetch.Join().Not.LazyLoad();
+			References(o => o.Payer, "payer_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Payment, "payment_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Driver, "driver_id").Fetch.Join().Not.LazyLoad();
 			OnInitialized();

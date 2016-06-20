@@ -35,13 +35,13 @@
                 </Grid.RowDefinitions>
                 <Grid.Resources>
                     <Style TargetType="TextBlock">
-                        <Setter Property="Margin" Value="3"></Setter>
+                        <Setter Property="Margin" Value="2"></Setter>
                     </Style>
                     <Style TargetType="TextBox">
-                        <Setter Property="Margin" Value="3"></Setter>
+                        <Setter Property="Margin" Value="2"></Setter>
                     </Style>
                     <Style TargetType="dxg:LookUpEdit">
-                        <Setter Property="Margin" Value="3"></Setter>
+                        <Setter Property="Margin" Value="2"></Setter>
                     </Style>
                 </Grid.Resources>
                 <TextBlock Text="Основание для накладной" Grid.Column="0" Grid.Row="0"/>
@@ -92,7 +92,29 @@
                     </dxg:LookUpEdit.PopupContentTemplate>
                 </dxg:LookUpEdit>
                 <TextBlock Text="Плательщик" Grid.Column="0" Grid.Row="3"/>
-                <TextBlock Text="{Binding Entity.Request.Customer.FullNameWithBankRequisites}" Grid.Column="1" Grid.Row="3" FontSize="10" TextWrapping="Wrap"/>
+                <dxg:LookUpEdit Grid.Column="1" Grid.Row="3" TabIndex="11" IsEnabled="{Binding Editable}" ItemsSource="{Binding CustomersSource.Value}" SelectedItem="{Binding Entity.Payer}" DisplayMember="FullNameWithBankRequisites" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True">
+                    <dxg:LookUpEdit.StyleSettings>
+                        <dxg:SearchLookUpEditStyleSettings/>
+                    </dxg:LookUpEdit.StyleSettings>
+                    <dxg:LookUpEdit.PopupContentTemplate>
+                        <ControlTemplate>
+                            <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
+                                <dxg:GridControl.Columns>
+                                    <dxg:GridColumn FieldName="SortOrder" Header="№"/>
+                                    <dxg:GridColumn FieldName="Name" Header="Наименование"/>
+                                    <dxg:GridColumn FieldName="Inn" Header="ИНН"/>
+                                    <dxg:GridColumn FieldName="Ogrn" Header="ОГРН"/>
+                                    <dxg:GridColumn FieldName="Address" Header="Адрес"/>
+                                    <dxg:GridColumn FieldName="Director" Header="Директор"/>
+                                    <dxg:GridColumn FieldName="Phone" Header="Телефон"/>
+                                </dxg:GridControl.Columns>
+                                <dxg:GridControl.View>
+                                    <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
+                                </dxg:GridControl.View>
+                            </dxg:GridControl>
+                        </ControlTemplate>
+                    </dxg:LookUpEdit.PopupContentTemplate>
+                </dxg:LookUpEdit>
                 <TextBlock Text="Основание" Grid.Column="0" Grid.Row="4"/>
                 <TextBlock Text="{Binding Entity.Request.Customer.Grounding}" Grid.Column="1" Grid.Row="4" FontSize="8" TextWrapping="Wrap"/>
                 <TextBlock Text="К платежному документу" Grid.Column="0" Grid.Row="5"/>
@@ -207,8 +229,10 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="118"/>
-                    <ColumnDefinition Width="159"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="120"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.Resources>
@@ -222,6 +246,8 @@
                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ShipmentItemList.NetMass,StringFormat=N3}"/>
                 <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ShipmentItemList.Sum,StringFormat=N2}"/>
                 <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ShipmentItemList.SumWithNds,StringFormat=N2}"/>
+                
+                <Button Grid.Row="0" Grid.Column="2" Content="Печатная форма" Command="{Binding ShowShipmentTorg12ReportCommand}"/>
             </Grid>
             <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal">
                 <Button Content="Сохранить" Command="{Binding OkCommand}" Width="80" Margin="5" IsDefault="True" TabIndex="1000"/>

@@ -12,15 +12,24 @@ namespace Rti.ViewModel.Lists
     {
         private readonly List<ShipmentItemViewModel> _deletedItems = new List<ShipmentItemViewModel>();
         private readonly Lazy<Constant> _constants;
+        private List<RequestDetailViewModel> _requestDetailsSource;
 
         public DelegateCommand AddItemCommand { get; set; }
 
         public ShipmentViewModel Shipment { get; set; }
 
-        public List<RequestDetailViewModel> RequestDetailsSource { get; set; }
+        public List<RequestDetailViewModel> RequestDetailsSource
+        {
+            get { return _requestDetailsSource; }
+            set
+            {
+                if (Equals(value, _requestDetailsSource)) return;
+                _requestDetailsSource = value;
+                OnPropertyChanged();
+            }
+        }
 
         public decimal? Sum { get { return Items.Sum(o => o.Sum); } }
-
         public decimal? SumWithNds { get { return Items.Sum(o => o.SumWithNds); } }
 
         public double? NetMass
@@ -103,9 +112,10 @@ namespace Rti.ViewModel.Lists
             return RepositoryFactory.GetShipmentItemRepository().GetByShipmentId(Shipment.Id).Select(o => new ShipmentItemViewModel(o, RepositoryFactory)).OrderBy(o => o.SortOrder).ToList();
         }
 
-        public void RefreshRequestDetails()
+        public void RefreshRequestDetails(RequestViewModel request = null)
         {
-            RequestDetailsSource = Shipment.Request != null ? RepositoryFactory.GetRequestDetailRepository().GetByRequestId(Shipment.Request.Id).Select(o => new RequestDetailViewModel(o, RepositoryFactory)).ToList() : new List<RequestDetailViewModel>();
+            var req = request ?? Shipment.Request;
+            RequestDetailsSource = req != null ? RepositoryFactory.GetRequestDetailRepository().GetByRequestId(req.Id).Select(o => new RequestDetailViewModel(o, RepositoryFactory)).ToList() : new List<RequestDetailViewModel>();
         }
 
         protected override ShipmentItemViewModel DoCreateNewEntity()
