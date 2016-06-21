@@ -56,6 +56,7 @@
                     <editors:CalculationEditControl DataContext="{Binding Entity.FactCalculation}"/>
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
                         <Button Content="Расчет" Command="{Binding CalculateFactCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="900"></Button>
+                        <TextBlock Margin="5" Text="{Binding CalculatedFact}"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -68,6 +69,7 @@
                     <editors:CalculationEditControl DataContext="{Binding Entity.PlanCalculation}"/>
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
                         <Button Content="Расчет" Command="{Binding CalculatePlanCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="900"></Button>
+                        <TextBlock Margin="5" Text="{Binding CalculatedPlan}"/>
                     </StackPanel>
                 </Grid>
             </TabItem>

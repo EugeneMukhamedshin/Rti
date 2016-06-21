@@ -34,7 +34,7 @@ namespace Rti.ViewModel.Entities
             Detail = Drawing == null ? null : Drawing.Detail;
             Material = Drawing == null ? null : Drawing.MaterialByPassport;
             Price = Drawing == null || !Drawing.Price.HasValue ? 0 : Drawing.Price.Value;
-            CalculationPrice = Drawing == null || Drawing.PlanCalculation == null ? null : Drawing.PlanCalculation.Summary;
+            CalculationPrice = Drawing == null ? null : (Drawing.PlanCalculationPrice ?? Drawing.FactCalculationPrice);
         }
     }
 }

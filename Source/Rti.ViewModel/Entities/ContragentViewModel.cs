@@ -1,9 +1,12 @@
 using System.Xml.Linq;
+using Rti.Model.Domain;
 
 namespace Rti.ViewModel.Entities
 {
     partial class ContragentViewModel
     {
+        public bool IsManufacturer { get { return ContragentTypeEnum == ContragentType.Manufacturer; } }
+
         public string FullName
         {
             get { return string.Format("{0}, ÈÍÍ {1}, ÊÏÏ {2}, {3}, òåë. {4}", Name, Inn, Kpp, Address, Phone); }

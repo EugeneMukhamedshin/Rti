@@ -9,15 +9,15 @@ namespace Rti.Model.Domain.ReportEntities
             get { return WorkStartDate.HasValue; }
         }
 
-        public RequestStatus Status
-        {
-            get
-            {
-                return Diff > LeadTime
-                    ? RequestStatus.Green
-                    : Diff == LeadTime ? RequestStatus.Yellow : RequestStatus.Red;
-            }
-        }
+        //public RequestStatus Status
+        //{
+        //    get
+        //    {
+        //        return Diff > LeadTime
+        //            ? RequestStatus.Green
+        //            : Diff == LeadTime ? RequestStatus.Yellow : RequestStatus.Red;
+        //    }
+        //}
 
         public int Id { get; set; }
         public int Number { get; set; }
@@ -28,6 +28,6 @@ namespace Rti.Model.Domain.ReportEntities
         public DateTime? LastPaymentDate { get; set; }
         public DateTime? LastShipmentDate { get; set; }
         public int? EquipmentLeadTime { get; set; }
-        public int? Diff { get; set; }
+        public RequestStatus Status { get; set; }
     }
 }

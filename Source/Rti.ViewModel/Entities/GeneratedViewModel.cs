@@ -515,6 +515,7 @@ namespace Rti.ViewModel.Entities
 		private String _director;
 		private String _trustee;
 		private String _phone;
+		private String _fax;
 		private String _grounding;
 		private String _inn;
 		private String _kpp;
@@ -537,6 +538,7 @@ namespace Rti.ViewModel.Entities
 		public String Director { get { return _director; } set { if (Equals(_director, value)) return; _director = value; OnPropertyChanged("Director"); } }
 		public String Trustee { get { return _trustee; } set { if (Equals(_trustee, value)) return; _trustee = value; OnPropertyChanged("Trustee"); } }
 		public String Phone { get { return _phone; } set { if (Equals(_phone, value)) return; _phone = value; OnPropertyChanged("Phone"); } }
+		public String Fax { get { return _fax; } set { if (Equals(_fax, value)) return; _fax = value; OnPropertyChanged("Fax"); } }
 		public String Grounding { get { return _grounding; } set { if (Equals(_grounding, value)) return; _grounding = value; OnPropertyChanged("Grounding"); } }
 		public String Inn { get { return _inn; } set { if (Equals(_inn, value)) return; _inn = value; OnPropertyChanged("Inn"); } }
 		public String Kpp { get { return _kpp; } set { if (Equals(_kpp, value)) return; _kpp = value; OnPropertyChanged("Kpp"); } }
@@ -560,6 +562,7 @@ namespace Rti.ViewModel.Entities
 			Entity.Director = Director; 
 			Entity.Trustee = Trustee; 
 			Entity.Phone = Phone; 
+			Entity.Fax = Fax; 
 			Entity.Grounding = Grounding; 
 			Entity.Inn = Inn; 
 			Entity.Kpp = Kpp; 
@@ -587,6 +590,7 @@ namespace Rti.ViewModel.Entities
 			Director = Entity.Director; 
 			Trustee = Entity.Trustee; 
 			Phone = Entity.Phone; 
+			Fax = Entity.Fax; 
 			Grounding = Entity.Grounding; 
 			Inn = Entity.Inn; 
 			Kpp = Entity.Kpp; 
@@ -614,6 +618,7 @@ namespace Rti.ViewModel.Entities
 			Director = source.Director;
 			Trustee = source.Trustee;
 			Phone = source.Phone;
+			Fax = source.Fax;
 			Grounding = source.Grounding;
 			Inn = source.Inn;
 			Kpp = source.Kpp;
@@ -655,6 +660,8 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("Trustee", Trustee));
 			if (Phone != null)
 				element.Add(new XAttribute("Phone", Phone));
+			if (Fax != null)
+				element.Add(new XAttribute("Fax", Fax));
 			if (Grounding != null)
 				element.Add(new XAttribute("Grounding", Grounding));
 			if (Inn != null)

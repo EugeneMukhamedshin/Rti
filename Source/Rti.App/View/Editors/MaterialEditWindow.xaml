@@ -13,7 +13,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
-        <components:PropertyGridResponsible Grid.Row="0" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
+        <components:PropertyGridResponsible Grid.Row="0" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" SortMode="Definitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
             <components:PropertyGridResponsible.PropertyDefinitions>
                 <dxprg:PropertyDefinition Header="№" Path="SortOrder" IsReadOnly="True"/>
                 <dxprg:PropertyDefinition Header="Наименование" Path="Name"/>

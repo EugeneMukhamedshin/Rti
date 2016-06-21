@@ -23,6 +23,6 @@
                                           ItemTemplate="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=UserControl},Path=ItemTemplate}">
         </editors:FocusableAutoCompleteBox>
 
-        <Button Grid.Column="1" HorizontalAlignment="Left" Content="{DynamicResource EditImage}" Command="{Binding SelectEntityCommand}" TabIndex="5"></Button>
+        <Button Grid.Column="1" HorizontalAlignment="Left" Content="{StaticResource EditImage}" Command="{Binding SelectEntityCommand}" TabIndex="5"></Button>
     </Grid>
 </UserControl>

@@ -33,6 +33,16 @@ namespace Rti.ViewModel.Entities
             }
         }
 
+        public decimal? FactCalculationPrice
+        {
+            get { return FactCalculation != null ? FactCalculation.Summary : null; }
+        }
+
+        public decimal? PlanCalculationPrice
+        {
+            get { return PlanCalculation != null ? PlanCalculation.Summary : null; }
+        }
+
         public void RaiseCalculationPriceChanged()
         {
             OnPropertyChanged("CalculationPrice");

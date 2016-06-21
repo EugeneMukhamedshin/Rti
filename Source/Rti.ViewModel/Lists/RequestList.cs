@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Rti.Model.Domain.ReportEntities;
@@ -14,6 +15,8 @@ namespace Rti.ViewModel.Lists
         private readonly IViewService _viewService;
         private RequestsReportRow _selectedItem;
         private ObservableCollection<RequestsReportRow> _items;
+        private DateTime _startDate;
+        private DateTime _endDate;
 
         public ObservableCollection<RequestsReportRow> Items
         {
@@ -25,6 +28,10 @@ namespace Rti.ViewModel.Lists
                 OnPropertyChanged();
             }
         }
+
+        private List<RequestsReportRow> _requests = new List<RequestsReportRow>();
+        private bool _showShippedRequests;
+        private bool _showNotShippedRequests;
 
         public RequestsReportRow SelectedItem
         {
@@ -51,6 +58,9 @@ namespace Rti.ViewModel.Lists
             AddRequestCommand = new DelegateCommand("", o => true, o => AddRequest());
             DeleteRequestCommand = new DelegateCommand("", o => SelectedItem != null, o => DeleteRequest());
             EditRequestCommand = new DelegateCommand("", o => SelectedItem != null, o => EditRequest());
+
+            StartDate = DateTime.Today.AddMonths(-1);
+            EndDate = DateTime.Today;
         }
 
         private void EditRequest()
@@ -88,12 +98,76 @@ namespace Rti.ViewModel.Lists
         public override void Refresh()
         {
             base.Refresh();
-            DoAsync(GetItems, res => Items = new ObservableCollection<RequestsReportRow>(res ?? Enumerable.Empty<RequestsReportRow>()));
+            DoAsync(GetItems, res =>
+            {
+                _requests = new List<RequestsReportRow>(res);
+                SetItems();
+            });
+        }
+
+        private void SetItems()
+        {
+            Items =
+                new ObservableCollection<RequestsReportRow>(
+                    _requests.Where(
+                        r =>
+                            // показываем отгруженные
+                            ShowShippedRequests && r.Status == RequestStatus.Shipped ||
+                            // показываем неотгруженные
+                            ShowNotShippedRequests && r.Status != RequestStatus.Shipped ||
+                            // если ничего не выбрано, показываем весь список
+                            (!ShowShippedRequests && !ShowNotShippedRequests)));
+        }
+
+        public bool ShowNotShippedRequests
+        {
+            get { return _showNotShippedRequests; }
+            set
+            {
+                if (value == _showNotShippedRequests) return;
+                _showNotShippedRequests = value;
+                OnPropertyChanged();
+                SetItems();
+            }
+        }
+
+        public bool ShowShippedRequests
+        {
+            get { return _showShippedRequests; }
+            set
+            {
+                if (value == _showShippedRequests) return;
+                _showShippedRequests = value;
+                OnPropertyChanged();
+                SetItems();
+            }
         }
 
         private IEnumerable<RequestsReportRow> GetItems()
         {
-            return RepositoryFactory.GetRequestRepository().GetRequestReport();
+            return RepositoryFactory.GetRequestRepository().GetRequestReport(StartDate, EndDate);
+        }
+
+        public DateTime EndDate
+        {
+            get { return _endDate; }
+            set
+            {
+                if (value.Equals(_endDate)) return;
+                _endDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DateTime StartDate
+        {
+            get { return _startDate; }
+            set
+            {
+                if (value.Equals(_startDate)) return;
+                _startDate = value;
+                OnPropertyChanged();
+            }
         }
 
         public DelegateCommand RefreshCommand { get; set; }

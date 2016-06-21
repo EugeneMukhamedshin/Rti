@@ -9,15 +9,39 @@ using Rti.ViewModel.Entities.Commands;
 
 namespace Rti.ViewModel.EditViewModel
 {
-    public class DrawingCalculationEdit: EditEntityViewModel<DrawingViewModel, Drawing>
+    public class DrawingCalculationEdit : EditEntityViewModel<DrawingViewModel, Drawing>
     {
         private List<DrawingViewModel> _drawingSource;
+        private string _calculatedFact;
+        private string _calculatedPlan;
         public DelegateCommand CalculatePlanCommand { get; set; }
         public DelegateCommand CalculateFactCommand { get; set; }
 
+        public string CalculatedFact
+        {
+            get { return _calculatedFact; }
+            set
+            {
+                if (value == _calculatedFact) return;
+                _calculatedFact = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string CalculatedPlan
+        {
+            get { return _calculatedPlan; }
+            set
+            {
+                if (value == _calculatedPlan) return;
+                _calculatedPlan = value;
+                OnPropertyChanged();
+            }
+        }
+
         public List<DrawingViewModel> DrawingSource
         {
-            get { return _drawingSource ?? (_drawingSource = new List<DrawingViewModel> {Entity}); }
+            get { return _drawingSource ?? (_drawingSource = new List<DrawingViewModel> { Entity }); }
         }
 
         public DrawingCalculationEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) : base(name, entity, readOnly, viewService, repositoryFactory)
@@ -30,6 +54,12 @@ namespace Rti.ViewModel.EditViewModel
                "Расчет",
                o => true,
                o => Calculate(CalculationType.Fact));
+            RefreshText();}
+
+        private void RefreshText()
+        {
+            CalculatedFact = string.Format("Цена {0} руб.", Entity.FactCalculation.Summary);
+            CalculatedPlan = string.Format("Цена {0} руб.", Entity.PlanCalculation.Summary);
         }
 
         public void Calculate(CalculationType calculationType)
@@ -57,7 +87,7 @@ namespace Rti.ViewModel.EditViewModel
             if (calculationType == CalculationType.Fact)
             {
                 if (material != null && mass != null)
-                    calculation.MainMaterial = material.Price*Convert.ToDecimal(mass);
+                    calculation.MainMaterial = material.Price * Convert.ToDecimal(mass);
                 else
                     calculation.MainMaterial = 0;
             }
@@ -105,8 +135,9 @@ namespace Rti.ViewModel.EditViewModel
             calculation.NdsTax = calculation.Price * constants.Nds.ToDecimal() / 100;
             // Всего
             calculation.Summary = calculation.Price + calculation.NdsTax;
-        }
 
+            RefreshText();
+        }
         protected override void DoSave()
         {
             Entity.PlanCalculation.SaveEntity();

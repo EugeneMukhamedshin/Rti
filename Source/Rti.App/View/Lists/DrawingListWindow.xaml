@@ -17,7 +17,7 @@
                 <RowDefinition Height="32"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="0">
-                <Button Content="{DynamicResource AddImage}" Command="{Binding AddDrawingCommand}" Width="32" Height="32" Margin="5"/>
+                <Button Content="{StaticResource AddImage}" Command="{Binding AddDrawingCommand}" Width="32" Height="32" Margin="5"/>
                 <Button Content="{DynamicResource DeleteImage}" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5"/>
                 <Button Content="{DynamicResource EditImage}" Command="{Binding EditEntityCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5"/>
                 <Button Content="&lt;" Command="{Binding PrevPageCommand}" Width="32" Height="32" Margin="5"/>
@@ -56,7 +56,7 @@
                     <dxg:GridColumn FieldName="Price" Header="Цена по чертежу, руб. без НДС" Width="60" EditSettings="{components:Float2TextEditSettings}"/>
                     <dxg:GridColumn FieldName="ShavingPrice" Header="Цена обрезки, руб." Width="60" EditSettings="{components:Float2TextEditSettings}"/>
                     <dxg:GridColumn FieldName="Equipment.Name" Header="Оснастка" Width="80"/>
-                    <dxg:GridColumn FieldName="Equipment.ExistanceEnum" Header="Наличие оснастки" Width="90" ReadOnly="True">
+                    <dxg:GridColumn FieldName="Equipment.ExistanceEnum" Header="Наличие оснастки" Width="70" ReadOnly="True">
                         <dxg:GridColumn.EditSettings>
                             <dxe:ComboBoxEditSettings DisplayMember="DisplayName" ValueMember="Value">
                                 <dxe:ComboBoxEditSettings.ItemsSource>
@@ -68,7 +68,8 @@
                     <dxg:GridColumn FieldName="Equipment.FormCount" Header="Кол-во форм" Width="40" ReadOnly="True"/>
                     <dxg:GridColumn FieldName="Equipment.SlotCount" Header="Гнездность" Width="40" ReadOnly="True"/>
                     <dxg:GridColumn FieldName="Method.Name" Header="Способ изготовления" Width="90"/>
-                    <dxg:GridColumn FieldName="CalculationPrice" Header="Цена по калькуляции, руб." Width="60" EditSettings="{components:Float2TextEditSettings}"/>
+                    <dxg:GridColumn FieldName="FactCalculationPrice" Header="Цена по факт. калькуляции, руб." Width="60" EditSettings="{components:Float2TextEditSettings}"/>
+                    <dxg:GridColumn FieldName="PlanCalculationPrice" Header="Цена по план. калькуляции, руб." Width="60" EditSettings="{components:Float2TextEditSettings}"/>
                     <dxg:GridColumn FieldName="Note" Header="Примечание" Width="100"/>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>

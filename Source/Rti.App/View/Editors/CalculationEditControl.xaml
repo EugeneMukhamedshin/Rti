@@ -33,7 +33,7 @@
             <dxprg:PropertyDefinition Header="15. Цена" Path="Price" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
             <dxprg:PropertyDefinition Header="16. НДС" Path="NdsTax" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
             <dxprg:PropertyDefinition Header="17. Всего" Path="Summary" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
-            <dxprg:PropertyDefinition Header="18. Примечание" Path="Note" EditSettings="{components:Float2TextEditSettings}"/>
+            <dxprg:PropertyDefinition Header="18. Примечание" Path="Note" IsReadOnly="{Binding IsReadOnly}" />
         </components:PropertyGridResponsible.PropertyDefinitions>
     </components:PropertyGridResponsible>
 </UserControl>

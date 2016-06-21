@@ -23,10 +23,10 @@
             <Button Content="Обновить" Command="{Binding RefreshCommand}" Margin="5"></Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <Button Content="{DynamicResource AddImage}" Command="{Binding AddPaymentCommand}" Width="32" Height="32" Margin="5" TabIndex="4"></Button>
+            <Button Content="{StaticResource AddImage}" Command="{Binding AddPaymentCommand}" Width="32" Height="32" Margin="5" TabIndex="4"></Button>
             <Button Content="++" Command="{Binding AddPaymentToCurrentRequestCommand}" Width="32" Height="32" Margin="5" TabIndex="4" Padding="0"></Button>
-            <Button Content="{DynamicResource DeleteImage}" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5" TabIndex="5"></Button>
-            <Button Content="{DynamicResource EditImage}" Command="{Binding EditPaymentCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5" TabIndex="6"/>
+            <Button Content="{StaticResource DeleteImage}" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5" TabIndex="5"></Button>
+            <Button Content="{StaticResource EditImage}" Command="{Binding EditPaymentCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5" TabIndex="6"/>
         </StackPanel>
         <dxg:GridControl TabIndex="7" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2">
             <dxmvvm:Interaction.Behaviors>

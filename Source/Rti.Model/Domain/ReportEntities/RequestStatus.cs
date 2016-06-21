@@ -2,6 +2,10 @@
 {
     public enum RequestStatus
     {
-        Red, Yellow, Green
+        WorkNotStarted,
+        WorkStartedEarly,
+        WorkStartedJustInTime,
+        WorkStartedTardily,
+        Shipped
     }
 }

@@ -129,6 +129,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.Director, "director");
 			Map(o => o.Trustee, "trustee");
 			Map(o => o.Phone, "phone");
+			Map(o => o.Fax, "fax");
 			Map(o => o.Grounding, "grounding");
 			Map(o => o.Inn, "inn");
 			Map(o => o.Kpp, "kpp");

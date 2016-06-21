@@ -13,9 +13,9 @@
         <editors1:StringToNumberConverter x:Key="StringToNumberConverter" IsNullable="True" />
         <lists:CommandsToContextMenuConverter x:Key="CommandsToContextMenuConverter"/>
 
-        <Image x:Key="AddImage" Source="Content/Images/add.png"></Image>
-        <Image x:Key="DeleteImage" Source="Content/Images/delete.png"></Image>
-        <Image x:Key="EditImage" Source="Content/Images/edit.png"></Image>
+        <Image x:Key="AddImage" Source="Content/Images/add.png" x:Shared="False"></Image>
+        <Image x:Key="DeleteImage" Source="Content/Images/delete.png" x:Shared="False"></Image>
+        <Image x:Key="EditImage" Source="Content/Images/edit.png" x:Shared="False"></Image>
         
         <Style TargetType="Button">
             <Style.Setters>

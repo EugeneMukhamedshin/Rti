@@ -1,7 +1,7 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.1.13.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 17.06.2016 1:38:55
+-- Дата скрипта: 22.06.2016 0:49:57
 -- Версия сервера: 5.7.13-log
 -- Версия клиента: 4.1
 --
@@ -144,6 +144,7 @@ CREATE TABLE contragents (
   director VARCHAR(1000) DEFAULT NULL,
   trustee VARCHAR(1000) DEFAULT NULL,
   phone VARCHAR(255) DEFAULT NULL,
+  fax VARCHAR(255) DEFAULT NULL,
   grounding VARCHAR(1000) DEFAULT NULL,
   inn VARCHAR(255) DEFAULT NULL,
   kpp VARCHAR(255) DEFAULT NULL,
@@ -599,6 +600,7 @@ CREATE TABLE requests (
   complete_sum DECIMAL(10, 2) DEFAULT NULL,
   is_deleted INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (id),
+  INDEX IDX_requests_reg_date (reg_date),
   CONSTRAINT FK_requests_contracts_id FOREIGN KEY (contract_id)
     REFERENCES contracts(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT FK_requests_customer_id FOREIGN KEY (customer_id)
@@ -607,7 +609,7 @@ CREATE TABLE requests (
     REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 76
+AUTO_INCREMENT = 74
 AVG_ROW_LENGTH = 3276
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -692,27 +694,6 @@ COMMENT = 'оплата изготовления оснастки'
 ROW_FORMAT = DYNAMIC;
 
 --
--- Описание для таблицы invoices
---
-DROP TABLE IF EXISTS invoices;
-CREATE TABLE invoices (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  request_id INT(11) NOT NULL,
-  is_deleted INT(11) NOT NULL DEFAULT 0,
-  invoice_number VARCHAR(255) NOT NULL,
-  invoice_date DATETIME NOT NULL,
-  PRIMARY KEY (id),
-  CONSTRAINT FK_invoices_requests_id FOREIGN KEY (request_id)
-    REFERENCES requests(id) ON DELETE RESTRICT ON UPDATE RESTRICT
-)
-ENGINE = INNODB
-AUTO_INCREMENT = 1
-CHARACTER SET utf8
-COLLATE utf8_general_ci
-COMMENT = 'счета на оплату'
-ROW_FORMAT = DYNAMIC;
-
---
 -- Описание для таблицы payments
 --
 DROP TABLE IF EXISTS payments;
@@ -726,6 +707,7 @@ CREATE TABLE payments (
   note VARCHAR(255) DEFAULT NULL COMMENT 'примечание',
   is_deleted INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (id),
+  INDEX IDX_payments_payment_date (payment_date),
   CONSTRAINT FK_payments_requests_id FOREIGN KEY (request_id)
     REFERENCES requests(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
@@ -927,6 +909,7 @@ CREATE TABLE work_item_package (
   employee_id INT(11) NOT NULL,
   block VARCHAR(255) DEFAULT NULL COMMENT 'Участок',
   PRIMARY KEY (id),
+  INDEX IDX_work_item_package_date (date),
   UNIQUE INDEX UK_employee_work_item_package (employee_id, date),
   CONSTRAINT FK_employee_work_item_package_employees_id FOREIGN KEY (employee_id)
     REFERENCES employees(id) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -949,6 +932,7 @@ CREATE TABLE shipments (
   date DATE NOT NULL COMMENT 'дата отгрузки',
   request_id INT(11) NOT NULL COMMENT 'заявка/счет',
   recipient_id INT(11) NOT NULL,
+  payer_id INT(11) DEFAULT NULL COMMENT 'плательщик',
   payment_id INT(11) DEFAULT NULL,
   is_replace INT(11) NOT NULL DEFAULT 0 COMMENT 'признак замены брака',
   is_addition INT(11) NOT NULL DEFAULT 0 COMMENT 'признак довоза продукции',
@@ -962,8 +946,11 @@ CREATE TABLE shipments (
   delivery_sum DECIMAL(10, 2) DEFAULT NULL COMMENT 'сумма (ТТН)',
   is_deleted INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (id),
+  INDEX IDX_shipments_date (date),
   CONSTRAINT FK_shipments_drivers_id FOREIGN KEY (driver_id)
     REFERENCES drivers(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_shipments_payers_id FOREIGN KEY (payer_id)
+    REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT FK_shipments_payments_id FOREIGN KEY (payment_id)
     REFERENCES payments(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT FK_shipments_recipients_id FOREIGN KEY (recipient_id)
@@ -972,7 +959,7 @@ CREATE TABLE shipments (
     REFERENCES requests(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 7
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -1023,6 +1010,7 @@ CREATE TABLE work_items (
   is_parallel INT(11) NOT NULL DEFAULT 0 COMMENT 'признак одновременной работы',
   batch_number VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (id),
+  INDEX IDX_work_items_work_date (work_date),
   UNIQUE INDEX UK_work_items (work_date, sort_order),
   UNIQUE INDEX UK_work_items2 (work_date, drawing_id, employee_id),
   CONSTRAINT FK_daily_work_package_details_drawings_id FOREIGN KEY (drawing_id)
@@ -1063,7 +1051,7 @@ CREATE TABLE shipment_items (
     REFERENCES shipments(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 4
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -1110,7 +1098,7 @@ CREATE TABLE shipment_item_work_items (
     REFERENCES work_items(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 19
+AUTO_INCREMENT = 24
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -1204,12 +1192,12 @@ INSERT INTO contracts VALUES
 -- Вывод данных для таблицы contragents
 --
 INSERT INTO contragents VALUES
-(1, 1, 'З1', 0, '1', 'Мухамедшин', '1', '89263706340', '1', '1', '1', '4700181012384234980', '1', '1', '1', '1', '1', '1', '1', '1', '111', 0),
-(2, 2, '2', 0, '2', '2', '2', '2', '2', '2989867547636', '2', '2', '2', '22132346243653456', '2', '2', '2', '2', '2', 'email@server.ru', '22222', 0),
-(3, 1, 'П1', 0, '11', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', NULL, 0),
-(4, 1, 'G2', 1, '1', '1', '1', '1', '1', '1', '2', '2', '2', '2', '4', '4', '4', '4', '6', '7', '8', 0),
-(5, 1, 'Исполнитель1', 2, 'Адрес', 'Директор', 'Лицо по доверенности', 'Телефон', 'Основание', 'ИНН', 'КПП', 'Расчетный счет', 'Корр счет', 'ОКВЭД', 'ОКАТО', 'ОКПО', 'ОГРН', 'БИК', 'Банк', 'емэйл', 'Примечание', 0),
-(6, 2, 'Исполнитель2', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
+(1, 1, 'З1', 0, '1', 'Мухамедшин', '1', '89263706340', NULL, '1', '1', '1', '4700181012384234980', '1', '1', '1', '1', '1', '1', '1', '1', '111', 0),
+(2, 2, '2', 0, '2', '2', '2', '2', NULL, '2', '2989867547636', '2', '2', '2', '22132346243653456', '2', '2', '2', '2', '2', 'email@server.ru', '22222', 0),
+(3, 1, 'П1', 0, '11', '1', '1', '1', NULL, '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', NULL, 0),
+(4, 1, 'G2', 1, '1', '1', '1', '1', NULL, '1', '1', '2', '2', '2', '2', '4', '4', '4', '4', '6', '7', '8', 0),
+(5, 1, 'Исполнитель1', 2, 'Адрес', 'Директор', 'Лицо по доверенности', 'Телефон', NULL, 'Основание', 'ИНН', 'КПП', 'Расчетный счет', 'Корр счет', 'ОКВЭД', 'ОКАТО', 'ОКПО', 'ОГРН', 'БИК', 'Банк', 'емэйл', 'Примечание', 0),
+(6, 2, 'Исполнитель2', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы details
@@ -1396,7 +1384,7 @@ INSERT INTO requests VALUES
 (53, 13, '2016-05-17 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (54, 14, '2016-05-17 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (56, 15, '2016-05-17 00:00:00', '2016-06-14 00:00:00', '2016-06-19 00:00:00', NULL, NULL, 10, 1, 5, NULL, 0, NULL, 0),
-(57, 16, '2016-05-17 00:00:00', NULL, NULL, '2016-06-01 00:00:00', 2, NULL, 2, 5, NULL, 0, NULL, 0),
+(57, 16, '2016-05-17 00:00:00', NULL, NULL, '2016-06-01 00:00:00', 2, NULL, 2, 5, 9500.00, 0, NULL, 0),
 (58, 17, '2016-05-17 00:00:00', NULL, NULL, NULL, NULL, NULL, 3, 5, NULL, 0, NULL, 0),
 (59, 18, '2016-05-18 00:00:00', NULL, NULL, '2016-05-18 00:00:00', NULL, NULL, 2, 5, NULL, 0, NULL, 0),
 (60, 19, '2016-05-19 00:00:00', NULL, '2016-05-27 00:00:01', '2016-05-20 00:00:00', NULL, 9, 2, 5, 120000.00, 0, NULL, 0),
@@ -1467,12 +1455,6 @@ INSERT INTO equipment_payments VALUES
 (2, 18, '2016-06-17 00:00:00', 900.00, NULL, 0);
 
 -- 
--- Вывод данных для таблицы invoices
---
-
--- Таблица rti.invoices не содержит данных
-
--- 
 -- Вывод данных для таблицы payments
 --
 INSERT INTO payments VALUES
@@ -1505,7 +1487,7 @@ INSERT INTO request_details VALUES
 (15, 48, 1, 3, NULL, NULL, NULL, NULL, 0, 0.00, NULL, 0.00, NULL, NULL, 0, 0),
 (16, 48, 2, 7, NULL, NULL, NULL, NULL, 0, 0.00, NULL, 0.00, NULL, NULL, 0, 0),
 (17, 56, 1, 8, 1, 1, NULL, NULL, 10, 250.00, 267.38, 2500.00, 6, NULL, 3, 0),
-(18, 57, 1, 8, 1, 1, NULL, NULL, 50, 380.00, 267.38, 19000.00, 6, NULL, 1, 0),
+(18, 57, 1, 8, 1, 1, NULL, NULL, 25, 380.00, 267.38, 9500.00, 6, NULL, 1, 0),
 (19, 58, 1, 8, 1, 1, NULL, NULL, 100, 250.00, 267.38, 25000.00, 6, NULL, 3, 0),
 (20, 59, 1, 8, 1, 1, NULL, NULL, 20, 250.00, 267.38, 5000.00, 6, NULL, 3, 0),
 (21, 60, 1, 7, 3, 1, NULL, 0, 100, 1200.00, 5650.49, 120000.00, 5, NULL, 2, 0),
@@ -1554,10 +1536,12 @@ INSERT INTO work_item_package VALUES
 -- Вывод данных для таблицы shipments
 --
 INSERT INTO shipments VALUES
-(1, 1, '2016-06-01', 60, 1, 1, 0, 0, '1', 2, '21', 2, 123, 'sfdg', 'sdgf', 454545.00, 0),
-(2, 2, '2016-06-01', 57, 1, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(3, 1, '2016-06-01', 60, 1, 1, 0, 0, 'saf s21', 2, '12 от 12.12.12', 1, 50, 'Он', 'Она', 50000.00, 1),
-(4, 1, '2016-06-01', 60, 1, 1, 0, 0, 'saf s21', 2, '12 от 12.12.12', 1, 50, 'Он', 'Она', 50000.00, 1);
+(1, 1, '2016-06-01', 60, 1, 1, 1, 0, 0, '1', 2, '21', 2, 123, 'sfdg', 'sdgf', 454545.00, 0),
+(2, 2, '2016-06-01', 57, 1, 1, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(3, 1, '2016-06-01', 60, 1, 1, 1, 0, 0, 'saf s21', 2, '12 от 12.12.12', 1, 50, 'Он', 'Она', 50000.00, 1),
+(4, 1, '2016-06-01', 60, 1, 1, 1, 0, 0, 'saf s21', 2, '12 от 12.12.12', 1, 50, 'Он', 'Она', 50000.00, 1),
+(5, 3, '2016-06-20', 60, 2, 2, 1, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(6, 4, '2016-06-21', 60, 2, 2, 1, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы work_item_package_machines
@@ -1590,8 +1574,9 @@ INSERT INTO work_items VALUES
 -- Вывод данных для таблицы shipment_items
 --
 INSERT INTO shipment_items VALUES
-(1, 1, 1, 21, 25, 1200.00, 18, 'eg', 10, 5, '20.05.2016/2'),
-(2, 2, 1, 18, 25, 250.00, 18, NULL, NULL, NULL, NULL);
+(1, 1, 1, 21, 23, 1200.00, 18, 'eg', 10, 5, '20.05.2016/2'),
+(2, 2, 1, 18, 25, 250.00, 18, NULL, NULL, NULL, NULL),
+(3, 5, 1, 21, 2, 1200.00, 18, NULL, NULL, NULL, '20.05.2016/2');
 
 -- 
 -- Вывод данных для таблицы work_item_request_details
@@ -1615,7 +1600,8 @@ INSERT INTO work_item_request_details VALUES
 INSERT INTO shipment_item_work_items VALUES
 (14, 2, 7, 15),
 (15, 2, 17, 10),
-(18, 1, 21, 25);
+(21, 1, 21, 23),
+(23, 3, 21, 2);
 
 -- 
 -- Восстановить предыдущий режим SQL (SQL mode)

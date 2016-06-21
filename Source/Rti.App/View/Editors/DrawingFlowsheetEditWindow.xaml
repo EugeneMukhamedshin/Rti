@@ -113,8 +113,8 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Row="0">
-                        <Button Padding="0" Content="{DynamicResource AddImage}" Command="{Binding DrawingFlowsheetMachineList.AddFlowsheetMachineCommand}" Width="24" Height="24" Margin="0,5,0,5"></Button>
-                        <Button Padding="0" Content="{DynamicResource DeleteImage}" Command="{Binding DrawingFlowsheetMachineList.RemoveFlowsheetMachineCommand}" Width="24" Height="24" Margin="5,5,0,5"></Button>
+                        <Button Padding="0" Content="{StaticResource AddImage}" Command="{Binding DrawingFlowsheetMachineList.AddFlowsheetMachineCommand}" Width="24" Height="24" Margin="0,5,0,5"></Button>
+                        <Button Padding="0" Content="{StaticResource DeleteImage}" Command="{Binding DrawingFlowsheetMachineList.RemoveFlowsheetMachineCommand}" Width="24" Height="24" Margin="5,5,0,5"></Button>
                     </StackPanel>
                     <dxg:GridControl Grid.Row="1" TabIndex="2" AutoGenerateColumns="None" ItemsSource="{Binding DrawingFlowsheetMachineList.Items}" SelectedItem="{Binding DrawingFlowsheetMachineList.SelectedItem}" SelectionMode="Row">
                         <dxg:GridControl.Resources>
@@ -228,8 +228,8 @@
                         <RowDefinition Height="32"/>
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Row="0">
-                        <Button Padding="0" Content="{DynamicResource AddImage}" Command="{Binding DrawingFlowsheetProcessList.AddFlowsheetProcessCommand}" Width="24" Height="24" Margin="0,5,0,5"></Button>
-                        <Button Padding="0" Content="{DynamicResource DeleteImage}" Command="{Binding DrawingFlowsheetProcessList.RemoveFlowsheetProcessCommand}" Width="24" Height="24" Margin="5,5,0,5"></Button>
+                        <Button Padding="0" Content="{StaticResource AddImage}" Command="{Binding DrawingFlowsheetProcessList.AddFlowsheetProcessCommand}" Width="24" Height="24" Margin="0,5,0,5"></Button>
+                        <Button Padding="0" Content="{StaticResource DeleteImage}" Command="{Binding DrawingFlowsheetProcessList.RemoveFlowsheetProcessCommand}" Width="24" Height="24" Margin="5,5,0,5"></Button>
                     </StackPanel>
                     <dxg:GridControl Grid.Row="1" TabIndex="2" AutoGenerateColumns="None" ItemsSource="{Binding DrawingFlowsheetProcessList.Items}" SelectedItem="{Binding DrawingFlowsheetProcessList.SelectedItem}" SelectionMode="Row">
                         <dxg:GridControl.Resources>

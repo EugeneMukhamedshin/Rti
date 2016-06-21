@@ -141,9 +141,9 @@
                 </dxprg:PropertyDefinition>
                 <dxprg:PropertyDefinition Path="MassCalculation" Header="Масса по чертежу, кг">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxe:ButtonEditSettings AllowDefaultButton="True" IsTextEditable="False">
+                        <dxe:ButtonEditSettings AllowDefaultButton="False" IsTextEditable="False">
                             <dxe:ButtonEditSettings.Buttons>
-                                <dxe:ButtonInfo Content="{DynamicResource EditImage}" Command="{Binding OpenMassCalculationCommand}"></dxe:ButtonInfo>
+                                <dxe:ButtonInfo Content="..." Command="{Binding OpenMassCalculationCommand}"></dxe:ButtonInfo>
                             </dxe:ButtonEditSettings.Buttons>
                         </dxe:ButtonEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
@@ -154,9 +154,9 @@
                 <dxprg:PropertyDefinition Path="ShavingPrice" Header="Цена обрезки, руб." Width="60" EditSettings="{components:Float2TextEditSettings}"/>
                 <dxprg:PropertyDefinition Path="Equipment" Header="Оснастка">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxe:ButtonEditSettings AllowDefaultButton="True" IsTextEditable="False">
+                        <dxe:ButtonEditSettings AllowDefaultButton="False" IsTextEditable="False" >
                             <dxe:ButtonEditSettings.Buttons>
-                                <dxe:ButtonInfo Content="{DynamicResource EditImage}" Command="{Binding OpenEquipmentEditCommand}"></dxe:ButtonInfo>
+                                <dxe:ButtonInfo Content="..." Command="{Binding OpenEquipmentEditCommand}"></dxe:ButtonInfo>
                             </dxe:ButtonEditSettings.Buttons>
                         </dxe:ButtonEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
@@ -208,9 +208,9 @@
                 <dxprg:PropertyDefinition Path="CalculationPrice" Header="Цена по калькуляции, руб" IsReadOnly="True" EditSettings="{components:Float2TextEditSettings}"/>
                 <dxprg:PropertyDefinition Path="Measurements" Header="Размеры, мм">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxe:ButtonEditSettings AllowDefaultButton="True" IsTextEditable="False">
+                        <dxe:ButtonEditSettings AllowDefaultButton="False" IsTextEditable="False">
                             <dxe:ButtonEditSettings.Buttons>
-                                <dxe:ButtonInfo Content="{DynamicResource EditImage}" Command="{Binding OpenDrawingMeasurementEditCommand}"></dxe:ButtonInfo>
+                                <dxe:ButtonInfo Content="..." Command="{Binding OpenDrawingMeasurementEditCommand}"></dxe:ButtonInfo>
                             </dxe:ButtonEditSettings.Buttons>
                         </dxe:ButtonEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
@@ -226,28 +226,5 @@
             <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>
             <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
         </StackPanel>
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="120"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="20"/>
-        </Grid.ColumnDefinitions>
-        <Grid.Resources>
-            <Style TargetType="Label">
-                <Setter Property="Background" Value="LightGray"></Setter>
-            </Style>
-        </Grid.Resources>
-        <Label Content="№" Grid.Row="0" Grid.Column="0"/>
-        <Label Content="Группа" Grid.Row="1" Grid.Column="0"/>
-        <Label Content="Чертеж" Grid.Row="2" Grid.Column="0"/>
-        <Label Content="Оснастка" Grid.Row="3" Grid.Column="0"/>
-        <Label Content="Наличие" Grid.Row="4" Grid.Column="0"/>
-        <Label Content="Количество форм" Grid.Row="5" Grid.Column="0"/>
-        <Label Content="Гнездность" Grid.Row="6" Grid.Column="0"/>
-        <Label Content="Выход партии" Grid.Row="7" Grid.Column="0"/>
-        <Label Content="Примечание" Grid.Row="8" Grid.Column="0"/>
-
-        <TextBox Grid.Row="0" Grid.Column="1" TabIndex="0" Text="{Binding Entity.SortOrder}" IsReadOnly="True"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="1" TabIndex="1" Text="{Binding Entity.Name}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
-        <TextBox Grid.Row="8" Grid.Column="1" TabIndex="2" Text="{Binding Entity.Note}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>-->
     </Grid>
 </dx:DXWindow>

@@ -140,6 +140,8 @@ namespace Rti.Model.Domain
 		public virtual String Trustee { get; set; }
 		[Field("phone")]
 		public virtual String Phone { get; set; }
+		[Field("fax")]
+		public virtual String Fax { get; set; }
 		[Field("grounding")]
 		public virtual String Grounding { get; set; }
 		[Field("inn")]

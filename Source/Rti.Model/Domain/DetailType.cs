@@ -4,23 +4,22 @@ namespace Rti.Model.Domain
 {
     public enum DetailType
     {
-        [Display(Name = "Фк1")]
+        [Display(Name = "К1")]
         MoldingRound1,
-        [Display(Name = "Фк2")]
+        [Display(Name = "К2")]
         MoldingRound2,
-        [Display(Name = "Фк3")]
+        [Display(Name = "К3")]
         MoldingRound3,
-        [Display(Name = "Фк4")]
+        [Display(Name = "К4")]
         MoldingRound4,
-        [Display(Name = "Фп1")]
+        [Display(Name = "П1")]
         MoldingSquare1,
-        [Display(Name = "Фп2")]
+        [Display(Name = "П2")]
         MoldingSquare2,
-        [Display(Name = "Фп3")]
+        [Display(Name = "П3")]
         MoldingSquare3,
         [Display(Name = "ВЛ")]
         LaserCutting,
         [Display(Name = "Другой")]
-        Other
-    }
+        Other}
 }

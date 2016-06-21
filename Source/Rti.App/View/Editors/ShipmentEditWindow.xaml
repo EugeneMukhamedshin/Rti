@@ -17,7 +17,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="32"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0" Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="*"/>
@@ -25,9 +25,9 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="24"/>
-                    <RowDefinition Height="32"/>
                     <RowDefinition Height="24"/>
-                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="24"/>
                     <RowDefinition Height="24"/>
                     <RowDefinition Height="24"/>
                     <RowDefinition Height="Auto"/>
@@ -35,7 +35,7 @@
                 </Grid.RowDefinitions>
                 <Grid.Resources>
                     <Style TargetType="TextBlock">
-                        <Setter Property="Margin" Value="2"></Setter>
+                        <Setter Property="Margin" Value="10,2,2,2"></Setter>
                     </Style>
                     <Style TargetType="TextBox">
                         <Setter Property="Margin" Value="2"></Setter>
@@ -161,8 +161,8 @@
                 </Grid>
             </Grid>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
-                <Button Content="{DynamicResource AddImage}" Command="{Binding ShipmentItemList.AddItemCommand}" Width="32" Height="32" Margin="5"></Button>
-                <Button Content="{DynamicResource DeleteImage}" Command="{Binding ShipmentItemList.DeleteEntityCommand}" Width="32" Height="32" Margin="5"></Button>
+                <Button Content="{StaticResource AddImage}" Command="{Binding ShipmentItemList.AddItemCommand}" Width="32" Height="32" Margin="5"></Button>
+                <Button Content="{StaticResource DeleteImage}" Command="{Binding ShipmentItemList.DeleteEntityCommand}" Width="32" Height="32" Margin="5"></Button>
                 <Button Content="ТТН" Command="{Binding OpenDeliveryEditCommand}" Width="48" Height="32" Margin="5"></Button>
             </StackPanel>
             <dxg:GridControl Grid.Row="2" ShowLoadingPanel="{Binding IsLoading}" CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="13" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding ShipmentItemList.Items}" SelectedItem="{Binding ShipmentItemList.SelectedItem}" SelectionMode="Row">

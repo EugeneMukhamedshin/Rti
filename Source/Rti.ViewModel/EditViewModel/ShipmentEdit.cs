@@ -43,8 +43,7 @@ namespace Rti.ViewModel.EditViewModel
             {
                 Shipment = Source,
                 ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
-            };
-            viewModel.GenerateReport();
+            };viewModel.GenerateReport();
         }
 
         private void OpenDeliveryEdit()

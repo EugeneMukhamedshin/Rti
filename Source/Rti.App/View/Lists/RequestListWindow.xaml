@@ -6,6 +6,7 @@
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
     xmlns:lists="clr-namespace:Rti.App.View.Lists"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     Title="Реестр активных заявок" Height="350" Width="1024"
     >
 
@@ -17,16 +18,18 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="0">
-                <!--<TextBlock Text="Дата начала" Margin="5" VerticalAlignment="Center"/>
-            <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding StartDate}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
-            <TextBlock Text="Дата окончания" Margin="5" VerticalAlignment="Center"/>
-            <xctk:DateTimePicker TabIndex="2" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding EndDate}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>-->
+                <TextBlock Text="Дата начала" Margin="5" VerticalAlignment="Center"/>
+                <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding StartDate}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
+                <TextBlock Text="Дата окончания" Margin="5" VerticalAlignment="Center"/>
+                <xctk:DateTimePicker TabIndex="2" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding EndDate}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
                 <Button Content="Обновить" Command="{Binding RefreshCommand}" Margin="5"></Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
-                <Button Content="{DynamicResource AddImage}" Command="{Binding AddRequestCommand}" Width="32" Height="32" Margin="5" TabIndex="4"></Button>
-                <Button Content="{DynamicResource DeleteImage}" Command="{Binding DeleteRequestCommand}" Width="32" Height="32" Margin="5" TabIndex="5"></Button>
-                <Button Content="{DynamicResource EditImage}" Command="{Binding EditRequestCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5" TabIndex="6"/>
+                <Button Content="{StaticResource AddImage}" Command="{Binding AddRequestCommand}" Width="32" Height="32" Margin="5" TabIndex="4"></Button>
+                <Button Content="{StaticResource DeleteImage}" Command="{Binding DeleteRequestCommand}" Width="32" Height="32" Margin="5" TabIndex="5"></Button>
+                <Button Content="{StaticResource EditImage}" Command="{Binding EditRequestCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5" TabIndex="6"/>
+                <CheckBox Margin="10,0,0,0" VerticalAlignment="Center" Content="Неотгруженные" IsChecked="{Binding ShowNotShippedRequests}"></CheckBox>
+                <CheckBox Margin="10,0,0,0" VerticalAlignment="Center" Content="Отгруженные" IsChecked="{Binding ShowShippedRequests}"></CheckBox>
             </StackPanel>
             <dxg:GridControl TabIndex="7" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2">
                 <dxmvvm:Interaction.Behaviors>
@@ -66,19 +69,29 @@
                             <lists:RequestStatusTemplateSelector>
                                 <lists:RequestStatusTemplateSelector.YellowTemplate>
                                     <DataTemplate>
-                                        <Border Background="Yellow" Margin="2"></Border>
+                                        <Border Background="Yellow" Margin="2" ToolTip="Работа по заявке начата вовремя"></Border>
                                     </DataTemplate>
                                 </lists:RequestStatusTemplateSelector.YellowTemplate>
                                 <lists:RequestStatusTemplateSelector.RedTemplate>
                                     <DataTemplate>
-                                        <Border Background="Red" Margin="2"></Border>
+                                        <Border Background="Red" Margin="2" ToolTip="Работа по заявке начата поздно"></Border>
                                     </DataTemplate>
                                 </lists:RequestStatusTemplateSelector.RedTemplate>
                                 <lists:RequestStatusTemplateSelector.GreenTemplate>
                                     <DataTemplate>
-                                        <Border Background="Green" Margin="2"></Border>
+                                        <Border Background="Green" Margin="2"  ToolTip="Работа по заявке начата заранее"></Border>
                                     </DataTemplate>
                                 </lists:RequestStatusTemplateSelector.GreenTemplate>
+                                <lists:RequestStatusTemplateSelector.GrayTemplate>
+                                    <DataTemplate>
+                                        <Border Background="Gray" Margin="2" ToolTip="Работа по заявке не начата"></Border>
+                                    </DataTemplate>
+                                </lists:RequestStatusTemplateSelector.GrayTemplate>
+                                <lists:RequestStatusTemplateSelector.DefaultTemplate>
+                                    <DataTemplate>
+                                        <Border Margin="2" ToolTip="Заявка отгружена"></Border>
+                                    </DataTemplate>
+                                </lists:RequestStatusTemplateSelector.DefaultTemplate>
                             </lists:RequestStatusTemplateSelector>
                         </dxg:GridColumn.CellTemplateSelector>
                     </dxg:GridColumn>
