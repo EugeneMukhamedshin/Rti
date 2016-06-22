@@ -64,6 +64,48 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 		}
 	}
 
+	// The classmap for calculation_history
+	public partial class CalculationHistoryMap : BaseMap<Rti.Model.Domain.CalculationHistory>
+	{
+		public CalculationHistoryMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("calculation_history");
+			Id(o => o.Id, "id");
+			Map(o => o.ChangeDate, "change_date");
+			Map(o => o.MainMaterial, "main_material");
+			Map(o => o.Rubber, "rubber");
+			Map(o => o.Clue, "clue");
+			Map(o => o.Armature, "armature");
+			Map(o => o.Sand, "sand");
+			Map(o => o.Textile, "textile");
+			Map(o => o.OtherMaterial, "other_material");
+			Map(o => o.Transport, "transport");
+			Map(o => o.MainSalary, "main_salary");
+			Map(o => o.AdditionalSalary, "additional_salary");
+			Map(o => o.FixedTax, "fixed_tax");
+			Map(o => o.TotalDivision, "total_division");
+			Map(o => o.TotalManufacture, "total_manufacture");
+			Map(o => o.MainSummary, "main_summary");
+			Map(o => o.PowerForFormed, "power_for_formed");
+			Map(o => o.OtherPower, "other_power");
+			Map(o => o.MainAndPowerSummary, "main_and_power_summary");
+			Map(o => o.Unforseen, "unforseen");
+			Map(o => o.NetCost, "net_cost");
+			Map(o => o.Profitability, "profitability");
+			Map(o => o.Price, "price");
+			Map(o => o.NdsTax, "nds_tax");
+			Map(o => o.Summary, "summary");
+			Map(o => o.Note, "note");
+			References(o => o.Calculation, "calculation_id").Fetch.Join().Not.LazyLoad();
+			OnInitialized();
+		}
+	}
+
 	// The classmap for constants
 	public partial class ConstantMap : BaseMap<Rti.Model.Domain.Constant>
 	{

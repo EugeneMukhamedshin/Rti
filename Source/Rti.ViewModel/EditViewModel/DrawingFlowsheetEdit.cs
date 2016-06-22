@@ -4,6 +4,7 @@ using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
+using Rti.ViewModel.Entities.Commands;
 using Rti.ViewModel.Lists;
 
 namespace Rti.ViewModel.EditViewModel
@@ -17,14 +18,24 @@ namespace Rti.ViewModel.EditViewModel
 
         public Lazy<List<ContragentViewModel>> CustomersSource { get; set; }
 
+        public DelegateCommand EditEquipmentCommand { get; set; }
+
         public DrawingFlowsheetEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {
+            EditEquipmentCommand = new DelegateCommand(o => EditEquipment());
             DrawingFlowsheetMachineList = new DrawingFlowsheetMachineList(entity, Editable, ViewService, RepositoryFactory);
             DrawingFlowsheetProcessList = new DrawingFlowsheetProcessList(entity, Editable, ViewService, RepositoryFactory);
             DrawingFlowsheetProcessList.SummaryChanged += DrawingFlowsheetProcessList_SummaryChanged;
 
             CustomersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(ContragentType.Customer).Select(o => new ContragentViewModel(o, RepositoryFactory)).ToList());
+        }
+
+        private void EditEquipment()
+        {
+            var editViewModel = new EquipmentEdit("Изменение оснастки", Entity.Equipment, ReadOnly, ViewService, RepositoryFactory);
+            editViewModel.Refresh();
+            ViewService.ShowViewDialog(editViewModel);
         }
 
         private void DrawingFlowsheetProcessList_SummaryChanged(object sender, EventArgs e)

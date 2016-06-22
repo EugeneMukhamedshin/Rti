@@ -6,6 +6,9 @@ namespace Rti.ViewModel.Entities
 {
     partial class RequestDetailViewModel
     {
+        public decimal? PlanCalculationPrice { get { return Drawing == null ? null : Drawing.PlanCalculationPrice; } }
+        public decimal? FactCalculationPrice { get { return Drawing == null ? null : Drawing.FactCalculationPrice; } }
+
         public bool EquipmentLeadTimeReadOnly
         {
             get
@@ -25,6 +28,8 @@ namespace Rti.ViewModel.Entities
             {
                 FillFromDrawing();
                 OnPropertyChanged("EquipmentLeadTimeReadOnly");
+                OnPropertyChanged("PlanCalculationPrice");
+                OnPropertyChanged("FactCalculationPrice");
             }
         }
 

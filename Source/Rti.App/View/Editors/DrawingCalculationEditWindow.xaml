@@ -53,7 +53,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="32"/>
                     </Grid.RowDefinitions>
-                    <editors:CalculationEditControl DataContext="{Binding Entity.FactCalculation}"/>
+                    <editors:CalculationEditControl DataContext="{Binding FactCalculation}"/>
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
                         <Button Content="Расчет" Command="{Binding CalculateFactCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="900"></Button>
                         <TextBlock Margin="5" Text="{Binding CalculatedFact}"/>
@@ -66,7 +66,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="32"/>
                     </Grid.RowDefinitions>
-                    <editors:CalculationEditControl DataContext="{Binding Entity.PlanCalculation}"/>
+                    <editors:CalculationEditControl DataContext="{Binding PlanCalculation}"/>
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
                         <Button Content="Расчет" Command="{Binding CalculatePlanCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="900"></Button>
                         <TextBlock Margin="5" Text="{Binding CalculatedPlan}"/>

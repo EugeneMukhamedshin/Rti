@@ -9,6 +9,7 @@ namespace Rti.Model.Repository.Interfaces
 
 		IAdditionalInfoRepository GetAdditionalInfoRepository();
 		ICalculationRepository GetCalculationRepository();
+		ICalculationHistoryRepository GetCalculationHistoryRepository();
 		IConstantRepository GetConstantRepository();
 		IContractRepository GetContractRepository();
 		IContragentRepository GetContragentRepository();
@@ -50,6 +51,7 @@ namespace Rti.Model.Repository.Interfaces
 
 	public partial interface IAdditionalInfoRepository : IRepository<Rti.Model.Domain.AdditionalInfo> { }
 	public partial interface ICalculationRepository : IRepository<Rti.Model.Domain.Calculation> { }
+	public partial interface ICalculationHistoryRepository : IRepository<Rti.Model.Domain.CalculationHistory> { }
 	public partial interface IConstantRepository : IRepository<Rti.Model.Domain.Constant> { }
 	public partial interface IContractRepository : IRepository<Rti.Model.Domain.Contract> { }
 	public partial interface IContragentRepository : IRepository<Rti.Model.Domain.Contragent> { }

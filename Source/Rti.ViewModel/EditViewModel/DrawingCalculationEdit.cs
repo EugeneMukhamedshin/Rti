@@ -14,8 +14,32 @@ namespace Rti.ViewModel.EditViewModel
         private List<DrawingViewModel> _drawingSource;
         private string _calculatedFact;
         private string _calculatedPlan;
+        private CalculationViewModel _planCalculation;
+        private CalculationViewModel _factCalculation;
         public DelegateCommand CalculatePlanCommand { get; set; }
         public DelegateCommand CalculateFactCommand { get; set; }
+
+        public CalculationViewModel PlanCalculation
+        {
+            get { return _planCalculation; }
+            set
+            {
+                if (Equals(value, _planCalculation)) return;
+                _planCalculation = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public  CalculationViewModel FactCalculation
+        {
+            get { return _factCalculation; }
+            set
+            {
+                if (Equals(value, _factCalculation)) return;
+                _factCalculation = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string CalculatedFact
         {
@@ -46,6 +70,9 @@ namespace Rti.ViewModel.EditViewModel
 
         public DrawingCalculationEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) : base(name, entity, readOnly, viewService, repositoryFactory)
         {
+            PlanCalculation = Entity.PlanCalculation.Clone();
+            FactCalculation = Entity.FactCalculation.Clone();
+
             CalculatePlanCommand = new DelegateCommand(
                 "Расчет",
                 o => true,
@@ -66,8 +93,8 @@ namespace Rti.ViewModel.EditViewModel
         {
             var drawing = Source;
             var calculation = calculationType == CalculationType.Plan
-                ? drawing.PlanCalculation
-                : drawing.FactCalculation;
+                ? PlanCalculation
+                : FactCalculation;
             var flowsheetProcesses = RepositoryFactory.GetDrawingFlowsheetProcessRepository().GetByDrawingId(drawing.Id);
             var flowsheetMachines = RepositoryFactory.GetDrawingFlowsheetMachineRepository().GetByDrawingId(drawing.Id);
             if (!flowsheetProcesses.Any())
@@ -136,11 +163,42 @@ namespace Rti.ViewModel.EditViewModel
             // Всего
             calculation.Summary = calculation.Price + calculation.NdsTax;
 
+            //private Decimal? _mainMaterial;
+            //private Decimal? _rubber;
+            //private Decimal? _clue;
+            //private Decimal? _armature;
+            //private Decimal? _sand;
+            //private Decimal? _textile;
+            //private Decimal? _otherMaterial;
+            //private Decimal? _transport;
+            //private Decimal? _mainSalary;
+
+         if (calculationType == CalculationType.Fact)
+            {
+                if (PlanCalculation.MainMaterial == null)
+                    PlanCalculation.MainMaterial = FactCalculation.MainMaterial;
+                if (PlanCalculation.Rubber == null)
+                    PlanCalculation.Rubber = FactCalculation.Rubber;
+                if (PlanCalculation.Clue == null)
+                    PlanCalculation.Clue = FactCalculation.Clue;
+                if (PlanCalculation.Armature == null)
+                    PlanCalculation.Armature = FactCalculation.Armature;
+                if (PlanCalculation.Sand == null)
+                    PlanCalculation.Sand = FactCalculation.Sand;
+                if (PlanCalculation.Textile == null)
+                    PlanCalculation.Textile = FactCalculation.Textile;
+                if (PlanCalculation.OtherMaterial == null)
+                    PlanCalculation.OtherMaterial = FactCalculation.OtherMaterial;
+                if (PlanCalculation.MainSalary == null)
+                    PlanCalculation.MainSalary = FactCalculation.MainSalary;}
+
             RefreshText();
         }
         protected override void DoSave()
         {
+            Entity.PlanCalculation.CopyFrom(PlanCalculation);
             Entity.PlanCalculation.SaveEntity();
+            Entity.FactCalculation.CopyFrom(FactCalculation);
             Entity.FactCalculation.SaveEntity();
             base.DoSave();
         }

@@ -113,8 +113,8 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Row="0">
-                        <Button Padding="0" Content="{StaticResource AddImage}" Command="{Binding DrawingFlowsheetMachineList.AddFlowsheetMachineCommand}" Width="24" Height="24" Margin="0,5,0,5"></Button>
-                        <Button Padding="0" Content="{StaticResource DeleteImage}" Command="{Binding DrawingFlowsheetMachineList.RemoveFlowsheetMachineCommand}" Width="24" Height="24" Margin="5,5,0,5"></Button>
+                        <Button Content="{StaticResource AddImage}" Command="{Binding DrawingFlowsheetMachineList.AddFlowsheetMachineCommand}" Width="24" Height="24" Margin="0,5,0,5"></Button>
+                        <Button Content="{StaticResource DeleteImage}" Command="{Binding DrawingFlowsheetMachineList.RemoveFlowsheetMachineCommand}" Width="24" Height="24" Margin="5,5,0,5"></Button>
                     </StackPanel>
                     <dxg:GridControl Grid.Row="1" TabIndex="2" AutoGenerateColumns="None" ItemsSource="{Binding DrawingFlowsheetMachineList.Items}" SelectedItem="{Binding DrawingFlowsheetMachineList.SelectedItem}" SelectionMode="Row">
                         <dxg:GridControl.Resources>
@@ -170,28 +170,37 @@
                 </Grid>
             </GroupBox>
             <GroupBox Grid.Row="1" Grid.Column="1" Margin="2" Header="Оснастка" Padding="5,0,5,5">
-                <dxg:GridControl TabIndex="0" AutoGenerateColumns="None" ItemsSource="{Binding DrawingSource}">
-                    <dxg:GridControl.Resources>
-                        <Style TargetType="dxg:GridColumn">
-                            <Setter Property="HeaderTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding}" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Stretch"></TextBlock>
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </dxg:GridControl.Resources>
-                    <dxg:GridControl.Columns>
-                        <dxg:GridColumn FieldName="Equipment.Name" Header="Наименование" Width="150" ReadOnly="True"/>
-                        <dxg:GridColumn FieldName="Equipment.FormCount" Header="Кол-во форм" Width="150" ReadOnly="True"/>
-                        <dxg:GridColumn FieldName="Equipment.SlotCount" Header="Гнездность" Width="150" ReadOnly="True"/>
-                        <dxg:GridColumn FieldName="Equipment.Output" Header="Выход партии" Width="150" ReadOnly="True"/>
-                    </dxg:GridControl.Columns>
-                    <dxg:GridControl.View>
-                        <dxg:TableView EnableImmediatePosting="True" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
-                    </dxg:GridControl.View>
-                </dxg:GridControl>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                        <Button Content="{StaticResource EditImage}" Command="{Binding EditEquipmentCommand}" Width="24" Height="24" Margin="0,5,0,5"></Button>
+                    </StackPanel>
+                    <dxg:GridControl Grid.Row="1" TabIndex="0" AutoGenerateColumns="None" ItemsSource="{Binding DrawingSource}">
+                        <dxg:GridControl.Resources>
+                            <Style TargetType="dxg:GridColumn">
+                                <Setter Property="HeaderTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Stretch"></TextBlock>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </dxg:GridControl.Resources>
+                        <dxg:GridControl.Columns>
+                            <dxg:GridColumn Binding="{Binding Equipment.Name}" Header="Наименование" Width="100" ReadOnly="True"/>
+                            <dxg:GridColumn Binding="{Binding Equipment.FormCount}" Header="Кол-во форм" Width="90" ReadOnly="True"/>
+                            <dxg:GridColumn Binding="{Binding Equipment.SlotCount}" Header="Гнездность" Width="90" ReadOnly="True"/>
+                            <dxg:GridColumn Binding="{Binding Equipment.Output}" Header="Выход партии" Width="90" ReadOnly="True"/>
+                        </dxg:GridControl.Columns>
+                        <dxg:GridControl.View>
+                            <dxg:TableView EnableImmediatePosting="True" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                        </dxg:GridControl.View>
+                    </dxg:GridControl>
+                </Grid>
             </GroupBox>
             <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="2" Header="Материал" Padding="5,0,5,5">
                 <dxg:GridControl TabIndex="0" AutoGenerateColumns="None" ItemsSource="{Binding DrawingSource}">
@@ -228,8 +237,8 @@
                         <RowDefinition Height="32"/>
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Row="0">
-                        <Button Padding="0" Content="{StaticResource AddImage}" Command="{Binding DrawingFlowsheetProcessList.AddFlowsheetProcessCommand}" Width="24" Height="24" Margin="0,5,0,5"></Button>
-                        <Button Padding="0" Content="{StaticResource DeleteImage}" Command="{Binding DrawingFlowsheetProcessList.RemoveFlowsheetProcessCommand}" Width="24" Height="24" Margin="5,5,0,5"></Button>
+                        <Button Content="{StaticResource AddImage}" Command="{Binding DrawingFlowsheetProcessList.AddFlowsheetProcessCommand}" Width="24" Height="24" Margin="0,5,0,5"></Button>
+                        <Button Content="{StaticResource DeleteImage}" Command="{Binding DrawingFlowsheetProcessList.RemoveFlowsheetProcessCommand}" Width="24" Height="24" Margin="5,5,0,5"></Button>
                     </StackPanel>
                     <dxg:GridControl Grid.Row="1" TabIndex="2" AutoGenerateColumns="None" ItemsSource="{Binding DrawingFlowsheetProcessList.Items}" SelectedItem="{Binding DrawingFlowsheetProcessList.SelectedItem}" SelectionMode="Row">
                         <dxg:GridControl.Resources>

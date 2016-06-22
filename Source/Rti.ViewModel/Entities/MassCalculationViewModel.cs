@@ -11,7 +11,7 @@ namespace Rti.ViewModel.Entities
             get
             {
                 var mass = CalculatedMass;
-                return mass == null ? "Недостаточно данных" : string.Format("{0:f3}", mass);
+                return mass == null ? "Недостаточно данных" : string.Format("{0:f3} кг", mass);
             }
         }
 
@@ -20,7 +20,7 @@ namespace Rti.ViewModel.Entities
             get
             {
                 var calculated = CalculateMass();
-                return calculated.HasValue ? Math.Round(calculated.Value / 1000, 3) : (double?)null;
+                return calculated.HasValue ? Math.Round(DetailTypeEnum == DetailType.Other ? calculated.Value : calculated.Value / 1000, 3) : (double?)null;
             }
         }
 

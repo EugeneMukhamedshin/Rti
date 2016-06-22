@@ -13,6 +13,8 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new AdditionalInfoRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Calculation))
                 return (IRepository<TEntity>)new CalculationRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.CalculationHistory))
+                return (IRepository<TEntity>)new CalculationHistoryRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Constant))
                 return (IRepository<TEntity>)new ConstantRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Contract))
@@ -91,6 +93,8 @@ namespace Rti.Model.Repository.NHibernate
 		public IAdditionalInfoRepository GetAdditionalInfoRepository() { return (IAdditionalInfoRepository) GetRepository<Rti.Model.Domain.AdditionalInfo>(); }
 
 		public ICalculationRepository GetCalculationRepository() { return (ICalculationRepository) GetRepository<Rti.Model.Domain.Calculation>(); }
+
+		public ICalculationHistoryRepository GetCalculationHistoryRepository() { return (ICalculationHistoryRepository) GetRepository<Rti.Model.Domain.CalculationHistory>(); }
 
 		public IConstantRepository GetConstantRepository() { return (IConstantRepository) GetRepository<Rti.Model.Domain.Constant>(); }
 
@@ -182,6 +186,17 @@ namespace Rti.Model.Repository.NHibernate
         protected override IQueryOver<Rti.Model.Domain.Calculation, Rti.Model.Domain.Calculation> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Calculation, Rti.Model.Domain.Calculation> queryOver)
         {
 			var result = queryOver;
+            return result;
+        }
+    }
+
+	public partial class CalculationHistoryRepository : NHibernateRepository<Rti.Model.Domain.CalculationHistory>, ICalculationHistoryRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.CalculationHistory, Rti.Model.Domain.CalculationHistory> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.CalculationHistory, Rti.Model.Domain.CalculationHistory> queryOver)
+        {
+			var result = queryOver;
+			result = result.Fetch(o => o.Calculation).Default;
             return result;
         }
     }

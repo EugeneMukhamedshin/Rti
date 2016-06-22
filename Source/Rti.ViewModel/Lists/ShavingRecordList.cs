@@ -10,8 +10,9 @@ using Rti.ViewModel.Reporting;
 
 namespace Rti.ViewModel.Lists
 {
-    public class ShavingRecordList: EntityList<ShavingRecordViewModel, ShavingRecord>, IClosable
+    public class ShavingRecordList : EntityList<ShavingRecordViewModel, ShavingRecord>, IClosable
     {
+        private List<ShavingSalaryItem> _salaryItems;
         public DelegateCommand AddRecordCommand { get; set; }
         public DelegateCommand RefreshCommand { get; set; }
 
@@ -65,8 +66,38 @@ namespace Rti.ViewModel.Lists
 
         protected override IEnumerable<ShavingRecordViewModel> GetItems()
         {
-            var items = RepositoryFactory.GetShavingRecordRepository().GetByInterval(StartDate, EndDate, Shaver == null ? (int?) null : Shaver.Id);
+            var items = RepositoryFactory.GetShavingRecordRepository().GetByInterval(StartDate, EndDate, Shaver == null ? (int?)null : Shaver.Id);
             return items.Select(o => new ShavingRecordViewModel(o, RepositoryFactory)).ToList(); ;
+        }
+
+        protected override void OnItemsChanged()
+        {
+            base.OnItemsChanged();
+            Items.CollectionChanged += Items_CollectionChanged;
+            RefreshSummary();}
+
+        private void Items_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            RefreshSummary();
+        }
+
+        private void RefreshSummary()
+        {
+            SalaryItems =
+                Items.GroupBy(o => o.ShaverEmployee)
+                    .Select(g => new ShavingSalaryItem { Employee = g.Key, Salary = g.Sum(o => o.Salary) })
+                    .ToList();
+        }
+
+        public List<ShavingSalaryItem> SalaryItems
+        {
+            get { return _salaryItems; }
+            set
+            {
+                if (Equals(value, _salaryItems)) return;
+                _salaryItems = value;
+                OnPropertyChanged();
+            }
         }
 
         protected override ShavingRecordViewModel DoCreateNewEntity()
@@ -96,5 +127,11 @@ namespace Rti.ViewModel.Lists
         }
 
         public Action<bool?> Close { get; set; }
+    }
+
+    public class ShavingSalaryItem
+    {
+        public EmployeeViewModel Employee { get; set; }
+        public decimal? Salary { get; set; }
     }
 }
