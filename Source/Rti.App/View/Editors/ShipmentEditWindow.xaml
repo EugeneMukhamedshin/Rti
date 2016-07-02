@@ -246,8 +246,12 @@
                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ShipmentItemList.NetMass,StringFormat=N3}"/>
                 <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ShipmentItemList.Sum,StringFormat=N2}"/>
                 <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ShipmentItemList.SumWithNds,StringFormat=N2}"/>
-                
+
                 <Button Grid.Row="0" Grid.Column="2" Content="Печатная форма" Command="{Binding ShowShipmentTorg12ReportCommand}"/>
+                <Button Grid.Row="1" Grid.Column="2" Content="Счет фактура" Command="{Binding ShowShipmentFactureReportCommand}"/>
+                <Button Grid.Row="2" Grid.Column="2" Content="ТТН" Command="{Binding ShowShipmentTransportReportCommand}"/>
+                <Button Grid.Row="0" Grid.Column="3" Content="Паспорт" Command="{Binding ShowShipmentPassportReportCommand}"/>
+                <Button Grid.Row="1" Grid.Column="3" Content="Распор. на отгрузку" Command="{Binding ShowShipmentUniversalDocumentReportCommand}"/>
             </Grid>
             <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal">
                 <Button Content="Сохранить" Command="{Binding OkCommand}" Width="80" Margin="5" IsDefault="True" TabIndex="1000"/>

@@ -26,8 +26,7 @@ namespace Rti.ViewModel.Reporting.ViewModel
             {
                 var application = new Application().AsReleasable();
                 var workbooks = application.Workbooks.AsReleasable();
-                application.DisplayAlerts = true;
-                application.Visible = true;
+                application.DisplayAlerts = true;application.Visible = true;
                 application.ScreenUpdating = true;
                 var workbook = workbooks.Open(templateFileName).AsReleasable();
                 workbook.SaveAs(FileName, XlFileFormat.xlExcel8);

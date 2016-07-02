@@ -769,6 +769,41 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\shipment_torg12.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\facture.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetShipmentFactureReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetShipmentTransportReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\transport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\passport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetShipmentPassportReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\universalDocument.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetShipmentUniversalDocumentReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

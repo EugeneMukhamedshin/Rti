@@ -25,9 +25,14 @@ namespace Rti.ViewModel.Reporting.ViewModel
             return reportService.GetSalaryReport(StartDate, EndDate, Employee);
         }
     }
-    public class ShipmentTorg12ReportViewModel : XsltReportViewModel
+
+    public abstract class ShipmentReportViewModel : XsltReportViewModel
     {
         private ShipmentViewModel _shipment;
+
+        public ShipmentReportViewModel(string name, IViewService viewService, IRepositoryFactory repositoryFactory, string xsltPath, string fileName) : base(name, viewService, repositoryFactory, xsltPath, fileName)
+        {
+        }
 
         public ShipmentViewModel Shipment
         {
@@ -39,12 +44,55 @@ namespace Rti.ViewModel.Reporting.ViewModel
                 OnPropertyChanged();
             }
         }
+    }
 
+    public class ShipmentTorg12ReportViewModel : ShipmentReportViewModel
+    {
         public ShipmentTorg12ReportViewModel(string name, IViewService viewService, IRepositoryFactory repositoryFactory, string xsltPath, string fileName) : base(name, viewService, repositoryFactory, xsltPath, fileName) { }
 
         protected override byte[] GetReport(ReportService reportService)
         {
             return reportService.GetShipmentTorg12Report(Shipment);
+        }
+    }
+
+    public class ShipmentFactureReportViewModel : ShipmentReportViewModel
+    {
+        public ShipmentFactureReportViewModel(string name, IViewService viewService, IRepositoryFactory repositoryFactory, string xsltPath, string fileName) : base(name, viewService, repositoryFactory, xsltPath, fileName) { }
+
+        protected override byte[] GetReport(ReportService reportService)
+        {
+            return reportService.GetShipmentFactureReport(Shipment);
+        }
+    }
+
+    public class ShipmentTransportReportViewModel : ShipmentReportViewModel
+    {
+        public ShipmentTransportReportViewModel(string name, IViewService viewService, IRepositoryFactory repositoryFactory, string xsltPath, string fileName) : base(name, viewService, repositoryFactory, xsltPath, fileName) { }
+
+        protected override byte[] GetReport(ReportService reportService)
+        {
+            return reportService.GetShipmentTransportReport(Shipment);
+        }
+    }
+
+    public class ShipmentPassportReportViewModel : ShipmentReportViewModel
+    {
+        public ShipmentPassportReportViewModel(string name, IViewService viewService, IRepositoryFactory repositoryFactory, string xsltPath, string fileName) : base(name, viewService, repositoryFactory, xsltPath, fileName) { }
+
+        protected override byte[] GetReport(ReportService reportService)
+        {
+            return reportService.GetShipmentPassportReport(Shipment);
+        }
+    }
+
+    public class ShipmentUniversalDocumentReportViewModel : ShipmentReportViewModel
+    {
+        public ShipmentUniversalDocumentReportViewModel(string name, IViewService viewService, IRepositoryFactory repositoryFactory, string xsltPath, string fileName) : base(name, viewService, repositoryFactory, xsltPath, fileName) { }
+
+        protected override byte[] GetReport(ReportService reportService)
+        {
+            return reportService.GetShipmentUniversalDocumentReport(Shipment);
         }
     }
 }

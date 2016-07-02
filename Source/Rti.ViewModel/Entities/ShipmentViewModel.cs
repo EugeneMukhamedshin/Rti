@@ -1,3 +1,5 @@
+using System.Xml.Linq;
+
 namespace Rti.ViewModel.Entities
 {
     public partial class ShipmentViewModel
@@ -8,6 +10,11 @@ namespace Rti.ViewModel.Entities
             {
                 return string.Format("{0}{1}", SortOrder, IsReplace ? "Б" : IsAddition ? "Д" : string.Empty);
             }
+        }
+
+        public string Grounding
+        {
+            get { return string.Format("Счет №{0} от {1:dd.MM.yyyy}г.", Request.Number, Request.InvoiceDate); }
         }
 
         public string CarModel { get { return Driver == null ? null : Driver.CarModel; } }
@@ -25,6 +32,12 @@ namespace Rti.ViewModel.Entities
             base.OnPropertyChanged(propertyName);
             if (propertyName.In("SortOrder", "IsReplace", "IsAddition"))
                 OnPropertyChanged("FullNumber");
+        }
+
+        public override void CustomFillXElement(XElement element)
+        {
+            base.CustomFillXElement(element);
+            element.Add(new XAttribute("Grounding", Grounding));
         }
     }
 }

@@ -37,15 +37,7 @@ namespace Rti.ViewModel.Lists
             get
             {
                 return
-                    Items.Sum(
-                        o => o.Count*(
-                            o.RequestDetail != null && o.RequestDetail.Drawing != null &&
-                            o.RequestDetail.Drawing.FactMass != null
-                                ? o.RequestDetail.Drawing.FactMass
-                                : o.RequestDetail != null && o.RequestDetail.Drawing != null &&
-                                  o.RequestDetail.Drawing.MassCalculation != null
-                                    ? o.RequestDetail.Drawing.MassCalculation.CalculatedMass
-                                    : null)) / 1000;
+                    Items.Sum(o => o.NetMass);
             }
         }
 

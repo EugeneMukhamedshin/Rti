@@ -22,6 +22,10 @@ namespace Rti.ViewModel.EditViewModel
 
         public DelegateCommand OpenDeliveryEditCommand { get; set; }
         public DelegateCommand ShowShipmentTorg12ReportCommand { get; set; }
+        public DelegateCommand ShowShipmentFactureReportCommand { get; set; }
+        public DelegateCommand ShowShipmentTransportReportCommand { get; set; }
+        public DelegateCommand ShowShipmentPassportReportCommand { get; set; }
+        public DelegateCommand ShowShipmentUniversalDocumentReportCommand { get; set; }
 
         public ShipmentEdit(string name, ShipmentViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) : base(name, entity, readOnly, viewService, repositoryFactory)
         {
@@ -30,6 +34,10 @@ namespace Rti.ViewModel.EditViewModel
                 o => true,
                 o => OpenDeliveryEdit());
             ShowShipmentTorg12ReportCommand = new DelegateCommand(o => ShowShipmentTorg12Report());
+            ShowShipmentFactureReportCommand = new DelegateCommand(o => ShowShipmentFactureReport());
+            ShowShipmentTransportReportCommand = new DelegateCommand(o => ShowShipmentTransportReport());
+            ShowShipmentPassportReportCommand = new DelegateCommand(o => ShowShipmentPassportReport());
+            ShowShipmentUniversalDocumentReportCommand = new DelegateCommand(o => ShowShipmentUniversalDocumentReport());
             ShipmentItemList = new ShipmentItemList(entity, Editable, ViewService, RepositoryFactory);
             Entity.PropertyChanged += Entity_PropertyChanged;
         }
@@ -43,7 +51,60 @@ namespace Rti.ViewModel.EditViewModel
             {
                 Shipment = Source,
                 ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
-            };viewModel.GenerateReport();
+            };
+            viewModel.GenerateReport();
+        }
+
+        private void ShowShipmentFactureReport()
+        {
+            if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
+                return;
+            var viewModel = new ShipmentFactureReportViewModel("Счет-фактура", ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Счет-фактура.xls")
+            {
+                Shipment = Source,
+                ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
+            };
+            viewModel.GenerateReport();
+        }
+
+        private void ShowShipmentTransportReport()
+        {
+            if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
+                return;
+            var viewModel = new ShipmentTransportReportViewModel("ТТН", ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Товарно-транспортная накладная.xls")
+            {
+                Shipment = Source,
+                ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
+            };
+            viewModel.GenerateReport();
+        }
+
+        private void ShowShipmentPassportReport()
+        {
+            if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
+                return;
+            var viewModel = new ShipmentPassportReportViewModel("Паспорт", ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Паспорт.xls")
+            {
+                Shipment = Source,
+                ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
+            };
+            viewModel.GenerateReport();
+        }
+
+        private void ShowShipmentUniversalDocumentReport()
+        {
+            if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
+                return;
+            var viewModel = new ShipmentUniversalDocumentReportViewModel("Распоряжение на отгрузку", ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Распоряжение на отгрузку.xls")
+            {
+                Shipment = Source,
+                ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
+            };
+            viewModel.GenerateReport();
         }
 
         private void OpenDeliveryEdit()

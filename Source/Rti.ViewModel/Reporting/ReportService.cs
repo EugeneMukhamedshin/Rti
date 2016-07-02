@@ -98,10 +98,54 @@ namespace Rti.ViewModel.Reporting
             return GetReport(r => r.GetSalaryReport(startDate, endDate, employee == null ? (int?)null : employee.Id), xsl);
         }
 
+        private XDocument GetShipmentDocument(ShipmentViewModel shipment)
+        {
+            var shipmentItems =
+                RepositoryFactory.GetShipmentItemRepository()
+                    .GetByShipmentId(shipment.Id)
+                    .Select(o => new ShipmentItemViewModel(o, RepositoryFactory));
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                    new XElement("set", new XAttribute("name", "Shipments"),
+                        shipment.GetXElement("Shipment")),
+                    new XElement("set", new XAttribute("name", "ShipmentItems"),
+                        shipmentItems.Select(o => o.GetXElement("ShipmentItem")))));
+            return doc;
+        }
+
         public byte[] GetShipmentTorg12Report(ShipmentViewModel shipment)
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetShipmentTorg12Report.xslt"));
-            return GetReport(r => r.GetShipmentTorg12Report(shipment.Id), xsl);
+            var doc = GetShipmentDocument(shipment);
+            return GetReport(r => doc, xsl);
+        }
+
+        public byte[] GetShipmentFactureReport(ShipmentViewModel shipment)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetShipmentFactureReport.xslt"));
+            var doc = GetShipmentDocument(shipment);
+            return GetReport(r => doc, xsl);
+        }
+
+        public byte[] GetShipmentTransportReport(ShipmentViewModel shipment)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetShipmentTransportReport.xslt"));
+            var doc = GetShipmentDocument(shipment);
+            return GetReport(r => doc, xsl);
+        }
+
+        public byte[] GetShipmentPassportReport(ShipmentViewModel shipment)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetShipmentPassportReport.xslt"));
+            var doc = GetShipmentDocument(shipment);
+            return GetReport(r => doc, xsl);
+        }
+
+        public byte[] GetShipmentUniversalDocumentReport(ShipmentViewModel shipment)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetShipmentUniversalDocumentReport.xslt"));
+            var doc = GetShipmentDocument(shipment);
+            return GetReport(r => doc, xsl);
         }
     }
 }
