@@ -113,6 +113,20 @@ namespace Rti.ViewModel.Reporting
             return doc;
         }
 
+        private XDocument GetRequestDocument(RequestViewModel request)
+        {
+            var requestDetails =
+                RepositoryFactory.GetRequestDetailRepository()
+                    .GetByRequestId(request.Id)
+                    .Select(o => new RequestDetailViewModel(o, RepositoryFactory));
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                        request.GetXElement("Request"),
+                    new XElement("RequestDetails",
+                        requestDetails.Select(o => o.GetXElement("RequestDetail")))));
+            return doc;
+        }
+
         public byte[] GetShipmentTorg12Report(ShipmentViewModel shipment)
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetShipmentTorg12Report.xslt"));
@@ -145,6 +159,13 @@ namespace Rti.ViewModel.Reporting
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetShipmentUniversalDocumentReport.xslt"));
             var doc = GetShipmentDocument(shipment);
+            return GetReport(r => doc, xsl);
+        }
+
+        public byte[] GetRequestSpecificationReport(RequestViewModel request)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetRequestSpecificationReport.xslt"));
+            var doc = GetRequestDocument(request);
             return GetReport(r => doc, xsl);
         }
     }

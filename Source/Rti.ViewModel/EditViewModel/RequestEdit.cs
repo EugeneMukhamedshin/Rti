@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
@@ -8,6 +9,7 @@ using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
 using Rti.ViewModel.Lists;
 using Rti.ViewModel.Reporting;
+using Rti.ViewModel.Reporting.ViewModel;
 
 namespace Rti.ViewModel.EditViewModel
 {
@@ -74,6 +76,7 @@ namespace Rti.ViewModel.EditViewModel
                 "Текущий счет",
                 o => true,
                 o => CreateInvoice());
+            CreateSpecificationCommand = new DelegateCommand(CreateSpecification);
             CreateReportOfCompletionCommand = new DelegateCommand(
                 "Акт выполненных работ",
                 o => true,
@@ -90,6 +93,19 @@ namespace Rti.ViewModel.EditViewModel
                 "Открыть чертеж",
                 o => true,
                 o => OpenDrawingEdit((RequestDetailViewModel)o));
+        }
+
+        private void CreateSpecification(object obj)
+        {
+            if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
+                return;
+            var viewModel = new RequestSpecificationReportViewModel(string.Format("Спецификация {0} от {1:dd.mm.yyyy}", Entity.Number, Entity.RegDate), ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Паспорт.xls")
+            {
+                Request = Source,
+                ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
+            };
+            viewModel.GenerateReport();
         }
 
         private void OpenDrawingEdit(RequestDetailViewModel detail)
@@ -126,6 +142,7 @@ namespace Rti.ViewModel.EditViewModel
         public DelegateCommand AddRequestDetailCommand { get; set; }
         public DelegateCommand RemoveRequestDetailCommand { get; set; }
         public DelegateCommand CreateInvoiceCommand { get; set; }
+        public DelegateCommand CreateSpecificationCommand { get; set; }
         public DelegateCommand CreateReportOfCompletionCommand { get; set; }
         public DelegateCommand CreateContractReportCommand { get; set; }
         public DelegateCommand OpenRequestReportCommand { get; set; }

@@ -29,8 +29,7 @@ namespace Rti.ViewModel.Entities
         {
             get
             {
-                return string.Format("{0} {1}.{2}", RequestDetail.Detail.Name, RequestDetail.Drawing.Group.Name,
-                    RequestDetail.Drawing.Name);
+                return RequestDetail.FullDetailName;
             }
         }
 
