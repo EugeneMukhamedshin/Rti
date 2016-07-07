@@ -115,6 +115,7 @@
                 </dxg:GridControl.View>
             </dxg:GridControl>
             <StackPanel Grid.Row="5" Grid.Column="0" Orientation="Horizontal">
+                <Button Content="Печат. форма"  Command="{Binding ReportCommand}" Width="100" Margin="5" TabIndex="1001"/>
                 <Button Content="Сохранить"  Command="{Binding OkCommand}" Width="100" Margin="5" TabIndex="1001"/>
                 <Button Content="Отмена"  Command="{Binding CloseCommand}" Width="100" Margin="5" TabIndex="1001"/>
             </StackPanel>

@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Linq;
 
 namespace Rti.ViewModel.Entities
 {
@@ -52,6 +53,17 @@ namespace Rti.ViewModel.Entities
         {
             if (IsIncludedToSummaryChanged != null)
                 IsIncludedToSummaryChanged(this, EventArgs.Empty);
+        }
+
+        public override void CustomFillXElement(XElement element)
+        {
+            base.CustomFillXElement(element);
+            element.Add(
+                new XAttribute("DisplayName", DisplayName ?? string.Empty),
+                new XAttribute("DisplayOperation", DisplayOperation ?? string.Empty),
+                new XAttribute("DisplayExecutor", DisplayExecutor ?? string.Empty),
+                new XAttribute("DisplayVarName", DisplayVarName ?? string.Empty),
+                new XAttribute("DisplayNormTime", DisplayNormTime));
         }
     }
 }

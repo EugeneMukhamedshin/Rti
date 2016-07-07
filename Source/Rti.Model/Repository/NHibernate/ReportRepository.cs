@@ -37,6 +37,7 @@ namespace Rti.Model.Repository.NHibernate
                     }, "");
         }
 
+        // Done
         public XDocument GetRequestsByMethodsReport(DateTime startDate, DateTime endDate)
         {
             var rows = GetXElementsFromQuery(@"
@@ -83,15 +84,18 @@ ORDER BY RegDate ASC",
                     r => r);
             var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
                 new XElement("root",
+                    new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")), new XAttribute("EndDate", endDate.ToString("dd.MM.yyyy"))),
+                    new XElement("Methods",
                     rowDict.Select(
                         g =>
-                            new XElement("method",
+                            new XElement("Method",
                                 new XAttribute("MethodId", g.Key.MethodId),
                                 new XAttribute("MethodName", g.Key.MethodName),
-                                g))));
+                                g)))));
             return doc;
         }
 
+        // Done
         public XDocument GetDrawingShipmentsReport(DateTime startDate, DateTime endDate, int? drawingId)
         {
             var rows = GetXElementsFromQuery(@"
@@ -138,15 +142,19 @@ ORDER BY r.reg_date ASC, s.date ASC",
             }, r => r);
             var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
                 new XElement("root",
+                    new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")),
+                        new XAttribute("EndDate", endDate.ToString("dd.MM.yyyy"))),
+                    new XElement("Drawings",
                     rowDict.Select(g =>
-                        new XElement("drawing",
+                            new XElement("Drawing",
                             new XAttribute("DrawingId", g.Key.DrawingId),
                             new XAttribute("DrawingName", g.Key.DrawingName),
                             new XAttribute("GroupName", g.Key.GroupName),
-                            new XAttribute("DetailName", g.Key.DetailName), g))));
+                                new XAttribute("DetailName", g.Key.DetailName), g)))));
             return doc;
         }
 
+        // Done
         public XDocument GetUsedMaterialsReport(DateTime startDate, DateTime endDate, int? materialId)
         {
             var rows = GetXElementsFromQuery(@"
@@ -185,14 +193,18 @@ ORDER BY m.name, wi.work_date",
             }, r => r);
             var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
                 new XElement("root",
+                    new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")),
+                        new XAttribute("EndDate", endDate.ToString("dd.MM.yyyy"))),
+                    new XElement("Materials",
                     rowDict.Select(g =>
-                        new XElement("material",
-                            new XAttribute("id", g.Key.MaterialId),
-                            new XAttribute("name", g.Key.MaterialName),
-                            g))));
+                            new XElement("Material",
+                                new XAttribute("MaterialId", g.Key.MaterialId),
+                                new XAttribute("MaterialName", g.Key.MaterialName),
+                                g)))));
             return doc;
         }
 
+        // Done
         public XDocument GetRequestDirectExpencesReport(DateTime startDate, DateTime endDate, int? requestId)
         {
             var rows = GetXElementsFromQuery(@"
@@ -250,23 +262,39 @@ FROM (SELECT
             }, r => r);
             var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
                 new XElement("root",
+                    new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")),
+                        new XAttribute("EndDate", endDate.ToString("dd.MM.yyyy"))),
+                    new XElement("Requests",
                     rowDict.Select(g =>
-                        new XElement("request",
+                            new XElement("Request",
                             new XAttribute("RequestId", g.Key.RequestId),
                             new XAttribute("RequestNumber", g.Key.RequestNumber),
                             new XAttribute("RequestRegDate", g.Key.RequestRegDate),
-                            new XAttribute("MaterialCost", g.Sum(o => Convert.ToDecimal(o.Attribute("MaterialCost").Value))),
-                            new XAttribute("TransportCost", g.Sum(o => Convert.ToDecimal(o.Attribute("TransportCost").Value))),
-                            new XAttribute("SalaryCost", g.Sum(o => Convert.ToDecimal(o.Attribute("SalaryCost").Value))),
-                            new XAttribute("PowerForFormedCost", g.Sum(o => Convert.ToDecimal(o.Attribute("PowerForFormedCost").Value))),
-                            new XAttribute("OtherPowerCost", g.Sum(o => Convert.ToDecimal(o.Attribute("OtherPowerCost").Value))),
-                            new XAttribute("SummaryCost", g.Sum(o => Convert.ToDecimal(o.Attribute("SummaryCost").Value))),
-                            new XAttribute("SummaryCount", g.Sum(o => Convert.ToDecimal(o.Attribute("DetailCount").Value))),
-                            new XAttribute("SummaryPrice", g.Sum(o => Convert.ToDecimal(o.Attribute("DetailCount").Value) * Convert.ToDecimal(o.Attribute("DetailPrice").Value))),
-                            g))));
+                                //new XAttribute("MaterialCost",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("MaterialCost").Value))),
+                                //new XAttribute("TransportCost",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("TransportCost").Value))),
+                                //new XAttribute("SalaryCost",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("SalaryCost").Value))),
+                                //new XAttribute("PowerForFormedCost",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("PowerForFormedCost").Value))),
+                                //new XAttribute("OtherPowerCost",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("OtherPowerCost").Value))),
+                                //new XAttribute("SummaryCost",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("SummaryCost").Value))),
+                                //new XAttribute("SummaryCount",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("DetailCount").Value))),
+                                //new XAttribute("SummaryPrice",
+                                //    g.Sum(
+                                //        o =>
+                                //            Convert.ToDecimal(o.Attribute("DetailCount").Value)*
+                                //            Convert.ToDecimal(o.Attribute("DetailPrice").Value))
+                                //            ),
+                                g)))));
             return doc;
         }
 
+        // Done
         public XDocument GetWorkItemDirectExpencesReport(DateTime startDate, DateTime endDate)
         {
             var rows = GetXElementsFromQuery(@"
@@ -319,17 +347,27 @@ FROM (SELECT
             }, r => r);
             var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
                 new XElement("root",
+                    new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")),
+                        new XAttribute("EndDate", endDate.ToString("dd.MM.yyyy"))),
+                    new XElement("WorkItemPackages",
                     rowDict.Select(g =>
-                        new XElement("workItemPackage",
+                            new XElement("WorkItemPackage",
                             new XAttribute("WorkDate", g.Key.WorkDate),
-                            new XAttribute("MaterialCost", g.Sum(o => Convert.ToDecimal(o.Attribute("MaterialCost").Value))),
-                            new XAttribute("TransportCost", g.Sum(o => Convert.ToDecimal(o.Attribute("TransportCost").Value))),
-                            new XAttribute("SalaryCost", g.Sum(o => Convert.ToDecimal(o.Attribute("SalaryCost").Value))),
-                            new XAttribute("PowerForFormedCost", g.Sum(o => Convert.ToDecimal(o.Attribute("PowerForFormedCost").Value))),
-                            new XAttribute("OtherPowerCost", g.Sum(o => Convert.ToDecimal(o.Attribute("OtherPowerCost").Value))),
-                            new XAttribute("SummaryCost", g.Sum(o => Convert.ToDecimal(o.Attribute("SummaryCost").Value))),
-                            new XAttribute("SummaryDoneCount", g.Sum(o => Convert.ToDecimal(o.Attribute("DoneCount").Value))),
-                            g))));
+                                //new XAttribute("MaterialCost",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("MaterialCost").Value))),
+                                //new XAttribute("TransportCost",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("TransportCost").Value))),
+                                //new XAttribute("SalaryCost",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("SalaryCost").Value))),
+                                //new XAttribute("PowerForFormedCost",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("PowerForFormedCost").Value))),
+                                //new XAttribute("OtherPowerCost",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("OtherPowerCost").Value))),
+                                //new XAttribute("SummaryCost",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("SummaryCost").Value))),
+                                //new XAttribute("SummaryDoneCount",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("DoneCount").Value))),
+                                g)))));
             return doc;
         }
 
@@ -338,6 +376,7 @@ FROM (SELECT
             var rows = GetXElementsFromQuery(@"
 SELECT
   t.ShipmentId,
+  t.ShipmentNumber,
   t.ShipmentDate,
   t.DrawingName,
   t.GroupName,
@@ -355,6 +394,7 @@ SELECT
   t.OtherPowerCost SummaryCost
 FROM (SELECT
     s.id ShipmentId,
+    s.Sort_Order ShipmentNumber,
     s.date ShipmentDate,
     d.name DrawingName,
     g.name GroupName,
@@ -387,25 +427,37 @@ FROM (SELECT
             var rowDict = rows.ToLookup(e => new
             {
                 ShipmentId = e.Attribute("ShipmentId").Value,
-                ShipmentDate = e.Attribute("ShipmentDate").Value
+                ShipmentDate = e.Attribute("ShipmentDate").Value,
+                ShipmentNumber = e.Attribute("ShipmentNumber").Value
             }, r => r);
             var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
                 new XElement("root",
-                    rowDict.Select(g =>
-                        new XElement("shipment",
-                            new XAttribute("ShipmentId", g.Key.ShipmentId),
-                            new XAttribute("ShipmentDate", g.Key.ShipmentDate),
-                            new XAttribute("MaterialCost", g.Sum(o => Convert.ToDecimal(o.Attribute("MaterialCost").Value))),
-                            new XAttribute("TransportCost", g.Sum(o => Convert.ToDecimal(o.Attribute("TransportCost").Value))),
-                            new XAttribute("SalaryCost", g.Sum(o => Convert.ToDecimal(o.Attribute("SalaryCost").Value))),
-                            new XAttribute("PowerForFormedCost", g.Sum(o => Convert.ToDecimal(o.Attribute("PowerForFormedCost").Value))),
-                            new XAttribute("OtherPowerCost", g.Sum(o => Convert.ToDecimal(o.Attribute("OtherPowerCost").Value))),
-                            new XAttribute("SummaryCost", g.Sum(o => Convert.ToDecimal(o.Attribute("SummaryCost").Value))),
-                            new XAttribute("SummaryDoneCount", g.Sum(o => Convert.ToDecimal(o.Attribute("DoneCount").Value))),
-                            g))));
+                    new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")),
+                        new XAttribute("EndDate", endDate.ToString("dd.MM.yyyy"))),
+                    new XElement("Shipments",
+                        rowDict.Select(g =>
+                            new XElement("Shipment",
+                                new XAttribute("ShipmentId", g.Key.ShipmentId),
+                                new XAttribute("ShipmentDate", g.Key.ShipmentDate),
+                                new XAttribute("ShipmentNumber", g.Key.ShipmentNumber),
+                                //new XAttribute("MaterialCost",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("MaterialCost").Value))),
+                                //new XAttribute("TransportCost",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("TransportCost").Value))),
+                                //new XAttribute("SalaryCost", g.Sum(o => Convert.ToDecimal(o.Attribute("SalaryCost").Value))),
+                                //new XAttribute("PowerForFormedCost",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("PowerForFormedCost").Value))),
+                                //new XAttribute("OtherPowerCost",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("OtherPowerCost").Value))),
+                                //new XAttribute("SummaryCost",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("SummaryCost").Value))),
+                                //new XAttribute("SummaryDoneCount",
+                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("DoneCount").Value))),
+                                g)))));
             return doc;
         }
 
+        // Done
         public XDocument GetSalaryReport(DateTime startDate, DateTime endDate, int? employeeId)
         {
             var rows = GetXElementsFromQuery(@"
@@ -436,14 +488,20 @@ ORDER BY e.full_name, wi.work_date",
             }, r => r);
             var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
                 new XElement("root",
+                    new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")),
+                        new XAttribute("EndDate", endDate.ToString("dd.MM.yyyy"))),
+                    new XElement("Employees",
                     rowDict.Select(g =>
-                        new XElement("employee",
+                            new XElement("Employee",
                             new XAttribute("EmployeeId", g.Key.EmployeeId),
                             new XAttribute("EmployeeFullName", g.Key.EmployeeFullName),
-                            new XAttribute("DoneCount", g.Sum(o => Convert.ToDecimal(o.Attribute("DoneCount").Value))),
-                            new XAttribute("MainSalary", g.Sum(o => Convert.ToDecimal(o.Attribute("MainSalary").Value))),
-                            new XAttribute("AdditionalSalary", g.Sum(o => Convert.ToDecimal(o.Attribute("AdditionalSalary").Value))),
-                            g))));
+                                new XAttribute("DoneCount",
+                                    g.Sum(o => Convert.ToDecimal(o.Attribute("DoneCount").Value))),
+                                new XAttribute("MainSalary",
+                                    g.Sum(o => Convert.ToDecimal(o.Attribute("MainSalary").Value))),
+                                new XAttribute("AdditionalSalary",
+                                    g.Sum(o => Convert.ToDecimal(o.Attribute("AdditionalSalary").Value))),
+                                g)))));
             return doc;
         }
 

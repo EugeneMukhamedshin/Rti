@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Linq;
 using Rti.Model.Domain;
 using Rti.ViewModel.Calculation;
 
@@ -62,6 +63,12 @@ namespace Rti.ViewModel.Entities
         public override string ToString()
         {
             return DisplayCalculatedMass;
+        }
+
+        public override void CustomFillXElement(XElement element)
+        {
+            base.CustomFillXElement(element);
+            element.Add(new XAttribute("CalculatedMass", CalculatedMass ?? 0));
         }
     }
 }

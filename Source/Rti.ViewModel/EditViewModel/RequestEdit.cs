@@ -99,8 +99,9 @@ namespace Rti.ViewModel.EditViewModel
         {
             if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
                 return;
+            Save();
             var viewModel = new RequestSpecificationReportViewModel(string.Format("Спецификация {0} от {1:dd.mm.yyyy}", Entity.Number, Entity.RegDate), ViewService, RepositoryFactory,
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Паспорт.xls")
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), string.Format("Спецификация {0} от {1:dd.mm.yyyy}.xls", Entity.Number, Entity.RegDate))
             {
                 Request = Source,
                 ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
@@ -170,7 +171,7 @@ namespace Rti.ViewModel.EditViewModel
                     "Для формирования счета заявка будет сохранена.\r\nПродолжить?")))
             {
                 Entity.InvoiceDate = DateTime.Today;
-                DoSave();
+                Save();
 
                 var reportGenerator = new InvoiceReportGenerator();
                 reportGenerator.BuildReport(Source.Id, ViewService, RepositoryFactory);

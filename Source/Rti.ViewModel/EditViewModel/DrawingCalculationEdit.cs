@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Management.Instrumentation;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
+using Rti.ViewModel.Reporting.ViewModel;
 
 namespace Rti.ViewModel.EditViewModel
 {
@@ -18,6 +20,8 @@ namespace Rti.ViewModel.EditViewModel
         private CalculationViewModel _factCalculation;
         public DelegateCommand CalculatePlanCommand { get; set; }
         public DelegateCommand CalculateFactCommand { get; set; }
+        public DelegateCommand ReportPlanCommand { get; set; }
+        public DelegateCommand ReportFactCommand { get; set; }
 
         public CalculationViewModel PlanCalculation
         {
@@ -81,12 +85,29 @@ namespace Rti.ViewModel.EditViewModel
                "Расчет",
                o => true,
                o => Calculate(CalculationType.Fact));
+            ReportPlanCommand = new DelegateCommand(o => Report(CalculationType.Plan));
+            ReportFactCommand = new DelegateCommand(o => Report(CalculationType.Fact));
             RefreshText();}
+
+        private void Report(CalculationType calculationType)
+        {
+            if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
+                return;
+            if (!Save()) return;
+            var viewModel = new DrawingCalculationReportViewModel(string.Format("Калькуляция ({0})", Entity.Name), ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), string.Format("Калькуляция ({0}).xls", Entity.Name))
+            {
+                Drawing = Source,
+                Calculation = calculationType == CalculationType.Fact ? FactCalculation : PlanCalculation,
+                ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
+            };
+            viewModel.GenerateReport();
+        }
 
         private void RefreshText()
         {
-            CalculatedFact = string.Format("Цена {0} руб.", Entity.FactCalculation.Summary);
-            CalculatedPlan = string.Format("Цена {0} руб.", Entity.PlanCalculation.Summary);
+            CalculatedFact = string.Format("Цена {0} руб.", Entity.FactCalculation.Price);
+            CalculatedPlan = string.Format("Цена {0} руб.", Entity.PlanCalculation.Price);
         }
 
         public void Calculate(CalculationType calculationType)

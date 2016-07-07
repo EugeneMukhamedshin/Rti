@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
 using Rti.ViewModel.Lists;
+using Rti.ViewModel.Reporting.ViewModel;
 
 namespace Rti.ViewModel.EditViewModel
 {
-    public class DrawingFlowsheetEdit: EditEntityViewModel<DrawingViewModel, Drawing>
+    public class DrawingFlowsheetEdit : EditEntityViewModel<DrawingViewModel, Drawing>
     {
-        public List<DrawingViewModel> DrawingSource { get { return new List<DrawingViewModel> {Entity}; } }
+        public List<DrawingViewModel> DrawingSource { get { return new List<DrawingViewModel> { Entity }; } }
 
         public DrawingFlowsheetMachineList DrawingFlowsheetMachineList { get; set; }
         public DrawingFlowsheetProcessList DrawingFlowsheetProcessList { get; set; }
@@ -19,16 +21,32 @@ namespace Rti.ViewModel.EditViewModel
         public Lazy<List<ContragentViewModel>> CustomersSource { get; set; }
 
         public DelegateCommand EditEquipmentCommand { get; set; }
+        public DelegateCommand ReportCommand { get; set; }
 
         public DrawingFlowsheetEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {
             EditEquipmentCommand = new DelegateCommand(o => EditEquipment());
+            ReportCommand = new DelegateCommand(o => Report());
             DrawingFlowsheetMachineList = new DrawingFlowsheetMachineList(entity, Editable, ViewService, RepositoryFactory);
             DrawingFlowsheetProcessList = new DrawingFlowsheetProcessList(entity, Editable, ViewService, RepositoryFactory);
             DrawingFlowsheetProcessList.SummaryChanged += DrawingFlowsheetProcessList_SummaryChanged;
 
             CustomersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(ContragentType.Customer).Select(o => new ContragentViewModel(o, RepositoryFactory)).ToList());
+        }
+
+        private void Report()
+        {
+            if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
+                return;
+            if (!Save()) return;
+            var viewModel = new DrawingFlowsheetReportViewModel(string.Format("ТК ({0})", Entity.Name), ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), string.Format("ТК ({0}).xls", Entity.Name))
+            {
+                Drawing = Source,
+                ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
+            };
+            viewModel.GenerateReport();
         }
 
         private void EditEquipment()
@@ -63,11 +81,11 @@ namespace Rti.ViewModel.EditViewModel
 
         protected override bool DoValidate()
         {
-            if (Entity.Customer == null)
-            {
-                ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задан заказчик"));
-                return false;
-            }
+            //if (Entity.Customer == null)
+            //{
+            //    ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задан заказчик"));
+            //    return false;
+            //}
             if (!DrawingFlowsheetMachineList.Items.Any())
             {
                 ViewService.ShowMessage(new MessageViewModel("Ошибка", string.Format("Перечень оборудования не задан")));

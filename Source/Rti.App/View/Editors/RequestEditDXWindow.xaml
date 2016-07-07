@@ -166,7 +166,7 @@
                 <Button Content="Текущий счет" Command="{Binding CreateInvoiceCommand}" Width="120" Margin="5" TabIndex="500"/>
                 <Button Content="Спецификация" Command="{Binding CreateSpecificationCommand}" Width="120" Margin="5" TabIndex="500"/>
                 <Button Content="Акт вып. работ" Command="{Binding CreateReportOfCompletionCommand}" Width="120" Margin="5" TabIndex="501"/>
-                <Button Content="Акт вып. работ" Command="{Binding CreateReportOfCompletionCommand}" Width="120" Margin="5" TabIndex="501"/>
+                <!--<Button Content="Акт вып. работ" Command="{Binding CreateReportOfCompletionCommand}" Width="120" Margin="5" TabIndex="501"/>-->
                 <Button Content="Договор" Command="{Binding CreateContractReportCommand}" Width="120" Margin="5" TabIndex="502"/>
                 <!--<Button Content="Реестр заявок" Command="{Binding OpenRequestReportCommand}" Width="120" Margin="5" TabIndex="502"/>-->
                 

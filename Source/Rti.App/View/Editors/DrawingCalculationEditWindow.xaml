@@ -77,6 +77,8 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>
             <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
+            <Button Content="Печат. форма (План)"  Command="{Binding ReportPlanCommand}" Width="140" Margin="5" TabIndex="1002"></Button>
+            <Button Content="Печат. форма (Факт)"  Command="{Binding ReportFactCommand}" Width="140" Margin="5" TabIndex="1003"></Button>
         </StackPanel>
     </Grid>
 </dx:DXWindow>

@@ -273,11 +273,7 @@
                                     <dxe:TextEditSettings IsEnabled="{Binding AreNamesReadOnly}"/>
                                 </dxg:GridColumn.EditSettings>
                             </dxg:GridColumn>
-                            <dxg:GridColumn FieldName="DisplayNormTime" Header="Время по норме" Width="120">
-                                <dxg:GridColumn.EditSettings>
-                                    <dxe:TextEditSettings/>
-                                </dxg:GridColumn.EditSettings>
-                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="DisplayNormTime" Header="Время по норме" Width="120" EditSettings="{components:Float2TextEditSettings}"/>
                             <dxg:GridColumn FieldName="IsIncludedToSummary" Header=" " Width="40" >
                                 <dxg:GridColumn.EditSettings>
                                     <dxe:CheckEditSettings />
@@ -306,6 +302,7 @@
             <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
                 <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"/>
                 <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"/>
+                <Button Content="Печат. форма"  Command="{Binding ReportCommand}" Width="90" Margin="5" TabIndex="1001"/>
             </StackPanel>
         </Grid>
         <Border Opacity="0.8" Visibility="{Binding IsLoading,Converter={StaticResource BooleanToVisibilityConverter}}" Background="AliceBlue">

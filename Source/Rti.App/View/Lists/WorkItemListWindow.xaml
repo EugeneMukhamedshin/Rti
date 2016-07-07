@@ -97,6 +97,7 @@
                 </StackPanel>
             </Grid>
             <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal">
+                <Button Content="Печат. форма"  Command="{Binding ReportCommand}" Width="110" Margin="5" TabIndex="1001"/>
                 <Button Content="Закрыть"  Command="{Binding CloseCommand}" Width="80" Margin="5" TabIndex="1001"/>
             </StackPanel>
         </Grid>

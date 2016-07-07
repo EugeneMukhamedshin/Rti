@@ -71,12 +71,12 @@
             </dxg:GridControl.Resources>
             <dxg:GridControl.Columns>
                 <dxg:GridColumn FieldName="SortOrder" Header="№" ReadOnly="True" Width="50"/>
-                <dxg:GridColumn FieldName="ShaverEmployee.FullName" Header="ФИО" Width="150"/>
+                <dxg:GridColumn FieldName="ShaverEmployee.FullName" Header="ФИО обрезчика" Width="150"/>
                 <dxg:GridColumn FieldName="ShaveDate" Header="Дата обрезки" Width="100"/>
                 <dxg:GridColumn FieldName="Drawing.Group.Name" Header="Группа" Width="100"/>
                 <dxg:GridColumn FieldName="Drawing.Name" Header="Чертеж" Width="100"/>
                 <dxg:GridColumn FieldName="Drawing.Detail.Name" Header="Наименование" Width="100"/>
-                <dxg:GridColumn FieldName="MakerEmployee.FullName" Header="ФИО изготовителя" Width="100"/>
+                <dxg:GridColumn FieldName="MakerEmployee.FullName" Header="ФИО прессовщика" Width="100"/>
                 <dxg:GridColumn FieldName="InputCount" Header="Входное количество" Width="100"/>
                 <dxg:GridColumn FieldName="FlawCount" Header="Количество брака" Width="100"/>
                 <dxg:GridColumn FieldName="Drawing.Material.Name" Header="Материал детали" Width="100"/>

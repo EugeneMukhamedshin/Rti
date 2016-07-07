@@ -1,3 +1,5 @@
+using System.Xml.Linq;
+
 namespace Rti.ViewModel.Entities
 {
     partial class CalculationViewModel
@@ -17,6 +19,12 @@ namespace Rti.ViewModel.Entities
             base.OnPropertyChanged(propertyName);
             if (propertyName.In("MainMaterial", "Rubber", "Clue", "Armature", "Sand", "Textile", "OtherMaterial"))
                 OnPropertyChanged("AllMaterials");
+        }
+
+        public override void CustomFillXElement(XElement element)
+        {
+            base.CustomFillXElement(element);
+            element.Add(new XAttribute("AllMaterials", AllMaterials ?? 0));
         }
     }
 }

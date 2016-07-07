@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Linq;
 
 namespace Rti.ViewModel.Entities
 {
@@ -48,6 +49,12 @@ namespace Rti.ViewModel.Entities
                 OnPropertyChanged("TakeOffCount");
             if (propertyName.In("TakeOffCount", "FlowsheetMachine"))
                 OnPropertyChanged("MachineUsageTime");
+        }
+
+        public override void CustomFillXElement(XElement element)
+        {
+            base.CustomFillXElement(element);
+            element.Add(new XAttribute("Sum", Sum ?? 0));
         }
     }
 }

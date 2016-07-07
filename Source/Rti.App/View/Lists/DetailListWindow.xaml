@@ -35,7 +35,7 @@
             </dxmvvm:Interaction.Behaviors>
             <dxg:GridControl.Columns>
                 <dxg:GridColumn FieldName="SortOrder" Header="№" UnboundType="Integer" ReadOnly="True" Width="50"/>
-                <dxg:GridColumn FieldName="Name" Header="ФИО" UnboundType="Object" Width="200"/>
+                <dxg:GridColumn FieldName="Name" Header="Наименование" UnboundType="Object" Width="200"/>
             </dxg:GridControl.Columns>
             <dxg:GridControl.View>
                 <dxg:TableView EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>

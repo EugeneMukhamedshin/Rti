@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
+using Rti.ViewModel.Reporting.ViewModel;
 
 namespace Rti.ViewModel.Lists
 {
@@ -31,6 +33,7 @@ namespace Rti.ViewModel.Lists
 
         public DelegateCommand OkCommand { get; set; }
         public DelegateCommand CloseCommand { get; set; }
+        public DelegateCommand ReportCommand { get; set; }
 
         private Dictionary<int, List<DrawingFlowsheetMachineViewModel>> _drawingMachines;
 
@@ -64,6 +67,21 @@ namespace Rti.ViewModel.Lists
                 "",
                 o => true,
                 o => Close(null));
+            ReportCommand = new DelegateCommand(o => Report());
+        }
+
+        private void Report()
+        {
+            var viewModel = new EmployeeWorkItemListReportViewModel("Индивидуальный наряд", ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), string.Format("Индивидуальный наряд {0} ({1:dd.MM.yyyy}).xls", Employee.FullName, Date))
+            {
+                Employee = Employee,
+                WorkItemPackage = EmployeeWorkItemPackage,
+                WorkItems = Items.ToList(),
+                Date = Date,
+                ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
+            };
+            viewModel.GenerateReport();
         }
 
         private void SaveAndClose()

@@ -20,6 +20,7 @@ using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Lists;
 using Rti.ViewModel.Reporting.Generator;
+using Rti.ViewModel.Reporting.ViewModel;
 
 namespace Rti.App
 {
@@ -60,10 +61,12 @@ namespace Rti.App
                 }
                 else
                 {
-                    var viewModel = new RequestEdit("", new RequestViewModel(repositoryFactory.GetRequestRepository().GetByNumber(15), repositoryFactory), false, _viewService, repositoryFactory);
-                    //var viewModel = new MainViewModel(_viewService, repositoryFactory);
+                    //var viewModel = new RequestEdit("", new RequestViewModel(repositoryFactory.GetRequestRepository().GetByNumber(15), repositoryFactory), false, _viewService, repositoryFactory);
+                    var viewModel = new MainViewModel(_viewService, repositoryFactory);
                     //var viewModel = new ReportOfCompletionEdit("", new RequestViewModel(repositoryFactory.GetRequestRepository().GetByNumber(15), repositoryFactory), false, _viewService, repositoryFactory);
                     //var viewModel = new ShipmentEdit("", new ShipmentViewModel(repositoryFactory.GetShipmentRepository().GetById(2), repositoryFactory), false, _viewService, repositoryFactory);
+                    //var viewModel = new ShipmentDirectExpencesReportViewModel("", _viewService, repositoryFactory,
+                    //    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Отчет.xls");
                     viewModel.Refresh();
                     _viewService.ShowView(viewModel, false, true);
                 }

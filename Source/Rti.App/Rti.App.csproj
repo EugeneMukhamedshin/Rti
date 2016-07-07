@@ -810,6 +810,60 @@
   <ItemGroup>
     <None Include="Reports\GetRequestSpecificationReport.xslt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetRequestsByMethodsReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetDrawingShipmentsReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetSalaryReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetUsedMaterialsReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetRequestDirectExpencesReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetWorkItemDirectExpencesReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetShipmentDirectExpencesReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetDrawingFlowsheetReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetDrawingFlowsheetReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetDrawingCalculationReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetDrawingCalculationReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetWorkItemListReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetWorkItemListReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetEmployeeWorkItemListReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetEmployeeWorkItemListReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

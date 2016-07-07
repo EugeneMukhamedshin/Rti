@@ -206,7 +206,7 @@ namespace Rti.ViewModel.Reporting.Generator
 
         private static IFormatProvider GetFormatProvider(string culture)
         {
-            return string.IsNullOrEmpty(culture) ? CultureInfo.InvariantCulture : CultureInfo.GetCultureInfo(culture);
+            return string.IsNullOrEmpty(culture) ? CultureInfo.GetCultureInfo("ru-RU") : CultureInfo.GetCultureInfo(culture);
         }
 
         public string FormatDateTime(string text, string format, string culture)

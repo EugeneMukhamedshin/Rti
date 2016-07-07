@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Microsoft.Office.Interop.Word;
 using Rti.Model.Domain;
+using Rti.Model.Domain.Generator;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
+using Rti.ViewModel.Reporting.ViewModel;
 
 namespace Rti.ViewModel.Lists
 {
@@ -32,6 +36,8 @@ namespace Rti.ViewModel.Lists
         public DelegateCommand OpenEmployeeWorkItemListCommand { get; set; }
 
         public DelegateCommand CloseCommand{ get; set; }
+
+        public DelegateCommand ReportCommand { get; set; }
 
         public EmployeeViewModel Employee
         {
@@ -73,6 +79,19 @@ namespace Rti.ViewModel.Lists
                 "",
                 o => true,
                 o => Close(true));
+            ReportCommand = new DelegateCommand(o => Report());
+        }
+
+        private void Report()
+        {
+            var viewModel = new WorkItemListReportViewModel("Дневной наряд", ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), string.Format("Дневной наряд ({0:dd.MM.yyyy}).xls", Date))
+            {
+                WorkItems = Items.ToList(),
+                ExtensionFilter = "Файлы Excel (*.xls)|*.xls",
+                Date = Date
+            };
+            viewModel.GenerateReport();
         }
 
         private void AddWorkItem()

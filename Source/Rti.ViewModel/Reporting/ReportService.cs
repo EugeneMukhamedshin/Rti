@@ -40,7 +40,8 @@ namespace Rti.ViewModel.Reporting
             }
         }
 
-        private static byte[] XslTransformationInternal(IXPathNavigable xml, XslCompiledTransform xslt, MemoryStream stream)
+        private static byte[] XslTransformationInternal(IXPathNavigable xml, XslCompiledTransform xslt,
+            MemoryStream stream)
         {
             var args = new XsltArgumentList();
             args.AddExtensionObject("urn:rti", new XslExtensions());
@@ -65,19 +66,28 @@ namespace Rti.ViewModel.Reporting
         public byte[] GetDrawingShipmentsReport(DateTime startDate, DateTime endDate, DrawingViewModel drawing)
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetDrawingShipmentsReport.xslt"));
-            return GetReport(r => r.GetDrawingShipmentsReport(startDate, endDate, drawing == null ? (int?)null : drawing.Id), xsl);
+            return
+                GetReport(
+                    r => r.GetDrawingShipmentsReport(startDate, endDate, drawing == null ? (int?)null : drawing.Id),
+                    xsl);
         }
 
         public byte[] GetUsedMaterialsReport(DateTime startDate, DateTime endDate, MaterialViewModel material)
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetUsedMaterialsReport.xslt"));
-            return GetReport(r => r.GetUsedMaterialsReport(startDate, endDate, material == null ? (int?)null : material.Id), xsl);
+            return
+                GetReport(
+                    r => r.GetUsedMaterialsReport(startDate, endDate, material == null ? (int?)null : material.Id), xsl);
         }
 
         public byte[] GetRequestDirectExpencesReport(DateTime startDate, DateTime endDate, RequestViewModel request)
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetRequestDirectExpencesReport.xslt"));
-            return GetReport(r => r.GetRequestDirectExpencesReport(startDate, endDate, request == null ? (int?)null : request.Id), xsl);
+            return
+                GetReport(
+                    r =>
+                        r.GetRequestDirectExpencesReport(startDate, endDate, request == null ? (int?)null : request.Id),
+                    xsl);
         }
 
         public byte[] GetWorkItemDirectExpencesReport(DateTime startDate, DateTime endDate)
@@ -89,13 +99,18 @@ namespace Rti.ViewModel.Reporting
         public byte[] GetShipmentDirectExpencesReport(DateTime startDate, DateTime endDate, ShipmentViewModel shipment)
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetShipmentDirectExpencesReport.xslt"));
-            return GetReport(r => r.GetShipmentDirectExpencesReport(startDate, endDate, shipment == null ? (int?)null : shipment.Id), xsl);
+            return
+                GetReport(
+                    r =>
+                        r.GetShipmentDirectExpencesReport(startDate, endDate,
+                            shipment == null ? (int?)null : shipment.Id), xsl);
         }
 
         public byte[] GetSalaryReport(DateTime startDate, DateTime endDate, EmployeeViewModel employee)
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetSalaryReport.xslt"));
-            return GetReport(r => r.GetSalaryReport(startDate, endDate, employee == null ? (int?)null : employee.Id), xsl);
+            return GetReport(r => r.GetSalaryReport(startDate, endDate, employee == null ? (int?)null : employee.Id),
+                xsl);
         }
 
         private XDocument GetShipmentDocument(ShipmentViewModel shipment)
@@ -121,7 +136,7 @@ namespace Rti.ViewModel.Reporting
                     .Select(o => new RequestDetailViewModel(o, RepositoryFactory));
             var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
                 new XElement("root",
-                        request.GetXElement("Request"),
+                    request.GetXElement("Request"),
                     new XElement("RequestDetails",
                         requestDetails.Select(o => o.GetXElement("RequestDetail")))));
             return doc;
@@ -166,6 +181,61 @@ namespace Rti.ViewModel.Reporting
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetRequestSpecificationReport.xslt"));
             var doc = GetRequestDocument(request);
+            return GetReport(r => doc, xsl);
+        }
+
+        public byte[] GetDrawingFlowsheetReport(DrawingViewModel drawing)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetDrawingFlowsheetReport.xslt"));
+            var machines =
+                RepositoryFactory.GetDrawingFlowsheetMachineRepository()
+                    .GetByDrawingId(drawing.Id)
+                    .Select(o => new DrawingFlowsheetMachineViewModel(o, RepositoryFactory));
+            var processes =
+                RepositoryFactory.GetDrawingFlowsheetProcessRepository()
+                    .GetByDrawingId(drawing.Id)
+                    .Select(o => new DrawingFlowsheetProcessViewModel(o, RepositoryFactory));
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                    drawing.GetXElement("Drawing"),
+                    new XElement("Machines",
+                        machines.Select(o => o.GetXElement("Machine"))),
+                    new XElement("Processes",
+                        processes.Select(o => o.GetXElement("Process")))));
+            return GetReport(r => doc, xsl);
+        }
+
+        public byte[] GetDrawingCalculationReport(DrawingViewModel drawing, CalculationViewModel calculation)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetDrawingCalculationReport.xslt"));
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                    new XElement("Report", new XAttribute("Date", DateTime.Today)),
+                    drawing.GetXElement("Drawing"),
+                    calculation.GetXElement("Calculation")));
+            return GetReport(r => doc, xsl);
+        }
+
+        public byte[] GetWorkItemListReport(List<WorkItemViewModel> workItems, DateTime date)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetWorkItemListReport.xslt"));
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                    new XElement("Report", new XAttribute("Date", date)),
+                    new XElement("WorkItems",
+                    workItems.Select(o => o.GetXElement("WorkItem")))));
+            return GetReport(r => doc, xsl);
+        }
+
+        public byte[] GetEmployeeWorkItemListReport(List<WorkItemViewModel> workItems, EmployeeViewModel employee, WorkItemPackageViewModel workItemPackage)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetEmployeeWorkItemListReport.xslt"));
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                    workItemPackage.GetXElement("WorkItemPackage"),
+                    employee.GetXElement("Employee"),
+                    new XElement("WorkItems",
+                        workItems.Select(o => o.GetXElement("WorkItem")))));
             return GetReport(r => doc, xsl);
         }
     }
