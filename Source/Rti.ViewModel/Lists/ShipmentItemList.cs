@@ -13,6 +13,7 @@ namespace Rti.ViewModel.Lists
         private readonly List<ShipmentItemViewModel> _deletedItems = new List<ShipmentItemViewModel>();
         private readonly Lazy<Constant> _constants;
         private List<RequestDetailViewModel> _requestDetailsSource;
+        private bool _isChanged;
 
         public DelegateCommand AddItemCommand { get; set; }
 
@@ -78,6 +79,18 @@ namespace Rti.ViewModel.Lists
         void Items_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             RefreshAndResubscribeItems();
+            IsChanged = true;
+        }
+
+        public bool IsChanged
+        {
+            get { return _isChanged; }
+            set
+            {
+                if (value == _isChanged) return;
+                _isChanged = value;
+                OnPropertyChanged();
+            }
         }
 
         private void RefreshSummary()
@@ -91,7 +104,7 @@ namespace Rti.ViewModel.Lists
         {
             if (e.PropertyName.In("Count", "RealPrice", "Price"))
                 RefreshSummary();
-        }
+            IsChanged = true;}
 
         public override void Refresh()
         {

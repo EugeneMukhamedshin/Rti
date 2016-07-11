@@ -18,6 +18,9 @@ namespace Rti.ViewModel.Reporting.ViewModel
 
         protected override void DoGenerateReport()
         {
+            var fileName = FileName;
+            if (!ViewService.ShowFileDialog(ref fileName, "Файлы Excel (*.xls)|*.xls"))
+                return;
             var reportService = new ReportService(RepositoryFactory, XsltPath);
             var report = GetReport(reportService);
             var templateFileName = Path.Combine(Path.GetTempPath(), string.Format("{0}.xml", Guid.NewGuid()));
@@ -26,10 +29,13 @@ namespace Rti.ViewModel.Reporting.ViewModel
             {
                 var application = new Application().AsReleasable();
                 var workbooks = application.Workbooks.AsReleasable();
-                application.DisplayAlerts = true;application.Visible = true;
+                application.DisplayAlerts = false;
+                application.Visible = false;
                 application.ScreenUpdating = true;
                 var workbook = workbooks.Open(templateFileName).AsReleasable();
-                workbook.SaveAs(FileName, XlFileFormat.xlExcel8);
+                workbook.SaveAs(fileName, XlFileFormat.xlExcel8);
+                application.DisplayAlerts = true;
+                application.Visible = true;
             }
             catch (Exception ex)
             {

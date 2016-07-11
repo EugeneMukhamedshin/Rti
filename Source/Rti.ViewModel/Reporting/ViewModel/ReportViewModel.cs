@@ -6,7 +6,7 @@ namespace Rti.ViewModel.Reporting.ViewModel
 {
     public abstract class ReportViewModel : BaseViewModel, IClosable
     {
-        private readonly IViewService _viewService;
+        protected readonly IViewService ViewService;
         private string _fileName;
 
         public string FileName
@@ -32,7 +32,7 @@ namespace Rti.ViewModel.Reporting.ViewModel
         public ReportViewModel(string name, IViewService viewService, IRepositoryFactory repositoryFactory, string fileName) : base(repositoryFactory)
         {
             Name = name;
-            _viewService = viewService;
+            ViewService = viewService;
             _fileName = fileName;
             GenerateCommand = new DelegateCommand(
                 "",
@@ -48,7 +48,7 @@ namespace Rti.ViewModel.Reporting.ViewModel
         private void SelectFile()
         {
             string fileName = FileName;
-            if (_viewService.ShowFileDialog(ref fileName, ExtensionFilter))
+            if (ViewService.ShowFileDialog(ref fileName, ExtensionFilter))
                 FileName = fileName;
         }
 

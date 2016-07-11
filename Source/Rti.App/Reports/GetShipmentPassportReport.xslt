@@ -85,11 +85,10 @@
         </Style>
         <Style ss:ID="s28">
           <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
-          <Font ss:FontName="Arial" x:CharSet="204" x:Family="Swiss" ss:Size="14"/>
+          <Font ss:FontName="Arial" x:CharSet="204" x:Family="Swiss" ss:Size="8"/>
         </Style>
         <Style ss:ID="s29">
-          <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
-          <Font ss:FontName="Arial" x:CharSet="204" x:Family="Swiss" ss:Size="14"/>
+          <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/><Font ss:FontName="Arial" x:CharSet="204" x:Family="Swiss" ss:Size="14"/>
         </Style>
         <Style ss:ID="s36">
           <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
@@ -206,7 +205,8 @@
           </Row>
           <Row ss:Height="18">
             <Cell ss:MergeAcross="10" ss:StyleID="s29">
-              <Data ss:Type="String">ПАСПОРТ №</Data>
+              <Data ss:Type="String">ПАСПОРТ № <xsl:value-of select="rti:FormatDate(set[@name='Shipments']/Shipment/@DeliveryDocDate)"/>
+              </Data>
             </Cell>
           </Row>
           <Row ss:Height="18">

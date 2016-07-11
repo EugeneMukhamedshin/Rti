@@ -328,8 +328,7 @@
             <Cell ss:StyleID="s38"/>
             <Cell ss:StyleID="s38"/>
           </Row>
-          <Row ss:Height="15.75">
-            <Cell ss:StyleID="s16"/>
+          <Row ss:Height="15.75"><Cell ss:StyleID="s16"/>
             <Cell ss:StyleID="s31">
               <Data ss:Type="String">№ заявки</Data>
             </Cell>

@@ -52,11 +52,14 @@ namespace Rti.ViewModel.Lists
 
         protected override ShipmentViewModel DoCreateNewEntity()
         {
-            return new ShipmentViewModel(null, RepositoryFactory)
+            var shipment = new ShipmentViewModel(null, RepositoryFactory)
             {
                 Date = DateTime.Today,
                 SortOrder = RepositoryFactory.GetShipmentRepository().GetNextSortOrder()
             };
+            shipment.DeliveryDocNumber = shipment.SortOrder;
+            shipment.DeliveryDocDate = shipment.Date;
+            return shipment;
         }
 
         protected override void DoDeleteEntity(ShipmentViewModel entity)

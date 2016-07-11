@@ -15,7 +15,8 @@
         </Grid.RowDefinitions>
         <components:PropertyGridResponsible Grid.Row="0" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False" SortMode="Definitions">
             <components:PropertyGridResponsible.PropertyDefinitions>
-                <dxprg:PropertyDefinition Header="№" Path="SortOrder" IsReadOnly="True"/>
+                <dxprg:PropertyDefinition Header="№ ТТН" Path="DeliveryDocNumber"/>
+                <dxprg:PropertyDefinition Header="Дата ТТН" Path="DeliveryDocDate"/>
                 <dxprg:PropertyDefinition Header="Путевой лист" Path="TripTicket"/>
                 <dxprg:PropertyDefinition Header="Водитель" Path="Driver">
                     <dxprg:PropertyDefinition.EditSettings>

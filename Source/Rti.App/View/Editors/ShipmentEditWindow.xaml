@@ -223,9 +223,9 @@
             </dxg:GridControl>
             <Grid Grid.Row="3">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="24"/>
-                    <RowDefinition Height="24"/>
-                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="32"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -238,6 +238,10 @@
                 <Grid.Resources>
                     <Style TargetType="TextBlock">
                         <Setter Property="Margin" Value="3"></Setter>
+                        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                    </Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Margin" Value="2"></Setter>
                     </Style>
                 </Grid.Resources>
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Масса нетто, кг"/>
@@ -251,7 +255,7 @@
                 <Button Grid.Row="1" Grid.Column="2" Content="Счет фактура" Command="{Binding ShowShipmentFactureReportCommand}"/>
                 <Button Grid.Row="2" Grid.Column="2" Content="ТТН" Command="{Binding ShowShipmentTransportReportCommand}"/>
                 <Button Grid.Row="0" Grid.Column="3" Content="Паспорт" Command="{Binding ShowShipmentPassportReportCommand}"/>
-                <Button Grid.Row="1" Grid.Column="3" Content="Распор. на отгрузку" Command="{Binding ShowShipmentUniversalDocumentReportCommand}"/>
+                <Button Grid.Row="1" Grid.Column="3" Content="Ун. перед. док." Command="{Binding ShowShipmentUniversalDocumentReportCommand}"/>
             </Grid>
             <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal">
                 <Button Content="Сохранить" Command="{Binding OkCommand}" Width="80" Margin="5" IsDefault="True" TabIndex="1000"/>

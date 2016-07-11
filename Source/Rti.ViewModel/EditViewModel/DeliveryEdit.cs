@@ -26,6 +26,7 @@ namespace Rti.ViewModel.EditViewModel
         protected override void DoSave()
         {
             Entity.CopyTo(Source);
+            Source.IsChanged = true;
         }
     }
 }

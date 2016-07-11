@@ -800,7 +800,7 @@
     <Resource Include="Reports\universalDocument.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Reports\GetShipmentUniversalDocumentReport.xslt">
+    <None Include="Reports\GetShipmentUniversalDocumentReport_Filled.xslt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -863,6 +863,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Reports\GetEmployeeWorkItemListReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetShipmentUniversalDocumentReport.xslt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

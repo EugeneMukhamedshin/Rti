@@ -888,6 +888,10 @@ namespace Rti.Model.Domain
 		public virtual decimal? DeliverySum { get; set; }
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+		[Field("delivery_doc_date")]
+		public virtual DateTime? DeliveryDocDate { get; set; }
+		[Field("delivery_doc_number")]
+		public virtual Int32? DeliveryDocNumber { get; set; }
 		[Reference("request_id", false)]
 		public virtual Request Request { get; set; }
 		[Reference("recipient_id", false)]

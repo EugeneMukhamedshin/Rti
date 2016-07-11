@@ -814,6 +814,8 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.DeliveryResponsible, "delivery_responsible");
 			Map(o => o.DeliverySum, "delivery_sum");
 			Map(o => o.IsDeleted, "is_deleted");
+			Map(o => o.DeliveryDocDate, "delivery_doc_date");
+			Map(o => o.DeliveryDocNumber, "delivery_doc_number");
 			References(o => o.Request, "request_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Recipient, "recipient_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Payer, "payer_id").Fetch.Join().Not.LazyLoad();

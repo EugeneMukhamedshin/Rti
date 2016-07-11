@@ -731,7 +731,9 @@
               <Data ss:Type="String">по ОКПО</Data>
             </Cell>
             <Cell ss:StyleID="s26">
-              <Data ss:Type="Number">51835367</Data>
+              <Data ss:Type="String">
+                <xsl:value-of select="set[@name='Shipments']/Shipment/Request/Manufacturer/@Okpo"/>
+              </Data>
             </Cell>
           </Row>
           <Row>
@@ -802,7 +804,11 @@
             <Cell ss:StyleID="s30">
               <Data ss:Type="String">по ОКПО</Data>
             </Cell>
-            <Cell ss:StyleID="s31"/>
+            <Cell ss:StyleID="s31">
+              <Data ss:Type="String">
+                <xsl:value-of select="set[@name='Shipments']/Shipment/Recipient/@Okpo"/>
+              </Data>
+            </Cell>
           </Row>
           <Row>
             <Cell ss:StyleID="s28">
@@ -853,7 +859,9 @@
               <Data ss:Type="String">по ОКПО</Data>
             </Cell>
             <Cell ss:StyleID="s26">
-              <Data ss:Type="Number">51835367</Data>
+              <Data ss:Type="String">
+                <xsl:value-of select="set[@name='Shipments']/Shipment/Request/Manufacturer/@Okpo"/>
+              </Data>
             </Cell>
           </Row>
           <Row>
@@ -904,7 +912,11 @@
             <Cell ss:StyleID="s30">
               <Data ss:Type="String">по ОКПО</Data>
             </Cell>
-            <Cell ss:StyleID="s33"/>
+            <Cell ss:StyleID="s33">
+              <Data ss:Type="String">
+                <xsl:value-of select="set[@name='Shipments']/Shipment/Payer/@Okpo"/>
+              </Data>
+            </Cell>
           </Row>
           <Row>
             <Cell ss:StyleID="s28" ss:Formula="=R[-4]C">
@@ -956,7 +968,11 @@
             <Cell ss:StyleID="s37">
               <Data ss:Type="String">номер</Data>
             </Cell>
-            <Cell ss:StyleID="s33"/>
+            <Cell ss:StyleID="s33">
+              <Data ss:Type="Number">
+                <xsl:value-of select="set[@name='Shipments']/Shipment/@DeliveryDocNumber"/>
+              </Data>
+            </Cell>
           </Row>
           <Row>
             <Cell ss:MergeAcross="13" ss:StyleID="s36">
@@ -966,7 +982,11 @@
             <Cell ss:StyleID="s37">
               <Data ss:Type="String">дата</Data>
             </Cell>
-            <Cell ss:StyleID="s33"/>
+            <Cell ss:StyleID="s33">
+              <Data ss:Type="String">
+                <xsl:value-of select="rti:FormatDate(set[@name='Shipments']/Shipment/@DeliveryDocDate)"/>
+              </Data>
+            </Cell>
           </Row>
           <Row>
             <Cell ss:StyleID="s19"/>
@@ -1161,7 +1181,8 @@
             <Cell ss:StyleID="s81"/>
             <Cell ss:StyleID="s81"/>
             <Cell ss:StyleID="s83">
-              <Data ss:Type="String">Итого</Data></Cell>
+              <Data ss:Type="String">Итого</Data>
+            </Cell>
             <Cell ss:StyleID="s83"/>
             <Cell ss:StyleID="s83"/>
             <Cell ss:StyleID="s84"/>
@@ -1180,7 +1201,8 @@
           <Row>
             <Cell ss:StyleID="s85"/>
             <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/><Cell ss:StyleID="s85">
+            <Cell ss:StyleID="s85"/>
+            <Cell ss:StyleID="s85">
               <Data ss:Type="String">Товарная накладная имеет приложение на___________________________листах</Data>
             </Cell>
             <Cell ss:StyleID="s85"/>

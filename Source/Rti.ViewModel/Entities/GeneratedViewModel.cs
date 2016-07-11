@@ -3709,6 +3709,8 @@ namespace Rti.ViewModel.Entities
 		private String _deliveryResponsible;
 		private Decimal? _deliverySum;
 		private Boolean _isDeleted;
+		private DateTime? _deliveryDocDate;
+		private Int32? _deliveryDocNumber;
 		private RequestViewModel _request;
 		private ContragentViewModel _recipient;
 		private ContragentViewModel _payer;
@@ -3727,6 +3729,8 @@ namespace Rti.ViewModel.Entities
 		public String DeliveryResponsible { get { return _deliveryResponsible; } set { if (Equals(_deliveryResponsible, value)) return; _deliveryResponsible = value; OnPropertyChanged("DeliveryResponsible"); } }
 		public Decimal? DeliverySum { get { return _deliverySum; } set { if (Equals(_deliverySum, value)) return; _deliverySum = value; OnPropertyChanged("DeliverySum"); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
+		public DateTime? DeliveryDocDate { get { return _deliveryDocDate; } set { if (Equals(_deliveryDocDate, value)) return; _deliveryDocDate = value; OnPropertyChanged("DeliveryDocDate"); } }
+		public Int32? DeliveryDocNumber { get { return _deliveryDocNumber; } set { if (Equals(_deliveryDocNumber, value)) return; _deliveryDocNumber = value; OnPropertyChanged("DeliveryDocNumber"); } }
 		public RequestViewModel Request { get { return _request; } set { _request = value; OnPropertyChanged("Request"); } }
 		public ContragentViewModel Recipient { get { return _recipient; } set { _recipient = value; OnPropertyChanged("Recipient"); } }
 		public ContragentViewModel Payer { get { return _payer; } set { _payer = value; OnPropertyChanged("Payer"); } }
@@ -3746,6 +3750,8 @@ namespace Rti.ViewModel.Entities
 			Entity.DeliveryResponsible = DeliveryResponsible; 
 			Entity.DeliverySum = DeliverySum; 
 			Entity.IsDeleted = IsDeleted; 
+			Entity.DeliveryDocDate = DeliveryDocDate; 
+			Entity.DeliveryDocNumber = DeliveryDocNumber; 
 			Entity.Request = Request == null ? null : Request.Entity; 
 			Entity.Recipient = Recipient == null ? null : Recipient.Entity; 
 			Entity.Payer = Payer == null ? null : Payer.Entity; 
@@ -3769,6 +3775,8 @@ namespace Rti.ViewModel.Entities
 			DeliveryResponsible = Entity.DeliveryResponsible; 
 			DeliverySum = Entity.DeliverySum; 
 			IsDeleted = Entity.IsDeleted; 
+			DeliveryDocDate = Entity.DeliveryDocDate; 
+			DeliveryDocNumber = Entity.DeliveryDocNumber; 
 			Request = Entity.Request == null ? null : new RequestViewModel(Entity.Request, RepositoryFactory); 
 			Recipient = Entity.Recipient == null ? null : new ContragentViewModel(Entity.Recipient, RepositoryFactory); 
 			Payer = Entity.Payer == null ? null : new ContragentViewModel(Entity.Payer, RepositoryFactory); 
@@ -3792,6 +3800,8 @@ namespace Rti.ViewModel.Entities
 			DeliveryResponsible = source.DeliveryResponsible;
 			DeliverySum = source.DeliverySum;
 			IsDeleted = source.IsDeleted;
+			DeliveryDocDate = source.DeliveryDocDate;
+			DeliveryDocNumber = source.DeliveryDocNumber;
 			Request = source.Request;
 			Recipient = source.Recipient;
 			Payer = source.Payer;
@@ -3831,6 +3841,10 @@ namespace Rti.ViewModel.Entities
 			if (DeliverySum != null)
 				element.Add(new XAttribute("DeliverySum", DeliverySum));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
+			if (DeliveryDocDate != null)
+				element.Add(new XAttribute("DeliveryDocDate", DeliveryDocDate));
+			if (DeliveryDocNumber != null)
+				element.Add(new XAttribute("DeliveryDocNumber", DeliveryDocNumber));
 			if (Request != null)
 				element.Add(Request.GetXElement("Request"));
 			if (Recipient != null)

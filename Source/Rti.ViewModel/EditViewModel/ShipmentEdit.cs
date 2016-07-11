@@ -44,10 +44,15 @@ namespace Rti.ViewModel.EditViewModel
 
         private void ShowShipmentTorg12Report()
         {
-            if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
-                return;
+            if (Entity.IsChanged || ShipmentItemList.IsChanged)
+            { 
+                if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
+                    return;
+                if (!Save())
+                    return;
+            }
             var viewModel = new ShipmentTorg12ReportViewModel("Товарная накладная", ViewService, RepositoryFactory,
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Товарная накладная.xls")
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Товарная накладная.xls")
             {
                 Shipment = Source,
                 ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
@@ -57,8 +62,13 @@ namespace Rti.ViewModel.EditViewModel
 
         private void ShowShipmentFactureReport()
         {
-            if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
-                return;
+            if (Entity.IsChanged || ShipmentItemList.IsChanged)
+            {
+                if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
+                    return;
+                if (!Save())
+                    return;
+            }
             var viewModel = new ShipmentFactureReportViewModel("Счет-фактура", ViewService, RepositoryFactory,
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Счет-фактура.xls")
             {
@@ -70,8 +80,13 @@ namespace Rti.ViewModel.EditViewModel
 
         private void ShowShipmentTransportReport()
         {
-            if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
-                return;
+            if (Entity.IsChanged || ShipmentItemList.IsChanged)
+            {
+                if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
+                    return;
+                if (!Save())
+                    return;
+            }
             var viewModel = new ShipmentTransportReportViewModel("ТТН", ViewService, RepositoryFactory,
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Товарно-транспортная накладная.xls")
             {
@@ -83,8 +98,13 @@ namespace Rti.ViewModel.EditViewModel
 
         private void ShowShipmentPassportReport()
         {
-            if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
-                return;
+            if (Entity.IsChanged || ShipmentItemList.IsChanged)
+            {
+                if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
+                    return;
+                if (!Save())
+                    return;
+            }
             var viewModel = new ShipmentPassportReportViewModel("Паспорт", ViewService, RepositoryFactory,
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Паспорт.xls")
             {
@@ -96,10 +116,15 @@ namespace Rti.ViewModel.EditViewModel
 
         private void ShowShipmentUniversalDocumentReport()
         {
-            if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
-                return;
-            var viewModel = new ShipmentUniversalDocumentReportViewModel("Распоряжение на отгрузку", ViewService, RepositoryFactory,
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Распоряжение на отгрузку.xls")
+            if (Entity.IsChanged || ShipmentItemList.IsChanged)
+            {
+                if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
+                    return;
+                if (!Save())
+                    return;
+            }
+            var viewModel = new ShipmentUniversalDocumentReportViewModel("Универсальный передаточный документ", ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Универсальный передаточный документ.xls")
             {
                 Shipment = Source,
                 ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
@@ -115,7 +140,7 @@ namespace Rti.ViewModel.EditViewModel
         }
         private void Entity_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "Request")
+            if (e.PropertyName == "Request" && !((ShipmentViewModel)sender).IsMapping)
             {
                 RefreshPaymentsSource();
                 ShipmentItemList.Items.Clear();
@@ -163,7 +188,8 @@ namespace Rti.ViewModel.EditViewModel
                                 .Select(o => new PaymentViewModel(o, RepositoryFactory))
                                 .ToList()
                             : new List<PaymentViewModel>();
-            Entity.Payment = PaymentsSource.FirstOrDefault();
+            if (Entity.Payment == null)
+                Entity.Payment = PaymentsSource.FirstOrDefault();
             OnPropertyChanged("PaymentsSource");
         }
 
