@@ -505,19 +505,237 @@ ORDER BY e.full_name, wi.work_date",
             return doc;
         }
 
-        public XDocument GetShipmentTorg12Report(int shipmentId)
+        public XDocument GetMakedDetailsReport(DateTime startDate, DateTime endDate, int? drawingId)
         {
-            var shipmentRow = GetXElementsFromQuery(@"
-select * from shipments where id = :p_shipment_id",
-                q => q.SetParameter("p_shipment_id", shipmentId)).FirstOrDefault();
-            if (shipmentRow == null)
-                throw new InvalidOperationException("Не найдена отгрузка");
-            var detailRows = GetXElementsFromQuery(@"
-select * from shipment_items where shipment_id = :p_shipment_id",
-                q => q.SetParameter("p_shipment_id", shipmentId));
-            shipmentRow.Add(new XElement("items", detailRows));
+            var rows = GetXElementsFromQuery(@"
+SELECT
+  g.name GroupName,
+  d.name DrawingName,
+  d1.name DetailName,
+  SUM(wi.done_count - wi.rejected_count) DoneCount
+FROM work_items wi
+  INNER JOIN drawings d
+    ON wi.drawing_id = d.id
+  INNER JOIN groups g
+    ON d.group_id = g.id
+  INNER JOIN details d1
+    ON d.detail_id = d1.id
+WHERE wi.work_date BETWEEN :p_start_date AND :p_end_date
+AND wi.drawing_id = IFNULL(:p_drawing_id, wi.drawing_id)
+ORDER BY g.name ASC, d.name ASC",
+                query =>
+                    query.SetParameter("p_start_date", startDate)
+                        .SetParameter("p_end_date", endDate)
+                        .SetParameter("p_drawing_id", drawingId));
             var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
-                new XElement("root", shipmentRow));
+                new XElement("root",
+                    new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")),
+                        new XAttribute("EndDate", endDate.ToString("dd.MM.yyyy"))),
+                    new XElement("Details", rows)));
+            return doc;
+        }
+
+        public XDocument GetMaterialMovingFullReport(DateTime startDate, DateTime endDate)
+        {
+            var rows = GetXElementsFromQuery(@"
+SELECT
+  m.id MaterialId,
+  m.name MaterialName,
+  Saldo.count AS Saldo,
+  Arrived.count AS Arrived,
+  Requested.count AS Requested,
+  Used.count AS Used,
+  Shipped.count AS Shipped
+FROM materials m
+  LEFT JOIN (SELECT
+      material_id,
+      SUM(CASE rec_type WHEN 1 THEN COUNT ELSE -COUNT END) count
+    FROM material_movings mm
+    WHERE rec_type IN (1, 4)
+    AND date < :p_start_date
+    GROUP BY material_id) Saldo
+    ON Saldo.material_id = m.id
+  LEFT JOIN (SELECT
+      material_id,
+      SUM(COUNT) count
+    FROM material_movings m
+    WHERE rec_type = 2
+    AND date BETWEEN :p_start_date AND :p_end_date) Requested
+    ON Requested.material_id = m.id
+  LEFT JOIN (SELECT
+      material_id,
+      SUM(COUNT) count
+    FROM material_movings m
+    WHERE rec_type = 1
+    AND date BETWEEN :p_start_date AND :p_end_date) Arrived
+    ON Arrived.material_id = m.id
+  LEFT JOIN (SELECT
+      material_id,
+      SUM(COUNT) count
+    FROM material_movings m
+    WHERE rec_type = 3
+    AND date BETWEEN :p_start_date AND :p_end_date) Used
+    ON Used.material_id = m.id
+  LEFT JOIN (SELECT
+      material_id,
+      SUM(COUNT) count
+    FROM material_movings m
+    WHERE rec_type = 4
+    AND date BETWEEN :p_start_date AND :p_end_date) Shipped
+    ON Shipped.material_id = m.id
+WHERE IFNULL(Saldo.count, 0) + IFNULL(Arrived.count, 0) + IFNULL(Requested.count, 0) + IFNULL(Used.count, 0) + IFNULL(Shipped.count, 0) > 0",
+                query =>
+                    query.SetParameter("p_start_date", startDate)
+                        .SetParameter("p_end_date", endDate));
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                    new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")),
+                        new XAttribute("EndDate", endDate.ToString("dd.MM.yyyy"))),
+                    new XElement("Materials", rows)));
+            return doc;
+        }
+
+        public XDocument GetMaterialMovingRequestReport(DateTime startDate, DateTime endDate)
+        {
+            var rows = GetXElementsFromQuery(@"
+SELECT
+  m.id MaterialId,
+  m.name MaterialName,
+  d1.sort_order Articul,
+  g.name GroupName,
+  d.name DrawingName,
+  d1.name DetailName,
+  r.number DocNumber,
+  rd.Count Count,
+  d.mass_with_shruff / 1000 Mass
+FROM request_details rd
+  INNER JOIN requests r
+    ON rd.request_id = r.id
+  INNER JOIN drawings d
+    ON rd.drawing_id = d.id
+  INNER JOIN materials m
+    ON d.material_id = m.id
+  INNER JOIN groups g
+    ON d.group_id = g.id
+  INNER JOIN details d1
+    ON d.detail_id = d1.id
+WHERE d.material_id IS NOT NULL
+AND r.reg_date BETWEEN :p_start_date AND :p_end_date
+ORDER BY m.name, d1.sort_order",
+                query =>
+                    query.SetParameter("p_start_date", startDate)
+                        .SetParameter("p_end_date", endDate));
+            var rowDict = rows.ToLookup(e => new
+            {
+                MaterialId = e.Attribute("MaterialId").Value,
+                MaterialName = e.Attribute("MaterialName").Value
+            }, r => r);
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                    new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")),
+                        new XAttribute("EndDate", endDate.ToString("dd.MM.yyyy"))),
+                    new XElement("Materials",
+                    rowDict.Select(g =>
+                            new XElement("Material",
+                                new XAttribute("MaterialId", g.Key.MaterialId),
+                                new XAttribute("MaterialName", g.Key.MaterialName),
+                                g)))));
+            return doc;
+        }
+
+        public XDocument GetMaterialMovingShipmentReport(DateTime startDate, DateTime endDate)
+        {
+            var rows = GetXElementsFromQuery(@"
+SELECT
+  m.id MaterialId,
+  m.name MaterialName,
+  d1.sort_order Articul,
+  g.name GroupName,
+  d.name DrawingName,
+  d1.name DetailName,
+  s.sort_order DocNumber,
+  rd.Count Count,
+  d.mass_with_shruff / 1000 Mass
+FROM shipment_items si
+  INNER JOIN shipments s
+    ON si.shipment_id = s.id
+  INNER JOIN request_details rd
+    ON si.request_detail_id = rd.id
+  INNER JOIN drawings d
+    ON rd.drawing_id = d.id
+  INNER JOIN materials m
+    ON d.material_id = m.id
+  INNER JOIN groups g
+    ON d.group_id = g.id
+  INNER JOIN details d1
+    ON d.detail_id = d1.id
+WHERE d.material_id IS NOT NULL
+AND s.date BETWEEN :p_start_date AND :p_end_date
+ORDER BY m.name, d1.sort_order",
+                query =>
+                    query.SetParameter("p_start_date", startDate)
+                        .SetParameter("p_end_date", endDate));
+            var rowDict = rows.ToLookup(e => new
+            {
+                MaterialId = e.Attribute("MaterialId").Value,
+                MaterialName = e.Attribute("MaterialName").Value
+            }, r => r);
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                    new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")),
+                        new XAttribute("EndDate", endDate.ToString("dd.MM.yyyy"))),
+                    new XElement("Materials",
+                    rowDict.Select(g =>
+                            new XElement("Material",
+                                new XAttribute("MaterialId", g.Key.MaterialId),
+                                new XAttribute("MaterialName", g.Key.MaterialName),
+                                g)))));
+            return doc;
+        }
+
+        public XDocument GetMaterialMovingWorkItemReport(DateTime startDate, DateTime endDate)
+        {
+            var rows = GetXElementsFromQuery(@"
+SELECT
+  m.id MaterialId,
+  m.name MaterialName,
+  d1.sort_order Articul,
+  g.name GroupName,
+  d.name DrawingName,
+  d1.name DetailName,
+  wi.work_date DocNumber,
+  wi.task_count Count,
+  d.mass_with_shruff / 1000 Mass
+FROM work_items wi
+  INNER JOIN drawings d
+    ON wi.drawing_id = d.id
+  INNER JOIN materials m
+    ON d.material_id = m.id
+  INNER JOIN groups g
+    ON d.group_id = g.id
+  INNER JOIN details d1
+    ON d.detail_id = d1.id
+WHERE d.material_id IS NOT NULL
+AND wi.work_date BETWEEN :p_start_date AND :p_end_date
+ORDER BY m.name, d1.sort_order",
+                query =>
+                    query.SetParameter("p_start_date", startDate)
+                        .SetParameter("p_end_date", endDate));
+            var rowDict = rows.ToLookup(e => new
+            {
+                MaterialId = e.Attribute("MaterialId").Value,
+                MaterialName = e.Attribute("MaterialName").Value
+            }, r => r);
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                    new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")),
+                        new XAttribute("EndDate", endDate.ToString("dd.MM.yyyy"))),
+                    new XElement("Materials",
+                    rowDict.Select(g =>
+                            new XElement("Material",
+                                new XAttribute("MaterialId", g.Key.MaterialId),
+                                new XAttribute("MaterialName", g.Key.MaterialName),
+                                g)))));
             return doc;
         }
     }

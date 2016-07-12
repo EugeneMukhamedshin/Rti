@@ -236,5 +236,35 @@ namespace Rti.ViewModel.Reporting
                         workItems.Select(o => o.GetXElement("WorkItem")))));
             return GetReport(r => doc, xsl);
         }
+
+        public byte[] GetMakedDetailsReport(DateTime startDate, DateTime endDate, DrawingViewModel drawing)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetMakedDetailsReport.xslt"));
+            return GetReport(r => r.GetMakedDetailsReport(startDate, endDate, drawing == null ? (int?)null : drawing.Id), xsl);
+        }
+
+        public byte[] GetMaterialMovingFullReport(DateTime startDate, DateTime endDate)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetMaterialMovingFullReport.xslt"));
+            return GetReport(r => r.GetMaterialMovingFullReport(startDate, endDate), xsl);
+        }
+
+        public byte[] GetMaterialMovingRequestReport(DateTime startDate, DateTime endDate)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetMaterialMovingRequestReport.xslt"));
+            return GetReport(r => r.GetMaterialMovingRequestReport(startDate, endDate), xsl);
+        }
+
+        public byte[] GetMaterialMovingShipmentReport(DateTime startDate, DateTime endDate)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetMaterialMovingShipmentReport.xslt"));
+            return GetReport(r => r.GetMaterialMovingShipmentReport(startDate, endDate), xsl);
+        }
+
+        public byte[] GetMaterialMovingWorkItemReport(DateTime startDate, DateTime endDate)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetMaterialMovingWorkItemReport.xslt"));
+            return GetReport(r => r.GetMaterialMovingWorkItemReport(startDate, endDate), xsl);
+        }
     }
 }

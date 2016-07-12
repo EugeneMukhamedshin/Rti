@@ -1,7 +1,7 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.1.13.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 04.07.2016 22:52:02
+-- Дата скрипта: 12.07.2016 22:51:21
 -- Версия сервера: 5.7.13-log
 -- Версия клиента: 4.1
 --
@@ -987,6 +987,8 @@ CREATE TABLE shipments (
   delivery_responsible VARCHAR(255) DEFAULT NULL COMMENT 'отвественный за перевозку',
   delivery_sum DECIMAL(10, 2) DEFAULT NULL COMMENT 'сумма (ТТН)',
   is_deleted INT(11) NOT NULL DEFAULT 0,
+  delivery_doc_date DATETIME DEFAULT NULL,
+  delivery_doc_number INT(11) DEFAULT NULL,
   PRIMARY KEY (id),
   INDEX IDX_shipments_date (date),
   CONSTRAINT FK_shipments_drivers_id FOREIGN KEY (driver_id)
@@ -1001,7 +1003,7 @@ CREATE TABLE shipments (
     REFERENCES requests(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 7
+AUTO_INCREMENT = 8
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -1140,7 +1142,7 @@ CREATE TABLE shipment_item_work_items (
     REFERENCES work_items(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 24
+AUTO_INCREMENT = 29
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -1167,6 +1169,16 @@ END
 $$
 
 DELIMITER ;
+
+--
+-- Описание для представления material_movings
+--
+DROP VIEW IF EXISTS material_movings CASCADE;
+CREATE OR REPLACE 
+	DEFINER = 'root'@'localhost'
+VIEW material_movings
+AS
+	select 1 AS `rec_type`,`mar`.`waybill_date` AS `date`,`mar`.`material_id` AS `material_Id`,`mar`.`count` AS `COUNT` from `material_arrival_records` `mar` union all select 2 AS `rec_type`,`r`.`reg_date` AS `reg_date`,`d`.`material_id` AS `material_id`,(`rd`.`count` * `d`.`mass_with_shruff`) AS `rd.count * d.mass_with_shruff` from ((`request_details` `rd` join `requests` `r` on((`rd`.`request_id` = `r`.`id`))) join `drawings` `d` on((`rd`.`drawing_id` = `d`.`id`))) where (`d`.`material_id` is not null) union all select 3 AS `rec_type`,`wi`.`work_date` AS `work_date`,`d`.`material_id` AS `material_id`,(`wi`.`task_count` * `d`.`mass_with_shruff`) AS `wi.task_count * d.mass_with_shruff` from (`work_items` `wi` join `drawings` `d` on((`wi`.`drawing_id` = `d`.`id`))) where (`d`.`material_id` is not null) union all select 4 AS `rec_type`,`s`.`date` AS `date`,`d`.`material_id` AS `material_id`,(`si`.`count` * `d`.`mass_with_shruff`) AS `si.count * d.mass_with_shruff` from (((`shipment_items` `si` join `request_details` `rd` on((`si`.`request_detail_id` = `rd`.`id`))) join `drawings` `d` on((`rd`.`drawing_id` = `d`.`id`))) join `shipments` `s` on((`si`.`shipment_id` = `s`.`id`)));
 
 --
 -- Описание для представления rejected_registrations
@@ -1208,8 +1220,8 @@ INSERT INTO calculations VALUES
 (2, 11.48, NULL, NULL, NULL, NULL, NULL, NULL, 0.15, 33.33, 3.03, 0.77, 1.42, 1.45, 51.64, 33.33, 1.67, 86.64, 5.20, 91.84, 6.43, 98.27, 7.86, 106.13, NULL),
 (3, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL),
 (4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 50.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.76, 120.00, 10.91, 2.78, 5.11, 5.24, 200.78, 16.67, 0.83, 218.28, 13.10, 231.38, 16.20, 247.58, 19.81, 267.38, 'sd gfds hgfdgh '),
-(6, 19.32, 100.00, NULL, NULL, NULL, NULL, NULL, 1.61, 0.00, 0.00, 0.00, 0.00, 0.00, 120.93, 0.00, 0.00, 120.93, 7.26, 128.19, 8.97, 137.16, 24.69, 161.85, NULL),
+(5, 50.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.76, 120.00, 10.91, 2.78, 5.11, 5.24, 200.78, 0.90, 10.04, 211.72, 12.70, 224.42, 15.71, 240.13, 43.22, 283.36, 'sd gfds hgfdgh '),
+(6, 19.32, 100.00, NULL, NULL, NULL, NULL, NULL, 1.61, 2.40, 0.22, 0.06, 0.10, 0.10, 123.81, 0.90, 6.19, 130.90, 7.85, 138.76, 9.71, 148.47, 26.72, 175.19, NULL),
 (7, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL),
 (8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -1398,7 +1410,7 @@ INSERT INTO drawings VALUES
 (24, '2016-06-15 20:23:43', 20, 'Новый чертеж', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 11, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL),
 (25, '2016-06-15 20:31:17', 20, 'Новый чертеж', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (26, '2016-06-15 20:31:17', 20, 'Новый чертеж', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL),
-(27, '2016-06-15 20:43:55', 21, '321', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 13, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL);
+(27, '2016-06-15 20:43:55', 21, '321', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 13, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 'wrefvwergvwer', 10.00);
 
 -- 
 -- Вывод данных для таблицы employees
@@ -1598,12 +1610,13 @@ INSERT INTO work_item_package VALUES
 -- Вывод данных для таблицы shipments
 --
 INSERT INTO shipments VALUES
-(1, 1, '2016-06-01', 60, 1, 1, 1, 0, 0, '1', 2, '21', 2, 123, 'sfdg', 'sdgf', 454545.00, 0),
-(2, 2, '2016-06-01', 57, 1, 1, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(3, 1, '2016-06-01', 60, 1, 1, 1, 0, 0, 'saf s21', 2, '12 от 12.12.12', 1, 50, 'Он', 'Она', 50000.00, 1),
-(4, 1, '2016-06-01', 60, 1, 1, 1, 0, 0, 'saf s21', 2, '12 от 12.12.12', 1, 50, 'Он', 'Она', 50000.00, 1),
-(5, 3, '2016-06-20', 60, 2, 2, 1, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(6, 4, '2016-06-21', 60, 2, 2, 1, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
+(1, 1, '2016-06-01', 60, 1, 1, 1, 0, 0, '1', 2, '21', 2, 123, 'sfdg', 'sdgf', 454545.00, 0, NULL, NULL),
+(2, 2, '2016-06-01', 57, 1, 1, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL),
+(3, 1, '2016-06-01', 60, 1, 1, 1, 0, 0, 'saf s21', 2, '12 от 12.12.12', 1, 50, 'Он', 'Она', 50000.00, 1, NULL, NULL),
+(4, 1, '2016-06-01', 60, 1, 1, 1, 0, 0, 'saf s21', 2, '12 от 12.12.12', 1, 50, 'Он', 'Она', 50000.00, 1, NULL, NULL),
+(5, 3, '2016-06-20', 60, 2, 2, 1, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2016-06-22 00:00:00', 3),
+(6, 4, '2016-06-21', 60, 2, 2, 1, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL),
+(7, 5, '2016-07-11', 56, 1, 1, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2016-07-11 00:00:00', 5);
 
 -- 
 -- Вывод данных для таблицы work_item_package_machines
@@ -1638,7 +1651,7 @@ INSERT INTO work_items VALUES
 INSERT INTO shipment_items VALUES
 (1, 1, 1, 21, 23, 1200.00, 18, 'eg', 10, 5, '20.05.2016/2'),
 (2, 2, 1, 18, 25, 250.00, 18, NULL, NULL, NULL, NULL),
-(3, 5, 1, 21, 2, 1200.00, 18, NULL, NULL, NULL, '20.05.2016/2');
+(3, 5, 1, 21, 2, 1200.00, 18, 'упак', NULL, 120, '20.05.2016/2');
 
 -- 
 -- Вывод данных для таблицы work_item_request_details
@@ -1663,7 +1676,7 @@ INSERT INTO shipment_item_work_items VALUES
 (14, 2, 7, 15),
 (15, 2, 17, 10),
 (21, 1, 21, 23),
-(23, 3, 21, 2);
+(28, 3, 21, 2);
 
 -- 
 -- Восстановить предыдущий режим SQL (SQL mode)

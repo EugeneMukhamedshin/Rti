@@ -66,6 +66,7 @@ namespace Rti.ViewModel
         public DelegateCommand OpenWorkItemDirectExpencesReportCommand { get; set; }
         public DelegateCommand OpenShipmentDirectExpencesReportCommand { get; set; }
         public DelegateCommand OpenSalaryReportCommand { get; set; }
+        public DelegateCommand OpenMaterialMovingsReportCommand { get; set; }
 
         #endregion
 
@@ -117,6 +118,7 @@ namespace Rti.ViewModel
             OpenWorkItemDirectExpencesReportCommand = new DelegateCommand(o => OpenView(new WorkItemDirectExpencesReportViewModel("Учет прямых затрат на наряд", ViewService, RepositoryFactory, xsltPath, "Учет прямых затрат на наряд.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }));
             OpenShipmentDirectExpencesReportCommand = new DelegateCommand(o => OpenView(new ShipmentDirectExpencesReportViewModel("Учет прямых затрат на отгрузку", ViewService, RepositoryFactory, xsltPath, "Учет прямых затрат на отгрузку.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }));
             OpenSalaryReportCommand = new DelegateCommand(o => OpenView(new SalaryReportViewModel("Отчет по заработной плате", ViewService, RepositoryFactory, xsltPath, "Отчет по заработной плате.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }));
+            OpenMaterialMovingsReportCommand = new DelegateCommand(o => OpenView(new MaterialMovingsReportViewModel("Учет материалов", ViewService, RepositoryFactory, xsltPath, "Учет материалов.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }));
         }
 
         private bool? OpenView(BaseViewModel viewModel)

@@ -16,11 +16,11 @@ using DevExpress.Xpf.Core;
 namespace Rti.App.View.Reports
 {
     /// <summary>
-    /// Interaction logic for ByPeriodReportEdit.xaml
+    /// Interaction logic for ByPeriodReportEditWindow.xaml
     /// </summary>
-    public partial class ByPeriodReportEdit : DXWindow
+    public partial class ByPeriodReportEditWindow : DXWindow
     {
-        public ByPeriodReportEdit()
+        public ByPeriodReportEditWindow()
         {
             InitializeComponent();
         }

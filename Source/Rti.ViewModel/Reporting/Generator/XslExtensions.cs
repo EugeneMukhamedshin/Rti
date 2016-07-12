@@ -228,7 +228,8 @@ namespace Rti.ViewModel.Reporting.Generator
         }
 
         public string FormatDate(string text, string format, string culture)
-        {DateTime date;
+        {
+            DateTime date;
             if (!DateTime.TryParse(text, GetFormatProvider(culture), DateTimeStyles.None, out date))
                 return string.Empty;
             return date.ToString(format, GetFormatProvider(culture));

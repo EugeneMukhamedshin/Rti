@@ -33,106 +33,95 @@
           <NumberFormat/>
           <Protection/>
         </Style>
-        <Style ss:ID="m104615360">
+        <Style ss:ID="s16">
+          <Alignment ss:Vertical="Bottom"/>
+        </Style>
+        <Style ss:ID="s18">
+          <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+          <Borders>
+            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+          </Borders>
+          <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
+           ss:Color="#000000" ss:Bold="1"/>
+        </Style>
+        <Style ss:ID="s19">
+          <Borders>
+            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+          </Borders>
+        </Style>
+        <Style ss:ID="s20">
+          <Borders>
+            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+          </Borders>
+          <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
+           ss:Color="#000000" ss:Bold="1"/>
+        </Style>
+        <Style ss:ID="s21">
           <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
-          <Borders>
-            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
-          </Borders>
-          <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
-           ss:Color="#000000" ss:Bold="1"/>
-        </Style>
-        <Style ss:ID="m104615400">
-          <Alignment ss:Vertical="Bottom"/>
-          <Borders>
-            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
-          </Borders>
-        </Style>
-        <Style ss:ID="m104615420">
-          <Alignment ss:Vertical="Bottom"/>
-          <Borders>
-            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
-          </Borders>
-        </Style>
-        <Style ss:ID="m104615440">
-          <Alignment ss:Vertical="Bottom"/>
-          <Borders>
-            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
-          </Borders>
-        </Style>
-        <Style ss:ID="s23">
-          <Borders>
-            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
-          </Borders>
-        </Style>
-        <Style ss:ID="s24">
-          <Borders>
-            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
-          </Borders>
-          <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
-           ss:Color="#000000" ss:Bold="1"/>
-        </Style>
-        <Style ss:ID="s29">
-          <Alignment ss:Vertical="Bottom"/>
-          <Borders>
-            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
-          </Borders>
-          <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
-           ss:Color="#000000" ss:Bold="1"/>
-        </Style>
-        <Style ss:ID="s33">
-          <Alignment ss:Vertical="Bottom"/>
-          <Borders>
-            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-            <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
-          </Borders>
           <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
            ss:Color="#000000" ss:Bold="1"/>
         </Style>
       </Styles>
       <Worksheet ss:Name="Лист1">
         <Table x:FullColumns="1" x:FullRows="1" ss:DefaultRowHeight="15">
-          <Column ss:AutoFitWidth="0" ss:Width="150"/>
+          <Column ss:Index="4" ss:AutoFitWidth="0" ss:Width="78.75"/>
+          <Column ss:AutoFitWidth="0" ss:Width="54.75"/>
+          <Column ss:Index="7" ss:AutoFitWidth="0" ss:Width="46.5"/>
+          <Column ss:AutoFitWidth="0" ss:Width="51"/>
           <Row>
-            <Cell ss:MergeAcross="4" ss:StyleID="m104615360">
-              <Data ss:Type="String">Отчет по заработной плате <xsl:value-of select="rti:FormatDateTime(Report/@StartDate, 'dd.MM.yyyy')"/> - <xsl:value-of select="rti:FormatDateTime(Report/@EndDate, 'dd.MM.yyyy')"/>
+            <Cell ss:MergeAcross="7" ss:StyleID="s21">
+              <Data ss:Type="String">Учет материалов (по заявке) <xsl:value-of select="Report/@StartDate"/> - <xsl:value-of select="Report/@EndDate"/>
             </Data>
             </Cell>
           </Row>
-          <Row ss:Index="3">
-            <Cell ss:StyleID="s24">
-              <Data ss:Type="String">Исполнитель</Data>
-            </Cell>
-            <Cell ss:MergeAcross="3" ss:StyleID="s29">
-              <Data ss:Type="String">Основная заработная плата, руб.</Data>
-            </Cell>
-          </Row>
           <Row>
-            <Cell ss:MergeAcross="4" ss:StyleID="s33"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
           </Row>
-
-          <xsl:apply-templates select="Employees/Employee" />
-
+          <Row ss:Height="60">
+            <Cell ss:StyleID="s18">
+              <Data ss:Type="String">Артикул</Data>
+            </Cell>
+            <Cell ss:StyleID="s18">
+              <Data ss:Type="String">Группа</Data>
+            </Cell>
+            <Cell ss:StyleID="s18">
+              <Data ss:Type="String">Чертеж</Data>
+            </Cell>
+            <Cell ss:StyleID="s18">
+              <Data ss:Type="String">Наименование</Data>
+            </Cell>
+            <Cell ss:StyleID="s18">
+              <Data ss:Type="String">№ заявки</Data>
+            </Cell>
+            <Cell ss:StyleID="s18">
+              <Data ss:Type="String">Кол-во</Data>
+            </Cell>
+            <Cell ss:StyleID="s18">
+              <Data ss:Type="String">Масса по чертежу 1 шт, кг</Data>
+            </Cell>
+            <Cell ss:StyleID="s18">
+              <Data ss:Type="String">Масса для закупа, кг</Data>
+            </Cell>
+          </Row>
+          
+          <xsl:apply-templates select="Materials/Material"/>
+          
         </Table>
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
           <PageSetup>
@@ -143,15 +132,15 @@
           <Print>
             <ValidPrinterInfo/>
             <PaperSizeIndex>9</PaperSizeIndex>
-            <HorizontalResolution>-3</HorizontalResolution>
-            <VerticalResolution>-3</VerticalResolution>
+            <HorizontalResolution>150</HorizontalResolution>
+            <VerticalResolution>150</VerticalResolution>
           </Print>
           <Selected/>
           <Panes>
             <Pane>
               <Number>3</Number>
-              <ActiveRow>12</ActiveRow>
-              <ActiveCol>7</ActiveCol>
+              <ActiveRow>21</ActiveRow>
+              <ActiveCol>3</ActiveCol>
             </Pane>
           </Panes>
           <ProtectObjects>False</ProtectObjects>
@@ -161,19 +150,69 @@
     </Workbook>
   </xsl:template>
 
-  <xsl:template match="Employees/Employee">
+  <xsl:template match="Materials/Material">
+    <Row/>
     <Row>
-      <Cell ss:StyleID="s23">
+      <Cell ss:MergeAcross="7" ss:StyleID="s21">
         <Data ss:Type="String">
-          <xsl:value-of select="@EmployeeFullName"/>
-        </Data>
-      </Cell>
-      <Cell ss:MergeAcross="3" ss:StyleID="m104615400">
-        <Data ss:Type="Number">
-          <xsl:value-of select="@MainSalary"/>
+          <xsl:value-of select="@MaterialName"/>
         </Data>
       </Cell>
     </Row>
+    
+    <xsl:apply-templates select="row"/>
+    
+    <Row>
+      <Cell ss:Index="7" ss:StyleID="s20">
+        <Data ss:Type="String">Итого </Data>
+      </Cell>
+      <Cell ss:StyleID="s20" ss:Formula="=SUM(R[-{count(row)}]C:R[-1]C)">
+        <Data ss:Type="Number">0.7</Data>
+      </Cell>
+    </Row>
   </xsl:template>
-  
+
+  <xsl:template match="row">
+    <Row>
+      <Cell ss:StyleID="s19">
+        <Data ss:Type="Number">
+          <xsl:value-of select="@Articul"/>
+        </Data>
+      </Cell>
+      <Cell ss:StyleID="s19">
+        <Data ss:Type="String">
+          <xsl:value-of select="@GroupName"/>
+        </Data>
+      </Cell>
+      <Cell ss:StyleID="s19">
+        <Data ss:Type="String">
+          <xsl:value-of select="@DrawingName"/>
+        </Data>
+      </Cell>
+      <Cell ss:StyleID="s19">
+        <Data ss:Type="String">
+          <xsl:value-of select="@DetailName"/>
+        </Data>
+      </Cell>
+      <Cell ss:StyleID="s19">
+        <Data ss:Type="Number">
+          <xsl:value-of select="@DocNumber"/>
+        </Data>
+      </Cell>
+      <Cell ss:StyleID="s19">
+        <Data ss:Type="Number">
+          <xsl:value-of select="@Count"/>
+        </Data>
+      </Cell>
+      <Cell ss:StyleID="s19">
+        <Data ss:Type="Number">
+          <xsl:value-of select="@Mass"/>
+        </Data>
+      </Cell>
+      <Cell ss:StyleID="s19" ss:Formula="=RC[-1]*RC[-2]">
+        <Data ss:Type="Number">0.2</Data>
+      </Cell>
+    </Row>
+  </xsl:template>
+
 </xsl:stylesheet>

@@ -188,8 +188,11 @@
     <Compile Include="Reporting\ViewModel\ByPeriodReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\DrawingCalculationReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\DrawingFlowsheetReportViewModel.cs" />
+    <Compile Include="Reporting\ViewModel\DrawingReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\DrawingShipmentsReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\EmployeeWorkItemListReportViewModel.cs" />
+    <Compile Include="Reporting\ViewModel\MakedDetailsReportViewModel.cs" />
+    <Compile Include="Reporting\ViewModel\MaterialMovingsReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\ReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\RequestDirectExpencesReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\RequestsByMethodsReportViewModel.cs" />

@@ -112,6 +112,7 @@
                         <Button Height="24" Width="250" FontSize="12" Content="Учет прямых затрат на наряд" Command="{Binding OpenWorkItemDirectExpencesReportCommand}"/>
                         <Button Height="24" Width="250" FontSize="12" Content="Учет прямых затрат на отгрузку" Command="{Binding OpenShipmentDirectExpencesReportCommand}"/>
                         <Button Height="24" Width="250" FontSize="12" Content="Отчет по заработной плате" Command="{Binding OpenSalaryReportCommand}"/>
+                        <Button Height="24" Width="250" FontSize="12" Content="Учет материалов" Command="{Binding OpenMaterialMovingsReportCommand}"/>
                     </WrapPanel>
                 </dx:DropDownButton>
             </StackPanel>

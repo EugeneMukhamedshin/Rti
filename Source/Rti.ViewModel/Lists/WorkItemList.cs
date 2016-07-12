@@ -13,7 +13,7 @@ using Rti.ViewModel.Reporting.ViewModel;
 
 namespace Rti.ViewModel.Lists
 {
-    public class WorkItemList: EntityList<WorkItemViewModel, WorkItem>, IClosable
+    public class WorkItemList : EntityList<WorkItemViewModel, WorkItem>, IClosable
     {
         private DateTime _date;
         private List<EmployeeViewModel> _employeesSource;
@@ -34,8 +34,9 @@ namespace Rti.ViewModel.Lists
         public DelegateCommand AddWorkItemCommand { get; set; }
 
         public DelegateCommand OpenEmployeeWorkItemListCommand { get; set; }
+        public DelegateCommand OpenMakedDetailsReportCommand { get; set; }
 
-        public DelegateCommand CloseCommand{ get; set; }
+        public DelegateCommand CloseCommand { get; set; }
 
         public DelegateCommand ReportCommand { get; set; }
 
@@ -62,7 +63,8 @@ namespace Rti.ViewModel.Lists
             }
         }
 
-        public WorkItemList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
+        public WorkItemList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory)
+            : base(editMode, viewService, repositoryFactory)
         {
             TypeMaps.Add(new Tuple<Type, Type>(typeof(WorkItemViewModel), typeof(WorkItemEdit)));
 
@@ -75,11 +77,19 @@ namespace Rti.ViewModel.Lists
                 "Открыть индивидуальный наряд",
                 o => Employee != null,
                 o => OpenEmployeeWorkItemList());
+            OpenMakedDetailsReportCommand = new DelegateCommand(o => OpenMakedDetailsReport());
             CloseCommand = new DelegateCommand(
                 "",
                 o => true,
                 o => Close(true));
             ReportCommand = new DelegateCommand(o => Report());
+        }
+
+        private void OpenMakedDetailsReport()
+        {
+            var viewModel = new MakedDetailsReportViewModel("Реестр изготовленных деталей", ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Реестр изготовленных деталей.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" };
+            ViewService.ShowViewDialog(viewModel);
         }
 
         private void Report()
@@ -147,7 +157,8 @@ namespace Rti.ViewModel.Lists
             RefreshEmployeesSource();
             Items.CollectionChanged += (sender, args) => RefreshEmployeesSource();
             Employee = Items.Select(o => o.Employee).Distinct().FirstOrDefault();
-        }private void RefreshEmployeesSource()
+        }
+        private void RefreshEmployeesSource()
         {
             EmployeesSource = Items.Select(o => o.Employee).Distinct().OrderBy(o => o.FullName).ToList();
         }

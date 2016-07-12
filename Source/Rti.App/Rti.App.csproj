@@ -384,8 +384,14 @@
     <Compile Include="View\Lists\TemplateMap.cs" />
     <Compile Include="View\Lists\StyleMap.cs" />
     <Compile Include="View\Lists\TreeListView\TreeListView.cs" />
-    <Compile Include="View\Reports\ByPeriodReportEdit.xaml.cs">
-      <DependentUpon>ByPeriodReportEdit.xaml</DependentUpon>
+    <Compile Include="View\Reports\MaterialMovingsReportWindow.xaml.cs">
+      <DependentUpon>MaterialMovingsReportWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Reports\DrawingReportEditWindow.xaml.cs">
+      <DependentUpon>DrawingReportEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Reports\ByPeriodReportEditWindow.xaml.cs">
+      <DependentUpon>ByPeriodReportEditWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -680,7 +686,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Reports\ByPeriodReportEdit.xaml">
+    <Page Include="View\Reports\MaterialMovingsReportWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Reports\DrawingReportEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Reports\ByPeriodReportEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -794,6 +808,7 @@
   <ItemGroup>
     <None Include="Reports\GetShipmentPassportReport.xslt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -870,6 +885,42 @@
     <None Include="Reports\GetShipmentUniversalDocumentReport.xslt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetMakedDetailsReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetMakedDetailsReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetMaterialMovingFullReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetMaterialMovingRequestReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetMaterialMovingShipmentReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetMaterialMovingWorkItemReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetMaterialMovingFullReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetMaterialMovingRequestReport.xml" />
+    <Resource Include="Reports\GetMaterialMovingShipmentReport.xml" />
+    <Resource Include="Reports\GetMaterialMovingWorkItemReport.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
