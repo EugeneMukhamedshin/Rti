@@ -733,29 +733,6 @@ namespace Rti.Model.Domain
 	}
 
 
-	// The class for invoices
-	[Table("invoices")]
-	public partial class Invoice: IIdentifiedEntity
-	{
-
-		[Field("id")]
-		public virtual Int32 Id { get; protected set; }
-
-		[Field("is_deleted")]
-		public virtual Boolean IsDeleted { get; set; }
-
-		[Field("invoice_number")]
-		public virtual String InvoiceNumber { get; set; }
-
-		[Field("invoice_date")]
-		public virtual DateTime InvoiceDate { get; set; }
-
-		[Reference("request_id", false)]
-		public virtual Request Request { get; set; }
-
-	}
-
-
 	// The class for jobs
 	[Table("jobs")]
 	public partial class Job: IIdentifiedEntity

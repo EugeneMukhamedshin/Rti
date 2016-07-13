@@ -45,11 +45,10 @@ namespace Rti.ViewModel.Entities
                             : RequestDetail != null && RequestDetail.Drawing != null &&
                               RequestDetail.Drawing.MassCalculation != null
                                 ? RequestDetail.Drawing.MassCalculation.CalculatedMass
-                                : null)/1000;
+                                : null);
             }
         }
-
-
+        
         protected override void OnPropertyChanged(string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);

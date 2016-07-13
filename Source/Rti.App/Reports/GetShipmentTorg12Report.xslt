@@ -1267,7 +1267,9 @@
             <Cell ss:StyleID="s85"/>
             <Cell ss:StyleID="s85"/>
             <Cell ss:StyleID="s86">
-              <Data ss:Type="String">По доверенности № _______________от &quot;___&quot;__________________2013г.</Data>
+              <Data ss:Type="String">
+                По доверенности № _______________от &quot;___&quot;__________________<xsl:value-of select="rti:GetCurrentYear()"/>г.
+              </Data>
             </Cell>
             <Cell ss:StyleID="s85"/>
             <Cell ss:StyleID="s85"/>
@@ -1344,7 +1346,9 @@
           </Row>
           <Row>
             <Cell ss:StyleID="s85">
-              <Data ss:Type="String">Отпуск груза произвел________________________&quot;____&quot;___________2013г.</Data>
+              <Data ss:Type="String">
+                Отпуск груза произвел________________________&quot;____&quot;___________<xsl:value-of select="rti:GetCurrentYear()"/>г.
+              </Data>
             </Cell>
             <Cell ss:StyleID="s85"/>
             <Cell ss:StyleID="s85"/>
@@ -1355,7 +1359,9 @@
             <Cell ss:StyleID="s85"/>
             <Cell ss:StyleID="s85"/>
             <Cell ss:StyleID="s86">
-              <Data ss:Type="String">&quot;________&quot;__________________________2013г.</Data>
+              <Data ss:Type="String">
+                &quot;________&quot;__________________________<xsl:value-of select="rti:GetCurrentYear()"/>г.
+              </Data>
             </Cell>
             <Cell ss:StyleID="s85"/>
             <Cell ss:StyleID="s85"/>
@@ -1422,34 +1428,6 @@
           <ProtectScenarios>False</ProtectScenarios>
         </WorksheetOptions>
       </Worksheet>
-      <Worksheet ss:Name="Лист2">
-        <Table ss:ExpandedColumnCount="1" ss:ExpandedRowCount="1" x:FullColumns="1"
-         x:FullRows="1" ss:DefaultRowHeight="15">
-        </Table>
-        <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
-          <PageSetup>
-            <Header x:Margin="0.3"/>
-            <Footer x:Margin="0.3"/>
-            <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
-          </PageSetup>
-          <ProtectObjects>False</ProtectObjects>
-          <ProtectScenarios>False</ProtectScenarios>
-        </WorksheetOptions>
-      </Worksheet>
-      <Worksheet ss:Name="Лист3">
-        <Table ss:ExpandedColumnCount="1" ss:ExpandedRowCount="1" x:FullColumns="1"
-         x:FullRows="1" ss:DefaultRowHeight="15">
-        </Table>
-        <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
-          <PageSetup>
-            <Header x:Margin="0.3"/>
-            <Footer x:Margin="0.3"/>
-            <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
-          </PageSetup>
-          <ProtectObjects>False</ProtectObjects>
-          <ProtectScenarios>False</ProtectScenarios>
-        </WorksheetOptions>
-      </Worksheet>
     </Workbook>
   </xsl:template>
 
@@ -1480,9 +1458,21 @@
           <xsl:value-of select="RequestDetail/Drawing/MeasureUnit/@Code"/>
         </Data>
       </Cell>
-      <Cell ss:StyleID="s76"/>
-      <Cell ss:StyleID="s76"/>
-      <Cell ss:StyleID="s76"/>
+      <Cell ss:StyleID="s76">
+        <Data ss:Type="String">
+          <xsl:value-of select="@PackType"/>
+        </Data>
+      </Cell>
+      <Cell ss:StyleID="s76">
+        <Data ss:Type="Number">
+          <xsl:value-of select="@CountInPlace"/>
+        </Data>
+      </Cell>
+      <Cell ss:StyleID="s76">
+        <Data ss:Type="Number">
+          <xsl:value-of select="@CountOfPlaces"/>
+        </Data>
+      </Cell>
       <Cell ss:StyleID="s76"/>
       <Cell ss:StyleID="s77">
         <Data ss:Type="Number">

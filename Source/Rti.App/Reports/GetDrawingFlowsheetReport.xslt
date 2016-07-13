@@ -258,7 +258,7 @@
             </Cell>
             <Cell ss:StyleID="s22">
               <Data ss:Type="String">
-                <xsl:value-of select="Drawing/Material/@TEchConditions"/>
+                <xsl:value-of select="Drawing/Material/@TechConditions"/>
               </Data>
             </Cell>
             <Cell ss:StyleID="s22">

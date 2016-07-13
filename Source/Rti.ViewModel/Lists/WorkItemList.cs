@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using Microsoft.Office.Interop.Word;
+using System.Runtime.Remoting.Channels;
 using Rti.Model.Domain;
-using Rti.Model.Domain.Generator;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
@@ -62,6 +62,8 @@ namespace Rti.ViewModel.Lists
                 OnPropertyChanged();
             }
         }
+
+        public decimal? Sum { get { return Items.Sum(item => item.Sum); } }
 
         public WorkItemList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(editMode, viewService, repositoryFactory)
@@ -156,8 +158,25 @@ namespace Rti.ViewModel.Lists
             base.OnItemsChanged();
             RefreshEmployeesSource();
             Items.CollectionChanged += (sender, args) => RefreshEmployeesSource();
+            Items.CollectionChanged += (sender, args) => ResubscribeItems();
             Employee = Items.Select(o => o.Employee).Distinct().FirstOrDefault();
         }
+
+        private void ResubscribeItems()
+        {
+            foreach (var item in Items)
+            {
+                item.PropertyChanged -= ItemPropertyChanged;
+                item.PropertyChanged += ItemPropertyChanged;
+            }
+        }
+
+        private void ItemPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Sum")
+                OnPropertyChanged("Sum");
+        }
+
         private void RefreshEmployeesSource()
         {
             EmployeesSource = Items.Select(o => o.Employee).Distinct().OrderBy(o => o.FullName).ToList();

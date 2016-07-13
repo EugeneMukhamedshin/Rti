@@ -34,7 +34,7 @@ namespace Rti.ViewModel.EditViewModel
             }
         }
 
-        public  CalculationViewModel FactCalculation
+        public CalculationViewModel FactCalculation
         {
             get { return _factCalculation; }
             set
@@ -72,7 +72,8 @@ namespace Rti.ViewModel.EditViewModel
             get { return _drawingSource ?? (_drawingSource = new List<DrawingViewModel> { Entity }); }
         }
 
-        public DrawingCalculationEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) : base(name, entity, readOnly, viewService, repositoryFactory)
+        public DrawingCalculationEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
+            : base(name, entity, readOnly, viewService, repositoryFactory)
         {
             PlanCalculation = Entity.PlanCalculation.Clone();
             FactCalculation = Entity.FactCalculation.Clone();
@@ -87,7 +88,8 @@ namespace Rti.ViewModel.EditViewModel
                o => Calculate(CalculationType.Fact));
             ReportPlanCommand = new DelegateCommand(o => Report(CalculationType.Plan));
             ReportFactCommand = new DelegateCommand(o => Report(CalculationType.Fact));
-            RefreshText();}
+            RefreshText();
+        }
 
         private void Report(CalculationType calculationType)
         {
@@ -106,8 +108,8 @@ namespace Rti.ViewModel.EditViewModel
 
         private void RefreshText()
         {
-            CalculatedFact = string.Format("Цена {0} руб.", Entity.FactCalculation.Price);
-            CalculatedPlan = string.Format("Цена {0} руб.", Entity.PlanCalculation.Price);
+            CalculatedFact = string.Format("Цена {0:f2} руб.", FactCalculation.Price ?? 0);
+            CalculatedPlan = string.Format("Цена {0:f2} руб.", PlanCalculation.Price ?? 0);
         }
 
         public void Calculate(CalculationType calculationType)
@@ -194,7 +196,7 @@ namespace Rti.ViewModel.EditViewModel
             //private Decimal? _transport;
             //private Decimal? _mainSalary;
 
-         if (calculationType == CalculationType.Fact)
+            if (calculationType == CalculationType.Fact)
             {
                 if (PlanCalculation.MainMaterial == null)
                     PlanCalculation.MainMaterial = FactCalculation.MainMaterial;
@@ -211,10 +213,12 @@ namespace Rti.ViewModel.EditViewModel
                 if (PlanCalculation.OtherMaterial == null)
                     PlanCalculation.OtherMaterial = FactCalculation.OtherMaterial;
                 if (PlanCalculation.MainSalary == null)
-                    PlanCalculation.MainSalary = FactCalculation.MainSalary;}
+                    PlanCalculation.MainSalary = FactCalculation.MainSalary;
+            }
 
             RefreshText();
         }
+
         protected override void DoSave()
         {
             Entity.PlanCalculation.CopyFrom(PlanCalculation);

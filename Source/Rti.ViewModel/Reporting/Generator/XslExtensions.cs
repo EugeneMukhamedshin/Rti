@@ -250,6 +250,11 @@ namespace Rti.ViewModel.Reporting.Generator
             return DateTime.Now.ToString(format);
         }
 
+        public string GetCurrentYear()
+        {
+            return DateTime.Today.Year.ToString();
+        }
+
         //public string FormatDecimal(string text, string format, string culture)
         //{
         //    VTDecimal vtDecimal = new VTDecimal();

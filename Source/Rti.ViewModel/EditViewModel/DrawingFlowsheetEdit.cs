@@ -26,6 +26,12 @@ namespace Rti.ViewModel.EditViewModel
         public DrawingFlowsheetEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {
+            if (Entity.Equipment == null)
+                Entity.Equipment = new EquipmentViewModel(null, RepositoryFactory)
+                {
+                    SortOrder = RepositoryFactory.GetEquipmentRepository().GetNextSortOrder()
+                };
+
             EditEquipmentCommand = new DelegateCommand(o => EditEquipment());
             ReportCommand = new DelegateCommand(o => Report());
             DrawingFlowsheetMachineList = new DrawingFlowsheetMachineList(entity, Editable, ViewService, RepositoryFactory);
@@ -64,6 +70,7 @@ namespace Rti.ViewModel.EditViewModel
 
         protected override void DoSave()
         {
+            Entity.Equipment.SaveEntity();
             base.DoSave();
             DrawingFlowsheetMachineList.SaveChanges();
             DrawingFlowsheetProcessList.SaveChanges();

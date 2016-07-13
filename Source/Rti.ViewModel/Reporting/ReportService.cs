@@ -243,28 +243,28 @@ namespace Rti.ViewModel.Reporting
             return GetReport(r => r.GetMakedDetailsReport(startDate, endDate, drawing == null ? (int?)null : drawing.Id), xsl);
         }
 
-        public byte[] GetMaterialMovingFullReport(DateTime startDate, DateTime endDate)
+        public byte[] GetMaterialMovingFullReport(DateTime startDate, DateTime endDate, MaterialViewModel material)
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetMaterialMovingFullReport.xslt"));
-            return GetReport(r => r.GetMaterialMovingFullReport(startDate, endDate), xsl);
+            return GetReport(r => r.GetMaterialMovingFullReport(startDate, endDate, material == null ? (int?)null : material.Id), xsl);
         }
 
-        public byte[] GetMaterialMovingRequestReport(DateTime startDate, DateTime endDate)
+        public byte[] GetMaterialMovingRequestReport(DateTime startDate, DateTime endDate, MaterialViewModel material)
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetMaterialMovingRequestReport.xslt"));
-            return GetReport(r => r.GetMaterialMovingRequestReport(startDate, endDate), xsl);
+            return GetReport(r => r.GetMaterialMovingRequestReport(startDate, endDate, material == null ? (int?)null : material.Id), xsl);
         }
 
-        public byte[] GetMaterialMovingShipmentReport(DateTime startDate, DateTime endDate)
+        public byte[] GetMaterialMovingShipmentReport(DateTime startDate, DateTime endDate, MaterialViewModel material)
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetMaterialMovingShipmentReport.xslt"));
-            return GetReport(r => r.GetMaterialMovingShipmentReport(startDate, endDate), xsl);
+            return GetReport(r => r.GetMaterialMovingShipmentReport(startDate, endDate, material == null ? (int?)null : material.Id), xsl);
         }
 
-        public byte[] GetMaterialMovingWorkItemReport(DateTime startDate, DateTime endDate)
+        public byte[] GetMaterialMovingWorkItemReport(DateTime startDate, DateTime endDate, MaterialViewModel material)
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetMaterialMovingWorkItemReport.xslt"));
-            return GetReport(r => r.GetMaterialMovingWorkItemReport(startDate, endDate), xsl);
+            return GetReport(r => r.GetMaterialMovingWorkItemReport(startDate, endDate, material == null ? (int?)null : material.Id), xsl);
         }
     }
 }

@@ -140,24 +140,28 @@ namespace Rti.ViewModel.EditViewModel
                 var viewModel = new DrawingFlowsheetEdit("Технологическая карта", Source, ReadOnly, ViewService, RepositoryFactory);
                 viewModel.Refresh();
                 ViewService.ShowViewDialog(viewModel);
+                viewModel.Entity.CopyTo(Entity);
             }
         }
 
         private void OpenCalculation()
         {
-            if (Entity.PlanCalculation == null)
-                Entity.PlanCalculation = new CalculationViewModel(null, RepositoryFactory);
-            if (Entity.FactCalculation == null)
-                Entity.FactCalculation = new CalculationViewModel(null, RepositoryFactory);
-            Entity.PlanCalculation.IsReadOnly = true;
             var saved = !Entity.IsChanged;
             if (!saved && ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед открытием необходимо сохранить чертеж. Выполнить сохранение?")))
                 saved = Save();
             if (saved)
             {
+                if (Source.PlanCalculation == null)
+                    Source.PlanCalculation = new CalculationViewModel(null, RepositoryFactory);
+                if (Source.FactCalculation == null)
+                    Source.FactCalculation = new CalculationViewModel(null, RepositoryFactory);
+                Source.PlanCalculation.IsReadOnly = true;
                 var calculationEdit = new DrawingCalculationEdit("Калькуляция", Source, ReadOnly, ViewService, RepositoryFactory);
                 if (ViewService.ShowViewDialog(calculationEdit) == true)
                 {
+                    calculationEdit.Entity.CopyTo(Entity);
+                    Entity.PlanCalculation = Source.PlanCalculation;
+                    Entity.FactCalculation = Source.FactCalculation;
                     Source.RaiseCalculationPriceChanged();
                 }
             }
@@ -167,7 +171,7 @@ namespace Rti.ViewModel.EditViewModel
         {
             if (String.IsNullOrEmpty(Entity.Name))
             {
-                ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задано наименование оснастки"));
+                ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задано наименование"));
                 return false;
             }
             if (Entity.Group == null)
@@ -175,11 +179,11 @@ namespace Rti.ViewModel.EditViewModel
                 ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задана группа"));
                 return false;
             }
-            if (Entity.Equipment == null)
-            {
-                ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задана оснастка"));
-                return false;
-            }
+            //if (Entity.Equipment == null)
+            //{
+            //    ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задана оснастка"));
+            //    return false;
+            //}
             return base.DoValidate();
         }
     }

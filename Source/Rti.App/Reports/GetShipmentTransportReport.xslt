@@ -4129,7 +4129,7 @@
               <Data ss:Type="String">Количест- во мест</Data>
             </Cell>
             <Cell ss:MergeAcross="13" ss:StyleID="m17965056">
-              <Data ss:Type="String">Масса,&#10;т</Data>
+              <Data ss:Type="String">Масса,&#10;кг</Data>
             </Cell>
             <Cell ss:MergeAcross="10" ss:StyleID="m17965076">
               <Data ss:Type="String">Сумма,&#10;руб. коп.</Data>
@@ -4231,7 +4231,9 @@
             </Cell>
             <Cell ss:Index="123" ss:MergeAcross="15" ss:MergeDown="1"
              ss:StyleID="m17665616">
-              <xsl:value-of select="sum(set[@name='ShipmentItems']/ShipmentItem/@NetMass)"/>
+              <Data ss:Type="Number">
+                <xsl:value-of select="sum(set[@name='ShipmentItems']/ShipmentItem/@NetMass)"/>
+              </Data>
             </Cell>
           </Row>
           <Row ss:AutoFitHeight="0" ss:Height="10.5" ss:StyleID="s18">
@@ -4248,12 +4250,10 @@
             </Cell>
             <Cell ss:Index="98" ss:MergeAcross="22" ss:StyleID="s527">
               <Data ss:Type="String">
-                <xsl:value-of select="rti:GetRepresentation1(sum(set[@name='ShipmentItems']/ShipmentItem/@NetMass))"/>
               </Data>
             </Cell>
             <Cell ss:Index="139" ss:MergeAcross="2" ss:StyleID="s557">
-              <Data
-      ss:Type="String">т</Data>
+              <Data ss:Type="String">кг</Data>
             </Cell>
           </Row>
           <Row ss:AutoFitHeight="0" ss:Height="7.5" ss:StyleID="s18">
@@ -4286,7 +4286,7 @@
             <Cell ss:Index="98" ss:MergeAcross="22" ss:StyleID="s556"/>
             <Cell ss:Index="139" ss:MergeAcross="2" ss:StyleID="s557">
               <Data
-      ss:Type="String">т</Data>
+      ss:Type="String">кг</Data>
             </Cell>
           </Row>
           <Row ss:AutoFitHeight="0" ss:Height="14.0625" ss:StyleID="s18">
@@ -5549,7 +5549,7 @@
               <Data ss:Type="String">Класс груза</Data>
             </Cell>
             <Cell ss:MergeAcross="13" ss:StyleID="m17660496">
-              <Data ss:Type="String">Масса брутто,&#10;т</Data>
+              <Data ss:Type="String">Масса брутто,&#10;кг</Data>
             </Cell>
           </Row>
           <Row ss:AutoFitHeight="0" ss:Height="9.75" ss:StyleID="s29">
@@ -5729,7 +5729,7 @@
             <Cell ss:StyleID="s188"/>
             <Cell ss:MergeAcross="10" ss:StyleID="m17658528"/>
             <Cell ss:MergeAcross="25" ss:StyleID="s489">
-              <Data ss:Type="String">Итого: масса брутто, т</Data>
+              <Data ss:Type="String">Итого: масса брутто, кг</Data>
             </Cell>
             <Cell ss:MergeAcross="13" ss:StyleID="m17658016"/>
           </Row>
@@ -6794,13 +6794,17 @@
         </Data>
       </Cell>
       <Cell ss:MergeAcross="10" ss:StyleID="m17964212">
-        <Data ss:Type="String">
+        <Data ss:Type="Number">
           <xsl:value-of select="@CountOfPlaces"/>
         </Data>
       </Cell>
-      <Cell ss:MergeAcross="13" ss:StyleID="m17963520"/>
+      <Cell ss:MergeAcross="13" ss:StyleID="m17963520">
+        <Data ss:Type="Number">
+          <xsl:value-of select="@NetMass"/>
+        </Data>
+      </Cell>
       <Cell ss:MergeAcross="10" ss:StyleID="m17963540">
-        <Data ss:Type="String">
+        <Data ss:Type="Number">
           <xsl:value-of select="@SumWithNds"/>
         </Data>
       </Cell>

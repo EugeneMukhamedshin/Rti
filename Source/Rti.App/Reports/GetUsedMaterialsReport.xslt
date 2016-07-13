@@ -89,6 +89,15 @@
           <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
            ss:Color="#000000" ss:Bold="1"/>
         </Style>
+        <Style ss:ID="s26">
+          <Borders>
+            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+          </Borders>
+          <NumberFormat ss:Format="Standard"/>
+        </Style>
       </Styles>
       <Worksheet ss:Name="Лист1">
         <Table x:FullColumns="1" x:FullRows="1" ss:DefaultRowHeight="15">
@@ -206,7 +215,7 @@
           <xsl:value-of select="@BatchNumber"/>
         </Data>
       </Cell>
-      <Cell ss:StyleID="s18">
+      <Cell ss:StyleID="s26">
         <Data ss:Type="Number">
           <xsl:value-of select="@UsedMaterial"/>
         </Data>

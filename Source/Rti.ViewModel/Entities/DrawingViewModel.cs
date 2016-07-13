@@ -46,6 +46,8 @@ namespace Rti.ViewModel.Entities
         public void RaiseCalculationPriceChanged()
         {
             OnPropertyChanged("CalculationPrice");
+            OnPropertyChanged("FactCalculationPrice");
+            OnPropertyChanged("PlanCalculationPrice");
         }
 
         protected override IEnumerable<ValidationRule> GetValidationRules()

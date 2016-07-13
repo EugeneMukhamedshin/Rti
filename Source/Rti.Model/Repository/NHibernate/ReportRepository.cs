@@ -33,7 +33,7 @@ namespace Rti.Model.Repository.NHibernate
                                             .Select(
                                                 key =>
                                                     new XAttribute(key,
-                                                        t[key] == null ? string.Empty : t[key].ToString()))));
+                                                        t[key] ?? string.Empty))));
                     }, "");
         }
 
@@ -72,6 +72,7 @@ FROM request_details rd
     GROUP BY dfp.drawing_id) t
     ON d.id = t.drawing_id
 WHERE r.reg_date BETWEEN :p_start_date AND :p_end_date
+AND r.is_deleted = 0
 ORDER BY RegDate ASC",
                 query => query.SetParameter("p_start_date", startDate).SetParameter("p_end_date", endDate));
             var rowDict =
@@ -127,6 +128,7 @@ FROM request_details rd
   LEFT JOIN shipments s
     ON si.shipment_id = s.id
 WHERE r.reg_date BETWEEN :p_start_date AND :p_end_date
+AND r.is_deleted = 0
 AND d.id = IFNULL(:p_drawing_id, d.id)
 ORDER BY r.reg_date ASC, s.date ASC",
                 query =>
@@ -181,6 +183,7 @@ FROM work_items wi
     ON d.material_id = m.id
 WHERE wi.work_date BETWEEN :p_start_date AND :p_end_date
 AND m.id = IFNULL(:p_material_id, m.id)
+AND wi.done_count <> 0
 ORDER BY m.name, wi.work_date",
                 query =>
                     query.SetParameter("p_start_date", startDate)
@@ -249,6 +252,7 @@ FROM (SELECT
     INNER JOIN calculations c
       ON d.fact_calculation_id = c.id
   WHERE r.reg_date BETWEEN :p_start_date AND :p_end_date
+  AND r.is_deleted = 0
   AND r.id = IFNULL(:p_request_id, r.id)) t",
                 query =>
                     query.SetParameter("p_start_date", startDate)
@@ -270,26 +274,6 @@ FROM (SELECT
                             new XAttribute("RequestId", g.Key.RequestId),
                             new XAttribute("RequestNumber", g.Key.RequestNumber),
                             new XAttribute("RequestRegDate", g.Key.RequestRegDate),
-                                //new XAttribute("MaterialCost",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("MaterialCost").Value))),
-                                //new XAttribute("TransportCost",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("TransportCost").Value))),
-                                //new XAttribute("SalaryCost",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("SalaryCost").Value))),
-                                //new XAttribute("PowerForFormedCost",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("PowerForFormedCost").Value))),
-                                //new XAttribute("OtherPowerCost",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("OtherPowerCost").Value))),
-                                //new XAttribute("SummaryCost",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("SummaryCost").Value))),
-                                //new XAttribute("SummaryCount",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("DetailCount").Value))),
-                                //new XAttribute("SummaryPrice",
-                                //    g.Sum(
-                                //        o =>
-                                //            Convert.ToDecimal(o.Attribute("DetailCount").Value)*
-                                //            Convert.ToDecimal(o.Attribute("DetailPrice").Value))
-                                //            ),
                                 g)))));
             return doc;
         }
@@ -353,20 +337,6 @@ FROM (SELECT
                     rowDict.Select(g =>
                             new XElement("WorkItemPackage",
                             new XAttribute("WorkDate", g.Key.WorkDate),
-                                //new XAttribute("MaterialCost",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("MaterialCost").Value))),
-                                //new XAttribute("TransportCost",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("TransportCost").Value))),
-                                //new XAttribute("SalaryCost",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("SalaryCost").Value))),
-                                //new XAttribute("PowerForFormedCost",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("PowerForFormedCost").Value))),
-                                //new XAttribute("OtherPowerCost",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("OtherPowerCost").Value))),
-                                //new XAttribute("SummaryCost",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("SummaryCost").Value))),
-                                //new XAttribute("SummaryDoneCount",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("DoneCount").Value))),
                                 g)))));
             return doc;
         }
@@ -419,6 +389,7 @@ FROM (SELECT
     JOIN calculations c
       ON d.fact_calculation_id = c.id
   WHERE s.date BETWEEN :p_start_date AND :p_end_date
+  AND s.is_deleted = 0
   AND s.id = IFNULL(:p_shipment_id, s.id)) t",
                 query =>
                     query.SetParameter("p_start_date", startDate)
@@ -440,19 +411,6 @@ FROM (SELECT
                                 new XAttribute("ShipmentId", g.Key.ShipmentId),
                                 new XAttribute("ShipmentDate", g.Key.ShipmentDate),
                                 new XAttribute("ShipmentNumber", g.Key.ShipmentNumber),
-                                //new XAttribute("MaterialCost",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("MaterialCost").Value))),
-                                //new XAttribute("TransportCost",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("TransportCost").Value))),
-                                //new XAttribute("SalaryCost", g.Sum(o => Convert.ToDecimal(o.Attribute("SalaryCost").Value))),
-                                //new XAttribute("PowerForFormedCost",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("PowerForFormedCost").Value))),
-                                //new XAttribute("OtherPowerCost",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("OtherPowerCost").Value))),
-                                //new XAttribute("SummaryCost",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("SummaryCost").Value))),
-                                //new XAttribute("SummaryDoneCount",
-                                //    g.Sum(o => Convert.ToDecimal(o.Attribute("DoneCount").Value))),
                                 g)))));
             return doc;
         }
@@ -535,7 +493,7 @@ ORDER BY g.name ASC, d.name ASC",
             return doc;
         }
 
-        public XDocument GetMaterialMovingFullReport(DateTime startDate, DateTime endDate)
+        public XDocument GetMaterialMovingFullReport(DateTime startDate, DateTime endDate, int? materialId)
         {
             var rows = GetXElementsFromQuery(@"
 SELECT
@@ -583,10 +541,11 @@ FROM materials m
     WHERE rec_type = 4
     AND date BETWEEN :p_start_date AND :p_end_date) Shipped
     ON Shipped.material_id = m.id
-WHERE IFNULL(Saldo.count, 0) + IFNULL(Arrived.count, 0) + IFNULL(Requested.count, 0) + IFNULL(Used.count, 0) + IFNULL(Shipped.count, 0) > 0",
+WHERE m.id = IFNULL(:p_material_id, m.id) AND IFNULL(Saldo.count, 0) + IFNULL(Arrived.count, 0) + IFNULL(Requested.count, 0) + IFNULL(Used.count, 0) + IFNULL(Shipped.count, 0) > 0",
                 query =>
                     query.SetParameter("p_start_date", startDate)
-                        .SetParameter("p_end_date", endDate));
+                        .SetParameter("p_end_date", endDate)
+                        .SetParameter("p_material_id", materialId));
             var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
                 new XElement("root",
                     new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")),
@@ -595,7 +554,7 @@ WHERE IFNULL(Saldo.count, 0) + IFNULL(Arrived.count, 0) + IFNULL(Requested.count
             return doc;
         }
 
-        public XDocument GetMaterialMovingRequestReport(DateTime startDate, DateTime endDate)
+        public XDocument GetMaterialMovingRequestReport(DateTime startDate, DateTime endDate, int? materialId)
         {
             var rows = GetXElementsFromQuery(@"
 SELECT
@@ -619,12 +578,14 @@ FROM request_details rd
     ON d.group_id = g.id
   INNER JOIN details d1
     ON d.detail_id = d1.id
-WHERE d.material_id IS NOT NULL
+WHERE d.material_id IS NOT NULL AND m.id = IFNULL(:p_material_id, m.id)
 AND r.reg_date BETWEEN :p_start_date AND :p_end_date
+AND r.is_deleted = 0
 ORDER BY m.name, d1.sort_order",
                 query =>
                     query.SetParameter("p_start_date", startDate)
-                        .SetParameter("p_end_date", endDate));
+                        .SetParameter("p_end_date", endDate)
+                        .SetParameter("p_material_id", materialId));
             var rowDict = rows.ToLookup(e => new
             {
                 MaterialId = e.Attribute("MaterialId").Value,
@@ -643,7 +604,7 @@ ORDER BY m.name, d1.sort_order",
             return doc;
         }
 
-        public XDocument GetMaterialMovingShipmentReport(DateTime startDate, DateTime endDate)
+        public XDocument GetMaterialMovingShipmentReport(DateTime startDate, DateTime endDate, int? materialId)
         {
             var rows = GetXElementsFromQuery(@"
 SELECT
@@ -669,12 +630,14 @@ FROM shipment_items si
     ON d.group_id = g.id
   INNER JOIN details d1
     ON d.detail_id = d1.id
-WHERE d.material_id IS NOT NULL
+WHERE d.material_id IS NOT NULL AND m.id = IFNULL(:p_material_id, m.id)
+AND s.is_deleted = 0
 AND s.date BETWEEN :p_start_date AND :p_end_date
 ORDER BY m.name, d1.sort_order",
                 query =>
                     query.SetParameter("p_start_date", startDate)
-                        .SetParameter("p_end_date", endDate));
+                        .SetParameter("p_end_date", endDate)
+                        .SetParameter("p_material_id", materialId));
             var rowDict = rows.ToLookup(e => new
             {
                 MaterialId = e.Attribute("MaterialId").Value,
@@ -693,7 +656,7 @@ ORDER BY m.name, d1.sort_order",
             return doc;
         }
 
-        public XDocument GetMaterialMovingWorkItemReport(DateTime startDate, DateTime endDate)
+        public XDocument GetMaterialMovingWorkItemReport(DateTime startDate, DateTime endDate, int? materialId)
         {
             var rows = GetXElementsFromQuery(@"
 SELECT
@@ -715,12 +678,13 @@ FROM work_items wi
     ON d.group_id = g.id
   INNER JOIN details d1
     ON d.detail_id = d1.id
-WHERE d.material_id IS NOT NULL
+WHERE d.material_id IS NOT NULL AND m.id = IFNULL(:p_material_id, m.id)
 AND wi.work_date BETWEEN :p_start_date AND :p_end_date
 ORDER BY m.name, d1.sort_order",
                 query =>
                     query.SetParameter("p_start_date", startDate)
-                        .SetParameter("p_end_date", endDate));
+                        .SetParameter("p_end_date", endDate)
+                        .SetParameter("p_material_id", materialId));
             var rowDict = rows.ToLookup(e => new
             {
                 MaterialId = e.Attribute("MaterialId").Value,
