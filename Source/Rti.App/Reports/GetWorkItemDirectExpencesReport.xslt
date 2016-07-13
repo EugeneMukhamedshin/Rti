@@ -165,7 +165,7 @@
             </Cell>
           </Row>
 
-          <xsl:apply-templates select="WorkItemPackages/WorkItemPackage"/>
+          <xsl:apply-templates select="WorkItemEmployeePackages/WorkItemEmployeePackage"/>
 
         </Table>
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
@@ -196,7 +196,7 @@
     </Workbook>
   </xsl:template>
 
-  <xsl:template match="WorkItemPackages/WorkItemPackage">
+  <xsl:template match="WorkItemEmployeePackages/WorkItemEmployeePackage">
     <Row>
       <Cell ss:StyleID="s24"/>
       <Cell ss:StyleID="s24"/>

@@ -100,7 +100,7 @@ namespace Rti.ViewModel.EditViewModel
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), string.Format("Калькуляция ({0}).xls", Entity.Name))
             {
                 Drawing = Source,
-                Calculation = calculationType == CalculationType.Fact ? FactCalculation : PlanCalculation,
+                Calculation = calculationType == CalculationType.Fact ? Entity.FactCalculation : Entity.PlanCalculation,
                 ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
             };
             viewModel.GenerateReport();

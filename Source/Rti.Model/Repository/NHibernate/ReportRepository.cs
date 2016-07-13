@@ -333,9 +333,9 @@ FROM (SELECT
                 new XElement("root",
                     new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")),
                         new XAttribute("EndDate", endDate.ToString("dd.MM.yyyy"))),
-                    new XElement("WorkItemPackages",
+                    new XElement("WorkItemEmployeePackages",
                     rowDict.Select(g =>
-                            new XElement("WorkItemPackage",
+                            new XElement("WorkItemEmployeePackage",
                             new XAttribute("WorkDate", g.Key.WorkDate),
                                 g)))));
             return doc;

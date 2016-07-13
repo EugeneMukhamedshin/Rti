@@ -286,18 +286,17 @@
             <Cell ss:StyleID="s34"/>
             <Cell ss:StyleID="s34"/>
             <Cell ss:StyleID="s34">
-              <Data ss:Type="String">
-                <xsl:value-of select="WorkItemPackage/@Id"/>
+              <Data ss:Type="Number">
+                <xsl:value-of select="WorkItemEmployeePackage/@Id"/>
               </Data>
             </Cell>
             <Cell ss:StyleID="s36">
               <Data ss:Type="String">Дата</Data>
             </Cell>
             <Cell ss:StyleID="s34">
-              <Data ss:Type="String"><xsl:value-of select="rti:FormatDate(WorkItemPackage/@Date)"/></Data>
+              <Data ss:Type="String"><xsl:value-of select="rti:FormatDate(WorkItemEmployeePackage/@Date)"/></Data>
             </Cell>
-            <Cell ss:StyleID="s34"/>
-            <Cell ss:StyleID="s33"/>
+            <Cell ss:StyleID="s34"/><Cell ss:StyleID="s33"/>
           </Row>
           <Row ss:Height="19.5">
             <Cell ss:StyleID="s33"/>
@@ -340,7 +339,7 @@
             </Cell>
             <Cell ss:MergeAcross="3" ss:StyleID="m173513856">
               <Data ss:Type="String">
-                <xsl:value-of select="WorkItemPackage/@Block"/>
+                <xsl:value-of select="WorkItemEmployeePackage/@Block"/>
               </Data>
             </Cell>
           </Row>

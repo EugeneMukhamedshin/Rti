@@ -157,10 +157,12 @@
           </Row>
           <Row>
             <Cell ss:Index="5" ss:StyleID="s20">
-              <Data ss:Type="Number"></Data>
+              <Data ss:Type="Number">
+                <xsl:value-of select="WorkItemPackage/@Id"/>
+              </Data>
             </Cell>
             <Cell ss:StyleID="s21">
-              <Data ss:Type="String"><xsl:value-of select="rti:FormatDate(Report/@Date)"/></Data>
+              <Data ss:Type="String"><xsl:value-of select="rti:FormatDate(WorkItemPackage/@Date)"/></Data>
             </Cell>
           </Row>
           <Row ss:Index="5">

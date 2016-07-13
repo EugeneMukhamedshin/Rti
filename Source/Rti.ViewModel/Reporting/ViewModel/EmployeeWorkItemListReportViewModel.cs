@@ -15,10 +15,10 @@ namespace Rti.ViewModel.Reporting.ViewModel
 
         protected override byte[] GetReport(ReportService reportService)
         {
-            return reportService.GetEmployeeWorkItemListReport(WorkItems, Employee, WorkItemPackage);
+            return reportService.GetEmployeeWorkItemListReport(WorkItems, Employee, WorkItemEmployeePackage);
         }
 
         public DateTime Date { get; set; }
-        public WorkItemPackageViewModel WorkItemPackage { get; set; }
+        public WorkItemEmployeePackageViewModel WorkItemEmployeePackage { get; set; }
     }
 }

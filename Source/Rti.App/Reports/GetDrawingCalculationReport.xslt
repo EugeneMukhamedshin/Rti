@@ -388,7 +388,11 @@
             <Cell ss:Index="2" ss:MergeAcross="2" ss:StyleID="s54">
               <Data ss:Type="String">Калькуляция №</Data>
             </Cell>
-            <Cell ss:StyleID="s17"/>
+            <Cell ss:StyleID="s17">
+              <Data ss:Type="Number">
+                <xsl:value-of select="Calculation/@Id"/>
+              </Data>
+            </Cell>
             <Cell ss:StyleID="s17"/>
             <Cell ss:StyleID="s17"/>
           </Row>
@@ -407,7 +411,11 @@
           <Row ss:AutoFitHeight="0" ss:Height="24.5625">
             <Cell ss:StyleID="s25"/>
             <Cell ss:StyleID="s25"/>
-            <Cell ss:MergeAcross="4" ss:StyleID="s70"/>
+            <Cell ss:MergeAcross="4" ss:StyleID="s70">
+              <Data ss:Type="String">
+                <xsl:value-of select="Drawing/Detail/@Name"/>
+              </Data>
+            </Cell>
             <Cell ss:StyleID="s25"/>
             <Cell ss:StyleID="s25"/>
           </Row>
@@ -420,10 +428,13 @@
             <Cell ss:MergeAcross="1" ss:StyleID="s77">
               <Data ss:Type="String">№ чертежа</Data>
             </Cell>
+            <Cell ss:StyleID="s17">
+              <Data ss:Type="String">
+                <xsl:value-of select="Drawing/Group/@Name"/>.<xsl:value-of select="Drawing/@Name"/>
+              </Data>
+            </Cell>
             <Cell ss:StyleID="s17"/>
-            <Cell ss:StyleID="s17"/>
-            <Cell ss:StyleID="s17"/>
-            <Cell ss:StyleID="s17"/>
+            <Cell ss:StyleID="s17"/><Cell ss:StyleID="s17"/>
             <Cell ss:StyleID="s17"/>
             <Cell ss:StyleID="s17"/>
           </Row>

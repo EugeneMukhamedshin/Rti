@@ -1,6 +1,6 @@
 namespace Rti.ViewModel.Entities
 {
-    partial class WorkItemPackageMachineViewModel
+    partial class WorkItemEmployeePackageMachineViewModel
     {
         public int FreeTime { get { return FullWorkingTime - PackageWorkingTime; } }
 

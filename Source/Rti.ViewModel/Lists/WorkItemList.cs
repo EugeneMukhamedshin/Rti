@@ -96,12 +96,18 @@ namespace Rti.ViewModel.Lists
 
         private void Report()
         {
+            var workItemPackage = new WorkItemPackageViewModel(RepositoryFactory.GetWorkItemPackageRepository().GetByDate(Date), RepositoryFactory) {};
+            if (workItemPackage.IsNewEntity)
+            {
+                workItemPackage.Date = Date;
+                workItemPackage.SaveEntity();
+            }
             var viewModel = new WorkItemListReportViewModel("Дневной наряд", ViewService, RepositoryFactory,
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), string.Format("Дневной наряд ({0:dd.MM.yyyy}).xls", Date))
             {
                 WorkItems = Items.ToList(),
                 ExtensionFilter = "Файлы Excel (*.xls)|*.xls",
-                Date = Date
+                WorkItemPackage = workItemPackage
             };
             viewModel.GenerateReport();
         }

@@ -26,7 +26,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
                 <TextBlock Text="Участок" Margin="5" VerticalAlignment="Center" Width="60"/>
-                <TextBox Text="{Binding EmployeeWorkItemPackage.Block}" Margin="5" VerticalAlignment="Center" Width="100"/>
+                <TextBox Text="{Binding EmployeeWorkItemEmployeePackage.Block}" Margin="5" VerticalAlignment="Center" Width="100"/>
             </StackPanel>
             <dxg:GridControl CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding PackageMachines}" SelectionMode="Row" Grid.Row="2">
                 <dxg:GridControl.Resources>

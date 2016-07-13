@@ -214,23 +214,23 @@ namespace Rti.ViewModel.Reporting
             return GetReport(r => doc, xsl);
         }
 
-        public byte[] GetWorkItemListReport(List<WorkItemViewModel> workItems, DateTime date)
+        public byte[] GetWorkItemListReport(List<WorkItemViewModel> workItems, WorkItemPackageViewModel workItemPackage)
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetWorkItemListReport.xslt"));
             var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
                 new XElement("root",
-                    new XElement("Report", new XAttribute("Date", date)),
+                    workItemPackage.GetXElement("WorkItemPackage"),
                     new XElement("WorkItems",
                     workItems.Select(o => o.GetXElement("WorkItem")))));
             return GetReport(r => doc, xsl);
         }
 
-        public byte[] GetEmployeeWorkItemListReport(List<WorkItemViewModel> workItems, EmployeeViewModel employee, WorkItemPackageViewModel workItemPackage)
+        public byte[] GetEmployeeWorkItemListReport(List<WorkItemViewModel> workItems, EmployeeViewModel employee, WorkItemEmployeePackageViewModel workItemEmployeePackage)
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetEmployeeWorkItemListReport.xslt"));
             var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
                 new XElement("root",
-                    workItemPackage.GetXElement("WorkItemPackage"),
+                    workItemEmployeePackage.GetXElement("WorkItemEmployeePackage"),
                     employee.GetXElement("Employee"),
                     new XElement("WorkItems",
                         workItems.Select(o => o.GetXElement("WorkItem")))));

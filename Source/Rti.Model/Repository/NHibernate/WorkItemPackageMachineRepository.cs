@@ -1,15 +1,13 @@
 using System.Collections.Generic;
-using NHibernate;
 using Rti.Model.Domain;
-using Rti.Model.Repository.Interfaces;
 
 namespace Rti.Model.Repository.NHibernate
 {
-    public partial class WorkItemPackageMachineRepository : NHibernateRepository<Rti.Model.Domain.WorkItemPackageMachine>, IWorkItemPackageMachineRepository
+    public partial class WorkItemEmployeePackageMachineRepository
     {
-        public IList<WorkItemPackageMachine> GetByWorkItemPackageId(int workItemPackageId)
+        public IList<WorkItemEmployeePackageMachine> GetByWorkItemEmployeePackageId(int workItemEmployeePackageId)
         {
-            return ExecuteFuncOnQueryOver(q => q.Where(o => o.WorkItemPackage.Id == workItemPackageId).List());
+            return ExecuteFuncOnQueryOver(q => q.Where(o => o.WorkItemEmployeePackage.Id == workItemEmployeePackageId).List());
         }
     }
 }

@@ -15,15 +15,15 @@ namespace Rti.ViewModel.Lists
 {
     public class EmployeeWorkItemList : EntityList<WorkItemViewModel, WorkItem>, IClosable
     {
-        private WorkItemPackageViewModel _employeeWorkItemPackage;
+        private WorkItemEmployeePackageViewModel _workItemEmployeePackage;
 
-        public WorkItemPackageViewModel EmployeeWorkItemPackage
+        public WorkItemEmployeePackageViewModel WorkItemEmployeePackage
         {
-            get { return _employeeWorkItemPackage; }
+            get { return _workItemEmployeePackage; }
             set
             {
-                if (Equals(value, _employeeWorkItemPackage)) return;
-                _employeeWorkItemPackage = value;
+                if (Equals(value, _workItemEmployeePackage)) return;
+                _workItemEmployeePackage = value;
                 OnPropertyChanged();
             }
         }
@@ -50,14 +50,14 @@ namespace Rti.ViewModel.Lists
             }
         }
 
-        public ObservableCollection<WorkItemPackageMachineViewModel> PackageMachines { get; set; }
+        public ObservableCollection<WorkItemEmployeePackageMachineViewModel> PackageMachines { get; set; }
 
         public EmployeeWorkItemList(EmployeeViewModel employee, DateTime date, bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(editMode, viewService, repositoryFactory)
         {
             Employee = employee;
             Date = date;
-            PackageMachines = new ObservableCollection<WorkItemPackageMachineViewModel>();
+            PackageMachines = new ObservableCollection<WorkItemEmployeePackageMachineViewModel>();
 
             OkCommand = new DelegateCommand(
                 "",
@@ -76,7 +76,7 @@ namespace Rti.ViewModel.Lists
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), string.Format("Индивидуальный наряд {0} ({1:dd.MM.yyyy}).xls", Employee.FullName, Date))
             {
                 Employee = Employee,
-                WorkItemPackage = EmployeeWorkItemPackage,
+                WorkItemEmployeePackage = WorkItemEmployeePackage,
                 WorkItems = Items.ToList(),
                 Date = Date,
                 ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
@@ -86,7 +86,7 @@ namespace Rti.ViewModel.Lists
 
         private void SaveAndClose()
         {
-            EmployeeWorkItemPackage.SaveEntity();
+            WorkItemEmployeePackage.SaveEntity();
 
             var changed = false;
             foreach (var workItem in Items)
@@ -124,17 +124,17 @@ namespace Rti.ViewModel.Lists
         public override void Refresh()
         {
             base.Refresh();
-            var package = RepositoryFactory.GetWorkItemPackageRepository().GetByEmployeeId(Employee.Id, Date);
-            EmployeeWorkItemPackage = new WorkItemPackageViewModel(package, RepositoryFactory);
-            if (EmployeeWorkItemPackage.IsNewEntity)
+            var package = RepositoryFactory.GetWorkItemEmployeePackageRepository().GetByEmployeeId(Employee.Id, Date);
+            WorkItemEmployeePackage = new WorkItemEmployeePackageViewModel(package, RepositoryFactory);
+            if (WorkItemEmployeePackage.IsNewEntity)
             {
-                EmployeeWorkItemPackage.Employee = Employee;
-                EmployeeWorkItemPackage.Date = Date;
+                WorkItemEmployeePackage.Employee = Employee;
+                WorkItemEmployeePackage.Date = Date;
             }
             else
             {
-                DoAsync(() => RepositoryFactory.GetWorkItemPackageMachineRepository().GetByWorkItemPackageId(EmployeeWorkItemPackage.Id),
-                    res => PackageMachines.ClearAndAddRange(res.Select(o => new WorkItemPackageMachineViewModel(o, RepositoryFactory))));
+                DoAsync(() => RepositoryFactory.GetWorkItemEmployeePackageMachineRepository().GetByWorkItemEmployeePackageId(WorkItemEmployeePackage.Id),
+                    res => PackageMachines.ClearAndAddRange(res.Select(o => new WorkItemEmployeePackageMachineViewModel(o, RepositoryFactory))));
             }
         }
 
@@ -170,23 +170,30 @@ namespace Rti.ViewModel.Lists
                 return;
             if (e.PropertyName.In("FlowsheetMachine", "IsParallel", "MachineUsageTime"))
             {
-                var packageMachine =
-                    PackageMachines.FirstOrDefault(
-                        o =>
-                            workItem.FlowsheetMachine != null && workItem.FlowsheetMachine.Machine != null &&
-                            o.FlowsheetMachine != null && o.FlowsheetMachine.Machine != null &&
-                            workItem.FlowsheetMachine.Machine.Equals(o.FlowsheetMachine.Machine));
-                if (packageMachine == null && workItem.FlowsheetMachine != null)
+                if (workItem.FlowsheetMachine != null)
                 {
-                    packageMachine = new WorkItemPackageMachineViewModel(null, RepositoryFactory)
+                    var workItemMachine = workItem.FlowsheetMachine.Machine;
+                    var packageMachine =
+                        PackageMachines.FirstOrDefault(
+                            o =>
+                                o.Machine != null && o.Machine.Equals(workItemMachine));
+                    if (packageMachine == null)
                     {
-                        WorkItemPackage = EmployeeWorkItemPackage,
-                        FlowsheetMachine = workItem.FlowsheetMachine
-                    };
-                    PackageMachines.Add(packageMachine);
-                    packageMachine.PackageWorkingTime =
-                        decimal.ToInt32(Items.Where(o => Equals(o.FlowsheetMachine, workItem.FlowsheetMachine))
-                            .Sum(o => o.MachineUsageTime * (o.IsParallel ? 0 : 1)));
+                        packageMachine = new WorkItemEmployeePackageMachineViewModel(null, RepositoryFactory)
+                        {
+                            WorkItemEmployeePackage = WorkItemEmployeePackage,
+                            Machine = workItemMachine
+                        };
+                        PackageMachines.Add(packageMachine);
+                    }
+                    if (workItemMachine != null)
+                    {
+                        var machineWorkItems = Items.Where(o => o.FlowsheetMachine != null && workItemMachine.Equals(o.FlowsheetMachine.Machine)).ToList();
+                        var simultaneousItems = machineWorkItems.Where(o => o.IsParallel).ToList();
+                        var simultaneousItemsWorkTime = simultaneousItems.Any() ? simultaneousItems.Max(o => o.MachineUsageTime) : 0;
+                        var sequentialItemsWorkTime = machineWorkItems.Where(o => !o.IsParallel).Sum(o => o.MachineUsageTime);
+                        packageMachine.PackageWorkingTime = decimal.ToInt32(Math.Max(simultaneousItemsWorkTime, sequentialItemsWorkTime));
+                    }
                 }
             }
         }

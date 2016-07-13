@@ -3,8 +3,8 @@ using Rti.Model.Domain;
 
 namespace Rti.Model.Repository.Interfaces
 {
-    public partial interface IWorkItemPackageMachineRepository
+    public partial interface IWorkItemEmployeePackageMachineRepository
     {
-        IList<WorkItemPackageMachine> GetByWorkItemPackageId(int workItemPackageId);
+        IList<WorkItemEmployeePackageMachine> GetByWorkItemEmployeePackageId(int workItemEmployeePackageId);
     }
 }
