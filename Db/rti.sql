@@ -1199,32 +1199,6 @@ AS
 	select 1 AS `rec_type`,`mar`.`waybill_date` AS `date`,`mar`.`material_id` AS `material_Id`,`mar`.`count` AS `COUNT` from `material_arrival_records` `mar` union all select 2 AS `rec_type`,`r`.`reg_date` AS `reg_date`,`d`.`material_id` AS `material_id`,(`rd`.`count` * `d`.`mass_with_shruff`) AS `rd.count * d.mass_with_shruff` from ((`request_details` `rd` join `requests` `r` on((`rd`.`request_id` = `r`.`id`))) join `drawings` `d` on((`rd`.`drawing_id` = `d`.`id`))) where (`d`.`material_id` is not null) union all select 3 AS `rec_type`,`wi`.`work_date` AS `work_date`,`d`.`material_id` AS `material_id`,(`wi`.`task_count` * `d`.`mass_with_shruff`) AS `wi.task_count * d.mass_with_shruff` from (`work_items` `wi` join `drawings` `d` on((`wi`.`drawing_id` = `d`.`id`))) where (`d`.`material_id` is not null) union all select 4 AS `rec_type`,`s`.`date` AS `date`,`d`.`material_id` AS `material_id`,(`si`.`count` * `d`.`mass_with_shruff`) AS `si.count * d.mass_with_shruff` from (((`shipment_items` `si` join `request_details` `rd` on((`si`.`request_detail_id` = `rd`.`id`))) join `drawings` `d` on((`rd`.`drawing_id` = `d`.`id`))) join `shipments` `s` on((`si`.`shipment_id` = `s`.`id`)));
 
 --
--- Описание для представления rejected_registrations
---
-DROP VIEW IF EXISTS rejected_registrations CASCADE;
-CREATE OR REPLACE 
-	DEFINER = 'root'@'localhost'
-VIEW rejected_registrations
-AS
-	;
-
---
--- Описание для пользователя `mysql.sys`
---
-DROP USER IF EXISTS 'mysql.sys'@'localhost';
-CREATE USER 'mysql.sys'@'localhost' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE DEFAULT ACCOUNT LOCK;
-GRANT ALL PRIVILEGES ON *.* TO 'mysql.sys'@'localhost' 
-WITH GRANT OPTION;
-
---
--- Описание для пользователя root
---
-DROP USER IF EXISTS 'root'@'localhost';
-CREATE USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password AS '*81F5E21E35407D884A6CD4A731AEBFB6AF209E1B' PASSWORD EXPIRE DEFAULT;
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' 
-WITH GRANT OPTION;
-
--- 
 -- Вывод данных для таблицы additional_infos
 --
 

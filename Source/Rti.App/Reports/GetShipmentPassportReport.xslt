@@ -214,7 +214,7 @@
         <Row ss:Height="18">
           <Cell ss:MergeAcross="10" ss:StyleID="s29">
             <Data ss:Type="String">
-              ПАСПОРТ № <xsl:value-of select="rti:FormatDate(Shipment/@DeliveryDocDate)"/>/<xsl:value-of select="@SortOrder"/>
+              ПАСПОРТ № <xsl:value-of select="rti:FormatDate(Shipment/@Date, 'ddMM\/yy')"/>-<xsl:value-of select="Shipment/@SortOrder"/>/<xsl:value-of select="@SortOrder"/>
             </Data>
           </Cell>
         </Row>

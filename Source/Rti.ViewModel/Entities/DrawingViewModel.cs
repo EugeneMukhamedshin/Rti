@@ -27,20 +27,20 @@ namespace Rti.ViewModel.Entities
         {
             get
             {
-                return (FactCalculation == null || FactCalculation.Summary == null)
-                    ? PlanCalculation == null ? null : PlanCalculation.Summary
-                    : FactCalculation.Summary;
+                return (FactCalculation == null || FactCalculation.Price == null)
+                    ? PlanCalculation == null ? null : PlanCalculation.Price
+                    : FactCalculation.Price;
             }
         }
 
         public decimal? FactCalculationPrice
         {
-            get { return FactCalculation != null ? FactCalculation.Summary : null; }
+            get { return FactCalculation != null ? FactCalculation.Price : null; }
         }
 
         public decimal? PlanCalculationPrice
         {
-            get { return PlanCalculation != null ? PlanCalculation.Summary : null; }
+            get { return PlanCalculation != null ? PlanCalculation.Price : null; }
         }
 
         public void RaiseCalculationPriceChanged()
