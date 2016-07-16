@@ -21,7 +21,7 @@ namespace Rti.ViewModel.EditViewModel
         {
             base.Refresh();
             EmployeesSource = new Lazy<List<EmployeeViewModel>>(() => RepositoryFactory.GetEmployeeRepository().GetAllActive().Select(m => new EmployeeViewModel(m, RepositoryFactory)).ToList());
-            DrawingsSource = new Lazy<List<DrawingViewModel>>(() => RepositoryFactory.GetDrawingRepository().GetAllActive().Select(m => new DrawingViewModel(m, RepositoryFactory)).ToList());
+            DrawingsSource = new Lazy<List<DrawingViewModel>>(() => RepositoryFactory.GetDrawingRepository().GetAllInWork().Select(m => new DrawingViewModel(m, RepositoryFactory)).ToList());
         }
 
         protected override void DoSave()

@@ -165,6 +165,29 @@
             <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
           </Borders>
         </Style>
+        <Style ss:ID="s51">
+          <Alignment ss:Horizontal="Left" ss:Vertical="Bottom" ss:WrapText="1"/>
+          <Font ss:FontName="Arial" x:CharSet="204" x:Family="Swiss" ss:Size="8"/>
+        </Style>
+        <Style ss:ID="s52">
+          <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+          <Borders>
+            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+          </Borders>
+          <Font ss:FontName="Arial" x:CharSet="204" x:Family="Swiss"/>
+          <NumberFormat ss:Format="0"/></Style>
+        <Style ss:ID="s53">
+          <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+          <Borders>
+            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+          </Borders>
+          <Font ss:FontName="Arial" x:CharSet="204" x:Family="Swiss"/>
+          <NumberFormat ss:Format="Standard"/>
+        </Style>
       </Styles>
 
       <xsl:apply-templates select="set[@name='ShipmentItems']/ShipmentItem"/>
@@ -175,10 +198,11 @@
   <xsl:template match="set[@name='ShipmentItems']/ShipmentItem">
     <Worksheet ss:Name="{@FullDetailName}">
       <Table x:FullColumns="1" x:FullRows="1" ss:DefaultRowHeight="15">
-        <Column ss:Index="5" ss:AutoFitWidth="0" ss:Width="51.75"/>
-        <Column ss:AutoFitWidth="0" ss:Width="27.75"/>
-        <Column ss:AutoFitWidth="0" ss:Width="38.25"/>
-        <Column ss:Index="9" ss:AutoFitWidth="0" ss:Width="63.75"/>
+        <Column ss:Index="4" ss:AutoFitWidth="0" ss:Width="65"/>
+        <Column ss:AutoFitWidth="0" ss:Width="65"/>
+        <Column ss:AutoFitWidth="0" ss:Width="30"/>
+        <Column ss:AutoFitWidth="0" ss:Width="40"/>
+        <Column ss:Index="9" ss:AutoFitWidth="0" ss:Width="65"/>
         <Row>
           <Cell ss:MergeAcross="2" ss:StyleID="s46"/>
           <Cell ss:StyleID="s18"/>
@@ -218,24 +242,16 @@
             </Data>
           </Cell>
         </Row>
-        <Row ss:Height="18">
+        <Row ss:Height="36">
           <Cell ss:StyleID="s27">
             <Data ss:Type="String">Покупатель: </Data>
           </Cell>
           <Cell ss:StyleID="s28"/>
-          <Cell ss:StyleID="s28">
+          <Cell ss:StyleID="s51" ss:MergeAcross="8">
             <Data ss:Type="String">
               <xsl:value-of select="Shipment/Payer/@FullName"/>
             </Data>
           </Cell>
-          <Cell ss:StyleID="s28"/>
-          <Cell ss:StyleID="s28"/>
-          <Cell ss:StyleID="s29"/>
-          <Cell ss:StyleID="s29"/>
-          <Cell ss:StyleID="s29"/>
-          <Cell ss:StyleID="s29"/>
-          <Cell ss:StyleID="s29"/>
-          <Cell ss:StyleID="s29"/>
         </Row>
         <Row ss:Height="18">
           <Cell ss:StyleID="s27"/>
@@ -270,10 +286,10 @@
             <Data ss:Type="String">Количество</Data>
           </Cell>
           <Cell ss:MergeDown="2" ss:StyleID="s42">
-            <Data ss:Type="String">Номер анализа дата</Data>
+            <Data ss:Type="String">Номер анализа, дата</Data>
           </Cell>
           <Cell ss:MergeDown="2" ss:StyleID="s42">
-            <Data ss:Type="String">Марка резины</Data>
+            <Data ss:Type="String">Марка материала</Data>
           </Cell>
           <Cell ss:MergeDown="2" ss:StyleID="s42">
             <Data ss:Type="String">Вид упаковки</Data>
@@ -299,6 +315,7 @@
           </Cell>
           <Cell ss:StyleID="s36">
             <Data ss:Type="String">
+              <xsl:value-of select="rti:FormatDateTime(@DoneDate, 'dd.MM.yyyy')"/>
             </Data>
           </Cell>
           <Cell ss:StyleID="s36">
@@ -306,13 +323,13 @@
               <xsl:value-of select="rti:FormatDateTime(Shipment/@Date, 'dd.MM.yyyy')"/>
             </Data>
           </Cell>
-          <Cell ss:StyleID="s36">
-            <Data ss:Type="String">
+          <Cell ss:StyleID="s52">
+            <Data ss:Type="Number">
               <xsl:value-of select="@Count"/>
             </Data>
           </Cell>
-          <Cell ss:StyleID="s37">
-            <Data ss:Type="String">
+          <Cell ss:StyleID="s53">
+            <Data ss:Type="Number">
               <xsl:value-of select="@NetMass"/>
             </Data>
           </Cell>
@@ -320,15 +337,15 @@
             <Data ss:Type="String"> </Data>
           </Cell>
           <Cell ss:StyleID="s38">
-            <Data ss:Type="String"> </Data>
-          </Cell>
-          <Cell ss:StyleID="s37">
             <Data ss:Type="String">
-              <xsl:value-of select="@PackType"/>
+              <xsl:value-of select="RequestDetail/Drawing/Material/@Name"/>
             </Data>
           </Cell>
+          <Cell ss:StyleID="s37">
+            <Data ss:Type="String">мешок</Data>
+          </Cell>
           <Cell ss:StyleID="s39">
-            <Data ss:Type="String">
+            <Data ss:Type="Number">
               <xsl:value-of select="@CountOfPlaces"/>
             </Data>
           </Cell>
@@ -355,7 +372,9 @@
         </Row>
         <Row>
           <Cell ss:StyleID="s40">
-            <Data ss:Type="String">требованиям чертежа <xsl:value-of select="Drawing/@Name"/> и ТУ <xsl:value-of select="Drawing/Material/@TechConditions"/></Data>
+            <Data ss:Type="String">
+              требованиям чертежа <xsl:value-of select="RequestDetail/Drawing/@Name"/> и ТУ <xsl:value-of select="RequestDetail/Drawing/Material/@TechConditions"/>
+            </Data>
           </Cell>
         </Row>
         <Row>

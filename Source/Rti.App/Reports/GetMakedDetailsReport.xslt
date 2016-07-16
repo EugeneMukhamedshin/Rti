@@ -43,8 +43,7 @@
         </Style>
       </Styles>
       <Worksheet ss:Name="Лист1">
-        <Table ss:ExpandedColumnCount="4" ss:ExpandedRowCount="4" x:FullColumns="1"
-         x:FullRows="1" ss:DefaultRowHeight="15">
+        <Table x:FullColumns="1" x:FullRows="1" ss:DefaultRowHeight="15">
           <Column ss:AutoFitWidth="0" ss:Width="47.25"/>
           <Column ss:Width="53.25"/>
           <Column ss:AutoFitWidth="0" ss:Width="86.25"/>

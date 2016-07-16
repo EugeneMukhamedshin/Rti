@@ -10,11 +10,11 @@
     <StackPanel>
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="Начало периода" VerticalAlignment="Center" Margin="5" Width="120"/>
-            <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding StartDate}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
+            <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding StartDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="Конец периода" VerticalAlignment="Center" Margin="5" Width="120"/>
-            <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding EndDate}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
+            <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding EndDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
         </StackPanel>
         <!--<StackPanel Orientation="Horizontal">
             <TextBlock Text="Путь к файлу" VerticalAlignment="Center" Margin="5" Width="120"/>

@@ -969,8 +969,8 @@
               <Data ss:Type="String">номер</Data>
             </Cell>
             <Cell ss:StyleID="s33">
-              <Data ss:Type="Number">
-                <xsl:value-of select="set[@name='Shipments']/Shipment/@DeliveryDocNumber"/>
+              <Data ss:Type="String">
+                <xsl:value-of select="rti:FormatDate(set[@name='Shipments']/Shipment/@Date, 'ddMM\/yy')"/>-<xsl:value-of select="set[@name='Shipments']/Shipment/@SortOrder"/>
               </Data>
             </Cell>
           </Row>
@@ -984,7 +984,7 @@
             </Cell>
             <Cell ss:StyleID="s33">
               <Data ss:Type="String">
-                <xsl:value-of select="rti:FormatDate(set[@name='Shipments']/Shipment/@DeliveryDocDate)"/>
+                <xsl:value-of select="rti:FormatDate(set[@name='Shipments']/Shipment/@Date)"/>
               </Data>
             </Cell>
           </Row>

@@ -33,5 +33,10 @@ namespace Rti.Model.Repository.NHibernate
                 return q.JoinAlias(o => o.Equipment, () => eq).Where(o => !eq.IsPaid).List();
             });
         }
+
+        public IList<Drawing> GetAllInWork()
+        {
+            return GetAllActive();
+        }
     }
 }

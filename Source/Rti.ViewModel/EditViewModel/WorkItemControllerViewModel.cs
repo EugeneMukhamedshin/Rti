@@ -21,16 +21,15 @@ namespace Rti.ViewModel.EditViewModel
 
         public bool ValidatePost(WorkItemViewModel workItem)
         {
-            var workItems = RepositoryFactory.GetWorkItemRepository().GetByDrawingId(workItem.Drawing.Id, workItem.WorkDate.AddDays(1));
-            if (workItems.Any())
-            {
-                if (
-                    !ViewService.ShowConfirmation(new MessageViewModel("¬нимание",
-                        "Ѕудет произведено перераспределение выполненного количества деталей по за€вкам. ѕодтвердите изменение.")))
-                    return false;
-            }
-            return true;
-        }
+            //var workItems = RepositoryFactory.GetWorkItemRepository().GetByDrawingId(workItem.Drawing.Id, workItem.WorkDate.AddDays(1));
+            //if (workItems.Any())
+            //{
+            //    if (
+            //        !ViewService.ShowConfirmation(new MessageViewModel("¬нимание",
+            //            "Ѕудет произведено перераспределение выполненного количества деталей по за€вкам. ѕодтвердите изменение.")))
+            //        return false;
+            //}
+            return true;}
 
         public void PostWorkItem(WorkItemViewModel workItem)
         {

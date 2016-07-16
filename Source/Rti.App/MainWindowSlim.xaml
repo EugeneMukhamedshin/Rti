@@ -55,7 +55,8 @@
                 <Button Height="32" Content="Реестр заявок" Command="{Binding OpenRequestListCommand}"/>
             </StackPanel>
             <StackPanel Grid.Row="2" Grid.Column="1">
-                <Button Content="Наряд" Command="{Binding OpenDailyWorkPackagesCommand}"/>
+                <Button Height="42" Content="Наряд" Command="{Binding OpenDailyWorkPackagesCommand}"/>
+                <Button Height="32" Content="Реестр изг. дет." Command="{Binding OpenMakedDetailsReportCommand}"/>
             </StackPanel>
             <StackPanel Grid.Row="3" Grid.Column="1">
                 <Button Height="42" Content="Отгрузка" Command="{Binding CreateNewShipmentCommand}"/>
@@ -100,7 +101,7 @@
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.Column="3">
-                <Button Content="Учет материалов"/>
+                <Button Content="Учет материалов" Command="{Binding OpenMaterialMovingsReportCommand}"/>
             </StackPanel>
             <StackPanel Grid.Row="2" Grid.Column="3">
                 <dx:DropDownButton ButtonKind="Toggle" PopupDropAlignment="Bottom" Content="Отчеты">
@@ -112,7 +113,6 @@
                         <Button Height="24" Width="250" FontSize="12" Content="Учет прямых затрат на наряд" Command="{Binding OpenWorkItemDirectExpencesReportCommand}"/>
                         <Button Height="24" Width="250" FontSize="12" Content="Учет прямых затрат на отгрузку" Command="{Binding OpenShipmentDirectExpencesReportCommand}"/>
                         <Button Height="24" Width="250" FontSize="12" Content="Отчет по заработной плате" Command="{Binding OpenSalaryReportCommand}"/>
-                        <Button Height="24" Width="250" FontSize="12" Content="Учет материалов" Command="{Binding OpenMaterialMovingsReportCommand}"/>
                     </WrapPanel>
                 </dx:DropDownButton>
             </StackPanel>

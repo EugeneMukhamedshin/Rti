@@ -13,5 +13,6 @@ namespace Rti.Model.Repository.Interfaces
 
         int GetNextSortOrder();
         IList<Drawing> GetUnpaidEquipments();
+        IList<Drawing> GetAllInWork();
     }
 }

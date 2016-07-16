@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,7 +51,7 @@ SELECT
   g.name GroupName,
   d1.name DetailName,
   rd.Count Count,
-  t.work_time WorkTime
+  rd.Count * t.work_time WorkTime
 FROM request_details rd
   INNER JOIN requests r
     ON rd.request_id = r.id
@@ -419,22 +420,25 @@ FROM (SELECT
         public XDocument GetSalaryReport(DateTime startDate, DateTime endDate, int? employeeId)
         {
             var rows = GetXElementsFromQuery(@"
-SELECT
-  e.id EmployeeId,
-  e.full_name EmployeeFullName,
-  IFNULL(wi.done_count - wi.rejected_count, 0) DoneCount,
-  IFNULL(c.Main_Salary, 0) * IFNULL(wi.done_count - wi.rejected_count, 0) MainSalary,
-  IFNULL(c.Additional_Salary, 0) * IFNULL(wi.done_count - wi.rejected_count, 0) AdditionalSalary
-FROM work_items wi
-  INNER JOIN employees e
-    ON wi.employee_id = e.id
-  INNER JOIN drawings d
-    ON wi.drawing_id = d.id
-  INNER JOIN calculations c
-    ON d.fact_calculation_id = c.id
-WHERE wi.work_date BETWEEN :p_start_date AND :p_end_date
-AND e.id = IFNULL(:p_employee_id, e.id)
-ORDER BY e.full_name, wi.work_date",
+SELECT *
+FROM (
+    SELECT
+      e.id EmployeeId,
+      e.full_name EmployeeFullName,
+      IFNULL(wi.done_count - wi.rejected_count, 0) DoneCount,
+      IFNULL(c.Main_Salary, 0) * IFNULL(wi.done_count - wi.rejected_count, 0) MainSalary,
+      IFNULL(c.Additional_Salary, 0) * IFNULL(wi.done_count - wi.rejected_count, 0) AdditionalSalary
+    FROM work_items wi
+      INNER JOIN employees e
+        ON wi.employee_id = e.id
+      INNER JOIN drawings d
+        ON wi.drawing_id = d.id
+      INNER JOIN calculations c
+        ON d.fact_calculation_id = c.id
+    WHERE wi.work_date BETWEEN :p_start_date AND :p_end_date
+    AND e.id = IFNULL(:p_employee_id, e.id)
+    ORDER BY e.full_name, wi.work_date) T
+WHERE MainSalary + AdditionalSalary > 0",
                 query =>
                     query.SetParameter("p_start_date", startDate)
                         .SetParameter("p_end_date", endDate)
@@ -454,11 +458,11 @@ ORDER BY e.full_name, wi.work_date",
                             new XAttribute("EmployeeId", g.Key.EmployeeId),
                             new XAttribute("EmployeeFullName", g.Key.EmployeeFullName),
                                 new XAttribute("DoneCount",
-                                    g.Sum(o => Convert.ToDecimal(o.Attribute("DoneCount").Value))),
+                                    g.Sum(o => Convert.ToDecimal(o.Attribute("DoneCount").Value, CultureInfo.InvariantCulture))),
                                 new XAttribute("MainSalary",
-                                    g.Sum(o => Convert.ToDecimal(o.Attribute("MainSalary").Value))),
+                                    g.Sum(o => Convert.ToDecimal(o.Attribute("MainSalary").Value, CultureInfo.InvariantCulture))),
                                 new XAttribute("AdditionalSalary",
-                                    g.Sum(o => Convert.ToDecimal(o.Attribute("AdditionalSalary").Value))),
+                                    g.Sum(o => Convert.ToDecimal(o.Attribute("AdditionalSalary").Value, CultureInfo.InvariantCulture))),
                                 g)))));
             return doc;
         }
@@ -467,20 +471,30 @@ ORDER BY e.full_name, wi.work_date",
         {
             var rows = GetXElementsFromQuery(@"
 SELECT
-  g.name GroupName,
-  d.name DrawingName,
-  d1.name DetailName,
-  SUM(wi.done_count - wi.rejected_count) DoneCount
-FROM work_items wi
-  INNER JOIN drawings d
-    ON wi.drawing_id = d.id
-  INNER JOIN groups g
-    ON d.group_id = g.id
-  INNER JOIN details d1
-    ON d.detail_id = d1.id
-WHERE wi.work_date BETWEEN :p_start_date AND :p_end_date
-AND wi.drawing_id = IFNULL(:p_drawing_id, wi.drawing_id)
-ORDER BY g.name ASC, d.name ASC",
+    GroupName,
+    DrawingName,
+    DetailName,
+    DoneCount
+FROM (
+    SELECT
+      g.name GroupName,
+      d.name DrawingName,
+      d1.name DetailName,
+      SUM(IFNULL(wi.done_count, 0) - IFNULL(wi.rejected_count, 0)) DoneCount
+    FROM work_items wi
+      INNER JOIN drawings d
+        ON wi.drawing_id = d.id
+      INNER JOIN groups g
+        ON d.group_id = g.id
+      INNER JOIN details d1
+        ON d.detail_id = d1.id
+    WHERE wi.work_date BETWEEN :p_start_date AND :p_end_date
+    AND wi.drawing_id = IFNULL(:p_drawing_id, wi.drawing_id)
+    GROUP BY g.name,
+             d.name,
+             d1.name
+    ORDER BY g.name ASC, d.name ASC) T
+WHERE DoneCount > 0",
                 query =>
                     query.SetParameter("p_start_date", startDate)
                         .SetParameter("p_end_date", endDate)
@@ -566,7 +580,7 @@ SELECT
   d1.name DetailName,
   r.number DocNumber,
   rd.Count Count,
-  d.mass_with_shruff / 1000 Mass
+  d.mass_with_shruff Mass
 FROM request_details rd
   INNER JOIN requests r
     ON rd.request_id = r.id
@@ -616,7 +630,7 @@ SELECT
   d1.name DetailName,
   s.sort_order DocNumber,
   rd.Count Count,
-  d.mass_with_shruff / 1000 Mass
+  d.mass_with_shruff Mass
 FROM shipment_items si
   INNER JOIN shipments s
     ON si.shipment_id = s.id
@@ -668,7 +682,7 @@ SELECT
   d1.name DetailName,
   wi.work_date DocNumber,
   wi.task_count Count,
-  d.mass_with_shruff / 1000 Mass
+  d.mass_with_shruff Mass
 FROM work_items wi
   INNER JOIN drawings d
     ON wi.drawing_id = d.id
@@ -701,6 +715,24 @@ ORDER BY m.name, d1.sort_order",
                                 new XAttribute("MaterialName", g.Key.MaterialName),
                                 g)))));
             return doc;
+        }
+
+        public XDocument GetRequestDetailsMadeDates(int requestId)
+        {
+            var rows = GetXElementsFromQuery(@"
+SELECT
+  wird.request_detail_id RequestDetailId,
+  MAX(wi.work_date) DoneDate
+FROM work_item_request_details wird
+  INNER JOIN work_items wi
+    ON wird.work_item_id = wi.id
+  INNER JOIN request_details rd
+    ON wird.request_detail_id = rd.id
+WHERE rd.request_id = :p_request_id
+AND wi.done_count - wi.rejected_count > 0
+GROUP BY wird.request_detail_id",
+                q => q.SetParameter("p_request_id", requestId));
+            return new XDocument(new XDeclaration("2.0", "utf8", "true"), new XElement("root", rows));
         }
     }
 }

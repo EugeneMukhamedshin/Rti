@@ -165,6 +165,15 @@ namespace Rti.ViewModel.Reporting
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetShipmentPassportReport.xslt"));
             var doc = GetShipmentDocument(shipment);
+            var dates = RepositoryFactory.GetReportRepository().GetRequestDetailsMadeDates(shipment.Request.Id);
+            foreach (var shipmentItemElement in doc.XPathSelectElements("root/set[@name='ShipmentItems']/ShipmentItem"))
+            {
+                var dateElement =
+                    dates.XPathSelectElement(string.Format("root/row[@RequestDetailId='{0}']",
+                        shipmentItemElement.Element("RequestDetail").Attribute("Id").Value));
+                if (dateElement != null)
+                shipmentItemElement.Add(new XAttribute("DoneDate", dateElement.Attribute("DoneDate").Value));
+            }
             return GetReport(r => doc, xsl);
         }
 

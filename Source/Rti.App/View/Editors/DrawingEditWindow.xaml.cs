@@ -1,4 +1,6 @@
-﻿namespace Rti.App.View.Editors
+﻿using DevExpress.Xpf.PropertyGrid;
+
+namespace Rti.App.View.Editors
 {
     /// <summary>
     /// Interaction logic for DrawingEditWindow.xaml
@@ -8,6 +10,10 @@
         public DrawingEditWindow()
         {
             InitializeComponent();
+        }
+
+        private void PropertyGridControl_OnHiddenEditor(object sender, PropertyGridEditorEventArgs args)
+        {
         }
     }
 }

@@ -18,7 +18,7 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="0">
                 <TextBlock Text="Выберите дату дневного наряда" Margin="5" VerticalAlignment="Center"/>
-                <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Date}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"></xctk:DateTimePicker>
+                <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Date}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"></xctk:DateTimePicker>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
                 <Button Content="{StaticResource AddImage}" Command="{Binding AddWorkItemCommand}" Width="32" Height="32" Margin="5"></Button>
@@ -75,7 +75,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
-                    <Button Content="Реестр изг. деталей"  Command="{Binding OpenMakedDetailsReportCommand}" Width="140" Margin="5" TabIndex="1001" HorizontalAlignment="Left"/>
+                    <!--<Button Content="Реестр изг. деталей"  Command="{Binding OpenMakedDetailsReportCommand}" Width="140" Margin="5" TabIndex="1001" HorizontalAlignment="Left"/>-->
                 </StackPanel>
                 <StackPanel Grid.Column="1" Width="300">
                     <StackPanel Orientation="Horizontal" Margin="5,5,0,0" HorizontalAlignment="Center">

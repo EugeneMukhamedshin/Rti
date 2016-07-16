@@ -60,6 +60,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.NdsTax, "nds_tax");
 			Map(o => o.Summary, "summary");
 			Map(o => o.Note, "note");
+			Map(o => o.IsCustomerOwned, "is_customer_owned");
 			OnInitialized();
 		}
 	}
@@ -814,8 +815,8 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.DeliveryResponsible, "delivery_responsible");
 			Map(o => o.DeliverySum, "delivery_sum");
 			Map(o => o.IsDeleted, "is_deleted");
-			Map(o => o.DeliveryDocDate, "delivery_doc_date");
 			Map(o => o.DeliveryDocNumber, "delivery_doc_number");
+			Map(o => o.DeliveryDocDate, "delivery_doc_date");
 			References(o => o.Request, "request_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Recipient, "recipient_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Payer, "payer_id").Fetch.Join().Not.LazyLoad();

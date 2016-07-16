@@ -44,8 +44,9 @@ namespace Rti.ViewModel.Entities
             Group = Drawing == null ? null : Drawing.Group;
             Detail = Drawing == null ? null : Drawing.Detail;
             Material = Drawing == null ? null : Drawing.MaterialByPassport;
-            Price = Drawing == null || !Drawing.Price.HasValue ? 0 : Drawing.Price.Value;
+            Price = Drawing == null || !Drawing.Price.HasValue  ? 0 : Drawing.Price.Value;
             CalculationPrice = Drawing == null ? null : (Drawing.PlanCalculationPrice ?? Drawing.FactCalculationPrice);
+            AdditionalInfo = Drawing == null ? null : Drawing.AdditionalInfo;
         }
 
         public override void CustomFillXElement(XElement element)

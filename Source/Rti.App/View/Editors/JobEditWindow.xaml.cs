@@ -13,18 +13,18 @@ namespace Rti.App.View.Editors
             InitializeComponent();
         }
 
-        private void JobEditWindow_OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            var viewModel = e.NewValue as JobEdit;
-            if (viewModel == null) return;
-            _passwordBox.Password = viewModel.Entity.Password;
-        }
+        //private void JobEditWindow_OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        //{
+        //    var viewModel = e.NewValue as JobEdit;
+        //    if (viewModel == null) return;
+        //    _passwordBox.Password = viewModel.Entity.Password;
+        //}
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            var viewModel = DataContext as JobEdit;
-            if (viewModel == null) return;
-            viewModel.Entity.Password = _passwordBox.Password;
-        }
+        //private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        //{
+        //    var viewModel = DataContext as JobEdit;
+        //    if (viewModel == null) return;
+        //    viewModel.Entity.Password = _passwordBox.Password;
+        //}
     }
 }

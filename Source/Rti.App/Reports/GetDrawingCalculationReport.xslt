@@ -355,6 +355,12 @@
           <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
            ss:Color="#000000"/>
         </Style>
+        <Style ss:ID="s78">
+          <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+          <Borders>
+            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+          </Borders>
+        </Style>
       </Styles>
       <Worksheet ss:Name="Лист1">
         <Table x:FullColumns="1" x:FullRows="1" ss:DefaultRowHeight="15">
@@ -428,24 +434,19 @@
             <Cell ss:MergeAcross="1" ss:StyleID="s77">
               <Data ss:Type="String">№ чертежа</Data>
             </Cell>
-            <Cell ss:StyleID="s17">
+            <Cell ss:StyleID="s78" ss:MergeAcross="5">
               <Data ss:Type="String">
                 <xsl:value-of select="Drawing/Group/@Name"/>.<xsl:value-of select="Drawing/@Name"/>
               </Data>
             </Cell>
-            <Cell ss:StyleID="s17"/>
-            <Cell ss:StyleID="s17"/><Cell ss:StyleID="s17"/>
-            <Cell ss:StyleID="s17"/>
-            <Cell ss:StyleID="s17"/>
           </Row>
-          <Row>
+          <Row ss:AutoFitHeight="0" ss:Height="28.125">
             <Cell ss:MergeAcross="1" ss:StyleID="s77"/>
-            <Cell ss:StyleID="s18"/>
-            <Cell ss:StyleID="s18"/>
-            <Cell ss:StyleID="s18"/>
-            <Cell ss:StyleID="s18"/>
-            <Cell ss:StyleID="s18"/>
-            <Cell ss:StyleID="s18"/>
+            <Cell ss:StyleID="s78" ss:MergeAcross="5">
+              <Data ss:Type="String">
+                <xsl:value-of select="Drawing/@AdditionalInfo"/>
+              </Data>
+            </Cell>
           </Row>
           <Row ss:Index="14" ss:Height="16.5">
             <Cell ss:Index="4" ss:StyleID="s20"/>

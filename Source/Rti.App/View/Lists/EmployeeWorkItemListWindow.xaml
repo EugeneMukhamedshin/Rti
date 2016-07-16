@@ -26,7 +26,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
                 <TextBlock Text="Участок" Margin="5" VerticalAlignment="Center" Width="60"/>
-                <TextBox Text="{Binding EmployeeWorkItemEmployeePackage.Block}" Margin="5" VerticalAlignment="Center" Width="100"/>
+                <TextBox Text="{Binding WorkItemEmployeePackage.Block}" Margin="5" VerticalAlignment="Center" Width="100"/>
             </StackPanel>
             <dxg:GridControl CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding PackageMachines}" SelectionMode="Row" Grid.Row="2">
                 <dxg:GridControl.Resources>
@@ -41,7 +41,7 @@
                     </Style>
                 </dxg:GridControl.Resources>
                 <dxg:GridControl.Columns>
-                    <dxg:GridColumn Binding="{Binding FlowsheetMachine.MachineInvNum}" Header="Пресс" Width="60" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding Machine.InvNumber}" Header="Пресс" Width="60" ReadOnly="True"/>
                     <dxg:GridColumn Binding="{Binding FullWorkingTime,Mode=TwoWay}" Header="Время работы в смене, мин" Width="100" EditSettings="{components:TextEditSettings Mask=f0}"/>
                     <dxg:GridColumn Binding="{Binding FreeTime}" Header="Свободное время, мин" Width="100" ReadOnly="True"/>
                 </dxg:GridControl.Columns>

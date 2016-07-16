@@ -155,7 +155,7 @@
             <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
             <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
           </Borders>
-          <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="8"
+          <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="12"
            ss:Color="#000000"/>
         </Style>
         <Style ss:ID="s29">
@@ -294,9 +294,12 @@
               <Data ss:Type="String">Дата</Data>
             </Cell>
             <Cell ss:StyleID="s34">
-              <Data ss:Type="String"><xsl:value-of select="rti:FormatDate(WorkItemEmployeePackage/@Date)"/></Data>
+              <Data ss:Type="String">
+                <xsl:value-of select="rti:FormatDate(WorkItemEmployeePackage/@Date)"/>
+              </Data>
             </Cell>
-            <Cell ss:StyleID="s34"/><Cell ss:StyleID="s33"/>
+            <Cell ss:StyleID="s34"/>
+            <Cell ss:StyleID="s33"/>
           </Row>
           <Row ss:Height="19.5">
             <Cell ss:StyleID="s33"/>
@@ -316,28 +319,30 @@
             <Cell ss:StyleID="s30">
               <Data ss:Type="String">Исполнитель</Data>
             </Cell>
-            <Cell ss:StyleID="s28">
+            <Cell ss:StyleID="s28" ss:MergeAcross="2">
               <Data ss:Type="String">
                 <xsl:value-of select="Employee/@FullName"/>
               </Data>
             </Cell>
-            <Cell ss:StyleID="s26"/>
-            <Cell ss:Index="6" ss:StyleID="s40"/>
+            <Cell ss:StyleID="s38"/>
             <Cell ss:StyleID="s38"/>
             <Cell ss:StyleID="s38"/>
             <Cell ss:StyleID="s38"/>
           </Row>
-          <Row ss:Height="15.75"><Cell ss:StyleID="s16"/>
+          <Row ss:Height="15.75">
+            <Cell ss:StyleID="s16"/>
             <Cell ss:StyleID="s31">
               <Data ss:Type="String">№ заявки</Data>
             </Cell>
-            <Cell ss:StyleID="s29">
+            <Cell ss:StyleID="s29" ss:MergeAcross="2">
               <Data ss:Type="String"></Data>
             </Cell>
             <Cell ss:StyleID="s26"/>
-            <Cell ss:Index="6" ss:StyleID="s39"><Data ss:Type="String">Участок</Data>
+            <Cell ss:StyleID="s26"/>
+            <Cell ss:StyleID="s39">
+              <Data ss:Type="String">Участок</Data>
             </Cell>
-            <Cell ss:MergeAcross="3" ss:StyleID="m173513856">
+            <Cell ss:MergeAcross="1" ss:StyleID="m173513856">
               <Data ss:Type="String">
                 <xsl:value-of select="WorkItemEmployeePackage/@Block"/>
               </Data>
@@ -348,11 +353,10 @@
             <Cell ss:StyleID="s32">
               <Data ss:Type="String">Дата заявки</Data>
             </Cell>
-            <Cell ss:StyleID="s44">
+            <Cell ss:StyleID="s44" ss:MergeAcross="2">
               <Data ss:Type="String"></Data>
             </Cell>
-            <Cell ss:StyleID="s26"/>
-            <Cell ss:Index="6" ss:StyleID="s37"/>
+            <Cell ss:StyleID="s37"/>
             <Cell ss:StyleID="s37"/>
             <Cell ss:StyleID="s37"/>
             <Cell ss:StyleID="s37"/>
@@ -430,9 +434,9 @@
               <Data ss:Type="Number">10</Data>
             </Cell>
           </Row>
-          
+
           <xsl:apply-templates select="WorkItems/WorkItem"/>
-          
+
           <Row ss:Height="11.25" ss:StyleID="s26"/>
         </Table>
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
@@ -511,7 +515,7 @@
       </Cell>
       <Cell ss:StyleID="s25">
         <Data ss:Type="String">
-          <xsl:value-of select="FlowsheetMachine/Machine/@Name"/>
+          <xsl:value-of select="FlowsheetMachine/Machine/@InvNumber"/>
         </Data>
       </Cell>
       <Cell ss:StyleID="s25">

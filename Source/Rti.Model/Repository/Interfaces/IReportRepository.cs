@@ -17,5 +17,6 @@ namespace Rti.Model.Repository.Interfaces
         XDocument GetMaterialMovingRequestReport(DateTime startDate, DateTime endDate, int? materialId);
         XDocument GetMaterialMovingShipmentReport(DateTime startDate, DateTime endDate, int? materialId);
         XDocument GetMaterialMovingWorkItemReport(DateTime startDate, DateTime endDate, int? materialId);
+        XDocument GetRequestDetailsMadeDates(int requestId);
     }
 }

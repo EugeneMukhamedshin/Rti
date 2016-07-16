@@ -25,9 +25,9 @@
             <TextBlock Text="Номер" Margin="5" VerticalAlignment="Center"/>
             <TextBox TabIndex="0" Margin="5" Text="{Binding Entity.Number}" Width="80" IsReadOnly="True" VerticalAlignment="Center"/>
             <TextBlock Text="Дата регистрации" Margin="5" VerticalAlignment="Center"/>
-            <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.RegDate}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"></xctk:DateTimePicker>
+            <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.RegDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"></xctk:DateTimePicker>
             <TextBlock Text="Дата отгрузки" Margin="5" VerticalAlignment="Center"/>
-            <xctk:DateTimePicker TabIndex="2" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.ShipDate}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"></xctk:DateTimePicker>
+            <xctk:DateTimePicker TabIndex="2" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.ShipDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"></xctk:DateTimePicker>
             <TextBlock Text="Срок изготовления" Margin="5" VerticalAlignment="Center"/>
             <TextBox TabIndex="3" Margin="5" VerticalAlignment="Center" Width="80" Text="{Binding Entity.LeadTime,Converter={StaticResource StringToNumberConverter}}">
                 <i:Interaction.Behaviors>

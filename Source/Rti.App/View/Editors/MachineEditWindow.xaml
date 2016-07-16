@@ -1,8 +1,35 @@
 ﻿<Window x:Class="Rti.App.View.Editors.MachineEditWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:components="clr-namespace:Rti.App.View.Components"
+        xmlns:dxprg="http://schemas.devexpress.com/winfx/2008/xaml/propertygrid"
         Width="600" Height="440" MinWidth="600" MinHeight="440" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="32"/>
+        </Grid.RowDefinitions>
+        <components:PropertyGridResponsible Grid.Row="0" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" SortMode="Definitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
+            <components:PropertyGridResponsible.PropertyDefinitions>
+                <dxprg:PropertyDefinition Header="№"                                    Path="SortOrder"      IsReadOnly="true"/>
+                <dxprg:PropertyDefinition Header="Наименование оборудования"            Path="Name"           IsReadOnly="{Binding ReadOnly}"/>
+                <dxprg:PropertyDefinition Header="Размеры плит, мм"                     Path="PlateSize"      IsReadOnly="{Binding ReadOnly}"/>
+                <dxprg:PropertyDefinition Header="Инвариантный номер"                   Path="InvNumber"      IsReadOnly="{Binding ReadOnly}"/>
+                <dxprg:PropertyDefinition Header="Количество плит, шт"                  Path="PlateCount"     IsReadOnly="{Binding ReadOnly}"/>
+                <dxprg:PropertyDefinition Header="Мощность плит, КВт/час"               Path="PlatePower"     IsReadOnly="{Binding ReadOnly}"/>
+                <dxprg:PropertyDefinition Header="Мощность двигателя, КВт/час "         Path="EnginePower"    IsReadOnly="{Binding ReadOnly}"/>
+                <dxprg:PropertyDefinition Header="Мощность общая, КВт/час"              Path="TotalPower"     IsReadOnly="{Binding ReadOnly}"/>
+                <dxprg:PropertyDefinition Header="Цена электроэнергии, руб/КВтч"        Path="PowerPrice"     IsReadOnly="{Binding ReadOnly}"/>
+                <dxprg:PropertyDefinition Header="Цена электроэнергии, руб/мин"         Path="TimePrice"      IsReadOnly="{Binding ReadOnly}"/>
+                <dxprg:PropertyDefinition Header="Примечание"                           Path="Note"           IsReadOnly="{Binding ReadOnly}"/>
+            </components:PropertyGridResponsible.PropertyDefinitions>
+        </components:PropertyGridResponsible>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>
+            <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
+        </StackPanel>
+    </Grid>
+    <!--<Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="24"/>
             <RowDefinition Height="24"/>
@@ -56,5 +83,5 @@
             <Button Content="Сохранить" Command="{Binding OkCommand}" Width="80" Margin="5" IsDefault="True" TabIndex="19"></Button>
             <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="80" Margin="5" TabIndex="20"></Button>
         </StackPanel>
-    </Grid>
+    </Grid>-->
 </Window>

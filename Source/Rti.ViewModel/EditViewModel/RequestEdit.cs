@@ -171,7 +171,7 @@ namespace Rti.ViewModel.EditViewModel
                     "Для формирования счета заявка будет сохранена.\r\nПродолжить?")))
             {
                 Entity.InvoiceDate = DateTime.Today;
-                Save();
+                if (!Save()) return;
 
                 var reportGenerator = new InvoiceReportGenerator();
                 reportGenerator.BuildReport(Source.Id, ViewService, RepositoryFactory);
@@ -183,7 +183,7 @@ namespace Rti.ViewModel.EditViewModel
             if (ViewService.ShowConfirmation(new MessageViewModel("Внимание",
                 "Для формирования акта заявка будет сохранена.\r\nПродолжить?")))
             {
-                DoSave();
+                if (!Save()) return;
 
                 var edit = new ReportOfCompletionEdit("Акт выполненных работ", Source, ReadOnly, ViewService, RepositoryFactory);
                 edit.Refresh();
@@ -206,7 +206,7 @@ namespace Rti.ViewModel.EditViewModel
                 if (contract.IsNewEntity)
                     contract.SaveEntity();
                 Entity.Contract = contract;
-                DoSave();
+                if (!Save()) return;
 
                 var reportGenerator = new ContractReportGenerator();
                 reportGenerator.BuildReport(Source.Id, ViewService, RepositoryFactory);

@@ -35,6 +35,7 @@ namespace Rti.App.View.Lists
         public DataTemplate GreenTemplate { get; set; }
         public DataTemplate YellowTemplate { get; set; }
         public DataTemplate RedTemplate { get; set; }
+        public DataTemplate Red1Template { get; set; }
         public DataTemplate GrayTemplate { get; set; }
 
         public RequestStatusTemplateSelector()
@@ -54,6 +55,7 @@ namespace Rti.App.View.Lists
                 case RequestStatus.WorkNotStarted: return GrayTemplate;
                 case RequestStatus.WorkStartedEarly: return GreenTemplate;
                 case RequestStatus.WorkStartedTardily: return RedTemplate;
+                case RequestStatus.ShipmentDateIsPast: return Red1Template;
                 case RequestStatus.WorkStartedJustInTime: return YellowTemplate;
                 case RequestStatus.Shipped: return DefaultTemplate;
                 default: return DefaultTemplate;

@@ -23,9 +23,9 @@
                 <TextBlock Text="Номер" Margin="5" VerticalAlignment="Center"/>
                 <dxe:TextEdit TabIndex="0" Margin="5" Text="{Binding Entity.Number}" Width="80" IsReadOnly="True" VerticalAlignment="Center" IsEnabled="{Binding Editable}"/>
                 <TextBlock Text="Дата регистрации" Margin="5" VerticalAlignment="Center"/>
-                <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.RegDate}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed" IsEnabled="{Binding Editable}"/>
+                <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.RegDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed" IsEnabled="{Binding Editable}"/>
                 <TextBlock Text="Дата отгрузки" Margin="5" VerticalAlignment="Center"/>
-                <xctk:DateTimePicker TabIndex="2" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.ShipDate}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed" IsEnabled="{Binding Editable}"/>
+                <xctk:DateTimePicker TabIndex="2" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.ShipDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed" IsEnabled="{Binding Editable}"/>
                 <TextBlock Text="Срок изготовления" Margin="5" VerticalAlignment="Center"/>
                 <dxe:TextEdit TabIndex="3" Margin="5" Text="{Binding Entity.LeadTime}" Width="80" VerticalAlignment="Center" MaskType="Numeric" Mask="d" MaskCulture="ru-RU" IsEnabled="{Binding Editable}"/>
             </StackPanel>
@@ -87,7 +87,7 @@
                 <Button Content="{StaticResource AddImage}" Command="{Binding AddRequestDetailCommand}" Width="32" Height="32" Margin="5"></Button>
                 <Button Content="{StaticResource DeleteImage}" Command="{Binding RemoveRequestDetailCommand}" Width="32" Height="32" Margin="5"></Button>
                 <CheckBox Content="В производстве с" Margin="5" IsChecked="{Binding Entity.IsWorkStarted}"/>
-                <xctk:DateTimePicker TabIndex="5" Margin="5" VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.WorkStartDate}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed" IsEnabled="{Binding Editable}"/>
+                <xctk:DateTimePicker TabIndex="5" Margin="5" VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.WorkStartDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed" IsEnabled="{Binding Editable}"/>
             </StackPanel>
             <dxg:GridControl Name="GridControl" CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding RequestDetails}" SelectedItem="{Binding SelectedRequestDetail}" SelectionMode="Row" Grid.Row="3">
                 <dxg:GridControl.Resources>

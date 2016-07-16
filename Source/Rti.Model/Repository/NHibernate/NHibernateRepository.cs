@@ -14,7 +14,7 @@ namespace Rti.Model.Repository.NHibernate
     {
         private ILog _log = LogManager.GetLogger(typeof(NHibernateRepository));
 
-        protected TResult ExecuteFuncOnSession<TResult>(Func<ISession, TResult> func, String description)
+        protected TResult ExecuteFuncOnSession<TResult>(Func<ISession, TResult> func, String description = null)
         {
             try
             {

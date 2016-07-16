@@ -21,14 +21,14 @@ namespace Rti.ViewModel.EditViewModel
 
         public bool ValidatePost(ShipmentItemViewModel shipmentItem)
         {
-            var followingShipmentItems = RepositoryFactory.GetShipmentItemRepository().GetFollowingItems(shipmentItem.RequestDetail.Drawing.Id, shipmentItem.Shipment.Date, shipmentItem.Shipment.SortOrder);
-            if (followingShipmentItems.Any())
-            {
-                if (
-                    !ViewService.ShowConfirmation(new MessageViewModel("¬нимание",
-                        "Ѕудет произведено перераспределение выполненного количества деталей по за€вкам. ѕодтвердите изменение.")))
-                    return false;
-            }
+            //var followingShipmentItems = RepositoryFactory.GetShipmentItemRepository().GetFollowingItems(shipmentItem.RequestDetail.Drawing.Id, shipmentItem.Shipment.Date, shipmentItem.Shipment.SortOrder);
+            //if (followingShipmentItems.Any())
+            //{
+            //    if (
+            //        !ViewService.ShowConfirmation(new MessageViewModel("¬нимание",
+            //            "Ѕудет произведено перераспределение выполненного количества деталей по за€вкам. ѕодтвердите изменение.")))
+            //        return false;
+            //}
             return true;
         }
 

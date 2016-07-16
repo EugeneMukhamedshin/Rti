@@ -30,6 +30,8 @@ namespace Rti.ViewModel
         public DelegateCommand OpenDrawingsCommand { get; set; }
 
         public DelegateCommand OpenDailyWorkPackagesCommand { get; set; }
+        public DelegateCommand OpenMakedDetailsReportCommand { get; set; }
+
 
         public DelegateCommand OpenShipmentsCommand { get; set; }
 
@@ -87,7 +89,8 @@ namespace Rti.ViewModel
             OpenDrawingsCommand = new DelegateCommand(o => OpenDrawingList());
 
             OpenDailyWorkPackagesCommand = new DelegateCommand(o => OpenWorkItems());
-
+            OpenMakedDetailsReportCommand = new DelegateCommand(o => OpenMakedDetailsReport());
+    
             OpenShipmentsCommand = new DelegateCommand(o => OpenShipments());
 
             OpenShavingRecordsCommand = new DelegateCommand(o => OpenShavingRecords());
@@ -141,6 +144,14 @@ namespace Rti.ViewModel
             ViewService.ShowViewDialog(viewModel);
         }
 
+
+        private void OpenMakedDetailsReport()
+        {
+            var viewModel = new MakedDetailsReportViewModel("Реестр изготовленных деталей", ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Реестр изготовленных деталей.xls")
+            { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" };
+            ViewService.ShowViewDialog(viewModel);
+        }
         private void OpenShipments()
         {
             var viewModel = new ShipmentList(true, ViewService, RepositoryFactory);

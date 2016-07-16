@@ -118,6 +118,7 @@ namespace Rti.ViewModel.Entities
 		private Decimal? _ndsTax;
 		private Decimal? _summary;
 		private String _note;
+		private Boolean _isCustomerOwned;
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public Decimal? MainMaterial { get { return _mainMaterial; } set { if (Equals(_mainMaterial, value)) return; _mainMaterial = value; OnPropertyChanged("MainMaterial"); } }
 		public Decimal? Rubber { get { return _rubber; } set { if (Equals(_rubber, value)) return; _rubber = value; OnPropertyChanged("Rubber"); } }
@@ -143,6 +144,7 @@ namespace Rti.ViewModel.Entities
 		public Decimal? NdsTax { get { return _ndsTax; } set { if (Equals(_ndsTax, value)) return; _ndsTax = value; OnPropertyChanged("NdsTax"); } }
 		public Decimal? Summary { get { return _summary; } set { if (Equals(_summary, value)) return; _summary = value; OnPropertyChanged("Summary"); } }
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
+		public Boolean IsCustomerOwned { get { return _isCustomerOwned; } set { if (Equals(_isCustomerOwned, value)) return; _isCustomerOwned = value; OnPropertyChanged("IsCustomerOwned"); } }
 		protected override void MapPropertiesToEntity()
 		{
 			Entity.MainMaterial = MainMaterial; 
@@ -169,6 +171,7 @@ namespace Rti.ViewModel.Entities
 			Entity.NdsTax = NdsTax; 
 			Entity.Summary = Summary; 
 			Entity.Note = Note; 
+			Entity.IsCustomerOwned = IsCustomerOwned; 
 		}
 
 		protected override void MapPropertiesFromEntity()
@@ -199,6 +202,7 @@ namespace Rti.ViewModel.Entities
 			NdsTax = Entity.NdsTax; 
 			Summary = Entity.Summary; 
 			Note = Entity.Note; 
+			IsCustomerOwned = Entity.IsCustomerOwned; 
 			IsMapping = false;
 		}
 
@@ -229,6 +233,7 @@ namespace Rti.ViewModel.Entities
 			NdsTax = source.NdsTax;
 			Summary = source.Summary;
 			Note = source.Note;
+			IsCustomerOwned = source.IsCustomerOwned;
 			CustomCopyFrom(source);
 			IsMapping = false;
 		}
@@ -292,6 +297,7 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("Summary", Summary));
 			if (Note != null)
 				element.Add(new XAttribute("Note", Note));
+			element.Add(new XAttribute("IsCustomerOwned", IsCustomerOwned));
 			CustomFillXElement(element);
 			return element;
 		}
@@ -3709,8 +3715,8 @@ namespace Rti.ViewModel.Entities
 		private String _deliveryResponsible;
 		private Decimal? _deliverySum;
 		private Boolean _isDeleted;
-		private DateTime? _deliveryDocDate;
 		private Int32? _deliveryDocNumber;
+		private DateTime? _deliveryDocDate;
 		private RequestViewModel _request;
 		private ContragentViewModel _recipient;
 		private ContragentViewModel _payer;
@@ -3729,8 +3735,8 @@ namespace Rti.ViewModel.Entities
 		public String DeliveryResponsible { get { return _deliveryResponsible; } set { if (Equals(_deliveryResponsible, value)) return; _deliveryResponsible = value; OnPropertyChanged("DeliveryResponsible"); } }
 		public Decimal? DeliverySum { get { return _deliverySum; } set { if (Equals(_deliverySum, value)) return; _deliverySum = value; OnPropertyChanged("DeliverySum"); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
-		public DateTime? DeliveryDocDate { get { return _deliveryDocDate; } set { if (Equals(_deliveryDocDate, value)) return; _deliveryDocDate = value; OnPropertyChanged("DeliveryDocDate"); } }
 		public Int32? DeliveryDocNumber { get { return _deliveryDocNumber; } set { if (Equals(_deliveryDocNumber, value)) return; _deliveryDocNumber = value; OnPropertyChanged("DeliveryDocNumber"); } }
+		public DateTime? DeliveryDocDate { get { return _deliveryDocDate; } set { if (Equals(_deliveryDocDate, value)) return; _deliveryDocDate = value; OnPropertyChanged("DeliveryDocDate"); } }
 		public RequestViewModel Request { get { return _request; } set { _request = value; OnPropertyChanged("Request"); } }
 		public ContragentViewModel Recipient { get { return _recipient; } set { _recipient = value; OnPropertyChanged("Recipient"); } }
 		public ContragentViewModel Payer { get { return _payer; } set { _payer = value; OnPropertyChanged("Payer"); } }
@@ -3750,8 +3756,8 @@ namespace Rti.ViewModel.Entities
 			Entity.DeliveryResponsible = DeliveryResponsible; 
 			Entity.DeliverySum = DeliverySum; 
 			Entity.IsDeleted = IsDeleted; 
-			Entity.DeliveryDocDate = DeliveryDocDate; 
 			Entity.DeliveryDocNumber = DeliveryDocNumber; 
+			Entity.DeliveryDocDate = DeliveryDocDate; 
 			Entity.Request = Request == null ? null : Request.Entity; 
 			Entity.Recipient = Recipient == null ? null : Recipient.Entity; 
 			Entity.Payer = Payer == null ? null : Payer.Entity; 
@@ -3775,8 +3781,8 @@ namespace Rti.ViewModel.Entities
 			DeliveryResponsible = Entity.DeliveryResponsible; 
 			DeliverySum = Entity.DeliverySum; 
 			IsDeleted = Entity.IsDeleted; 
-			DeliveryDocDate = Entity.DeliveryDocDate; 
 			DeliveryDocNumber = Entity.DeliveryDocNumber; 
+			DeliveryDocDate = Entity.DeliveryDocDate; 
 			Request = Entity.Request == null ? null : new RequestViewModel(Entity.Request, RepositoryFactory); 
 			Recipient = Entity.Recipient == null ? null : new ContragentViewModel(Entity.Recipient, RepositoryFactory); 
 			Payer = Entity.Payer == null ? null : new ContragentViewModel(Entity.Payer, RepositoryFactory); 
@@ -3800,8 +3806,8 @@ namespace Rti.ViewModel.Entities
 			DeliveryResponsible = source.DeliveryResponsible;
 			DeliverySum = source.DeliverySum;
 			IsDeleted = source.IsDeleted;
-			DeliveryDocDate = source.DeliveryDocDate;
 			DeliveryDocNumber = source.DeliveryDocNumber;
+			DeliveryDocDate = source.DeliveryDocDate;
 			Request = source.Request;
 			Recipient = source.Recipient;
 			Payer = source.Payer;
@@ -3841,10 +3847,10 @@ namespace Rti.ViewModel.Entities
 			if (DeliverySum != null)
 				element.Add(new XAttribute("DeliverySum", DeliverySum));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
-			if (DeliveryDocDate != null)
-				element.Add(new XAttribute("DeliveryDocDate", DeliveryDocDate));
 			if (DeliveryDocNumber != null)
 				element.Add(new XAttribute("DeliveryDocNumber", DeliveryDocNumber));
+			if (DeliveryDocDate != null)
+				element.Add(new XAttribute("DeliveryDocDate", DeliveryDocDate));
 			if (Request != null)
 				element.Add(Request.GetXElement("Request"));
 			if (Recipient != null)

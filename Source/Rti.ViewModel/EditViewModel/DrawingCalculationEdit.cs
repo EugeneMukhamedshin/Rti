@@ -78,6 +78,9 @@ namespace Rti.ViewModel.EditViewModel
             PlanCalculation = Entity.PlanCalculation.Clone();
             FactCalculation = Entity.FactCalculation.Clone();
 
+            PlanCalculation.PropertyChanged += PlanCalculation_PropertyChanged;
+            FactCalculation.PropertyChanged += FactCalculation_PropertyChanged;
+
             CalculatePlanCommand = new DelegateCommand(
                 "Расчет",
                 o => true,
@@ -89,6 +92,16 @@ namespace Rti.ViewModel.EditViewModel
             ReportPlanCommand = new DelegateCommand(o => Report(CalculationType.Plan));
             ReportFactCommand = new DelegateCommand(o => Report(CalculationType.Fact));
             RefreshText();
+        }
+
+        private void FactCalculation_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            PlanCalculation.IsCustomerOwned = FactCalculation.IsCustomerOwned;
+        }
+
+        private void PlanCalculation_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            FactCalculation.IsCustomerOwned = PlanCalculation.IsCustomerOwned;
         }
 
         private void Report(CalculationType calculationType)
@@ -141,8 +154,11 @@ namespace Rti.ViewModel.EditViewModel
                 else
                     calculation.MainMaterial = 0;
             }
+
+            var getAllMaterials = new Func<decimal?>(() => calculation.IsCustomerOwned ? 0 : calculation.AllMaterials);
+
             // Транспортные
-            calculation.Transport = constants.KTr.ToDecimal() / 100 * calculation.AllMaterials;
+            calculation.Transport = constants.KTr.ToDecimal() / 100 * getAllMaterials();
             // Основная зарплата
             if (calculationType == CalculationType.Fact)
             {
@@ -161,7 +177,7 @@ namespace Rti.ViewModel.EditViewModel
             // Общепроизводственные
             calculation.TotalManufacture = (calculation.MainSalary + calculation.AdditionalSalary) * constants.KObPr.ToDecimal() / 100;
             // Итого (1)
-            calculation.MainSummary = calculation.AllMaterials + calculation.Transport + calculation.MainSalary + calculation.AdditionalSalary + calculation.FixedTax + calculation.TotalDivision +
+            calculation.MainSummary = getAllMaterials() + calculation.Transport + calculation.MainSalary + calculation.AdditionalSalary + calculation.FixedTax + calculation.TotalDivision +
                          calculation.TotalManufacture;
             // Электроэнергия для формовых
             if (drawing.Equipment != null && drawing.Equipment.Output != 0)
