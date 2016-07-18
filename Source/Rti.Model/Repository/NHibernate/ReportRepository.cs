@@ -107,6 +107,7 @@ SELECT
   g.name GroupName,
   d1.name DetailName,
   c.name CustomerName,
+  rd.id RequestDetailId,
   r.number RequestNumber,
   r.reg_date RequestRegDate,
   rd.count RequestCount,
@@ -131,7 +132,7 @@ FROM request_details rd
 WHERE r.reg_date BETWEEN :p_start_date AND :p_end_date
 AND r.is_deleted = 0
 AND d.id = IFNULL(:p_drawing_id, d.id)
-ORDER BY r.reg_date ASC, s.date ASC",
+ORDER BY d.id ASC, r.reg_date ASC, s.date ASC",
                 query =>
                     query.SetParameter("p_start_date", startDate)
                         .SetParameter("p_end_date", endDate)
@@ -143,6 +144,23 @@ ORDER BY r.reg_date ASC, s.date ASC",
                 GroupName = e.Attribute("GroupName").Value,
                 DetailName = e.Attribute("DetailName").Value
             }, r => r);
+
+            foreach (var g in rowDict)
+            {
+                string requestDetailId = null;
+                int requestedCount;
+                int shippedCount;
+                foreach (var row in g)
+                {
+                    if (row.Attribute("RequestDetailId").Value != requestDetailId)
+                    {
+                        requestDetailId = row.Attribute("RequestDetailId").Value;
+                        requestedCount = 0;
+                        shippedCount = 0;
+                    }
+                }
+            }
+
             var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
                 new XElement("root",
                     new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")),
@@ -425,9 +443,9 @@ FROM (
     SELECT
       e.id EmployeeId,
       e.full_name EmployeeFullName,
-      IFNULL(wi.done_count - wi.rejected_count, 0) DoneCount,
-      IFNULL(c.Main_Salary, 0) * IFNULL(wi.done_count - wi.rejected_count, 0) MainSalary,
-      IFNULL(c.Additional_Salary, 0) * IFNULL(wi.done_count - wi.rejected_count, 0) AdditionalSalary
+      IFNULL(wi.done_count, 0) - IFNULL(wi.rejected_count, 0) DoneCount,
+      IFNULL(c.Main_Salary, 0) * (IFNULL(wi.done_count, 0) - IFNULL(wi.rejected_count, 0)) MainSalary,
+      IFNULL(c.Additional_Salary, 0) * (IFNULL(wi.done_count, 0) - IFNULL(wi.rejected_count, 0)) AdditionalSalary
     FROM work_items wi
       INNER JOIN employees e
         ON wi.employee_id = e.id
@@ -532,28 +550,32 @@ FROM materials m
       SUM(COUNT) count
     FROM material_movings m
     WHERE rec_type = 2
-    AND date BETWEEN :p_start_date AND :p_end_date) Requested
+    AND date BETWEEN :p_start_date AND :p_end_date
+    GROUP BY material_id) Requested
     ON Requested.material_id = m.id
   LEFT JOIN (SELECT
       material_id,
       SUM(COUNT) count
     FROM material_movings m
     WHERE rec_type = 1
-    AND date BETWEEN :p_start_date AND :p_end_date) Arrived
+    AND date BETWEEN :p_start_date AND :p_end_date
+    GROUP BY material_id) Arrived
     ON Arrived.material_id = m.id
   LEFT JOIN (SELECT
       material_id,
       SUM(COUNT) count
     FROM material_movings m
     WHERE rec_type = 3
-    AND date BETWEEN :p_start_date AND :p_end_date) Used
+    AND date BETWEEN :p_start_date AND :p_end_date
+    GROUP BY material_id) Used
     ON Used.material_id = m.id
   LEFT JOIN (SELECT
       material_id,
       SUM(COUNT) count
     FROM material_movings m
     WHERE rec_type = 4
-    AND date BETWEEN :p_start_date AND :p_end_date) Shipped
+    AND date BETWEEN :p_start_date AND :p_end_date
+    GROUP BY material_id) Shipped
     ON Shipped.material_id = m.id
 WHERE m.id = IFNULL(:p_material_id, m.id) AND IFNULL(Saldo.count, 0) + IFNULL(Arrived.count, 0) + IFNULL(Requested.count, 0) + IFNULL(Used.count, 0) + IFNULL(Shipped.count, 0) > 0",
                 query =>

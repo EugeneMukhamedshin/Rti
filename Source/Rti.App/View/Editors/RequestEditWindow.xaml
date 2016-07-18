@@ -95,7 +95,7 @@
                 </dxg:GridColumn>
             </dxg:GridControl.Columns>
             <dxg:GridControl.View>
-                <dxg:TableView EnableImmediatePosting="True" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False"/>
+                <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False"/>
             </dxg:GridControl.View>
         </dxg:GridControl>
 

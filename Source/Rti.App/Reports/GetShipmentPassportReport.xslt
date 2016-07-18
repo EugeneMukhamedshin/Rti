@@ -344,11 +344,7 @@
           <Cell ss:StyleID="s37">
             <Data ss:Type="String">мешок</Data>
           </Cell>
-          <Cell ss:StyleID="s39">
-            <Data ss:Type="Number">
-              <xsl:value-of select="@CountOfPlaces"/>
-            </Data>
-          </Cell>
+          <Cell ss:StyleID="s39"/>
         </Row>
 
         <Row>

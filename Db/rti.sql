@@ -1,7 +1,7 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.1.13.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 18.07.2016 8:31:18
+-- Дата скрипта: 18.07.2016 22:41:16
 -- Версия сервера: 5.7.13-log
 -- Версия клиента: 4.1
 --
@@ -795,7 +795,7 @@ CREATE TABLE report_of_completion_items (
     REFERENCES requests(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 6
+AUTO_INCREMENT = 11
 AVG_ROW_LENGTH = 3276
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -1198,7 +1198,7 @@ CREATE OR REPLACE
 	DEFINER = 'root'@'localhost'
 VIEW material_movings
 AS
-	select 1 AS `rec_type`,`mar`.`waybill_date` AS `date`,`mar`.`material_id` AS `material_Id`,`mar`.`count` AS `COUNT` from `material_arrival_records` `mar` union all select 2 AS `rec_type`,`r`.`reg_date` AS `reg_date`,`d`.`material_id` AS `material_id`,(`rd`.`count` * `d`.`mass_with_shruff`) AS `rd.count * d.mass_with_shruff` from ((`request_details` `rd` join `requests` `r` on((`rd`.`request_id` = `r`.`id`))) join `drawings` `d` on((`rd`.`drawing_id` = `d`.`id`))) where (`d`.`material_id` is not null) union all select 3 AS `rec_type`,`wi`.`work_date` AS `work_date`,`d`.`material_id` AS `material_id`,(`wi`.`task_count` * `d`.`mass_with_shruff`) AS `wi.task_count * d.mass_with_shruff` from (`work_items` `wi` join `drawings` `d` on((`wi`.`drawing_id` = `d`.`id`))) where (`d`.`material_id` is not null) union all select 4 AS `rec_type`,`s`.`date` AS `date`,`d`.`material_id` AS `material_id`,(`si`.`count` * `d`.`mass_with_shruff`) AS `si.count * d.mass_with_shruff` from (((`shipment_items` `si` join `request_details` `rd` on((`si`.`request_detail_id` = `rd`.`id`))) join `drawings` `d` on((`rd`.`drawing_id` = `d`.`id`))) join `shipments` `s` on((`si`.`shipment_id` = `s`.`id`)));
+	select 1 AS `rec_type`,`mar`.`waybill_date` AS `date`,`mar`.`material_id` AS `material_Id`,`mar`.`count` AS `COUNT` from `material_arrival_records` `mar` where (`mar`.`is_deleted` = 0) union all select 2 AS `rec_type`,`r`.`reg_date` AS `reg_date`,`d`.`material_id` AS `material_id`,(`rd`.`count` * `d`.`mass_with_shruff`) AS `rd.count * d.mass_with_shruff` from ((`request_details` `rd` join `requests` `r` on((`rd`.`request_id` = `r`.`id`))) join `drawings` `d` on((`rd`.`drawing_id` = `d`.`id`))) where ((`d`.`material_id` is not null) and (`r`.`is_deleted` = 0)) union all select 3 AS `rec_type`,`wi`.`work_date` AS `work_date`,`d`.`material_id` AS `material_id`,(`wi`.`task_count` * `d`.`mass_with_shruff`) AS `wi.task_count * d.mass_with_shruff` from (`work_items` `wi` join `drawings` `d` on((`wi`.`drawing_id` = `d`.`id`))) where (`d`.`material_id` is not null) union all select 4 AS `rec_type`,`s`.`date` AS `date`,`d`.`material_id` AS `material_id`,(`si`.`count` * `d`.`mass_with_shruff`) AS `si.count * d.mass_with_shruff` from (((`shipment_items` `si` join `request_details` `rd` on((`si`.`request_detail_id` = `rd`.`id`))) join `drawings` `d` on((`rd`.`drawing_id` = `d`.`id`))) join `shipments` `s` on((`si`.`shipment_id` = `s`.`id`))) where (`s`.`is_deleted` = 0);
 
 --
 -- Описание для пользователя `mysql.sys`
@@ -1483,7 +1483,7 @@ INSERT INTO requests VALUES
 (59, 18, '2016-05-18 00:00:00', NULL, NULL, '2016-05-18 00:00:00', NULL, NULL, 2, 5, NULL, 0, NULL, 0),
 (60, 19, '2016-05-19 00:00:00', NULL, '2016-05-27 00:00:01', '2016-05-20 00:00:00', NULL, 9, 2, 5, 120000.00, 0, NULL, 0),
 (62, 20, '2016-06-14 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0),
-(72, 21, '2016-06-14 00:00:00', '2016-06-14 00:00:00', '2016-06-20 00:00:00', '2016-06-22 00:00:00', NULL, 3, 1, 5, 7600.00, 0, NULL, 0),
+(72, 21, '2016-06-14 00:00:00', '2016-06-14 00:00:00', '2016-06-20 00:00:00', '2016-06-22 00:00:00', NULL, 3, 1, 5, 7600.00, 0, 15000.00, 0),
 (73, 22, '2016-06-16 00:00:00', NULL, NULL, '2016-06-16 00:00:00', NULL, NULL, NULL, NULL, NULL, 0, NULL, 0);
 
 -- 
@@ -1587,7 +1587,12 @@ INSERT INTO report_of_completion_items VALUES
 (2, 41, 1, 2),
 (3, 41, 2, 3),
 (4, 41, 3, 4),
-(5, 41, 4, 5);
+(5, 41, 4, 5),
+(6, 72, 0, 1),
+(7, 72, 1, 2),
+(8, 72, 2, 0),
+(9, 72, 3, 3),
+(10, 72, 4, 4);
 
 -- 
 -- Вывод данных для таблицы request_details

@@ -66,7 +66,7 @@
                     <dxg:GridSummaryItem ShowInColumn="Drawing.ActualCalculation.MainSalary" FieldName="Drawing.ActualCalculation.MainSalary" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
                 </dxg:GridControl.TotalSummary>
                 <dxg:GridControl.View>
-                    <dxg:TableView EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                    <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>
             </dxg:GridControl>
             <Grid Grid.Row="3">
@@ -94,7 +94,7 @@
                                             <dxg:GridColumn FieldName="Job.Name" Header="Должность"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
+                                            <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>

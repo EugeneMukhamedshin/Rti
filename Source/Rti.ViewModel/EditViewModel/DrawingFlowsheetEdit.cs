@@ -57,9 +57,16 @@ namespace Rti.ViewModel.EditViewModel
 
         private void EditEquipment()
         {
-            var editViewModel = new EquipmentEdit("Изменение оснастки", Entity.Equipment, ReadOnly, ViewService, RepositoryFactory);
-            editViewModel.Refresh();
-            ViewService.ShowViewDialog(editViewModel);
+            var equipment = Entity.Equipment ?? new EquipmentViewModel(null, RepositoryFactory)
+            {
+                SortOrder = RepositoryFactory.GetEquipmentRepository().GetNextSortOrder()
+            };
+            var editor = new EquipmentEdit("Оснастка", equipment, ReadOnly, ViewService, RepositoryFactory);
+            if (ViewService.ShowViewDialog(editor) == true)
+            {
+                if (Entity.Equipment == null)
+                    Entity.Equipment = equipment;
+            }
         }
 
         private void DrawingFlowsheetProcessList_SummaryChanged(object sender, EventArgs e)

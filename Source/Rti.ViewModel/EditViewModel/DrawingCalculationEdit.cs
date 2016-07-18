@@ -155,10 +155,8 @@ namespace Rti.ViewModel.EditViewModel
                     calculation.MainMaterial = 0;
             }
 
-            var getAllMaterials = new Func<decimal?>(() => calculation.IsCustomerOwned ? 0 : calculation.AllMaterials);
-
             // Транспортные
-            calculation.Transport = constants.KTr.ToDecimal() / 100 * getAllMaterials();
+            calculation.Transport = constants.KTr.ToDecimal() / 100 * calculation.AllMaterials;
             // Основная зарплата
             if (calculationType == CalculationType.Fact)
             {
@@ -177,7 +175,7 @@ namespace Rti.ViewModel.EditViewModel
             // Общепроизводственные
             calculation.TotalManufacture = (calculation.MainSalary + calculation.AdditionalSalary) * constants.KObPr.ToDecimal() / 100;
             // Итого (1)
-            calculation.MainSummary = getAllMaterials() + calculation.Transport + calculation.MainSalary + calculation.AdditionalSalary + calculation.FixedTax + calculation.TotalDivision +
+            calculation.MainSummary = calculation.AllMaterials + calculation.Transport + calculation.MainSalary + calculation.AdditionalSalary + calculation.FixedTax + calculation.TotalDivision +
                          calculation.TotalManufacture;
             // Электроэнергия для формовых
             if (drawing.Equipment != null && drawing.Equipment.Output != 0)
@@ -197,10 +195,14 @@ namespace Rti.ViewModel.EditViewModel
             calculation.Profitability = calculation.NetCost * constants.KRen.ToDecimal() / 100;
             // Цена 
             calculation.Price = calculation.NetCost + calculation.Profitability;
+            // Если давальческая, то вычитаем стоимость материалов
+            if (calculation.IsCustomerOwned)
+                calculation.Price = calculation.Price - calculation.AllMaterials;
             // НДС
             calculation.NdsTax = calculation.Price * constants.Nds.ToDecimal() / 100;
             // Всего
             calculation.Summary = calculation.Price + calculation.NdsTax;
+
 
             //private Decimal? _mainMaterial;
             //private Decimal? _rubber;

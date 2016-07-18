@@ -23,24 +23,6 @@
      xmlns:x="urn:schemas-microsoft-com:office:excel"
      xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
      xmlns:html="http://www.w3.org/TR/REC-html40">
-      <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
-        <Author>Oleg</Author>
-        <LastAuthor></LastAuthor>
-        <Created>2016-03-23T18:32:08Z</Created>
-        <LastSaved>2016-06-07T20:35:43Z</LastSaved>
-        <Version>14.00</Version>
-      </DocumentProperties>
-      <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
-        <AllowPNG/>
-      </OfficeDocumentSettings>
-      <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
-        <WindowHeight>7485</WindowHeight>
-        <WindowWidth>14355</WindowWidth>
-        <WindowTopX>480</WindowTopX>
-        <WindowTopY>120</WindowTopY>
-        <ProtectStructure>False</ProtectStructure>
-        <ProtectWindows>False</ProtectWindows>
-      </ExcelWorkbook>
       <Styles>
         <Style ss:ID="Default" ss:Name="Normal">
           <Alignment ss:Vertical="Bottom"/>

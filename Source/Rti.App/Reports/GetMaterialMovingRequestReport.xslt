@@ -193,7 +193,7 @@
     <Row>
       <Cell ss:StyleID="s19">
         <Data ss:Type="Number">
-          <xsl:value-of select="@Articul"/>
+          <xsl:number />
         </Data>
       </Cell>
       <Cell ss:StyleID="s19">

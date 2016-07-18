@@ -14,7 +14,7 @@
                 <dxprg:PropertyDefinition Header="№"                                    Path="SortOrder"      IsReadOnly="true"/>
                 <dxprg:PropertyDefinition Header="Наименование оборудования"            Path="Name"           IsReadOnly="{Binding ReadOnly}"/>
                 <dxprg:PropertyDefinition Header="Размеры плит, мм"                     Path="PlateSize"      IsReadOnly="{Binding ReadOnly}"/>
-                <dxprg:PropertyDefinition Header="Инвариантный номер"                   Path="InvNumber"      IsReadOnly="{Binding ReadOnly}"/>
+                <dxprg:PropertyDefinition Header="Инвентарный номер"                    Path="InvNumber"      IsReadOnly="{Binding ReadOnly}"/>
                 <dxprg:PropertyDefinition Header="Количество плит, шт"                  Path="PlateCount"     IsReadOnly="{Binding ReadOnly}"/>
                 <dxprg:PropertyDefinition Header="Мощность плит, КВт/час"               Path="PlatePower"     IsReadOnly="{Binding ReadOnly}"/>
                 <dxprg:PropertyDefinition Header="Мощность двигателя, КВт/час "         Path="EnginePower"    IsReadOnly="{Binding ReadOnly}"/>
@@ -29,59 +29,4 @@
             <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
         </StackPanel>
     </Grid>
-    <!--<Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="128"/>
-            <RowDefinition Height="32"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="180"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="20"/>
-        </Grid.ColumnDefinitions>
-        <Grid.Resources>
-            <Style TargetType="Label">
-                <Setter Property="Background" Value="LightGray"></Setter>
-            </Style>
-        </Grid.Resources>
-        <Label Grid.Row="0" Grid.Column="0" Content="№"/>
-        <Label Grid.Row="1" Grid.Column="0" Content="Наименование оборудования"/>
-        <Label Grid.Row="2" Grid.Column="0" Content="Размеры плит, мм"/>
-        <Label Grid.Row="3" Grid.Column="0" Content="Инвариантный номер"/>
-        <Label Grid.Row="4" Grid.Column="0" Content="Количество плит, шт"/>
-        <Label Grid.Row="5" Grid.Column="0" Content="Мощность плит, КВт/час"/>
-        <Label Grid.Row="6" Grid.Column="0" Content="Мощность двигателя, КВт/час "/>
-        <Label Grid.Row="7" Grid.Column="0" Content="Мощность общая, КВт/час"/>
-        <Label Grid.Row="8" Grid.Column="0" Content="Цена электроэнергии, руб/КВтч"/>
-        <Label Grid.Row="9" Grid.Column="0" Content="Цена электроэнергии, руб/мин"/>
-        <Label Grid.Row="10" Grid.Column="0" Content="Примечание"/>
-
-        <TextBox Grid.Row="0" Grid.Column="1"  TabIndex="0" Text="{Binding Entity.SortOrder}" IsReadOnly="True"></TextBox>
-        <TextBox Grid.Row="1" Grid.Column="1"  TabIndex="1" Text="{Binding Entity.Name}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="1"  TabIndex="2" Text="{Binding Entity.PlateSize}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="1"  TabIndex="3" Text="{Binding Entity.InvNumber}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="1"  TabIndex="4" Text="{Binding Entity.PlateCount}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
-        <TextBox Grid.Row="5" Grid.Column="1"  TabIndex="5" Text="{Binding Entity.PlatePower}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
-        <TextBox Grid.Row="6" Grid.Column="1"  TabIndex="6" Text="{Binding Entity.EnginePower}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
-        <TextBox Grid.Row="7" Grid.Column="1"  TabIndex="7" Text="{Binding Entity.TotalPower}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
-        <TextBox Grid.Row="8" Grid.Column="1"  TabIndex="8" Text="{Binding Entity.PowerPrice}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
-        <TextBox Grid.Row="9" Grid.Column="1"  TabIndex="9" Text="{Binding Entity.TimePrice}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
-        <TextBox Grid.Row="10" Grid.Column="1" TabIndex="10" Text="{Binding Entity.Note}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
-
-        <StackPanel Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <Button Content="Сохранить" Command="{Binding OkCommand}" Width="80" Margin="5" IsDefault="True" TabIndex="19"></Button>
-            <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="80" Margin="5" TabIndex="20"></Button>
-        </StackPanel>
-    </Grid>-->
 </Window>

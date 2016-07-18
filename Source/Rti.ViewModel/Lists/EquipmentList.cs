@@ -20,7 +20,8 @@ namespace Rti.ViewModel.Lists
             return
                 RepositoryFactory.GetEquipmentRepository()
                     .GetAllActiveWithDrawings()
-                    .Select(o => new EquipmentViewModel(o.Item1, RepositoryFactory) {Drawing = new DrawingViewModel(o.Item2, RepositoryFactory)});
+                    .Select(o => new EquipmentViewModel(o.Item1, RepositoryFactory) {Drawing = new DrawingViewModel(o.Item2, RepositoryFactory)})
+                    .OrderBy(o => o.SortOrder);
         }
 
         protected override EquipmentViewModel DoCreateNewEntity()

@@ -13,6 +13,18 @@ namespace Rti.ViewModel.EditViewModel
 {
     public class ReportOfCompletionEdit : EditEntityViewModel<RequestViewModel, Request>
     {
+        private readonly ReportType _reportType;
+
+        public bool IsCompletionReport { get { return _reportType == ReportType.CompletionCertificate; } }
+
+        public enum ReportType
+        {
+            // Акт выполненных работ
+            CompletionCertificate,
+            // Акт приема передачи оснастки
+            AcceplanceCertificate
+        }
+
         private List<ReportOfCompletionItemViewModel> _items;
 
         public List<ReportOfCompletionItemViewModel> Items
@@ -28,8 +40,9 @@ namespace Rti.ViewModel.EditViewModel
 
         public DelegateCommand BuildReportCommand { get; set; }
 
-        public ReportOfCompletionEdit(string name, RequestViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) : base(name, entity, readOnly, viewService, repositoryFactory)
+        public ReportOfCompletionEdit(string name, RequestViewModel entity, ReportType reportType, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) : base(name, entity, readOnly, viewService, repositoryFactory)
         {
+            _reportType = reportType;
             BuildReportCommand = new DelegateCommand(
                 "Акт выполненных работ",
                 o => true,
@@ -61,8 +74,16 @@ namespace Rti.ViewModel.EditViewModel
                 item.SaveEntity();
             }
 
-            var reportGenerator = new ReportOfCompletionReportGenerator();
-            reportGenerator.BuildReport(Source.Id, ViewService, RepositoryFactory);
+            if (_reportType == ReportType.CompletionCertificate)
+            {
+                var reportGenerator = new ReportOfCompletionReportGenerator();
+                reportGenerator.BuildReport(Source.Id, ViewService, RepositoryFactory);
+            }
+            if (_reportType == ReportType.AcceplanceCertificate)
+            {
+                var reportGenerator = new ReportOfAcceptanceReportGenerator();
+                reportGenerator.BuildReport(Source.Id, ViewService, RepositoryFactory);
+            }
             Close(true);
         }
     }

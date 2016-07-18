@@ -59,9 +59,12 @@ namespace Rti.ViewModel.EditViewModel
             }
         }
 
+        private string xsltPath;
+
         public RequestEdit(string name, RequestViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {
+            xsltPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
             _deletedDetails = new List<RequestDetailViewModel>();
 
             AddRequestDetailCommand = new DelegateCommand(
@@ -81,10 +84,13 @@ namespace Rti.ViewModel.EditViewModel
                 "Акт выполненных работ",
                 o => true,
                 o => CreateReportOfCompletion());
+            CreateReportOfAcceptanceCommand = new DelegateCommand(o => CreateReportOfAcceptance());
             CreateContractReportCommand = new DelegateCommand(
                 "Договор",
                 o => true,
                 o => CreateContractReport());
+            CreateM15Command = new DelegateCommand(o => CreateM15Report());
+            CreateEquipmentInvoiceCommand = new DelegateCommand(o => CreateEquipmentInvoiceReport());
             OpenRequestReportCommand = new DelegateCommand(
                 "Реестр заявок",
                 o => true,
@@ -95,11 +101,58 @@ namespace Rti.ViewModel.EditViewModel
                 o => OpenDrawingEdit((RequestDetailViewModel)o));
         }
 
+        public DelegateCommand CreateEquipmentInvoiceCommand { get; set; }
+
+        private void CreateEquipmentInvoiceReport()
+        {
+            if (ViewService.ShowConfirmation(new MessageViewModel("Внимание",
+                "Для формирования заявка будет сохранена.\r\nПродолжить?")))
+            {
+                if (!Save()) return;
+
+                var viewModel = new EquipmentInvoiceReportViewModel("Счет на оснастку", Source, ViewService, RepositoryFactory, xsltPath, "Счет на оснастку.xls");
+                viewModel.Refresh();
+                viewModel.GenerateReport();
+            }
+        }
+
+        private void CreateM15Report()
+        {
+            if (ViewService.ShowConfirmation(new MessageViewModel("Внимание",
+                "Для формирования заявка будет сохранена.\r\nПродолжить?")))
+            {
+                if (!Save()) return;
+
+                var viewModel = new M15ReportViewModel("Накладная М15", ViewService, RepositoryFactory, xsltPath, "Накладная М15.xls");
+                viewModel.Refresh();
+                viewModel.GenerateReport();
+            }
+        }
+
+        public DelegateCommand CreateM15Command { get; set; }
+
+        private void CreateReportOfAcceptance()
+        {
+            if (ViewService.ShowConfirmation(new MessageViewModel("Внимание",
+                "Для формирования акта заявка будет сохранена.\r\nПродолжить?")))
+            {
+                if (!Save()) return;
+
+                var edit = new ReportOfCompletionEdit("Акт приема передачи оснастки", Source, ReportOfCompletionEdit.ReportType.AcceplanceCertificate, ReadOnly, ViewService, RepositoryFactory);
+                edit.Refresh();
+                ViewService.ShowViewDialog(edit);
+
+                Entity.CompleteSum = Source.CompleteSum;
+            }
+        }
+
+        public DelegateCommand CreateReportOfAcceptanceCommand { get; set; }
+
         private void CreateSpecification(object obj)
         {
             if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
                 return;
-            Save();
+            if (!Save()) return;
             var viewModel = new RequestSpecificationReportViewModel(string.Format("Спецификация {0} от {1:dd.mm.yyyy}", Entity.Number, Entity.RegDate), ViewService, RepositoryFactory,
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), string.Format("Спецификация {0} от {1:dd.mm.yyyy}.xls", Entity.Number, Entity.RegDate))
             {
@@ -185,14 +238,14 @@ namespace Rti.ViewModel.EditViewModel
             {
                 if (!Save()) return;
 
-                var edit = new ReportOfCompletionEdit("Акт выполненных работ", Source, ReadOnly, ViewService, RepositoryFactory);
+                var edit = new ReportOfCompletionEdit("Акт выполненных работ", Source, ReportOfCompletionEdit.ReportType.CompletionCertificate, ReadOnly, ViewService, RepositoryFactory);
                 edit.Refresh();
                 ViewService.ShowViewDialog(edit);
 
                 Entity.CompleteSum = Source.CompleteSum;
             }
         }
-
+       
         private void CreateContractReport()
         {
             if (ViewService.ShowConfirmation(new MessageViewModel("Внимание",

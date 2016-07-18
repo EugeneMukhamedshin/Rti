@@ -275,5 +275,17 @@ namespace Rti.ViewModel.Reporting
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetMaterialMovingWorkItemReport.xslt"));
             return GetReport(r => r.GetMaterialMovingWorkItemReport(startDate, endDate, material == null ? (int?)null : material.Id), xsl);
         }
+
+        public byte[] GetEquipmentInvoiceReport(RequestViewModel request)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetEquipmentInvoiceReport.xslt"));
+            return GetReport(r => new XDocument(new XDeclaration("2.0", "utf8", "true"), new XElement("root", new XElement("set", new XAttribute("name", "Requests"), request.GetXElement("row")))), xsl);
+        }
+
+        public byte[] GetM15Report()
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetM15Report.xslt"));
+            return GetReport(r => new XDocument(new XDeclaration("2.0", "utf8", "true"), new XElement("root")), xsl);
+        }
     }
 }

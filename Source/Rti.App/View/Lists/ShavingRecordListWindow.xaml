@@ -36,7 +36,7 @@
                                 <dxg:GridColumn FieldName="Job.Name" Header="Должность"/>
                             </dxg:GridControl.Columns>
                             <dxg:GridControl.View>
-                                <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
+                                <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AutoWidth="True"/>
                             </dxg:GridControl.View>
                         </dxg:GridControl>
                     </ControlTemplate>
@@ -84,7 +84,7 @@
                 <dxg:GridColumn FieldName="Salary" Header="Заработная плата" Width="100"/>
             </dxg:GridControl.Columns>
             <dxg:GridControl.View>
-                <dxg:TableView EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
             </dxg:GridControl.View>
         </dxg:GridControl>
         <dxg:GridControl TabIndex="8" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding SalaryItems}" SelectionMode="Row" Grid.Row="3">
@@ -104,7 +104,7 @@
                 <dxg:GridColumn FieldName="Salary" Header="Заработная плата" Width="150"/>
             </dxg:GridControl.Columns>
             <dxg:GridControl.View>
-                <dxg:TableView EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
             </dxg:GridControl.View>
         </dxg:GridControl>
     </Grid>

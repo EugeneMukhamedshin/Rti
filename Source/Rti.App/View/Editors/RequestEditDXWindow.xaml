@@ -158,17 +158,18 @@
                     </dxg:GridColumn>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>
-                    <dxg:TableView EnableImmediatePosting="True" EditorButtonShowMode="ShowAlways" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                    <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" EditorButtonShowMode="ShowAlways" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>
             </dxg:GridControl>
 
             <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal">
                 <Button Content="Текущий счет" Command="{Binding CreateInvoiceCommand}" Width="120" Margin="5" TabIndex="500"/>
-                <Button Content="Спецификация" Command="{Binding CreateSpecificationCommand}" Width="120" Margin="5" TabIndex="500"/>
-                <Button Content="Акт вып. работ" Command="{Binding CreateReportOfCompletionCommand}" Width="120" Margin="5" TabIndex="501"/>
-                <!--<Button Content="Акт вып. работ" Command="{Binding CreateReportOfCompletionCommand}" Width="120" Margin="5" TabIndex="501"/>-->
+                <Button Content="Спецификация" Command="{Binding CreateSpecificationCommand}" Width="120" Margin="5" TabIndex="501"/>
                 <Button Content="Договор" Command="{Binding CreateContractReportCommand}" Width="120" Margin="5" TabIndex="502"/>
-                <!--<Button Content="Реестр заявок" Command="{Binding OpenRequestReportCommand}" Width="120" Margin="5" TabIndex="502"/>-->
+                <Button Content="Акт вып. работ" Command="{Binding CreateReportOfCompletionCommand}" Width="120" Margin="5" TabIndex="503"/>
+                <Button Content="Акт приема передачи" Command="{Binding CreateReportOfAcceptanceCommand}" Width="130" Margin="5" TabIndex="504"/>
+                <Button Content="Накладная М15" Command="{Binding CreateM15Command}" Width="120" Margin="5" TabIndex="505"/>
+                <Button Content="Счет на оснастку" Command="{Binding CreateEquipmentInvoiceCommand}" Width="120" Margin="5" TabIndex="506"/>
                 
             </StackPanel>
             <StackPanel Grid.Row="5" Grid.Column="0" Orientation="Horizontal">
