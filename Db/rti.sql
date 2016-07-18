@@ -1,7 +1,7 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.1.13.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 14.07.2016 0:16:42
+-- Дата скрипта: 18.07.2016 8:31:18
 -- Версия сервера: 5.7.13-log
 -- Версия клиента: 4.1
 --
@@ -76,6 +76,7 @@ CREATE TABLE calculations (
   Nds_Tax DECIMAL(20, 2) DEFAULT 0.00,
   Summary DECIMAL(20, 2) DEFAULT 0.00,
   Note VARCHAR(500) DEFAULT NULL,
+  is_customer_owned INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
@@ -269,7 +270,7 @@ CREATE TABLE images (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 9
+AUTO_INCREMENT = 1
 AVG_ROW_LENGTH = 20480
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -458,7 +459,7 @@ CREATE TABLE work_item_package (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 16
+AUTO_INCREMENT = 9
 AVG_ROW_LENGTH = 2048
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -503,7 +504,7 @@ CREATE TABLE calculation_history (
     REFERENCES calculations(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 46
+AUTO_INCREMENT = 43
 AVG_ROW_LENGTH = 1365
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -670,7 +671,7 @@ CREATE TABLE requests (
     REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 74
+AUTO_INCREMENT = 75
 AVG_ROW_LENGTH = 3276
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -1040,10 +1041,11 @@ CREATE TABLE work_item_employee_package_machines (
   package_working_time INT(11) NOT NULL COMMENT 'свободное время пресса в смене',
   machine_id INT(11) NOT NULL,
   PRIMARY KEY (id),
-  CONSTRAINT FK_work_item_package_machines_machines_id FOREIGN KEY (machine_id)
-    REFERENCES machines(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_work_item_package_machines_work_item_employee_package_id FOREIGN KEY (work_item_employee_package_id)
-    REFERENCES work_item_employee_package(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+  UNIQUE INDEX UK_work_item_employee_package_machines (work_item_employee_package_id, machine_id),
+  CONSTRAINT FK_work_item_emp_package_machines_work_item_emp_package_id FOREIGN KEY (work_item_employee_package_id)
+    REFERENCES work_item_employee_package(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_work_item_employee_package_machines_machines_id FOREIGN KEY (machine_id)
+    REFERENCES machines(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
 AUTO_INCREMENT = 5
@@ -1199,6 +1201,22 @@ AS
 	select 1 AS `rec_type`,`mar`.`waybill_date` AS `date`,`mar`.`material_id` AS `material_Id`,`mar`.`count` AS `COUNT` from `material_arrival_records` `mar` union all select 2 AS `rec_type`,`r`.`reg_date` AS `reg_date`,`d`.`material_id` AS `material_id`,(`rd`.`count` * `d`.`mass_with_shruff`) AS `rd.count * d.mass_with_shruff` from ((`request_details` `rd` join `requests` `r` on((`rd`.`request_id` = `r`.`id`))) join `drawings` `d` on((`rd`.`drawing_id` = `d`.`id`))) where (`d`.`material_id` is not null) union all select 3 AS `rec_type`,`wi`.`work_date` AS `work_date`,`d`.`material_id` AS `material_id`,(`wi`.`task_count` * `d`.`mass_with_shruff`) AS `wi.task_count * d.mass_with_shruff` from (`work_items` `wi` join `drawings` `d` on((`wi`.`drawing_id` = `d`.`id`))) where (`d`.`material_id` is not null) union all select 4 AS `rec_type`,`s`.`date` AS `date`,`d`.`material_id` AS `material_id`,(`si`.`count` * `d`.`mass_with_shruff`) AS `si.count * d.mass_with_shruff` from (((`shipment_items` `si` join `request_details` `rd` on((`si`.`request_detail_id` = `rd`.`id`))) join `drawings` `d` on((`rd`.`drawing_id` = `d`.`id`))) join `shipments` `s` on((`si`.`shipment_id` = `s`.`id`)));
 
 --
+-- Описание для пользователя `mysql.sys`
+--
+DROP USER IF EXISTS 'mysql.sys'@'localhost';
+CREATE USER 'mysql.sys'@'localhost' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE DEFAULT ACCOUNT LOCK;
+GRANT ALL PRIVILEGES ON *.* TO 'mysql.sys'@'localhost' 
+WITH GRANT OPTION;
+
+--
+-- Описание для пользователя root
+--
+DROP USER IF EXISTS 'root'@'localhost';
+CREATE USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password AS '*81F5E21E35407D884A6CD4A731AEBFB6AF209E1B' PASSWORD EXPIRE DEFAULT;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' 
+WITH GRANT OPTION;
+
+-- 
 -- Вывод данных для таблицы additional_infos
 --
 
@@ -1208,20 +1226,20 @@ AS
 -- Вывод данных для таблицы calculations
 --
 INSERT INTO calculations VALUES
-(1, 2037.62, 123.00, 234.00, 345.00, 456.00, 567.00, NULL, 50.80, 636.94, 57.90, 14.73, 27.10, 27.79, 4577.88, 33.33, 1.67, 4612.88, 276.77, 4889.66, 342.28, 5231.93, 418.55, 5650.49, NULL),
-(2, 11.48, NULL, NULL, NULL, NULL, NULL, NULL, 0.15, 33.33, 3.03, 0.77, 1.42, 1.45, 51.64, 33.33, 1.67, 86.64, 5.20, 91.84, 6.43, 98.27, 7.86, 106.13, NULL),
-(3, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL),
-(4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 50.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.76, 120.00, 10.91, 2.78, 5.11, 5.24, 200.78, 0.90, 10.04, 211.72, 12.70, 224.42, 15.71, 240.13, 43.22, 283.36, 'sd gfds hgfdgh '),
-(6, 19.32, 100.00, NULL, NULL, NULL, NULL, NULL, 1.61, 2.40, 0.22, 0.06, 0.10, 0.10, 123.81, 0.90, 6.19, 130.90, 7.85, 138.76, 9.71, 148.47, 26.72, 175.19, NULL),
-(7, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL),
-(8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(13, 29.04, 0.00, 0.00, NULL, NULL, NULL, NULL, 0.39, 35.00, 3.18, 0.81, 1.49, 1.53, 71.44, 25.00, 3.57, 100.01, 6.00, 106.01, 7.42, 113.43, 20.42, 133.85, NULL),
-(14, 29.04, 100.00, 100.00, 100.00, NULL, NULL, NULL, 3.09, 35.00, 3.18, 0.81, 1.49, 1.53, 274.14, 25.00, 13.71, 312.85, 18.77, 331.62, 23.21, 354.83, 63.87, 418.70, NULL);
+(1, 2037.62, 123.00, 234.00, 345.00, 456.00, 567.00, NULL, 50.80, 636.94, 57.90, 14.73, 27.10, 27.79, 4577.88, 33.33, 1.67, 4612.88, 276.77, 4889.66, 342.28, 5231.93, 418.55, 5650.49, NULL, 0),
+(2, 11.48, NULL, NULL, NULL, NULL, NULL, NULL, 0.15, 33.33, 3.03, 0.77, 1.42, 1.45, 51.64, 33.33, 1.67, 86.64, 5.20, 91.84, 6.43, 98.27, 7.86, 106.13, NULL, 0),
+(3, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL, 0),
+(4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(5, 50.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.76, 120.00, 10.91, 2.78, 5.11, 5.24, 200.78, 0.90, 10.04, 211.72, 12.70, 224.42, 15.71, 240.13, 43.22, 283.36, 'sd gfds hgfdgh ', 0),
+(6, 19.32, 100.00, NULL, NULL, NULL, NULL, NULL, 1.61, 2.40, 0.22, 0.06, 0.10, 0.10, 123.81, 0.90, 6.19, 130.90, 7.85, 138.76, 9.71, 148.47, 26.72, 175.19, NULL, 0),
+(7, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL, 0),
+(8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(13, 29.04, 0.00, 0.00, 100.00, NULL, NULL, NULL, 0.00, 35.00, 3.18, 0.81, 1.49, 1.53, 42.01, 25.00, 2.10, 69.11, 4.15, 73.25, 5.13, 78.38, 14.11, 92.49, NULL, 1),
+(14, 29.04, 100.00, 100.00, 100.00, NULL, NULL, NULL, 0.00, 35.00, 3.18, 0.81, 1.49, 1.53, 42.01, 25.00, 2.10, 69.11, 4.15, 73.25, 5.13, 78.38, 14.11, 92.49, NULL, 1);
 
 -- 
 -- Вывод данных для таблицы constants
@@ -1285,7 +1303,7 @@ INSERT INTO equipments VALUES
 -- Вывод данных для таблицы groups
 --
 INSERT INTO groups VALUES
-(1, 1, 'Группа1', 'Примечание для группы 1', 0),
+(1, 1, 'U1', 'Примечание для группы 1', 0),
 (2, 2, 'Group2', 'Note for group 2', 0),
 (3, 3, 'Group3', 'Group2+3', 0),
 (4, 3, 'wergerwtg', 'etrherthgtery', 0),
@@ -1302,7 +1320,7 @@ INSERT INTO groups VALUES
 --
 INSERT INTO jobs VALUES
 (1, 1, 'Секретарь', 'secretary', 'secret', 0),
-(2, 2, 'Технолог', 'tehnolog', '123123qweasdzxc', 0),
+(2, 2, 'Технолог', 'tehnolog', 'tehnolog', 0),
 (3, 3, 'Демо', 'demo', 'demo', 0);
 
 -- 
