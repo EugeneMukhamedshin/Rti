@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -57,12 +58,12 @@ namespace Rti.App
                     _viewService.ShowViewDialog(loginViewModel);
                     if (!loginViewModel.LoggedOn)
                         mainViewModel.Close(null);
-                    mainViewModel.Job = loginViewModel.Job;
+                    mainViewModel.Job = new JobViewModel(loginViewModel.Job, repositoryFactory);
                 }
                 else
                 {
-                    //var viewModel = new RequestEdit("", new RequestViewModel(repositoryFactory.GetRequestRepository().GetByNumber(15), repositoryFactory), false, _viewService, repositoryFactory);
-                    var viewModel = new MainViewModel(_viewService, repositoryFactory);
+                    var viewModel = new RequestEdit("", new RequestViewModel(repositoryFactory.GetRequestRepository().GetByNumber(8), repositoryFactory), false, _viewService, repositoryFactory);
+                    //var viewModel = new MainViewModel(_viewService, repositoryFactory);
                     //var viewModel = new ReportOfCompletionEdit("", new RequestViewModel(repositoryFactory.GetRequestRepository().GetByNumber(15), repositoryFactory), false, _viewService, repositoryFactory);
                     //var viewModel = new ShipmentEdit("", new ShipmentViewModel(repositoryFactory.GetShipmentRepository().GetById(2), repositoryFactory), false, _viewService, repositoryFactory);
                     //var viewModel = new ShipmentDirectExpencesReportViewModel("", _viewService, repositoryFactory,

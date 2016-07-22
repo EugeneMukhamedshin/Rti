@@ -119,6 +119,7 @@ namespace Rti.ViewModel.Entities
 		private Decimal? _summary;
 		private String _note;
 		private Boolean _isCustomerOwned;
+		private DateTime? _createdDate;
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public Decimal? MainMaterial { get { return _mainMaterial; } set { if (Equals(_mainMaterial, value)) return; _mainMaterial = value; OnPropertyChanged("MainMaterial"); } }
 		public Decimal? Rubber { get { return _rubber; } set { if (Equals(_rubber, value)) return; _rubber = value; OnPropertyChanged("Rubber"); } }
@@ -145,6 +146,7 @@ namespace Rti.ViewModel.Entities
 		public Decimal? Summary { get { return _summary; } set { if (Equals(_summary, value)) return; _summary = value; OnPropertyChanged("Summary"); } }
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
 		public Boolean IsCustomerOwned { get { return _isCustomerOwned; } set { if (Equals(_isCustomerOwned, value)) return; _isCustomerOwned = value; OnPropertyChanged("IsCustomerOwned"); } }
+		public DateTime? CreatedDate { get { return _createdDate; } set { if (Equals(_createdDate, value)) return; _createdDate = value; OnPropertyChanged("CreatedDate"); } }
 		protected override void MapPropertiesToEntity()
 		{
 			Entity.MainMaterial = MainMaterial; 
@@ -172,6 +174,7 @@ namespace Rti.ViewModel.Entities
 			Entity.Summary = Summary; 
 			Entity.Note = Note; 
 			Entity.IsCustomerOwned = IsCustomerOwned; 
+			Entity.CreatedDate = CreatedDate; 
 		}
 
 		protected override void MapPropertiesFromEntity()
@@ -203,6 +206,7 @@ namespace Rti.ViewModel.Entities
 			Summary = Entity.Summary; 
 			Note = Entity.Note; 
 			IsCustomerOwned = Entity.IsCustomerOwned; 
+			CreatedDate = Entity.CreatedDate; 
 			IsMapping = false;
 		}
 
@@ -234,6 +238,7 @@ namespace Rti.ViewModel.Entities
 			Summary = source.Summary;
 			Note = source.Note;
 			IsCustomerOwned = source.IsCustomerOwned;
+			CreatedDate = source.CreatedDate;
 			CustomCopyFrom(source);
 			IsMapping = false;
 		}
@@ -298,6 +303,8 @@ namespace Rti.ViewModel.Entities
 			if (Note != null)
 				element.Add(new XAttribute("Note", Note));
 			element.Add(new XAttribute("IsCustomerOwned", IsCustomerOwned));
+			if (CreatedDate != null)
+				element.Add(new XAttribute("CreatedDate", CreatedDate));
 			CustomFillXElement(element);
 			return element;
 		}
@@ -310,241 +317,6 @@ namespace Rti.ViewModel.Entities
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((CalculationViewModel) obj);
-        }
-	}
-
-	// The viewmodel for CalculationHistory
-	public partial class CalculationHistoryViewModel : EntityViewModel<Rti.Model.Domain.CalculationHistory, CalculationHistoryViewModel>
-	{
-		// Конструктор для маппинга
-		public CalculationHistoryViewModel() { }
-
-        public CalculationHistoryViewModel(Rti.Model.Domain.CalculationHistory entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		private Int32 _id;
-		private DateTime _changeDate;
-		private Decimal? _mainMaterial;
-		private Decimal? _rubber;
-		private Decimal? _clue;
-		private Decimal? _armature;
-		private Decimal? _sand;
-		private Decimal? _textile;
-		private Decimal? _otherMaterial;
-		private Decimal? _transport;
-		private Decimal? _mainSalary;
-		private Decimal? _additionalSalary;
-		private Decimal? _fixedTax;
-		private Decimal? _totalDivision;
-		private Decimal? _totalManufacture;
-		private Decimal? _mainSummary;
-		private Decimal? _powerForFormed;
-		private Decimal? _otherPower;
-		private Decimal? _mainAndPowerSummary;
-		private Decimal? _unforseen;
-		private Decimal? _netCost;
-		private Decimal? _profitability;
-		private Decimal? _price;
-		private Decimal? _ndsTax;
-		private Decimal? _summary;
-		private String _note;
-		private CalculationViewModel _calculation;
-		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
-		public DateTime ChangeDate { get { return _changeDate; } set { if (Equals(_changeDate, value)) return; _changeDate = value; OnPropertyChanged("ChangeDate"); } }
-		public Decimal? MainMaterial { get { return _mainMaterial; } set { if (Equals(_mainMaterial, value)) return; _mainMaterial = value; OnPropertyChanged("MainMaterial"); } }
-		public Decimal? Rubber { get { return _rubber; } set { if (Equals(_rubber, value)) return; _rubber = value; OnPropertyChanged("Rubber"); } }
-		public Decimal? Clue { get { return _clue; } set { if (Equals(_clue, value)) return; _clue = value; OnPropertyChanged("Clue"); } }
-		public Decimal? Armature { get { return _armature; } set { if (Equals(_armature, value)) return; _armature = value; OnPropertyChanged("Armature"); } }
-		public Decimal? Sand { get { return _sand; } set { if (Equals(_sand, value)) return; _sand = value; OnPropertyChanged("Sand"); } }
-		public Decimal? Textile { get { return _textile; } set { if (Equals(_textile, value)) return; _textile = value; OnPropertyChanged("Textile"); } }
-		public Decimal? OtherMaterial { get { return _otherMaterial; } set { if (Equals(_otherMaterial, value)) return; _otherMaterial = value; OnPropertyChanged("OtherMaterial"); } }
-		public Decimal? Transport { get { return _transport; } set { if (Equals(_transport, value)) return; _transport = value; OnPropertyChanged("Transport"); } }
-		public Decimal? MainSalary { get { return _mainSalary; } set { if (Equals(_mainSalary, value)) return; _mainSalary = value; OnPropertyChanged("MainSalary"); } }
-		public Decimal? AdditionalSalary { get { return _additionalSalary; } set { if (Equals(_additionalSalary, value)) return; _additionalSalary = value; OnPropertyChanged("AdditionalSalary"); } }
-		public Decimal? FixedTax { get { return _fixedTax; } set { if (Equals(_fixedTax, value)) return; _fixedTax = value; OnPropertyChanged("FixedTax"); } }
-		public Decimal? TotalDivision { get { return _totalDivision; } set { if (Equals(_totalDivision, value)) return; _totalDivision = value; OnPropertyChanged("TotalDivision"); } }
-		public Decimal? TotalManufacture { get { return _totalManufacture; } set { if (Equals(_totalManufacture, value)) return; _totalManufacture = value; OnPropertyChanged("TotalManufacture"); } }
-		public Decimal? MainSummary { get { return _mainSummary; } set { if (Equals(_mainSummary, value)) return; _mainSummary = value; OnPropertyChanged("MainSummary"); } }
-		public Decimal? PowerForFormed { get { return _powerForFormed; } set { if (Equals(_powerForFormed, value)) return; _powerForFormed = value; OnPropertyChanged("PowerForFormed"); } }
-		public Decimal? OtherPower { get { return _otherPower; } set { if (Equals(_otherPower, value)) return; _otherPower = value; OnPropertyChanged("OtherPower"); } }
-		public Decimal? MainAndPowerSummary { get { return _mainAndPowerSummary; } set { if (Equals(_mainAndPowerSummary, value)) return; _mainAndPowerSummary = value; OnPropertyChanged("MainAndPowerSummary"); } }
-		public Decimal? Unforseen { get { return _unforseen; } set { if (Equals(_unforseen, value)) return; _unforseen = value; OnPropertyChanged("Unforseen"); } }
-		public Decimal? NetCost { get { return _netCost; } set { if (Equals(_netCost, value)) return; _netCost = value; OnPropertyChanged("NetCost"); } }
-		public Decimal? Profitability { get { return _profitability; } set { if (Equals(_profitability, value)) return; _profitability = value; OnPropertyChanged("Profitability"); } }
-		public Decimal? Price { get { return _price; } set { if (Equals(_price, value)) return; _price = value; OnPropertyChanged("Price"); } }
-		public Decimal? NdsTax { get { return _ndsTax; } set { if (Equals(_ndsTax, value)) return; _ndsTax = value; OnPropertyChanged("NdsTax"); } }
-		public Decimal? Summary { get { return _summary; } set { if (Equals(_summary, value)) return; _summary = value; OnPropertyChanged("Summary"); } }
-		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
-		public CalculationViewModel Calculation { get { return _calculation; } set { _calculation = value; OnPropertyChanged("Calculation"); } }
-		protected override void MapPropertiesToEntity()
-		{
-			Entity.ChangeDate = ChangeDate; 
-			Entity.MainMaterial = MainMaterial; 
-			Entity.Rubber = Rubber; 
-			Entity.Clue = Clue; 
-			Entity.Armature = Armature; 
-			Entity.Sand = Sand; 
-			Entity.Textile = Textile; 
-			Entity.OtherMaterial = OtherMaterial; 
-			Entity.Transport = Transport; 
-			Entity.MainSalary = MainSalary; 
-			Entity.AdditionalSalary = AdditionalSalary; 
-			Entity.FixedTax = FixedTax; 
-			Entity.TotalDivision = TotalDivision; 
-			Entity.TotalManufacture = TotalManufacture; 
-			Entity.MainSummary = MainSummary; 
-			Entity.PowerForFormed = PowerForFormed; 
-			Entity.OtherPower = OtherPower; 
-			Entity.MainAndPowerSummary = MainAndPowerSummary; 
-			Entity.Unforseen = Unforseen; 
-			Entity.NetCost = NetCost; 
-			Entity.Profitability = Profitability; 
-			Entity.Price = Price; 
-			Entity.NdsTax = NdsTax; 
-			Entity.Summary = Summary; 
-			Entity.Note = Note; 
-			Entity.Calculation = Calculation == null ? null : Calculation.Entity; 
-		}
-
-		protected override void MapPropertiesFromEntity()
-		{
-			IsMapping = true;
-			Id = Entity.Id; 
-			ChangeDate = Entity.ChangeDate; 
-			MainMaterial = Entity.MainMaterial; 
-			Rubber = Entity.Rubber; 
-			Clue = Entity.Clue; 
-			Armature = Entity.Armature; 
-			Sand = Entity.Sand; 
-			Textile = Entity.Textile; 
-			OtherMaterial = Entity.OtherMaterial; 
-			Transport = Entity.Transport; 
-			MainSalary = Entity.MainSalary; 
-			AdditionalSalary = Entity.AdditionalSalary; 
-			FixedTax = Entity.FixedTax; 
-			TotalDivision = Entity.TotalDivision; 
-			TotalManufacture = Entity.TotalManufacture; 
-			MainSummary = Entity.MainSummary; 
-			PowerForFormed = Entity.PowerForFormed; 
-			OtherPower = Entity.OtherPower; 
-			MainAndPowerSummary = Entity.MainAndPowerSummary; 
-			Unforseen = Entity.Unforseen; 
-			NetCost = Entity.NetCost; 
-			Profitability = Entity.Profitability; 
-			Price = Entity.Price; 
-			NdsTax = Entity.NdsTax; 
-			Summary = Entity.Summary; 
-			Note = Entity.Note; 
-			Calculation = Entity.Calculation == null ? null : new CalculationViewModel(Entity.Calculation, RepositoryFactory); 
-			IsMapping = false;
-		}
-
-		public override void CopyFrom(CalculationHistoryViewModel source)
-		{
-			IsMapping = true;
-			ChangeDate = source.ChangeDate;
-			MainMaterial = source.MainMaterial;
-			Rubber = source.Rubber;
-			Clue = source.Clue;
-			Armature = source.Armature;
-			Sand = source.Sand;
-			Textile = source.Textile;
-			OtherMaterial = source.OtherMaterial;
-			Transport = source.Transport;
-			MainSalary = source.MainSalary;
-			AdditionalSalary = source.AdditionalSalary;
-			FixedTax = source.FixedTax;
-			TotalDivision = source.TotalDivision;
-			TotalManufacture = source.TotalManufacture;
-			MainSummary = source.MainSummary;
-			PowerForFormed = source.PowerForFormed;
-			OtherPower = source.OtherPower;
-			MainAndPowerSummary = source.MainAndPowerSummary;
-			Unforseen = source.Unforseen;
-			NetCost = source.NetCost;
-			Profitability = source.Profitability;
-			Price = source.Price;
-			NdsTax = source.NdsTax;
-			Summary = source.Summary;
-			Note = source.Note;
-			Calculation = source.Calculation;
-			CustomCopyFrom(source);
-			IsMapping = false;
-		}
-
-		public override CalculationHistoryViewModel Clone()
-		{
-			var copy = new CalculationHistoryViewModel(null, RepositoryFactory);
-			copy.CopyFrom(this);
-			return copy;
-		}
-
-		public XElement GetXElement(string name)
-		{
-			var element = new XElement(name);
-			element.Add(new XAttribute("Id", Id));
-			element.Add(new XAttribute("ChangeDate", ChangeDate));
-			if (MainMaterial != null)
-				element.Add(new XAttribute("MainMaterial", MainMaterial));
-			if (Rubber != null)
-				element.Add(new XAttribute("Rubber", Rubber));
-			if (Clue != null)
-				element.Add(new XAttribute("Clue", Clue));
-			if (Armature != null)
-				element.Add(new XAttribute("Armature", Armature));
-			if (Sand != null)
-				element.Add(new XAttribute("Sand", Sand));
-			if (Textile != null)
-				element.Add(new XAttribute("Textile", Textile));
-			if (OtherMaterial != null)
-				element.Add(new XAttribute("OtherMaterial", OtherMaterial));
-			if (Transport != null)
-				element.Add(new XAttribute("Transport", Transport));
-			if (MainSalary != null)
-				element.Add(new XAttribute("MainSalary", MainSalary));
-			if (AdditionalSalary != null)
-				element.Add(new XAttribute("AdditionalSalary", AdditionalSalary));
-			if (FixedTax != null)
-				element.Add(new XAttribute("FixedTax", FixedTax));
-			if (TotalDivision != null)
-				element.Add(new XAttribute("TotalDivision", TotalDivision));
-			if (TotalManufacture != null)
-				element.Add(new XAttribute("TotalManufacture", TotalManufacture));
-			if (MainSummary != null)
-				element.Add(new XAttribute("MainSummary", MainSummary));
-			if (PowerForFormed != null)
-				element.Add(new XAttribute("PowerForFormed", PowerForFormed));
-			if (OtherPower != null)
-				element.Add(new XAttribute("OtherPower", OtherPower));
-			if (MainAndPowerSummary != null)
-				element.Add(new XAttribute("MainAndPowerSummary", MainAndPowerSummary));
-			if (Unforseen != null)
-				element.Add(new XAttribute("Unforseen", Unforseen));
-			if (NetCost != null)
-				element.Add(new XAttribute("NetCost", NetCost));
-			if (Profitability != null)
-				element.Add(new XAttribute("Profitability", Profitability));
-			if (Price != null)
-				element.Add(new XAttribute("Price", Price));
-			if (NdsTax != null)
-				element.Add(new XAttribute("NdsTax", NdsTax));
-			if (Summary != null)
-				element.Add(new XAttribute("Summary", Summary));
-			if (Note != null)
-				element.Add(new XAttribute("Note", Note));
-			if (Calculation != null)
-				element.Add(Calculation.GetXElement("Calculation"));
-			CustomFillXElement(element);
-			return element;
-		}
-
-        public override int GetHashCode() { return _id; }
-        protected bool Equals(CalculationHistoryViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((CalculationHistoryViewModel) obj);
         }
 	}
 
@@ -1305,6 +1077,74 @@ namespace Rti.ViewModel.Entities
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((DrawingViewModel) obj);
+        }
+	}
+
+	// The viewmodel for DrawingCalculationHistory
+	public partial class DrawingCalculationHistoryViewModel : EntityViewModel<Rti.Model.Domain.DrawingCalculationHistory, DrawingCalculationHistoryViewModel>
+	{
+		// Конструктор для маппинга
+		public DrawingCalculationHistoryViewModel() { }
+
+        public DrawingCalculationHistoryViewModel(Rti.Model.Domain.DrawingCalculationHistory entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+		private Int32 _id;
+		private DrawingViewModel _drawing;
+		private CalculationViewModel _calculation;
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
+		public CalculationViewModel Calculation { get { return _calculation; } set { _calculation = value; OnPropertyChanged("Calculation"); } }
+		protected override void MapPropertiesToEntity()
+		{
+			Entity.Drawing = Drawing == null ? null : Drawing.Entity; 
+			Entity.Calculation = Calculation == null ? null : Calculation.Entity; 
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+			IsMapping = true;
+			Id = Entity.Id; 
+			Drawing = Entity.Drawing == null ? null : new DrawingViewModel(Entity.Drawing, RepositoryFactory); 
+			Calculation = Entity.Calculation == null ? null : new CalculationViewModel(Entity.Calculation, RepositoryFactory); 
+			IsMapping = false;
+		}
+
+		public override void CopyFrom(DrawingCalculationHistoryViewModel source)
+		{
+			IsMapping = true;
+			Drawing = source.Drawing;
+			Calculation = source.Calculation;
+			CustomCopyFrom(source);
+			IsMapping = false;
+		}
+
+		public override DrawingCalculationHistoryViewModel Clone()
+		{
+			var copy = new DrawingCalculationHistoryViewModel(null, RepositoryFactory);
+			copy.CopyFrom(this);
+			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			if (Drawing != null)
+				element.Add(Drawing.GetXElement("Drawing"));
+			if (Calculation != null)
+				element.Add(Calculation.GetXElement("Calculation"));
+			CustomFillXElement(element);
+			return element;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(DrawingCalculationHistoryViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((DrawingCalculationHistoryViewModel) obj);
         }
 	}
 
@@ -2098,12 +1938,14 @@ namespace Rti.ViewModel.Entities
 		private String _login;
 		private String _password;
 		private Boolean _isDeleted;
+		private AccessType _accessTypeEnum;
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
 		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged("Name"); } }
 		public String Login { get { return _login; } set { if (Equals(_login, value)) return; _login = value; OnPropertyChanged("Login"); } }
 		public String Password { get { return _password; } set { if (Equals(_password, value)) return; _password = value; OnPropertyChanged("Password"); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
+		public AccessType AccessTypeEnum { get { return _accessTypeEnum; } set { if (Equals(_accessTypeEnum, value)) return; _accessTypeEnum = value; OnPropertyChanged("AccessTypeEnum"); } }
 		protected override void MapPropertiesToEntity()
 		{
 			Entity.SortOrder = SortOrder; 
@@ -2111,6 +1953,7 @@ namespace Rti.ViewModel.Entities
 			Entity.Login = Login; 
 			Entity.Password = Password; 
 			Entity.IsDeleted = IsDeleted; 
+			Entity.AccessTypeEnum = AccessTypeEnum; 
 		}
 
 		protected override void MapPropertiesFromEntity()
@@ -2122,6 +1965,7 @@ namespace Rti.ViewModel.Entities
 			Login = Entity.Login; 
 			Password = Entity.Password; 
 			IsDeleted = Entity.IsDeleted; 
+			AccessTypeEnum = Entity.AccessTypeEnum; 
 			IsMapping = false;
 		}
 
@@ -2133,6 +1977,7 @@ namespace Rti.ViewModel.Entities
 			Login = source.Login;
 			Password = source.Password;
 			IsDeleted = source.IsDeleted;
+			AccessTypeEnum = source.AccessTypeEnum;
 			CustomCopyFrom(source);
 			IsMapping = false;
 		}
@@ -2156,6 +2001,7 @@ namespace Rti.ViewModel.Entities
 			if (Password != null)
 				element.Add(new XAttribute("Password", Password));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
+			element.Add(new XAttribute("AccessTypeEnum", AccessTypeEnum));
 			CustomFillXElement(element);
 			return element;
 		}

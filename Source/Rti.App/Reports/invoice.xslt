@@ -346,7 +346,7 @@
       </Styles>
       <Worksheet ss:Name="TDSheet">
         <Names>
-          <NamedRange ss:Name="Print_Area" ss:RefersTo="=TDSheet!R1C1:R68C38"/>
+          <NamedRange ss:Name="Print_Area" ss:RefersTo="=TDSheet!R1C1:R{40+count(set[@name='RequestDetails']/row)}C38"/>
         </Names>
         <Table x:FullColumns="1" x:FullRows="1" ss:DefaultColumnWidth="42" ss:DefaultRowHeight="11.25">
           <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="5.25"/>
@@ -1905,8 +1905,7 @@
           <Row ss:AutoFitHeight="0" ss:Height="12">
             <Cell ss:Index="2" ss:StyleID="s198">
               <Data ss:Type="String">Руководитель</Data>
-              <NamedCell
-      ss:Name="Print_Area"/>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s65">
               <NamedCell ss:Name="Print_Area"/>
@@ -1940,8 +1939,7 @@
             </Cell>
             <Cell ss:StyleID="s198">
               <Data ss:Type="String">Бухгалтер</Data>
-              <NamedCell
-      ss:Name="Print_Area"/>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s198">
               <NamedCell ss:Name="Print_Area"/>
@@ -1974,15 +1972,11 @@
         </Table>
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
           <PageSetup>
-            <Header x:Margin="0.31496062992125984"/>
-            <Footer x:Margin="0.31496062992125984"/>
-            <PageMargins x:Bottom="0.74803149606299213" x:Left="0.70866141732283461"
-             x:Right="0.70866141732283461" x:Top="0.74803149606299213"/>
+            <Header x:Margin="0.3"/>
+            <Footer x:Margin="0.3"/>
+            <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
           </PageSetup>
           <Unsynced/>
-          <NoSummaryRowsBelowDetail/>
-          <NoSummaryColumnsRightDetail/>
-          <DisplayPageBreak/>
           <Print>
             <ValidPrinterInfo/>
             <PaperSizeIndex>9</PaperSizeIndex>
@@ -1990,18 +1984,26 @@
             <HorizontalResolution>600</HorizontalResolution>
             <VerticalResolution>600</VerticalResolution>
           </Print>
-          <PageBreakZoom>100</PageBreakZoom>
+          <ShowPageBreakZoom/>
           <Selected/>
           <Panes>
             <Pane>
               <Number>3</Number>
-              <ActiveRow>3</ActiveRow>
-              <RangeSelection>R4</RangeSelection>
+              <ActiveRow>1</ActiveRow>
+              <RangeSelection>R2C1:R2C5</RangeSelection>
             </Pane>
           </Panes>
           <ProtectObjects>False</ProtectObjects>
           <ProtectScenarios>False</ProtectScenarios>
         </WorksheetOptions>
+        <PageBreaks xmlns="urn:schemas-microsoft-com:office:excel">
+          <RowBreaks>
+            <RowBreak>
+              <Row><xsl:value-of select="40+count(set[@name='RequestDetails']/row)"/></Row>
+              <ColEnd>37</ColEnd>
+            </RowBreak>
+          </RowBreaks>
+        </PageBreaks>
       </Worksheet>
     </Workbook>
   </xsl:template>
@@ -2016,27 +2018,39 @@
         <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:MergeAcross="1" ss:StyleID="s164">
-        <Data ss:Type="Number"><xsl:number/></Data>
+        <Data ss:Type="Number">
+          <xsl:number/>
+        </Data>
         <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:MergeAcross="14" ss:StyleID="s169">
-        <Data ss:Type="String"><xsl:value-of select="Detail/@Name"/></Data>
+        <Data ss:Type="String">
+          <xsl:value-of select="Detail/@Name"/>
+        </Data>
         <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:MergeAcross="3" ss:StyleID="s174">
-        <Data ss:Type="Number"><xsl:value-of select="@Count"/></Data>
+        <Data ss:Type="Number">
+          <xsl:value-of select="@Count"/>
+        </Data>
         <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:MergeAcross="2" ss:StyleID="s179">
-        <Data ss:Type="String"><xsl:value-of select="Drawing/MeasureUnit/@Name"/></Data>
+        <Data ss:Type="String">
+          <xsl:value-of select="Drawing/MeasureUnit/@Name"/>
+        </Data>
         <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:MergeAcross="5" ss:StyleID="s184">
-        <Data ss:Type="Number"><xsl:value-of select="@Price"/></Data>
+        <Data ss:Type="Number">
+          <xsl:value-of select="@Price"/>
+        </Data>
         <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:MergeAcross="5" ss:StyleID="m49217860">
-        <Data ss:Type="Number"><xsl:value-of select="@Sum"/></Data>
+        <Data ss:Type="Number">
+          <xsl:value-of select="@Sum"/>
+        </Data>
         <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s191">

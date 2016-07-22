@@ -9,12 +9,12 @@ namespace Rti.Model.Repository.Interfaces
 
 		IAdditionalInfoRepository GetAdditionalInfoRepository();
 		ICalculationRepository GetCalculationRepository();
-		ICalculationHistoryRepository GetCalculationHistoryRepository();
 		IConstantRepository GetConstantRepository();
 		IContractRepository GetContractRepository();
 		IContragentRepository GetContragentRepository();
 		IDetailRepository GetDetailRepository();
 		IDrawingRepository GetDrawingRepository();
+		IDrawingCalculationHistoryRepository GetDrawingCalculationHistoryRepository();
 		IDrawingFlowsheetMachineRepository GetDrawingFlowsheetMachineRepository();
 		IDrawingFlowsheetProcessRepository GetDrawingFlowsheetProcessRepository();
 		IDriverRepository GetDriverRepository();
@@ -52,12 +52,12 @@ namespace Rti.Model.Repository.Interfaces
 
 	public partial interface IAdditionalInfoRepository : IRepository<Rti.Model.Domain.AdditionalInfo> { }
 	public partial interface ICalculationRepository : IRepository<Rti.Model.Domain.Calculation> { }
-	public partial interface ICalculationHistoryRepository : IRepository<Rti.Model.Domain.CalculationHistory> { }
 	public partial interface IConstantRepository : IRepository<Rti.Model.Domain.Constant> { }
 	public partial interface IContractRepository : IRepository<Rti.Model.Domain.Contract> { }
 	public partial interface IContragentRepository : IRepository<Rti.Model.Domain.Contragent> { }
 	public partial interface IDetailRepository : IRepository<Rti.Model.Domain.Detail> { }
 	public partial interface IDrawingRepository : IRepository<Rti.Model.Domain.Drawing> { }
+	public partial interface IDrawingCalculationHistoryRepository : IRepository<Rti.Model.Domain.DrawingCalculationHistory> { }
 	public partial interface IDrawingFlowsheetMachineRepository : IRepository<Rti.Model.Domain.DrawingFlowsheetMachine> { }
 	public partial interface IDrawingFlowsheetProcessRepository : IRepository<Rti.Model.Domain.DrawingFlowsheetProcess> { }
 	public partial interface IDriverRepository : IRepository<Rti.Model.Domain.Driver> { }

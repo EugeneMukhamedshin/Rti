@@ -61,48 +61,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.Summary, "summary");
 			Map(o => o.Note, "note");
 			Map(o => o.IsCustomerOwned, "is_customer_owned");
-			OnInitialized();
-		}
-	}
-
-	// The classmap for calculation_history
-	public partial class CalculationHistoryMap : BaseMap<Rti.Model.Domain.CalculationHistory>
-	{
-		public CalculationHistoryMap()
-		{
-			Initialize();
-		}
-
-		private void Initialize()
-		{
-			Table("calculation_history");
-			Id(o => o.Id, "id");
-			Map(o => o.ChangeDate, "change_date");
-			Map(o => o.MainMaterial, "main_material");
-			Map(o => o.Rubber, "rubber");
-			Map(o => o.Clue, "clue");
-			Map(o => o.Armature, "armature");
-			Map(o => o.Sand, "sand");
-			Map(o => o.Textile, "textile");
-			Map(o => o.OtherMaterial, "other_material");
-			Map(o => o.Transport, "transport");
-			Map(o => o.MainSalary, "main_salary");
-			Map(o => o.AdditionalSalary, "additional_salary");
-			Map(o => o.FixedTax, "fixed_tax");
-			Map(o => o.TotalDivision, "total_division");
-			Map(o => o.TotalManufacture, "total_manufacture");
-			Map(o => o.MainSummary, "main_summary");
-			Map(o => o.PowerForFormed, "power_for_formed");
-			Map(o => o.OtherPower, "other_power");
-			Map(o => o.MainAndPowerSummary, "main_and_power_summary");
-			Map(o => o.Unforseen, "unforseen");
-			Map(o => o.NetCost, "net_cost");
-			Map(o => o.Profitability, "profitability");
-			Map(o => o.Price, "price");
-			Map(o => o.NdsTax, "nds_tax");
-			Map(o => o.Summary, "summary");
-			Map(o => o.Note, "note");
-			References(o => o.Calculation, "calculation_id").Fetch.Join().Not.LazyLoad();
+			Map(o => o.CreatedDate, "created_date");
 			OnInitialized();
 		}
 	}
@@ -256,6 +215,24 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			References(o => o.DrawingImage, "drawing_image_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Customer, "customer_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.SecondaryCustomer, "secondary_customer_id").Fetch.Join().Not.LazyLoad();
+			OnInitialized();
+		}
+	}
+
+	// The classmap for drawing_calculation_history
+	public partial class DrawingCalculationHistoryMap : BaseMap<Rti.Model.Domain.DrawingCalculationHistory>
+	{
+		public DrawingCalculationHistoryMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("drawing_calculation_history");
+			Id(o => o.Id, "id");
+			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
+			References(o => o.Calculation, "calculation_id").Fetch.Join().Not.LazyLoad();
 			OnInitialized();
 		}
 	}
@@ -456,6 +433,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.Login, "login");
 			Map(o => o.Password, "password");
 			Map(o => o.IsDeleted, "is_deleted");
+			Map(o => o.AccessTypeEnum, "access_type_enum").CustomType<AccessType>();
 			OnInitialized();
 		}
 	}

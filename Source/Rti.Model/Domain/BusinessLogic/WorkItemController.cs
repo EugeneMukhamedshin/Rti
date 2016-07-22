@@ -86,7 +86,6 @@ namespace Rti.Model.Domain.BusinessLogic
 
             // Получаем строки дневных нарядов для распределения отгруженных деталей
             var workItems = RepositoryFactory.GetWorkItemRepository().GetWorkItemsByIds(notShippedWorkItems.Select(o => o.Item1).ToArray());
-            var index = 0;
             var shippedCount = shipmentItem.Count;
             shipmentItem.BatchNumbers = string.Empty;
             foreach (var workItem in workItems.OrderBy(o => o.WorkDate).ThenBy(o => o.SortOrder))

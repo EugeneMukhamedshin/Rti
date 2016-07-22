@@ -84,7 +84,7 @@
       </Styles>
       <Worksheet ss:Name="Лист1">
         <Names>
-          <NamedRange ss:Name="Print_Area" ss:RefersTo="=Лист1!R1C1:R29C10"/>
+          <NamedRange ss:Name="Print_Area" ss:RefersTo="=Лист1!R1C1:R33C10"/>
         </Names>
         <Table ss:ExpandedColumnCount="10" x:FullColumns="1"
                x:FullRows="1" ss:DefaultRowHeight="15">
@@ -392,6 +392,15 @@
             <Footer x:Margin="0.3"/>
             <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
           </PageSetup>
+          <Unsynced/>
+          <Print>
+            <ValidPrinterInfo/>
+            <PaperSizeIndex>9</PaperSizeIndex>
+            <Scale>99</Scale>
+            <HorizontalResolution>600</HorizontalResolution>
+            <VerticalResolution>600</VerticalResolution>
+          </Print>
+          <ShowPageBreakZoom/>
           <Selected/>
           <Panes>
             <Pane>

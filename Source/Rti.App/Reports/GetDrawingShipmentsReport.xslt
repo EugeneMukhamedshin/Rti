@@ -80,6 +80,23 @@
           </Borders>
           <Interior ss:Color="#C6E0B4" ss:Pattern="Solid"/>
         </Style>
+        <Style ss:ID="s190">
+          <Borders>
+            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+            <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+            <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+            <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="3"/>
+          </Borders>
+          <Interior ss:Color="#FFC000" ss:Pattern="Solid"/>
+        </Style>
+        <Style ss:ID="s191">
+          <Borders>
+            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+            <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+            <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+            <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="3"/>
+          </Borders>
+        </Style>
         <Style ss:ID="s20">
           <Borders>
             <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
@@ -266,35 +283,87 @@
       </Cell>
     </Row>
 
-    <xsl:apply-templates select="row" />
+    <xsl:apply-templates select="RequestDetails/RequestDetail" />
 
   </xsl:template>
 
-  <xsl:template match="row">
+  <xsl:template match="RequestDetails/RequestDetail">
+
+    <xsl:apply-templates select="Shipments/Shipment" />
+
+  </xsl:template>
+
+  <xsl:template match="Shipments/Shipment">
     <Row ss:Height="16.5">
-      <Cell ss:StyleID="s19">
-        <Data ss:Type="String"></Data>
-      </Cell>
-      <Cell ss:StyleID="s20">
-        <Data ss:Type="String">
-          <xsl:value-of select="@CustomerName"/>
-        </Data>
-      </Cell>
-      <Cell ss:StyleID="s20">
-        <Data ss:Type="Number">
-          <xsl:value-of select="@RequestNumber"/>
-        </Data>
-      </Cell>
-      <Cell ss:StyleID="s21">
-        <Data ss:Type="String">
-          <xsl:value-of select="rti:FormatDateTime(@RequestRegDate, 'dd.MM.yyyy')"/>
-        </Data>
-      </Cell>
-      <Cell ss:StyleID="s20">
-        <Data ss:Type="Number">
-          <xsl:value-of select="@RequestCount"/>
-        </Data>
-      </Cell>
+      <xsl:choose>
+        <xsl:when test="@Status != ''">
+          <xsl:choose>
+            <xsl:when test="@Status = 'выполнено'">
+              <Cell ss:StyleID="s19">
+                <Data ss:Type="String">
+                  <xsl:value-of select="@Status"/>
+                </Data>
+              </Cell>
+            </xsl:when>
+            <xsl:when test="@Status = 'не выполнено'">
+              <Cell ss:StyleID="s190">
+                <Data ss:Type="String">
+                  <xsl:value-of select="@Status"/>
+                </Data>
+              </Cell>
+            </xsl:when>
+            <xsl:otherwise>
+              <Cell ss:StyleID="s191">
+                <Data ss:Type="String">
+                  <xsl:value-of select="@Status"/>
+                </Data>
+              </Cell>
+            </xsl:otherwise>
+          </xsl:choose>
+          <Cell ss:StyleID="s20">
+            <Data ss:Type="String">
+              <xsl:value-of select="../../@CustomerName"/>
+            </Data>
+          </Cell>
+          <Cell ss:StyleID="s20">
+            <Data ss:Type="Number">
+              <xsl:value-of select="../../@RequestNumber"/>
+            </Data>
+          </Cell>
+          <Cell ss:StyleID="s21">
+            <Data ss:Type="String">
+              <xsl:value-of select="rti:FormatDateTime(../../@RequestRegDate, 'dd.MM.yyyy')"/>
+            </Data>
+          </Cell>
+          <Cell ss:StyleID="s20">
+            <Data ss:Type="Number">
+              <xsl:value-of select="../../@RequestCount"/>
+            </Data>
+          </Cell>
+        </xsl:when>
+        <xsl:otherwise>
+          <Cell ss:StyleID="s191">
+            <Data ss:Type="String">
+            </Data>
+          </Cell>
+          <Cell ss:StyleID="s20">
+            <Data ss:Type="String">
+            </Data>
+          </Cell>
+          <Cell ss:StyleID="s20">
+            <Data ss:Type="String">
+            </Data>
+          </Cell>
+          <Cell ss:StyleID="s21">
+            <Data ss:Type="String">
+            </Data>
+          </Cell>
+          <Cell ss:StyleID="s20">
+            <Data ss:Type="String">
+            </Data>
+          </Cell>
+        </xsl:otherwise>
+      </xsl:choose>
       <Cell ss:StyleID="s20">
         <Data ss:Type="Number">
           <xsl:value-of select="@ShipmentNumber"/>
@@ -311,7 +380,9 @@
         </Data>
       </Cell>
       <Cell ss:StyleID="s20">
-        <Data ss:Type="Number">0</Data>
+        <Data ss:Type="Number">
+          <xsl:value-of select="@RemainedCount"/>
+        </Data>
       </Cell>
     </Row>
   </xsl:template>

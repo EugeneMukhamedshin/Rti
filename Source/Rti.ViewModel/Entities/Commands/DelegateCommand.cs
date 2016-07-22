@@ -14,6 +14,12 @@ namespace Rti.ViewModel.Entities.Commands
             _execute = execute;
         }
 
+        public DelegateCommand(Func<Object, Boolean> canExecute, Action<Object> execute)
+        {
+            _canExecute = canExecute;
+            _execute = execute;
+        }
+
         public DelegateCommand(Action<Object> execute)
         {
             _execute = execute;

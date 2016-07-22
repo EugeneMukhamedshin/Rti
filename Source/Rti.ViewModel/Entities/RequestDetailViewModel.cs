@@ -20,7 +20,7 @@ namespace Rti.ViewModel.Entities
 
         public string FullDetailName
         {
-            get { return string.Format("{0} {1}.{2}", Detail.Name, Drawing.Group.Name, Drawing.Name); }
+            get { return string.Format("{0} {1}.{2}", Detail == null ? null : Detail.Name, Drawing.Group == null ? null : Drawing.Group.Name, Drawing.Name); }
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)

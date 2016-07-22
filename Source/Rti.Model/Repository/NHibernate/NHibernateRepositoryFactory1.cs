@@ -13,8 +13,6 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new AdditionalInfoRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Calculation))
                 return (IRepository<TEntity>)new CalculationRepository();
-            if (typeof(TEntity) == typeof(Rti.Model.Domain.CalculationHistory))
-                return (IRepository<TEntity>)new CalculationHistoryRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Constant))
                 return (IRepository<TEntity>)new ConstantRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Contract))
@@ -25,6 +23,8 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new DetailRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Drawing))
                 return (IRepository<TEntity>)new DrawingRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.DrawingCalculationHistory))
+                return (IRepository<TEntity>)new DrawingCalculationHistoryRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.DrawingFlowsheetMachine))
                 return (IRepository<TEntity>)new DrawingFlowsheetMachineRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.DrawingFlowsheetProcess))
@@ -96,8 +96,6 @@ namespace Rti.Model.Repository.NHibernate
 
 		public ICalculationRepository GetCalculationRepository() { return (ICalculationRepository) GetRepository<Rti.Model.Domain.Calculation>(); }
 
-		public ICalculationHistoryRepository GetCalculationHistoryRepository() { return (ICalculationHistoryRepository) GetRepository<Rti.Model.Domain.CalculationHistory>(); }
-
 		public IConstantRepository GetConstantRepository() { return (IConstantRepository) GetRepository<Rti.Model.Domain.Constant>(); }
 
 		public IContractRepository GetContractRepository() { return (IContractRepository) GetRepository<Rti.Model.Domain.Contract>(); }
@@ -107,6 +105,8 @@ namespace Rti.Model.Repository.NHibernate
 		public IDetailRepository GetDetailRepository() { return (IDetailRepository) GetRepository<Rti.Model.Domain.Detail>(); }
 
 		public IDrawingRepository GetDrawingRepository() { return (IDrawingRepository) GetRepository<Rti.Model.Domain.Drawing>(); }
+
+		public IDrawingCalculationHistoryRepository GetDrawingCalculationHistoryRepository() { return (IDrawingCalculationHistoryRepository) GetRepository<Rti.Model.Domain.DrawingCalculationHistory>(); }
 
 		public IDrawingFlowsheetMachineRepository GetDrawingFlowsheetMachineRepository() { return (IDrawingFlowsheetMachineRepository) GetRepository<Rti.Model.Domain.DrawingFlowsheetMachine>(); }
 
@@ -194,17 +194,6 @@ namespace Rti.Model.Repository.NHibernate
         }
     }
 
-	public partial class CalculationHistoryRepository : NHibernateRepository<Rti.Model.Domain.CalculationHistory>, ICalculationHistoryRepository
-    {
-
-        protected override IQueryOver<Rti.Model.Domain.CalculationHistory, Rti.Model.Domain.CalculationHistory> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.CalculationHistory, Rti.Model.Domain.CalculationHistory> queryOver)
-        {
-			var result = queryOver;
-			result = result.Fetch(o => o.Calculation).Default;
-            return result;
-        }
-    }
-
 	public partial class ConstantRepository : NHibernateRepository<Rti.Model.Domain.Constant>, IConstantRepository
     {
 
@@ -264,6 +253,18 @@ namespace Rti.Model.Repository.NHibernate
 			result = result.Fetch(o => o.DrawingImage).Default;
 			result = result.Fetch(o => o.Customer).Default;
 			result = result.Fetch(o => o.SecondaryCustomer).Default;
+            return result;
+        }
+    }
+
+	public partial class DrawingCalculationHistoryRepository : NHibernateRepository<Rti.Model.Domain.DrawingCalculationHistory>, IDrawingCalculationHistoryRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.DrawingCalculationHistory, Rti.Model.Domain.DrawingCalculationHistory> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.DrawingCalculationHistory, Rti.Model.Domain.DrawingCalculationHistory> queryOver)
+        {
+			var result = queryOver;
+			result = result.Fetch(o => o.Drawing).Default;
+			result = result.Fetch(o => o.Calculation).Default;
             return result;
         }
     }

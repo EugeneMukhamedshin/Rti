@@ -76,66 +76,8 @@ namespace Rti.Model.Domain
 		public virtual String Note { get; set; }
 		[Field("is_customer_owned")]
 		public virtual Boolean IsCustomerOwned { get; set; }
-	}
-
-	// The class for calculation_history
-	[Table("calculation_history")]
-	public partial class CalculationHistory: IIdentifiedEntity
-	{
-		[Field("id")]
-		public virtual Int32 Id { get; protected set; }
-		[Field("change_date")]
-		public virtual DateTime ChangeDate { get; set; }
-		[Field("main_material")]
-		public virtual decimal? MainMaterial { get; set; }
-		[Field("rubber")]
-		public virtual decimal? Rubber { get; set; }
-		[Field("clue")]
-		public virtual decimal? Clue { get; set; }
-		[Field("armature")]
-		public virtual decimal? Armature { get; set; }
-		[Field("sand")]
-		public virtual decimal? Sand { get; set; }
-		[Field("textile")]
-		public virtual decimal? Textile { get; set; }
-		[Field("other_material")]
-		public virtual decimal? OtherMaterial { get; set; }
-		[Field("transport")]
-		public virtual decimal? Transport { get; set; }
-		[Field("main_salary")]
-		public virtual decimal? MainSalary { get; set; }
-		[Field("additional_salary")]
-		public virtual decimal? AdditionalSalary { get; set; }
-		[Field("fixed_tax")]
-		public virtual decimal? FixedTax { get; set; }
-		[Field("total_division")]
-		public virtual decimal? TotalDivision { get; set; }
-		[Field("total_manufacture")]
-		public virtual decimal? TotalManufacture { get; set; }
-		[Field("main_summary")]
-		public virtual decimal? MainSummary { get; set; }
-		[Field("power_for_formed")]
-		public virtual decimal? PowerForFormed { get; set; }
-		[Field("other_power")]
-		public virtual decimal? OtherPower { get; set; }
-		[Field("main_and_power_summary")]
-		public virtual decimal? MainAndPowerSummary { get; set; }
-		[Field("unforseen")]
-		public virtual decimal? Unforseen { get; set; }
-		[Field("net_cost")]
-		public virtual decimal? NetCost { get; set; }
-		[Field("profitability")]
-		public virtual decimal? Profitability { get; set; }
-		[Field("price")]
-		public virtual decimal? Price { get; set; }
-		[Field("nds_tax")]
-		public virtual decimal? NdsTax { get; set; }
-		[Field("summary")]
-		public virtual decimal? Summary { get; set; }
-		[Field("note")]
-		public virtual String Note { get; set; }
-		[Reference("calculation_id", false)]
-		public virtual Calculation Calculation { get; set; }
+		[Field("created_date")]
+		public virtual DateTime? CreatedDate { get; set; }
 	}
 
 	// The class for constants
@@ -324,6 +266,18 @@ namespace Rti.Model.Domain
 		public virtual Contragent SecondaryCustomer { get; set; }
 	}
 
+	// The class for drawing_calculation_history
+	[Table("drawing_calculation_history")]
+	public partial class DrawingCalculationHistory: IIdentifiedEntity
+	{
+		[Field("id")]
+		public virtual Int32 Id { get; protected set; }
+		[Reference("drawing_id", false)]
+		public virtual Drawing Drawing { get; set; }
+		[Reference("calculation_id", false)]
+		public virtual Calculation Calculation { get; set; }
+	}
+
 	// The class for drawing_flowsheet_machines
 	[Table("drawing_flowsheet_machines")]
 	public partial class DrawingFlowsheetMachine: IIdentifiedEntity
@@ -508,6 +462,8 @@ namespace Rti.Model.Domain
 		public virtual String Password { get; set; }
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+		[Field("access_type_enum")]
+		public virtual AccessType AccessTypeEnum { get; set; }
 	}
 
 	// The class for machines

@@ -1,7 +1,7 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.1.13.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 18.07.2016 22:41:16
+-- Дата скрипта: 22.07.2016 8:07:53
 -- Версия сервера: 5.7.13-log
 -- Версия клиента: 4.1
 --
@@ -77,6 +77,7 @@ CREATE TABLE calculations (
   Summary DECIMAL(20, 2) DEFAULT 0.00,
   Note VARCHAR(500) DEFAULT NULL,
   is_customer_owned INT(11) NOT NULL DEFAULT 0,
+  created_date DATETIME DEFAULT NULL,
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
@@ -287,11 +288,12 @@ CREATE TABLE jobs (
   login VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   is_deleted INT(11) NOT NULL DEFAULT 0,
+  access_type_enum INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (id),
   UNIQUE INDEX UK_jobs_login (login)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 4
+AUTO_INCREMENT = 8
 AVG_ROW_LENGTH = 8192
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -467,50 +469,6 @@ COMMENT = 'дневной наряд'
 ROW_FORMAT = DYNAMIC;
 
 --
--- Описание для таблицы calculation_history
---
-DROP TABLE IF EXISTS calculation_history;
-CREATE TABLE calculation_history (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  calculation_id INT(11) NOT NULL,
-  change_date DATETIME NOT NULL,
-  Main_Material DECIMAL(20, 2) DEFAULT 0.00,
-  Rubber DECIMAL(20, 2) DEFAULT 0.00,
-  Clue DECIMAL(20, 2) DEFAULT 0.00,
-  Armature DECIMAL(20, 2) DEFAULT 0.00,
-  Sand DECIMAL(20, 2) DEFAULT 0.00,
-  Textile DECIMAL(20, 2) DEFAULT 0.00,
-  Other_Material DECIMAL(20, 2) DEFAULT 0.00,
-  Transport DECIMAL(20, 2) DEFAULT 0.00,
-  Main_Salary DECIMAL(20, 2) DEFAULT 0.00,
-  Additional_Salary DECIMAL(20, 2) DEFAULT 0.00,
-  Fixed_Tax DECIMAL(20, 2) DEFAULT 0.00,
-  Total_Division DECIMAL(20, 2) DEFAULT 0.00,
-  Total_Manufacture DECIMAL(20, 2) DEFAULT 0.00,
-  Main_Summary DECIMAL(20, 2) DEFAULT 0.00,
-  Power_For_Formed DECIMAL(20, 2) DEFAULT 0.00,
-  Other_Power DECIMAL(20, 2) DEFAULT 0.00,
-  Main_And_Power_Summary DECIMAL(20, 2) DEFAULT 0.00,
-  Unforseen DECIMAL(20, 2) DEFAULT 0.00,
-  Net_Cost DECIMAL(20, 2) DEFAULT 0.00,
-  Profitability DECIMAL(20, 2) DEFAULT 0.00,
-  Price DECIMAL(20, 2) DEFAULT 0.00,
-  Nds_Tax DECIMAL(20, 2) DEFAULT 0.00,
-  Summary DECIMAL(20, 2) DEFAULT 0.00,
-  Note VARCHAR(500) DEFAULT NULL,
-  PRIMARY KEY (id),
-  UNIQUE INDEX UK_calculation_history (calculation_id, change_date),
-  CONSTRAINT FK_calculation_history_calculations_id FOREIGN KEY (calculation_id)
-    REFERENCES calculations(id) ON DELETE RESTRICT ON UPDATE RESTRICT
-)
-ENGINE = INNODB
-AUTO_INCREMENT = 43
-AVG_ROW_LENGTH = 1365
-CHARACTER SET utf8
-COLLATE utf8_general_ci
-ROW_FORMAT = DYNAMIC;
-
---
 -- Описание для таблицы drawings
 --
 DROP TABLE IF EXISTS drawings;
@@ -673,6 +631,27 @@ CREATE TABLE requests (
 ENGINE = INNODB
 AUTO_INCREMENT = 75
 AVG_ROW_LENGTH = 3276
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы drawing_calculation_history
+--
+DROP TABLE IF EXISTS drawing_calculation_history;
+CREATE TABLE drawing_calculation_history (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  drawing_id INT(11) NOT NULL,
+  calculation_id INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_drawing_calculation_history_calculations_id FOREIGN KEY (calculation_id)
+    REFERENCES calculations(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_drawing_calculation_history_drawings_id FOREIGN KEY (drawing_id)
+    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 47
+AVG_ROW_LENGTH = 1820
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
@@ -1200,22 +1179,6 @@ VIEW material_movings
 AS
 	select 1 AS `rec_type`,`mar`.`waybill_date` AS `date`,`mar`.`material_id` AS `material_Id`,`mar`.`count` AS `COUNT` from `material_arrival_records` `mar` where (`mar`.`is_deleted` = 0) union all select 2 AS `rec_type`,`r`.`reg_date` AS `reg_date`,`d`.`material_id` AS `material_id`,(`rd`.`count` * `d`.`mass_with_shruff`) AS `rd.count * d.mass_with_shruff` from ((`request_details` `rd` join `requests` `r` on((`rd`.`request_id` = `r`.`id`))) join `drawings` `d` on((`rd`.`drawing_id` = `d`.`id`))) where ((`d`.`material_id` is not null) and (`r`.`is_deleted` = 0)) union all select 3 AS `rec_type`,`wi`.`work_date` AS `work_date`,`d`.`material_id` AS `material_id`,(`wi`.`task_count` * `d`.`mass_with_shruff`) AS `wi.task_count * d.mass_with_shruff` from (`work_items` `wi` join `drawings` `d` on((`wi`.`drawing_id` = `d`.`id`))) where (`d`.`material_id` is not null) union all select 4 AS `rec_type`,`s`.`date` AS `date`,`d`.`material_id` AS `material_id`,(`si`.`count` * `d`.`mass_with_shruff`) AS `si.count * d.mass_with_shruff` from (((`shipment_items` `si` join `request_details` `rd` on((`si`.`request_detail_id` = `rd`.`id`))) join `drawings` `d` on((`rd`.`drawing_id` = `d`.`id`))) join `shipments` `s` on((`si`.`shipment_id` = `s`.`id`))) where (`s`.`is_deleted` = 0);
 
---
--- Описание для пользователя `mysql.sys`
---
-DROP USER IF EXISTS 'mysql.sys'@'localhost';
-CREATE USER 'mysql.sys'@'localhost' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE DEFAULT ACCOUNT LOCK;
-GRANT ALL PRIVILEGES ON *.* TO 'mysql.sys'@'localhost' 
-WITH GRANT OPTION;
-
---
--- Описание для пользователя root
---
-DROP USER IF EXISTS 'root'@'localhost';
-CREATE USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password AS '*81F5E21E35407D884A6CD4A731AEBFB6AF209E1B' PASSWORD EXPIRE DEFAULT;
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' 
-WITH GRANT OPTION;
-
 -- 
 -- Вывод данных для таблицы additional_infos
 --
@@ -1226,20 +1189,20 @@ WITH GRANT OPTION;
 -- Вывод данных для таблицы calculations
 --
 INSERT INTO calculations VALUES
-(1, 2037.62, 123.00, 234.00, 345.00, 456.00, 567.00, NULL, 50.80, 636.94, 57.90, 14.73, 27.10, 27.79, 4577.88, 33.33, 1.67, 4612.88, 276.77, 4889.66, 342.28, 5231.93, 418.55, 5650.49, NULL, 0),
-(2, 11.48, NULL, NULL, NULL, NULL, NULL, NULL, 0.15, 33.33, 3.03, 0.77, 1.42, 1.45, 51.64, 33.33, 1.67, 86.64, 5.20, 91.84, 6.43, 98.27, 7.86, 106.13, NULL, 0),
-(3, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL, 0),
-(4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(5, 50.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.76, 120.00, 10.91, 2.78, 5.11, 5.24, 200.78, 0.90, 10.04, 211.72, 12.70, 224.42, 15.71, 240.13, 43.22, 283.36, 'sd gfds hgfdgh ', 0),
-(6, 19.32, 100.00, NULL, NULL, NULL, NULL, NULL, 1.61, 2.40, 0.22, 0.06, 0.10, 0.10, 123.81, 0.90, 6.19, 130.90, 7.85, 138.76, 9.71, 148.47, 26.72, 175.19, NULL, 0),
-(7, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL, 0),
-(8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(13, 29.04, 0.00, 0.00, 100.00, NULL, NULL, NULL, 0.00, 35.00, 3.18, 0.81, 1.49, 1.53, 42.01, 25.00, 2.10, 69.11, 4.15, 73.25, 5.13, 78.38, 14.11, 92.49, NULL, 1),
-(14, 29.04, 100.00, 100.00, 100.00, NULL, NULL, NULL, 0.00, 35.00, 3.18, 0.81, 1.49, 1.53, 42.01, 25.00, 2.10, 69.11, 4.15, 73.25, 5.13, 78.38, 14.11, 92.49, NULL, 1);
+(1, 2037.62, 123.00, 234.00, 345.00, 456.00, 567.00, NULL, 50.80, 636.94, 57.90, 14.73, 27.10, 27.79, 4577.88, 33.33, 1.67, 4612.88, 276.77, 4889.66, 342.28, 5231.93, 418.55, 5650.49, NULL, 0, '2016-07-21 20:44:24'),
+(2, 11.48, NULL, NULL, NULL, NULL, NULL, NULL, 0.15, 33.33, 3.03, 0.77, 1.42, 1.45, 51.64, 33.33, 1.67, 86.64, 5.20, 91.84, 6.43, 98.27, 7.86, 106.13, NULL, 0, '2016-07-21 20:44:24'),
+(3, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL, 0, '2016-07-21 20:44:24'),
+(4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2016-07-21 20:44:24'),
+(5, 50.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.76, 120.00, 10.91, 2.78, 5.11, 5.24, 200.78, 0.90, 10.04, 211.72, 12.70, 224.42, 15.71, 240.13, 43.22, 283.36, 'sd gfds hgfdgh ', 0, '2016-07-21 20:44:24'),
+(6, 19.32, 100.00, NULL, NULL, NULL, NULL, NULL, 1.61, 2.40, 0.22, 0.06, 0.10, 0.10, 123.81, 0.90, 6.19, 130.90, 7.85, 138.76, 9.71, 148.47, 26.72, 175.19, NULL, 0, '2016-07-21 20:44:24'),
+(7, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL, 0, '2016-07-21 20:44:24'),
+(8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2016-07-21 20:44:24'),
+(9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2016-07-21 20:44:24'),
+(10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2016-07-21 20:44:24'),
+(11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2016-07-21 20:44:24'),
+(12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2016-07-21 20:44:24'),
+(13, 29.04, 0.00, 0.00, 100.00, NULL, NULL, NULL, 0.00, 35.00, 3.18, 0.81, 1.49, 1.53, 42.01, 25.00, 2.10, 69.11, 4.15, 73.25, 5.13, 78.38, 14.11, 92.49, NULL, 1, '2016-07-21 20:44:24'),
+(14, 29.04, 100.00, 100.00, 100.00, NULL, NULL, NULL, 0.00, 35.00, 3.18, 0.81, 1.49, 1.53, 42.01, 25.00, 2.10, 69.11, 4.15, 73.25, 5.13, 78.38, 14.11, 92.49, NULL, 1, '2016-07-21 20:44:24');
 
 -- 
 -- Вывод данных для таблицы constants
@@ -1319,9 +1282,13 @@ INSERT INTO groups VALUES
 -- Вывод данных для таблицы jobs
 --
 INSERT INTO jobs VALUES
-(1, 1, 'Секретарь', 'secretary', 'secret', 0),
-(2, 2, 'Технолог', 'tehnolog', 'tehnolog', 0),
-(3, 3, 'Демо', 'demo', 'demo', 0);
+(1, 1, 'Секретарь', 'secretary', 'secret', 0, 0),
+(2, 2, 'Технолог', 'tehnolog', 'tehnolog', 0, 0),
+(3, 3, 'Демо', 'demo', 'demo', 0, 0),
+(4, 4, 'admin', 'admin', 'admin', 0, 3),
+(5, 5, 'full', 'full', 'full', 0, 2),
+(6, 6, 'fwr', 'fwr', 'fwr', 0, 1),
+(7, 7, 'journ', 'journ', 'journ', 0, 0);
 
 -- 
 -- Вывод данных для таблицы machines
@@ -1400,23 +1367,6 @@ INSERT INTO work_item_package VALUES
 (8, '2016-06-17');
 
 -- 
--- Вывод данных для таблицы calculation_history
---
-INSERT INTO calculation_history VALUES
-(31, 1, '2016-05-01 00:00:00', 2037.62, 123.00, 234.00, 345.00, 456.00, 567.00, NULL, 50.80, 636.94, 57.90, 14.73, 27.10, 27.79, 4577.88, 33.33, 1.67, 4612.88, 276.77, 4889.66, 342.28, 5231.93, 418.55, 5650.49, NULL),
-(32, 2, '2016-05-01 00:00:00', 11.48, NULL, NULL, NULL, NULL, NULL, NULL, 0.15, 33.33, 3.03, 0.77, 1.42, 1.45, 51.64, 33.33, 1.67, 86.64, 5.20, 91.84, 6.43, 98.27, 7.86, 106.13, NULL),
-(33, 3, '2016-05-01 00:00:00', 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL),
-(34, 4, '2016-05-01 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(35, 5, '2016-05-01 00:00:00', 50.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.76, 120.00, 10.91, 2.78, 5.11, 5.24, 200.78, 16.67, 0.83, 218.28, 13.10, 231.38, 16.20, 247.58, 19.81, 267.38, 'sd gfds hgfdgh '),
-(36, 6, '2016-05-01 00:00:00', 19.32, 100.00, NULL, NULL, NULL, NULL, NULL, 1.61, 0.00, 0.00, 0.00, 0.00, 0.00, 120.93, 0.00, 0.00, 120.93, 7.26, 128.19, 8.97, 137.16, 24.69, 161.85, NULL),
-(37, 7, '2016-05-01 00:00:00', 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL),
-(38, 8, '2016-05-01 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(39, 9, '2016-05-01 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(40, 10, '2016-05-01 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(41, 11, '2016-05-01 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(42, 12, '2016-05-01 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-
--- 
 -- Вывод данных для таблицы drawings
 --
 INSERT INTO drawings VALUES
@@ -1470,7 +1420,7 @@ INSERT INTO requests VALUES
 (28, 5, '2016-03-30 00:00:00', NULL, '2016-03-31 00:00:00', NULL, NULL, 1, 2, NULL, NULL, 0, NULL, 0),
 (31, 6, '2016-03-30 00:00:00', NULL, '2016-05-02 00:00:00', NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, 0),
 (40, 7, '2016-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, 0, NULL, 0),
-(41, 8, '2016-03-30 00:00:00', NULL, '2016-04-21 00:00:00', '2016-06-08 00:00:00', 1, 20, 1, 5, NULL, 0, 1200.00, 0),
+(41, 8, '2016-03-30 00:00:00', NULL, '2016-04-21 00:00:00', '2016-06-08 00:00:00', 1, 20, 1, 5, 12133.74, 0, 1200.00, 0),
 (47, 9, '2016-05-05 00:00:00', NULL, '2016-05-31 00:00:00', NULL, NULL, 160, 2, NULL, NULL, 0, NULL, 0),
 (48, 10, '2016-05-05 00:00:00', NULL, '2016-06-05 00:00:00', NULL, NULL, 500, 2, NULL, NULL, 0, NULL, 0),
 (51, 11, '2016-05-15 00:00:00', NULL, NULL, NULL, NULL, NULL, 2, 5, NULL, 0, NULL, 0),
@@ -1485,6 +1435,20 @@ INSERT INTO requests VALUES
 (62, 20, '2016-06-14 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (72, 21, '2016-06-14 00:00:00', '2016-06-14 00:00:00', '2016-06-20 00:00:00', '2016-06-22 00:00:00', NULL, 3, 1, 5, 7600.00, 0, 15000.00, 0),
 (73, 22, '2016-06-16 00:00:00', NULL, NULL, '2016-06-16 00:00:00', NULL, NULL, NULL, NULL, NULL, 0, NULL, 0);
+
+-- 
+-- Вывод данных для таблицы drawing_calculation_history
+--
+INSERT INTO drawing_calculation_history VALUES
+(32, 7, 1),
+(33, 14, 1),
+(34, 11, 3),
+(35, 8, 5),
+(36, 13, 7),
+(37, 15, 9),
+(38, 23, 9),
+(39, 24, 11),
+(40, 28, 13);
 
 -- 
 -- Вывод данных для таблицы drawing_flowsheet_machines
@@ -1728,6 +1692,25 @@ INSERT INTO shipment_item_work_items VALUES
 (15, 2, 17, 10),
 (21, 1, 21, 23),
 (29, 3, 21, 2);
+
+DELIMITER $$
+
+--
+-- Описание для триггера calculations_trg_bi
+--
+DROP TRIGGER IF EXISTS calculations_trg_bi$$
+CREATE 
+	DEFINER = 'root'@'localhost'
+TRIGGER calculations_trg_bi
+	BEFORE INSERT
+	ON calculations
+	FOR EACH ROW
+BEGIN
+  SET NEW.created_date = CURRENT_TIME();
+END
+$$
+
+DELIMITER ;
 
 -- 
 -- Восстановить предыдущий режим SQL (SQL mode)

@@ -4,6 +4,9 @@
         xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:lists="clr-namespace:Rti.App.View.Lists"
+        xmlns:domain="clr-namespace:Rti.Model.Domain;assembly=Rti.Model"
         Title="Должности" Height="400" Width="672">
     <Grid>
         <Grid.RowDefinitions>
@@ -36,6 +39,15 @@
             <dxg:GridControl.Columns>
                 <dxg:GridColumn FieldName="SortOrder" Header="№" ReadOnly="True" Width="50"/>
                 <dxg:GridColumn FieldName="Name" Header="Наименование" Width="200"/>
+                <dxg:GridColumn FieldName="AccessTypeEnum" Header="Тип доступа" Width="150" ReadOnly="True">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:ComboBoxEditSettings DisplayMember="DisplayName" ValueMember="Value">
+                            <dxe:ComboBoxEditSettings.ItemsSource>
+                                <lists:EnumToItemsSource EnumType="domain:AccessType"/>
+                            </dxe:ComboBoxEditSettings.ItemsSource>
+                        </dxe:ComboBoxEditSettings>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
                 <dxg:GridColumn FieldName="Login" Header="Логин" Width="200"/>
             </dxg:GridControl.Columns>
             <dxg:GridControl.View>

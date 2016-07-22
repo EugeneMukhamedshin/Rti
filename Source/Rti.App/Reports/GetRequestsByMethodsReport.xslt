@@ -77,6 +77,7 @@
           <Column ss:Index="4" ss:AutoFitWidth="0" ss:Width="76.5"/>
           <Column ss:AutoFitWidth="0" ss:Width="63"/>
           <Column ss:AutoFitWidth="0" ss:Width="83.25"/>
+          <Column ss:AutoFitWidth="0" ss:Width="83.25"/>
           <Row>
             <Cell ss:MergeAcross="5" ss:StyleID="s25">
               <Data ss:Type="String">Отчет (по способу изготовления)</Data>
@@ -107,6 +108,9 @@
             </Cell>
             <Cell ss:StyleID="s16">
               <Data ss:Type="String">Время изготовления, мин.</Data>
+            </Cell>
+            <Cell ss:StyleID="s16">
+              <Data ss:Type="String">Чистое время варки/вырубки мин.</Data>
             </Cell>
           </Row>
 
@@ -156,30 +160,57 @@
         </Data>
       </Cell>
     </Row>
-    
+
     <xsl:apply-templates select="row" />
-  
+
   </xsl:template>
 
   <xsl:template match="row">
     <Row>
       <Cell ss:StyleID="s17">
-        <Data ss:Type="Number"><xsl:value-of select="@RequestNumber"/></Data>
+        <Data ss:Type="Number">
+          <xsl:value-of select="@RequestNumber"/>
+        </Data>
       </Cell>
       <Cell ss:StyleID="s17">
-        <Data ss:Type="String"><xsl:value-of select="@DrawingName"/></Data>
+        <Data ss:Type="String">
+          <xsl:value-of select="@DrawingName"/>
+        </Data>
       </Cell>
       <Cell ss:StyleID="s17">
-        <Data ss:Type="String"><xsl:value-of select="@GroupName"/></Data>
+        <Data ss:Type="String">
+          <xsl:value-of select="@GroupName"/>
+        </Data>
       </Cell>
       <Cell ss:StyleID="s17">
-        <Data ss:Type="String"><xsl:value-of select="@DetailName"/></Data>
+        <Data ss:Type="String">
+          <xsl:value-of select="@DetailName"/>
+        </Data>
       </Cell>
       <Cell ss:StyleID="s17">
-        <Data ss:Type="Number"><xsl:value-of select="@Count"/></Data>
+        <Data ss:Type="Number">
+          <xsl:value-of select="@Count"/>
+        </Data>
       </Cell>
       <Cell ss:StyleID="s17">
-        <Data ss:Type="Number"><xsl:value-of select="@WorkTime"/></Data>
+        <xsl:choose>
+          <xsl:when test="@CuttingTime=''"><Data ss:Type="String">ОШИБКА</Data></xsl:when>
+          <xsl:otherwise>
+            <Data ss:Type="Number">
+              <xsl:value-of select="@WorkTime"/>
+            </Data>
+          </xsl:otherwise>
+        </xsl:choose>
+      </Cell>
+      <Cell ss:StyleID="s17">
+        <xsl:choose>
+          <xsl:when test="@CuttingTime=''"><Data ss:Type="String">ОШИБКА</Data></xsl:when>
+          <xsl:otherwise>
+            <Data ss:Type="Number">
+              <xsl:value-of select="@CuttingTime"/>
+            </Data>
+          </xsl:otherwise>
+        </xsl:choose>
       </Cell>
     </Row>
   </xsl:template>

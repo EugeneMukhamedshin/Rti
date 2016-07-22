@@ -4,7 +4,9 @@
         xmlns:components="clr-namespace:Rti.App.View.Components"
         xmlns:dxprg="http://schemas.devexpress.com/winfx/2008/xaml/propertygrid"
         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
-        Width="470" Height="165" MinWidth="470" MinHeight="165" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
+        xmlns:lists="clr-namespace:Rti.App.View.Lists"
+        xmlns:domain="clr-namespace:Rti.Model.Domain;assembly=Rti.Model"
+        Width="470" Height="250" MinWidth="470" MinHeight="250" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -14,6 +16,15 @@
             <components:PropertyGridResponsible.PropertyDefinitions>
                 <dxprg:PropertyDefinition Header="№"                      Path="SortOrder"      IsReadOnly="true"/>
                 <dxprg:PropertyDefinition Header="Наименование"           Path="Name"           IsReadOnly="{Binding ReadOnly}"/>
+                <dxprg:PropertyDefinition Header="Тип доступа"            Path="AccessTypeEnum">
+                    <dxprg:PropertyDefinition.EditSettings>
+                        <dxe:ComboBoxEditSettings DisplayMember="DisplayName" ValueMember="Value">
+                            <dxe:ComboBoxEditSettings.ItemsSource>
+                                <lists:EnumToItemsSource EnumType="domain:AccessType"/>
+                            </dxe:ComboBoxEditSettings.ItemsSource>
+                        </dxe:ComboBoxEditSettings>
+                    </dxprg:PropertyDefinition.EditSettings>
+                </dxprg:PropertyDefinition>
                 <dxprg:PropertyDefinition Header="Логин"                  Path="Login"          IsReadOnly="{Binding ReadOnly}"/>
                 <dxprg:PropertyDefinition Header="Пароль"                 Path="Password"       IsReadOnly="{Binding ReadOnly}">
                     <dxprg:PropertyDefinition.EditSettings>

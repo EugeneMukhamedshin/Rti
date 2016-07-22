@@ -50,20 +50,23 @@ SELECT
   d.name DrawingName,
   g.name GroupName,
   d1.name DetailName,
-  rd.Count Count,
-  rd.Count * t.work_time WorkTime
+  SUM(rd.Count) Count,
+  CASE WHEN e.output = 0 THEN NULL ELSE (SUM(rd.Count) * t.work_time) / e.output END WorkTime,
+  CASE WHEN e.output = 0 THEN NULL ELSE (SUM(rd.Count) * dfp.norm_time) / e.output END CuttingTime
 FROM request_details rd
   INNER JOIN requests r
     ON rd.request_id = r.id
   INNER JOIN drawings d
     ON rd.drawing_id = d.id
+  INNER JOIN equipments e
+    ON d.equipment_id = e.id
   INNER JOIN groups g
     ON rd.group_id = g.id
   INNER JOIN methods m
     ON d.method_id = m.id
   INNER JOIN details d1
     ON rd.detail_id = d1.id
-  INNER JOIN (SELECT
+  LEFT JOIN (SELECT
       drawing_id,
       SUM(norm_time) work_time
     FROM (SELECT
@@ -72,8 +75,21 @@ FROM request_details rd
       WHERE process_id IN (7, 8, 9)) dfp
     GROUP BY dfp.drawing_id) t
     ON d.id = t.drawing_id
+  LEFT JOIN drawing_flowsheet_processes dfp
+    ON d.id = dfp.drawing_id
+    AND dfp.process_id = 8
 WHERE r.reg_date BETWEEN :p_start_date AND :p_end_date
 AND r.is_deleted = 0
+GROUP BY m.id,
+         m.name,
+         r.number,
+         r.reg_date,
+         d.name,
+         g.name,
+         d1.name,
+         t.work_time,
+         dfp.norm_time,
+         e.output
 ORDER BY RegDate ASC",
                 query => query.SetParameter("p_start_date", startDate).SetParameter("p_end_date", endDate));
             var rowDict =
@@ -100,7 +116,7 @@ ORDER BY RegDate ASC",
         // Done
         public XDocument GetDrawingShipmentsReport(DateTime startDate, DateTime endDate, int? drawingId)
         {
-            var rows = GetXElementsFromQuery(@"
+            var queryText = @"
 SELECT
   d.id DrawingId,
   d.name DrawingName,
@@ -132,32 +148,53 @@ FROM request_details rd
 WHERE r.reg_date BETWEEN :p_start_date AND :p_end_date
 AND r.is_deleted = 0
 AND d.id = IFNULL(:p_drawing_id, d.id)
-ORDER BY d.id ASC, r.reg_date ASC, s.date ASC",
-                query =>
+ORDER BY d.id ASC, r.reg_date ASC, s.date ASC";
+
+            var result = ExecuteFuncOnSession(
+                s =>
+                {
+                    var query = s.CreateSQLQuery(queryText)
+                        .SetResultTransformer(Transformers.AliasToEntityMap);
                     query.SetParameter("p_start_date", startDate)
                         .SetParameter("p_end_date", endDate)
-                        .SetParameter("p_drawing_id", drawingId));
-            var rowDict = rows.ToLookup(e => new
-            {
-                DrawingId = e.Attribute("DrawingId").Value,
-                DrawingName = e.Attribute("DrawingName").Value,
-                GroupName = e.Attribute("GroupName").Value,
-                DetailName = e.Attribute("DetailName").Value
-            }, r => r);
+                        .SetParameter("p_drawing_id", drawingId);
+                    return query.List<Hashtable>();
+                });
 
-            foreach (var g in rowDict)
+            foreach (var row in result)
             {
-                string requestDetailId = null;
-                int requestedCount;
-                int shippedCount;
-                foreach (var row in g)
+                row.Add("Status", null);
+                row.Add("RemainedCount", null);
+            }
+            var groups = result.GroupBy(o => new
+            {
+                RequstDetailId = o["RequestDetailId"],
+                RequestNumber = o["RequestNumber"],
+                CustomerName = o["CustomerName"],
+                RequestRegDate = o["RequestRegDate"],
+                RequestCount = o["RequestCount"],
+                DrawingId = o["DrawingId"],
+                DrawingName = o["DrawingName"],
+                GroupName = o["GroupName"],
+                DetailName = o["DetailName"]
+            }).GroupBy(o => new
+            {
+                o.Key.DrawingId,
+                o.Key.DrawingName,
+                o.Key.GroupName,
+                o.Key.DetailName
+            }).ToList();
+            foreach (var drawingGroup in groups)
+            {
+                foreach (var requestGroup in drawingGroup)
                 {
-                    if (row.Attribute("RequestDetailId").Value != requestDetailId)
+                    var requestedCount = (int?)requestGroup.Key.RequestCount;
+                    foreach (var row in requestGroup)
                     {
-                        requestDetailId = row.Attribute("RequestDetailId").Value;
-                        requestedCount = 0;
-                        shippedCount = 0;
+                        requestedCount = requestedCount - ((int?)row["ShipmentCount"] ?? 0);
+                        row["RemainedCount"] = requestedCount;
                     }
+                    requestGroup.First()["Status"] = requestedCount == 0;
                 }
             }
 
@@ -166,12 +203,28 @@ ORDER BY d.id ASC, r.reg_date ASC, s.date ASC",
                     new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")),
                         new XAttribute("EndDate", endDate.ToString("dd.MM.yyyy"))),
                     new XElement("Drawings",
-                    rowDict.Select(g =>
+                        groups.Select(drawingGroup =>
                             new XElement("Drawing",
-                            new XAttribute("DrawingId", g.Key.DrawingId),
-                            new XAttribute("DrawingName", g.Key.DrawingName),
-                            new XAttribute("GroupName", g.Key.GroupName),
-                                new XAttribute("DetailName", g.Key.DetailName), g)))));
+                                new XAttribute("DrawingId", drawingGroup.Key.DrawingId ?? string.Empty),
+                                new XAttribute("DrawingName", drawingGroup.Key.DrawingName ?? string.Empty),
+                                new XAttribute("GroupName", drawingGroup.Key.GroupName ?? string.Empty),
+                                new XAttribute("DetailName", drawingGroup.Key.DetailName ?? string.Empty),
+                                new XElement("RequestDetails",
+                                    drawingGroup.Select(requestGroup =>
+                                        new XElement("RequestDetail",
+                                            new XAttribute("RequestDetailId", requestGroup.Key.RequstDetailId ?? string.Empty),
+                                            new XAttribute("RequestNumber", requestGroup.Key.RequestNumber ?? string.Empty),
+                                            new XAttribute("RequestRegDate", requestGroup.Key.RequestRegDate ?? string.Empty),
+                                            new XAttribute("RequestCount", requestGroup.Key.RequestCount ?? string.Empty),
+                                            new XElement("Shipments",
+                                                requestGroup.Select(row =>
+                                                    new XElement("Shipment",
+                                                        new XAttribute("ShipmentNumber", row["ShipmentNumber"] ?? string.Empty),
+                                                        new XAttribute("ShipmentDate", row["ShipmentDate"] ?? string.Empty),
+                                                        new XAttribute("ShipmentCount", row["ShipmentCount"] ?? string.Empty),
+                                                        new XAttribute("RemainedCount", row["RemainedCount"] ?? string.Empty),
+                                                        new XAttribute("Status", row["Status"] == null ? string.Empty : (bool)row["Status"] ? "выполнено" : "не выполнено")
+                                                        )))))))))));
             return doc;
         }
 

@@ -100,6 +100,7 @@
     <Compile Include="Entities\ContragentViewModel.cs" />
     <Compile Include="Entities\DrawingFlowsheetMachineViewModel.cs" />
     <Compile Include="Entities\EquipmentPaymentViewModel.cs" />
+    <Compile Include="Entities\JobViewModel.cs" />
     <Compile Include="Entities\PaymentViewModel.cs" />
     <Compile Include="Entities\ReportOfCompletionItemViewModel.cs" />
     <Compile Include="Entities\RequestReportRowViewModel.cs" />
