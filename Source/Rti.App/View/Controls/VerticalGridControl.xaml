@@ -1,28 +1,31 @@
 ﻿<dxg:GridControl x:Class="dxExample.VGrid.VerticalGridControl" mc:Ignorable ="d"
                  d:DesignWidth="400" d:DesignHeight="300" CustomUnboundColumnData="OnProcessUnboundColumnData"
-                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                 xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-                 xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys"
-                 xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                 xmlns:local="clr-namespace:dxExample.VGrid">
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"        
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    xmlns:dxgcore="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+	xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:local="clr-namespace:dxExample.VGrid">
     <dxg:GridControl.Resources>
-        <sys:Double x:Key="{dxgt:TableViewThemeKey ResourceKey=IndicatorWidth}">180</sys:Double>
-
-        <!-- only for optimized mode -->
-        <ControlTemplate x:Key="{dxgt:RowIndicatorThemeKey ResourceKey=RowIndicatorTemplate}" TargetType="{x:Type dxg:RowIndicator}">
-            <Grid>
-                <Border x:Name="PART_ContentBorder" Opacity="0" />
-                <ContentPresenter Content="{Binding}" ContentTemplate="{DynamicResource {dxgt:RowIndicatorThemeKey ResourceKey=RowTemplate}}" />
-            </Grid>
-        </ControlTemplate>
-
-        <DataTemplate x:Key="{dxgt:RowIndicatorThemeKey ResourceKey=RowTemplate}">
+        <sys:Double x:Key="{dxgt:TableViewThemeKey ResourceKey=IndicatorWidth, IsThemeIndependent=True}">180</sys:Double>
+        <DataTemplate x:Key="{dxgt:RowIndicatorThemeKey ResourceKey=RowTemplate, IsThemeIndependent=True}">
             <Grid>
                 <Border Background="White" BorderBrush="DarkGray" BorderThickness="0,0,1,1">
-                    <dxg:GridColumnHeader />
+                    <Grid>
+                        <Grid.DataContext>
+                            <dxg:GridColumn FieldName="{Binding DataContext.Row.RowName, RelativeSource={RelativeSource TemplatedParent}}"
+                                                Header="{Binding DataContext.Row.Header, RelativeSource={RelativeSource TemplatedParent}}" />
+                        </Grid.DataContext>
+
+                        <dxg:GridColumnHeader />
+                        <TextBlock Text="{Binding HeaderCaption}" IsHitTestVisible="False" Margin="4" />
+                    </Grid>
                 </Border>
                 <Border x:Name="BottomRowBorder" BorderBrush="Black" BorderThickness="0,0,0,1">
                     <Border.Visibility>
@@ -35,7 +38,6 @@
                         </MultiBinding>
                     </Border.Visibility>
                 </Border>
-                <TextBlock Text="{Binding DataContext.Row.RowName, RelativeSource={RelativeSource TemplatedParent}}" Foreground="Wheat" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
         </DataTemplate>
         <Style TargetType="{x:Type dxg:TableView}">
@@ -46,7 +48,6 @@
                 <Setter Property="AllowColumnFiltering" Value="False"/>
                 <Setter Property="MultiSelectMode" Value="Cell"/>
                 <Setter Property="CellTemplateSelector" Value="{DynamicResource defaultCellTemplateSelector}"/>
-                <Setter Property="UseLightweightTemplates" Value="All" />
             </Style.Setters>
         </Style>
         <Style TargetType="{x:Type dxg:GridControl}">
@@ -57,47 +58,3 @@
         <local:DefaultCellTemplateSelector x:Key="defaultCellTemplateSelector"/>
     </dxg:GridControl.Resources>
 </dxg:GridControl>
-
-<!--https://www.devexpress.com/Support/Center/Example/Details/E4630-->
-
-<!--<Window x:Class="dxExample.MainWindow" Title="MainWindow" Height="350" Width="850"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"        
-    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
-    xmlns:VGrid="clr-namespace:dxExample.VGrid"
-    xmlns:local="clr-namespace:dxExample">
-    <Window.Resources>
-        <DataTemplate x:Key="dateCellTemplate">
-            <dxe:DateEdit Name="PART_Editor"/>
-        </DataTemplate>
-        <DataTemplate x:Key="boolCellTemplate">
-            <dxe:CheckEdit Name="PART_Editor"/>
-        </DataTemplate>
-        <DataTemplate x:Key="intCellTemplate">
-            <dxe:TextEdit Name="PART_Editor" MaskType="Numeric" Mask="d"/>
-        </DataTemplate>
-    </Window.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="145"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="290*"/>
-        </Grid.RowDefinitions>
-        <VGrid:VerticalGridControl x:Name="grid" AutoPopulateRows="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" 
-                                   ItemsSource="{Binding Orders}" Grid.Row="1" Grid.ColumnSpan="2">
-            <VGrid:VerticalGridControl.Rows>
-                <VGrid:VerticalRowData RowName="Date" CellTemplate="{StaticResource dateCellTemplate}"/>
-                <VGrid:VerticalRowData RowName="HasFlag" CellTemplate="{StaticResource boolCellTemplate}"/>
-                <VGrid:VerticalRowData RowName="Id" CellTemplate="{StaticResource intCellTemplate}"/>
-            </VGrid:VerticalGridControl.Rows>
-        </VGrid:VerticalGridControl>
-        <Button Content="Add 10 rows" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" Click="OnAddButtonClick"/>
-    </Grid>
-</Window>-->
-    
-    

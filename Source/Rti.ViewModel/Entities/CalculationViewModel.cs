@@ -1,10 +1,13 @@
 using System.Xml.Linq;
+using Rti.Model.Domain;
 
 namespace Rti.ViewModel.Entities
 {
     partial class CalculationViewModel
     {
         public bool IsReadOnly { get; set; }
+
+        public CalculationType CalcType { get; set; }
 
         public decimal? AllMaterials
         {

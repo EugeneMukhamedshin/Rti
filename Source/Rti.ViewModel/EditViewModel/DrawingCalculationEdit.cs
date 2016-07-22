@@ -18,6 +18,7 @@ namespace Rti.ViewModel.EditViewModel
         private string _calculatedPlan;
         private CalculationViewModel _planCalculation;
         private CalculationViewModel _factCalculation;
+        private List<CalculationViewModel> _calculationHistoryItems;
         public DelegateCommand CalculatePlanCommand { get; set; }
         public DelegateCommand CalculateFactCommand { get; set; }
         public DelegateCommand ReportPlanCommand { get; set; }
@@ -78,6 +79,9 @@ namespace Rti.ViewModel.EditViewModel
             PlanCalculation = Entity.PlanCalculation.Clone();
             FactCalculation = Entity.FactCalculation.Clone();
 
+            PlanCalculation.CalcType = CalculationType.Plan;
+            FactCalculation.CalcType = CalculationType.Fact;
+
             PlanCalculation.PropertyChanged += PlanCalculation_PropertyChanged;
             FactCalculation.PropertyChanged += FactCalculation_PropertyChanged;
 
@@ -92,6 +96,26 @@ namespace Rti.ViewModel.EditViewModel
             ReportPlanCommand = new DelegateCommand(o => Report(CalculationType.Plan));
             ReportFactCommand = new DelegateCommand(o => Report(CalculationType.Fact));
             RefreshText();
+            var r = PlanCalculationHistory;
+        }
+
+        public List<CalculationViewModel> PlanCalculationHistory
+        {
+            get
+            {
+                if (_calculationHistoryItems == null)
+                {
+                    _calculationHistoryItems =
+                        RepositoryFactory.GetDrawingCalculationHistoryRepository()
+                            .GetByDrawingId(Source.Id)
+                            .Select(o => new CalculationViewModel(o.Calculation, RepositoryFactory) {CalcType = CalculationType.History}).ToList();
+                }
+                var result = new List<CalculationViewModel>();
+                result.Add(PlanCalculation);
+                result.AddRange(_calculationHistoryItems.Where(o => o.Id != Entity.PlanCalculation.Id).OrderByDescending(o => o.CreatedDate));
+                result.Add(FactCalculation);
+                return result;
+            }
         }
 
         private void FactCalculation_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -239,11 +263,25 @@ namespace Rti.ViewModel.EditViewModel
 
         protected override void DoSave()
         {
-            Entity.PlanCalculation.CopyFrom(PlanCalculation);
-            Entity.PlanCalculation.SaveEntity();
-            Entity.FactCalculation.CopyFrom(FactCalculation);
-            Entity.FactCalculation.SaveEntity();
-            base.DoSave();
+            var saveEntity = PlanCalculation.IsChanged || FactCalculation.IsChanged;
+            if (PlanCalculation.IsChanged)
+            {
+                PlanCalculation.SaveEntity();
+                var historyItem = new DrawingCalculationHistoryViewModel(null, RepositoryFactory)
+                {
+                    Drawing = Source,
+                    Calculation = PlanCalculation
+                };
+                historyItem.SaveEntity();
+                Entity.PlanCalculation = PlanCalculation;
+            }
+            if (FactCalculation.IsChanged)
+            {
+                Entity.FactCalculation.CopyFrom(FactCalculation);
+                Entity.FactCalculation.SaveEntity();
+            }
+            if (saveEntity)
+                base.DoSave();
         }
     }
 }

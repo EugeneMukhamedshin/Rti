@@ -191,6 +191,7 @@
     <Compile Include="View\Controls\VerticalGridControl.xaml.cs">
       <DependentUpon>VerticalGridControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Converters\CalcTypeToBackgroundConverter.cs" />
     <Compile Include="View\Converters\ExistanceToStringConverter.cs" />
     <Compile Include="View\Editors\AdditionalInfoEditWindow.xaml.cs">
       <DependentUpon>AdditionalInfoEditWindow.xaml</DependentUpon>

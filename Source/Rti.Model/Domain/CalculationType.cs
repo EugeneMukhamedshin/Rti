@@ -7,6 +7,8 @@ namespace Rti.Model.Domain
         [Display(Name = "Плановая")]
         Plan,
         [Display(Name = "Фактическая")]
-        Fact
+        Fact,
+        [Display(Name = "История")]
+        History
     }
 }

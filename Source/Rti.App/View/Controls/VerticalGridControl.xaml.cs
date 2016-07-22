@@ -196,13 +196,22 @@ namespace dxExample.VGrid
     public class VerticalRowData : DependencyObject
     {
         public string RowName { get; set; }
+
         public DataTemplate CellTemplate
         {
             get { return (DataTemplate)GetValue(CellTemplateProperty); }
             set { SetValue(CellTemplateProperty, value); }
         }
-
         public static readonly DependencyProperty CellTemplateProperty = DependencyProperty.Register("CellTemplate", typeof(DataTemplate), typeof(VerticalRowData), new PropertyMetadata(null));
+
+        public object Header
+        {
+            get { return (object)GetValue(HeaderProperty); }
+            set { SetValue(HeaderProperty, value); }
+        }
+        public static readonly DependencyProperty HeaderProperty =
+            DependencyProperty.Register("Header", typeof(object), typeof(VerticalRowData), new PropertyMetadata(null));
+
         public static VerticalRowData FromPropertyInfo(PropertyInfo info)
         {
             return new VerticalRowData() { RowName = info.Name };

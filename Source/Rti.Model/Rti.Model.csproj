@@ -95,6 +95,7 @@
     <Compile Include="Repository\Interfaces\IContractRepository.cs" />
     <Compile Include="Repository\Interfaces\IContragentRepository.cs" />
     <Compile Include="Repository\Interfaces\IDetailRepository.cs" />
+    <Compile Include="Repository\Interfaces\IDrawingCalculationHistoryRepository.cs" />
     <Compile Include="Repository\Interfaces\IDrawingRepository.cs" />
     <Compile Include="Repository\Interfaces\IDriverRepository.cs" />
     <Compile Include="Repository\Interfaces\IEmployeeRepository.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Repository\NHibernate\ContractRepository.cs" />
     <Compile Include="Repository\NHibernate\ContragentRepository.cs" />
     <Compile Include="Repository\NHibernate\DetailRepository.cs" />
+    <Compile Include="Repository\NHibernate\DrawingCalculationHistoryRepository.cs" />
     <Compile Include="Repository\NHibernate\DrawingRepository.cs" />
     <Compile Include="Repository\NHibernate\DriverRepository.cs" />
     <Compile Include="Repository\NHibernate\EmployeeRepository.cs" />
