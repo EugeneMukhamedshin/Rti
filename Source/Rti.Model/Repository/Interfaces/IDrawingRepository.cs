@@ -12,5 +12,7 @@ namespace Rti.Model.Repository.Interfaces
         IList<Drawing> GetPage(int page, int pageSize, IEnumerable<Expression<Func<Drawing, object>>> expressions = null);
 
         int GetNextSortOrder();
+        IList<Drawing> GetUnpaidEquipments();
+        IList<Drawing> GetAllInWork();
     }
 }

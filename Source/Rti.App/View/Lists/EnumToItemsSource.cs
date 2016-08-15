@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Linq;
 using System.Windows.Markup;
 using Rti.App.View.Helpers;
@@ -14,7 +14,7 @@ namespace Rti.App.View.Lists
             set
             {
                 if (!value.IsEnum)
-                    throw new InvalidOperationException("Тип должен быть enum");
+                    throw new InvalidOperationException("РўРёРї РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ enum");
                 _enumType = value;
             }
         }

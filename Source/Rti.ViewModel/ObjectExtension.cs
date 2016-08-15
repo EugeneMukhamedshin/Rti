@@ -1,10 +1,23 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace Rti.ViewModel
 {
     public static class ObjectExtension
     {
+        public static object GetPropertyValue(this object obj, List<string> parts)
+        {
+            var prop = obj.GetType().GetProperties().FirstOrDefault(o => o.Name == parts.FirstOrDefault());
+            if (prop == null)
+                return null;
+            var value = prop.GetValue(obj);
+            if (parts.Count() == 1)
+                return value;
+            return GetPropertyValue(value, parts.Skip(1).ToList());
+        }
+
         public static T AsReleasable<T>(this T obj, Action<T> releaseAction = null) where T : class
         {
             ReleasableObjectContext.AddDisposable(new ReleasableObject<T>(obj, releaseAction));
@@ -24,5 +37,13 @@ namespace Rti.ViewModel
         }
 
         #endregion
+    }
+
+    public static class DoubleExtension
+    {
+        public static decimal ToDecimal(this double value)
+        {
+            return Convert.ToDecimal(value);
+        }
     }
 }

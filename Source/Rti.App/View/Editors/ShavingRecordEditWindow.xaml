@@ -13,12 +13,13 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
-        <components:PropertyGridResponsible Grid.Row="0" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
+        <components:PropertyGridResponsible Grid.Row="0" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False" SortMode="Definitions">
             <components:PropertyGridResponsible.PropertyDefinitions>
                 <dxprg:PropertyDefinition Header="№" Path="SortOrder" IsReadOnly="True"/>
-                <dxprg:PropertyDefinition Header="ФИО" Path="ShaverEmployee">
+                <dxprg:PropertyDefinition Header="Дата" Path="ShaveDate"/>
+                <dxprg:PropertyDefinition Header="ФИО обрезчика" Path="ShaverEmployee">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxg:LookUpEditSettings DisplayMember="FullName" ItemsSource="{Binding EmployeesSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                        <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="FullName" ItemsSource="{Binding EmployeesSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                             <dxg:LookUpEditSettings.StyleSettings>
                                 <dxg:SearchLookUpEditStyleSettings/>
                             </dxg:LookUpEditSettings.StyleSettings>
@@ -32,7 +33,7 @@
                                             <dxg:GridColumn FieldName="Job.Name" Header="Должность"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -40,10 +41,9 @@
                         </dxg:LookUpEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
-                <dxprg:PropertyDefinition Header="Дата" Path="ShaveDate"/>
                 <dxprg:PropertyDefinition Header="Чертеж" Path="Drawing">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding DrawingsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                        <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="Name" ItemsSource="{Binding DrawingsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                             <dxg:LookUpEditSettings.StyleSettings>
                                 <dxg:SearchLookUpEditStyleSettings/>
                             </dxg:LookUpEditSettings.StyleSettings>
@@ -55,7 +55,7 @@
                                             <dxg:GridColumn FieldName="Name" Header="Наименование"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -63,9 +63,10 @@
                         </dxg:LookUpEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
-                <dxprg:PropertyDefinition Header="ФИО изготовителя" Path="MakerEmployee">
+                <dxprg:PropertyDefinition Header="Входное количество" Path="InputCount"/>
+                <dxprg:PropertyDefinition Header="ФИО прессовщика" Path="MakerEmployee">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxg:LookUpEditSettings DisplayMember="FullName" ItemsSource="{Binding EmployeesSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                        <dxg:LookUpEditSettings AllowDefaultButton="True" AllowNullInput="True" DisplayMember="FullName" ItemsSource="{Binding EmployeesSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                             <dxg:LookUpEditSettings.StyleSettings>
                                 <dxg:SearchLookUpEditStyleSettings/>
                             </dxg:LookUpEditSettings.StyleSettings>
@@ -79,7 +80,7 @@
                                             <dxg:GridColumn FieldName="Job.Name" Header="Должность"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -87,7 +88,6 @@
                         </dxg:LookUpEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
-                <dxprg:PropertyDefinition Header="Входное количество" Path="InputCount"/>
                 <dxprg:PropertyDefinition Header="Количество брака" Path="FlawCount"/>
             </components:PropertyGridResponsible.PropertyDefinitions>
         </components:PropertyGridResponsible>

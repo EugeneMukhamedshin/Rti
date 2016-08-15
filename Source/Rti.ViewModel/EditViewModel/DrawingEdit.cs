@@ -18,16 +18,24 @@ namespace Rti.ViewModel.EditViewModel
         public Lazy<List<MethodViewModel>> MethodsSource { get; set; }
 
         public DelegateCommand OpenMassCalculationCommand { get; set; }
+        public DelegateCommand OpenEquipmentEditCommand { get; set; }
         public DelegateCommand OpenDrawingMeasurementEditCommand { get; set; }
         public DelegateCommand OpenDrawingImageCommand { get; set; }
+        public DelegateCommand OpenFlowsheetCommand { get; set; }
+        public DelegateCommand OpenCalculationCommand { get; set; }
 
-        public DrawingEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
+        public DrawingEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService,
+            IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {
             OpenMassCalculationCommand = new DelegateCommand(
                 "Рассчитать массу",
                 o => true,
                 o => OpenMassCalculationEdit());
+            OpenEquipmentEditCommand = new DelegateCommand(
+                "Оснастка",
+                o => true,
+                o => OpenEquipmentEdit());
             OpenDrawingMeasurementEditCommand = new DelegateCommand(
                 "Изменить размеры",
                 o => true,
@@ -36,6 +44,14 @@ namespace Rti.ViewModel.EditViewModel
                 "Просмотреть",
                 o => true,
                 o => OpenDrawingImage());
+            OpenFlowsheetCommand = new DelegateCommand(
+                "Технологическая карта",
+                o => true,
+                o => OpenFlowsheet());
+            OpenCalculationCommand = new DelegateCommand(
+                "Калькуляция",
+                o => true,
+                o => OpenCalculation());
         }
 
         public override void Refresh()
@@ -74,23 +90,33 @@ namespace Rti.ViewModel.EditViewModel
             }
         }
 
+        private void OpenEquipmentEdit()
+        {
+            var equipment = Entity.Equipment ?? new EquipmentViewModel(null, RepositoryFactory)
+            {
+                SortOrder = RepositoryFactory.GetEquipmentRepository().GetNextSortOrder()
+            };
+            var editor = new EquipmentEdit("Оснастка", equipment, ReadOnly, ViewService, RepositoryFactory);
+            if (ViewService.ShowViewDialog(editor) == true)
+            {
+                if (Entity.Equipment == null)
+                    Entity.Equipment = equipment;
+            }
+        }
+
         private void OpenDrawingMeasurementEdit()
         {
-            var clone = Entity.Clone();
-            var viewModel = new DrawingMeasurementEdit("Задание размеров", clone, ReadOnly, ViewService,
+            var viewModel = new DrawingMeasurementEdit("Задание размеров", Entity, ReadOnly, ViewService,
                 RepositoryFactory);
-            if (ViewService.ShowViewDialog(viewModel) == true)
-            {
-                clone.CopyTo(Entity);
-            }
+            ViewService.ShowViewDialog(viewModel);
         }
 
         private void OpenDrawingImage()
         {
-            var imageData = new byte[] {};
+            var imageData = new byte[] { };
             if (Entity.DrawingImage != null)
                 imageData = Entity.DrawingImage.Data ?? RepositoryFactory.GetImageRepository().GetData(Entity.DrawingImage.Id);
-            
+
             var viewModel = new ImageEdit("Просмотр чертежа", imageData, ReadOnly, ViewService, RepositoryFactory);
             viewModel.Refresh();
             if (ViewService.ShowViewDialog(viewModel) == true)
@@ -104,11 +130,43 @@ namespace Rti.ViewModel.EditViewModel
             }
         }
 
+        private void OpenFlowsheet()
+        {
+            var saved = Entity.IsSaved;
+            if (!saved && ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед открытием необходимо сохранить чертеж. Выполнить сохранение?")))
+                saved = Save();
+            if (saved)
+            {
+                var viewModel = new DrawingFlowsheetEdit("Технологическая карта", Source, ReadOnly, ViewService, RepositoryFactory);
+                viewModel.Refresh();
+                ViewService.ShowViewDialog(viewModel);
+                viewModel.Entity.CopyTo(Entity);
+            }
+        }
+
+        private void OpenCalculation()
+        {
+            var saved = Entity.IsSaved;
+            if (!saved && ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед открытием необходимо сохранить чертеж. Выполнить сохранение?")))
+                saved = Save();
+            if (saved)
+            {
+                var calculationEdit = new DrawingCalculationEdit("Калькуляция", Source, ReadOnly, ViewService, RepositoryFactory);
+                if (ViewService.ShowViewDialog(calculationEdit) == true)
+                {
+                    calculationEdit.Entity.CopyTo(Entity);
+                    Entity.PlanCalculation = Source.PlanCalculation;
+                    Entity.FactCalculation = Source.FactCalculation;
+                    Source.RaiseCalculationPriceChanged();
+                }
+            }
+        }
+
         protected override bool DoValidate()
         {
             if (String.IsNullOrEmpty(Entity.Name))
             {
-                ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задано наименование оснастки"));
+                ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задано наименование"));
                 return false;
             }
             if (Entity.Group == null)
@@ -116,11 +174,11 @@ namespace Rti.ViewModel.EditViewModel
                 ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задана группа"));
                 return false;
             }
-            if (Entity.Equipment == null)
-            {
-                ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задана оснастка"));
-                return false;
-            }
+            //if (Entity.Equipment == null)
+            //{
+            //    ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задана оснастка"));
+            //    return false;
+            //}
             return base.DoValidate();
         }
     }

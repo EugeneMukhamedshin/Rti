@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+Ôªøusing System.Collections.Generic;
 
 namespace Rti.ViewModel.Entities
 {
@@ -9,7 +9,7 @@ namespace Rti.ViewModel.Entities
 
         public string FullName
         {
-            get { return string.Format("{0}{1}", Group == null ? null : Group.Name, Name); }
+            get { return string.Format("{0}.{1}", Group == null ? null : Group.Name, Name); }
         }
 
         public string Measurements
@@ -21,26 +21,40 @@ namespace Rti.ViewModel.Entities
             }
         }
 
+        public CalculationViewModel ActualCalculation { get { return FactCalculation ?? PlanCalculation; } }
+
         public decimal? CalculationPrice
         {
             get
             {
-                return (FactCalculation == null || FactCalculation.Summary == null)
-                    ? PlanCalculation == null ? null : PlanCalculation.Summary
-                    : FactCalculation.Summary;
+                return (FactCalculation == null || FactCalculation.Price == null)
+                    ? PlanCalculation == null ? null : PlanCalculation.Price
+                    : FactCalculation.Price;
             }
+        }
+
+        public decimal? FactCalculationPrice
+        {
+            get { return FactCalculation != null ? FactCalculation.Price : null; }
+        }
+
+        public decimal? PlanCalculationPrice
+        {
+            get { return PlanCalculation != null ? PlanCalculation.Price : null; }
         }
 
         public void RaiseCalculationPriceChanged()
         {
             OnPropertyChanged("CalculationPrice");
+            OnPropertyChanged("FactCalculationPrice");
+            OnPropertyChanged("PlanCalculationPrice");
         }
 
         protected override IEnumerable<ValidationRule> GetValidationRules()
         {
             return new List<ValidationRule>()
             {
-                new ValidationRule(o => o.Name != null, "ÕÂ Á‡‰‡ÌÓ Ì‡ËÏÂÌÓ‚‡ÌËÂ ˜ÂÚÂÊ‡")
+                new ValidationRule(o => o.Name != null, "–ù–µ –∑–∞–¥–∞–Ω–æ –Ω–∞–∏–º–µ–Ω–æ–≤–∞–Ω–∏–µ —á–µ—Ä—Ç–µ–∂–∞")
             };
         }
 

@@ -17,9 +17,9 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <TextBlock Text="Дата начала" Margin="5" VerticalAlignment="Center"/>
-            <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding StartDate}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
+            <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding StartDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
             <TextBlock Text="Дата окончания" Margin="5" VerticalAlignment="Center"/>
-            <xctk:DateTimePicker TabIndex="2" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding EndDate}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
+            <xctk:DateTimePicker TabIndex="2" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding EndDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
             <!--<TextBlock Text="Заказчик" Margin="5" VerticalAlignment="Center"/>
             <dxg:LookUpEdit TabIndex="3" Margin="5" ItemsSource="{Binding CustomersSource.Value}" SelectedItem="{Binding Customer}" DisplayMember="Name" Width="200" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True">
                 <dxg:LookUpEdit.StyleSettings>
@@ -38,7 +38,7 @@
                                 <dxg:GridColumn FieldName="Phone" Header="Телефон"/>
                             </dxg:GridControl.Columns>
                             <dxg:GridControl.View>
-                                <dxg:TableView AutoWidth="True"/>
+                                <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AutoWidth="True"/>
                             </dxg:GridControl.View>
                         </dxg:GridControl>
                     </ControlTemplate>
@@ -47,9 +47,9 @@
             <Button Content="Обновить" Command="{Binding RefreshCommand}" Margin="5"></Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <Button Content="+" Command="{Binding AddRecordCommand}" Width="32" Height="32" Margin="5" TabIndex="4"></Button>
-            <Button Content="-" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5" TabIndex="5"></Button>
-            <Button Content="..." Command="{Binding EditEntityCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5" TabIndex="6"/>
+            <Button Content="{StaticResource AddImage}" Command="{Binding AddRecordCommand}" Width="32" Height="32" Margin="5" TabIndex="4"></Button>
+            <Button Content="{StaticResource DeleteImage}" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5" TabIndex="5"></Button>
+            <Button Content="{StaticResource EditImage}" Command="{Binding EditEntityCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5" TabIndex="6"/>
         </StackPanel>
         <dxg:GridControl TabIndex="7" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2">
             <dxmvvm:Interaction.Behaviors>
@@ -81,7 +81,7 @@
                 <dxg:GridColumn FieldName="Note" Header="Примечание" Width="100"/>
             </dxg:GridControl.Columns>
             <dxg:GridControl.View>
-                <dxg:TableView AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
             </dxg:GridControl.View>
         </dxg:GridControl>
     </Grid>

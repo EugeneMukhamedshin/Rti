@@ -48,6 +48,7 @@ foreach (var type in types)
 <#
 }
 #>
+		public IReportRepository GetReportRepository() { return new ReportRepository(); }
 	}
 <#
 foreach (var type in types)

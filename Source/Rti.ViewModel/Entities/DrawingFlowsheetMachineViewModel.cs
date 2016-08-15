@@ -1,4 +1,4 @@
-namespace Rti.ViewModel.Entities
+﻿namespace Rti.ViewModel.Entities
 {
     partial class DrawingFlowsheetMachineViewModel
     {

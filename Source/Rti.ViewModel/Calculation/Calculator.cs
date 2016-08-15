@@ -11,7 +11,7 @@ namespace Rti.ViewModel.Calculation
     {
         private readonly ILog _log = LogManager.GetLogger(typeof(Calculator));
 
-        public decimal? Calculate(string expression)
+        public double? Calculate(string expression)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace Rti.ViewModel.Calculation
                 var astBuilder = new AstBuilder(functionRegistry);
                 var operation = astBuilder.Build(tokens);
                 var executor = new Interpreter();
-                return (decimal)executor.Execute(operation, null, null);
+                return executor.Execute(operation, null, null);
             }
             catch (Exception ex)
             {

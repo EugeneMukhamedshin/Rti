@@ -18,12 +18,12 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="0">
                 <TextBlock Text="Выберите дату дневного наряда" Margin="5" VerticalAlignment="Center"/>
-                <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Date}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"></xctk:DateTimePicker>
+                <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Date}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"></xctk:DateTimePicker>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
-                <Button Content="+" Command="{Binding AddWorkItemCommand}" Width="32" Height="32" Margin="5"></Button>
-                <Button Content="-" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5"></Button>
-                <Button Content="..." Command="{Binding EditEntityCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5"></Button>
+                <Button Content="{StaticResource AddImage}" Command="{Binding AddWorkItemCommand}" Width="32" Height="32" Margin="5"></Button>
+                <Button Content="{StaticResource DeleteImage}" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5"></Button>
+                <Button Content="{StaticResource EditImage}" Command="{Binding EditEntityCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5"></Button>
             </StackPanel>
             <dxg:GridControl CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2">
                 <dxmvvm:Interaction.Behaviors>
@@ -55,13 +55,18 @@
                     <dxg:GridColumn FieldName="TaskCount" Header="Дневное задание" Width="60"/>
                     <dxg:GridColumn FieldName="DoneCount" Header="Выполнено" Width="60"/>
                     <dxg:GridColumn FieldName="BatchNumber" Header="Партия" Width="80"/>
-                    <dxg:GridColumn FieldName="Drawing.PlanCalculation.MainSalary" Header="Основная з.п., руб." Width="65"/>
-                    <dxg:GridColumn FieldName="Drawing.PlanCalculation.Price" Header="Цена, без НДС, руб." Width="65"/>
+                    <dxg:GridColumn FieldName="Drawing.ActualCalculation.MainSalary" Header="Основная з.п., руб." Width="65"/>
+                    <dxg:GridColumn FieldName="Drawing.CalculationPrice" Header="Цена, без НДС, руб." Width="65"/>
                     <dxg:GridColumn FieldName="Sum" Header="Сумма, с НДС, руб." Width="65"/>
                     <dxg:GridColumn FieldName="Note" Header="Примечание" Width="120"/>
                 </dxg:GridControl.Columns>
+                <dxg:GridControl.TotalSummary>
+                    <!--<dxg:GridSummaryItem ShowInColumn="BatchNumber" FieldName="Sum" SummaryType="Custom" DisplayFormat="Итого:"></dxg:GridSummaryItem>-->
+                    <dxg:GridSummaryItem ShowInColumn="Sum" FieldName="Sum" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
+                    <dxg:GridSummaryItem ShowInColumn="Drawing.ActualCalculation.MainSalary" FieldName="Drawing.ActualCalculation.MainSalary" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
+                </dxg:GridControl.TotalSummary>
                 <dxg:GridControl.View>
-                    <dxg:TableView AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                    <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>
             </dxg:GridControl>
             <Grid Grid.Row="3">
@@ -69,6 +74,9 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <!--<Button Content="Реестр изг. деталей"  Command="{Binding OpenMakedDetailsReportCommand}" Width="140" Margin="5" TabIndex="1001" HorizontalAlignment="Left"/>-->
+                </StackPanel>
                 <StackPanel Grid.Column="1" Width="300">
                     <StackPanel Orientation="Horizontal" Margin="5,5,0,0" HorizontalAlignment="Center">
                         <TextBlock Text="Исполнитель" VerticalAlignment="Center"/>
@@ -86,7 +94,7 @@
                                             <dxg:GridColumn FieldName="Job.Name" Header="Должность"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -97,6 +105,7 @@
                 </StackPanel>
             </Grid>
             <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal">
+                <Button Content="Печат. форма"  Command="{Binding ReportCommand}" Width="110" Margin="5" TabIndex="1001"/>
                 <Button Content="Закрыть"  Command="{Binding CloseCommand}" Width="80" Margin="5" TabIndex="1001"/>
             </StackPanel>
         </Grid>

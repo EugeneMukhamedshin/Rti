@@ -4,10 +4,10 @@
 <ExportTemplate FormatVersion="1">
   <LastSuccessfullDate>0001-01-01T00:00:00</LastSuccessfullDate>
   <Provider>00000000-0000-0000-0000-000000000000</Provider>
-  <ConnectionName>rti.localhost</ConnectionName>
+  <ConnectionName>rti.localhost1</ConnectionName>
   <ConnectionString>User Id=root;Host=localhost;Database=rti;Character Set=utf8</ConnectionString>
   <Database>rti</Database>
-  <OutputDirectory>C:\Projects\Rti\Rti_Local\Db</OutputDirectory>
+  <OutputDirectory>D:\Projects\Rti\Db</OutputDirectory>
   <BaseFileName>rti</BaseFileName>
   <Mode>All</Mode>
   <AppendTimestamp>False</AppendTimestamp>
@@ -53,7 +53,7 @@
     <PropertyValue Name="IncludeIfNotExists">false</PropertyValue>
     <PropertyValue Name="IncludeCreateDatabase">false</PropertyValue>
     <PropertyValue Name="IncludeUseDatabase">true</PropertyValue>
-    <PropertyValue Name="IncludeGrants">false</PropertyValue>
+    <PropertyValue Name="IncludeGrants">true</PropertyValue>
     <PropertyValue Name="UseSchemaNamePrefix">false</PropertyValue>
     <PropertyValue Name="GenerateComments">true</PropertyValue>
     <PropertyValue Name="IncludePurge">false</PropertyValue>

@@ -1,0 +1,124 @@
+﻿<dx:DXWindow
+    x:Class="Rti.App.MainWindowSlim"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    Title="ЭЛМА-1" Height="413" Width="606" WindowStartupLocation="CenterScreen"
+    >
+
+    <dx:DXWindow.Resources>
+        <Style TargetType="Button">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+                <Setter Property="Margin" Value="2"/>
+                <Setter Property="Width" Value="180"></Setter>
+                <Setter Property="Height" Value="78"></Setter>
+                <Setter Property="Padding" Value="0"></Setter>
+            </Style.Setters>
+        </Style>
+        <Style TargetType="dx:DropDownButton">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+                <Setter Property="Margin" Value="2"/>
+                <Setter Property="Width" Value="180"></Setter>
+                <Setter Property="Height" Value="78"></Setter>
+            </Style.Setters>
+        </Style>
+        <Style TargetType="StackPanel">
+            <Style.Setters>
+                <Setter Property="Margin" Value="5"/>
+            </Style.Setters>
+        </Style>
+    </dx:DXWindow.Resources>
+
+    <StackPanel>
+        <Label HorizontalContentAlignment="Right" Margin="5" Content="{Binding UserDisplayName}"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="1" Grid.Column="1">
+                <Button Height="42"  Content="Заявка" Command="{Binding CreateNewRequestCommand}"/>
+                <Button Height="32" Content="Реестр заявок" Command="{Binding OpenRequestListCommand}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="1">
+                <Button Height="42" Content="Наряд" Command="{Binding OpenDailyWorkPackagesCommand}"/>
+                <Button Height="32" Content="Реестр изг. дет." Command="{Binding OpenMakedDetailsReportCommand}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Grid.Column="1">
+                <Button Height="42" Content="Отгрузка" Command="{Binding CreateNewShipmentCommand}"/>
+                <Button Height="32" Content="Реестр отгрузок" Command="{Binding OpenShipmentsCommand}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="2">
+                <dx:DropDownButton Content="Справочники" ButtonKind="Toggle" PopupDropAlignment="Bottom" IsEnabled="{Binding HasFullAccess}">
+                    <WrapPanel Width="370" Margin="5">
+                        <Button Height="24" Content="Заказчики" Command="{Binding OpenCustomersCommand}"/>
+                        <Button Height="24" Content="Поставщики" Command="{Binding OpenSuppliersCommand}"/>
+                        <Button Height="24" Content="Исполнители" Command="{Binding OpenManufacturersCommand}"/>
+                        <Button Height="24" Content="Водители" Command="{Binding OpenDriversCommand}"/>
+                        <Button Height="24" Content="Должности" Command="{Binding OpenJobsCommand}"/>
+                        <Button Height="24" Content="Сотрудники" Command="{Binding OpenEmployeesCommand}"/>
+                        <Button Height="24" Content="Материалы" Command="{Binding OpenMaterialsCommand}"/>
+                        <Button Height="24" Content="Группы" Command="{Binding OpenGroupsCommand}"/>
+                        <Button Height="24" Content="Оснастка" Command="{Binding OpenEquipmentsCommand}"/>
+                        <Button Height="24" Content="Детали" Command="{Binding OpenDetailsCommand}"/>
+                        <Button Height="24" Content="Оборудование" Command="{Binding OpenMachinesCommand}"/>
+                        <Button Height="24" Content="Константы" Command="{Binding OpenConstantsCommand}"/>
+                        <Button Height="24" Content="Способы изг." Command="{Binding OpenMethodsCommand}"/>
+                        <Button Height="24" Content="Ед. изм." Command="{Binding OpenMeasureUnitsCommand}"/>
+                    </WrapPanel>
+                </dx:DropDownButton>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="2">
+                <Button Command="{Binding OpenDrawingsCommand}">
+                    <TextBlock Text="Чертежи (тех. карты, калькуляции)" TextWrapping="Wrap" TextAlignment="Center" Margin="1"/>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Grid.Column="2">
+                <dx:DropDownButton ButtonKind="Toggle" PopupDropAlignment="Bottom" Content="Журналы" IsEnabled="{Binding HasJournalsAccess}">
+                    <WrapPanel Width="370" Margin="5">
+                        <Button Height="24" Content="Обрезка облоя" Command="{Binding OpenShavingRecordsCommand}"/>
+                        <Button Height="24" Content="Приход материала" Command="{Binding OpenMaterialArrivalRecordsCommand}"/>
+                        <Button Height="24" Content="Вальцовщик" Command="{Binding OpenRollingRecordsCommand}"/>
+                        <Button Height="24" Content="Оплата" Command="{Binding OpenPaymentsCommand}"/>
+                        <Button Height="24" Content="Оплата оснастки" Command="{Binding OpenEquipmentPaymentsCommand}"/>
+                    </WrapPanel>
+                </dx:DropDownButton>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="3">
+                <Button Content="Учет материалов" Command="{Binding OpenMaterialMovingsReportCommand}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="3">
+                <dx:DropDownButton ButtonKind="Toggle" PopupDropAlignment="Bottom" Content="Отчеты" IsEnabled="{Binding HasReportsAccess}">
+                    <WrapPanel Width="280" Margin="5">
+                        <Button Height="24" Width="250" FontSize="12" Content="Сводный отчет по способу изготовления" Command="{Binding OpenRequestsByMethodsReportCommand}"/>
+                        <Button Height="24" Width="250" FontSize="12" Content="Заказы и отгрузка по чертежу" Command="{Binding OpenDrawingShipmentsReportCommand}"/>
+                        <Button Height="24" Width="250" FontSize="12" Content="Учет переработанного материала" Command="{Binding OpenUsedMaterialsReportCommand}"/>
+                        <Button Height="24" Width="250" FontSize="12" Content="Учет прямых затрат на заявку" Command="{Binding OpenRequestDirectExpencesReportCommand}"/>
+                        <Button Height="24" Width="250" FontSize="12" Content="Учет прямых затрат на наряд" Command="{Binding OpenWorkItemDirectExpencesReportCommand}"/>
+                        <Button Height="24" Width="250" FontSize="12" Content="Учет прямых затрат на отгрузку" Command="{Binding OpenShipmentDirectExpencesReportCommand}"/>
+                        <Button Height="24" Width="250" FontSize="12" Content="Отчет по заработной плате" Command="{Binding OpenSalaryReportCommand}"/>
+                    </WrapPanel>
+                </dx:DropDownButton>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Grid.Column="3">
+                <Button Content="Выход" Command="{Binding ExitCommand}"/>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</dx:DXWindow>

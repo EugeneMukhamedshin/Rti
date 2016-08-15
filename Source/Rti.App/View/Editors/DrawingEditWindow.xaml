@@ -8,7 +8,7 @@
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     xmlns:lists="clr-namespace:Rti.App.View.Lists"
     xmlns:components="clr-namespace:Rti.App.View.Components"
-    Width="470" Height="500" MinWidth="470" MinHeight="500" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
+    Width="470" Height="600" MinWidth="470" MinHeight="500" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
@@ -16,15 +16,17 @@
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Content="Просмотр" Command="{Binding OpenDrawingImageCommand}" Width="90" Margin="5" TabIndex="0"></Button>
+            <Button Content="Просмотр" Command="{Binding OpenDrawingImageCommand}" Width="100" Margin="5" TabIndex="0"></Button>
+            <Button Content="Тех. карта" Command="{Binding OpenFlowsheetCommand}" Width="100" Margin="5" TabIndex="1"></Button>
+            <Button Content="Калькуляция" Command="{Binding OpenCalculationCommand}" Width="100" Margin="5" TabIndex="2"></Button>
         </StackPanel>
-        <components:PropertyGridResponsible Margin="5" SortMode="Definitions" Grid.Row="1" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
+        <components:PropertyGridResponsible HiddenEditor="PropertyGridControl_OnHiddenEditor" Margin="5" SortMode="Definitions" Grid.Row="1" ShowMenuButtonInRows="False" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
             <components:PropertyGridResponsible.PropertyDefinitions>
                 <dxprg:PropertyDefinition Path="SortOrder" Header="Артикул" IsReadOnly="True" Width="40"/>
                 <dxprg:PropertyDefinition Path="Name" Header="Чертеж" Width="80"/>
                 <dxprg:PropertyDefinition Path="Group" Header="Группа" Width="80">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding GroupsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                        <dxg:LookUpEditSettings  AllowDefaultButton="true" DisplayMember="Name" ItemsSource="{Binding GroupsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                             <dxg:LookUpEditSettings.StyleSettings>
                                 <dxg:SearchLookUpEditStyleSettings/>
                             </dxg:LookUpEditSettings.StyleSettings>
@@ -37,7 +39,7 @@
                                             <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -47,7 +49,7 @@
                 </dxprg:PropertyDefinition>
                 <dxprg:PropertyDefinition Path="Detail" Header="Наименование детали" Width="95">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding DetailsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                        <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="Name" ItemsSource="{Binding DetailsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                             <dxg:LookUpEditSettings.StyleSettings>
                                 <dxg:SearchLookUpEditStyleSettings/>
                             </dxg:LookUpEditSettings.StyleSettings>
@@ -60,7 +62,7 @@
                                             <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -70,7 +72,7 @@
                 </dxprg:PropertyDefinition>
                 <dxprg:PropertyDefinition Path="MaterialByPassport" Header="Материал по паспорту" Width="80">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding MaterialsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                        <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="Name" ItemsSource="{Binding MaterialsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                             <dxg:LookUpEditSettings.StyleSettings>
                                 <dxg:SearchLookUpEditStyleSettings/>
                             </dxg:LookUpEditSettings.StyleSettings>
@@ -83,7 +85,7 @@
                                             <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -93,7 +95,7 @@
                 </dxprg:PropertyDefinition>
                 <dxprg:PropertyDefinition Path="Material" Header="Материал" Width="80">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding MaterialsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                        <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="Name" ItemsSource="{Binding MaterialsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                             <dxg:LookUpEditSettings.StyleSettings>
                                 <dxg:SearchLookUpEditStyleSettings/>
                             </dxg:LookUpEditSettings.StyleSettings>
@@ -106,7 +108,7 @@
                                             <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -116,7 +118,7 @@
                 </dxprg:PropertyDefinition>
                 <dxprg:PropertyDefinition Path="MeasureUnit" Header="Ед. изм." Width="40">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding MeasureUnitsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                        <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="Name" ItemsSource="{Binding MeasureUnitsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                             <dxg:LookUpEditSettings.StyleSettings>
                                 <dxg:SearchLookUpEditStyleSettings/>
                             </dxg:LookUpEditSettings.StyleSettings>
@@ -129,7 +131,7 @@
                                             <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -152,7 +154,14 @@
                 <dxprg:PropertyDefinition Path="ShavingPrice" Header="Цена обрезки, руб." Width="60" EditSettings="{components:Float2TextEditSettings}"/>
                 <dxprg:PropertyDefinition Path="Equipment" Header="Оснастка">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding EquipmentsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                        <dxe:ButtonEditSettings AllowDefaultButton="False" IsTextEditable="False" >
+                            <dxe:ButtonEditSettings.Buttons>
+                                <dxe:ButtonInfo Content="..." Command="{Binding OpenEquipmentEditCommand}"></dxe:ButtonInfo>
+                            </dxe:ButtonEditSettings.Buttons>
+                        </dxe:ButtonEditSettings>
+                    </dxprg:PropertyDefinition.EditSettings>
+                    <!--<dxprg:PropertyDefinition.EditSettings>
+                        <dxg:LookUpEditSettings AllowDefaultButton="true"DisplayMember="Name" ItemsSource="{Binding EquipmentsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                             <dxg:LookUpEditSettings.StyleSettings>
                                 <dxg:SearchLookUpEditStyleSettings/>
                             </dxg:LookUpEditSettings.StyleSettings>
@@ -165,17 +174,17 @@
                                             <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
                             </dxg:LookUpEditSettings.PopupContentTemplate>
                         </dxg:LookUpEditSettings>
-                    </dxprg:PropertyDefinition.EditSettings>
+                    </dxprg:PropertyDefinition.EditSettings>-->
                 </dxprg:PropertyDefinition>
                 <dxprg:PropertyDefinition Path="Method" Header="Способ изготовления">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxg:LookUpEditSettings DisplayMember="Name" ItemsSource="{Binding MethodsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                        <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="Name" ItemsSource="{Binding MethodsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                             <dxg:LookUpEditSettings.StyleSettings>
                                 <dxg:SearchLookUpEditStyleSettings/>
                             </dxg:LookUpEditSettings.StyleSettings>
@@ -188,7 +197,7 @@
                                             <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
-                                            <dxg:TableView AutoWidth="True"/>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                         </dxg:GridControl.View>
                                     </dxg:GridControl>
                                 </ControlTemplate>
@@ -211,34 +220,16 @@
                         <dxe:TextEditSettings Mask="d"/>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
+                <dxprg:PropertyDefinition Path="AdditionalInfo" Header="Дополнительная информация" Height="80">
+                    <dxprg:PropertyDefinition.EditSettings>
+                        <dxe:TextEditSettings Mask="d"/>
+                    </dxprg:PropertyDefinition.EditSettings>
+                </dxprg:PropertyDefinition>
             </components:PropertyGridResponsible.PropertyDefinitions>
         </components:PropertyGridResponsible>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>
             <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
         </StackPanel>
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="120"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="20"/>
-        </Grid.ColumnDefinitions>
-        <Grid.Resources>
-            <Style TargetType="Label">
-                <Setter Property="Background" Value="LightGray"></Setter>
-            </Style>
-        </Grid.Resources>
-        <Label Content="№" Grid.Row="0" Grid.Column="0"/>
-        <Label Content="Группа" Grid.Row="1" Grid.Column="0"/>
-        <Label Content="Чертеж" Grid.Row="2" Grid.Column="0"/>
-        <Label Content="Оснастка" Grid.Row="3" Grid.Column="0"/>
-        <Label Content="Наличие" Grid.Row="4" Grid.Column="0"/>
-        <Label Content="Количество форм" Grid.Row="5" Grid.Column="0"/>
-        <Label Content="Гнездность" Grid.Row="6" Grid.Column="0"/>
-        <Label Content="Выход партии" Grid.Row="7" Grid.Column="0"/>
-        <Label Content="Примечание" Grid.Row="8" Grid.Column="0"/>
-
-        <TextBox Grid.Row="0" Grid.Column="1" TabIndex="0" Text="{Binding Entity.SortOrder}" IsReadOnly="True"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="1" TabIndex="1" Text="{Binding Entity.Name}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>
-        <TextBox Grid.Row="8" Grid.Column="1" TabIndex="2" Text="{Binding Entity.Note}" TextWrapping="Wrap" IsReadOnly="{Binding ReadOnly}"></TextBox>-->
     </Grid>
 </dx:DXWindow>

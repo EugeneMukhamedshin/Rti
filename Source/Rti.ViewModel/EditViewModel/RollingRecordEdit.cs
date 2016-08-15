@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.Linq;
 using Rti.Model.Domain;
@@ -30,22 +30,22 @@ namespace Rti.ViewModel.EditViewModel
         {
             if (Entity.Customer == null)
             {
-                ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задан заказчик", true));
+                ViewService.ShowMessage(new MessageViewModel("РћС€РёР±РєР°", "РќРµ Р·Р°РґР°РЅ Р·Р°РєР°Р·С‡РёРє", true));
                 return false;
             }
             if (Entity.Drawing == null)
             {
-                ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задан чертеж", true));
+                ViewService.ShowMessage(new MessageViewModel("РћС€РёР±РєР°", "РќРµ Р·Р°РґР°РЅ С‡РµСЂС‚РµР¶", true));
                 return false;
             }
             if (Entity.Material == null)
             {
-                ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задан материал", true));
+                ViewService.ShowMessage(new MessageViewModel("РћС€РёР±РєР°", "РќРµ Р·Р°РґР°РЅ РјР°С‚РµСЂРёР°Р»", true));
                 return false;
             }
             if (Entity.BatchNumber == null)
             {
-                ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задан номер партии", true));
+                ViewService.ShowMessage(new MessageViewModel("РћС€РёР±РєР°", "РќРµ Р·Р°РґР°РЅ РЅРѕРјРµСЂ РїР°СЂС‚РёРё", true));
                 return false;
             }
             return base.DoValidate();

@@ -1,4 +1,5 @@
 ﻿using System;
+using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities.Commands;
 
@@ -7,6 +8,8 @@ namespace Rti.ViewModel
     public class LoginViewModel: BaseViewModel, IClosable
     {
         private readonly IViewService _viewService;
+
+        public Job Job { get; set; }
 
         public string Login { get; set; }
         public string Password { get; set; }
@@ -26,8 +29,8 @@ namespace Rti.ViewModel
 
         private void Enter()
         {
-            var job = RepositoryFactory.GetJobRepository().GetByLogin(Login);
-            if (job == null || job.Password != Password)
+            Job = RepositoryFactory.GetJobRepository().GetByLogin(Login);
+            if (Job == null || Job.Password != Password)
                 _viewService.ShowMessage(new MessageViewModel("Ошибка", "Неправильно введенный логин или пароль", true));
             else
             {

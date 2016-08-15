@@ -14,7 +14,20 @@ namespace Rti.ViewModel.Lists
 
         public string Name
         {
-            get { return _listType == 0 ? "Заказчики" : "Поставщики"; }
+            get
+            {
+                switch (_listType)
+                {
+                    case ContragentType.Customer:
+                        return "Заказчики";
+                    case ContragentType.Supplier:
+                        return "Поставщики";
+                    case ContragentType.Manufacturer:
+                        return "Исполнители";
+                    default:
+                        return string.Empty;
+                }
+            }
         }
 
         public ContragentList(ContragentType listType, bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory)

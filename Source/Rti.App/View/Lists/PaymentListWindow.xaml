@@ -1,0 +1,88 @@
+﻿<dx:DXWindow
+    x:Class="Rti.App.View.Lists.PaymentListWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    Title="Журнал оплаченной и отгруженной продукции" Height="450" Width="1200"
+    >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <TextBlock Text="Дата начала" Margin="5" VerticalAlignment="Center"/>
+            <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding StartDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
+            <TextBlock Text="Дата окончания" Margin="5" VerticalAlignment="Center"/>
+            <xctk:DateTimePicker TabIndex="2" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding EndDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
+            <Button Content="Обновить" Command="{Binding RefreshCommand}" Margin="5"></Button>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Button Content="{StaticResource AddImage}" Command="{Binding AddPaymentCommand}" Width="32" Height="32" Margin="5" TabIndex="4"></Button>
+            <Button Content="++" Command="{Binding AddPaymentToCurrentRequestCommand}" Width="32" Height="32" Margin="5" TabIndex="4" Padding="0"></Button>
+            <Button Content="{StaticResource DeleteImage}" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5" TabIndex="5"></Button>
+            <Button Content="{StaticResource EditImage}" Command="{Binding EditPaymentCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5" TabIndex="6"/>
+        </StackPanel>
+        <dxg:GridControl TabIndex="7" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2">
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding EditPaymentCommand}" PassEventArgsToCommand="True">
+                    <dxmvvm:EventToCommand.EventArgsConverter>
+                        <dx:EventArgsToDataRowConverter/>
+                    </dxmvvm:EventToCommand.EventArgsConverter>
+                </dxmvvm:EventToCommand>
+            </dxmvvm:Interaction.Behaviors>
+            <dxg:GridControl.Resources>
+                <Style TargetType="dxg:GridColumn">
+                    <Setter Property="HeaderTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                <Style TargetType="dxg:GridControlBand">
+                    <Setter Property="HeaderTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </dxg:GridControl.Resources>
+            <dxg:GridControl.Bands>
+                <dxg:GridControlBand>
+                    <dxg:GridColumn Header="№" UnboundType="Integer" Width="30" Name="_rowNumberColumn"/>
+                </dxg:GridControlBand>
+                <dxg:GridControlBand Header="Счет">
+                    <dxg:GridColumn FieldName="Request.Number" Header="Номер" Width="50"/>
+                    <dxg:GridColumn FieldName="Request.InvoiceDate" Header="Дата" Width="80"/>
+                    <dxg:GridColumn FieldName="Request.Customer.Name" Header="Заказчик" Width="100"/>
+                    <dxg:GridColumn FieldName="Request.Sum" Header="Сумма по счету, руб." Width="100"/>
+                </dxg:GridControlBand>
+                <dxg:GridControlBand Header="Оплата">
+                    <dxg:GridColumn FieldName="PaymentDocNumber" Header="Номер" Width="50"/>
+                    <dxg:GridColumn FieldName="PaymentDate" Header="Дата" Width="80"/>
+                    <dxg:GridColumn FieldName="Sum" Header="Сумма оплаты, руб." Width="100"/>
+                    <dxg:GridColumn FieldName="InvoiceFacture" Header="Счет фактура" Width="100"/>
+                </dxg:GridControlBand>
+                <dxg:GridControlBand Header="Отгрузка">
+                    <dxg:GridColumn FieldName="ShipmentDates" Header="Даты отгрузок" Width="80"/>
+                    <dxg:GridColumn FieldName="ShipmentSum" Header="Сумма" Width="80"/>
+                </dxg:GridControlBand>
+                <dxg:GridControlBand>
+                    <dxg:GridColumn Header="Примечание" FieldName="Note" Width="150"/>
+                </dxg:GridControlBand>
+            </dxg:GridControl.Bands>
+            <dxg:GridControl.View>
+                <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+    </Grid>
+</dx:DXWindow>

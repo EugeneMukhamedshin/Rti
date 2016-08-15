@@ -1,4 +1,4 @@
-namespace Rti.ViewModel
+﻿namespace Rti.ViewModel
 {
     public interface IValidatable
     {

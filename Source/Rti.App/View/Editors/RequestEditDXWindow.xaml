@@ -5,11 +5,9 @@
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-    xmlns:lists="clr-namespace:Rti.App.View.Lists"
-    xmlns:domain="clr-namespace:Rti.Model.Domain;assembly=Rti.Model"
     xmlns:components="clr-namespace:Rti.App.View.Components"
     x:Class="Rti.App.View.Editors.RequestEditDxWindow"
-    Width="1000" Height="500" MinWidth="500" MinHeight="250" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
+    Width="1024" Height="500" MinWidth="500" MinHeight="250" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
 
     <Grid>
         <Grid>
@@ -25,9 +23,9 @@
                 <TextBlock Text="Номер" Margin="5" VerticalAlignment="Center"/>
                 <dxe:TextEdit TabIndex="0" Margin="5" Text="{Binding Entity.Number}" Width="80" IsReadOnly="True" VerticalAlignment="Center" IsEnabled="{Binding Editable}"/>
                 <TextBlock Text="Дата регистрации" Margin="5" VerticalAlignment="Center"/>
-                <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.RegDate}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed" IsEnabled="{Binding Editable}"/>
+                <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.RegDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed" IsEnabled="{Binding Editable}"/>
                 <TextBlock Text="Дата отгрузки" Margin="5" VerticalAlignment="Center"/>
-                <xctk:DateTimePicker TabIndex="2" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.ShipDate}" AutoCloseCalendar="True" AllowTextInput="False" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed" IsEnabled="{Binding Editable}"/>
+                <xctk:DateTimePicker TabIndex="2" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.ShipDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed" IsEnabled="{Binding Editable}"/>
                 <TextBlock Text="Срок изготовления" Margin="5" VerticalAlignment="Center"/>
                 <dxe:TextEdit TabIndex="3" Margin="5" Text="{Binding Entity.LeadTime}" Width="80" VerticalAlignment="Center" MaskType="Numeric" Mask="d" MaskCulture="ru-RU" IsEnabled="{Binding Editable}"/>
             </StackPanel>
@@ -51,7 +49,7 @@
                                         <dxg:GridColumn FieldName="Phone" Header="Телефон"/>
                                     </dxg:GridControl.Columns>
                                     <dxg:GridControl.View>
-                                        <dxg:TableView AutoWidth="True"/>
+                                        <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                     </dxg:GridControl.View>
                                 </dxg:GridControl>
                             </ControlTemplate>
@@ -77,7 +75,7 @@
                                         <dxg:GridColumn FieldName="Phone" Header="Телефон"/>
                                     </dxg:GridControl.Columns>
                                     <dxg:GridControl.View>
-                                        <dxg:TableView AutoWidth="True"/>
+                                        <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                     </dxg:GridControl.View>
                                 </dxg:GridControl>
                             </ControlTemplate>
@@ -86,10 +84,12 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="2">
-                <Button Content="+" Command="{Binding AddRequestDetailCommand}" Width="32" Height="32" Margin="5"></Button>
-                <Button Content="-" Command="{Binding RemoveRequestDetailCommand}" Width="32" Height="32" Margin="5"></Button>
+                <Button Content="{StaticResource AddImage}" Command="{Binding AddRequestDetailCommand}" Width="32" Height="32" Margin="5"></Button>
+                <Button Content="{StaticResource DeleteImage}" Command="{Binding RemoveRequestDetailCommand}" Width="32" Height="32" Margin="5"></Button>
+                <CheckBox Content="В производстве с" Margin="5" IsChecked="{Binding Entity.IsWorkStarted}"/>
+                <xctk:DateTimePicker TabIndex="5" Margin="5" VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.WorkStartDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed" IsEnabled="{Binding Editable}"/>
             </StackPanel>
-            <dxg:GridControl CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding RequestDetails}" SelectedItem="{Binding SelectedRequestDetail}" SelectionMode="Row" Grid.Row="3">
+            <dxg:GridControl Name="GridControl" CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding RequestDetails}" SelectedItem="{Binding SelectedRequestDetail}" SelectionMode="Row" Grid.Row="3">
                 <dxg:GridControl.Resources>
                     <Style TargetType="dxg:GridColumn">
                         <Setter Property="HeaderTemplate">
@@ -102,11 +102,11 @@
                     </Style>
                 </dxg:GridControl.Resources>
                 <dxg:GridControl.Columns>
-                    <dxg:GridColumn UnboundType="Integer" Header="№" ReadOnly="True" Width="50" Name="RowNumberColumn"/>
-                    <dxg:GridColumn Binding="{Binding Group.Name}" Header="Группа" Width="80" ReadOnly="True"/>
+                    <dxg:GridColumn UnboundType="Integer" Header="№" ReadOnly="True" Width="40" Name="RowNumberColumn"/>
+                    <!--<dxg:GridColumn Binding="{Binding Group.Name}" Header="Группа" Width="50" ReadOnly="True"/>-->
                     <dxg:GridColumn Binding="{Binding Drawing,Mode=TwoWay}" Header="Чертеж" Width="100">
                         <dxg:GridColumn.EditSettings>
-                            <dxg:LookUpEditSettings AllowDefaultButton="True" DisplayMember="Name" ItemsSource="{Binding DrawingsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                            <dxg:LookUpEditSettings AllowDefaultButton="True" DisplayMember="FullName" ItemsSource="{Binding DrawingsSource}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350" IsSynchronizedWithCurrentItem="True">
                                 <dxg:LookUpEditSettings.StyleSettings>
                                     <dxg:SearchLookUpEditStyleSettings/>
                                 </dxg:LookUpEditSettings.StyleSettings>
@@ -119,7 +119,7 @@
                                                 <dxg:GridColumn FieldName="Note" Header="Примечание" Width="180"/>
                                             </dxg:GridControl.Columns>
                                             <dxg:GridControl.View>
-                                                <dxg:TableView AutoWidth="True"/>
+                                                <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
                                             </dxg:GridControl.View>
                                         </dxg:GridControl>
                                     </ControlTemplate>
@@ -127,28 +127,50 @@
                             </dxg:LookUpEditSettings>
                         </dxg:GridColumn.EditSettings>
                     </dxg:GridColumn>
-                    <dxg:GridColumn Binding="{Binding Detail.Name}" Header="Наименование детали" Width="180" ReadOnly="True"/>
-                    <dxg:GridColumn Binding="{Binding Drawing.Equipment.ExistanceEnum,Converter={StaticResource EnumToStringConverter}}" Header="Наличие оснастки" Width="90" ReadOnly="True"/>
-                    <dxg:GridColumn Binding="{Binding AdditionalInfo,Mode=TwoWay}" Header="Доп. инфо" Width="180"/>
-                    <dxg:GridColumn Binding="{Binding Count,Mode=TwoWay}" Header="Кол-во" Width="80" EditSettings="{components:TextEditSettings Mask=f0,MaskType=Numeric}"/>
-                    <dxg:GridColumn Binding="{Binding Price,Mode=TwoWay}" Header="Цена" Width="80" EditSettings="{components:Float2TextEditSettings}" ReadOnly="True"/>
-                    <dxg:GridColumn Binding="{Binding CalculationPrice}" Header="Цена по калькуляции" Width="80" EditSettings="{components:Float2TextEditSettings}" ReadOnly="True"/>
-                    <dxg:GridColumn Binding="{Binding Sum}" Header="Сумма" ReadOnly="True" Width="100"/>
-                    <dxg:GridColumn Binding="{Binding Material.Name}" Header="Материал" Width="120" ReadOnly="True"/>
-                    <dxg:GridColumn Binding="{Binding EquipmentLeadTime,Mode=TwoWay}" Header="Срок изг. оснастки" Width="80" EditSettings="{components:TextEditSettings Mask=f0}"/>
-                    <dxg:GridColumn Binding="{Binding Note,Mode=TwoWay}" Header="Примечание" Width="180">
+                    <dxg:GridColumn Width="20">
+                        <dxg:GridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Margin="2" Content="..." Padding="0" FontSize="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=Window},Path=DataContext.OpenDrawingEditCommand}" CommandParameter="{Binding RowData.Row}"/>
+                            </DataTemplate>
+                        </dxg:GridColumn.CellTemplate>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Binding="{Binding Detail.Name}" Header="Наименование детали" Width="80" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding Drawing.Equipment.ExistanceEnum,Converter={StaticResource EnumToStringConverter}}" Header="Наличие оснастки" Width="60" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding AdditionalInfo,Mode=TwoWay}" Header="Доп. инфо" Width="80"/>
+                    <dxg:GridColumn Binding="{Binding Count,Mode=TwoWay}" Header="Кол-во" Width="50" EditSettings="{components:TextEditSettings Mask=f0,MaskType=Numeric}"/>
+                    <dxg:GridColumn Binding="{Binding Price,Mode=TwoWay}" Header="Цена" Width="50" EditSettings="{components:Float2TextEditSettings}" ReadOnly="True"/>
+                    <dxg:GridColumn Width="20">
+                        <dxg:GridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Margin="2" Content="..." Padding="0" FontSize="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=Window},Path=DataContext.OpenDrawingEditCommand}" CommandParameter="{Binding RowData.Row}"/>
+                            </DataTemplate>
+                        </dxg:GridColumn.CellTemplate>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Binding="{Binding FactCalculationPrice}" Header="Цена по факт. кальк." Width="60" EditSettings="{components:Float2TextEditSettings}" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding PlanCalculationPrice}" Header="Цена по план. кальк." Width="60" EditSettings="{components:Float2TextEditSettings}" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding Sum}" Header="Сумма" ReadOnly="True" Width="60"/>
+                    <dxg:GridColumn Binding="{Binding Material.Name}" Header="Материал" Width="80" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding EquipmentLeadTime,Mode=TwoWay}" Header="Срок изг. оснастки" Width="60" EditSettings="{components:TextEditSettings Mask=f0}"/>
+                    <dxg:GridColumn Binding="{Binding Note,Mode=TwoWay}" Header="Примечание" Width="120">
                         <dxg:GridColumn.EditSettings>
                             <dxe:TextEditSettings Mask="d"/>
                         </dxg:GridColumn.EditSettings>
                     </dxg:GridColumn>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>
-                    <dxg:TableView AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                    <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" EditorButtonShowMode="ShowAlways" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>
             </dxg:GridControl>
 
             <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal">
-                <Button Content="Текущий счет" Command="{Binding CreateInvoiceCommand}" Width="80" Margin="5" IsDefault="True" TabIndex="999"/>
+                <Button Content="Текущий счет" Command="{Binding CreateInvoiceCommand}" Width="120" Margin="5" TabIndex="500"/>
+                <Button Content="Спецификация" Command="{Binding CreateSpecificationCommand}" Width="120" Margin="5" TabIndex="501"/>
+                <Button Content="Договор" Command="{Binding CreateContractReportCommand}" Width="120" Margin="5" TabIndex="502"/>
+                <Button Content="Акт вып. работ" Command="{Binding CreateReportOfCompletionCommand}" Width="120" Margin="5" TabIndex="503"/>
+                <Button Content="Акт приема передачи" Command="{Binding CreateReportOfAcceptanceCommand}" Width="130" Margin="5" TabIndex="504"/>
+                <Button Content="Накладная М15" Command="{Binding CreateM15Command}" Width="120" Margin="5" TabIndex="505"/>
+                <Button Content="Счет на оснастку" Command="{Binding CreateEquipmentInvoiceCommand}" Width="120" Margin="5" TabIndex="506"/>
+                
             </StackPanel>
             <StackPanel Grid.Row="5" Grid.Column="0" Orientation="Horizontal">
                 <Button Content="Сохранить" Command="{Binding OkCommand}" Width="80" Margin="5" IsDefault="True" TabIndex="1000"/>

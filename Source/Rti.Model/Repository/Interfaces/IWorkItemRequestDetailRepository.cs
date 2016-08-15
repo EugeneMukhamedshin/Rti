@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Rti.Model.Domain;
+using Rti.Model.Domain.ReportEntities;
 
 namespace Rti.Model.Repository.Interfaces
 {
@@ -8,5 +9,6 @@ namespace Rti.Model.Repository.Interfaces
         IList<WorkItemRequestDetail> GetByWorkItemId(int workItemId);
         IList<WorkItemRequestDetail> GetByRequestDetailId(int requestDetailId);
         void DeleteByWorkItemId(int workItemId);
+        IList<RejectionReportRow> GetRejectionReport(DateTime startDate, DateTime endDate, int? employeeId);
     }
 }

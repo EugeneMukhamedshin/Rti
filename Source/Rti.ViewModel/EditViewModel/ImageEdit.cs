@@ -1,4 +1,4 @@
-using System.IO;
+п»їusing System.IO;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities.Commands;
 
@@ -23,7 +23,7 @@ namespace Rti.ViewModel.EditViewModel
         public ImageEdit(string name, byte[] imageData, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) : base(name, new ImageDataViewModel {Data = imageData}, readOnly, viewService, repositoryFactory)
         {
             UploadImageCommand = new DelegateCommand(
-                "Загрузить изображение",
+                "Р—Р°РіСЂСѓР·РёС‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ",
                 o => Editable && IsIsUploadCommandAvailable,
                 o => UploadImage());
         }
@@ -31,7 +31,7 @@ namespace Rti.ViewModel.EditViewModel
         private void UploadImage()
         {
             string fileName = null;
-            if (ViewService.ShowFileDialog(ref fileName, "Изображения (*.jpg)|*.jpg", false))
+            if (ViewService.ShowFileDialog(ref fileName, "РР·РѕР±СЂР°Р¶РµРЅРёСЏ (*.jpg)|*.jpg", false))
                 Entity.Data = File.ReadAllBytes(fileName);
         }
     }

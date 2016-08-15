@@ -8,7 +8,18 @@
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     xmlns:lists="clr-namespace:Rti.App.View.Lists"
-    Width="600" Height="500" MinWidth="600" MinHeight="500" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
+    xmlns:vGrid="clr-namespace:dxExample.VGrid"
+    xmlns:converters="clr-namespace:Rti.App.View.Converters"
+    Width="900" Height="500" MinWidth="900" MinHeight="500" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <converters:CalcTypeToBackgroundConverter x:Key="CalcTypeToBackgroundConverter" FactCalculationBackground="LightGray" PlanCalculationBackground="Lavender" HistoryCalculationBackground="White"/>
+        <!--<DataTemplate x:Key="DateCellTemplate">
+            <dxe:DateEdit Name="PART_Editor"/>
+        </DataTemplate>-->
+        <DataTemplate x:Key="FloatCellTemplate">
+            <dxe:TextEdit Name="PART_Editor" MaskType="Numeric" Mask="f2"/>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -43,7 +54,7 @@
                 <dxg:GridColumn FieldName="Material.Price" Header="Цена исп. материала, руб. без НДС" Width="100" EditSettings="{DynamicResource Float2TextEditSettings}"/>
             </dxg:GridControl.Columns>
             <dxg:GridControl.View>
-                <dxg:TableView AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                <dxg:TableView EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
             </dxg:GridControl.View>
         </dxg:GridControl>
         <TabControl Padding="5" Grid.Row="1">
@@ -53,9 +64,14 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="32"/>
                     </Grid.RowDefinitions>
-                    <editors:CalculationEditControl DataContext="{Binding Entity.FactCalculation}"/>
-                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <editors:CalculationEditControl DataContext="{Binding FactCalculation}" Grid.Row="0" Grid.Column="0"/>
+                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
                         <Button Content="Расчет" Command="{Binding CalculateFactCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="900"></Button>
+                        <TextBlock Margin="5" Text="{Binding CalculatedFact}"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -65,16 +81,56 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="32"/>
                     </Grid.RowDefinitions>
-                    <editors:CalculationEditControl DataContext="{Binding Entity.PlanCalculation}"/>
-                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <editors:CalculationEditControl DataContext="{Binding PlanCalculation}" Grid.Row="0" Grid.Column="0"/>
+                    <vGrid:VerticalGridControl ItemsSource="{Binding PlanCalculationHistory}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" Grid.Row="0" Grid.Column="1">
+                        <vGrid:VerticalGridControl.Rows>
+                            <vGrid:VerticalRowData Header="Дата" RowName="DisplayName"/>
+                            <vGrid:VerticalRowData Header="Сырье и материалы" RowName="AllMaterials" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <!--<vGrid:VerticalRowData Header="1.1. Стоимость сырья" RowName="MainMaterial" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <vGrid:VerticalRowData Header="1.2. Резиновая смесь" RowName="Rubber" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <vGrid:VerticalRowData Header="1.3. Клей" RowName="Clue" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <vGrid:VerticalRowData Header="1.4. Арматура" RowName="Armature" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <vGrid:VerticalRowData Header="1.5. Песок" RowName="Sand" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <vGrid:VerticalRowData Header="1.6. Ткань" RowName="Textile" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <vGrid:VerticalRowData Header="1.7. Другое" RowName="OtherMaterial" CellTemplate="{StaticResource FloatCellTemplate}"/>-->
+                            <!--<vGrid:VerticalRowData Header="2. Транспортные" RowName="Transport" CellTemplate="{StaticResource FloatCellTemplate}"/>-->
+                            <vGrid:VerticalRowData Header="Основная зарплата" RowName="MainSalary" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <!--<vGrid:VerticalRowData Header="Дополнительная зарплата" RowName="AdditionalSalary" CellTemplate="{StaticResource FloatCellTemplate}"/>-->
+                            <!--<vGrid:VerticalRowData Header="5. Отчисления ЕСН" RowName="FixedTax" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <vGrid:VerticalRowData Header="6. Общецеховые" RowName="TotalDivision" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <vGrid:VerticalRowData Header="7. Общепроизводственные" RowName="TotalManufacture" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <vGrid:VerticalRowData Header="8. Итого" RowName="MainSummary" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <vGrid:VerticalRowData Header="9. Электроэнергия для формовых" RowName="PowerForFormed" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <vGrid:VerticalRowData Header="10. Электроэнергия прочая" RowName="OtherPower" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <vGrid:VerticalRowData Header="11. Итого" RowName="MainAndPowerSummary" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <vGrid:VerticalRowData Header="12. Коммерческие" RowName="Unforseen" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <vGrid:VerticalRowData Header="13. Себестоимость" RowName="NetCost" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <vGrid:VerticalRowData Header="14. Рентабельность" RowName="Profitability" CellTemplate="{StaticResource FloatCellTemplate}"/>-->
+                            <vGrid:VerticalRowData Header="Цена" RowName="Price" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <!--<vGrid:VerticalRowData Header="16. НДС" RowName="NdsTax" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <vGrid:VerticalRowData Header="17. Всего" RowName="Summary" CellTemplate="{StaticResource FloatCellTemplate}"/>
+                            <vGrid:VerticalRowData Header="18. Примечание" RowName="Note" />-->
+                        </vGrid:VerticalGridControl.Rows>
+                        <vGrid:VerticalGridControl.View>
+                            <dxg:TableView UseLightweightTemplates="None" AllowEditing="False" ShowColumnHeaders="False"/>
+                        </vGrid:VerticalGridControl.View>
+                    </vGrid:VerticalGridControl>
+                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
                         <Button Content="Расчет" Command="{Binding CalculatePlanCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="900"></Button>
+                        <TextBlock Margin="5" Text="{Binding CalculatedPlan}"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
         </TabControl>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>
-            <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
+            <!--<Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>-->
+            <Button Content="Закрыть"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
+            <Button Content="Печат. форма (План)"  Command="{Binding ReportPlanCommand}" Width="140" Margin="5" TabIndex="1002"></Button>
+            <Button Content="Печат. форма (Факт)"  Command="{Binding ReportFactCommand}" Width="140" Margin="5" TabIndex="1003"></Button>
         </StackPanel>
     </Grid>
 </dx:DXWindow>

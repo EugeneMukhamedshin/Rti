@@ -16,15 +16,15 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <Button Content="+" Command="{Binding AddItemCommand}" Width="24" Height="24" Margin="2"/>
-            <Button Content="-" Command="{Binding DeleteItemCommand}" Width="24" Height="24" Margin="2"/>
-            <Button Content="..." Command="{Binding EditItemCommand}" Width="24" Height="24" Margin="2"/>
+            <Button Command="{Binding AddItemCommand}" Width="24" Height="24" Margin="2" Content="{StaticResource AddImage}"/>
+            <Button Content="{StaticResource DeleteImage}" Command="{Binding DeleteItemCommand}" Width="24" Height="24" Margin="2"/>
+            <Button Content="{StaticResource EditImage}" Command="{Binding EditItemCommand}" Width="24" Height="24" Margin="2"/>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
+        <!--<StackPanel Orientation="Horizontal" Grid.Row="1">
             <Label Content="Найти" VerticalContentAlignment="Center"/>
             <TextBox Width="300" Margin="5" Name="_findTextBox"/>
             <Button Width="80" Margin="5" Content="Поиск" Command="{Binding FindCommand}" CommandParameter="{Binding Text,ElementName=_findTextBox}"></Button>
-        </StackPanel>
+        </StackPanel>-->
         <Grid Grid.Row="2">
             <Grid>
                 <Grid.ColumnDefinitions>

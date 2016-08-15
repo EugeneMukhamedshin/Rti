@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Microsoft.Office.Interop.Excel;
@@ -34,7 +31,7 @@ namespace Rti.ViewModel.Reporting
             foreach (var o in requestDetails)
             {
                 sum += o.Sum;
-                nds += Math.Round(o.Sum*constants.Nds/100, 2);
+                nds += Math.Round(o.Sum * constants.Nds.ToDecimal() / 100, 2);
             }
             sumWithNds = sum + nds;
             count = requestDetails.Count;

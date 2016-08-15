@@ -7,6 +7,11 @@ namespace Rti.ViewModel.EditViewModel
 {
     public class ContragentEdit: EditEntityViewModel<ContragentViewModel, Contragent>
     {
+        public bool IsManufacturer
+        {
+            get { return Entity == null ? false : Entity.IsManufacturer; }
+        }
+
         public ContragentEdit(string name, ContragentViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) 
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {

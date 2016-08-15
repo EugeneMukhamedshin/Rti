@@ -16,7 +16,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <dxr:RibbonControl Grid.Row="0" RibbonStyle="Office2010">
+                <dxr:RibbonControl Grid.Row="0" RibbonStyle="Office2010" Margin="-10,0,10,0">
                     <dxr:RibbonControl.ApplicationMenu>
                         <dxr:BackstageViewControl/>
                     </dxr:RibbonControl.ApplicationMenu>
@@ -31,6 +31,7 @@
                                     </dxb:BarEditItem.EditSettings>
                                 </dxb:BarEditItem>
                                 <dxb:BarButtonItem Content="Открыть..." Command="{Binding OpenRequestCommand}"/>
+                                <dxb:BarButtonItem Content="Реестр..." Command="{Binding OpenRequestListCommand}"/>
                             </dxr:RibbonPageGroup>
                             <dxr:RibbonPageGroup Caption="Чертежи">
                                 <dxb:BarButtonItem Content="Чертежи" RibbonStyle="Large" Command="{Binding OpenDrawingsCommand}"/>
@@ -38,12 +39,16 @@
                             <dxr:RibbonPageGroup Caption="Наряды">
                                 <dxb:BarButtonItem Content="Дневной наряд" RibbonStyle="Large" Command="{Binding OpenDailyWorkPackagesCommand}"/>
                             </dxr:RibbonPageGroup>
+                            <dxr:RibbonPageGroup Caption="Отгрузка">
+                                <dxb:BarButtonItem Content="Отгрузка" RibbonStyle="Large" Command="{Binding CreateNewShipmentCommand}"/>
+                                <dxb:BarButtonItem Content="Реестр" RibbonStyle="Default" Command="{Binding OpenShipmentsCommand}"/>
+                            </dxr:RibbonPageGroup>
                             <dxr:RibbonPageGroup Caption="Журналы">
                                 <dxb:BarButtonItem Content="Обрезка облоя" RibbonStyle="SmallWithText" Command="{Binding OpenShavingRecordsCommand}"/>
                                 <dxb:BarButtonItem Content="Приход материала" RibbonStyle="SmallWithText" Command="{Binding OpenMaterialArrivalRecordsCommand}"/>
                                 <dxb:BarButtonItem Content="Вальцовщик" RibbonStyle="SmallWithText" Command="{Binding OpenRollingRecordsCommand}"/>
                                 <dxb:BarButtonItem Content="Учет отгруженной продукции" RibbonStyle="SmallWithText" Command="{Binding OpenShippingRecordsCommand}"/>
-                                <dxb:BarButtonItem Content="Распоряжение на отгрузку" RibbonStyle="SmallWithText" Command="{Binding OpenShippingOrderRecordsCommand}"/>
+                                <!--<dxb:BarButtonItem Content="Распоряжение на отгрузку" RibbonStyle="SmallWithText" Command="{Binding OpenShippingOrderRecordsCommand}"/>-->
                             </dxr:RibbonPageGroup>
                         </dxr:RibbonPage>
                         <dxr:RibbonPage Caption="Справочники">

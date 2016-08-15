@@ -1,4 +1,4 @@
-namespace Rti.Model.Repository.Interfaces
+﻿namespace Rti.Model.Repository.Interfaces
 {
     public partial interface IImageRepository
     {

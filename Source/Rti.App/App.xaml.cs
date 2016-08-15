@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -20,6 +21,7 @@ using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Lists;
 using Rti.ViewModel.Reporting.Generator;
+using Rti.ViewModel.Reporting.ViewModel;
 
 namespace Rti.App
 {
@@ -56,18 +58,26 @@ namespace Rti.App
                     _viewService.ShowViewDialog(loginViewModel);
                     if (!loginViewModel.LoggedOn)
                         mainViewModel.Close(null);
+                    mainViewModel.Job = new JobViewModel(loginViewModel.Job, repositoryFactory);
                 }
                 else
                 {
-                    //var viewModel = new RequestEdit("", new RequestViewModel(repositoryFactory.GetRequestRepository().GetById(41), repositoryFactory), false, _viewService, repositoryFactory);
-                    var viewModel = new MainViewModel(_viewService, repositoryFactory);
+                    var viewModel = new RequestEdit("", new RequestViewModel(repositoryFactory.GetRequestRepository().GetByNumber(8), repositoryFactory), false, _viewService, repositoryFactory);
+                    //var viewModel = new MainViewModel(_viewService, repositoryFactory);
+                    //var viewModel = new ReportOfCompletionEdit("", new RequestViewModel(repositoryFactory.GetRequestRepository().GetByNumber(15), repositoryFactory), false, _viewService, repositoryFactory);
+                    //var viewModel = new ShipmentEdit("", new ShipmentViewModel(repositoryFactory.GetShipmentRepository().GetById(2), repositoryFactory), false, _viewService, repositoryFactory);
+                    //var viewModel = new ShipmentDirectExpencesReportViewModel("", _viewService, repositoryFactory,
+                    //    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Отчет.xls");
                     viewModel.Refresh();
                     _viewService.ShowView(viewModel, false, true);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                _log.ErrorExt("Ошибка при запуске приложения", ex);
+                MessageBox.Show(@"Произошла ошибка в приложении. 
+" + ex.Message + @"
+Информация об ошибке в логе.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -82,7 +92,6 @@ namespace Rti.App
 
         private void OnAppStartup_UpdateThemeName(object sender, StartupEventArgs e)
         {
-
             ApplicationThemeHelper.UpdateApplicationThemeName();
         }
     }

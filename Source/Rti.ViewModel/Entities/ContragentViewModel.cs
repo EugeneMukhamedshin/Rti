@@ -1,17 +1,25 @@
-using System.Xml.Linq;
+Ôªøusing System.Xml.Linq;
+using Rti.Model.Domain;
 
 namespace Rti.ViewModel.Entities
 {
     partial class ContragentViewModel
     {
+        public bool IsManufacturer { get { return ContragentTypeEnum == ContragentType.Manufacturer; } }
+
         public string FullName
         {
-            get { return string.Format("{0}, »ÕÕ {1},  œœ {2}, {3}, ÚÂÎ. {4}", Name, Inn, Kpp, Address, Phone); }
+            get { return string.Format("{0}, –ò–ù–ù {1}, –ö–ü–ü {2}, {3}, —Ç–µ–ª. {4}", Name, Inn, Kpp, Address, Phone); }
+        }
+
+        public string BankRequisites
+        {
+            get { return string.Format("—Ä/—Å {0} –≤ {1}, –∫/—Å {2}, –ë–ò–ö {3}", Account, Bank, CorrAccount, Bik); }
         }
 
         public string FullNameWithBankRequisites
         {
-            get { return string.Format("{0}, »ÕÕ {1},  œœ {2}, {3}, ÚÂÎ. {4}, ¡»  {5}, {6},  Ó. Ò˜. {7}, —˜ π {8}", Name, Inn, Kpp, Address, Phone, Bik, Bank, CorrAccount, Account); }
+            get { return string.Format("{0}, –ò–ù–ù {1}, –ö–ü–ü {2}, {3}, —Ç–µ–ª. {4}, –ë–ò–ö {5}, {6}, –ö–æ—Ä—Ä. —Å—á. {7}, –°—á ‚Ññ {8}", Name, Inn, Kpp, Address, Phone, Bik, Bank, CorrAccount, Account); }
         }
 
         public override void CustomFillXElement(XElement element)
@@ -19,6 +27,7 @@ namespace Rti.ViewModel.Entities
             base.CustomFillXElement(element);
             element.Add(new XAttribute("FullName", FullName));
             element.Add(new XAttribute("FullNameWithBankRequisites", FullNameWithBankRequisites));
+            element.Add(new XAttribute("BankRequisites", BankRequisites));
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Rti.Model.Domain.Generator
          Inner Join ({0}) T
             On Utc.Table_Name Like T.Table_Name_Mask
          left join Key_Column_Usage kcu on kcu.TABLE_SCHEMA = Ut.TABLE_SCHEMA and kcu.TABLE_NAME = Ut.TABLE_NAME and kcu.COLUMN_NAME = Utc.COLUMN_NAME and kcu.REFERENCED_TABLE_NAME is not null
-Where Ut.Table_Schema = @Table_Schema
+Where Ut.Table_Schema = @Table_Schema And Ut.Table_Type <> 'VIEW'
 Order By utc.Table_Name, utc.ordinal_position",
                         entityDeclarations.Aggregate(String.Empty,
                             (res, ed) =>

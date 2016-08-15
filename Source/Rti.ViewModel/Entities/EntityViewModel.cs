@@ -17,7 +17,8 @@ namespace Rti.ViewModel.Entities
         private string _validationErrorMessage;
 
         protected bool SuppressIsChanged;
-        protected bool IsMapping = false;
+
+        public bool IsMapping { get; protected set; }
 
         public TEntity Entity { get; private set; }
 
@@ -42,20 +43,12 @@ namespace Rti.ViewModel.Entities
             }
         }
 
-        protected EntityViewModel()
+        public bool IsSaved
         {
-            SuppressIsChanged = true;
-            try
-            {
-                IsNewEntity = true;
-                Entity = new TEntity();
-                MapPropertiesFromEntity();
-            }
-            finally
-            {
-                SuppressIsChanged = false;
-            }
+            get { return !IsChanged && !IsNewEntity; }
         }
+
+        protected EntityViewModel() : this(null, null) { }
 
         protected EntityViewModel(TEntity entity, IRepositoryFactory repositoryFactory)
             : base(repositoryFactory)

@@ -4,19 +4,22 @@
         xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:lists="clr-namespace:Rti.App.View.Lists"
+        xmlns:domain="clr-namespace:Rti.Model.Domain;assembly=Rti.Model"
         Title="Должности" Height="400" Width="672">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
-            <RowDefinition Height="32"/>
+            <!--<RowDefinition Height="32"/>-->
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <Button Content="+" Command="{Binding AddEntityCommand}" Width="32" Height="32" Margin="5"/>
-            <Button Content="-" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5"/>
-            <Button Content="..." Command="{Binding EditEntityCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5"/>
+            <Button Content="{StaticResource AddImage}" Command="{Binding AddEntityCommand}" Width="32" Height="32" Margin="5"/>
+            <Button Content="{StaticResource DeleteImage}" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5"/>
+            <Button Content="{StaticResource EditImage}" Command="{Binding EditEntityCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5"/>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
+        <!--<StackPanel Orientation="Horizontal" Grid.Row="1">
             <Label Content="Найти" VerticalContentAlignment="Center" Margin="5"/>
             <TextBox Width="300" Margin="5" Name="_findTextBox">
                 <dxmvvm:Interaction.Behaviors>
@@ -24,7 +27,7 @@
                 </dxmvvm:Interaction.Behaviors>
             </TextBox>
             <Button Margin="5" Width="80" Content="Поиск" Command="{Binding FindEntityCommand}" CommandParameter="{Binding Text, ElementName=_findTextBox}"/>
-        </StackPanel>
+        </StackPanel>-->
         <dxg:GridControl TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2">
             <dxmvvm:Interaction.Behaviors>
                 <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding EditEntityCommand}" PassEventArgsToCommand="True">
@@ -36,10 +39,19 @@
             <dxg:GridControl.Columns>
                 <dxg:GridColumn FieldName="SortOrder" Header="№" ReadOnly="True" Width="50"/>
                 <dxg:GridColumn FieldName="Name" Header="Наименование" Width="200"/>
+                <dxg:GridColumn FieldName="AccessTypeEnum" Header="Тип доступа" Width="150" ReadOnly="True">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:ComboBoxEditSettings DisplayMember="DisplayName" ValueMember="Value">
+                            <dxe:ComboBoxEditSettings.ItemsSource>
+                                <lists:EnumToItemsSource EnumType="domain:AccessType"/>
+                            </dxe:ComboBoxEditSettings.ItemsSource>
+                        </dxe:ComboBoxEditSettings>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
                 <dxg:GridColumn FieldName="Login" Header="Логин" Width="200"/>
             </dxg:GridControl.Columns>
             <dxg:GridControl.View>
-                <dxg:TableView AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
             </dxg:GridControl.View>
         </dxg:GridControl>
     </Grid>

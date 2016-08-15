@@ -37,25 +37,46 @@
     <StartupObject>Rti.App.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.Data.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Mvvm.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.Mvvm.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Printing.v15.2.Core, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.Office.v15.2.Core, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Xpf.Core.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.Pdf.v15.2.Core, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Xpf.Printing.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.Pdf.v15.2.Drawing, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Xpf.Grid.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.Printing.v15.2.Core, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Xpf.Grid.v15.2.Core, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.RichEdit.v15.2.Core, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Core.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Docking.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.DocumentViewer.v15.2.Core, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Layout.v15.2.Core, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Printing.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Grid.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Grid.v15.2.Core, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
     <Reference Include="DevExpress.Xpf.PropertyGrid.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
@@ -64,7 +85,7 @@
     <Reference Include="DevExpress.Xpf.Ribbon.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.LightGray.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.Xpf.Themes.LightGray.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
     <Reference Include="DevExpress.Xpf.Themes.Office2007Black.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
@@ -73,7 +94,7 @@
     <Reference Include="DevExpress.Xpf.Themes.Office2007Silver.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.Seven.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.Xpf.Themes.Seven.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
     <Reference Include="ExcelViewer">
@@ -159,11 +180,18 @@
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainWindowSlim.xaml.cs">
+      <DependentUpon>MainWindowSlim.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Components\Float2TextEditSettings.cs" />
     <Compile Include="View\Components\Float3TextEditSettings.cs" />
     <Compile Include="View\Components\ImageContentExtension.cs" />
     <Compile Include="View\Components\PropertyGridResponsible.cs" />
     <Compile Include="View\Components\NumericEditSettingsExtension.cs" />
+    <Compile Include="View\Controls\VerticalGridControl.xaml.cs">
+      <DependentUpon>VerticalGridControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Converters\CalcTypeToBackgroundConverter.cs" />
     <Compile Include="View\Converters\ExistanceToStringConverter.cs" />
     <Compile Include="View\Editors\AdditionalInfoEditWindow.xaml.cs">
       <DependentUpon>AdditionalInfoEditWindow.xaml</DependentUpon>
@@ -177,11 +205,38 @@
     <Compile Include="View\Editors\ContragentEditWindow.xaml.cs">
       <DependentUpon>ContragentEditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Editors\DeliveryEditWindow.xaml.cs">
+      <DependentUpon>DeliveryEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\EquipmentPaymentEditWindow.xaml.cs">
+      <DependentUpon>EquipmentPaymentEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\ReportOfCompletionEditWindow.xaml.cs">
+      <DependentUpon>ReportOfCompletionEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\PaymentEditWindow.xaml.cs">
+      <DependentUpon>PaymentEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\ShipmentEditWindow.xaml.cs">
+      <DependentUpon>ShipmentEditWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Editors\WorkItemEditWindow.xaml.cs">
       <DependentUpon>WorkItemEditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lists\EmployeeWorkItemListWindow.xaml.cs">
       <DependentUpon>EmployeeWorkItemListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\EquipmentPaymentListWindow.xaml.cs">
+      <DependentUpon>EquipmentPaymentListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\RequestListWindow.xaml.cs">
+      <DependentUpon>RequestListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\PaymentListWindow.xaml.cs">
+      <DependentUpon>PaymentListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lists\ShipmentListWindow.xaml.cs">
+      <DependentUpon>ShipmentListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lists\WorkItemListWindow.xaml.cs">
       <DependentUpon>WorkItemListWindow.xaml</DependentUpon>
@@ -317,9 +372,6 @@
     <Compile Include="View\Lists\ExtendedSelectorControl.xaml.cs">
       <DependentUpon>ExtendedSelectorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Lists\RequestDetailListDXControl.xaml.cs">
-      <DependentUpon>RequestDetailListDXControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Lists\RollingRecordListWindow.xaml.cs">
       <DependentUpon>RollingRecordListWindow.xaml</DependentUpon>
     </Compile>
@@ -333,6 +385,18 @@
     <Compile Include="View\Lists\TemplateMap.cs" />
     <Compile Include="View\Lists\StyleMap.cs" />
     <Compile Include="View\Lists\TreeListView\TreeListView.cs" />
+    <Compile Include="View\Reports\SalaryReportEditWindow.xaml.cs">
+      <DependentUpon>SalaryReportEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Reports\MaterialMovingsReportWindow.xaml.cs">
+      <DependentUpon>MaterialMovingsReportWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Reports\DrawingReportEditWindow.xaml.cs">
+      <DependentUpon>DrawingReportEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Reports\ByPeriodReportEditWindow.xaml.cs">
+      <DependentUpon>ByPeriodReportEditWindow.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -390,6 +454,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MainWindowSlim.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\VerticalGridControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Editors\AdditionalInfoEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -406,6 +478,26 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Editors\DeliveryEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\EquipmentPaymentEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Editors\ReportOfCompletionEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\PaymentEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Editors\ShipmentEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Editors\WorkItemEditWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -413,6 +505,22 @@
     <Page Include="View\Lists\EmployeeWorkItemListWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Lists\EquipmentPaymentListWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Lists\RequestListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\PaymentListWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Lists\ShipmentListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Lists\WorkItemListWindow.xaml">
       <SubType>Designer</SubType>
@@ -570,10 +678,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Lists\RequestDetailListDXControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\Lists\RollingRecordListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -583,6 +687,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Lists\ShippingOrderRecordListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Reports\SalaryReportEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Reports\MaterialMovingsReportWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Reports\DrawingReportEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Reports\ByPeriodReportEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -598,17 +718,239 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Reports\contract.doc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Reports\invoice.xslt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\Images\add.png">
+    <None Include="Reports\completion_report.xslt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Images\delete.png">
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\rejection_report.xslt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\request_report.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Images\add.png" />
+    <Resource Include="Content\Images\delete.png" />
+    <Resource Include="Content\Images\dictionaries.jpg" />
+    <Resource Include="Content\Images\drawings.png" />
+    <Resource Include="Content\Images\edit.png" />
+    <Resource Include="Content\Images\exit.png" />
+    <Resource Include="Content\Images\request.png" />
+    <Resource Include="Content\Images\shipment.png" />
+    <Resource Include="Content\Images\work.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetRequestsByMethodsReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetDrawingShipmentsReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetUsedMaterialsReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetRequestDirectExpencesReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetWorkItemDirectExpencesReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetShipmentDirectExpencesReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetSalaryReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetShipmentTorg12Report.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\shipment_torg12.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\facture.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetShipmentFactureReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetShipmentTransportReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\transport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\passport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetShipmentPassportReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\universalDocument.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetShipmentUniversalDocumentReport_Filled.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\specification.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetRequestSpecificationReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetRequestsByMethodsReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetDrawingShipmentsReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetSalaryReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetUsedMaterialsReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetRequestDirectExpencesReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetWorkItemDirectExpencesReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetShipmentDirectExpencesReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetDrawingFlowsheetReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetDrawingFlowsheetReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetDrawingCalculationReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetDrawingCalculationReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetWorkItemListReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetWorkItemListReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetEmployeeWorkItemListReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetEmployeeWorkItemListReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetShipmentUniversalDocumentReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetMakedDetailsReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetMakedDetailsReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetMaterialMovingFullReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetMaterialMovingRequestReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetMaterialMovingShipmentReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetMaterialMovingWorkItemReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetMaterialMovingFullReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetMaterialMovingRequestReport.xml" />
+    <Resource Include="Reports\GetMaterialMovingShipmentReport.xml" />
+    <Resource Include="Reports\GetMaterialMovingWorkItemReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\acceptance_report.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetEquipmentInvoiceReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetM15Report.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetM15Report.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetEquipmentInvoiceReport.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

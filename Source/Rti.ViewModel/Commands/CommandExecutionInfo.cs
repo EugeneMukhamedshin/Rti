@@ -1,4 +1,4 @@
-namespace Rti.ViewModel.Commands
+﻿namespace Rti.ViewModel.Commands
 {
     public class CommandExecutionInfo
     {

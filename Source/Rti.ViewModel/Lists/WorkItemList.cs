@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
+using Rti.ViewModel.Reporting.ViewModel;
 
 namespace Rti.ViewModel.Lists
 {
-    public class WorkItemList: EntityList<WorkItemViewModel, WorkItem>, IClosable
+    public class WorkItemList : EntityList<WorkItemViewModel, WorkItem>, IClosable
     {
         private DateTime _date;
         private List<EmployeeViewModel> _employeesSource;
@@ -30,8 +34,11 @@ namespace Rti.ViewModel.Lists
         public DelegateCommand AddWorkItemCommand { get; set; }
 
         public DelegateCommand OpenEmployeeWorkItemListCommand { get; set; }
+        public DelegateCommand OpenMakedDetailsReportCommand { get; set; }
 
-        public DelegateCommand CloseCommand{ get; set; }
+        public DelegateCommand CloseCommand { get; set; }
+
+        public DelegateCommand ReportCommand { get; set; }
 
         public EmployeeViewModel Employee
         {
@@ -56,11 +63,14 @@ namespace Rti.ViewModel.Lists
             }
         }
 
-        public WorkItemList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
+        public decimal? Sum { get { return Items.Sum(item => item.Sum); } }
+
+        public WorkItemList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory)
+            : base(editMode, viewService, repositoryFactory)
         {
             TypeMaps.Add(new Tuple<Type, Type>(typeof(WorkItemViewModel), typeof(WorkItemEdit)));
 
-            _date = DateTime.Today;
+            _date = DateTime.Today.AddDays(1);
             AddWorkItemCommand = new DelegateCommand(
                 "Добавить строку",
                 o => EditMode,
@@ -69,10 +79,37 @@ namespace Rti.ViewModel.Lists
                 "Открыть индивидуальный наряд",
                 o => Employee != null,
                 o => OpenEmployeeWorkItemList());
+            OpenMakedDetailsReportCommand = new DelegateCommand(o => OpenMakedDetailsReport());
             CloseCommand = new DelegateCommand(
                 "",
                 o => true,
                 o => Close(true));
+            ReportCommand = new DelegateCommand(o => Report());
+        }
+
+        private void OpenMakedDetailsReport()
+        {
+            var viewModel = new MakedDetailsReportViewModel("Реестр изготовленных деталей", ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Реестр изготовленных деталей.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" };
+            ViewService.ShowViewDialog(viewModel);
+        }
+
+        private void Report()
+        {
+            var workItemPackage = new WorkItemPackageViewModel(RepositoryFactory.GetWorkItemPackageRepository().GetByDate(Date), RepositoryFactory) {};
+            if (workItemPackage.IsNewEntity)
+            {
+                workItemPackage.Date = Date;
+                workItemPackage.SaveEntity();
+            }
+            var viewModel = new WorkItemListReportViewModel("Дневной наряд", ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), string.Format("Дневной наряд ({0:dd.MM.yyyy}).xls", Date))
+            {
+                WorkItems = Items.ToList(),
+                ExtensionFilter = "Файлы Excel (*.xls)|*.xls",
+                WorkItemPackage = workItemPackage
+            };
+            viewModel.GenerateReport();
         }
 
         private void AddWorkItem()
@@ -87,6 +124,7 @@ namespace Rti.ViewModel.Lists
             var list = new EmployeeWorkItemList(Employee, Date, EditMode, ViewService, RepositoryFactory);
             list.Refresh();
             ViewService.ShowViewDialog(list);
+            Refresh();
         }
 
         protected override IEnumerable<WorkItemViewModel> GetItems()
@@ -126,7 +164,23 @@ namespace Rti.ViewModel.Lists
             base.OnItemsChanged();
             RefreshEmployeesSource();
             Items.CollectionChanged += (sender, args) => RefreshEmployeesSource();
-            Employee = Items.Select(o => o.Employee).Distinct().SingleOrDefault();
+            Items.CollectionChanged += (sender, args) => ResubscribeItems();
+            Employee = Items.Select(o => o.Employee).Distinct().FirstOrDefault();
+        }
+
+        private void ResubscribeItems()
+        {
+            foreach (var item in Items)
+            {
+                item.PropertyChanged -= ItemPropertyChanged;
+                item.PropertyChanged += ItemPropertyChanged;
+            }
+        }
+
+        private void ItemPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Sum")
+                OnPropertyChanged("Sum");
         }
 
         private void RefreshEmployeesSource()

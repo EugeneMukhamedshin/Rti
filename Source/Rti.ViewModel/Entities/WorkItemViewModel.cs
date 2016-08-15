@@ -1,17 +1,13 @@
-using System;
+п»їusing System;
+using System.Xml.Linq;
 
 namespace Rti.ViewModel.Entities
 {
     public partial class WorkItemViewModel
     {
-        public string BatchNumber
-        {
-            get { return string.Format("{0:dd.MM.yyyy}/{1}", WorkDate, SortOrder); }
-        }
-
         public decimal? Sum
         {
-            get { return Drawing != null && Drawing.PlanCalculation != null ? DoneCount * Drawing.PlanCalculation.Summary : null; }
+            get { return Drawing != null && Drawing.FactCalculation != null ? DoneCount * Drawing.FactCalculation.Summary : null; }
         }
 
         public int RemainedCount
@@ -20,7 +16,7 @@ namespace Rti.ViewModel.Entities
         }
 
         /// <summary>
-        /// Количество съемов
+        /// РљРѕР»РёС‡РµСЃС‚РІРѕ СЃСЉРµРјРѕРІ
         /// </summary>
         public int TakeOffCount
         {
@@ -33,7 +29,7 @@ namespace Rti.ViewModel.Entities
         }
 
         /// <summary>
-        /// Время использования пресса
+        /// Р’СЂРµРјСЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РїСЂРµСЃСЃР°
         /// </summary>
         public decimal MachineUsageTime
         {
@@ -45,14 +41,20 @@ namespace Rti.ViewModel.Entities
             base.OnPropertyChanged(propertyName);
             if (propertyName.In("DoneCount", "Drawing"))
                 OnPropertyChanged("Sum");
-            if (propertyName == "Date")
-                OnPropertyChanged("BatchNumber");
+            if (propertyName.In("WorkDate", "SortOrder"))
+                BatchNumber = string.Format("{0:dd.MM.yyyy}/{1}", WorkDate, SortOrder);
             if (propertyName.In("DoneCount", "RequestCount", "RejectedCount"))
                 OnPropertyChanged("RemainedCount");
             if (propertyName.In("TaskCount", "Drawing"))
                 OnPropertyChanged("TakeOffCount");
             if (propertyName.In("TakeOffCount", "FlowsheetMachine"))
                 OnPropertyChanged("MachineUsageTime");
+        }
+
+        public override void CustomFillXElement(XElement element)
+        {
+            base.CustomFillXElement(element);
+            element.Add(new XAttribute("Sum", Sum ?? 0));
         }
     }
 }

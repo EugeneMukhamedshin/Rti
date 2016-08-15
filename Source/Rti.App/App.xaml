@@ -7,161 +7,21 @@
              Startup="OnAppStartup_UpdateThemeName">
     <Application.Resources>
         <converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
-
-        <Image x:Key="AddFolderImage" Source="Images/folder_add.png" />
-        <Image x:Key="AddFolderImage1" Source="Images/folder_add.png" />
-        <Image x:Key="AddEstimationImage" Source="Images/table_add.png" />
-        <Image x:Key="AddEstimationImage1" Source="Images/table_add.png" />
-        <Image x:Key="OpenEstimationImage" Source="Images/pencil.png" />
-        <Image x:Key="DeleteItemImage" Source="Images/delete.png" />
-        <Image x:Key="DeleteItemImage1" Source="Images/delete.png" />
-        <Image x:Key="DeleteItemImage2" Source="Images/delete.png" />
-        <Image x:Key="DeleteItemImage3" Source="Images/delete.png" />
-        <Image x:Key="DeleteItemImage4" Source="Images/delete.png" />
-        <Image x:Key="DeleteItemImage5" Source="Images/delete.png" />
-        <Image x:Key="DeleteItemImage6" Source="Images/delete.png" />
-        <Image x:Key="DeleteItemImage7" Source="Images/delete.png" />
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter">
-        </BooleanToVisibilityConverter>
-        <editors1:StringToNumberConverter x:Key="StringToNumberConverter" IsNullable="True" />
-        <lists:CommandsToContextMenuConverter x:Key="CommandsToContextMenuConverter">
-        </lists:CommandsToContextMenuConverter>
-        <Style x:Key="ExpanderStyle" TargetType="CheckBox">
-            <Style.Triggers>
-                <Trigger Property="IsChecked" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate>
-                                <Border Width="12" Height="12" BorderThickness="1" Background="White" BorderBrush="Black">
-                                    <Path Stroke="Black" Data="M0,4 H8" StrokeThickness="1" Height="8" Width="8" />
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-                <Trigger Property="IsChecked" Value="False">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate>
-                                <Border Width="12" Height="12" BorderThickness="1" Background="White" BorderBrush="Black">
-                                    <Path Stroke="Black" Data="M0,4 H8 M4,4 V8Z" StrokeThickness="1" Height="8" Width="8" />
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="BaseListViewItemStyle" TargetType="{x:Type ListViewItem}">
-            <Setter Property="IsSelected" Value="{Binding IsSelected,Mode=TwoWay}" />
-            <Style.Triggers>
-                <MultiTrigger>
-                    <MultiTrigger.Conditions>
-                        <Condition Property="IsSelected" Value="true" />
-                    </MultiTrigger.Conditions>
-                    <Setter Property="Background" Value="DarkKhaki" />
-                </MultiTrigger>
-                <MultiTrigger>
-                    <MultiTrigger.Conditions>
-                        <Condition Property="IsSelected" Value="true" />
-                        <Condition Property="Selector.IsSelectionActive" Value="true" />
-                    </MultiTrigger.Conditions>
-                    <Setter Property="Background" Value="Khaki" />
-                </MultiTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="ListViewItemStyle" TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource BaseListViewItemStyle}">
-            <Setter Property="BorderBrush" Value="Black">
-            </Setter>
-            <Setter Property="BorderThickness" Value="1">
-            </Setter>
-            <Setter Property="Margin" Value="-1">
-            </Setter>
-            <Setter Property="ContextMenu" Value="{Binding Commands,Converter={StaticResource CommandsToContextMenuConverter}}">
-            </Setter>
-            <Setter Property="HorizontalContentAlignment" Value="Stretch">
-            </Setter>
-            <Setter Property="VerticalContentAlignment" Value="Stretch">
-            </Setter>
-            <Setter Property="MinHeight" Value="32" />
-        </Style>
-        <Style x:Key="Branch1Style" TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource ListViewItemStyle}">
-            <Setter Property="Background" Value="LightGray" />
-            <Setter Property="BorderThickness" Value="0 0 0 1">
-            </Setter>
-            <Setter Property="Height" Value="24" />
-            <Setter Property="FontSize" Value="14" />
-        </Style>
-        <Style x:Key="LeafStyle" TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource ListViewItemStyle}">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="BorderThickness" Value="0 0 0 1">
-            </Setter>
-            <Setter Property="Height" Value="16" />
-            <Setter Property="FontSize" Value="12" />
-        </Style>
-        <Style TargetType="{x:Type TextBox}">
-            <Style.Triggers>
-                <Trigger Property="IsReadOnly" Value="True">
-                    <Setter Property="Background" Value="LightGray" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="RateSectionStyle" TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource ListViewItemStyle}">
-            <Setter Property="Background" Value="#C0DCC0" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="FontWeight" Value="ExtraBold" />
-            <!--<Setter Property="HorizontalContentAlignment" Value="Left"/>-->
-        </Style>
-        <Style x:Key="RateRowStyle" TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource ListViewItemStyle}">
-            <Setter Property="Background" Value="White" />
-            <Setter Property="FontSize" Value="12" />
-            <!--<Setter Property="HorizontalContentAlignment" Value="Left"/>-->
-        </Style>
-        <Style x:Key="RateRowWorkItemRootStyle" TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource ListViewItemStyle}">
-            <Setter Property="Background" Value="White" />
-            <Setter Property="FontSize" Value="12" />
-            <Setter Property="FontStyle" Value="Italic" />
-            <!--<Setter Property="HorizontalContentAlignment" Value="Center"/>-->
-        </Style>
-        <Style x:Key="RateRowWorkItemStyle" TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource ListViewItemStyle}">
-            <Setter Property="Background" Value="White" />
-            <Setter Property="FontSize" Value="12" />
-        </Style>
-        <Style x:Key="RateRowMaterialItemRootStyle" TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource ListViewItemStyle}">
-            <Setter Property="Background" Value="#EBF5F5" />
-            <Setter Property="FontSize" Value="12" />
-            <Setter Property="FontStyle" Value="Italic" />
-            <!--<Setter Property="HorizontalContentAlignment" Value="Center"/>-->
-        </Style>
-        <Style x:Key="RateRowMaterialItemRootInvisibleStyle" TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource ListViewItemStyle}">
-            <Setter Property="Background" Value="#EBF5F5" />
-            <Setter Property="FontSize" Value="12" />
-            <Setter Property="FontStyle" Value="Italic" />
-            <!--<Setter Property="HorizontalContentAlignment" Value="Center"/>-->
-            <Setter Property="Height" Value="0" />
-            <Setter Property="Visibility" Value="Collapsed">
-            </Setter>
-        </Style>
-        <Style x:Key="RateRowMaterialItemStyle" TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource ListViewItemStyle}">
-            <Setter Property="Background" Value="#EBF5F5" />
-            <Setter Property="Foreground" Value="#350095">
-            </Setter>
-            <Setter Property="FontSize" Value="12" />
-        </Style>
-        <Style x:Key="EstimationSectionSummaryItemStyle" TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource ListViewItemStyle}">
-            <Setter Property="Background" Value="LightBlue" />
-            <Setter Property="FontSize" Value="12" />
-        </Style>
-        <Style x:Key="EstimationSummaryItemStyle" TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource ListViewItemStyle}">
-            <Setter Property="Background" Value="DeepSkyBlue" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="FontWeight" Value="Bold" />
-        </Style>
-        <Style TargetType="MenuItem">
-            <Setter Property="HorizontalContentAlignment" Value="Left" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-        </Style>
         <lists:BooleanToCollapsedConverter x:Key="BooleanToCollapsedConverter" />
         <lists:BooleanToCollapsedConverter x:Key="InvertedBooleanToCollapsedConverter" Inverted="True" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <editors1:StringToNumberConverter x:Key="StringToNumberConverter" IsNullable="True" />
+        <lists:CommandsToContextMenuConverter x:Key="CommandsToContextMenuConverter"/>
+
+        <Image x:Key="AddImage" Source="Content/Images/add.png" x:Shared="False"></Image>
+        <Image x:Key="DeleteImage" Source="Content/Images/delete.png" x:Shared="False"></Image>
+        <Image x:Key="EditImage" Source="Content/Images/edit.png" x:Shared="False"></Image>
+        
+        <Style TargetType="Button">
+            <Style.Setters>
+                <Setter Property="Padding" Value="2"/>
+            </Style.Setters>
+        </Style>
+        
     </Application.Resources>
 </Application>

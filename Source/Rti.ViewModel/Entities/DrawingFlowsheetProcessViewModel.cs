@@ -1,3 +1,6 @@
+﻿using System;
+using System.Xml.Linq;
+
 namespace Rti.ViewModel.Entities
 {
     partial class DrawingFlowsheetProcessViewModel
@@ -35,6 +38,32 @@ namespace Rti.ViewModel.Entities
         public bool AreNamesReadOnly
         {
             get { return Process.ProcessTypeEnum != Model.Domain.ProcessType.Other; }
+        }
+
+        public event EventHandler IsIncludedToSummaryChanged;
+
+        protected override void OnPropertyChanged(string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+            if (propertyName.In("NormTime", "IsIncludedToSummary"))
+                OnIsIncludedToSummaryChanged();
+        }
+
+        protected virtual void OnIsIncludedToSummaryChanged()
+        {
+            if (IsIncludedToSummaryChanged != null)
+                IsIncludedToSummaryChanged(this, EventArgs.Empty);
+        }
+
+        public override void CustomFillXElement(XElement element)
+        {
+            base.CustomFillXElement(element);
+            element.Add(
+                new XAttribute("DisplayName", DisplayName ?? string.Empty),
+                new XAttribute("DisplayOperation", DisplayOperation ?? string.Empty),
+                new XAttribute("DisplayExecutor", DisplayExecutor ?? string.Empty),
+                new XAttribute("DisplayVarName", DisplayVarName ?? string.Empty),
+                new XAttribute("DisplayNormTime", DisplayNormTime));
         }
     }
 }

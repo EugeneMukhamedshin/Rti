@@ -1,0 +1,268 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>Ekaterina_Lutkova</Author>
+  <LastAuthor>Мухамедшин</LastAuthor>
+  <LastPrinted>2016-06-28T12:05:01Z</LastPrinted>
+  <Created>2016-04-20T08:18:29Z</Created>
+  <LastSaved>2016-06-28T13:16:52Z</LastSaved>
+  <Company>SPecialiST RePack</Company>
+  <Version>14.00</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <AllowPNG/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>11595</WindowHeight>
+  <WindowWidth>19200</WindowWidth>
+  <WindowTopX>0</WindowTopX>
+  <WindowTopY>0</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="m51624168">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="3"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="3"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="s16">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="3"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="3"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="3"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="3"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s17">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="3"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="3"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="3"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="3"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s18">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="3"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="s19">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="3"/>
+   </Borders>
+   <Interior ss:Color="#C6E0B4" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s20">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="3"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="s21">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="3"/>
+   </Borders>
+   <NumberFormat ss:Format="Short Date"/>
+  </Style>
+  <Style ss:ID="s22">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Interior ss:Color="#C6E0B4" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s23">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="s24">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <NumberFormat ss:Format="Short Date"/>
+  </Style>
+  <Style ss:ID="s25">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Interior ss:Color="#FFD966" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s35">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s37">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="3"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="3"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="3"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="s42">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="3"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="3"/>
+   </Borders>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Лист1">
+  <Table ss:ExpandedColumnCount="9" ss:ExpandedRowCount="10" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultRowHeight="15">
+   <Column ss:AutoFitWidth="0" ss:Width="82.5"/>
+   <Column ss:AutoFitWidth="0" ss:Width="78.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="70.5"/>
+   <Column ss:AutoFitWidth="0" ss:Width="113.25"/>
+   <Column ss:AutoFitWidth="0" ss:Width="63.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="73.5"/>
+   <Column ss:AutoFitWidth="0" ss:Width="72.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="81"/>
+   <Row>
+    <Cell ss:MergeAcross="8" ss:StyleID="s35"><Data ss:Type="String">Заказы и отгрузка по чертежу 01.06.2016 - 27.01.2016</Data></Cell>
+   </Row>
+   <Row ss:Height="15.75"/>
+   <Row ss:Height="16.5">
+    <Cell ss:MergeDown="2" ss:StyleID="s42"/>
+    <Cell ss:MergeAcross="1" ss:StyleID="s16"><Data ss:Type="String">Чертеж</Data></Cell>
+    <Cell ss:StyleID="s16"><Data ss:Type="String">Наименование детали</Data></Cell>
+    <Cell ss:MergeAcross="4" ss:MergeDown="2" ss:StyleID="m51624168"/>
+   </Row>
+   <Row ss:Height="16.5">
+    <Cell ss:Index="2" ss:StyleID="s18"><Data ss:Type="String">8БП</Data></Cell>
+    <Cell ss:StyleID="s18"><Data ss:Type="String">702.787</Data></Cell>
+    <Cell ss:StyleID="s18"><Data ss:Type="String">Уплотнение</Data></Cell>
+   </Row>
+   <Row ss:Height="16.5">
+    <Cell ss:Index="2" ss:MergeAcross="2" ss:StyleID="s37"/>
+   </Row>
+   <Row ss:Height="31.5">
+    <Cell ss:StyleID="s16"><Data ss:Type="String">Статус </Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Заказчик</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Номер заявки</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Дата регистрации</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Количество по заявке</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">№ накладной</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Дата отгрузки</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Количество отгруженного</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Разница</Data></Cell>
+   </Row>
+   <Row ss:Height="16.5">
+    <Cell ss:StyleID="s19"><Data ss:Type="String">выполнено</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="String">ООО &quot;Эльмаш&quot;</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="Number">3</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="DateTime">2016-05-15T00:00:00.000</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="Number">150</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="Number">4</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="DateTime">2016-05-26T00:00:00.000</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="Number">110</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="Number">40</Data></Cell>
+   </Row>
+   <Row ss:Height="15.75">
+    <Cell ss:StyleID="s22"/>
+    <Cell ss:StyleID="s23"/>
+    <Cell ss:StyleID="s23"/>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:StyleID="s23"/>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">5</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="DateTime">2016-05-28T00:00:00.000</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">40</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">0</Data></Cell>
+   </Row>
+   <Row ss:Height="15.75">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">выполнено</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">ООО &quot;Форэс&quot;</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">7</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="DateTime">2016-06-21T00:00:00.000</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">50</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">9</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="DateTime">2016-07-05T00:00:00.000</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">50</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">0</Data></Cell>
+   </Row>
+   <Row ss:Height="15.75">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">не выполнено</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">ООО &quot;Элта&quot;</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">15</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="DateTime">2016-07-10T00:00:00.000</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">120</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">19</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="DateTime">2016-07-19T00:00:00.000</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="Number">20</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Layout x:Orientation="Landscape"/>
+    <Header x:Margin="0.3"/>
+    <Footer x:Margin="0.3"/>
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+   </PageSetup>
+   <Print>
+    <ValidPrinterInfo/>
+    <PaperSizeIndex>9</PaperSizeIndex>
+    <HorizontalResolution>-3</HorizontalResolution>
+    <VerticalResolution>-3</VerticalResolution>
+   </Print>
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>24</ActiveRow>
+     <ActiveCol>5</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

@@ -1,4 +1,5 @@
-using System;
+п»їusing System;
+using System.Xml.Linq;
 using Rti.Model.Domain;
 using Rti.ViewModel.Calculation;
 
@@ -11,22 +12,22 @@ namespace Rti.ViewModel.Entities
             get
             {
                 var mass = CalculatedMass;
-                return mass == null ? "Недостаточно данных" : string.Format("{0:f3}", mass);
+                return mass == null ? "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґР°РЅРЅС‹С…" : string.Format("{0:f3} РєРі", mass);
             }
         }
 
-        public decimal? CalculatedMass
+        public double? CalculatedMass
         {
             get
             {
                 var calculated = CalculateMass();
-                return calculated.HasValue ? Math.Round(calculated.Value / 1000, 3) : (decimal?)null;
+                return calculated.HasValue ? Math.Round(DetailTypeEnum == DetailType.Other ? calculated.Value : calculated.Value / 1000, 3) : (double?)null;
             }
         }
 
-        public decimal? CalculateMass()
+        public double? CalculateMass()
         {
-            var pi = (decimal)Math.PI;
+            var pi = Math.PI;
 
             switch (DetailTypeEnum)
             {
@@ -62,6 +63,12 @@ namespace Rti.ViewModel.Entities
         public override string ToString()
         {
             return DisplayCalculatedMass;
+        }
+
+        public override void CustomFillXElement(XElement element)
+        {
+            base.CustomFillXElement(element);
+            element.Add(new XAttribute("CalculatedMass", CalculatedMass ?? 0));
         }
     }
 }

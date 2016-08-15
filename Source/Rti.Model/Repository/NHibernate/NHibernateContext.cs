@@ -32,12 +32,14 @@ namespace Rti.Model.Repository.NHibernate
                 _log.InfoFormat("Creating session factory. Connection string = {0}", connectionString);
                 _sessionFactory = Fluently.Configure()
                     .Database(
-                        MySQLConfiguration
-                            .Standard
-                                .ConnectionString(connectionString)
-                            .ShowSql()
+                        MySQLConfiguration.Standard.ConnectionString(connectionString)
+                            //.ShowSql()
                     )
-                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<NHibernateContext>().Conventions.AddFromAssemblyOf<NHibernateContext>())
+                    .Mappings(
+                        m =>
+                            m.FluentMappings.AddFromAssemblyOf<NHibernateContext>()
+                    //.Conventions.AddFromAssemblyOf<NHibernateContext>()
+                    )
                     //.ExposeConfiguration(cfg => new SchemaExport(cfg).SetOutputFile("schema.sql").Execute(true, true, false))
                     .BuildSessionFactory();
             }

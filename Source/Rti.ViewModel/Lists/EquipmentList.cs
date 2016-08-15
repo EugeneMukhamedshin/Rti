@@ -17,7 +17,11 @@ namespace Rti.ViewModel.Lists
 
         protected override IEnumerable<EquipmentViewModel> GetItems()
         {
-            return RepositoryFactory.GetEquipmentRepository().GetAllActive().Select(o => new EquipmentViewModel(o, RepositoryFactory));
+            return
+                RepositoryFactory.GetEquipmentRepository()
+                    .GetAllActiveWithDrawings()
+                    .Select(o => new EquipmentViewModel(o.Item1, RepositoryFactory) {Drawing = new DrawingViewModel(o.Item2, RepositoryFactory)})
+                    .OrderBy(o => o.SortOrder);
         }
 
         protected override EquipmentViewModel DoCreateNewEntity()

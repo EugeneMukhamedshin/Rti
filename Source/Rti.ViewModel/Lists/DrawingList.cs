@@ -14,6 +14,7 @@ namespace Rti.ViewModel.Lists
     public class DrawingList : EntityList<DrawingViewModel, Drawing>, IClosable
     {
         public DelegateCommand AddDrawingCommand { get; set; }
+        public DelegateCommand EditDrawingCommand { get; set; }
         public DelegateCommand PrevPageCommand { get; set; }
         public DelegateCommand NextPageCommand { get; set; }
         public DelegateCommand OpenFlowsheetCommand { get; set; }
@@ -23,7 +24,8 @@ namespace Rti.ViewModel.Lists
         public int PageSize { get; set; }
         public bool IsLastPage { get; set; }
 
-        public DrawingList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory) : base(editMode, viewService, repositoryFactory)
+        public DrawingList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory)
+            : base(editMode, viewService, repositoryFactory)
         {
             TypeMaps.Add(new Tuple<Type, Type>(typeof(DrawingViewModel), typeof(DrawingEdit)));
             IsLastPage = true;
@@ -32,12 +34,13 @@ namespace Rti.ViewModel.Lists
                 "Добавить чертеж",
                 o => true,
                 o => AddDrawing());
+            EditDrawingCommand = new DelegateCommand(o => EditDrawing((DrawingViewModel)o));
             PrevPageCommand = new DelegateCommand(
                 "Предыдущая страница",
                 o => Page > 0,
                 o =>
                 {
-                    Page--; 
+                    Page--;
                     Refresh();
                 });
             NextPageCommand = new DelegateCommand(
@@ -71,6 +74,12 @@ namespace Rti.ViewModel.Lists
             }
         }
 
+        private void EditDrawing(DrawingViewModel drawing)
+        {
+            OpenViewModelEditWindow(drawing, "Изменение", !EditMode);
+            drawing.RaiseCalculationPriceChanged();
+        }
+
         private void OpenFlowsheet()
         {
             var viewModel = new DrawingFlowsheetEdit("Технологическая карта", SelectedItem, !EditMode, ViewService, RepositoryFactory);
@@ -81,11 +90,6 @@ namespace Rti.ViewModel.Lists
 
         private void OpenCalculation()
         {
-            if (SelectedItem.PlanCalculation == null)
-                SelectedItem.PlanCalculation = new CalculationViewModel(null, RepositoryFactory);
-            if (SelectedItem.FactCalculation == null)
-                SelectedItem.FactCalculation = new CalculationViewModel(null, RepositoryFactory);
-            SelectedItem.PlanCalculation.IsReadOnly = true;
             var calculationEdit = new DrawingCalculationEdit("Калькуляция", SelectedItem, !EditMode, ViewService, RepositoryFactory);
             if (ViewService.ShowViewDialog(calculationEdit) == true)
             {
@@ -102,7 +106,7 @@ namespace Rti.ViewModel.Lists
 
         protected override IEnumerable<DrawingViewModel> GetItems()
         {
-            var items = RepositoryFactory.GetDrawingRepository().GetPage(Page, PageSize, new List<Expression<Func<Drawing, object>>> {});
+            var items = RepositoryFactory.GetDrawingRepository().GetPage(Page, PageSize, new List<Expression<Func<Drawing, object>>> { });
             IsLastPage = !(items.Count > PageSize);
             return items.Take(PageSize).Select(o => new DrawingViewModel(o, RepositoryFactory)).ToList(); ;
         }

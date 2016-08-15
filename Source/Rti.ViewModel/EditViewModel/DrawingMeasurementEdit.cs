@@ -9,5 +9,10 @@ namespace Rti.ViewModel.EditViewModel
         public DrawingMeasurementEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory) : base(name, entity, readOnly, viewService, repositoryFactory)
         {
         }
+
+        protected override void DoSave()
+        {
+            Entity.CopyTo(Source);
+        }
     }
 }

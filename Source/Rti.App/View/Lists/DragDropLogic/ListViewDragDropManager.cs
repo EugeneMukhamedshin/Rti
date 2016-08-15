@@ -1,4 +1,4 @@
-// Copyright (C) Josh Smith - January 2007
+﻿// Copyright (C) Josh Smith - January 2007
 
 using System;
 using System.Collections.ObjectModel;

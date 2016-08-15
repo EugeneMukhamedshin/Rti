@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -108,7 +108,7 @@ namespace Rti.ViewModel.ListViewModel
             _setValueFunc = setValueFunc;
             _viewService = viewService;
             SelectEntityCommand = new DelegateCommand(
-                "Âûáîð",
+                "Ð’Ñ‹Ð±Ð¾Ñ€",
                 o => true,
                 o => SelectEntity());
             RefreshSelector(_getValueFunc());

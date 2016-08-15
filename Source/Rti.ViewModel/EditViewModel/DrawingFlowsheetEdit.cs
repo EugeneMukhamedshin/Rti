@@ -1,33 +1,83 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
+using Rti.ViewModel.Entities.Commands;
 using Rti.ViewModel.Lists;
+using Rti.ViewModel.Reporting.ViewModel;
 
 namespace Rti.ViewModel.EditViewModel
 {
-    public class DrawingFlowsheetEdit: EditEntityViewModel<DrawingViewModel, Drawing>
+    public class DrawingFlowsheetEdit : EditEntityViewModel<DrawingViewModel, Drawing>
     {
-        public List<DrawingViewModel> DrawingSource { get { return new List<DrawingViewModel> {Entity}; } }
+        public List<DrawingViewModel> DrawingSource { get { return new List<DrawingViewModel> { Entity }; } }
 
         public DrawingFlowsheetMachineList DrawingFlowsheetMachineList { get; set; }
         public DrawingFlowsheetProcessList DrawingFlowsheetProcessList { get; set; }
 
         public Lazy<List<ContragentViewModel>> CustomersSource { get; set; }
 
+        public DelegateCommand EditEquipmentCommand { get; set; }
+        public DelegateCommand ReportCommand { get; set; }
+
         public DrawingFlowsheetEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {
+            if (Entity.Equipment == null)
+                Entity.Equipment = new EquipmentViewModel(null, RepositoryFactory)
+                {
+                    SortOrder = RepositoryFactory.GetEquipmentRepository().GetNextSortOrder()
+                };
+
+            EditEquipmentCommand = new DelegateCommand(o => EditEquipment());
+            ReportCommand = new DelegateCommand(o => Report());
             DrawingFlowsheetMachineList = new DrawingFlowsheetMachineList(entity, Editable, ViewService, RepositoryFactory);
             DrawingFlowsheetProcessList = new DrawingFlowsheetProcessList(entity, Editable, ViewService, RepositoryFactory);
+            DrawingFlowsheetProcessList.SummaryChanged += DrawingFlowsheetProcessList_SummaryChanged;
 
             CustomersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(ContragentType.Customer).Select(o => new ContragentViewModel(o, RepositoryFactory)).ToList());
         }
 
+        private void Report()
+        {
+            if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
+                return;
+            if (!Save()) return;
+            var viewModel = new DrawingFlowsheetReportViewModel(string.Format("ТК ({0})", Entity.Name), ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), string.Format("ТК ({0}).xls", Entity.Name))
+            {
+                Drawing = Source,
+                ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
+            };
+            viewModel.GenerateReport();
+        }
+
+        private void EditEquipment()
+        {
+            var equipment = Entity.Equipment ?? new EquipmentViewModel(null, RepositoryFactory)
+            {
+                SortOrder = RepositoryFactory.GetEquipmentRepository().GetNextSortOrder()
+            };
+            var editor = new EquipmentEdit("Оснастка", equipment, ReadOnly, ViewService, RepositoryFactory);
+            if (ViewService.ShowViewDialog(editor) == true)
+            {
+                if (Entity.Equipment == null)
+                    Entity.Equipment = equipment;
+            }
+        }
+
+        private void DrawingFlowsheetProcessList_SummaryChanged(object sender, EventArgs e)
+        {
+            Entity.SummaryTime =
+                DrawingFlowsheetProcessList.Items.Where(o => o.IsIncludedToSummary ?? false).Sum(o => o.NormTime);
+        }
+
         protected override void DoSave()
         {
+            Entity.Equipment.SaveEntity();
             base.DoSave();
             DrawingFlowsheetMachineList.SaveChanges();
             DrawingFlowsheetProcessList.SaveChanges();
@@ -37,19 +87,19 @@ namespace Rti.ViewModel.EditViewModel
         {
             base.Refresh();
             DrawingFlowsheetMachineList.Refresh();
-            if (Source.IsNewEntity)
-                DrawingFlowsheetProcessList.GenerateProcessesForNewFlowsheet();
-            else
-                DrawingFlowsheetProcessList.Refresh();
+            //if (Source.IsNewEntity)
+            //    DrawingFlowsheetProcessList.GenerateProcessesForNewFlowsheet();
+            //else
+            DrawingFlowsheetProcessList.Refresh();
         }
 
         protected override bool DoValidate()
         {
-            if (Entity.Customer == null)
-            {
-                ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задан заказчик"));
-                return false;
-            }
+            //if (Entity.Customer == null)
+            //{
+            //    ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задан заказчик"));
+            //    return false;
+            //}
             if (!DrawingFlowsheetMachineList.Items.Any())
             {
                 ViewService.ShowMessage(new MessageViewModel("Ошибка", string.Format("Перечень оборудования не задан")));

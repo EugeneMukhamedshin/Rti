@@ -1,0 +1,330 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>Ekaterina_Lutkova</Author>
+  <LastAuthor>Evgeniy Mukhamedshin</LastAuthor>
+  <LastPrinted>2016-06-28T11:05:57Z</LastPrinted>
+  <Created>2016-06-27T07:41:14Z</Created>
+  <LastSaved>2016-06-28T11:06:27Z</LastSaved>
+  <Company>SPecialiST RePack</Company>
+  <Version>14.00</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <AllowPNG/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>11595</WindowHeight>
+  <WindowWidth>19200</WindowWidth>
+  <WindowTopX>0</WindowTopX>
+  <WindowTopY>0</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s16">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+  </Style>
+  <Style ss:ID="s17">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+  </Style>
+  <Style ss:ID="s18">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s19">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s20">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s22">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="s23">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="s24">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="s25">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="s26">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+  </Style>
+  <Style ss:ID="s27">
+   <Borders/>
+  </Style>
+  <Style ss:ID="s28">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000" ss:Bold="1"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Лист1">
+  <Table ss:ExpandedColumnCount="8" ss:ExpandedRowCount="30" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultRowHeight="15">
+   <Column ss:AutoFitWidth="0" ss:Width="138.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="153"/>
+   <Column ss:AutoFitWidth="0" ss:Width="111"/>
+   <Column ss:AutoFitWidth="0" ss:Width="102.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="85.5"/>
+   <Row>
+    <Cell ss:MergeAcross="6" ss:StyleID="s28"><Data ss:Type="String">Технологическая карта (ТК)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s18"><Data ss:Type="String">Заказчик</Data></Cell>
+    <Cell ss:StyleID="s18"><Data ss:Type="String">Наименование</Data></Cell>
+    <Cell ss:StyleID="s18"><Data ss:Type="String">№ детали</Data></Cell>
+    <Cell ss:StyleID="s18"><Data ss:Type="String">Вторичный заказчик</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ЛГ Автоматика</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Мембрана</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">8БП 230.123</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Резинапласт</Data></Cell>
+   </Row>
+   <Row ss:Index="5" ss:AutoFitHeight="0" ss:Height="29.25">
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Перечень оборудования, инв. №</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Температура плит, град.</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Время вулканизации мин.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="Number">2</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="Number">175</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="Number">15</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="Number">5</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="Number">175</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="Number">15</Data></Cell>
+   </Row>
+   <Row ss:Index="9" ss:AutoFitHeight="0" ss:Height="15.75">
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Оснастка</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Количество форм</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Гнездность</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Выход партии, шт.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Прессформа</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="Number">2</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="Number">2</Data></Cell>
+   </Row>
+   <Row ss:Index="12" ss:AutoFitHeight="0" ss:Height="42">
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Марка материала по чертежу</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">ТУ (ГОСТ)</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Марка материала фактическая</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">ТУ (ГОСТ)</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Масса заготовки, кг.</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Масса по чертежу, кг.</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Масса фактическая, кг.</Data></Cell>
+    <Cell ss:StyleID="s16"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ИРП 1347</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ТУ 38 0051166</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ИРП 1347</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ТУ 38 0051166</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="Number">0.33</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="Number">0.34</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="Number">0.31</Data></Cell>
+   </Row>
+   <Row ss:Index="15" ss:AutoFitHeight="0" ss:Height="13.5">
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Нормирование времени</Data></Cell>
+    <Cell ss:StyleID="s18"/>
+    <Cell ss:StyleID="s18"/>
+    <Cell ss:StyleID="s18"/>
+    <Cell ss:StyleID="s18"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="27.75">
+    <Cell ss:StyleID="s20"><Data ss:Type="String">Наименование процесса</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="String">Выполняемая операция</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="String">Исполнитель</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="String">t</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="String">Время по норме, мин.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s17"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="Number">2</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="Number">3</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="Number">4</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="Number">5</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="14.25">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Подготовительное</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Получить прессформу</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Технолог</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">tпод</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">0</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="14.25">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Чистка/ремонт формы</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Чистка/ремонт формы</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Токарь</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">tч</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">0</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Фильера</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Подбор фильеры и рез. смеси</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Технолог</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">tф</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">0</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="14.25">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Вальцовка</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Подготовить смесь</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Вальцовщик</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">tвал</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">0</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="15.75">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Шприцевание</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Выполнить заготовку</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Вальцовщик</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">tшпр</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">0</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Программирование</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Работа технолога перед загрузкой</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Технолог</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">tтехн</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">0</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Загрузка</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Загрузить в прессформу</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Прессовщик</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">tзаг</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">1</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="16.5">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Вулканизация/вырубка</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Вулканизировать/выгрузить</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Прессовщик</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">tв</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">1</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Выгрузка</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Выгрузить</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Прессовщик</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">tвыгр</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">2</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Простой технологический</Data></Cell>
+    <Cell ss:StyleID="s23"/>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Прессовщик</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">tпр.т</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">0</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="14.25">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Простой по вине работника</Data></Cell>
+    <Cell ss:StyleID="s23"/>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Работник</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">tпр.и</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">0</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Общее время, мин.</Data></Cell>
+    <Cell ss:StyleID="s16"/>
+    <Cell ss:StyleID="s16"/>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">tоб</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="Number">4</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s18"><Data ss:Type="String">Примечание</Data></Cell>
+    <Cell ss:StyleID="s24"/>
+    <Cell ss:StyleID="s25"/>
+    <Cell ss:StyleID="s25"/>
+    <Cell ss:StyleID="s25"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s26"/>
+    <Cell ss:StyleID="s27"/>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Layout x:Orientation="Landscape"/>
+    <Header x:Margin="0.3"/>
+    <Footer x:Margin="0.3"/>
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+   </PageSetup>
+   <Print>
+    <ValidPrinterInfo/>
+    <PaperSizeIndex>9</PaperSizeIndex>
+    <HorizontalResolution>-3</HorizontalResolution>
+    <VerticalResolution>-3</VerticalResolution>
+   </Print>
+   <Selected/>
+   <TopRowVisible>3</TopRowVisible>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>33</ActiveRow>
+     <ActiveCol>4</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

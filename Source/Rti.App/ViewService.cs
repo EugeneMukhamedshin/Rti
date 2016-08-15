@@ -1,13 +1,15 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Forms;
 using Rti.App.View.Editors;
 using Rti.App.View.Lists;
+using Rti.App.View.Reports;
 using Rti.ViewModel;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Lists;
 using Rti.ViewModel.ListViewModel;
+using Rti.ViewModel.Reporting.ViewModel;
 using Application = System.Windows.Application;
 using ContragentList = Rti.ViewModel.Lists.ContragentList;
 using DrawingList = Rti.ViewModel.Lists.DrawingList;
@@ -26,9 +28,9 @@ namespace Rti.App
         {
             AddToRegistry<LoginViewModel, LoginWindow>();
 
-            AddToRegistry<MainViewModel, MainWindow>();
+            AddToRegistry<MainViewModel, MainWindowSlim>();
 
-            // Справочники
+            // РЎРїСЂР°РІРѕС‡РЅРёРєРё
             AddToRegistry<MaterialList, MaterialListWindow>();
             AddToRegistry<MaterialEdit, MaterialEditWindow>();
             AddToRegistry<GroupList, GroupListWindow>();
@@ -55,10 +57,12 @@ namespace Rti.App
             AddToRegistry<MachineEdit, MachineEditWindow>();
             AddToRegistry<ConstantEdit, ConstantEditWindow>();
 
-            // Заявки
+            // Р—Р°СЏРІРєРё
             AddToRegistry<RequestEdit, RequestEditDxWindow>();
+            AddToRegistry<ReportOfCompletionEdit, ReportOfCompletionEditWindow>();
+            AddToRegistry<RequestList, RequestListWindow>();
 
-            // Чертежи
+            // Р§РµСЂС‚РµР¶Рё
             AddToRegistry<DrawingList, DrawingListWindow>();
             AddToRegistry<DrawingEdit, DrawingEditWindow>();
             AddToRegistry<DrawingMeasurementEdit, DrawingMeasurementEditWindow>();
@@ -67,33 +71,55 @@ namespace Rti.App
             AddToRegistry<DrawingFlowsheetProcessEdit, DrawingFlowsheetProcessEditWindow>();
             AddToRegistry<DrawingCalculationEdit, DrawingCalculationEditWindow>();
 
-            // Дневные наряды
+            // Р”РЅРµРІРЅС‹Рµ РЅР°СЂСЏРґС‹
             AddToRegistry<WorkItemList, WorkItemListWindow>();
             AddToRegistry<WorkItemEdit, WorkItemEditWindow>();
 
-            // Индивидуальный наряд
+            // РРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹Р№ РЅР°СЂСЏРґ
             AddToRegistry<EmployeeWorkItemList, EmployeeWorkItemListWindow>();
 
-            // Журналы
-            // Журнал обрезки облоя
+            // РћС‚РіСЂСѓР·РєР°
+            AddToRegistry<ShipmentList, ShipmentListWindow>();
+            AddToRegistry<ShipmentEdit, ShipmentEditWindow>();
+            AddToRegistry<DeliveryEdit, DeliveryEditWindow>();
+
+            // РџР»Р°С‚РµР¶Рё
+            AddToRegistry<PaymentList, PaymentListWindow>();
+            AddToRegistry<PaymentEdit, PaymentEditWindow>();
+
+            // РџР»Р°С‚РµР¶Рё РїРѕ РѕСЃРЅР°СЃС‚РєРµ
+            AddToRegistry<EquipmentPaymentList, EquipmentPaymentListWindow>();
+            AddToRegistry<EquipmentPaymentEdit, EquipmentPaymentEditWindow>();
+
+            // Р–СѓСЂРЅР°Р»С‹
+            // Р–СѓСЂРЅР°Р» РѕР±СЂРµР·РєРё РѕР±Р»РѕСЏ
             AddToRegistry<ShavingRecordList, ShavingRecordListWindow>();
             AddToRegistry<ShavingRecordEdit, ShavingRecordEditWindow>();
-            // Журнал прихода материала
+            // Р–СѓСЂРЅР°Р» РїСЂРёС…РѕРґР° РјР°С‚РµСЂРёР°Р»Р°
             AddToRegistry<MaterialArrivalRecordList, MaterialArrivalRecordListWindow>();
             AddToRegistry<MaterialArrivalRecordEdit, MaterialArrivalRecordEditWindow>();
-            // Журнал прихода материала
+            // Р–СѓСЂРЅР°Р» РїСЂРёС…РѕРґР° РјР°С‚РµСЂРёР°Р»Р°
             AddToRegistry<RollingRecordList, RollingRecordListWindow>();
             AddToRegistry<RollingRecordEdit, RollingRecordEditWindow>();
-            // Журнал распоряжений на отгрузку
+            // Р–СѓСЂРЅР°Р» СЂР°СЃРїРѕСЂСЏР¶РµРЅРёР№ РЅР° РѕС‚РіСЂСѓР·РєСѓ
             AddToRegistry<ShippingOrderRecordList, ShippingOrderRecordListWindow>();
             AddToRegistry<ShippingOrderRecordEdit, ShippingOrderRecordEditWindow>();
 
-            // Изображения
+            // РР·РѕР±СЂР°Р¶РµРЅРёСЏ
             AddToRegistry<ImageEdit, ImageEditWindow>();
+            // РћС‚С‡РµС‚С‹
+            AddToRegistry<RequestsByMethodsReportViewModel, ByPeriodReportEditWindow>();
+            AddToRegistry<DrawingShipmentsReportViewModel, DrawingReportEditWindow>();
+            AddToRegistry<UsedMaterialsReportViewModel, ByPeriodReportEditWindow>();
+            AddToRegistry<RequestDirectExpencesReportViewModel, ByPeriodReportEditWindow>();
+            AddToRegistry<WorkItemDirectExpencesReportViewModel, ByPeriodReportEditWindow>();
+            AddToRegistry<ShipmentDirectExpencesReportViewModel, ByPeriodReportEditWindow>();
+            AddToRegistry<SalaryReportViewModel, SalaryReportEditWindow>();
+            AddToRegistry<MakedDetailsReportViewModel, DrawingReportEditWindow>();
+            AddToRegistry<MaterialMovingsReportViewModel, MaterialMovingsReportWindow>();
         }
 
-        private void AddToRegistry<TViewModel, TView>()
-        {
+        private void AddToRegistry<TViewModel, TView>(){
             _registry.Add(typeof(TViewModel), typeof(TView));
         }
 
@@ -172,10 +198,10 @@ namespace Rti.App
                 throw new ArgumentNullException("viewModel");
             Type windowType;
             if (!_registry.TryGetValue(viewModel.GetType(), out windowType))
-                throw new InvalidOperationException(String.Format("Для типа {0} не зарегистрирован тип окна",
+                throw new InvalidOperationException(String.Format("Р”Р»СЏ С‚РёРїР° {0} РЅРµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅ С‚РёРї РѕРєРЅР°",
                     viewModel.GetType().Name));
             if (!windowType.IsSubclassOf(typeof(Window)))
-                throw new InvalidOperationException(String.Format("Для типа {0} зарегистрирован неверный тип окна {1}",
+                throw new InvalidOperationException(String.Format("Р”Р»СЏ С‚РёРїР° {0} Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅ РЅРµРІРµСЂРЅС‹Р№ С‚РёРї РѕРєРЅР° {1}",
                     viewModel.GetType().Name, windowType.Name));
             var window = (Window)Activator.CreateInstance(windowType);
             window.DataContext = viewModel;

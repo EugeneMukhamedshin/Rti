@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
+using Rti.ViewModel.Lists;
 using Rti.ViewModel.Reporting;
+using Rti.ViewModel.Reporting.ViewModel;
 
 namespace Rti.ViewModel.EditViewModel
 {
@@ -15,6 +18,7 @@ namespace Rti.ViewModel.EditViewModel
         private RequestDetailViewModel _selectedRequestDetail;
         private List<RequestDetailViewModel> _deletedDetails;
         private ObservableCollection<RequestDetailViewModel> _requestDetails;
+        private List<DrawingViewModel> _drawingsSource;
 
         public ObservableCollection<RequestDetailViewModel> RequestDetails
         {
@@ -44,11 +48,23 @@ namespace Rti.ViewModel.EditViewModel
         //public Lazy<List<DetailViewModel>> DetailsSource { get; set; }
         //public Lazy<List<MaterialViewModel>> MaterialsSource { get; set; }
         //public Lazy<List<GroupViewModel>> GroupsSource { get; set; }
-        public Lazy<List<DrawingViewModel>> DrawingsSource { get; set; }
+        public List<DrawingViewModel> DrawingsSource
+        {
+            get { return _drawingsSource; }
+            set
+            {
+                if (Equals(value, _drawingsSource)) return;
+                _drawingsSource = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string xsltPath;
 
         public RequestEdit(string name, RequestViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {
+            xsltPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
             _deletedDetails = new List<RequestDetailViewModel>();
 
             AddRequestDetailCommand = new DelegateCommand(
@@ -63,11 +79,128 @@ namespace Rti.ViewModel.EditViewModel
                 "Текущий счет",
                 o => true,
                 o => CreateInvoice());
+            CreateSpecificationCommand = new DelegateCommand(CreateSpecification);
+            CreateReportOfCompletionCommand = new DelegateCommand(
+                "Акт выполненных работ",
+                o => true,
+                o => CreateReportOfCompletion());
+            CreateReportOfAcceptanceCommand = new DelegateCommand(o => CreateReportOfAcceptance());
+            CreateContractReportCommand = new DelegateCommand(
+                "Договор",
+                o => true,
+                o => CreateContractReport());
+            CreateM15Command = new DelegateCommand(o => CreateM15Report());
+            CreateEquipmentInvoiceCommand = new DelegateCommand(o => CreateEquipmentInvoiceReport());
+            OpenRequestReportCommand = new DelegateCommand(
+                "Реестр заявок",
+                o => true,
+                o => OpenRequestReport());
+            OpenDrawingEditCommand = new DelegateCommand(
+                "Открыть чертеж",
+                o => true,
+                o => OpenDrawingEdit((RequestDetailViewModel)o));
+        }
+
+        public DelegateCommand CreateEquipmentInvoiceCommand { get; set; }
+
+        private void CreateEquipmentInvoiceReport()
+        {
+            if (ViewService.ShowConfirmation(new MessageViewModel("Внимание",
+                "Для формирования заявка будет сохранена.\r\nПродолжить?")))
+            {
+                if (!Save()) return;
+
+                var viewModel = new EquipmentInvoiceReportViewModel("Счет на оснастку", Source, ViewService, RepositoryFactory, xsltPath, "Счет на оснастку.xls");
+                viewModel.Refresh();
+                viewModel.GenerateReport();
+            }
+        }
+
+        private void CreateM15Report()
+        {
+            if (ViewService.ShowConfirmation(new MessageViewModel("Внимание",
+                "Для формирования заявка будет сохранена.\r\nПродолжить?")))
+            {
+                if (!Save()) return;
+
+                var viewModel = new M15ReportViewModel("Накладная М15", ViewService, RepositoryFactory, xsltPath, "Накладная М15.xls");
+                viewModel.Refresh();
+                viewModel.GenerateReport();
+            }
+        }
+
+        public DelegateCommand CreateM15Command { get; set; }
+
+        private void CreateReportOfAcceptance()
+        {
+            if (ViewService.ShowConfirmation(new MessageViewModel("Внимание",
+                "Для формирования акта заявка будет сохранена.\r\nПродолжить?")))
+            {
+                if (!Save()) return;
+
+                var edit = new ReportOfCompletionEdit("Акт приема передачи оснастки", Source, ReportOfCompletionEdit.ReportType.AcceplanceCertificate, ReadOnly, ViewService, RepositoryFactory);
+                edit.Refresh();
+                ViewService.ShowViewDialog(edit);
+
+                Entity.CompleteSum = Source.CompleteSum;
+            }
+        }
+
+        public DelegateCommand CreateReportOfAcceptanceCommand { get; set; }
+
+        private void CreateSpecification(object obj)
+        {
+            if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
+                return;
+            if (!Save()) return;
+            var viewModel = new RequestSpecificationReportViewModel(string.Format("Спецификация {0} от {1:dd.mm.yyyy}", Entity.Number, Entity.RegDate), ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), string.Format("Спецификация {0} от {1:dd.mm.yyyy}.xls", Entity.Number, Entity.RegDate))
+            {
+                Request = Source,
+                ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
+            };
+            viewModel.GenerateReport();
+        }
+
+        private void OpenDrawingEdit(RequestDetailViewModel detail)
+        {
+            var drawing = detail.Drawing ?? new DrawingViewModel(null, RepositoryFactory)
+            {
+                SortOrder = RepositoryFactory.GetDrawingRepository().GetNextSortOrder(),
+                CreationDate = DateTime.Now,
+                Name = "Новый чертеж"
+            };
+            var editor = new DrawingEdit(detail.Drawing == null ? "Новый чертеж" : drawing.FullName, drawing, ReadOnly, ViewService, RepositoryFactory);
+            editor.Refresh();
+            if (ViewService.ShowViewDialog(editor) == true)
+            {
+                if (detail.Drawing == null)
+                {
+                    detail.Drawing = drawing;
+                    RefreshDrawings();
+                }
+                detail.FillFromDrawing();
+            }
+        }
+
+        private void OpenRequestReport()
+        {
+            //var requestReportGenerator = new RequestReportGenerator();
+            //requestReportGenerator.BuildReport(RepositoryFactory);
+
+            var viewModel = new RequestList(ViewService, RepositoryFactory);
+            viewModel.Refresh();
+            ViewService.ShowViewDialog(viewModel);
         }
 
         public DelegateCommand AddRequestDetailCommand { get; set; }
         public DelegateCommand RemoveRequestDetailCommand { get; set; }
         public DelegateCommand CreateInvoiceCommand { get; set; }
+        public DelegateCommand CreateSpecificationCommand { get; set; }
+        public DelegateCommand CreateReportOfCompletionCommand { get; set; }
+        public DelegateCommand CreateContractReportCommand { get; set; }
+        public DelegateCommand OpenRequestReportCommand { get; set; }
+        public DelegateCommand OpenDrawingEditCommand { get; set; }
 
         private void AddRequestDetail()
         {
@@ -88,12 +221,47 @@ namespace Rti.ViewModel.EditViewModel
         private void CreateInvoice()
         {
             if (ViewService.ShowConfirmation(new MessageViewModel("Внимание",
-                    "После формирования счета заявку нельзя будет менять.\r\nСформировать счет?")))
+                    "Для формирования счета заявка будет сохранена.\r\nПродолжить?")))
             {
                 Entity.InvoiceDate = DateTime.Today;
-                DoSave();
+                if (!Save()) return;
 
                 var reportGenerator = new InvoiceReportGenerator();
+                reportGenerator.BuildReport(Source.Id, ViewService, RepositoryFactory);
+            }
+        }
+
+        private void CreateReportOfCompletion()
+        {
+            if (ViewService.ShowConfirmation(new MessageViewModel("Внимание",
+                "Для формирования акта заявка будет сохранена.\r\nПродолжить?")))
+            {
+                if (!Save()) return;
+
+                var edit = new ReportOfCompletionEdit("Акт выполненных работ", Source, ReportOfCompletionEdit.ReportType.CompletionCertificate, ReadOnly, ViewService, RepositoryFactory);
+                edit.Refresh();
+                ViewService.ShowViewDialog(edit);
+
+                Entity.CompleteSum = Source.CompleteSum;
+            }
+        }
+       
+        private void CreateContractReport()
+        {
+            if (ViewService.ShowConfirmation(new MessageViewModel("Внимание",
+                "Для формирования договора заявка будет сохранена.\r\nПродолжить?")))
+            {
+                var contract = Source.Contract ?? new ContractViewModel(null, RepositoryFactory)
+                {
+                    Date = Entity.RegDate,
+                    Number = RepositoryFactory.GetContractRepository().GetNextNumber(Entity.RegDate)
+                };
+                if (contract.IsNewEntity)
+                    contract.SaveEntity();
+                Entity.Contract = contract;
+                if (!Save()) return;
+
+                var reportGenerator = new ContractReportGenerator();
                 reportGenerator.BuildReport(Source.Id, ViewService, RepositoryFactory);
             }
         }
@@ -107,16 +275,21 @@ namespace Rti.ViewModel.EditViewModel
                 .Select(m => new RequestDetailViewModel(m, RepositoryFactory)),
                 res => RequestDetails = new ObservableCollection<RequestDetailViewModel>(res));
 
+            RefreshDrawings();
             CustomersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(ContragentType.Customer).Select(m => new ContragentViewModel(m, RepositoryFactory)).ToList());
             ManufacturersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(ContragentType.Manufacturer).Select(m => new ContragentViewModel(m, RepositoryFactory)).ToList());
-            DrawingsSource = new Lazy<List<DrawingViewModel>>(() => RepositoryFactory.GetDrawingRepository().GetAllActive().OrderBy(o => o.Id).Select(o => new DrawingViewModel(o, RepositoryFactory)).ToList());
-            //GroupsSource = new Lazy<List<GroupViewModel>>(() => RepositoryFactory.GetGroupRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new GroupViewModel(o, RepositoryFactory)).ToList());
-            //MaterialsSource = new Lazy<List<MaterialViewModel>>(() => RepositoryFactory.GetMaterialRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new MaterialViewModel(o, RepositoryFactory)).ToList());
-            //DetailsSource = new Lazy<List<DetailViewModel>>(() => RepositoryFactory.GetDetailRepository().GetAllActive().OrderBy(o => o.SortOrder).Select(o => new DetailViewModel(o, RepositoryFactory)).ToList());
         }
+
+        private void RefreshDrawings()
+        {
+            DoAsync(() => RepositoryFactory.GetDrawingRepository().GetAllActive().OrderBy(o => o.Id).Select(o => new DrawingViewModel(o, RepositoryFactory)),
+                res => DrawingsSource = new List<DrawingViewModel>(res));
+        }
+
 
         protected override void DoSave()
         {
+            Entity.Sum = RequestDetails.Sum(o => o.Sum);
             // Сохраняем заявку
             base.DoSave();
             // Сохраняем детали заявки

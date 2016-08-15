@@ -17,9 +17,9 @@
                 <RowDefinition Height="32"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="0">
-                <Button Content="+" Command="{Binding AddDrawingCommand}" Width="32" Height="32" Margin="5"/>
-                <Button Content="-" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5"/>
-                <Button Content="..." Command="{Binding EditEntityCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5"/>
+                <Button Content="{StaticResource AddImage}" Command="{Binding AddDrawingCommand}" Width="32" Height="32" Margin="5"/>
+                <Button Content="{DynamicResource DeleteImage}" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5"/>
+                <Button Content="{DynamicResource EditImage}" Command="{Binding EditDrawingCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5"/>
                 <Button Content="&lt;" Command="{Binding PrevPageCommand}" Width="32" Height="32" Margin="5"/>
                 <Button Content="&gt;" Command="{Binding NextPageCommand}" Width="32" Height="32" Margin="5"/>
             </StackPanel>
@@ -44,19 +44,19 @@
                 </dxg:GridControl.Resources>
                 <dxg:GridControl.Columns>
                     <dxg:GridColumn FieldName="SortOrder" Header="Артикул" ReadOnly="True" Width="40"/>
-                    <dxg:GridColumn FieldName="Name" Header="Чертеж" Width="80"/>
-                    <dxg:GridColumn FieldName="Group.Name" Header="Группа" Width="80"/>
-                    <dxg:GridColumn FieldName="Detail.Name" Header="Наименование детали" Width="95"/>
-                    <dxg:GridColumn FieldName="MaterialByPassport.Name" Header="Материал по паспорту" Width="80"/>
-                    <dxg:GridColumn FieldName="Material.Name" Header="Материал" Width="80"/>
-                    <dxg:GridColumn FieldName="MeasureUnit.Name" Header="Ед. изм." Width="40"/>
-                    <dxg:GridColumn FieldName="MeasureUnit.Code" Header="Код" Width="40"/>
-                    <dxg:GridColumn FieldName="MassCalculation.CalculatedMass" Header="Масса по чертежу, кг" Width="60" EditSettings="{components:Float3TextEditSettings}"/>
-                    <dxg:GridColumn FieldName="MassWithShruff" Header="Масса с отходами, кг" Width="65" EditSettings="{components:Float3TextEditSettings}"/>
+                    <dxg:GridColumn FieldName="Name" Header="Чертеж" Width="65"/>
+                    <dxg:GridColumn FieldName="Group.Name" Header="Группа" Width="50"/>
+                    <dxg:GridColumn FieldName="Detail.Name" Header="Наименование детали" Width="92"/>
+                    <dxg:GridColumn FieldName="MaterialByPassport.Name" Header="Материал по пасп." Width="65"/>
+                    <dxg:GridColumn FieldName="Material.Name" Header="Материал" Width="65"/>
+                    <dxg:GridColumn FieldName="MeasureUnit.Name" Header="Ед. изм." Width="35"/>
+                    <dxg:GridColumn FieldName="MeasureUnit.Code" Header="Код" Width="35"/>
+                    <dxg:GridColumn FieldName="MassCalculation.CalculatedMass" Header="Масса по черт., кг" Width="50" EditSettings="{components:Float3TextEditSettings}"/>
+                    <dxg:GridColumn FieldName="MassWithShruff" Header="Масса с отх., кг" Width="50" EditSettings="{components:Float3TextEditSettings}"/>
                     <dxg:GridColumn FieldName="Price" Header="Цена по чертежу, руб. без НДС" Width="60" EditSettings="{components:Float2TextEditSettings}"/>
                     <dxg:GridColumn FieldName="ShavingPrice" Header="Цена обрезки, руб." Width="60" EditSettings="{components:Float2TextEditSettings}"/>
                     <dxg:GridColumn FieldName="Equipment.Name" Header="Оснастка" Width="80"/>
-                    <dxg:GridColumn FieldName="Equipment.ExistanceEnum" Header="Наличие оснастки" Width="90" ReadOnly="True">
+                    <dxg:GridColumn FieldName="Equipment.ExistanceEnum" Header="Наличие оснастки" Width="70" ReadOnly="True">
                         <dxg:GridColumn.EditSettings>
                             <dxe:ComboBoxEditSettings DisplayMember="DisplayName" ValueMember="Value">
                                 <dxe:ComboBoxEditSettings.ItemsSource>
@@ -68,16 +68,18 @@
                     <dxg:GridColumn FieldName="Equipment.FormCount" Header="Кол-во форм" Width="40" ReadOnly="True"/>
                     <dxg:GridColumn FieldName="Equipment.SlotCount" Header="Гнездность" Width="40" ReadOnly="True"/>
                     <dxg:GridColumn FieldName="Method.Name" Header="Способ изготовления" Width="90"/>
-                    <dxg:GridColumn FieldName="CalculationPrice" Header="Цена по калькуляции, руб." Width="60" EditSettings="{components:Float2TextEditSettings}"/>
+                    <dxg:GridColumn FieldName="FactCalculationPrice" Header="Цена по факт. калькуляции, руб." Width="60" EditSettings="{components:Float2TextEditSettings}"/>
+                    <dxg:GridColumn FieldName="PlanCalculationPrice" Header="Цена по план. калькуляции, руб." Width="60" EditSettings="{components:Float2TextEditSettings}"/>
+                    <dxg:GridColumn FieldName="AdditionalInfo" Header="Доп. инфо" Width="100"/>
                     <dxg:GridColumn FieldName="Note" Header="Примечание" Width="100"/>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>
-                    <dxg:TableView AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                    <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>
             </dxg:GridControl>
             <StackPanel Orientation="Horizontal" Grid.Row="2">
-                <Button Content="Тех. карта" Command="{Binding OpenFlowsheetCommand}" Width="90" Margin="5" TabIndex="1000"></Button>
-                <Button Content="Калькуляция" Command="{Binding OpenCalculationCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
+                <Button Content="Тех. карта" Command="{Binding OpenFlowsheetCommand}" Width="100" Margin="5" TabIndex="1000"></Button>
+                <Button Content="Калькуляция" Command="{Binding OpenCalculationCommand}" Width="100" Margin="5" TabIndex="1001"></Button>
             </StackPanel>
         </Grid>
         <Border Opacity="0.8" Visibility="{Binding IsLoading,Converter={StaticResource BooleanToVisibilityConverter}}" Background="AliceBlue">
