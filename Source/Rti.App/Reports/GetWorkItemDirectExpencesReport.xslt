@@ -177,7 +177,10 @@
           </PageSetup>
           <Print>
             <ValidPrinterInfo/>
+<<<<<<< HEAD
             <Scale>100</Scale>
+=======
+>>>>>>> origin/develop
             <PaperSizeIndex>9</PaperSizeIndex>
             <HorizontalResolution>-3</HorizontalResolution>
             <VerticalResolution>-3</VerticalResolution>

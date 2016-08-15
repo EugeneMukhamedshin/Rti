@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using Rti.Model.Domain;
+=======
+using Rti.Model.Domain;
+>>>>>>> origin/develop
 
 namespace Rti.ViewModel.Entities
 {

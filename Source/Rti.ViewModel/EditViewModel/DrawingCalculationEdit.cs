@@ -76,6 +76,7 @@ namespace Rti.ViewModel.EditViewModel
         public DrawingCalculationEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
         {
+<<<<<<< HEAD
             PlanCalculation = Entity.PlanCalculation == null
                 ? new CalculationViewModel(null, RepositoryFactory)
                 : Entity.PlanCalculation.Clone();
@@ -87,6 +88,13 @@ namespace Rti.ViewModel.EditViewModel
             PlanCalculation.IsReadOnly = false;
             FactCalculation.CalcType = CalculationType.Fact;
             FactCalculation.IsReadOnly = true;
+=======
+            PlanCalculation = Entity.PlanCalculation.Clone();
+            FactCalculation = Entity.FactCalculation.Clone();
+
+            PlanCalculation.CalcType = CalculationType.Plan;
+            FactCalculation.CalcType = CalculationType.Fact;
+>>>>>>> origin/develop
 
             PlanCalculation.PropertyChanged += PlanCalculation_PropertyChanged;
             FactCalculation.PropertyChanged += FactCalculation_PropertyChanged;
@@ -102,12 +110,17 @@ namespace Rti.ViewModel.EditViewModel
             ReportPlanCommand = new DelegateCommand(o => Report(CalculationType.Plan));
             ReportFactCommand = new DelegateCommand(o => Report(CalculationType.Fact));
             RefreshText();
+<<<<<<< HEAD
+=======
+            var r = PlanCalculationHistory;
+>>>>>>> origin/develop
         }
 
         public List<CalculationViewModel> PlanCalculationHistory
         {
             get
             {
+<<<<<<< HEAD
                 var calculationHistoryItems =
                         RepositoryFactory.GetDrawingCalculationHistoryRepository()
                             .GetByDrawingId(Source.Id)
@@ -116,6 +129,18 @@ namespace Rti.ViewModel.EditViewModel
                 //result.Add(PlanCalculation);
                 if (Source.PlanCalculation != null)
                     result.AddRange(calculationHistoryItems.Where(o => o.Id != Source.PlanCalculation.Id).OrderByDescending(o => o.CreatedDate));
+=======
+                if (_calculationHistoryItems == null)
+                {
+                    _calculationHistoryItems =
+                        RepositoryFactory.GetDrawingCalculationHistoryRepository()
+                            .GetByDrawingId(Source.Id)
+                            .Select(o => new CalculationViewModel(o.Calculation, RepositoryFactory) {CalcType = CalculationType.History}).ToList();
+                }
+                var result = new List<CalculationViewModel>();
+                result.Add(PlanCalculation);
+                result.AddRange(_calculationHistoryItems.Where(o => o.Id != Entity.PlanCalculation.Id).OrderByDescending(o => o.CreatedDate));
+>>>>>>> origin/develop
                 result.Add(FactCalculation);
                 return result;
             }
@@ -234,9 +259,25 @@ namespace Rti.ViewModel.EditViewModel
             // Всего
             calculation.Summary = calculation.Price + calculation.NdsTax;
 
+<<<<<<< HEAD
             if (calculationType == CalculationType.Fact && !FactCalculation.IsSaved)
             {
                 SaveFactCalculation();
+=======
+
+            //private Decimal? _mainMaterial;
+            //private Decimal? _rubber;
+            //private Decimal? _clue;
+            //private Decimal? _armature;
+            //private Decimal? _sand;
+            //private Decimal? _textile;
+            //private Decimal? _otherMaterial;
+            //private Decimal? _transport;
+            //private Decimal? _mainSalary;
+
+            if (calculationType == CalculationType.Fact)
+            {
+>>>>>>> origin/develop
                 if (PlanCalculation.MainMaterial == null)
                     PlanCalculation.MainMaterial = FactCalculation.MainMaterial;
                 if (PlanCalculation.Rubber == null)
@@ -254,6 +295,7 @@ namespace Rti.ViewModel.EditViewModel
                 if (PlanCalculation.MainSalary == null)
                     PlanCalculation.MainSalary = FactCalculation.MainSalary;
             }
+<<<<<<< HEAD
             if (calculationType == CalculationType.Plan && !PlanCalculation.IsSaved)
                 SavePlanCalculation();
 
@@ -273,15 +315,41 @@ namespace Rti.ViewModel.EditViewModel
             historyItem.SaveEntity();
             Entity.PlanCalculation = PlanCalculation;
             Save();
+=======
+
+            RefreshText();
+>>>>>>> origin/develop
         }
 
         private void SaveFactCalculation()
         {
+<<<<<<< HEAD
             if (Entity.FactCalculation == null)
                 Entity.FactCalculation = new CalculationViewModel(null, RepositoryFactory);
             Entity.FactCalculation.CopyFrom(FactCalculation);
             Entity.FactCalculation.SaveEntity();
             Save();
+=======
+            var saveEntity = PlanCalculation.IsChanged || FactCalculation.IsChanged;
+            if (PlanCalculation.IsChanged)
+            {
+                PlanCalculation.SaveEntity();
+                var historyItem = new DrawingCalculationHistoryViewModel(null, RepositoryFactory)
+                {
+                    Drawing = Source,
+                    Calculation = PlanCalculation
+                };
+                historyItem.SaveEntity();
+                Entity.PlanCalculation = PlanCalculation;
+            }
+            if (FactCalculation.IsChanged)
+            {
+                Entity.FactCalculation.CopyFrom(FactCalculation);
+                Entity.FactCalculation.SaveEntity();
+            }
+            if (saveEntity)
+                base.DoSave();
+>>>>>>> origin/develop
         }
     }
 }

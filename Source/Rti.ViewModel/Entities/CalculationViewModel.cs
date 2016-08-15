@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using System.Xml.Linq;
+=======
+using System.Xml.Linq;
+>>>>>>> origin/develop
 using Rti.Model.Domain;
 
 namespace Rti.ViewModel.Entities
@@ -9,6 +13,7 @@ namespace Rti.ViewModel.Entities
 
         public CalculationType CalcType { get; set; }
 
+<<<<<<< HEAD
         public string DisplayName
         {
             get
@@ -27,6 +32,8 @@ namespace Rti.ViewModel.Entities
             }
         }
 
+=======
+>>>>>>> origin/develop
         public decimal? AllMaterials
         {
             get

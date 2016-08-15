@@ -1,4 +1,8 @@
+<<<<<<< HEAD:Source/Rti.ViewModel/Entities/DrawingFlowsheetProcessViewModel.cs
 ﻿using System;
+=======
+using System;
+>>>>>>> origin/develop:Source/Rti.ViewModel/Entities/DrawingFlowsheetProcessViewModel.cs
 using System.Xml.Linq;
 
 namespace Rti.ViewModel.Entities

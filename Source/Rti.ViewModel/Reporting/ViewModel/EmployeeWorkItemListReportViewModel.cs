@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using System;
+=======
+using System;
+>>>>>>> origin/develop
 using System.Collections.Generic;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;

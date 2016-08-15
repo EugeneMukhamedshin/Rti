@@ -234,6 +234,7 @@
             <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
           </Borders>
         </Style>
+<<<<<<< HEAD
         <Style ss:ID="s171">
           <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
           <Borders>
@@ -246,6 +247,8 @@
             <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
           </Borders>
         </Style>
+=======
+>>>>>>> origin/develop
         <Style ss:ID="s18">
           <Borders>
             <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -307,11 +310,14 @@
           <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="14"
            ss:Color="#000000" ss:Bold="1"/>
         </Style>
+<<<<<<< HEAD
         <Style ss:ID="s531">
           <Alignment ss:Horizontal="Right" ss:Vertical="Bottom"/>
           <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
            ss:Color="#000000" ss:Bold="1"/>
         </Style>
+=======
+>>>>>>> origin/develop
         <Style ss:ID="s53">
           <Alignment ss:Horizontal="Right" ss:Vertical="Bottom"/>
           <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="8"
@@ -353,12 +359,20 @@
         <Style ss:ID="s69">
           <Alignment ss:Horizontal="Right" ss:Vertical="Bottom"/>
         </Style>
+<<<<<<< HEAD
         <Style ss:ID="s701">
           <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
           <Borders>
             <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
           </Borders>
           <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11" ss:Bold="1" ss:Color="#000000"/>
+=======
+        <Style ss:ID="s70">
+          <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+          <Borders>
+            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+          </Borders>
+>>>>>>> origin/develop
         </Style>
         <Style ss:ID="s71">
           <Alignment ss:Horizontal="Center" ss:Vertical="Top"/>
@@ -412,25 +426,46 @@
             <Cell ss:Index="2" ss:MergeAcross="2" ss:StyleID="s54">
               <Data ss:Type="String">Калькуляция №</Data>
             </Cell>
+<<<<<<< HEAD
             <Cell ss:StyleID="s171" ss:MergeAcross="2">
+=======
+            <Cell ss:StyleID="s17">
+>>>>>>> origin/develop
               <Data ss:Type="Number">
                 <xsl:value-of select="Calculation/@Id"/>
               </Data>
             </Cell>
+<<<<<<< HEAD
           </Row>
           <Row ss:AutoFitHeight="0" ss:Height="18">
             <Cell ss:Index="3" ss:MergeAcross="1" ss:StyleID="s531">
               <Data ss:Type="String">Дата составления</Data>
             </Cell>
             <Cell ss:StyleID="s172" ss:MergeAcross="2">
+=======
+            <Cell ss:StyleID="s17"/>
+            <Cell ss:StyleID="s17"/>
+          </Row>
+          <Row ss:AutoFitHeight="0" ss:Height="18">
+            <Cell ss:Index="3" ss:MergeAcross="1" ss:StyleID="s53">
+              <Data ss:Type="String">Дата составления</Data>
+            </Cell>
+            <Cell ss:StyleID="s17">
+>>>>>>> origin/develop
               <Data ss:Type="String">
                 <xsl:value-of select="rti:FormatDate(Report/@Date)"/>
               </Data>
             </Cell>
+<<<<<<< HEAD
+=======
+            <Cell ss:StyleID="s17"/>
+            <Cell ss:StyleID="s25"/>
+>>>>>>> origin/develop
           </Row>
           <Row ss:AutoFitHeight="0" ss:Height="24.5625">
             <Cell ss:StyleID="s25"/>
             <Cell ss:StyleID="s25"/>
+<<<<<<< HEAD
             <Cell ss:StyleID="s25"/>
             <Cell ss:StyleID="s25"/>
             <Cell ss:MergeAcross="2" ss:StyleID="s701">
@@ -458,6 +493,37 @@
             </Cell>
             <Cell ss:StyleID="s701" ss:MergeAcross="2">
               <Data ss:Type="String"><xsl:value-of select="concat(' ', Drawing/@AdditionalInfo)"/></Data>
+=======
+            <Cell ss:MergeAcross="4" ss:StyleID="s70">
+              <Data ss:Type="String">
+                <xsl:value-of select="Drawing/Detail/@Name"/>
+              </Data>
+            </Cell>
+            <Cell ss:StyleID="s25"/>
+            <Cell ss:StyleID="s25"/>
+          </Row>
+          <Row>
+            <Cell ss:Index="3" ss:MergeAcross="4" ss:StyleID="s71">
+              <Data ss:Type="String">наименование детали</Data>
+            </Cell>
+          </Row>
+          <Row ss:Index="11">
+            <Cell ss:MergeAcross="1" ss:StyleID="s77">
+              <Data ss:Type="String">№ чертежа</Data>
+            </Cell>
+            <Cell ss:StyleID="s78" ss:MergeAcross="5">
+              <Data ss:Type="String">
+                <xsl:value-of select="Drawing/Group/@Name"/>.<xsl:value-of select="Drawing/@Name"/>
+              </Data>
+            </Cell>
+          </Row>
+          <Row ss:AutoFitHeight="0" ss:Height="28.125">
+            <Cell ss:MergeAcross="1" ss:StyleID="s77"/>
+            <Cell ss:StyleID="s78" ss:MergeAcross="5">
+              <Data ss:Type="String">
+                <xsl:value-of select="Drawing/@AdditionalInfo"/>
+              </Data>
+>>>>>>> origin/develop
             </Cell>
           </Row>
           <Row ss:Index="14" ss:Height="16.5">
@@ -531,7 +597,11 @@
               <Data ss:Type="Number">5</Data>
             </Cell>
             <Cell ss:MergeAcross="4" ss:StyleID="s66">
+<<<<<<< HEAD
               <Data ss:Type="String">Основная заработная плата</Data>
+=======
+              <Data ss:Type="String">Основаная заработная плата</Data>
+>>>>>>> origin/develop
             </Cell>
             <Cell ss:MergeAcross="2" ss:StyleID="m234614508">
               <Data ss:Type="Number">

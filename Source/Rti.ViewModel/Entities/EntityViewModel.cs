@@ -43,10 +43,14 @@ namespace Rti.ViewModel.Entities
             }
         }
 
+<<<<<<< HEAD
         public bool IsSaved
         {
             get { return !IsChanged && !IsNewEntity; }
         }
+=======
+        protected EntityViewModel() : this(null, null) { }
+>>>>>>> origin/develop
 
         protected EntityViewModel() : this(null, null) { }
 

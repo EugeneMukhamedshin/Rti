@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 п»їusing System;
+=======
+using System;
+>>>>>>> origin/develop
 using System.Collections.Generic;
 using System.Linq;
 using Rti.Model.Domain;
@@ -24,6 +28,7 @@ namespace Rti.ViewModel.Lists
             TypeMaps.Add(new Tuple<Type, Type>(typeof(EquipmentPaymentViewModel), typeof(EditViewModel.EquipmentPaymentEdit)));
 
             AddEquipmentPaymentCommand = new DelegateCommand(
+<<<<<<< HEAD
                 "Р”РѕР±Р°РІРёС‚СЊ РѕРїР»Р°С‚Сѓ",
                 o => true,
                 o => AddEquipmentPayment());
@@ -37,6 +42,21 @@ namespace Rti.ViewModel.Lists
                 o => EditEquipmentPayment((EquipmentPaymentViewModel)o));
             RefreshCommand = new DelegateCommand(
                 "РћР±РЅРѕРІРёС‚СЊ",
+=======
+                "Добавить оплату",
+                o => true,
+                o => AddEquipmentPayment());
+            AddEquipmentPaymentToCurrentDrawingCommand = new DelegateCommand(
+                "Добавить оплату",
+                o => SelectedItem != null,
+                o => AddEquipmentPaymentToCurrentDrawing());
+            EditEquipmentPaymentCommand = new DelegateCommand(
+                "Изменить оплату",
+                o => o != null,
+                o => EditEquipmentPayment((EquipmentPaymentViewModel)o));
+            RefreshCommand = new DelegateCommand(
+                "Обновить",
+>>>>>>> origin/develop
                 o => true,
                 o => Refresh());
             StartDate = DateTime.Today.AddMonths(-1);
@@ -46,7 +66,11 @@ namespace Rti.ViewModel.Lists
         private void AddEquipmentPayment()
         {
             var payment = DoCreateNewEntity();
+<<<<<<< HEAD
             if (OpenViewModelEditWindow(payment, "РќРѕРІР°СЏ РѕРїР»Р°С‚Р°", false))
+=======
+            if (OpenViewModelEditWindow(payment, "Новая оплата", false))
+>>>>>>> origin/develop
             {
                 Items.Add(payment);
                 CheckEquipmentIsPaid(payment.Drawing);
@@ -60,7 +84,11 @@ namespace Rti.ViewModel.Lists
             var payment = DoCreateNewEntity();
             payment.Drawing = SelectedItem.Drawing;
             if (OpenViewModelEditWindow(payment,
+<<<<<<< HEAD
                 string.Format("РќРѕРІР°СЏ РѕРїР»Р°С‚Р° РїРѕ РѕСЃРЅР°СЃС‚РєРµ {0}", SelectedItem.Drawing.FullName), false))
+=======
+                string.Format("Новая оплата по оснастке {0}", SelectedItem.Drawing.FullName), false))
+>>>>>>> origin/develop
             {
                 CheckEquipmentIsPaid(payment.Drawing);
                 Refresh();
@@ -69,7 +97,11 @@ namespace Rti.ViewModel.Lists
 
         private void EditEquipmentPayment(EquipmentPaymentViewModel payment)
         {
+<<<<<<< HEAD
             if (OpenViewModelEditWindow(payment, "РР·РјРµРЅРµРЅРёРµ РѕРїР»Р°С‚С‹", !EditMode))
+=======
+            if (OpenViewModelEditWindow(payment, "Изменение оплаты", !EditMode))
+>>>>>>> origin/develop
                 CheckEquipmentIsPaid(payment.Drawing);
         }
 

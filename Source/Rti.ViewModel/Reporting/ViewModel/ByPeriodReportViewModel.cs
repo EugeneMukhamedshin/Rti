@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using System;
+=======
+using System;
+>>>>>>> origin/develop
 using Rti.Model.Repository.Interfaces;
 
 namespace Rti.ViewModel.Reporting.ViewModel

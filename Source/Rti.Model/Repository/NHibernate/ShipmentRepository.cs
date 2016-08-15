@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using System;
+=======
+using System;
+>>>>>>> origin/develop
 using System.Collections.Generic;
 using NHibernate.Criterion;
 using Rti.Model.Domain;

@@ -13,16 +13,22 @@
     Width="900" Height="500" MinWidth="900" MinHeight="500" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <converters:CalcTypeToBackgroundConverter x:Key="CalcTypeToBackgroundConverter" FactCalculationBackground="LightGray" PlanCalculationBackground="Lavender" HistoryCalculationBackground="White"/>
+<<<<<<< HEAD
         <!--<DataTemplate x:Key="DateCellTemplate">
             <dxe:DateEdit Name="PART_Editor"/>
         </DataTemplate>-->
+=======
+        <DataTemplate x:Key="DateCellTemplate">
+            <dxe:DateEdit Name="PART_Editor"/>
+        </DataTemplate>
+>>>>>>> origin/develop
         <DataTemplate x:Key="FloatCellTemplate">
             <dxe:TextEdit Name="PART_Editor" MaskType="Numeric" Mask="f2"/>
         </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/> 
             <RowDefinition/>
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
@@ -88,7 +94,11 @@
                     <editors:CalculationEditControl DataContext="{Binding PlanCalculation}" Grid.Row="0" Grid.Column="0"/>
                     <vGrid:VerticalGridControl ItemsSource="{Binding PlanCalculationHistory}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" Grid.Row="0" Grid.Column="1">
                         <vGrid:VerticalGridControl.Rows>
+<<<<<<< HEAD
                             <vGrid:VerticalRowData Header="Дата" RowName="DisplayName"/>
+=======
+                            <vGrid:VerticalRowData Header="Дата" RowName="CreatedDate" CellTemplate="{StaticResource DateCellTemplate}"/>
+>>>>>>> origin/develop
                             <vGrid:VerticalRowData Header="Сырье и материалы" RowName="AllMaterials" CellTemplate="{StaticResource FloatCellTemplate}"/>
                             <!--<vGrid:VerticalRowData Header="1.1. Стоимость сырья" RowName="MainMaterial" CellTemplate="{StaticResource FloatCellTemplate}"/>
                             <vGrid:VerticalRowData Header="1.2. Резиновая смесь" RowName="Rubber" CellTemplate="{StaticResource FloatCellTemplate}"/>
@@ -99,7 +109,11 @@
                             <vGrid:VerticalRowData Header="1.7. Другое" RowName="OtherMaterial" CellTemplate="{StaticResource FloatCellTemplate}"/>-->
                             <!--<vGrid:VerticalRowData Header="2. Транспортные" RowName="Transport" CellTemplate="{StaticResource FloatCellTemplate}"/>-->
                             <vGrid:VerticalRowData Header="Основная зарплата" RowName="MainSalary" CellTemplate="{StaticResource FloatCellTemplate}"/>
+<<<<<<< HEAD
                             <!--<vGrid:VerticalRowData Header="Дополнительная зарплата" RowName="AdditionalSalary" CellTemplate="{StaticResource FloatCellTemplate}"/>-->
+=======
+                            <vGrid:VerticalRowData Header="Дополнительная зарплата" RowName="AdditionalSalary" CellTemplate="{StaticResource FloatCellTemplate}"/>
+>>>>>>> origin/develop
                             <!--<vGrid:VerticalRowData Header="5. Отчисления ЕСН" RowName="FixedTax" CellTemplate="{StaticResource FloatCellTemplate}"/>
                             <vGrid:VerticalRowData Header="6. Общецеховые" RowName="TotalDivision" CellTemplate="{StaticResource FloatCellTemplate}"/>
                             <vGrid:VerticalRowData Header="7. Общепроизводственные" RowName="TotalManufacture" CellTemplate="{StaticResource FloatCellTemplate}"/>
@@ -127,8 +141,13 @@
             </TabItem>
         </TabControl>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
+<<<<<<< HEAD
             <!--<Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>-->
             <Button Content="Закрыть"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
+=======
+            <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>
+            <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
+>>>>>>> origin/develop
             <Button Content="Печат. форма (План)"  Command="{Binding ReportPlanCommand}" Width="140" Margin="5" TabIndex="1002"></Button>
             <Button Content="Печат. форма (Факт)"  Command="{Binding ReportFactCommand}" Width="140" Margin="5" TabIndex="1003"></Button>
         </StackPanel>

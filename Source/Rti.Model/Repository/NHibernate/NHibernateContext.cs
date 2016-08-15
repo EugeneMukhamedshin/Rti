@@ -33,6 +33,7 @@ namespace Rti.Model.Repository.NHibernate
                 _sessionFactory = Fluently.Configure()
                     .Database(
                         MySQLConfiguration.Standard.ConnectionString(connectionString)
+<<<<<<< HEAD
                             //.ShowSql()
                     )
                     .Mappings(
@@ -40,6 +41,15 @@ namespace Rti.Model.Repository.NHibernate
                             m.FluentMappings.AddFromAssemblyOf<NHibernateContext>()
                     //.Conventions.AddFromAssemblyOf<NHibernateContext>()
                     )
+=======
+                            .ShowSql()
+                    )
+                    .Mappings(
+                        m =>
+                            m.FluentMappings.AddFromAssemblyOf<NHibernateContext>()
+                    //.Conventions.AddFromAssemblyOf<NHibernateContext>()
+                    )
+>>>>>>> origin/develop
                     //.ExposeConfiguration(cfg => new SchemaExport(cfg).SetOutputFile("schema.sql").Execute(true, true, false))
                     .BuildSessionFactory();
             }

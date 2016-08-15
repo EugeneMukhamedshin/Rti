@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿namespace Rti.Model.Repository.NHibernate
+=======
+namespace Rti.Model.Repository.NHibernate
+>>>>>>> origin/develop
 {
     public partial class ShipmentItemWorkItemRepository
     {

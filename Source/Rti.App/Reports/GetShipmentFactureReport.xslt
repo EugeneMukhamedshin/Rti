@@ -272,9 +272,12 @@
         </Style>
       </Styles>
       <Worksheet ss:Name="Лист1">
+<<<<<<< HEAD
         <Names>
           <NamedRange ss:Name="Print_Area" ss:RefersTo="=Лист1!R1C1:R{25+count(set[@name='ShipmentItems']/ShipmentItem)}C27"/>
         </Names>
+=======
+>>>>>>> origin/develop
         <Table x:FullColumns="1" x:FullRows="1" ss:DefaultRowHeight="15">
           <Column ss:AutoFitWidth="0" ss:Width="5.25"/>
           <Column ss:AutoFitWidth="0" ss:Width="129"/>
@@ -305,6 +308,7 @@
           <Row>
             <Cell ss:MergeAcross="26" ss:StyleID="s52">
               <Data ss:Type="String">Приложение № 1&#10;к постановлению Правительства Российской Федерации&#10;от 26 декабря 2011 г. № 1137</Data>
+<<<<<<< HEAD
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
@@ -535,10 +539,81 @@
               <NamedCell ss:Name="Print_Area"/>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
+=======
+            </Cell>
+          </Row>
+          <Row ss:Height="18">
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s17">
+              <Data ss:Type="String">
+                <xsl:value-of select="concat(concat(concat('Счет фактура № ', set[@name='Shipments']/Shipment/Payment/@InvoiceFacture),' от '), rti:FormatDate(set[@name='Shipments']/Shipment/@Date, 'dd.MM.yyyy'))"/>
+              </Data>
+            </Cell>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+          </Row>
+          <Row ss:Height="18">
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s18">
+              <Data ss:Type="String"></Data>
+            </Cell>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+          </Row>
+          <Row>
+            <Cell ss:StyleID="s16"/>
+>>>>>>> origin/develop
             <Cell ss:MergeAcross="25" ss:StyleID="s30">
               <Data ss:Type="String">
                 <xsl:value-of select="concat('Продавец: ', set[@name='Shipments']/Shipment/Request/Manufacturer/@Name)"/>
               </Data>
+<<<<<<< HEAD
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
@@ -547,10 +622,17 @@
               <NamedCell ss:Name="Print_Area"/>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
+=======
+            </Cell>
+          </Row>
+          <Row>
+            <Cell ss:StyleID="s16"/>
+>>>>>>> origin/develop
             <Cell ss:MergeAcross="25" ss:StyleID="s30">
               <Data ss:Type="String">
                 <xsl:value-of select="concat('Адрес: ', set[@name='Shipments']/Shipment/Request/Manufacturer/@Address)"/>
               </Data>
+<<<<<<< HEAD
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
@@ -559,10 +641,17 @@
               <NamedCell ss:Name="Print_Area"/>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
+=======
+            </Cell>
+          </Row>
+          <Row>
+            <Cell ss:StyleID="s16"/>
+>>>>>>> origin/develop
             <Cell ss:MergeAcross="25" ss:StyleID="s30">
               <Data ss:Type="String">
                 <xsl:value-of select="concat('ИНН/КПП продавца: ', concat(set[@name='Shipments']/Shipment/Request/Manufacturer/@Inn, concat('/', set[@name='Shipments']/Shipment/Request/Manufacturer/@Kpp)))"/>
               </Data>
+<<<<<<< HEAD
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
@@ -571,10 +660,17 @@
               <NamedCell ss:Name="Print_Area"/>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
+=======
+            </Cell>
+          </Row>
+          <Row>
+            <Cell ss:StyleID="s16"/>
+>>>>>>> origin/develop
             <Cell ss:MergeAcross="25" ss:StyleID="s30">
               <Data ss:Type="String">
                 <xsl:value-of select="concat('Грузоотправитель и его адрес: ', set[@name='Shipments']/Shipment/Request/Manufacturer/@FullName)"/>
               </Data>
+<<<<<<< HEAD
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
@@ -583,10 +679,17 @@
               <NamedCell ss:Name="Print_Area"/>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
+=======
+            </Cell>
+          </Row>
+          <Row>
+            <Cell ss:StyleID="s16"/>
+>>>>>>> origin/develop
             <Cell ss:MergeAcross="25" ss:StyleID="s30">
               <Data ss:Type="String">
                 <xsl:value-of select="concat('Грузополучатель и его адрес: ', set[@name='Shipments']/Shipment/Recipient/@FullName)"/>
               </Data>
+<<<<<<< HEAD
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
@@ -595,10 +698,17 @@
               <NamedCell ss:Name="Print_Area"/>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
+=======
+            </Cell>
+          </Row>
+          <Row>
+            <Cell ss:StyleID="s16"/>
+>>>>>>> origin/develop
             <Cell ss:MergeAcross="25" ss:StyleID="s30">
               <Data ss:Type="String">
                 К платежно-расчетному документу №<xsl:value-of select="set[@name='Shipments']/Shipment/Payment/@PaymentDocNumber"/> от <xsl:value-of select="rti:FormatDate(set[@name='Shipments']/Shipment/Payment/@PaymentDate, 'dd.MM.yyyy')"/>
               </Data>
+<<<<<<< HEAD
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
@@ -607,10 +717,17 @@
               <NamedCell ss:Name="Print_Area"/>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
+=======
+            </Cell>
+          </Row>
+          <Row>
+            <Cell ss:StyleID="s16"/>
+>>>>>>> origin/develop
             <Cell ss:MergeAcross="25" ss:StyleID="s30">
               <Data ss:Type="String">
                 Покупатель: <xsl:value-of select="set[@name='Shipments']/Shipment/Payer/@Name"/>
               </Data>
+<<<<<<< HEAD
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
@@ -619,10 +736,17 @@
               <NamedCell ss:Name="Print_Area"/>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
+=======
+            </Cell>
+          </Row>
+          <Row>
+            <Cell ss:StyleID="s16"/>
+>>>>>>> origin/develop
             <Cell ss:MergeAcross="25" ss:StyleID="s30">
               <Data ss:Type="String">
                 Адрес: <xsl:value-of select="set[@name='Shipments']/Shipment/Payer/@Address"/>
               </Data>
+<<<<<<< HEAD
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>111
@@ -631,10 +755,17 @@
               <NamedCell ss:Name="Print_Area"/>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
+=======
+            </Cell>
+          </Row>111
+          <Row>
+            <Cell ss:StyleID="s16"/>
+>>>>>>> origin/develop
             <Cell ss:MergeAcross="25" ss:StyleID="s30">
               <Data ss:Type="String">
                 ИНН/КПП покупателя: <xsl:value-of select="set[@name='Shipments']/Shipment/Payer/@Inn"/> / <xsl:value-of select="set[@name='Shipments']/Shipment/Payer/@Kpp"/>
               </Data>
+<<<<<<< HEAD
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
@@ -761,39 +892,101 @@
             <Cell ss:MergeAcross="4" ss:StyleID="s54">
               <Data ss:Type="String">Единица&#10;измерения</Data>
               <NamedCell ss:Name="Print_Area"/>
+=======
+            </Cell>
+          </Row>
+          <Row>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s19">
+              <Data ss:Type="String">Валюта: наименование, код Российский рубль, 643</Data>
+            </Cell>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+          </Row>
+          <Row>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="s54">
+              <Data
+      ss:Type="String">Наименование товара (описание выполненных работ, оказанных услуг), имущественного права</Data>
+            </Cell>
+            <Cell ss:MergeAcross="4" ss:StyleID="s54">
+              <Data ss:Type="String">Единица&#10;измерения</Data>
+>>>>>>> origin/develop
             </Cell>
             <Cell ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="s54">
               <Data
       ss:Type="String">Коли-&#10;чество &#10;(объем)</Data>
+<<<<<<< HEAD
               <NamedCell ss:Name="Print_Area"/>
+=======
+>>>>>>> origin/develop
             </Cell>
             <Cell ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="s54">
               <Data
       ss:Type="String">Цена (тариф) за единицу измерения</Data>
+<<<<<<< HEAD
               <NamedCell ss:Name="Print_Area"/>
+=======
+>>>>>>> origin/develop
             </Cell>
             <Cell ss:MergeAcross="2" ss:MergeDown="1" ss:StyleID="s54">
               <Data
       ss:Type="String">Стоимость товаров (работ, услуг), имущественных прав без налога - всего</Data>
+<<<<<<< HEAD
               <NamedCell ss:Name="Print_Area"/>
+=======
+>>>>>>> origin/develop
             </Cell>
             <Cell ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="s54">
               <Data
       ss:Type="String">В том&#10;числе&#10;сумма &#10;акциза</Data>
+<<<<<<< HEAD
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeDown="1" ss:StyleID="s55">
               <Data ss:Type="String">Налоговая ставка</Data>
               <NamedCell ss:Name="Print_Area"/>
+=======
+            </Cell>
+            <Cell ss:MergeDown="1" ss:StyleID="s55">
+              <Data ss:Type="String">Налоговая ставка</Data>
+>>>>>>> origin/develop
             </Cell>
             <Cell ss:MergeAcross="3" ss:MergeDown="1" ss:StyleID="s54">
               <Data
       ss:Type="String">Сумма налога, предъявляемая покупателю</Data>
+<<<<<<< HEAD
               <NamedCell ss:Name="Print_Area"/>
+=======
+>>>>>>> origin/develop
             </Cell>
             <Cell ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="s55">
               <Data
       ss:Type="String">Стоимость товаров (работ, услуг), имущественных прав с налогом - всего</Data>
+<<<<<<< HEAD
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeAcross="1" ss:StyleID="s55">
@@ -883,6 +1076,71 @@
             <Cell ss:StyleID="s21">
               <Data ss:Type="Number">11</Data>
               <NamedCell ss:Name="Print_Area"/>
+=======
+            </Cell>
+            <Cell ss:MergeAcross="1" ss:StyleID="s55">
+              <Data ss:Type="String">Страна&#10;происхождения товара</Data>
+            </Cell>
+            <Cell ss:MergeDown="1" ss:StyleID="s55">
+              <Data ss:Type="String">Номер&#10;таможенной&#10;декларации</Data>
+            </Cell>
+          </Row>
+          <Row ss:Height="33.75">
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:Index="4" ss:MergeAcross="1" ss:StyleID="s53">
+              <Data ss:Type="String">код</Data>
+            </Cell>
+            <Cell ss:MergeAcross="2" ss:StyleID="s54">
+              <Data ss:Type="String">условное обозначение (национальное)</Data>
+            </Cell>
+            <Cell ss:Index="25" ss:StyleID="s20">
+              <Data ss:Type="String">цифровой код</Data>
+            </Cell>
+            <Cell ss:StyleID="s20">
+              <Data ss:Type="String">краткое наимено-вание</Data>
+            </Cell>
+          </Row>
+          <Row>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:MergeAcross="1" ss:StyleID="s22">
+              <Data ss:Type="Number">1</Data>
+            </Cell>
+            <Cell ss:MergeAcross="1" ss:StyleID="s22">
+              <Data ss:Type="Number">2</Data>
+            </Cell>
+            <Cell ss:MergeAcross="2" ss:StyleID="s23">
+              <Data ss:Type="Number">2</Data>
+            </Cell>
+            <Cell ss:MergeAcross="1" ss:StyleID="s22">
+              <Data ss:Type="Number">3</Data>
+            </Cell>
+            <Cell ss:MergeAcross="1" ss:StyleID="s22">
+              <Data ss:Type="Number">4</Data>
+            </Cell>
+            <Cell ss:MergeAcross="2" ss:StyleID="s22">
+              <Data ss:Type="Number">5</Data>
+            </Cell>
+            <Cell ss:MergeAcross="1" ss:StyleID="s22">
+              <Data ss:Type="Number">6</Data>
+            </Cell>
+            <Cell ss:StyleID="s21">
+              <Data ss:Type="Number">7</Data>
+            </Cell>
+            <Cell ss:MergeAcross="3" ss:StyleID="s22">
+              <Data ss:Type="Number">8</Data>
+            </Cell>
+            <Cell ss:MergeAcross="1" ss:StyleID="s21">
+              <Data ss:Type="Number">9</Data>
+            </Cell>
+            <Cell ss:StyleID="s22">
+              <Data ss:Type="Number">10</Data>
+            </Cell>
+            <Cell ss:StyleID="s23">
+              <Data ss:Type="Number">10</Data>
+            </Cell>
+            <Cell ss:StyleID="s21">
+              <Data ss:Type="Number">11</Data>
+>>>>>>> origin/develop
             </Cell>
           </Row>
 
@@ -891,6 +1149,7 @@
 
 
           <Row>
+<<<<<<< HEAD
             <Cell>
               <NamedCell ss:Name="Print_Area"/>
               <NamedCell ss:Name="Print_Area"/>
@@ -1606,15 +1865,245 @@
               <NamedCell ss:Name="Print_Area"/>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
+=======
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s26">
+              <Data ss:Type="String">Всего к оплате</Data>
+            </Cell>
+            <Cell ss:StyleID="s27"/>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:MergeAcross="2" ss:StyleID="s63" ss:Formula="=SUM(R[-{count(set[@name='ShipmentItems']/ShipmentItem)}]C:R[-1]C)">
+              <Data ss:Type="Number">0</Data>
+            </Cell>
+            <Cell ss:MergeAcross="1" ss:StyleID="s64">
+              <Data ss:Type="String">Х</Data>
+            </Cell>
+            <Cell ss:StyleID="s29"/>
+            <Cell ss:MergeAcross="3" ss:StyleID="s65" ss:Formula="=SUM(R[-{count(set[@name='ShipmentItems']/ShipmentItem)}]C:R[-1]C)">
+              <Data ss:Type="Number">0</Data>
+            </Cell>
+            <Cell ss:MergeAcross="1" ss:StyleID="s65" ss:Formula="=SUM(R[-{count(set[@name='ShipmentItems']/ShipmentItem)}]C:R[-1]C)">
+              <Data ss:Type="Number">0</Data>
+            </Cell>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+          </Row>
+          <Row>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+          </Row>
+          <Row ss:Height="23.25">
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s30">
+              <Data ss:Type="String">Руководитель организации&#10;или иное уполномоченное лицо</Data>
+            </Cell>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:MergeAcross="3" ss:StyleID="s28">
+              <Data ss:Type="String">Холодников Ю.В.</Data>
+            </Cell>
+            <Cell ss:MergeAcross="4" ss:StyleID="s30">
+              <Data ss:Type="String">Главный бухгалтер&#10;или иное уполномоченное лицо</Data>
+            </Cell>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s28">
+              <Data ss:Type="String">Холодникова В.П.</Data>
+            </Cell>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+          </Row>
+          <Row>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:MergeAcross="3" ss:StyleID="s66">
+              <Data ss:Type="String">(подпись)</Data>
+            </Cell>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:MergeAcross="3" ss:StyleID="s66">
+              <Data ss:Type="String">(ф.и.о.)</Data>
+            </Cell>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s31">
+              <Data ss:Type="String">(подпись)</Data>
+            </Cell>
+            <Cell ss:StyleID="s31"/>
+            <Cell ss:StyleID="s31"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:MergeAcross="2" ss:StyleID="s66">
+              <Data ss:Type="String">(ф.и.о.)</Data>
+            </Cell>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+          </Row>
+          <Row>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+          </Row>
+          <Row ss:Height="34.5">
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s30">
+              <Data ss:Type="String">&#10;Индивидуальный предприниматель</Data>
+            </Cell>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s28"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:MergeAcross="3" ss:StyleID="s28"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s32"/>
+            <Cell ss:StyleID="s32"/>
+            <Cell ss:StyleID="s32"/>
+            <Cell ss:StyleID="s32"/>
+            <Cell ss:StyleID="s32"/>
+            <Cell ss:StyleID="s32"/>
+            <Cell ss:StyleID="s32"/>
+            <Cell ss:StyleID="s32"/>
+            <Cell ss:StyleID="s32"/>
+            <Cell ss:StyleID="s32"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+          </Row>
+          <Row>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:MergeAcross="3" ss:StyleID="s66">
+              <Data ss:Type="String">(подпись)</Data>
+            </Cell>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:MergeAcross="3" ss:StyleID="s66">
+              <Data ss:Type="String">(ф.и.о.)</Data>
+            </Cell>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:MergeAcross="9" ss:StyleID="s67">
+              <Data ss:Type="String">(реквизиты свидетельства о государственной &#10;регистрации индивидуального предпринимателя)</Data>
+            </Cell>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+          </Row>
+          <Row>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+            <Cell ss:StyleID="s16"/>
+>>>>>>> origin/develop
           </Row>
         </Table>
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
           <PageSetup>
+<<<<<<< HEAD
             <Layout x:Orientation="Landscape"/>
+=======
+>>>>>>> origin/develop
             <Header x:Margin="0.3"/>
             <Footer x:Margin="0.3"/>
             <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
           </PageSetup>
+<<<<<<< HEAD
           <Unsynced/>
           <Print>
             <ValidPrinterInfo/>
@@ -1624,12 +2113,20 @@
             <VerticalResolution>600</VerticalResolution>
           </Print>
           <ShowPageBreakZoom/>
+=======
+>>>>>>> origin/develop
           <Selected/>
           <Panes>
             <Pane>
               <Number>3</Number>
+<<<<<<< HEAD
               <ActiveRow>9</ActiveRow>
               <ActiveCol>2</ActiveCol>
+=======
+              <ActiveRow>13</ActiveRow>
+              <ActiveCol>3</ActiveCol>
+              <RangeSelection>R14C4:R14C8</RangeSelection>
+>>>>>>> origin/develop
             </Pane>
           </Panes>
           <ProtectObjects>False</ProtectObjects>
@@ -1645,66 +2142,98 @@
 
   <xsl:template name="ShipmentItemRow">
     <Row>
+<<<<<<< HEAD
       <Cell>
         <NamedCell ss:Name="Print_Area"/>
         <NamedCell ss:Name="Print_Area"/>
       </Cell>
+=======
+      <Cell ss:StyleID="s19"/>
+>>>>>>> origin/develop
       <Cell ss:MergeAcross="1" ss:StyleID="s25">
         <Data ss:Type="String">
           <xsl:value-of select="@FullDetailName"/>
         </Data>
+<<<<<<< HEAD
         <NamedCell ss:Name="Print_Area"/>
+=======
+>>>>>>> origin/develop
       </Cell>
       <Cell ss:MergeAcross="1" ss:StyleID="s24">
         <Data ss:Type="String">
           <xsl:value-of select="RequestDetail/Drawing/MeasureUnit/@Code"/>
         </Data>
+<<<<<<< HEAD
         <NamedCell ss:Name="Print_Area"/>
+=======
+>>>>>>> origin/develop
       </Cell>
       <Cell ss:MergeAcross="2" ss:StyleID="s24">
         <Data ss:Type="String">
           <xsl:value-of select="RequestDetail/Drawing/MeasureUnit/@Name"/>
         </Data>
+<<<<<<< HEAD
         <NamedCell ss:Name="Print_Area"/>
+=======
+>>>>>>> origin/develop
       </Cell>
       <Cell ss:MergeAcross="1" ss:StyleID="s60">
         <Data ss:Type="Number">
           <xsl:value-of select="@Count"/>
         </Data>
+<<<<<<< HEAD
         <NamedCell ss:Name="Print_Area"/>
+=======
+>>>>>>> origin/develop
       </Cell>
       <Cell ss:MergeAcross="1" ss:StyleID="s60">
         <Data ss:Type="Number">
           <xsl:value-of select="@RealPrice"/>
         </Data>
+<<<<<<< HEAD
         <NamedCell ss:Name="Print_Area"/>
+=======
+>>>>>>> origin/develop
       </Cell>
       <Cell ss:MergeAcross="2" ss:StyleID="s60">
         <Data ss:Type="Number">
           <xsl:value-of select="@Sum"/>
         </Data>
+<<<<<<< HEAD
         <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:MergeAcross="1" ss:StyleID="s60">
         <Data ss:Type="String">&#45;-</Data>
         <NamedCell ss:Name="Print_Area"/>
+=======
+      </Cell>
+      <Cell ss:MergeAcross="1" ss:StyleID="s60">
+        <Data ss:Type="String">&#45;-</Data>
+>>>>>>> origin/develop
       </Cell>
       <Cell ss:StyleID="s24">
         <Data ss:Type="Number">
           <xsl:value-of select="@NdsPercent div 100"/>
         </Data>
+<<<<<<< HEAD
         <NamedCell ss:Name="Print_Area"/>
+=======
+>>>>>>> origin/develop
       </Cell>
       <Cell ss:MergeAcross="3" ss:StyleID="s62">
         <Data ss:Type="Number">
           <xsl:value-of select="@NdsSum"/>
         </Data>
+<<<<<<< HEAD
         <NamedCell ss:Name="Print_Area"/>
+=======
+>>>>>>> origin/develop
       </Cell>
       <Cell ss:MergeAcross="1" ss:StyleID="s62">
         <Data ss:Type="Number">
           <xsl:value-of select="@SumWithNds"/>
         </Data>
+<<<<<<< HEAD
         <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s25">
@@ -1718,6 +2247,17 @@
       <Cell ss:StyleID="s25">
         <Data ss:Type="String">&#45;-</Data>
         <NamedCell ss:Name="Print_Area"/>
+=======
+      </Cell>
+      <Cell ss:StyleID="s25">
+        <Data ss:Type="String">&#45;-</Data>
+      </Cell>
+      <Cell ss:StyleID="s25">
+        <Data ss:Type="String">&#45;-</Data>
+      </Cell>
+      <Cell ss:StyleID="s25">
+        <Data ss:Type="String">&#45;-</Data>
+>>>>>>> origin/develop
       </Cell>
     </Row>
   </xsl:template>

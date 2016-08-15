@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ï»¿using System;
+=======
+using System;
+>>>>>>> origin/develop
 using System.Xml.Linq;
 using Rti.Model.Domain;
 using Rti.ViewModel.Calculation;
@@ -12,7 +16,11 @@ namespace Rti.ViewModel.Entities
             get
             {
                 var mass = CalculatedMass;
+<<<<<<< HEAD
                 return mass == null ? "ÐÐµÐ´Ð¾ÑÑ‚Ð°Ñ‚Ð¾Ñ‡Ð½Ð¾ Ð´Ð°Ð½Ð½Ñ‹Ñ…" : string.Format("{0:f3} ÐºÐ³", mass);
+=======
+                return mass == null ? "Íåäîñòàòî÷íî äàííûõ" : string.Format("{0:f3} êã", mass);
+>>>>>>> origin/develop
             }
         }
 

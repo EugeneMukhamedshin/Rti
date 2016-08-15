@@ -204,7 +204,11 @@
            ss:Color="#000000" ss:Bold="1"/>
         </Style>
         <Style ss:ID="s34">
+<<<<<<< HEAD
           <Alignment ss:Vertical="Bottom" ss:Horizontal="Left"/>
+=======
+          <Alignment ss:Vertical="Bottom"/>
+>>>>>>> origin/develop
           <Borders>
             <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
           </Borders>
@@ -279,16 +283,29 @@
           <Column ss:AutoFitWidth="0" ss:Width="42"/>
           <Column ss:AutoFitWidth="0" ss:Width="51"/>
           <Row ss:Height="19.5">
+<<<<<<< HEAD
             <Cell ss:Index="2" ss:StyleID="s33" ss:MergeAcross="2">
               <Data ss:Type="String">Индивидуальный наряд № </Data>
             </Cell>
+=======
+            <Cell ss:Index="2" ss:StyleID="s33">
+              <Data ss:Type="String">Индивидуальный наряд № </Data>
+            </Cell>
+            <Cell ss:StyleID="s33"/>
+            <Cell ss:StyleID="s34"/>
+            <Cell ss:StyleID="s34"/>
+>>>>>>> origin/develop
             <Cell ss:StyleID="s34">
               <Data ss:Type="Number">
                 <xsl:value-of select="WorkItemEmployeePackage/@Id"/>
               </Data>
             </Cell>
+<<<<<<< HEAD
             <Cell ss:StyleID="s34"/>
             <Cell ss:StyleID="s33">
+=======
+            <Cell ss:StyleID="s36">
+>>>>>>> origin/develop
               <Data ss:Type="String">Дата</Data>
             </Cell>
             <Cell ss:StyleID="s34">

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using System;
+=======
+using System;
+>>>>>>> origin/develop
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;

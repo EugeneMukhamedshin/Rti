@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using System;
+=======
+using System;
+>>>>>>> origin/develop
 using Rti.Model.Domain;
 
 namespace Rti.Model.Repository.NHibernate

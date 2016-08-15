@@ -78,11 +78,16 @@ namespace Rti.App
             // РРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹Р№ РЅР°СЂСЏРґ
             AddToRegistry<EmployeeWorkItemList, EmployeeWorkItemListWindow>();
 
+<<<<<<< HEAD
             // РћС‚РіСЂСѓР·РєР°
+=======
+            // Отгрузка
+>>>>>>> origin/develop
             AddToRegistry<ShipmentList, ShipmentListWindow>();
             AddToRegistry<ShipmentEdit, ShipmentEditWindow>();
             AddToRegistry<DeliveryEdit, DeliveryEditWindow>();
 
+<<<<<<< HEAD
             // РџР»Р°С‚РµР¶Рё
             AddToRegistry<PaymentList, PaymentListWindow>();
             AddToRegistry<PaymentEdit, PaymentEditWindow>();
@@ -93,6 +98,18 @@ namespace Rti.App
 
             // Р–СѓСЂРЅР°Р»С‹
             // Р–СѓСЂРЅР°Р» РѕР±СЂРµР·РєРё РѕР±Р»РѕСЏ
+=======
+            // Платежи
+            AddToRegistry<PaymentList, PaymentListWindow>();
+            AddToRegistry<PaymentEdit, PaymentEditWindow>();
+
+            // Платежи по оснастке
+            AddToRegistry<EquipmentPaymentList, EquipmentPaymentListWindow>();
+            AddToRegistry<EquipmentPaymentEdit, EquipmentPaymentEditWindow>();
+
+            // Журналы
+            // Журнал обрезки облоя
+>>>>>>> origin/develop
             AddToRegistry<ShavingRecordList, ShavingRecordListWindow>();
             AddToRegistry<ShavingRecordEdit, ShavingRecordEditWindow>();
             // Р–СѓСЂРЅР°Р» РїСЂРёС…РѕРґР° РјР°С‚РµСЂРёР°Р»Р°
@@ -107,7 +124,11 @@ namespace Rti.App
 
             // РР·РѕР±СЂР°Р¶РµРЅРёСЏ
             AddToRegistry<ImageEdit, ImageEditWindow>();
+<<<<<<< HEAD
             // РћС‚С‡РµС‚С‹
+=======
+            // Отчеты
+>>>>>>> origin/develop
             AddToRegistry<RequestsByMethodsReportViewModel, ByPeriodReportEditWindow>();
             AddToRegistry<DrawingShipmentsReportViewModel, DrawingReportEditWindow>();
             AddToRegistry<UsedMaterialsReportViewModel, ByPeriodReportEditWindow>();

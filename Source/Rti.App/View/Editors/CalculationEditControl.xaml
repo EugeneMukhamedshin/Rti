@@ -16,13 +16,18 @@
         <components:PropertyGridResponsible SortMode="Definitions" ShowMenuButtonInRows="False" SelectedObject="{Binding}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False" Grid.Row="1">
             <components:PropertyGridResponsible.PropertyDefinitions>
                 <dxprg:PropertyDefinition Header="1. Сырье и материалы" Path="AllMaterials" IsReadOnly="True" EditSettings="{components:Float2TextEditSettings}"/>
+<<<<<<< HEAD
                 <dxprg:PropertyDefinition Header="1.1. Стоимость сырья" Path="MainMaterial" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
+=======
+                <dxprg:PropertyDefinition Header="1.1. Стоимость сырья" Path="MainMaterial" EditSettings="{components:Float2TextEditSettings}"/>
+>>>>>>> origin/develop
                 <dxprg:PropertyDefinition Header="1.2. Резиновая смесь" Path="Rubber" EditSettings="{components:Float2TextEditSettings}"/>
                 <dxprg:PropertyDefinition Header="1.3. Клей" Path="Clue" EditSettings="{components:Float2TextEditSettings}"/>
                 <dxprg:PropertyDefinition Header="1.4. Арматура" Path="Armature" EditSettings="{components:Float2TextEditSettings}"/>
                 <dxprg:PropertyDefinition Header="1.5. Песок" Path="Sand" EditSettings="{components:Float2TextEditSettings}"/>
                 <dxprg:PropertyDefinition Header="1.6. Ткань" Path="Textile" EditSettings="{components:Float2TextEditSettings}"/>
                 <dxprg:PropertyDefinition Header="1.7. Другое" Path="OtherMaterial" EditSettings="{components:Float2TextEditSettings}"/>
+<<<<<<< HEAD
                 <dxprg:PropertyDefinition Header="2. Транспортные" Path="Transport" IsReadOnly="True" EditSettings="{components:Float2TextEditSettings}"/>
                 <dxprg:PropertyDefinition Header="3. Основная зарплата" Path="MainSalary" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
                 <dxprg:PropertyDefinition Header="4. Дополнительная зарплата" Path="AdditionalSalary" IsReadOnly="True" EditSettings="{components:Float2TextEditSettings}"/>
@@ -40,6 +45,25 @@
                 <dxprg:PropertyDefinition Header="16. НДС" Path="NdsTax" IsReadOnly="True" EditSettings="{components:Float2TextEditSettings}"/>
                 <dxprg:PropertyDefinition Header="17. Всего" Path="Summary" IsReadOnly="True" EditSettings="{components:Float2TextEditSettings}"/>
                 <dxprg:PropertyDefinition Header="18. Примечание" Path="Note" IsReadOnly="True" />
+=======
+                <dxprg:PropertyDefinition Header="2. Транспортные" Path="Transport" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
+                <dxprg:PropertyDefinition Header="3. Основная зарплата" Path="MainSalary" EditSettings="{components:Float2TextEditSettings}"/>
+                <dxprg:PropertyDefinition Header="4. Дополнительная зарплата" Path="AdditionalSalary" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
+                <dxprg:PropertyDefinition Header="5. Отчисления ЕСН" Path="FixedTax" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
+                <dxprg:PropertyDefinition Header="6. Общецеховые" Path="TotalDivision" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
+                <dxprg:PropertyDefinition Header="7. Общепроизводственные" Path="TotalManufacture" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
+                <dxprg:PropertyDefinition Header="8. Итого" Path="MainSummary" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
+                <dxprg:PropertyDefinition Header="9. Электроэнергия для формовых" Path="PowerForFormed" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
+                <dxprg:PropertyDefinition Header="10. Электроэнергия прочая" Path="OtherPower" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
+                <dxprg:PropertyDefinition Header="11. Итого" Path="MainAndPowerSummary" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
+                <dxprg:PropertyDefinition Header="12. Коммерческие" Path="Unforseen" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
+                <dxprg:PropertyDefinition Header="13. Себестоимость" Path="NetCost" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
+                <dxprg:PropertyDefinition Header="14. Рентабельность" Path="Profitability" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
+                <dxprg:PropertyDefinition Header="15. Цена" Path="Price" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
+                <dxprg:PropertyDefinition Header="16. НДС" Path="NdsTax" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
+                <dxprg:PropertyDefinition Header="17. Всего" Path="Summary" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
+                <dxprg:PropertyDefinition Header="18. Примечание" Path="Note" IsReadOnly="{Binding IsReadOnly}" />
+>>>>>>> origin/develop
             </components:PropertyGridResponsible.PropertyDefinitions>
         </components:PropertyGridResponsible>
     </Grid>

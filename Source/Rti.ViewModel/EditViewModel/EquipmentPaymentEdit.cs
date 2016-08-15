@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ï»¿using System.Collections.ObjectModel;
+=======
+using System.Collections.ObjectModel;
+>>>>>>> origin/develop
 using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
@@ -44,12 +48,20 @@ namespace Rti.ViewModel.EditViewModel
         {
             if (Entity.Drawing == null)
             {
+<<<<<<< HEAD
                 ViewService.ShowMessage(new MessageViewModel("ÐžÑˆÐ¸Ð±ÐºÐ°", "ÐÐµ Ð·Ð°Ð´Ð°Ð½ Ñ‡ÐµÑ€Ñ‚ÐµÐ¶/Ð¾ÑÐ½Ð°ÑÑ‚ÐºÐ°"));
+=======
+                ViewService.ShowMessage(new MessageViewModel("Îøèáêà", "Íå çàäàí ÷åðòåæ/îñíàñòêà"));
+>>>>>>> origin/develop
                 return false;
             }
             if (Entity.Sum <= 0)
             {
+<<<<<<< HEAD
                 ViewService.ShowMessage(new MessageViewModel("ÐžÑˆÐ¸Ð±ÐºÐ°", "ÐÐµ Ð·Ð°Ð´Ð°Ð½Ð° ÑÑƒÐ¼Ð¼Ð° Ð¾Ð¿Ð»Ð°Ñ‚Ñ‹"));
+=======
+                ViewService.ShowMessage(new MessageViewModel("Îøèáêà", "Íå çàäàíà ñóììà îïëàòû"));
+>>>>>>> origin/develop
                 return false;
             }
             return base.DoValidate();

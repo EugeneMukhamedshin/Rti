@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 Ôªøusing System.Xml.Linq;
+=======
+using System.Xml.Linq;
+>>>>>>> origin/develop
 using Rti.Model.Domain;
 
 namespace Rti.ViewModel.Entities
@@ -15,6 +19,11 @@ namespace Rti.ViewModel.Entities
         public string BankRequisites
         {
             get { return string.Format("—Ä/—Å {0} –≤ {1}, –∫/—Å {2}, –ë–ò–ö {3}", Account, Bank, CorrAccount, Bik); }
+        }
+
+        public string BankRequisites
+        {
+            get { return string.Format("/Ò {0} ‚ {1}, Í/Ò {2}, ¡»  {3}", Account, Bank, CorrAccount, Bik); }
         }
 
         public string FullNameWithBankRequisites

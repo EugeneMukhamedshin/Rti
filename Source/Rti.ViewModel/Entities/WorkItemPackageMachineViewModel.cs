@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿namespace Rti.ViewModel.Entities
+=======
+namespace Rti.ViewModel.Entities
+>>>>>>> origin/develop
 {
     partial class WorkItemEmployeePackageMachineViewModel
     {

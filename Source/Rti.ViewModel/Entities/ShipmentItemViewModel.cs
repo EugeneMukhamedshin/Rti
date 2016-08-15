@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using System;
+=======
+using System;
+>>>>>>> origin/develop
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Linq;
 

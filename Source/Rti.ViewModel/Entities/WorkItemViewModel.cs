@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ï»¿using System;
+=======
+using System;
+>>>>>>> origin/develop
 using System.Xml.Linq;
 
 namespace Rti.ViewModel.Entities
@@ -29,7 +33,11 @@ namespace Rti.ViewModel.Entities
         }
 
         /// <summary>
+<<<<<<< HEAD
         /// Ð’Ñ€ÐµÐ¼Ñ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸Ñ Ð¿Ñ€ÐµÑÑÐ°
+=======
+        /// Âðåìÿ èñïîëüçîâàíèÿ ïðåññà
+>>>>>>> origin/develop
         /// </summary>
         public decimal MachineUsageTime
         {

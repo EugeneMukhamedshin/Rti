@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using System;
+=======
+using System;
+>>>>>>> origin/develop
 using System.Collections.Generic;
 using System.Linq;
 using NHibernate.Linq;
@@ -56,7 +60,11 @@ from (
       rdj.rejected_count rejected_count,
       m.name material_name,
       d1.mass_with_shruff * rdj.rejected_count rejected_mass,
+<<<<<<< HEAD
       m.Price * d1.mass_with_shruff * rdj.rejected_count rejected_price,
+=======
+      m.Price * rdj.rejected_count rejected_price,
+>>>>>>> origin/develop
       c.Transport + c.Main_Salary + c.Additional_Salary + c.Fixed_Tax + c.Power_For_Formed + c.Other_Power expences
     FROM (SELECT
         wird.request_detail_id,
@@ -96,6 +104,7 @@ where
                     .SetResultTransformer(new ResultTransformer(objects => new RejectionReportRow
                     {
                         EmployeeName = (string)objects[0],
+<<<<<<< HEAD
                         RequestNumber = Convert.ToInt32(objects[1]),
                         RequestRegDate = (DateTime)objects[2],
                         DrawingName = (string)objects[3],
@@ -105,6 +114,17 @@ where
                         RejectedMass = Convert.ToDouble(objects[7]),
                         RejectedPrice = Convert.ToDecimal(objects[8]),
                         Expences = Convert.ToDecimal(objects[9])
+=======
+                        RequestNumber = (int)objects[1],
+                        RequestRegDate = (DateTime)objects[2],
+                        DrawingName = (string)objects[3],
+                        DetailName = (string)objects[4],
+                        RejectedCount = Convert.ToInt32((decimal)objects[5]),
+                        MaterialName = (string)objects[6],
+                        RejectedMass = (double)objects[7],
+                        RejectedPrice = (decimal)objects[8],
+                        Expences = (decimal)objects[9]
+>>>>>>> origin/develop
                     }, objects => objects.Cast<RejectionReportRow>().ToList())).List<RejectionReportRow>(), "");
         }
     }
