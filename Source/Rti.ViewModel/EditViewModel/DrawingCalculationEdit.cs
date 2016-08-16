@@ -265,13 +265,15 @@ namespace Rti.ViewModel.EditViewModel
 
         private void SavePlanCalculation()
         {
-            PlanCalculation.SaveEntity();
+            var planCalculation = PlanCalculation.Clone();
+            planCalculation.SaveEntity();
             var historyItem = new DrawingCalculationHistoryViewModel(null, RepositoryFactory)
             {
                 Drawing = Source,
-                Calculation = PlanCalculation
+                Calculation = planCalculation
             };
             historyItem.SaveEntity();
+            PlanCalculation = planCalculation;
             Entity.PlanCalculation = PlanCalculation;
             Save();
         }

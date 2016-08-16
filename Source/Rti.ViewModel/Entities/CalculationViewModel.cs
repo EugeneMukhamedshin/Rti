@@ -1,3 +1,4 @@
+using System;
 using System.Xml.Linq;
 using Rti.Model.Domain;
 
@@ -46,6 +47,12 @@ namespace Rti.ViewModel.Entities
         {
             base.CustomFillXElement(element);
             element.Add(new XAttribute("AllMaterials", AllMaterials ?? 0));
+        }
+
+        protected override void BeforeSave()
+        {
+            base.BeforeSave();
+            CreatedDate = DateTime.Now;
         }
     }
 }

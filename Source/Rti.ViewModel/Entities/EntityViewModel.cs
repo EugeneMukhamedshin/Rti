@@ -74,10 +74,10 @@ namespace Rti.ViewModel.Entities
             SuppressIsChanged = true;
             try
             {
+                BeforeSave();
                 Validate();
                 MapPropertiesToEntity();
                 DoSave();
-                AfterSave();
                 MapPropertiesFromEntity();
             }
             finally
@@ -160,7 +160,7 @@ namespace Rti.ViewModel.Entities
             return IsValid;
         }
 
-        protected virtual void AfterSave()
+        protected virtual void BeforeSave()
         {
         }
 

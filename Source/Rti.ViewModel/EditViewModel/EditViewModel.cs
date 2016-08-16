@@ -47,6 +47,8 @@ namespace Rti.ViewModel.EditViewModel
                 "Отмена",
                 o => true,
                 o => Close(false));
+            CloseCommand = new DelegateCommand(o => Close(true));
+
             Initialize();
         }
 
@@ -92,5 +94,6 @@ namespace Rti.ViewModel.EditViewModel
         }
 
         public Action<bool?> Close { get; set; }
+        public DelegateCommand CloseCommand { get; set; }
     }
 }

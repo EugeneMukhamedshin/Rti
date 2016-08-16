@@ -80,8 +80,7 @@ namespace Rti.App
 
             // Отгрузка
             AddToRegistry<ShipmentList, ShipmentListWindow>();
-            AddToRegistry<ShipmentEdit, ShipmentEditWindow>();
-            AddToRegistry<DeliveryEdit, DeliveryEditWindow>();
+            AddToRegistry<ShipmentEdit, ShipmentEditWindow>();AddToRegistry<DeliveryEdit, DeliveryEditWindow>();
 
             // Платежи
             AddToRegistry<PaymentList, PaymentListWindow>();

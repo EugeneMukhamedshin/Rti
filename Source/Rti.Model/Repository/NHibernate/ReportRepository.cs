@@ -216,6 +216,7 @@ ORDER BY d.id ASC, r.reg_date ASC, s.date ASC";
                                             new XAttribute("RequestNumber", requestGroup.Key.RequestNumber ?? string.Empty),
                                             new XAttribute("RequestRegDate", requestGroup.Key.RequestRegDate ?? string.Empty),
                                             new XAttribute("RequestCount", requestGroup.Key.RequestCount ?? string.Empty),
+                                            new XAttribute("CustomerName", requestGroup.Key.CustomerName ?? string.Empty),
                                             new XElement("Shipments",
                                                 requestGroup.Select(row =>
                                                     new XElement("Shipment",
@@ -756,7 +757,7 @@ SELECT
   d.name DrawingName,
   d1.name DetailName,
   wi.work_date DocNumber,
-  wi.task_count Count,
+  wi.done_count Count,
   d.mass_with_shruff Mass
 FROM work_items wi
   INNER JOIN drawings d

@@ -50,6 +50,14 @@
             <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
           </Borders>
         </Style>
+        <Style ss:ID="s171">
+          <Borders>
+            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+          </Borders><NumberFormat ss:Format="Fixed"/>
+        </Style>
         <Style ss:ID="s23">
           <Alignment ss:Vertical="Bottom"/>
           <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
@@ -193,7 +201,7 @@
           <xsl:value-of select="@Count"/>
         </Data>
       </Cell>
-      <Cell ss:StyleID="s17">
+      <Cell ss:StyleID="s171">
         <xsl:choose>
           <xsl:when test="@CuttingTime=''"><Data ss:Type="String">ОШИБКА</Data></xsl:when>
           <xsl:otherwise>
@@ -203,7 +211,7 @@
           </xsl:otherwise>
         </xsl:choose>
       </Cell>
-      <Cell ss:StyleID="s17">
+      <Cell ss:StyleID="s171">
         <xsl:choose>
           <xsl:when test="@CuttingTime=''"><Data ss:Type="String">ОШИБКА</Data></xsl:when>
           <xsl:otherwise>

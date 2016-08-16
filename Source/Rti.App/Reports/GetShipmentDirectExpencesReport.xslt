@@ -273,8 +273,7 @@
           <xsl:value-of select="@DrawingName"/>
         </Data>
       </Cell>
-      <Cell ss:StyleID="s18">
-        <Data ss:Type="String">
+      <Cell ss:StyleID="s18"><Data ss:Type="String">
           <xsl:value-of select="@GroupName"/>
         </Data>
       </Cell>
@@ -285,7 +284,7 @@
       </Cell>
       <Cell ss:StyleID="s18">
         <Data ss:Type="Number">
-          <xsl:value-of select="@DetailCount"/>
+          <xsl:value-of select="@DoneCount"/>
         </Data>
       </Cell>
       <Cell ss:StyleID="s18">
