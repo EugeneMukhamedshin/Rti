@@ -197,6 +197,9 @@
 
   <xsl:template match="set[@name='ShipmentItems']/ShipmentItem">
     <Worksheet ss:Name="{@FullDetailName}">
+      <Names>
+        <NamedRange ss:Name="Print_Area" ss:RefersTo="=Лист1!R1C1:R25C13"/>
+      </Names>
       <Table x:FullColumns="1" x:FullRows="1" ss:DefaultRowHeight="15">
         <Column ss:Index="4" ss:AutoFitWidth="0" ss:Width="65"/>
         <Column ss:AutoFitWidth="0" ss:Width="65"/>
@@ -205,106 +208,106 @@
         <Column ss:Index="9" ss:AutoFitWidth="0" ss:Width="65"/>
         <Row>
           <Cell ss:MergeAcross="2" ss:StyleID="s46"/>
-          <Cell ss:StyleID="s18"/>
-          <Cell ss:StyleID="s19"/>
-          <Cell ss:StyleID="s20"/>
-          <Cell ss:StyleID="s21"/>
-          <Cell ss:StyleID="s21"/>
-          <Cell ss:StyleID="s21"/>
-          <Cell ss:StyleID="s21"/>
-          <Cell ss:StyleID="s22"/>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
         <Row ss:Height="16.5">
           <Cell ss:Index="7" ss:StyleID="s23">
             <Data ss:Type="String">
               <xsl:value-of select="Shipment/Request/Manufacturer/@Name"/>
             </Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
         <Row>
           <Cell ss:Index="7" ss:StyleID="s24">
             <Data ss:Type="String">наименование предприятия-изготовителя</Data>
-          </Cell>
-          <Cell ss:StyleID="s24"/>
-          <Cell ss:StyleID="s24"/>
-          <Cell ss:StyleID="s24"/>
+          <NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
         <Row>
           <Cell ss:Index="7" ss:StyleID="s25"/>
-          <Cell ss:StyleID="s25"/>
-          <Cell ss:StyleID="s25"/>
-          <Cell ss:StyleID="s25"/>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
         <Row ss:Height="18">
           <Cell ss:MergeAcross="10" ss:StyleID="s29">
             <Data ss:Type="String">
               ПАСПОРТ № <xsl:value-of select="rti:FormatDate(Shipment/@Date, 'ddMM\/yy')"/>-<xsl:value-of select="Shipment/@SortOrder"/>/<xsl:value-of select="@SortOrder"/>
             </Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
         <Row ss:Height="36">
           <Cell ss:StyleID="s27">
             <Data ss:Type="String">Покупатель: </Data>
-          </Cell>
-          <Cell ss:StyleID="s28"/>
+          <NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
           <Cell ss:StyleID="s51" ss:MergeAcross="8">
             <Data ss:Type="String">
               <xsl:value-of select="Shipment/Payer/@FullName"/>
             </Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
         <Row ss:Height="18">
-          <Cell ss:StyleID="s27"/>
-          <Cell ss:StyleID="s28"/>
-          <Cell ss:StyleID="s28"/>
-          <Cell ss:StyleID="s28"/>
-          <Cell ss:StyleID="s28"/>
-          <Cell ss:StyleID="s29"/>
-          <Cell ss:StyleID="s29"/>
-          <Cell ss:StyleID="s29"/>
-          <Cell ss:StyleID="s29"/>
-          <Cell ss:StyleID="s29"/>
-          <Cell ss:StyleID="s29"/>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
         <Row>
           <Cell ss:Index="2">
             <Data ss:Type="String">1. Свидетельство о приемке</Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
         <Row>
           <Cell ss:MergeAcross="2" ss:MergeDown="2" ss:StyleID="s42">
             <Data
     ss:Type="String">Наименование РТД или номер детали по чертежу</Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
           <Cell ss:MergeDown="2" ss:StyleID="s49">
             <Data ss:Type="String">Дата изготовления (год, м-ц)</Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
           <Cell ss:MergeDown="2" ss:StyleID="s42">
             <Data ss:Type="String">Дата отгрузки</Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
           <Cell ss:MergeAcross="1" ss:StyleID="s50">
             <Data ss:Type="String">Количество</Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
           <Cell ss:MergeDown="2" ss:StyleID="s42">
             <Data ss:Type="String">Номер анализа, дата</Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
           <Cell ss:MergeDown="2" ss:StyleID="s42">
             <Data ss:Type="String">Марка материала</Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
           <Cell ss:MergeDown="2" ss:StyleID="s42">
             <Data ss:Type="String">Вид упаковки</Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
           <Cell ss:MergeDown="2" ss:StyleID="s42">
             <Data ss:Type="String">К-во мест в партии</Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
         <Row>
           <Cell ss:Index="6" ss:MergeDown="1" ss:StyleID="s42">
             <Data ss:Type="String">шт</Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
           <Cell ss:MergeDown="1" ss:StyleID="s42">
             <Data ss:Type="String">кг</Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
 
         <Row ss:Index="12">
@@ -312,111 +315,111 @@
             <Data ss:Type="String">
               <xsl:value-of select="@FullDetailName"/>
             </Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
           <Cell ss:StyleID="s36">
             <Data ss:Type="String">
               <xsl:value-of select="rti:FormatDateTime(@DoneDate, 'dd.MM.yyyy')"/>
             </Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
           <Cell ss:StyleID="s36">
             <Data ss:Type="String">
               <xsl:value-of select="rti:FormatDateTime(Shipment/@Date, 'dd.MM.yyyy')"/>
             </Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
           <Cell ss:StyleID="s52">
             <Data ss:Type="Number">
               <xsl:value-of select="@Count"/>
             </Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
           <Cell ss:StyleID="s53">
             <Data ss:Type="Number">
               <xsl:value-of select="@NetMass"/>
             </Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
           <Cell ss:StyleID="s37">
             <Data ss:Type="String"> </Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
           <Cell ss:StyleID="s38">
             <Data ss:Type="String">
               <xsl:value-of select="RequestDetail/Drawing/Material/@Name"/>
             </Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
           <Cell ss:StyleID="s37">
             <Data ss:Type="String">мешок</Data>
-          </Cell>
-          <Cell ss:StyleID="s39"/>
+          <NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
 
         <Row>
           <Cell>
             <Data ss:Type="String">РТД приняты ОТК представителем заказчика (при наличии приемки)</Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
           <Cell ss:Index="9" ss:StyleID="s40"/>
         </Row>
         <Row>
           <Cell>
             <Data ss:Type="String"> </Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
           <Cell>
             <Data ss:Type="String">2. Результаты испытаний</Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
         <Row>
           <Cell>
             <Data ss:Type="String">Внешний вид, размеры РТД, физико-механические показатели резины и РТД соответствуют </Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
         <Row>
           <Cell ss:StyleID="s40">
             <Data ss:Type="String">
               требованиям чертежа <xsl:value-of select="RequestDetail/Drawing/@Name"/> и ТУ <xsl:value-of select="RequestDetail/Drawing/Material/@TechConditions"/>
             </Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
         <Row>
           <Cell ss:Index="2">
             <Data ss:Type="String">3. Гарантии поставщика</Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
         <Row>
           <Cell ss:StyleID="s40">
             <Data ss:Type="String">Срок гарантии, гарантийная наработка, условия транспортировки и хранения в соответствии с ТУ  </Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
         <Row>
           <Cell>
             <Data ss:Type="String"> </Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
         <Row>
           <Cell>
             <Data ss:Type="String">НАЧАЛЬНИК ОТК____________Наумова Е.В.</Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
           <Cell ss:Index="5" ss:StyleID="s41"/>
           <Cell ss:StyleID="s41">
             <Data ss:Type="String">НАЧАЛЬНИК ЦЕХА____________________Холодников М.Ю.</Data>
-          </Cell>
-          <Cell ss:StyleID="s41"/>
-          <Cell ss:StyleID="s41"/>
-          <Cell ss:StyleID="s41"/>
-          <Cell ss:StyleID="s41"/>
-          <Cell ss:StyleID="s41"/>
+          <NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
         <Row ss:Index="22">
           <Cell ss:StyleID="s40">
             <Data ss:Type="String">ПРЕДСТАВИТЕЛЬ ЗАКАЗЧИКА__________________</Data>
-          </Cell>
+          <NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
         <Row ss:Index="24">
           <Cell ss:MergeAcross="2" ss:StyleID="s46"/>
-          <Cell ss:StyleID="s18"/>
-          <Cell ss:StyleID="s19"/>
-          <Cell ss:StyleID="s20"/>
-          <Cell ss:StyleID="s21"/>
-          <Cell ss:StyleID="s21"/>
-          <Cell ss:StyleID="s21"/>
-          <Cell ss:StyleID="s21"/>
-          <Cell ss:StyleID="s22"/>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
+          <Cell><NamedCell ss:Name="Print_Area"/></Cell>
         </Row>
       </Table>
       <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
@@ -425,12 +428,21 @@
           <Footer x:Margin="0.3"/>
           <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
         </PageSetup>
+        <Unsynced/>
+        <Print>
+          <ValidPrinterInfo/>
+          <PaperSizeIndex>9</PaperSizeIndex>
+          <Scale>82</Scale>
+          <HorizontalResolution>600</HorizontalResolution>
+          <VerticalResolution>600</VerticalResolution>
+        </Print>
+        <ShowPageBreakZoom/>
         <Selected/>
         <Panes>
           <Pane>
             <Number>3</Number>
-            <ActiveRow>15</ActiveRow>
-            <ActiveCol>6</ActiveCol>
+            <ActiveRow>9</ActiveRow>
+            <ActiveCol>2</ActiveCol>
           </Pane>
         </Panes>
         <ProtectObjects>False</ProtectObjects>

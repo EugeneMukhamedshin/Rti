@@ -90,11 +90,6 @@ namespace Rti.ViewModel.Lists
 
         private void OpenCalculation()
         {
-            if (SelectedItem.PlanCalculation == null)
-                SelectedItem.PlanCalculation = new CalculationViewModel(null, RepositoryFactory);
-            if (SelectedItem.FactCalculation == null)
-                SelectedItem.FactCalculation = new CalculationViewModel(null, RepositoryFactory);
-            SelectedItem.PlanCalculation.IsReadOnly = true;
             var calculationEdit = new DrawingCalculationEdit("Калькуляция", SelectedItem, !EditMode, ViewService, RepositoryFactory);
             if (ViewService.ShowViewDialog(calculationEdit) == true)
             {

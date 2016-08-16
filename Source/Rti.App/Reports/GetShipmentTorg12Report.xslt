@@ -610,6 +610,9 @@
         </Style>
       </Styles>
       <Worksheet ss:Name="Лист1">
+        <Names>
+          <NamedRange ss:Name="Print_Area" ss:RefersTo="=Лист1!R1C1:R{31+count(set[@name='ShipmentItems']/ShipmentItem)}C17"/>
+        </Names>
         <Table x:FullColumns="1"
          x:FullRows="1" ss:DefaultRowHeight="15">
           <Column ss:AutoFitWidth="0" ss:Width="33"/>
@@ -623,88 +626,218 @@
           <Column ss:Width="50.25" ss:Span="1"/>
           <Column ss:Index="17" ss:AutoFitWidth="0" ss:Width="53.25"/>
           <Row>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
+
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s19">
               <Data ss:Type="String">Унифицированная форма № ТОРГ-12 Утверждена</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
           </Row>
           <Row>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s19">
               <Data ss:Type="String">постановлением Госкомстата России от 25.12.98 № 132</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
           </Row>
           <Row ss:Height="15.75">
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s20">
               <Data ss:Type="String">Код</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
           <Row>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:MergeAcross="1" ss:StyleID="s30">
               <Data ss:Type="String">Форма по ОКУД</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s23">
               <Data ss:Type="Number">330212</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
           <Row>
@@ -712,102 +845,216 @@
               <Data ss:Type="String">
                 <xsl:value-of select="set[@name='Shipments']/Shipment/Request/Manufacturer/@FullName"/>
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s19"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s19">
               <Data ss:Type="String">по ОКПО</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s26">
               <Data ss:Type="String">
                 <xsl:value-of select="set[@name='Shipments']/Shipment/Request/Manufacturer/@Okpo"/>
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
           <Row>
             <Cell ss:MergeAcross="13" ss:StyleID="s124">
               <Data ss:Type="String">грузоотправитель, адрес, номер телефона, банковские реквизиты</Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s26"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
           </Row>
           <Row>
             <Cell ss:StyleID="s28">
               <Data ss:Type="String">
                 <xsl:value-of select="set[@name='Shipments']/Shipment/Request/Manufacturer/@BankRequisites"/>
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s19">
               <Data ss:Type="String">Вид деятельности по ОКДП</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s26"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
           </Row>
           <Row>
             <Cell ss:MergeAcross="13" ss:StyleID="s124">
               <Data ss:Type="String">структурное подразделение</Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s19">
               <Data ss:Type="String"> </Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s29"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
           </Row>
           <Row>
             <Cell ss:StyleID="s25">
               <Data ss:Type="String">Грузополучатель</Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s25"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s24">
               <Data ss:Type="String">
                 <xsl:value-of select="set[@name='Shipments']/Shipment/Recipient/@FullName"/>
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s19"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s30">
               <Data ss:Type="String">по ОКПО</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s31">
               <Data ss:Type="String">
                 <xsl:value-of select="set[@name='Shipments']/Shipment/Recipient/@Okpo"/>
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
           <Row>
@@ -815,53 +1062,120 @@
               <Data ss:Type="String">
                 <xsl:value-of select="set[@name='Shipments']/Shipment/Recipient/@BankRequisites"/>
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s28"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s30"/>
-            <Cell ss:StyleID="s31"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
           </Row>
           <Row>
             <Cell ss:StyleID="s25">
               <Data ss:Type="String">Поставщик</Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s25"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s32" ss:Formula="=R[-6]C[-2]">
               <Data ss:Type="String">
                 <xsl:value-of select="set[@name='Shipments']/Shipment/Request/Manufacturer/@FullName"/>
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s19"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s30">
               <Data ss:Type="String">по ОКПО</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s26">
               <Data ss:Type="String">
                 <xsl:value-of select="set[@name='Shipments']/Shipment/Request/Manufacturer/@Okpo"/>
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
           <Row>
@@ -869,53 +1183,120 @@
               <Data ss:Type="String">
                 <xsl:value-of select="set[@name='Shipments']/Shipment/Request/Manufacturer/@BankRequisites"/>
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s28"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s30"/>
-            <Cell ss:StyleID="s33"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
           </Row>
           <Row>
             <Cell ss:StyleID="s25">
               <Data ss:Type="String">Плательщик </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s25"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s24" ss:Formula="=R[-4]C">
               <Data ss:Type="String">
                 <xsl:value-of select="set[@name='Shipments']/Shipment/Payer/@FullName"/>
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s19"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s30">
               <Data ss:Type="String">по ОКПО</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s33">
               <Data ss:Type="String">
                 <xsl:value-of select="set[@name='Shipments']/Shipment/Payer/@Okpo"/>
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
           <Row>
@@ -923,247 +1304,432 @@
               <Data ss:Type="String">
                 <xsl:value-of select="set[@name='Shipments']/Shipment/Payer/@BankRequisites"/>
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s28"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s25"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s30"/>
-            <Cell ss:StyleID="s33"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
           </Row>
           <Row>
             <Cell ss:StyleID="s34">
               <Data ss:Type="String">Основание</Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s34"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s35">
               <Data ss:Type="String">
                 <xsl:value-of select="set[@name='Shipments']/Shipment/@Grounding"/>
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s34"/>
-            <Cell ss:StyleID="s34"/>
-            <Cell ss:StyleID="s34"/>
-            <Cell ss:StyleID="s34"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s34">
               <Data ss:Type="String"> </Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s34"/>
-            <Cell ss:StyleID="s34"/>
-            <Cell ss:StyleID="s34"/>
-            <Cell ss:StyleID="s34"/>
-            <Cell ss:StyleID="s34"/>
-            <Cell ss:StyleID="s34"/>
-            <Cell ss:StyleID="s36"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s37">
               <Data ss:Type="String">номер</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s33">
               <Data ss:Type="String">
                 <xsl:value-of select="rti:FormatDate(set[@name='Shipments']/Shipment/@Date, 'ddMM\/yy')"/>-<xsl:value-of select="set[@name='Shipments']/Shipment/@SortOrder"/>
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
           <Row>
             <Cell ss:MergeAcross="13" ss:StyleID="s36">
               <Data ss:Type="String">договор, заказ-наряд</Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s19"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s37">
               <Data ss:Type="String">дата</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s33">
               <Data ss:Type="String">
                 <xsl:value-of select="rti:FormatDate(set[@name='Shipments']/Shipment/@Date)"/>
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
           <Row>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:MergeAcross="2" ss:StyleID="s30">
               <Data ss:Type="String">Транспортная накладная</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s37">
               <Data ss:Type="String">номер</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s33"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
           </Row>
           <Row ss:Height="15.75">
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:MergeAcross="1" ss:StyleID="m217498240">
               <Data ss:Type="String">Номер документа</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeAcross="1" ss:StyleID="m217498260">
               <Data ss:Type="String">Дата составления</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s37">
               <Data ss:Type="String">дата</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s33"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+
           </Row>
           <Row ss:Height="15.75">
             <Cell ss:MergeAcross="5" ss:StyleID="s116">
               <Data ss:Type="String">ТОВАРНАЯ НАКЛАДНАЯ</Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeAcross="1" ss:StyleID="m217498300">
               <Data ss:Type="Number">
                 <xsl:value-of select="set[@name='Shipments']/Shipment/@SortOrder"/>
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeAcross="1" ss:StyleID="m217498320">
               <Data ss:Type="String">
                 <xsl:value-of select="rti:FormatDate(set[@name='Shipments']/Shipment/@Date, 'dd.MM.yyyy')"/>
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:MergeAcross="1" ss:StyleID="m217497920">
               <Data ss:Type="String">Вид операции</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s50"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
           </Row>
           <Row>
             <Cell ss:MergeDown="2" ss:StyleID="m217497940">
               <Data ss:Type="String">Номер по порядку</Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeAcross="3" ss:StyleID="m217497960">
               <Data ss:Type="String">Товар</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeAcross="1" ss:StyleID="m217497980">
               <Data ss:Type="String">Единица измерения</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeDown="2" ss:StyleID="m217498000">
               <Data ss:Type="String">Вид упаковки</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeAcross="1" ss:StyleID="m217498020">
               <Data ss:Type="String">Количество</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeDown="2" ss:StyleID="m217498040">
               <Data ss:Type="String">Масса, брутто</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeDown="2" ss:StyleID="m206085748">
               <Data ss:Type="String">Количество  (масса, нетто)</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeDown="2" ss:StyleID="m217498060">
               <Data ss:Type="String">Цена,    руб. коп.</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeDown="2" ss:StyleID="m217498080">
               <Data ss:Type="String">Сумма без учета НДС, руб. коп.</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeAcross="1" ss:StyleID="m206085708">
               <Data ss:Type="String">НДС</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeDown="2" ss:StyleID="m206085568">
               <Data ss:Type="String">Сумма с учетом НДС, руб. коп.</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
           <Row>
             <Cell ss:Index="2" ss:MergeAcross="2" ss:MergeDown="1" ss:StyleID="m206085588">
               <Data
       ss:Type="String">Наименование, характеристика, сорт, артикул товара</Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeDown="1" ss:StyleID="m206085608">
               <Data ss:Type="String">код</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeDown="1" ss:StyleID="m206085628">
               <Data ss:Type="String">наименование</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeDown="1" ss:StyleID="m206085648">
               <Data ss:Type="String">код по ОКЕИ</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:Index="9" ss:MergeDown="1" ss:StyleID="m206085668">
               <Data
       ss:Type="String">в одном месте</Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeDown="1" ss:StyleID="m206085328">
               <Data ss:Type="String">мест,    штук</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:Index="15" ss:MergeDown="1" ss:StyleID="m206085728">
               <Data
       ss:Type="String">ставка, %</Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeDown="1" ss:StyleID="m206085688">
               <Data ss:Type="String">сумма, руб. коп.</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
           <Row ss:Index="23">
             <Cell ss:StyleID="s66">
               <Data ss:Type="Number">1</Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeAcross="2" ss:StyleID="m206085348">
               <Data ss:Type="Number">2</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s66">
               <Data ss:Type="Number">3</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s66">
               <Data ss:Type="Number">4</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s66">
               <Data ss:Type="Number">5</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s66">
               <Data ss:Type="Number">6</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s66">
               <Data ss:Type="Number">7</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s66">
               <Data ss:Type="Number">8</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s66">
               <Data ss:Type="Number">9</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s66">
               <Data ss:Type="Number">10</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s66">
               <Data ss:Type="Number">11</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s70">
               <Data ss:Type="Number">12</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s66">
               <Data ss:Type="Number">13</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s66">
               <Data ss:Type="Number">14</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s66">
               <Data ss:Type="Number">15</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
 
@@ -1172,256 +1738,581 @@
 
 
           <Row>
-            <Cell ss:StyleID="s81"/>
-            <Cell ss:StyleID="s82"/>
-            <Cell ss:StyleID="s82"/>
-            <Cell ss:StyleID="s82"/>
-            <Cell ss:StyleID="s81"/>
-            <Cell ss:StyleID="s81"/>
-            <Cell ss:StyleID="s81"/>
-            <Cell ss:StyleID="s81"/>
+
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s83">
               <Data ss:Type="String">Итого</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s83"/>
-            <Cell ss:StyleID="s83"/>
-            <Cell ss:StyleID="s84"/>
-            <Cell ss:StyleID="s18"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s80" ss:Formula="=SUM(R[-{count(set[@name='ShipmentItems']/ShipmentItem)}]C:R[-1]C)">
               <Data ss:Type="Number">44506.130000000005</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s80"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s80" ss:Formula="=SUM(R[-{count(set[@name='ShipmentItems']/ShipmentItem)}]C:R[-1]C)">
               <Data ss:Type="Number">8011.1034000000009</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s80" ss:Formula="=SUM(R[-{count(set[@name='ShipmentItems']/ShipmentItem)}]C:R[-1]C)">
               <Data ss:Type="Number">52517.233400000005</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
           <Row>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s85">
               <Data ss:Type="String">Товарная накладная имеет приложение на___________________________листах</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
           </Row>
           <Row>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s85">
               <Data ss:Type="String">и содержит</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s85"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s85">
               <Data ss:Type="Number">
                 <xsl:value-of select="count(set[@name='ShipmentItems']/ShipmentItem)"/>
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s85">
               <Data ss:Type="String"> </Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s85">
               <Data ss:Type="String"> </Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s85">
               <Data ss:Type="String">порядковых записей</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
           </Row>
           <Row>
             <Cell ss:StyleID="s85">
               <Data ss:Type="String">Приложение (паспорта, сертификаты) на</Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s85">
               <Data ss:Type="String"> </Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s85">
               <Data ss:Type="String">листах</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s86">
               <Data ss:Type="String">
                 По доверенности № _______________от &quot;___&quot;__________________<xsl:value-of select="rti:GetCurrentYear()"/>г.
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
           </Row>
           <Row>
             <Cell ss:StyleID="s85">
               <Data ss:Type="String">Всего отпущено на сумму</Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:MergeAcross="1" ss:StyleID="s92" ss:Formula="=R[-4]C[13]">
               <Data
       ss:Type="Number">52517.233400000005</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s86">
               <Data ss:Type="String">выданной_____________________________________________________</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
           </Row>
           <Row>
             <Cell ss:MergeAcross="6" ss:StyleID="s93">
               <Data ss:Type="String">Отпуск груза разрешил_____________________Холодников Ю.В.</Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s86">
               <Data ss:Type="String">Груз получил___________________________________________________</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
           </Row>
           <Row>
             <Cell ss:StyleID="s85">
               <Data ss:Type="String">Главный бухгалтер________________________Холодникова В.П.</Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s86">
               <Data ss:Type="String">______________________________________________________________</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
           </Row>
           <Row>
             <Cell ss:StyleID="s85">
               <Data ss:Type="String">
                 Отпуск груза произвел________________________&quot;____&quot;___________<xsl:value-of select="rti:GetCurrentYear()"/>г.
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
             <Cell ss:StyleID="s86">
               <Data ss:Type="String">
                 &quot;________&quot;__________________________<xsl:value-of select="rti:GetCurrentYear()"/>г.
               </Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
           </Row>
           <Row>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
-            <Cell ss:StyleID="s85"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
           </Row>
           <Row>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
-            <Cell ss:StyleID="s19"/>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
+            <Cell>
+              <NamedCell ss:Name="Print_Area"/>
+            </Cell>
           </Row>
         </Table>
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
           <PageSetup>
+
+            <Layout x:Orientation="Landscape"/>
             <Header x:Margin="0.3"/>
             <Footer x:Margin="0.3"/>
             <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
           </PageSetup>
+
+          <Unsynced/>
+          <Print>
+            <ValidPrinterInfo/>
+            <PaperSizeIndex>9</PaperSizeIndex>
+            <Scale>90</Scale>
+            <HorizontalResolution>600</HorizontalResolution>
+            <VerticalResolution>600</VerticalResolution>
+          </Print>
+          <ShowPageBreakZoom/>
           <Selected/>
           <Panes>
             <Pane>
               <Number>3</Number>
-              <ActiveRow>23</ActiveRow>
-              <ActiveCol>5</ActiveCol>
+
+              <ActiveRow>9</ActiveRow>
+              <ActiveCol>2</ActiveCol>
             </Pane>
           </Panes>
           <ProtectObjects>False</ProtectObjects>
@@ -1441,68 +2332,98 @@
         <Data ss:Type="Number">
           <xsl:number/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:MergeAcross="2" ss:StyleID="m206085368">
         <Data ss:Type="String">
           <xsl:value-of select="@FullDetailName"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
-      <Cell ss:StyleID="s75"/>
+      <Cell>
+        <NamedCell ss:Name="Print_Area"/>
+      </Cell>
       <Cell ss:StyleID="s75">
         <Data ss:Type="String">
           <xsl:value-of select="RequestDetail/Drawing/MeasureUnit/@Name"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s76">
         <Data ss:Type="String">
           <xsl:value-of select="RequestDetail/Drawing/MeasureUnit/@Code"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s76">
         <Data ss:Type="String">
           <xsl:value-of select="@PackType"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s76">
         <Data ss:Type="Number">
           <xsl:value-of select="@CountInPlace"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s76">
         <Data ss:Type="Number">
           <xsl:value-of select="@CountOfPlaces"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
-      <Cell ss:StyleID="s76"/>
+      <Cell>
+        <NamedCell ss:Name="Print_Area"/>
+      </Cell>
       <Cell ss:StyleID="s77">
         <Data ss:Type="Number">
           <xsl:value-of select="@Count"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s78">
         <Data ss:Type="Number">
           <xsl:value-of select="@RealPrice"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s78">
         <Data ss:Type="Number">
           <xsl:value-of select="@Sum"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s79">
         <Data ss:Type="Number">
           <xsl:value-of select="@NdsPercent div 100"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s80">
         <Data ss:Type="Number">
           <xsl:value-of select="@NdsSum"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s80">
         <Data ss:Type="Number">
           <xsl:value-of select="@SumWithNds"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
     </Row>
   </xsl:template>

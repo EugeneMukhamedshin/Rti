@@ -121,7 +121,7 @@ namespace Rti.ViewModel
             OpenWorkItemDirectExpencesReportCommand = new DelegateCommand(o => HasReportsAccess, o => OpenView(new WorkItemDirectExpencesReportViewModel("Учет прямых затрат на наряд", ViewService, RepositoryFactory, xsltPath, "Учет прямых затрат на наряд.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }));
             OpenShipmentDirectExpencesReportCommand = new DelegateCommand(o => HasReportsAccess, o => OpenView(new ShipmentDirectExpencesReportViewModel("Учет прямых затрат на отгрузку", ViewService, RepositoryFactory, xsltPath, "Учет прямых затрат на отгрузку.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }));
             OpenSalaryReportCommand = new DelegateCommand(o => HasReportsAccess, o => OpenView(new SalaryReportViewModel("Отчет по заработной плате", ViewService, RepositoryFactory, xsltPath, "Отчет по заработной плате.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }));
-            OpenMaterialMovingsReportCommand = new DelegateCommand(o => HasReportsAccess, o => OpenView(new MaterialMovingsReportViewModel("Учет материалов", ViewService, RepositoryFactory, xsltPath, "Учет материалов.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }));
+            OpenMaterialMovingsReportCommand = new DelegateCommand(o => HasFullAccess, o => OpenView(new MaterialMovingsReportViewModel("Учет материалов", ViewService, RepositoryFactory, xsltPath, "Учет материалов.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }));
         }
 
         private bool? OpenView(BaseViewModel viewModel)

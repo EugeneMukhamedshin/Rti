@@ -195,13 +195,13 @@
         </Table>
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
           <PageSetup>
-            <Layout x:Orientation="Landscape"/>
             <Header x:Margin="0.3"/>
             <Footer x:Margin="0.3"/>
             <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
           </PageSetup>
           <Print>
             <ValidPrinterInfo/>
+            <Scale>66</Scale>
             <PaperSizeIndex>9</PaperSizeIndex>
             <HorizontalResolution>-3</HorizontalResolution>
             <VerticalResolution>-3</VerticalResolution>

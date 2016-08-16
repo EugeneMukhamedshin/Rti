@@ -1,7 +1,7 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.1.13.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 22.07.2016 8:07:53
+-- Дата скрипта: 16.08.2016 22:09:21
 -- Версия сервера: 5.7.13-log
 -- Версия клиента: 4.1
 --
@@ -81,7 +81,7 @@ CREATE TABLE calculations (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 15
+AUTO_INCREMENT = 16
 AVG_ROW_LENGTH = 4096
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -629,7 +629,7 @@ CREATE TABLE requests (
     REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 75
+AUTO_INCREMENT = 74
 AVG_ROW_LENGTH = 3276
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -650,7 +650,7 @@ CREATE TABLE drawing_calculation_history (
     REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 47
+AUTO_INCREMENT = 48
 AVG_ROW_LENGTH = 1820
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -1202,7 +1202,8 @@ INSERT INTO calculations VALUES
 (11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2016-07-21 20:44:24'),
 (12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2016-07-21 20:44:24'),
 (13, 29.04, 0.00, 0.00, 100.00, NULL, NULL, NULL, 0.00, 35.00, 3.18, 0.81, 1.49, 1.53, 42.01, 25.00, 2.10, 69.11, 4.15, 73.25, 5.13, 78.38, 14.11, 92.49, NULL, 1, '2016-07-21 20:44:24'),
-(14, 29.04, 100.00, 100.00, 100.00, NULL, NULL, NULL, 0.00, 35.00, 3.18, 0.81, 1.49, 1.53, 42.01, 25.00, 2.10, 69.11, 4.15, 73.25, 5.13, 78.38, 14.11, 92.49, NULL, 1, '2016-07-21 20:44:24');
+(14, 29.04, 100.00, 100.00, 100.00, NULL, NULL, NULL, 0.00, 35.00, 3.18, 0.81, 1.49, 1.53, 42.01, 25.00, 2.10, 69.11, 4.15, 73.25, 5.13, 78.38, 14.11, 92.49, NULL, 1, '2016-07-21 20:44:24'),
+(15, 50.00, 10.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.76, 120.00, 10.91, 2.78, 5.11, 5.24, 200.78, 0.90, 10.04, 211.72, 12.70, 224.42, 15.71, 240.13, 43.22, 283.36, 'sd gfds hgfdgh ', 0, '2016-07-22 21:09:41');
 
 -- 
 -- Вывод данных для таблицы constants
@@ -1376,7 +1377,7 @@ INSERT INTO drawings VALUES
 (5, '2016-04-12 22:39:14', 5, 'Чэртеж4', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 3, NULL, NULL, NULL),
 (6, '2016-04-12 22:39:11', 6, 'Чыртеж5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL),
 (7, '2016-04-12 22:39:17', 7, 'Чяртеж6', 3, 1, NULL, 5, 7, 1, NULL, 1, 5, 0.164, 1200.00, 201.00, 1, 2, 1500.00, 2, 1, 12, 3, 23, 4, 10, NULL, 'qq af sdfg rtg werg wergf', 0, 3, 3, 0.2, 'sovjwerofj mrpfwe[rofj w[erofk wer[fpo kwe]fp kwer[gfo ijwerpof weproi jwperh ', NULL),
-(8, '2016-04-28 14:25:41', 8, 'Можно юзать', 1, 1, NULL, 6, 7, 1, NULL, 3, 10, 0.276, 380.00, 100.00, 5, 6, 654.00, 4, 1, 10, 110, 10, 10, 10, NULL, 'rfvesrg dst hdh dyh', 0, 1, 3, 0.3, '''lkjniunhpou', 381.00),
+(8, '2016-04-28 14:25:41', 8, 'Можно юзать', 1, 1, NULL, 6, 7, 1, NULL, 3, 10, 0.276, 380.00, 100.00, 15, 6, 654.00, 4, 1, 10, 110, 10, 10, 10, NULL, 'rfvesrg dst hdh dyh', 0, 1, 3, 0.3, '''lkjniunhpou', 381.00),
 (9, '2016-04-28 15:51:37', 9, 'Новый чертеж', 1, 1, NULL, 5, 7, 1, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL),
 (10, '2016-04-28 15:59:29', 10, 'Новый чертеж', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL),
 (11, '2016-04-28 16:01:19', 11, 'Новый чертеж', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 4, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 3, NULL, NULL, 32.50),
@@ -1448,7 +1449,8 @@ INSERT INTO drawing_calculation_history VALUES
 (37, 15, 9),
 (38, 23, 9),
 (39, 24, 11),
-(40, 28, 13);
+(40, 28, 13),
+(47, 8, 15);
 
 -- 
 -- Вывод данных для таблицы drawing_flowsheet_machines

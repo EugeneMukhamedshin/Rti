@@ -22,25 +22,6 @@
      xmlns:x="urn:schemas-microsoft-com:office:excel"
      xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
      xmlns:html="http://www.w3.org/TR/REC-html40">
-      <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
-        <Author></Author>
-        <LastAuthor></LastAuthor>
-        <Created>2016-06-09T20:20:12Z</Created>
-        <LastSaved>2016-06-09T20:24:34Z</LastSaved>
-        <Company></Company>
-        <Version>14.00</Version>
-      </DocumentProperties>
-      <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
-        <AllowPNG/>
-      </OfficeDocumentSettings>
-      <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
-        <WindowHeight>8010</WindowHeight>
-        <WindowWidth>16275</WindowWidth>
-        <WindowTopX>240</WindowTopX>
-        <WindowTopY>60</WindowTopY>
-        <ProtectStructure>False</ProtectStructure>
-        <ProtectWindows>False</ProtectWindows>
-      </ExcelWorkbook>
       <Styles>
         <Style ss:ID="Default" ss:Name="Normal">
           <Alignment ss:Vertical="Bottom"/>
@@ -105,6 +86,9 @@
         </Style>
       </Styles>
       <Worksheet ss:Name="Лист1">
+        <Names>
+          <NamedRange ss:Name="Print_Area" ss:RefersTo="=Лист1!R1C1:R{10+count(RequestDetails/RequestDetail)}C10"/>
+        </Names>
         <Table ss:ExpandedColumnCount="10" x:FullColumns="1"
          x:FullRows="1" ss:DefaultRowHeight="15">
           <Column ss:AutoFitWidth="0" ss:Width="171"/>
@@ -113,44 +97,57 @@
           <Column ss:AutoFitWidth="0" ss:Width="87"/>
           <Column ss:AutoFitWidth="0" ss:Width="49.5"/>
           <Column ss:Width="89.25"/>
-          <Column ss:AutoFitWidth="0" ss:Width="51.75"/>
-          <Column ss:AutoFitWidth="0" ss:Width="66"/>
+          <Column ss:AutoFitWidth="0" ss:Width="90"/>
+          <Column ss:AutoFitWidth="0" ss:Width="90"/>
           <Column ss:Width="84.75"/>
           <Row ss:Height="18.75">
             <Cell ss:MergeAcross="9" ss:StyleID="s85">
               <Data ss:Type="String">Реестр брака</Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
           <Row ss:Index="3" ss:Height="30">
             <Cell ss:StyleID="s82">
               <Data ss:Type="String">Исполнитель</Data>
+
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s82">
               <Data ss:Type="String">Заявка</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s82">
               <Data ss:Type="String">Дата заявки</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s82">
               <Data ss:Type="String">Чертеж</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s82">
               <Data ss:Type="String">Деталь</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s82">
               <Data ss:Type="String">Кол-во брака</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s82">
               <Data ss:Type="String">Материал</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s82">
-              <Data ss:Type="String">Масса</Data>
+              <Data ss:Type="String">Убыток по материалу, кг</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s82">
-              <Data ss:Type="String">Стоимость</Data>
+              <Data ss:Type="String">Убыток по материалу, руб</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s82">
               <Data ss:Type="String">Прямые затраты</Data>
+              <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>
 
@@ -163,11 +160,16 @@
             <Footer x:Margin="0.3"/>
             <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
           </PageSetup>
+
+          <Unsynced/>
           <Print>
             <ValidPrinterInfo/>
+            <PaperSizeIndex>9</PaperSizeIndex>
+            <Scale>53</Scale>
             <HorizontalResolution>600</HorizontalResolution>
             <VerticalResolution>600</VerticalResolution>
           </Print>
+          <ShowPageBreakZoom/>
           <Selected/>
           <Panes>
             <Pane>
@@ -178,8 +180,8 @@
           </Panes>
           <ProtectObjects>False</ProtectObjects>
           <ProtectScenarios>False</ProtectScenarios>
-        </WorksheetOptions>
-      </Worksheet>
+
+        </WorksheetOptions>      </Worksheet>
     </Workbook>
   </xsl:template>
 
@@ -190,52 +192,73 @@
   <xsl:template name="Row">
     <Row>
       <Cell ss:StyleID="s69">
-        <Data ss:Type="String"><xsl:value-of select="@EmployeeName"/></Data>
+
+        <Data ss:Type="String">
+          <xsl:value-of select="@EmployeeName"/>
+        </Data>
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s69">
         <Data ss:Type="Number">
           <xsl:value-of select="@RequestNumber"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s70">
         <Data ss:Type="String">
           <xsl:value-of select="rti:FormatDateTime(@RequestRegDate, 'dd.MM.yyyy')"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s69">
         <Data ss:Type="String">
           <xsl:value-of select="@DrawingName"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s69">
         <Data ss:Type="String">
           <xsl:value-of select="@DetailName"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s69">
         <Data ss:Type="Number">
           <xsl:value-of select="@RejectedCount"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s69">
         <Data ss:Type="String">
           <xsl:value-of select="@MaterialName"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s71">
         <Data ss:Type="Number">
           <xsl:value-of select="@RejectedMass"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s72">
         <Data ss:Type="Number">
           <xsl:value-of select="@RejectedPrice"/>
         </Data>
+
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
       <Cell ss:StyleID="s72">
         <Data ss:Type="Number">
           <xsl:value-of select="@Expences"/>
         </Data>
+        <NamedCell ss:Name="Print_Area"/>
       </Cell>
     </Row>
   </xsl:template>

@@ -223,7 +223,7 @@
           <Row/>
           <Row>
             <Cell ss:Index="2">
-              <Data ss:Type="String">1. Срок изготовления – _________ рабочих дней с момента поступления предоплаты 100 %  на </Data>
+              <Data ss:Type="String">1. Срок изготовления – <xsl:value-of select="Request/@LeadTime"/> рабочих дней с момента поступления предоплаты 100 %  на </Data>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>

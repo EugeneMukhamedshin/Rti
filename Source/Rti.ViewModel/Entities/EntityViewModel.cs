@@ -43,6 +43,11 @@ namespace Rti.ViewModel.Entities
             }
         }
 
+        public bool IsSaved
+        {
+            get { return !IsChanged && !IsNewEntity; }
+        }
+
         protected EntityViewModel() : this(null, null) { }
 
         protected EntityViewModel(TEntity entity, IRepositoryFactory repositoryFactory)

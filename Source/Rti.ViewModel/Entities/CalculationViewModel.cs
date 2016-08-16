@@ -9,6 +9,24 @@ namespace Rti.ViewModel.Entities
 
         public CalculationType CalcType { get; set; }
 
+        public string DisplayName
+        {
+            get
+            {
+                switch (CalcType)
+                {
+                    case CalculationType.Fact:
+                        return "Фактическая";
+                    case CalculationType.Plan:
+                        return "Плановая";
+                    case CalculationType.History:
+                        return string.Format("{0:dd.MM.yyyy}", CreatedDate);
+                    default:
+                        return null;
+                }
+            }
+        }
+
         public decimal? AllMaterials
         {
             get
