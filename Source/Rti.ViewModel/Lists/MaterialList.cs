@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.Linq;
 using Rti.Model.Domain;
@@ -25,7 +25,7 @@ namespace Rti.ViewModel.Lists
             return new MaterialViewModel(null, RepositoryFactory)
             {
                 SortOrder = Items.Any() ? Items.Max(o => o.SortOrder) + 1 : 1,
-                Name = "Новый материал"
+                Name = "РќРѕРІС‹Р№ РјР°С‚РµСЂРёР°Р»"
             };
         }
 

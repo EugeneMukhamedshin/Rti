@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.Linq;
 using Rti.Model.Domain;
@@ -30,27 +30,27 @@ namespace Rti.ViewModel.EditViewModel
         {
             if (Entity.InvoiceNumber == null)
             {
-                ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задан номер счета-фактуры", true));
+                ViewService.ShowMessage(new MessageViewModel("РћС€РёР±РєР°", "РќРµ Р·Р°РґР°РЅ РЅРѕРјРµСЂ СЃС‡РµС‚Р°-С„Р°РєС‚СѓСЂС‹", true));
                 return false;
             }
             if (Entity.Supplier == null)
             {
-                ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задан поставщик", true));
+                ViewService.ShowMessage(new MessageViewModel("РћС€РёР±РєР°", "РќРµ Р·Р°РґР°РЅ РїРѕСЃС‚Р°РІС‰РёРє", true));
                 return false;
             }
             if (Entity.WaybillNumber == null)
             {
-                ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задан номер накладной", true));
+                ViewService.ShowMessage(new MessageViewModel("РћС€РёР±РєР°", "РќРµ Р·Р°РґР°РЅ РЅРѕРјРµСЂ РЅР°РєР»Р°РґРЅРѕР№", true));
                 return false;
             }
             if (Entity.Material == null)
             {
-                ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задан материал", true));
+                ViewService.ShowMessage(new MessageViewModel("РћС€РёР±РєР°", "РќРµ Р·Р°РґР°РЅ РјР°С‚РµСЂРёР°Р»", true));
                 return false;
             }
             if (Entity.MeasureUnit == null)
             {
-                ViewService.ShowMessage(new MessageViewModel("Ошибка", "Не задана единица измерения", true));
+                ViewService.ShowMessage(new MessageViewModel("РћС€РёР±РєР°", "РќРµ Р·Р°РґР°РЅР° РµРґРёРЅРёС†Р° РёР·РјРµСЂРµРЅРёСЏ", true));
                 return false;
             }
             return base.DoValidate();

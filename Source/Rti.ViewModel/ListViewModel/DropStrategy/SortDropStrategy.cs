@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Rti.ViewModel.Commands;
 
 namespace Rti.ViewModel.ListViewModel.DropStrategy

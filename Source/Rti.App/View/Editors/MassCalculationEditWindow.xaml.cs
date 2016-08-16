@@ -1,4 +1,4 @@
-using DevExpress.Xpf.Core;
+﻿using DevExpress.Xpf.Core;
 using Rti.ViewModel.EditViewModel;
 
 namespace Rti.App.View.Editors

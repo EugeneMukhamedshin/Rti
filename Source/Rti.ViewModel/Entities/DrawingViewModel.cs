@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+Ôªøusing System.Collections.Generic;
 
 namespace Rti.ViewModel.Entities
 {
@@ -54,7 +54,7 @@ namespace Rti.ViewModel.Entities
         {
             return new List<ValidationRule>()
             {
-                new ValidationRule(o => o.Name != null, "ÕÂ Á‡‰‡ÌÓ Ì‡ËÏÂÌÓ‚‡ÌËÂ ˜ÂÚÂÊ‡")
+                new ValidationRule(o => o.Name != null, "–ù–µ –∑–∞–¥–∞–Ω–æ –Ω–∞–∏–º–µ–Ω–æ–≤–∞–Ω–∏–µ —á–µ—Ä—Ç–µ–∂–∞")
             };
         }
 

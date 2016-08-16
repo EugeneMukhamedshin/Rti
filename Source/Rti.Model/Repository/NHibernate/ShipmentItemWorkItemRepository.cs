@@ -1,4 +1,4 @@
-namespace Rti.Model.Repository.NHibernate
+﻿namespace Rti.Model.Repository.NHibernate
 {
     public partial class ShipmentItemWorkItemRepository
     {

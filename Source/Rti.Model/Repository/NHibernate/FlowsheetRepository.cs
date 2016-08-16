@@ -1,4 +1,4 @@
-using Rti.Model.Domain;
+﻿using Rti.Model.Domain;
 
 namespace Rti.Model.Repository.NHibernate
 {

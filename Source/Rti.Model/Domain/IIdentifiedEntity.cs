@@ -1,4 +1,4 @@
-namespace Rti.Model.Domain
+﻿namespace Rti.Model.Domain
 {
     public interface IIdentifiedEntity
     {

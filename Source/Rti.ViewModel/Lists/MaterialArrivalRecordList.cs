@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.Linq;
 using Rti.Model.Domain;
@@ -26,11 +26,11 @@ namespace Rti.ViewModel.Lists
             TypeMaps.Add(new Tuple<Type, Type>(typeof(MaterialArrivalRecordViewModel), typeof(MaterialArrivalRecordEdit)));
 
             AddRecordCommand = new DelegateCommand(
-                "Добавить запись в журнал",
+                "Р”РѕР±Р°РІРёС‚СЊ Р·Р°РїРёСЃСЊ РІ Р¶СѓСЂРЅР°Р»",
                 o => true,
                 o => AddRecord());
             RefreshCommand = new DelegateCommand(
-                "Обновить",
+                "РћР±РЅРѕРІРёС‚СЊ",
                 o => true,
                 o => Refresh());
             StartDate = DateTime.Today.AddMonths(-1);
@@ -46,7 +46,7 @@ namespace Rti.ViewModel.Lists
         private void AddRecord()
         {
             var record = DoCreateNewEntity();
-            if (OpenViewModelEditWindow(record, "Новая запись журнала", false) && StartDate <= record.WaybillDate && record.WaybillDate <= EndDate && (Material == null || record.Material.Id == Material.Id))
+            if (OpenViewModelEditWindow(record, "РќРѕРІР°СЏ Р·Р°РїРёСЃСЊ Р¶СѓСЂРЅР°Р»Р°", false) && StartDate <= record.WaybillDate && record.WaybillDate <= EndDate && (Material == null || record.Material.Id == Material.Id))
                 Items.Add(record);
         }
 

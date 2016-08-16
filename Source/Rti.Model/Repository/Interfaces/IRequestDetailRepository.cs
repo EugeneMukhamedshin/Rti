@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using Rti.Model.Domain;
 
@@ -9,7 +9,7 @@ namespace Rti.Model.Repository.Interfaces
         IList<RequestDetail> GetByRequestId(int requestId);
         IList<RequestDetail> GetReadyToProduceByDrawingId(int drawingId);
         /// <summary>
-        /// Возвращает набор кортежей, Item1 - requestDetailId, Item2 - requestCount, Item3 - doneCount
+        /// Р’РѕР·РІСЂР°С‰Р°РµС‚ РЅР°Р±РѕСЂ РєРѕСЂС‚РµР¶РµР№, Item1 - requestDetailId, Item2 - requestCount, Item3 - doneCount
         /// </summary>
         /// <param name="drawingId"></param>
         /// <param name="date"></param>
