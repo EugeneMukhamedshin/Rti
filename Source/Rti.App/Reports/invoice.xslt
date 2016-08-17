@@ -1931,8 +1931,9 @@
             <Cell ss:StyleID="s199">
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
-            <Cell ss:MergeAcross="9" ss:StyleID="s201">
+            <Cell ss:MergeAcross="6" ss:StyleID="s201">
               <NamedCell ss:Name="Print_Area"/>
+              <Data ss:Type="String">Холодников Ю.В.</Data>
             </Cell>
             <Cell ss:StyleID="s65">
               <NamedCell ss:Name="Print_Area"/>
@@ -1942,9 +1943,6 @@
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s198">
-              <NamedCell ss:Name="Print_Area"/>
-            </Cell>
-            <Cell ss:StyleID="s65">
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s65">
@@ -1967,6 +1965,7 @@
             </Cell>
             <Cell ss:MergeAcross="7" ss:StyleID="s201">
               <NamedCell ss:Name="Print_Area"/>
+              <Data ss:Type="String">Холодникова В.П.</Data>
             </Cell>
           </Row>
         </Table>
@@ -2025,7 +2024,7 @@
       </Cell>
       <Cell ss:MergeAcross="14" ss:StyleID="s169">
         <Data ss:Type="String">
-          <xsl:value-of select="Detail/@Name"/>
+          <xsl:value-of select="@FullDetailName"/>
         </Data>
         <NamedCell ss:Name="Print_Area"/>
       </Cell>

@@ -34,7 +34,7 @@
           <Protection/>
         </Style>
         <Style ss:ID="s16">
-          <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+          <Alignment ss:Vertical="Top" ss:WrapText="1"/>
           <Borders>
             <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
             <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -70,10 +70,12 @@
       </Styles>
       <Worksheet ss:Name="Лист1">
         <Table x:FullColumns="1" x:FullRows="1" ss:DefaultRowHeight="15">
+          <Column ss:AutoFitWidth="0" ss:Width="80"/>
           <Column ss:Index="3" ss:AutoFitWidth="0" ss:Width="60"/>
           <Column ss:AutoFitWidth="0" ss:Width="53.25"/>
           <Column ss:AutoFitWidth="0" ss:Width="66.75"/>
-          <Column ss:Index="7" ss:AutoFitWidth="0" ss:Width="51"/>
+          <Column ss:Index="6" ss:AutoFitWidth="0" ss:Width="80"/>
+          <Column ss:AutoFitWidth="0" ss:Width="51"/>
           <Column ss:AutoFitWidth="0" ss:Width="67.5"/>
           <Row>
             <Cell ss:MergeAcross="7" ss:StyleID="s20">
@@ -84,7 +86,7 @@
           </Row>
           <Row ss:Index="3" ss:Height="60">
             <Cell ss:StyleID="s16">
-              <Data ss:Type="String">Сальдо, кг</Data>
+              <Data ss:Type="String">Сальдо на начало периода, кг</Data>
             </Cell>
             <Cell ss:StyleID="s16">
               <Data ss:Type="String">По плану (заявка), кг</Data>
@@ -99,7 +101,7 @@
               <Data ss:Type="String">Отгружено (накладная), кг</Data>
             </Cell>
             <Cell ss:StyleID="s16">
-              <Data ss:Type="String">Сальдо итого, кг</Data>
+              <Data ss:Type="String">Сальдо на конец периода, кг</Data>
             </Cell>
             <Cell ss:StyleID="s16">
               <Data ss:Type="String">Потери на производстве, кг</Data>

@@ -9,9 +9,8 @@ namespace Rti.ViewModel.Entities
 
         public string FullName
         {
-            get { return string.Format("{0}, Ğ˜ĞĞ {1}, ĞšĞŸĞŸ {2}, {3}, Ñ‚ĞµĞ». {4}", Name, Inn, Kpp, Address, Phone); }
+            get { return string.Format("{0}, ÈÍÍ {1}, ÊÏÏ {2}, {3}, òåë. {4}", Name, Inn, Kpp, Address, Phone); }
         }
-
         public string BankRequisites
         {
             get { return string.Format("ğ/ñ {0} â {1}, ê/ñ {2}, ÁÈÊ {3}", Account, Bank, CorrAccount, Bik); }
@@ -19,7 +18,7 @@ namespace Rti.ViewModel.Entities
 
         public string FullNameWithBankRequisites
         {
-            get { return string.Format("{0}, Ğ˜ĞĞ {1}, ĞšĞŸĞŸ {2}, {3}, Ñ‚ĞµĞ». {4}, Ğ‘Ğ˜Ğš {5}, {6}, ĞšĞ¾Ñ€Ñ€. ÑÑ‡. {7}, Ğ¡Ñ‡ â„– {8}", Name, Inn, Kpp, Address, Phone, Bik, Bank, CorrAccount, Account); }
+            get { return string.Format("{0}, ÈÍÍ {1}, ÊÏÏ {2}, {3}, òåë. {4}, ÁÈÊ {5}, {6}, Êîğğ. ñ÷. {7}, Ñ÷ ¹ {8}", Name, Inn, Kpp, Address, Phone, Bik, Bank, CorrAccount, Account); }
         }
 
         public override void CustomFillXElement(XElement element)

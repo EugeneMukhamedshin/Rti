@@ -37,7 +37,7 @@
           <Alignment ss:Vertical="Bottom"/>
         </Style>
         <Style ss:ID="s18">
-          <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+          <Alignment ss:Vertical="Top" ss:WrapText="1"/>
           <Borders>
             <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
             <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>

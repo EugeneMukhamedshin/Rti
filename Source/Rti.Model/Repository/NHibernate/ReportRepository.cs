@@ -705,8 +705,8 @@ SELECT
   d.name DrawingName,
   d1.name DetailName,
   s.sort_order DocNumber,
-  rd.Count Count,
-  d.mass_with_shruff Mass
+  rd.count Count,
+  d.fact_mass Mass
 FROM shipment_items si
   INNER JOIN shipments s
     ON si.shipment_id = s.id

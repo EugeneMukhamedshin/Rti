@@ -37,7 +37,7 @@
           <Alignment ss:Vertical="Bottom"/>
         </Style>
         <Style ss:ID="s18">
-          <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+          <Alignment ss:Vertical="Top" ss:WrapText="1"/>
           <Borders>
             <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
             <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -75,7 +75,7 @@
         <Table x:FullColumns="1" x:FullRows="1" ss:DefaultRowHeight="15">
           <Column ss:Index="4" ss:AutoFitWidth="0" ss:Width="78.75"/>
           <Column ss:AutoFitWidth="0" ss:Width="54.75"/>
-          <Column ss:Index="7" ss:AutoFitWidth="0" ss:Width="46.5"/>
+          <Column ss:Index="7" ss:AutoFitWidth="0" ss:Width="80"/>
           <Column ss:AutoFitWidth="0" ss:Width="51"/>
           <Row>
             <Cell ss:MergeAcross="7" ss:StyleID="s21">
@@ -114,7 +114,7 @@
               <Data ss:Type="String">Кол-во</Data>
             </Cell>
             <Cell ss:StyleID="s18">
-              <Data ss:Type="String">Масса по чертежу 1 шт, кг</Data>
+              <Data ss:Type="String">Масса по чертежу с отходами 1 шт., кг</Data>
             </Cell>
             <Cell ss:StyleID="s18">
               <Data ss:Type="String">Масса для изготовления, кг</Data>

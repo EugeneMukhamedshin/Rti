@@ -314,7 +314,7 @@
           <Font ss:FontName="Arial" x:CharSet="204" x:Family="Swiss" ss:Size="7"/>
         </Style>
         <Style ss:ID="m206085368">
-          <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
+          <Alignment ss:Horizontal="Left" ss:Vertical="Bottom" ss:WrapText="1"/>
           <Borders>
             <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
             <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -1944,7 +1944,7 @@
             </Cell>
             <Cell ss:StyleID="s86">
               <Data ss:Type="String">
-                По доверенности № _______________от &quot;___&quot;__________________<xsl:value-of select="rti:GetCurrentYear()"/>г.
+                По доверенности <xsl:value-of select="set[@name='Shipments']/Shipment/@AuthorityLetter"/>
               </Data>
 
               <NamedCell ss:Name="Print_Area"/>
@@ -1984,8 +1984,7 @@
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:MergeAcross="1" ss:StyleID="s92" ss:Formula="=R[-4]C[13]">
-              <Data
-      ss:Type="Number">52517.233400000005</Data>
+              <Data ss:Type="Number">52517.233400000005</Data>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell>
@@ -2039,7 +2038,7 @@
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s86">
-              <Data ss:Type="String">Груз получил___________________________________________________</Data>
+              <Data ss:Type="String">Груз получил <xsl:value-of select="set[@name='Shipments']/Shipment/Driver/@Name"/></Data>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell>
@@ -2327,7 +2326,7 @@
   </xsl:template>
 
   <xsl:template name="ShipmentItemRow">
-    <Row>
+    <Row ss:AutoFitHeight="0" ss:Height="30">
       <Cell ss:StyleID="s71">
         <Data ss:Type="Number">
           <xsl:number/>
@@ -2418,13 +2417,11 @@
 
         <NamedCell ss:Name="Print_Area"/>
       </Cell>
-      <Cell ss:StyleID="s80">
-        <Data ss:Type="Number">
+      <Cell ss:StyleID="s80"><Data ss:Type="Number">
           <xsl:value-of select="@SumWithNds"/>
         </Data>
 
-        <NamedCell ss:Name="Print_Area"/>
-      </Cell>
+        <NamedCell ss:Name="Print_Area"/></Cell>
     </Row>
   </xsl:template>
 

@@ -71,9 +71,16 @@ namespace Rti.ViewModel.Lists
                 GenerateProcessesForNewFlowsheet();
             foreach (var item in Items)
             {
-                item.IsIncludedToSummaryChanged += (s, e) => { OnSummaryChanged(); };
+                item.IsIncludedToSummaryChanged += (s, e) =>
+                {
+                    if (ProcessChangedCallback != null)
+                        ProcessChangedCallback(item);
+                    OnSummaryChanged();
+                };
             }
         }
+
+        public Action<DrawingFlowsheetProcessViewModel> ProcessChangedCallback;
 
         private void OnSummaryChanged()
         {

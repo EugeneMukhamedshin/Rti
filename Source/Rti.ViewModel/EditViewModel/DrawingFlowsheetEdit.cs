@@ -37,8 +37,29 @@ namespace Rti.ViewModel.EditViewModel
             DrawingFlowsheetMachineList = new DrawingFlowsheetMachineList(entity, Editable, ViewService, RepositoryFactory);
             DrawingFlowsheetProcessList = new DrawingFlowsheetProcessList(entity, Editable, ViewService, RepositoryFactory);
             DrawingFlowsheetProcessList.SummaryChanged += DrawingFlowsheetProcessList_SummaryChanged;
-
+            DrawingFlowsheetProcessList.ProcessChangedCallback = OnProcessChanged;
+            Entity.PropertyChanged += (sender, args) => { if (args.PropertyName == "Equipment") OnEquipmentChanged(); };
+            if (Entity.Equipment != null) Entity.Equipment.PropertyChanged += (sender, args) => OnEquipmentChanged();
             CustomersSource = new Lazy<List<ContragentViewModel>>(() => RepositoryFactory.GetContragentRepository().GetAllActive(ContragentType.Customer).Select(o => new ContragentViewModel(o, RepositoryFactory)).ToList());
+        }
+
+        private void OnEquipmentChanged()
+        {
+            foreach (var process in DrawingFlowsheetProcessList.Items)
+            {
+                OnProcessChanged(process);
+            }
+        }
+
+        private void OnProcessChanged(DrawingFlowsheetProcessViewModel process)
+        {
+            if (process.Process.ProcessTypeEnum == ProcessType.CuringOrCutting)
+            {
+                foreach (var machine in DrawingFlowsheetMachineList.Items)
+                {
+                    machine.CureTime = process.NormTime/(Entity.Equipment == null ? 0 : Entity.Equipment.Output);
+                }
+            }
         }
 
         private void Report()

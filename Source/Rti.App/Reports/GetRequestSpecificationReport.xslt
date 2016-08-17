@@ -275,16 +275,12 @@
           <Row/>
           <Row>
             <Cell ss:Index="2" ss:StyleID="s173">
-              <Data ss:Type="String">
-                ____________________ / <xsl:value-of select="Request/Manufacturer/@Director"/>
-              </Data>
+              <Data ss:Type="String">___________ / <xsl:value-of select="Request/Manufacturer/@Director"/></Data>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s173"/>
             <Cell ss:Index="6" ss:StyleID="s173">
-              <Data ss:Type="String">
-                ____________________ / <xsl:value-of select="Request/Customer/@Director"/>
-              </Data>
+              <Data ss:Type="String">___________ / <xsl:value-of select="Request/Customer/@Director"/></Data>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
           </Row>

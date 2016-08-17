@@ -209,7 +209,7 @@
                     <dxg:GridColumn Binding="{Binding PackType,Mode=TwoWay}" Header="Вид упаковки" Width="50"/>
                     <dxg:GridColumn Binding="{Binding CountInPlace,Mode=TwoWay}" Header="Кол-во в одном месте" Width="40" EditSettings="{components:TextEditSettings Mask=f0,MaskType=Numeric}"/>
                     <dxg:GridColumn Binding="{Binding CountOfPlaces,Mode=TwoWay}" Header="Кол-во мест" Width="40" EditSettings="{components:TextEditSettings Mask=f0,MaskType=Numeric}"/>
-                    <dxg:GridColumn Binding="{Binding RequestDetail.Drawing.PlanCalculation.CalculatedPrice}" Header="Цена по кальк." Width="50" EditSettings="{components:Float2TextEditSettings}" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding RequestDetail.Drawing.FactCalculationPrice}" Header="Цена по кальк." Width="50" EditSettings="{components:Float2TextEditSettings}" ReadOnly="True"/>
                     <dxg:GridColumn Binding="{Binding Count,Mode=TwoWay}" Header="Количество (масса нетто)" Width="50" EditSettings="{components:TextEditSettings Mask=f0,MaskType=Numeric}"/>
                     <dxg:GridColumn Binding="{Binding RealPrice}" Header="Цена, руб." ReadOnly="True" Width="50" EditSettings="{components:Float2TextEditSettings}"/>
                     <dxg:GridColumn Binding="{Binding Sum}" Header="Сумма, руб." ReadOnly="True" Width="80" EditSettings="{components:Float2TextEditSettings}"/>
