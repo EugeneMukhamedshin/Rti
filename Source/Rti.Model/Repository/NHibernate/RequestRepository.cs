@@ -102,5 +102,15 @@ AND r.reg_date BETWEEN :p_start_date AND :p_end_date")
         {
             return ExecuteFuncOnQueryOver(q => q.Where(o => !o.IsPaid).List());
         }
+
+        public int GetNextSpecificationNumber()
+        {
+            return ExecuteFuncOnQueryOver(q => q.Select(Projections.Max("SpecificationNumber")).SingleOrDefault<int>()) + 1;
+        }
+
+        public int GetNextEquipmentInvoiceNumber()
+        {
+            return ExecuteFuncOnQueryOver(q => q.Select(Projections.Max("EquipmentInvoiceNumber")).SingleOrDefault<int>()) + 1;
+        }
     }
 }

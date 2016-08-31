@@ -183,6 +183,7 @@
     <Compile Include="MainWindowSlim.xaml.cs">
       <DependentUpon>MainWindowSlim.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Components\Float0TextEditSettings.cs" />
     <Compile Include="View\Components\Float2TextEditSettings.cs" />
     <Compile Include="View\Components\Float3TextEditSettings.cs" />
     <Compile Include="View\Components\ImageContentExtension.cs" />
@@ -210,6 +211,12 @@
     </Compile>
     <Compile Include="View\Editors\EquipmentPaymentEditWindow.xaml.cs">
       <DependentUpon>EquipmentPaymentEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\EquipmentInvoiceReportEditWindow.xaml.cs">
+      <DependentUpon>EquipmentInvoiceReportEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\RequestSpecificationReportEditWindow.xaml.cs">
+      <DependentUpon>RequestSpecificationReportEditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Editors\ReportOfCompletionEditWindow.xaml.cs">
       <DependentUpon>ReportOfCompletionEditWindow.xaml</DependentUpon>
@@ -483,6 +490,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Editors\EquipmentPaymentEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Editors\EquipmentInvoiceReportEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Editors\RequestSpecificationReportEditWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

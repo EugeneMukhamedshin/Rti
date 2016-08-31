@@ -778,7 +778,7 @@
             <Cell ss:Index="2" ss:MergeAcross="36" ss:MergeDown="1" ss:StyleID="s139">
               <Data
       ss:Type="String">
-                <xsl:value-of select="concat(concat(concat('Счет на оплату № ', set[@name='Requests']/row/@Number),' от '),rti:FormatDate(set[@name='Requests']/row/@InvoiceDate, 'dd.MM.yyyy'))"/>
+                <xsl:value-of select="concat(concat(concat('Счет на оплату № ', set[@name='Requests']/row/@EquipmentInvoiceNumber),' от '),rti:FormatDate(set[@name='Requests']/row/@EquipmentInvoiceDate, 'dd.MM.yyyy'))"/>
               </Data>
               <NamedCell
       ss:Name="Print_Area"/>

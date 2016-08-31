@@ -1,3 +1,5 @@
+using Rti.Model;
+
 namespace Rti.ViewModel.Entities
 {
     partial class WorkItemEmployeePackageMachineViewModel

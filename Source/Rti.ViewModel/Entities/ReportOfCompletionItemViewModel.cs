@@ -5,7 +5,7 @@ namespace Rti.ViewModel.Entities
 {
     public partial class ReportOfCompletionItemViewModel
     {
-        public string Representation { get { return string.Format("{0} в количестве {1} шт.", GetEquipmentTypeString(), Count); } }
+        public string Representation { get { return string.Format("{0} {1}в количестве {2} шт.", GetEquipmentTypeString(), Drawing == null ? string.Empty : string.Format("({0}) ", Drawing.FullName), Count); } }
 
         private string GetEquipmentTypeString()
         {

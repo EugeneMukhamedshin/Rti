@@ -5,7 +5,7 @@
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
     xmlns:components="clr-namespace:Rti.App.View.Components"
-    Title="{Binding Name}" Height="261.598" Width="369.979"
+    Title="{Binding Name}" Height="261.598" Width="579.979"
     >
 
     <Grid>
@@ -28,6 +28,28 @@
             </dxg:GridControl.Resources>
             <dxg:GridControl.Columns>
                 <dxg:GridColumn Binding="{Binding EquipmentTypeEnum,Converter={StaticResource EnumToStringConverter}}" Header="Наименование" Width="150" ReadOnly="True"/>
+                <dxg:GridColumn Binding="{Binding Drawing,Mode=TwoWay}" Header="Чертеж" Width="100">
+                    <dxg:GridColumn.EditSettings>
+                        <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="Name" ItemsSource="{Binding DrawingSource}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                            <dxg:LookUpEditSettings.StyleSettings>
+                                <dxg:SearchLookUpEditStyleSettings/>
+                            </dxg:LookUpEditSettings.StyleSettings>
+                            <dxg:LookUpEditSettings.PopupContentTemplate>
+                                <ControlTemplate>
+                                    <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
+                                        <dxg:GridControl.Columns>
+                                            <dxg:GridColumn FieldName="SortOrder" Header="№"/>
+                                            <dxg:GridColumn FieldName="Name" Header="Наименование"/>
+                                        </dxg:GridControl.Columns>
+                                        <dxg:GridControl.View>
+                                            <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AutoWidth="True"/>
+                                        </dxg:GridControl.View>
+                                    </dxg:GridControl>
+                                </ControlTemplate>
+                            </dxg:LookUpEditSettings.PopupContentTemplate>
+                        </dxg:LookUpEditSettings>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
                 <dxg:GridColumn Binding="{Binding Count,Mode=TwoWay}" Header="В количестве" Width="100" EditSettings="{components:TextEditSettings Mask=f0,MaskType=Numeric}"/>
             </dxg:GridControl.Columns>
             <dxg:GridControl.View>

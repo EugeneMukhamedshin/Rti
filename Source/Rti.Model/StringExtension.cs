@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Rti.ViewModel
+namespace Rti.Model
 {
     public static class StringExtension
     {
@@ -36,5 +36,9 @@ namespace Rti.ViewModel
             return false;
         }
 
+        public static string ZeroIfEmpty(this string input)
+        {
+            return input == string.Empty ? "0" : input;
+        }
     }
 }

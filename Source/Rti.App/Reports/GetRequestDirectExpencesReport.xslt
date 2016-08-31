@@ -169,6 +169,45 @@
 
           <xsl:apply-templates select="Requests/Request" />
 
+          <Row/>
+          <Row ss:Height="15.75">
+            <Cell ss:StyleID="s17" ss:MergeAcross="2">
+              <Data ss:Type="String">Всего</Data>
+            </Cell>
+            <Cell ss:StyleID="s16">
+              <Data ss:Type="Number">
+                <xsl:value-of select="Summary/@DetailCount"/>
+              </Data>
+            </Cell>
+            <Cell ss:StyleID="s16">
+              <Data ss:Type="Number">
+                <xsl:value-of select="Summary/@MaterialCost"/>
+              </Data>
+            </Cell>
+            <Cell ss:StyleID="s16">
+              <Data ss:Type="Number">
+                <xsl:value-of select="Summary/@SalaryCost"/>
+              </Data>
+            </Cell>
+            <Cell ss:StyleID="s16">
+              <Data ss:Type="Number">
+                <xsl:value-of select="Summary/@TransportCost"/>
+              </Data>
+            </Cell>
+            <Cell ss:StyleID="s16">
+              <Data ss:Type="Number">
+                <xsl:value-of select="Summary/@PowerForFormedCost"/>
+              </Data>
+            </Cell>
+            <Cell ss:StyleID="s16">
+              <Data ss:Type="Number">
+                <xsl:value-of select="Summary/@OtherPowerCost"/>
+              </Data>
+            </Cell>
+            <Cell ss:StyleID="s16" ss:Formula="=SUM(RC[-5]:RC[-1])">
+              <Data ss:Type="Number">68</Data>
+            </Cell>
+          </Row>
         </Table>
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
           <PageSetup>

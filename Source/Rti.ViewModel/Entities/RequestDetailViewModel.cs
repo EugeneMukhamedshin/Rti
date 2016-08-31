@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
+using Rti.Model;
 using Rti.Model.Domain;
 
 namespace Rti.ViewModel.Entities

@@ -291,13 +291,13 @@ SELECT
   DetailName,
   DrawingName,
   GroupName,
-  MaterialCost,
-  TransportCost,
-  SalaryCost,
-  PowerForFormedCost,
-  OtherPowerCost,
-  MaterialCost + TransportCost + SalaryCost + PowerForFormedCost + OtherPowerCost SummaryCost,
-  DetailPrice,
+  MaterialCost * DetailCount as MaterialCost,
+  TransportCost * DetailCount as TransportCost,
+  SalaryCost * DetailCount as SalaryCost,
+  PowerForFormedCost * DetailCount as PowerForFormedCost,
+  OtherPowerCost * DetailCount as OtherPowerCost,
+  (MaterialCost + TransportCost + SalaryCost + PowerForFormedCost + OtherPowerCost) * DetailCount as SummaryCost,
+  DetailPrice * DetailCount as DetailPrice,
   DetailCount
 FROM (SELECT
     r.id RequestId,
@@ -330,7 +330,24 @@ FROM (SELECT
                 query =>
                     query.SetParameter("p_start_date", startDate)
                         .SetParameter("p_end_date", endDate)
-                        .SetParameter("p_request_id", requestId));
+                        .SetParameter("p_request_id", requestId)).ToList();
+            var detailCount = 0;
+            var materialCost = 0.0;
+            var transportCost = 0.0;
+            var salaryCost = 0.0;
+            var powerForFormedCost = 0.0;
+            var otherPowerCost = 0.0;
+            var summaryCost = 0.0;
+            foreach (var element in rows)
+            {
+                detailCount += Convert.ToInt32(element.Attribute("DetailCount").Value.ZeroIfEmpty());
+                materialCost += Convert.ToDouble(element.Attribute("MaterialCost").Value.ZeroIfEmpty(), CultureInfo.InvariantCulture);
+                transportCost += Convert.ToDouble(element.Attribute("TransportCost").Value.ZeroIfEmpty(), CultureInfo.InvariantCulture);
+                salaryCost += Convert.ToDouble(element.Attribute("SalaryCost").Value.ZeroIfEmpty(), CultureInfo.InvariantCulture);
+                powerForFormedCost += Convert.ToDouble(element.Attribute("PowerForFormedCost").Value.ZeroIfEmpty(), CultureInfo.InvariantCulture);
+                otherPowerCost += Convert.ToDouble(element.Attribute("OtherPowerCost").Value.ZeroIfEmpty(), CultureInfo.InvariantCulture);
+                summaryCost += Convert.ToDouble(element.Attribute("SummaryCost").Value.ZeroIfEmpty(), CultureInfo.InvariantCulture);
+            }
             var rowDict = rows.ToLookup(e => new
             {
                 RequestId = e.Attribute("RequestId").Value,
@@ -342,12 +359,21 @@ FROM (SELECT
                     new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")),
                         new XAttribute("EndDate", endDate.ToString("dd.MM.yyyy"))),
                     new XElement("Requests",
-                    rowDict.Select(g =>
+                        rowDict.Select(g =>
                             new XElement("Request",
-                            new XAttribute("RequestId", g.Key.RequestId),
-                            new XAttribute("RequestNumber", g.Key.RequestNumber),
-                            new XAttribute("RequestRegDate", g.Key.RequestRegDate),
-                                g)))));
+                                new XAttribute("RequestId", g.Key.RequestId),
+                                new XAttribute("RequestNumber", g.Key.RequestNumber),
+                                new XAttribute("RequestRegDate", g.Key.RequestRegDate),
+                                g))),
+                    new XElement("Summary",
+                        new XAttribute("DetailCount", detailCount),
+                        new XAttribute("MaterialCost", materialCost),
+                        new XAttribute("TransportCost", transportCost),
+                        new XAttribute("SalaryCost", salaryCost),
+                        new XAttribute("PowerForFormedCost", powerForFormedCost),
+                        new XAttribute("OtherPowerCost", otherPowerCost),
+                        new XAttribute("SummaryCost", summaryCost)
+                        )));
             return doc;
         }
 
@@ -361,16 +387,16 @@ SELECT
   t.GroupName,
   t.DetailName,
   t.DoneCount,
-  t.MaterialCost,
-  t.TransportCost,
-  t.SalaryCost,
-  t.PowerForFormedCost,
-  t.OtherPowerCost,
-  t.MaterialCost +
+  t.MaterialCost * t.DoneCount as MaterialCost,
+  t.TransportCost * t.DoneCount as TransportCost,
+  t.SalaryCost * t.DoneCount as SalaryCost,
+  t.PowerForFormedCost * t.DoneCount as PowerForFormedCost,
+  t.OtherPowerCost * t.DoneCount as OtherPowerCost,
+  (t.MaterialCost +
   t.TransportCost +
   t.SalaryCost +
   t.PowerForFormedCost +
-  t.OtherPowerCost SummaryCost
+  t.OtherPowerCost) * t.DoneCount SummaryCost
 FROM (SELECT
     wi.work_date WorkDate,
     d.name DrawingName,
@@ -397,7 +423,25 @@ FROM (SELECT
   ORDER BY wi.work_date, wi.sort_order) t",
                 query =>
                     query.SetParameter("p_start_date", startDate)
-                        .SetParameter("p_end_date", endDate));
+                        .SetParameter("p_end_date", endDate)).ToList();
+            var doneCount = 0;
+            var materialCost = 0.0;
+            var transportCost = 0.0;
+            var salaryCost = 0.0;
+            var powerForFormedCost = 0.0;
+            var otherPowerCost = 0.0;
+            var summaryCost = 0.0;
+
+            foreach (var element in rows)
+            {
+                doneCount += Convert.ToInt32(element.Attribute("DoneCount").Value.ZeroIfEmpty());
+                materialCost += Convert.ToDouble(element.Attribute("MaterialCost").Value.ZeroIfEmpty(), CultureInfo.InvariantCulture);
+                transportCost += Convert.ToDouble(element.Attribute("TransportCost").Value.ZeroIfEmpty(), CultureInfo.InvariantCulture);
+                salaryCost += Convert.ToDouble(element.Attribute("SalaryCost").Value.ZeroIfEmpty(), CultureInfo.InvariantCulture);
+                powerForFormedCost += Convert.ToDouble(element.Attribute("PowerForFormedCost").Value.ZeroIfEmpty(), CultureInfo.InvariantCulture);
+                otherPowerCost += Convert.ToDouble(element.Attribute("OtherPowerCost").Value.ZeroIfEmpty(), CultureInfo.InvariantCulture);
+                summaryCost += Convert.ToDouble(element.Attribute("SummaryCost").Value.ZeroIfEmpty(), CultureInfo.InvariantCulture);
+            }
             var rowDict = rows.ToLookup(e => new
             {
                 WorkDate = e.Attribute("WorkDate").Value
@@ -407,10 +451,19 @@ FROM (SELECT
                     new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")),
                         new XAttribute("EndDate", endDate.ToString("dd.MM.yyyy"))),
                     new XElement("WorkItemEmployeePackages",
-                    rowDict.Select(g =>
+                        rowDict.Select(g =>
                             new XElement("WorkItemEmployeePackage",
-                            new XAttribute("WorkDate", g.Key.WorkDate),
-                                g)))));
+                                new XAttribute("WorkDate", g.Key.WorkDate),
+                                g))),
+                    new XElement("Summary",
+                        new XAttribute("DoneCount", doneCount),
+                        new XAttribute("MaterialCost", materialCost),
+                        new XAttribute("TransportCost", transportCost),
+                        new XAttribute("SalaryCost", salaryCost),
+                        new XAttribute("PowerForFormedCost", powerForFormedCost),
+                        new XAttribute("OtherPowerCost", otherPowerCost),
+                        new XAttribute("SummaryCost", summaryCost)
+                        )));
             return doc;
         }
 
@@ -425,16 +478,16 @@ SELECT
   t.GroupName,
   t.DetailName,
   t.DoneCount,
-  t.MaterialCost,
-  t.TransportCost,
-  t.SalaryCost,
-  t.PowerForFormedCost,
-  t.OtherPowerCost,
-  t.MaterialCost +
+  t.MaterialCost * t.DoneCount as MaterialCost,
+  t.TransportCost * t.DoneCount as TransportCost,
+  t.SalaryCost * t.DoneCount as SalaryCost,
+  t.PowerForFormedCost * t.DoneCount as PowerForFormedCost,
+  t.OtherPowerCost * t.DoneCount as OtherPowerCost,
+  (t.MaterialCost +
   t.TransportCost +
   t.SalaryCost +
   t.PowerForFormedCost +
-  t.OtherPowerCost SummaryCost
+  t.OtherPowerCost) * t.DoneCount SummaryCost
 FROM (SELECT
     s.id ShipmentId,
     s.Sort_Order ShipmentNumber,
@@ -467,7 +520,24 @@ FROM (SELECT
                 query =>
                     query.SetParameter("p_start_date", startDate)
                         .SetParameter("p_end_date", endDate)
-                        .SetParameter("p_shipment_id", shipmentId));
+                        .SetParameter("p_shipment_id", shipmentId)).ToList();
+            var doneCount = 0;
+            var materialCost = 0.0;
+            var transportCost = 0.0;
+            var salaryCost = 0.0;
+            var powerForFormedCost = 0.0;
+            var otherPowerCost = 0.0;
+            var summaryCost = 0.0;
+            foreach (var element in rows)
+            {
+                doneCount += Convert.ToInt32(element.Attribute("DoneCount").Value.ZeroIfEmpty());
+                materialCost += Convert.ToDouble(element.Attribute("MaterialCost").Value.ZeroIfEmpty(), CultureInfo.InvariantCulture);
+                transportCost += Convert.ToDouble(element.Attribute("TransportCost").Value.ZeroIfEmpty(), CultureInfo.InvariantCulture);
+                salaryCost += Convert.ToDouble(element.Attribute("SalaryCost").Value.ZeroIfEmpty(), CultureInfo.InvariantCulture);
+                powerForFormedCost += Convert.ToDouble(element.Attribute("PowerForFormedCost").Value.ZeroIfEmpty(), CultureInfo.InvariantCulture);
+                otherPowerCost += Convert.ToDouble(element.Attribute("OtherPowerCost").Value.ZeroIfEmpty(), CultureInfo.InvariantCulture);
+                summaryCost += Convert.ToDouble(element.Attribute("SummaryCost").Value.ZeroIfEmpty(), CultureInfo.InvariantCulture);
+            }
             var rowDict = rows.ToLookup(e => new
             {
                 ShipmentId = e.Attribute("ShipmentId").Value,
@@ -484,7 +554,16 @@ FROM (SELECT
                                 new XAttribute("ShipmentId", g.Key.ShipmentId),
                                 new XAttribute("ShipmentDate", g.Key.ShipmentDate),
                                 new XAttribute("ShipmentNumber", g.Key.ShipmentNumber),
-                                g)))));
+                                g))),
+                    new XElement("Summary",
+                        new XAttribute("DoneCount", doneCount),
+                        new XAttribute("MaterialCost", materialCost),
+                        new XAttribute("TransportCost", transportCost),
+                        new XAttribute("SalaryCost", salaryCost),
+                        new XAttribute("PowerForFormedCost", powerForFormedCost),
+                        new XAttribute("OtherPowerCost", otherPowerCost),
+                        new XAttribute("SummaryCost", summaryCost)
+                        )));
             return doc;
         }
 

@@ -7,6 +7,8 @@ namespace Rti.ViewModel.Entities
 {
     public partial class MassCalculationViewModel
     {
+        private double? _calculatedMass;
+
         public string DisplayCalculatedMass
         {
             get
@@ -16,48 +18,65 @@ namespace Rti.ViewModel.Entities
             }
         }
 
-        public double? CalculatedMass
-        {
-            get
-            {
-                var calculated = CalculateMass();
-                return calculated.HasValue ? Math.Round(DetailTypeEnum == DetailType.Other ? calculated.Value : calculated.Value / 1000, 3) : (double?)null;
-            }
-        }
-
-        public double? CalculateMass()
+        private void CalculateMass()
         {
             var pi = Math.PI;
+
+            double? result = null;
 
             switch (DetailTypeEnum)
             {
                 case DetailType.MoldingRound1:
-                    return (pi * RndDNar * RndDNar * RndDShn * MaterialDensity) / 4000;
+                    result = (pi * RndDNar * RndDNar * RndDShn * MaterialDensity) / 4000;
+                    break;
                 case DetailType.MoldingRound2:
-                    return (pi * RndDShn * MaterialDensity * (RndDNar * RndDNar - RndDVn * RndDVn)) / 4000;
+                    result = (pi * RndDShn * MaterialDensity * (RndDNar * RndDNar - RndDVn * RndDVn)) / 4000;
+                    break;
                 case DetailType.MoldingRound3:
-                    return (pi * MaterialDensity * (RndDNar * RndDNar * RndDShn - RndDSr * RndDSr * RndS2 - RndDVn * RndDVn * RndS1)) / 4000;
+                    result = (pi * MaterialDensity * (RndDNar * RndDNar * RndDShn - RndDSr * RndDSr * RndS2 - RndDVn * RndDVn * RndS1)) / 4000;
+                    break;
                 case DetailType.MoldingRound4:
-                    return (pi * MaterialDensity * RndDShn * RndDShn * RndDSr) / 4000;
+                    result = (pi * MaterialDensity * RndDShn * RndDShn * RndDSr) / 4000;
+                    break;
                 case DetailType.MoldingSquare1:
-                    return (SqB * SqL * SqS * MaterialDensity) / 1000;
+                    result = (SqB * SqL * SqS * MaterialDensity) / 1000;
+                    break;
                 case DetailType.MoldingSquare2:
-                    return ((SqS * SqL * SqB - SqS * SqL1 * SqB1) * MaterialDensity) / 1000;
+                    result = ((SqS * SqL * SqB - SqS * SqL1 * SqB1) * MaterialDensity) / 1000;
+                    break;
                 case DetailType.MoldingSquare3:
-                    return SqB * SqL * SqS * MaterialDensity / 1000 - pi * SqDVn * SqDVn / 4000;
+                    result = SqB * SqL * SqS * MaterialDensity / 1000 - pi * SqDVn * SqDVn / 4000;
+                    break;
                 case DetailType.LaserCutting:
-                    return (VlS * VlL * VlB * MaterialDensity / 1000) / ((VlL / (VlL1 + 5)) * (VlB / (VlB1 + 5)));
+                    result = (VlS * VlL * VlB * MaterialDensity / 1000) / ((VlL / (VlL1 + 5)) * (VlB / (VlB1 + 5)));
+                    break;
                 case DetailType.Other:
-                    return new Calculator().Calculate(MassFormula);
+                    result = new Calculator().Calculate(MassFormula);
+                    break;
             }
-            return null;
+            CalculatedMass = result.HasValue ? Math.Round(DetailTypeEnum == DetailType.Other ? result.Value : result.Value / 1000, 3) : (double?)null;
+            if (CalculatedCallback != null)
+                CalculatedCallback();
+        }
+
+        public Action CalculatedCallback { get; set; }
+
+        public double? CalculatedMass
+        {
+            get { return _calculatedMass; }
+            set
+            {
+                if (value.Equals(_calculatedMass)) return;
+                _calculatedMass = value;
+                OnPropertyChanged("CalculatedMass");
+                OnPropertyChanged("DisplayCalculatedMass");
+            }
         }
 
         protected override void OnPropertyChanged(string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
-            base.OnPropertyChanged("CalculatedMass");
-            base.OnPropertyChanged("DisplayCalculatedMass");
+            CalculateMass();
         }
 
         public override string ToString()

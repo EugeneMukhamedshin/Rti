@@ -185,6 +185,7 @@
     <Compile Include="Repository\NHibernate\ShippingOrderRecordRepository.cs" />
     <Compile Include="Repository\NHibernate\WorkItemRepository.cs" />
     <Compile Include="Repository\NHibernate\WorkItemRequestDetailRepository.cs" />
+    <Compile Include="StringExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Domain\domain.xml" />

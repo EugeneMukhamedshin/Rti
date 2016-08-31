@@ -1,5 +1,6 @@
 using System;
 using System.Xml.Linq;
+using Rti.Model;
 
 namespace Rti.ViewModel.Entities
 {

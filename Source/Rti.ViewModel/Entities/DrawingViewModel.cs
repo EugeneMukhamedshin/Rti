@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Rti.Model;
 
 namespace Rti.ViewModel.Entities
 {
@@ -62,10 +63,7 @@ namespace Rti.ViewModel.Entities
         {
             base.OnPropertyChanged(propertyName);
             if (propertyName == "MassCalculation" && MassCalculation != null)
-                MassCalculation.PropertyChanged += (sender, args) =>
-                {
-                    OnPropertyChanged("MassCalculation");
-                };
+                MassCalculation.CalculatedCallback = () => OnPropertyChanged("MassCalculation");
             if (propertyName.In("Width", "Length", "Thickness", "InnerDiameter", "OuterDiameter"))
                 OnPropertyChanged("Measurements");
             if (!IsMapping)

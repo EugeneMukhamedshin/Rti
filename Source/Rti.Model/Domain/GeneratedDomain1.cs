@@ -78,6 +78,8 @@ namespace Rti.Model.Domain
 		public virtual Boolean IsCustomerOwned { get; set; }
 		[Field("created_date")]
 		public virtual DateTime? CreatedDate { get; set; }
+		[Field("press_count")]
+		public virtual Int32? PressCount { get; set; }
 	}
 
 	// The class for constants
@@ -694,6 +696,8 @@ namespace Rti.Model.Domain
 		public virtual Int32 Count { get; set; }
 		[Reference("request_id", false)]
 		public virtual Request Request { get; set; }
+		[Reference("drawing_id", false)]
+		public virtual Drawing Drawing { get; set; }
 	}
 
 	// The class for requests
@@ -722,6 +726,14 @@ namespace Rti.Model.Domain
 		public virtual decimal? CompleteSum { get; set; }
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+		[Field("specification_number")]
+		public virtual Int32? SpecificationNumber { get; set; }
+		[Field("specification_date")]
+		public virtual DateTime? SpecificationDate { get; set; }
+		[Field("equipment_invoice_number")]
+		public virtual Int32? EquipmentInvoiceNumber { get; set; }
+		[Field("equipment_invoice_date")]
+		public virtual DateTime? EquipmentInvoiceDate { get; set; }
 		[Reference("contract_id", false)]
 		public virtual Contract Contract { get; set; }
 		[Reference("customer_id", false)]

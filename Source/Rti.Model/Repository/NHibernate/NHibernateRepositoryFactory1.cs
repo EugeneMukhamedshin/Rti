@@ -628,6 +628,8 @@ namespace Rti.Model.Repository.NHibernate
 
 			result = result.Fetch(o => o.Request).Default;
 
+			result = result.Fetch(o => o.Drawing).Default;
+
             return result;
         }
     }

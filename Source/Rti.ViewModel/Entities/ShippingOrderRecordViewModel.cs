@@ -1,4 +1,6 @@
-﻿namespace Rti.ViewModel.Entities
+﻿using Rti.Model;
+
+namespace Rti.ViewModel.Entities
 {
     public partial class ShippingOrderRecordViewModel
     {

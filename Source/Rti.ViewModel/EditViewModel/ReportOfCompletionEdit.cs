@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +25,7 @@ namespace Rti.ViewModel.EditViewModel
         }
 
         private List<ReportOfCompletionItemViewModel> _items;
+        private List<DrawingViewModel> _drawingSource;
 
         public List<ReportOfCompletionItemViewModel> Items
         {
@@ -34,6 +34,17 @@ namespace Rti.ViewModel.EditViewModel
             {
                 if (Equals(value, _items)) return;
                 _items = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public List<DrawingViewModel> DrawingSource
+        {
+            get { return _drawingSource; }
+            set
+            {
+                if (Equals(value, _drawingSource)) return;
+                _drawingSource = value;
                 OnPropertyChanged();
             }
         }

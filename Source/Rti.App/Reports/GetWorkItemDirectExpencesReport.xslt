@@ -167,6 +167,45 @@
 
           <xsl:apply-templates select="WorkItemEmployeePackages/WorkItemEmployeePackage"/>
 
+          <Row/>
+          <Row ss:Height="15.75">
+            <Cell ss:StyleID="s18" ss:MergeAcross="2">
+              <Data ss:Type="String">Всего</Data>
+            </Cell>
+            <Cell ss:StyleID="s17">
+              <Data ss:Type="Number">
+                <xsl:value-of select="Summary/@DoneCount"/>
+              </Data>
+            </Cell>
+            <Cell ss:StyleID="s17">
+              <Data ss:Type="Number">
+                <xsl:value-of select="Summary/@MaterialCost"/>
+              </Data>
+            </Cell>
+            <Cell ss:StyleID="s17">
+              <Data ss:Type="Number">
+                <xsl:value-of select="Summary/@SalaryCost"/>
+              </Data>
+            </Cell>
+            <Cell ss:StyleID="s17">
+              <Data ss:Type="Number">
+                <xsl:value-of select="Summary/@TransportCost"/>
+              </Data>
+            </Cell>
+            <Cell ss:StyleID="s17">
+              <Data ss:Type="Number">
+                <xsl:value-of select="Summary/@PowerForFormedCost"/>
+              </Data>
+            </Cell>
+            <Cell ss:StyleID="s17">
+              <Data ss:Type="Number">
+                <xsl:value-of select="Summary/@OtherPowerCost"/>
+              </Data>
+            </Cell>
+            <Cell ss:StyleID="s17" ss:Formula="=SUM(RC[-5]:RC[-1])">
+              <Data ss:Type="Number">68</Data>
+            </Cell>
+          </Row>
         </Table>
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
           <PageSetup>

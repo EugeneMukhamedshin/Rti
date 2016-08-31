@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Management.Instrumentation;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
@@ -18,7 +18,6 @@ namespace Rti.ViewModel.EditViewModel
         private string _calculatedPlan;
         private CalculationViewModel _planCalculation;
         private CalculationViewModel _factCalculation;
-        private List<CalculationViewModel> _calculationHistoryItems;
         public DelegateCommand CalculatePlanCommand { get; set; }
         public DelegateCommand CalculateFactCommand { get; set; }
         public DelegateCommand ReportPlanCommand { get; set; }
@@ -121,12 +120,12 @@ namespace Rti.ViewModel.EditViewModel
             }
         }
 
-        private void FactCalculation_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void FactCalculation_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             PlanCalculation.IsCustomerOwned = FactCalculation.IsCustomerOwned;
         }
 
-        private void PlanCalculation_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void PlanCalculation_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             FactCalculation.IsCustomerOwned = PlanCalculation.IsCustomerOwned;
         }
@@ -192,8 +191,12 @@ namespace Rti.ViewModel.EditViewModel
             if (calculationType == CalculationType.Fact)
             {
                 if (drawing.Equipment != null && drawing.Equipment.Output != 0)
-                    calculation.MainSalary = (getTime(ProcessType.Loading) + getTime(ProcessType.CuringOrCutting) +
-                                              getTime(ProcessType.Unloading)) / drawing.Equipment.Output * constants.KSt.ToDecimal();
+                {
+                    var pressCount = (calculation.PressCount == null || calculation.PressCount == 0)
+                        ? 1
+                        : calculation.PressCount.Value;
+                    calculation.MainSalary = (getTime(ProcessType.Loading) + getTime(ProcessType.CuringOrCutting) + getTime(ProcessType.Unloading)) / drawing.Equipment.Output / pressCount * constants.KSt.ToDecimal();
+                }
                 else
                     calculation.MainSalary = 0;
             }

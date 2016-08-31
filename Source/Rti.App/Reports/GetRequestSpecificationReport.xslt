@@ -138,7 +138,7 @@
           <Row ss:Index="7">
             <Cell ss:Index="4" ss:StyleID="s174">
               <Data ss:Type="String">
-                СПЕЦИФИКАЦИЯ № <xsl:value-of select="Request/@Number"/>
+                СПЕЦИФИКАЦИЯ № <xsl:value-of select="Request/@SpecificationNumber"/>
               </Data>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
@@ -146,7 +146,7 @@
           <Row ss:Index="9">
             <Cell ss:Index="2">
               <Data ss:Type="String">
-                <xsl:value-of select="rti:FormatDateTime(Request/@RegDate, 'dd.MM.yyyy')"/>г.
+                <xsl:value-of select="rti:FormatDateTime(Request/@SpecificationDate, 'dd.MM.yyyy')"/>г.
               </Data>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>

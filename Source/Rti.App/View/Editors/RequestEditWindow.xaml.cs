@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Rti.Model;
 using Rti.ViewModel;
 using Rti.ViewModel.Entities;
 

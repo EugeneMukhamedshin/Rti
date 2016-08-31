@@ -1,4 +1,5 @@
-﻿using Rti.Model.Domain;
+﻿using Rti.Model;
+using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
 

@@ -52,6 +52,15 @@ namespace Rti.ViewModel.EditViewModel
                 "Калькуляция",
                 o => true,
                 o => OpenCalculation());
+
+            Entity.PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == "MaterialByPassport")
+                {
+                    Entity.MassCalculation.MaterialDensity = Entity.MaterialByPassport.Density;
+                    Entity.MassCalculation.SaveEntity();
+                }
+            };
         }
 
         public override void Refresh()

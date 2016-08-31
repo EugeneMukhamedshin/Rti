@@ -61,6 +61,7 @@
     <Compile Include="EditViewModel\DrawingCalculationViewModel.cs" />
     <Compile Include="EditViewModel\DrawingEdit.cs" />
     <Compile Include="EditViewModel\DrawingMeasurementEdit.cs" />
+    <Compile Include="EditViewModel\EquipmentInvoiceReportEdit.cs" />
     <Compile Include="EditViewModel\EquipmentPaymentEdit.cs" />
     <Compile Include="EditViewModel\PaymentEdit.cs" />
     <Compile Include="EditViewModel\EditEntityViewModel.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="EditViewModel\EditViewModelBase.cs" />
     <Compile Include="EditViewModel\DetailEdit.cs" />
     <Compile Include="EditViewModel\ReportOfCompletionEdit.cs" />
+    <Compile Include="EditViewModel\RequestSpecificationReportEdit.cs" />
     <Compile Include="EditViewModel\ShipmentEdit.cs" />
     <Compile Include="EditViewModel\ShipmentItemControllerViewModel.cs" />
     <Compile Include="EditViewModel\WorkItemControllerViewModel.cs" />
@@ -212,7 +214,6 @@
     <Compile Include="Reporting\ViewModel\WorkItemDirectExpencesReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\WorkItemListReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\XsltReportViewModel.cs" />
-    <Compile Include="StringExtension.cs" />
     <Compile Include="TreeViewModel\ITreeItemViewModel.cs" />
     <Compile Include="TreeViewModel\TreeItemViewModel.cs" />
     <Compile Include="TreeViewModel\TreeItemViewModelExtension.cs" />

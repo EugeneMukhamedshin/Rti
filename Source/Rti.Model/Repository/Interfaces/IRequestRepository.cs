@@ -12,5 +12,7 @@ namespace Rti.Model.Repository.Interfaces
         IList<Request> GetUnshipped();
         IList<RequestsReportRow> GetRequestReport(DateTime startDate, DateTime endDate);
         IList<Request> GetUnpaid();
+        int GetNextSpecificationNumber();
+        int GetNextEquipmentInvoiceNumber();
     }
 }

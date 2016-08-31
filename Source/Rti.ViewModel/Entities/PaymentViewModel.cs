@@ -1,3 +1,5 @@
+using Rti.Model;
+
 namespace Rti.ViewModel.Entities
 {
     public partial class PaymentViewModel

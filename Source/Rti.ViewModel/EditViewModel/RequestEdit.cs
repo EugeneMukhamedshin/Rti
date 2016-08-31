@@ -106,13 +106,19 @@ namespace Rti.ViewModel.EditViewModel
         private void CreateEquipmentInvoiceReport()
         {
             if (ViewService.ShowConfirmation(new MessageViewModel("Внимание",
-                "Для формирования заявка будет сохранена.\r\nПродолжить?")))
+               "Для формирования заявка будет сохранена.\r\nПродолжить?")))
             {
                 if (!Save()) return;
 
-                var viewModel = new EquipmentInvoiceReportViewModel("Счет на оснастку", Source, ViewService, RepositoryFactory, xsltPath, "Счет на оснастку.xls");
-                viewModel.Refresh();
-                viewModel.GenerateReport();
+                var edit = new EquipmentInvoiceReportEdit("Счет на оснастку", Source, ViewService, RepositoryFactory)
+                {
+                    XsltPath = xsltPath
+                };
+                edit.Refresh();
+                ViewService.ShowViewDialog(edit);
+
+                Entity.SpecificationDate = Source.SpecificationDate;
+                Entity.SpecificationNumber = Source.SpecificationNumber;
             }
         }
 
@@ -138,7 +144,10 @@ namespace Rti.ViewModel.EditViewModel
             {
                 if (!Save()) return;
 
-                var edit = new ReportOfCompletionEdit("Акт приема передачи оснастки", Source, ReportOfCompletionEdit.ReportType.AcceplanceCertificate, ReadOnly, ViewService, RepositoryFactory);
+                var edit = new ReportOfCompletionEdit("Акт приема передачи оснастки", Source, ReportOfCompletionEdit.ReportType.AcceplanceCertificate, ReadOnly, ViewService, RepositoryFactory)
+                {
+                    DrawingSource = RequestDetails.Select(o => o.Drawing).Distinct().ToList()
+                };
                 edit.Refresh();
                 ViewService.ShowViewDialog(edit);
 
@@ -150,16 +159,18 @@ namespace Rti.ViewModel.EditViewModel
 
         private void CreateSpecification(object obj)
         {
-            if (!ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Перед печатью необходимо сохранить документ. Сохранить?")))
-                return;
-            if (!Save()) return;
-            var viewModel = new RequestSpecificationReportViewModel(string.Format("Спецификация {0} от {1:dd.mm.yyyy}", Entity.Number, Entity.RegDate), ViewService, RepositoryFactory,
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), string.Format("Спецификация {0} от {1:dd.mm.yyyy}.xls", Entity.Number, Entity.RegDate))
+            if (ViewService.ShowConfirmation(new MessageViewModel("Внимание",
+                "Для формирования акта заявка будет сохранена.\r\nПродолжить?")))
             {
-                Request = Source,
-                ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
-            };
-            viewModel.GenerateReport();
+                if (!Save()) return;
+
+                var edit = new RequestSpecificationReportEdit("Спецификация", Source, ViewService, RepositoryFactory);
+                edit.Refresh();
+                ViewService.ShowViewDialog(edit);
+
+                Entity.SpecificationDate = Source.SpecificationDate;
+                Entity.SpecificationNumber = Source.SpecificationNumber;
+            }
         }
 
         private void OpenDrawingEdit(RequestDetailViewModel detail)
@@ -238,7 +249,10 @@ namespace Rti.ViewModel.EditViewModel
             {
                 if (!Save()) return;
 
-                var edit = new ReportOfCompletionEdit("Акт выполненных работ", Source, ReportOfCompletionEdit.ReportType.CompletionCertificate, ReadOnly, ViewService, RepositoryFactory);
+                var edit = new ReportOfCompletionEdit("Акт выполненных работ", Source, ReportOfCompletionEdit.ReportType.CompletionCertificate, ReadOnly, ViewService, RepositoryFactory)
+                {
+                    DrawingSource = RequestDetails.Select(o => o.Drawing).Distinct().ToList()
+                };
                 edit.Refresh();
                 ViewService.ShowViewDialog(edit);
 
