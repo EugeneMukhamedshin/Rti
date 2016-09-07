@@ -1,0 +1,32 @@
+﻿<dx:DXWindow xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+    x:Class="Rti.App.View.Editors.RequestSpecificationReportEditWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:components="clr-namespace:Rti.App.View.Components"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    Title="{Binding Name}" Height="122.792" Width="369.979"
+    >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="32"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="5" Text="Номер спецификации" Width="130"/>
+                <dxe:TextEdit Text="{Binding Entity.SpecificationNumber, Mode=TwoWay}" Width="100" Margin="5" Mask="f0" MaskType="Numeric" MaskCulture="ru-RU"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="5" Text="Дата спецификации" Width="130"/>
+                <xctk:DateTimePicker TabIndex="2" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.SpecificationDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Content="Спецификация" IsDefault="True" Width="170" Margin="5" Command="{Binding BuildReportCommand}"/>
+            <Button Content="Закрыть" Width="170" Margin="5" Command="{Binding CancelCommand}"/>
+        </StackPanel>
+    </Grid>
+</dx:DXWindow>
