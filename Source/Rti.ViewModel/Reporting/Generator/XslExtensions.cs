@@ -189,7 +189,7 @@ namespace Rti.ViewModel.Reporting.Generator
         public static string GetRepresentation(decimal number)
         {
             var result = GetDoubleRepresentation(number);
-            var res = string.Format("{0} руб. {1} коп.", result.Length == 0 ? "ноль" : result.ToString(), (int)((number - Math.Floor(number)) * 100));
+            var res = string.Format("{0}{1} руб. {2:D2} коп.", result.Length == 0 ? "ноль" : result.ToString().Substring(0, 1).ToUpper(), result.ToString().Substring(1).ToLower(), (int)((number - Math.Floor(number)) * 100));
             return res;
         }
 

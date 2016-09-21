@@ -1534,7 +1534,7 @@
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
             <Cell ss:StyleID="s193">
-              <Data ss:Type="String">В том числе НДС:</Data>
+              <Data ss:Type="String">НДС 18%</Data>
               <NamedCell
       ss:Name="Print_Area"/>
             </Cell>

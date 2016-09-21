@@ -28,7 +28,7 @@
             <Button Content="{StaticResource DeleteImage}" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5" TabIndex="5"></Button>
             <Button Content="{StaticResource EditImage}" Command="{Binding EditPaymentCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5" TabIndex="6"/>
         </StackPanel>
-        <dxg:GridControl TabIndex="7" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2">
+        <dxg:GridControl TabIndex="7" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2" CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText">
             <dxmvvm:Interaction.Behaviors>
                 <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding EditPaymentCommand}" PassEventArgsToCommand="True">
                     <dxmvvm:EventToCommand.EventArgsConverter>

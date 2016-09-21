@@ -22,7 +22,7 @@
             <TextBlock Text="Дата окончания" Margin="5" VerticalAlignment="Center"/>
             <xctk:DateTimePicker TabIndex="2" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding EndDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
             <TextBlock Text="Исполнитель" Margin="5" VerticalAlignment="Center"/>
-            <dxg:LookUpEdit TabIndex="3" Margin="5" ItemsSource="{Binding EmployeesSource.Value}" SelectedItem="{Binding Shaver}" DisplayMember="FullName" Width="200" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True">
+            <dxg:LookUpEdit TabIndex="3" Margin="5" ItemsSource="{Binding EmployeesSource.Value}" SelectedItem="{Binding Shaver}" DisplayMember="FullName" Width="200" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True" PopupWidth="500" PopupHeight="400">
                 <dxg:LookUpEdit.StyleSettings>
                     <dxg:SearchLookUpEditStyleSettings/>
                 </dxg:LookUpEdit.StyleSettings>
@@ -30,10 +30,10 @@
                     <ControlTemplate>
                         <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
                             <dxg:GridControl.Columns>
-                                <dxg:GridColumn FieldName="SortOrder" Header="№"/>
-                                <dxg:GridColumn FieldName="Code" Header="Код"/>
-                                <dxg:GridColumn FieldName="FullName" Header="Полное имя"/>
-                                <dxg:GridColumn FieldName="Job.Name" Header="Должность"/>
+                                <dxg:GridColumn FieldName="SortOrder" Width="50" Header="№"/>
+                                <dxg:GridColumn FieldName="Code" Width="80" Header="Код"/>
+                                <dxg:GridColumn FieldName="FullName" Width="200" Header="Полное имя"/>
+                                <dxg:GridColumn FieldName="Job.Name" Width="150" Header="Должность"/>
                             </dxg:GridControl.Columns>
                             <dxg:GridControl.View>
                                 <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AutoWidth="True"/>
@@ -50,7 +50,7 @@
             <Button Content="{StaticResource DeleteImage}" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5" TabIndex="5"></Button>
             <Button Content="{StaticResource EditImage}" Command="{Binding EditEntityCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5" TabIndex="6"/>
         </StackPanel>
-        <dxg:GridControl TabIndex="7" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2">
+        <dxg:GridControl TabIndex="7" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2" CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText">
             <dxmvvm:Interaction.Behaviors>
                 <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding EditEntityCommand}" PassEventArgsToCommand="True">
                     <dxmvvm:EventToCommand.EventArgsConverter>
@@ -70,7 +70,7 @@
                 </Style>
             </dxg:GridControl.Resources>
             <dxg:GridControl.Columns>
-                <dxg:GridColumn FieldName="SortOrder" Header="№" ReadOnly="True" Width="50"/>
+                <dxg:GridColumn UnboundType="Integer" Header="№" ReadOnly="True" Width="40" Name="RowNumberColumn"/>
                 <dxg:GridColumn FieldName="ShaverEmployee.FullName" Header="ФИО обрезчика" Width="150"/>
                 <dxg:GridColumn FieldName="ShaveDate" Header="Дата обрезки" Width="100"/>
                 <dxg:GridColumn FieldName="Drawing.Group.Name" Header="Группа" Width="100"/>

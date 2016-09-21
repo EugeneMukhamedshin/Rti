@@ -1,4 +1,5 @@
 ﻿using DevExpress.Xpf.Core;
+using DevExpress.Xpf.Grid;
 
 namespace Rti.App.View.Lists
 {
@@ -10,6 +11,12 @@ namespace Rti.App.View.Lists
         public MaterialArrivalRecordListWindow()
         {
             InitializeComponent();
+        }
+
+        private void GridControl_OnCustomColumnDisplayText(object sender, CustomColumnDisplayTextEventArgs e)
+        {
+            if (Equals(e.Column, RowNumberColumn))
+                e.DisplayText = (e.ListSourceIndex + 1).ToString();
         }
     }
 }

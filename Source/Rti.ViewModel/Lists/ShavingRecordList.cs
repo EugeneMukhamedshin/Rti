@@ -55,7 +55,13 @@ namespace Rti.ViewModel.Lists
         public override void Refresh()
         {
             base.Refresh();
-            EmployeesSource = new Lazy<List<EmployeeViewModel>>(() => RepositoryFactory.GetEmployeeRepository().GetAllActive().Select(m => new EmployeeViewModel(m, RepositoryFactory)).ToList());
+            EmployeesSource =
+                new Lazy<List<EmployeeViewModel>>(
+                    () =>
+                        new List<EmployeeViewModel> {null}.Union(
+                            RepositoryFactory.GetEmployeeRepository()
+                                .GetAllActive()
+                                .Select(m => new EmployeeViewModel(m, RepositoryFactory))).ToList());
         }
 
         private void AddRecord()
@@ -67,7 +73,7 @@ namespace Rti.ViewModel.Lists
 
         protected override IEnumerable<ShavingRecordViewModel> GetItems()
         {
-            var items = RepositoryFactory.GetShavingRecordRepository().GetByInterval(StartDate, EndDate, Shaver == null ? (int?)null : Shaver.Id);
+            var items = RepositoryFactory.GetShavingRecordRepository().GetByInterval(StartDate, EndDate, Shaver == null ? (int?)null : Shaver.Id).OrderBy(o => o.ShaveDate).ThenBy(o => o.SortOrder);
             return items.Select(o => new ShavingRecordViewModel(o, RepositoryFactory)).ToList(); ;
         }
 

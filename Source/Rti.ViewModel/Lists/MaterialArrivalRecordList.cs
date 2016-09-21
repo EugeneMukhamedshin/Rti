@@ -40,7 +40,13 @@ namespace Rti.ViewModel.Lists
         public override void Refresh()
         {
             base.Refresh();
-            MaterialsSource = new Lazy<List<MaterialViewModel>>(() => RepositoryFactory.GetMaterialRepository().GetAllActive().Select(m => new MaterialViewModel(m, RepositoryFactory)).ToList());
+            MaterialsSource =
+                new Lazy<List<MaterialViewModel>>(
+                    () =>
+                        new List<MaterialViewModel>() {null}.Union(
+                            RepositoryFactory.GetMaterialRepository()
+                                .GetAllActive()
+                                .Select(m => new MaterialViewModel(m, RepositoryFactory))).ToList());
         }
 
         private void AddRecord()
