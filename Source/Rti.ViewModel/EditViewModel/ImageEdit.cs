@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Windows.Media.Imaging;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities.Commands;
 
@@ -48,6 +49,20 @@ namespace Rti.ViewModel.EditViewModel
                 if (Equals(value, _data)) return;
                 _data = value;
                 OnPropertyChanged();
+                OnPropertyChanged("Image");
+            }
+        }
+
+        public BitmapImage Image
+        {
+            get
+            {
+                if (Data == null || Data.Length == 0) return null;
+                var image = new BitmapImage();
+                var ms = new MemoryStream(Data);
+                image.BeginInit();
+                image.StreamSource = ms;image.EndInit();
+                return image;
             }
         }
     }

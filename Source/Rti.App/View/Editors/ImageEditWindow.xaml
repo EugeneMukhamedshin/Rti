@@ -13,7 +13,7 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" Visibility="{Binding Editable,Converter={StaticResource BooleanToCollapsedConverter}}">
             <Button Content="Загрузить" Command="{Binding UploadImageCommand}" Width="90" Margin="5" TabIndex="0"></Button>
         </StackPanel>
-        <Image Source="{Binding Entity.Data}" Grid.Row="1" Margin="5" Stretch="Uniform"/>
+        <Image Source="{Binding Entity.Image}" Grid.Row="1" Margin="5" Stretch="Uniform"/>
         <StackPanel Grid.Row="2" Orientation="Horizontal" Visibility="{Binding Editable,Converter={StaticResource BooleanToCollapsedConverter}}">
             <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>
             <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>

@@ -622,29 +622,40 @@ WHERE MainSalary + AdditionalSalary > 0",
         {
             var rows = GetXElementsFromQuery(@"
 SELECT
-    GroupName,
-    DrawingName,
-    DetailName,
-    DoneCount
-FROM (
-    SELECT
-      g.name GroupName,
-      d.name DrawingName,
-      d1.name DetailName,
-      SUM(IFNULL(wi.done_count, 0) - IFNULL(wi.rejected_count, 0)) DoneCount
-    FROM work_items wi
-      INNER JOIN drawings d
-        ON wi.drawing_id = d.id
-      INNER JOIN groups g
-        ON d.group_id = g.id
-      INNER JOIN details d1
-        ON d.detail_id = d1.id
-    WHERE wi.work_date BETWEEN :p_start_date AND :p_end_date
-    AND wi.drawing_id = IFNULL(:p_drawing_id, wi.drawing_id)
-    GROUP BY g.name,
-             d.name,
-             d1.name
-    ORDER BY g.name ASC, d.name ASC) T
+  GroupName,
+  DrawingName,
+  DetailName,
+  DoneCount,
+  RequestNumber,
+  RequestDate
+FROM (SELECT
+    g.name GroupName,
+    d.name DrawingName,
+    d1.name DetailName,
+    r.number RequestNumber,
+    r.reg_date RequestDate,
+    SUM(IFNULL(wi.done_count, 0) - IFNULL(wi.rejected_count, 0)) DoneCount
+  FROM work_items wi
+    INNER JOIN work_item_request_details wird
+      ON wi.id = wird.work_item_id
+    INNER JOIN request_details rd
+      ON wird.request_detail_id = rd.id
+    INNER JOIN requests r
+      ON rd.request_id = r.id
+    INNER JOIN drawings d
+      ON wi.drawing_id = d.id
+    INNER JOIN groups g
+      ON d.group_id = g.id
+    INNER JOIN details d1
+      ON d.detail_id = d1.id
+  WHERE wi.work_date BETWEEN :p_start_date AND :p_end_date
+  AND wi.drawing_id = IFNULL(:p_drawing_id, wi.drawing_id)
+  GROUP BY g.name,
+           d.name,
+           d1.name,
+           r.number,
+           r.reg_date
+  ORDER BY g.name ASC, d.name ASC) T
 WHERE DoneCount > 0",
                 query =>
                     query.SetParameter("p_start_date", startDate)

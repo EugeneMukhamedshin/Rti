@@ -862,6 +862,8 @@ namespace Rti.Model.Domain
 		public virtual Int32? DeliveryDocNumber { get; set; }
 		[Field("delivery_doc_date")]
 		public virtual DateTime? DeliveryDocDate { get; set; }
+		[Field("invoice_facture")]
+		public virtual String InvoiceFacture { get; set; }
 		[Reference("request_id", false)]
 		public virtual Request Request { get; set; }
 		[Reference("recipient_id", false)]

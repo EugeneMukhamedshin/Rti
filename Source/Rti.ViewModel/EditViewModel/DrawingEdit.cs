@@ -57,8 +57,11 @@ namespace Rti.ViewModel.EditViewModel
             {
                 if (args.PropertyName == "MaterialByPassport")
                 {
-                    Entity.MassCalculation.MaterialDensity = Entity.MaterialByPassport.Density;
-                    Entity.MassCalculation.SaveEntity();
+                    if (Entity.MassCalculation != null)
+                    {
+                        Entity.MassCalculation.MaterialDensity = Entity.MaterialByPassport.Density;
+                        Entity.MassCalculation.SaveEntity();
+                    }
                 }
             };
         }

@@ -44,9 +44,12 @@
       </Styles>
       <Worksheet ss:Name="Лист1">
         <Table x:FullColumns="1" x:FullRows="1" ss:DefaultRowHeight="15">
-          <Column ss:AutoFitWidth="0" ss:Width="47.25"/>
-          <Column ss:Width="53.25"/>
-          <Column ss:AutoFitWidth="0" ss:Width="86.25"/>
+          <Column ss:AutoFitWidth="0" ss:Width="50"/>
+          <Column ss:Width="60"/>
+          <Column ss:AutoFitWidth="0" ss:Width="40"/>
+          <Column ss:AutoFitWidth="0" ss:Width="70"/>
+          <Column ss:AutoFitWidth="0" ss:Width="150"/>
+          <Column ss:AutoFitWidth="0" ss:Width="40"/>
           <Row ss:Index="2">
             <Cell ss:MergeAcross="2" ss:StyleID="s19">
               <Data ss:Type="String"><xsl:value-of select="rti:FormatDate(Report/@StartDate)"/> - <xsl:value-of select="rti:FormatDate(Report/@EndDate)"/>
@@ -54,6 +57,12 @@
             </Cell>
           </Row>
           <Row>
+            <Cell ss:StyleID="s68">
+              <Data ss:Type="String">№ заявки</Data>
+            </Cell>
+            <Cell ss:StyleID="s68">
+              <Data ss:Type="String">Дата заявки</Data>
+            </Cell>
             <Cell ss:StyleID="s68">
               <Data ss:Type="String">Группа</Data>
             </Cell>
@@ -100,6 +109,16 @@
 
   <xsl:template match="Details/row">
     <Row>
+      <Cell>
+        <Data ss:Type="Number">
+          <xsl:value-of select="@RequestNumber"/>
+        </Data>
+      </Cell>
+      <Cell>
+        <Data ss:Type="String">
+          <xsl:value-of select="rti:FormatDate(@RequestDate)"/>
+        </Data>
+      </Cell>
       <Cell>
         <Data ss:Type="String">
           <xsl:value-of select="@GroupName"/>

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using Rti.Model;
 using Rti.Model.Domain;
@@ -29,6 +30,12 @@ namespace Rti.ViewModel.Entities
             }
         }
 
+
+        public List<int?> PressCounts
+        {
+            get { return new List<int?> {null, 1, 2, 3}; }
+        }
+
         public decimal? AllMaterials
         {
             get
@@ -37,11 +44,23 @@ namespace Rti.ViewModel.Entities
             }
         }
 
+        public decimal? MainSalaryPerPress
+        {
+            get
+            {
+                var pressCount = (PressCount == null || PressCount == 0) ? 1 : PressCount.Value;
+                // Делим на количество прессов
+                return MainSalary / pressCount;
+            }
+        }
+
         protected override void OnPropertyChanged(string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
             if (propertyName.In("MainMaterial", "Rubber", "Clue", "Armature", "Sand", "Textile", "OtherMaterial"))
                 OnPropertyChanged("AllMaterials");
+            if (propertyName.In("MainSalary", "PressCount"))
+                OnPropertyChanged("MainSalaryPerPress");
         }
 
         public override void CustomFillXElement(XElement element)

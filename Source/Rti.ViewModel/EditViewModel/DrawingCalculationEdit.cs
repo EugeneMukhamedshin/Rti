@@ -18,6 +18,7 @@ namespace Rti.ViewModel.EditViewModel
         private string _calculatedPlan;
         private CalculationViewModel _planCalculation;
         private CalculationViewModel _factCalculation;
+
         public DelegateCommand CalculatePlanCommand { get; set; }
         public DelegateCommand CalculateFactCommand { get; set; }
         public DelegateCommand ReportPlanCommand { get; set; }
@@ -110,7 +111,7 @@ namespace Rti.ViewModel.EditViewModel
                 var calculationHistoryItems =
                         RepositoryFactory.GetDrawingCalculationHistoryRepository()
                             .GetByDrawingId(Source.Id)
-                            .Select(o => new CalculationViewModel(o.Calculation, RepositoryFactory) {CalcType = CalculationType.History}).ToList();
+                            .Select(o => new CalculationViewModel(o.Calculation, RepositoryFactory) { CalcType = CalculationType.History }).ToList();
                 var result = new List<CalculationViewModel>();
                 //result.Add(PlanCalculation);
                 if (Source.PlanCalculation != null)
@@ -192,24 +193,21 @@ namespace Rti.ViewModel.EditViewModel
             {
                 if (drawing.Equipment != null && drawing.Equipment.Output != 0)
                 {
-                    var pressCount = (calculation.PressCount == null || calculation.PressCount == 0)
-                        ? 1
-                        : calculation.PressCount.Value;
-                    calculation.MainSalary = (getTime(ProcessType.Loading) + getTime(ProcessType.CuringOrCutting) + getTime(ProcessType.Unloading)) / drawing.Equipment.Output / pressCount * constants.KSt.ToDecimal();
+                    calculation.MainSalary = (getTime(ProcessType.Loading) + getTime(ProcessType.CuringOrCutting) + getTime(ProcessType.Unloading)) / drawing.Equipment.Output * constants.KSt.ToDecimal();
                 }
                 else
                     calculation.MainSalary = 0;
             }
             // Дополнительная зарплата
-            calculation.AdditionalSalary = calculation.MainSalary / 11;
+            calculation.AdditionalSalary = calculation.MainSalaryPerPress / 11;
             // Отчисления ЕСН
-            calculation.FixedTax = (calculation.MainSalary + calculation.AdditionalSalary) * constants.KEsn.ToDecimal() / 100;
+            calculation.FixedTax = (calculation.MainSalaryPerPress + calculation.AdditionalSalary) * constants.KEsn.ToDecimal() / 100;
             // Общецеховые
-            calculation.TotalDivision = (calculation.MainSalary + calculation.AdditionalSalary) * constants.KObCeh.ToDecimal() / 100;
+            calculation.TotalDivision = (calculation.MainSalaryPerPress + calculation.AdditionalSalary) * constants.KObCeh.ToDecimal() / 100;
             // Общепроизводственные
-            calculation.TotalManufacture = (calculation.MainSalary + calculation.AdditionalSalary) * constants.KObPr.ToDecimal() / 100;
+            calculation.TotalManufacture = (calculation.MainSalaryPerPress + calculation.AdditionalSalary) * constants.KObPr.ToDecimal() / 100;
             // Итого (1)
-            calculation.MainSummary = calculation.AllMaterials + calculation.Transport + calculation.MainSalary + calculation.AdditionalSalary + calculation.FixedTax + calculation.TotalDivision +
+            calculation.MainSummary = calculation.AllMaterials + calculation.Transport + calculation.MainSalaryPerPress + calculation.AdditionalSalary + calculation.FixedTax + calculation.TotalDivision +
                          calculation.TotalManufacture;
             // Электроэнергия для формовых
             if (drawing.Equipment != null && drawing.Equipment.Output != 0)

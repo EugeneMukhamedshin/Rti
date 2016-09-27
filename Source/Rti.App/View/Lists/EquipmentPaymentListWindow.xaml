@@ -6,7 +6,7 @@
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
-    Title="Журнал оплаты оснастки" Height="450" Width="1200"
+    Title="Журнал оснастки" Height="450" Width="1200"
     >
 
     <Grid>
