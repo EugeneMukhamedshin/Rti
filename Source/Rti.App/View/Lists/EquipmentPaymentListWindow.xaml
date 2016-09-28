@@ -27,6 +27,7 @@
             <Button Content="++" Command="{Binding AddEquipmentPaymentToCurrentRequestCommand}" Width="32" Height="32" Margin="5" TabIndex="4" Padding="0"></Button>
             <Button Content="{StaticResource DeleteImage}" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5" TabIndex="5"></Button>
             <Button Content="{StaticResource EditImage}" Command="{Binding EditEquipmentPaymentCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5" TabIndex="6"/>
+            <Button Content="Показать оснастку..." Command="{Binding EditEquipmentCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="120" Height="32" Margin="5" TabIndex="6"/>
         </StackPanel>
         <dxg:GridControl TabIndex="7" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2" CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText">
             <dxmvvm:Interaction.Behaviors>

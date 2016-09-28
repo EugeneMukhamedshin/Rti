@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
+using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
 
@@ -13,6 +14,7 @@ namespace Rti.ViewModel.Lists
         public DelegateCommand AddEquipmentPaymentCommand { get; set; }
         public DelegateCommand AddEquipmentPaymentToCurrentDrawingCommand { get; set; }
         public DelegateCommand EditEquipmentPaymentCommand { get; set; }
+        public DelegateCommand EditEquipmentCommand { get; set; }
         public DelegateCommand RefreshCommand { get; set; }
 
         public DateTime StartDate { get; set; }
@@ -35,12 +37,24 @@ namespace Rti.ViewModel.Lists
                 "Изменить оплату",
                 o => o != null,
                 o => EditEquipmentPayment((EquipmentPaymentViewModel)o));
+            EditEquipmentCommand = new DelegateCommand(
+                "Изменить оснастку",
+                o => o != null,
+                o => EditEquipment((EquipmentPaymentViewModel)o));
             RefreshCommand = new DelegateCommand(
                 "Обновить",
                 o => true,
                 o => Refresh());
             StartDate = DateTime.Today.AddMonths(-1);
             EndDate = DateTime.Today;
+        }
+
+        private void EditEquipment(EquipmentPaymentViewModel equipmentPayment)
+        {
+            var equipment = equipmentPayment.Drawing.Equipment;
+            var edit = new EquipmentEdit("Изменение оснастки", equipment, !EditMode, ViewService, RepositoryFactory);
+            edit.Refresh();
+            ViewService.ShowViewDialog(edit);
         }
 
         private void AddEquipmentPayment()
@@ -119,6 +133,8 @@ namespace Rti.ViewModel.Lists
         {
             base.RequeryCommandsOnSelectionChanged();
             AddEquipmentPaymentToCurrentDrawingCommand.RequeryCanExecute();
-        }
+            AddEquipmentPaymentCommand.RequeryCanExecute();
+            EditEquipmentPaymentCommand.RequeryCanExecute();
+            EditEquipmentCommand.RequeryCanExecute();}
     }
 }
