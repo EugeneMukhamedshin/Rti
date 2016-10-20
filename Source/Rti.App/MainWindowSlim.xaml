@@ -64,7 +64,7 @@
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.Column="2">
-                <dx:DropDownButton Content="Справочники" ButtonKind="Toggle" PopupDropAlignment="Bottom" IsEnabled="{Binding HasFullAccess}">
+                <dx:DropDownButton Content="Справочники" ButtonKind="Toggle" PopupDropAlignment="Bottom" IsEnabled="{Binding HasFullAccess}" IsPopupOpen="{Binding IsReturnFromDictionary, Mode=TwoWay}">
                     <WrapPanel Width="370" Margin="5">
                         <Button Height="24" Content="Заказчики" Command="{Binding OpenCustomersCommand}"/>
                         <Button Height="24" Content="Поставщики" Command="{Binding OpenSuppliersCommand}"/>
@@ -89,7 +89,7 @@
                 </Button>
             </StackPanel>
             <StackPanel Grid.Row="3" Grid.Column="2">
-                <dx:DropDownButton ButtonKind="Toggle" PopupDropAlignment="Bottom" Content="Журналы" IsEnabled="{Binding HasJournalsAccess}">
+                <dx:DropDownButton ButtonKind="Toggle" PopupDropAlignment="Bottom" Content="Журналы" IsEnabled="{Binding HasJournalsAccess}" IsPopupOpen="{Binding IsReturnFromJournals, Mode=TwoWay}">
                     <WrapPanel Width="370" Margin="5">
                         <Button Height="24" Content="Обрезка облоя" Command="{Binding OpenShavingRecordsCommand}"/>
                         <Button Height="24" Content="Приход материала" Command="{Binding OpenMaterialArrivalRecordsCommand}"/>
@@ -104,7 +104,7 @@
                 <Button Content="Учет материалов" Command="{Binding OpenMaterialMovingsReportCommand}"/>
             </StackPanel>
             <StackPanel Grid.Row="2" Grid.Column="3">
-                <dx:DropDownButton ButtonKind="Toggle" PopupDropAlignment="Bottom" Content="Отчеты" IsEnabled="{Binding HasReportsAccess}">
+                <dx:DropDownButton ButtonKind="Toggle" PopupDropAlignment="Bottom" Content="Отчеты" IsEnabled="{Binding HasReportsAccess}" IsPopupOpen="{Binding IsReturnFromReports, Mode=TwoWay}">
                     <WrapPanel Width="280" Margin="5">
                         <Button Height="24" Width="250" FontSize="12" Content="Сводный отчет по способу изготовления" Command="{Binding OpenRequestsByMethodsReportCommand}"/>
                         <Button Height="24" Width="250" FontSize="12" Content="Заказы и отгрузка по чертежу" Command="{Binding OpenDrawingShipmentsReportCommand}"/>
