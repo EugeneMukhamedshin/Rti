@@ -35,7 +35,7 @@
             </dxmvvm:Interaction.Behaviors>
             <dxg:GridControl.Columns>
                 <dxg:GridColumn FieldName="SortOrder" Header="№" UnboundType="Integer" ReadOnly="True" Width="50"/>
-                <dxg:GridColumn FieldName="FullName" Header="ФИО" UnboundType="Object" Width="200"/>
+                <dxg:GridColumn FieldName="FullName" Header="ФИО" UnboundType="Object" Width="250"/>
                 <dxg:GridColumn FieldName="Code" Header="Таб. номер" UnboundType="Object" Width="120"/>
                 <dxg:GridColumn FieldName="JobName" Header="Должность" UnboundType="Object" Width="200"/>
             </dxg:GridControl.Columns>

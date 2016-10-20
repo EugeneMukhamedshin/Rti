@@ -39,19 +39,24 @@ SELECT
   si.last_shipment_date,
   rd.equipment_lead_time,
   r.work_start_date,
-  CASE 
-    WHEN IFNULL(si.not_shipped_count, 1) AND r.ship_date <= CURRENT_DATE() THEN 5 
-    WHEN si.not_shipped_count = 0 THEN 4 
-    WHEN r.work_start_date IS NULL THEN 0 
-    WHEN r.work_start_date IS NOT NULL AND DATEDIFF(r.ship_date, IFNULL(r.work_start_date, r.reg_date)) > r.lead_time THEN 1 
-    WHEN r.work_start_date IS NOT NULL AND DATEDIFF(r.ship_date, IFNULL(r.work_start_date, r.reg_date)) = r.lead_time THEN 2 
-    WHEN r.work_start_date IS NOT NULL AND DATEDIFF(r.ship_date, IFNULL(r.work_start_date, r.reg_date)) < r.lead_time THEN 3
-  END request_status
+  CASE WHEN IFNULL(si.not_shipped_count, 1) AND
+      r.ship_date <= CURRENT_DATE() THEN 5 WHEN si.not_shipped_count = 0 THEN 4 WHEN r.work_start_date IS NULL THEN 0 WHEN r.work_start_date IS NOT NULL AND
+      DATEDIFF(r.ship_date, IFNULL(r.work_start_date, r.reg_date)) > r.lead_time THEN 1 WHEN r.work_start_date IS NOT NULL AND
+      DATEDIFF(r.ship_date, IFNULL(r.work_start_date, r.reg_date)) = r.lead_time THEN 2 WHEN r.work_start_date IS NOT NULL AND
+      DATEDIFF(r.ship_date, IFNULL(r.work_start_date, r.reg_date)) < r.lead_time THEN 3 END request_status,
+  rd.details
 FROM requests r
   LEFT JOIN (SELECT
       rd.request_id,
-      MAX(rd.equipment_lead_time) equipment_lead_time
+      MAX(rd.equipment_lead_time) equipment_lead_time,
+      GROUP_CONCAT(DISTINCT CONCAT(d.name, ' ', g.name, '.', dr.name)) details
     FROM request_details rd
+      INNER JOIN details d
+        ON rd.detail_id = d.id
+      INNER JOIN drawings dr
+        ON rd.drawing_id = dr.id
+      INNER JOIN groups g
+        ON rd.group_id = g.id
     GROUP BY rd.request_id) rd
     ON r.id = rd.request_id
   LEFT JOIN (SELECT
@@ -95,7 +100,10 @@ AND r.reg_date BETWEEN :p_start_date AND :p_end_date")
                         LastShipmentDate = (DateTime?)objects[6],
                         EquipmentLeadTime = (int?)objects[7],
                         WorkStartDate = (DateTime?)objects[8],
-                        Status = (RequestStatus)Convert.ToInt32(objects[9])}, objects => objects.Cast<RequestsReportRow>().ToList())).List<RequestsReportRow>(), "");
+                        Status = (RequestStatus)Convert.ToInt32(objects[9]),
+                        Details = (string)objects[10]
+                    },
+                    objects => objects.Cast<RequestsReportRow>().ToList())).List<RequestsReportRow>(), "");
         }
 
         public IList<Request> GetUnpaid()

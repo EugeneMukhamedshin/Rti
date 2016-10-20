@@ -18,9 +18,8 @@ namespace Rti.ViewModel.Lists
 
         protected override IEnumerable<MaterialViewModel> GetItems()
         {
-            return RepositoryFactory.GetMaterialRepository().GetAllActive().Select(o => new MaterialViewModel(o, RepositoryFactory));
+            return RepositoryFactory.GetMaterialRepository().GetAllActive().Select(o => new MaterialViewModel(o, RepositoryFactory)).OrderBy(o => o.Name);
         }
-
         protected override MaterialViewModel DoCreateNewEntity()
         {
             return new MaterialViewModel(null, RepositoryFactory)

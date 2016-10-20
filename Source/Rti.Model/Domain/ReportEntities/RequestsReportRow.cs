@@ -29,5 +29,6 @@ namespace Rti.Model.Domain.ReportEntities
         public DateTime? LastShipmentDate { get; set; }
         public int? EquipmentLeadTime { get; set; }
         public RequestStatus Status { get; set; }
+        public string Details { get; set; }
     }
 }

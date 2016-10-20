@@ -60,6 +60,7 @@
                             </DataTemplate>
                         </dxg:GridColumn.CellTemplate>
                     </dxg:GridColumn>
+                    <dxg:GridColumn FieldName="Details" Header="Детали" Width="120"/>
                     <dxg:GridColumn FieldName="WorkStartDate" Header="Дата запуска в производство" Width="100"/>
                     <dxg:GridColumn FieldName="EquipmentLeadTime" Header="Срок изготовления оснастки " Width="100"/>
                     <dxg:GridColumn FieldName="LeadTime" Header="Срок изготовления" Width="100"/>

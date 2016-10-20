@@ -22,7 +22,8 @@ namespace Rti.ViewModel.Lists
 
         public EquipmentPaymentList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(editMode, viewService, repositoryFactory)
-        {TypeMaps.Add(new Tuple<Type, Type>(typeof(EquipmentPaymentViewModel), typeof(EditViewModel.EquipmentPaymentEdit)));
+        {
+            TypeMaps.Add(new Tuple<Type, Type>(typeof(EquipmentPaymentViewModel), typeof(EditViewModel.EquipmentPaymentEdit)));
 
             AddEquipmentPaymentCommand = new DelegateCommand(
                 "Добавить оплату",

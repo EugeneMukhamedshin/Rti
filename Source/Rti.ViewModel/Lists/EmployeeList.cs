@@ -18,7 +18,7 @@ namespace Rti.ViewModel.Lists
 
         protected override IEnumerable<EmployeeViewModel> GetItems()
         {
-            return RepositoryFactory.GetEmployeeRepository().GetAllActive().Select(o => new EmployeeViewModel(o, RepositoryFactory));
+            return RepositoryFactory.GetEmployeeRepository().GetAllActive().Select(o => new EmployeeViewModel(o, RepositoryFactory)).OrderBy(o => o.FullName);
         }
 
         protected override EmployeeViewModel DoCreateNewEntity()
