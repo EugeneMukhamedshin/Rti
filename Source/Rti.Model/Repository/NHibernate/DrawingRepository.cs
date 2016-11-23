@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using NHibernate.Criterion;
 using NHibernate.Linq;
+using NHibernate.Transform;
 using Rti.Model.Domain;
 
 namespace Rti.Model.Repository.NHibernate
@@ -36,7 +37,33 @@ namespace Rti.Model.Repository.NHibernate
 
         public IList<Drawing> GetAllInWork()
         {
-            return GetAllActive();
+            var ids = ExecuteFuncOnSession(
+                s => s.CreateSQLQuery(@"
+SELECT DISTINCT
+  t.drawing_id
+FROM (SELECT
+    rd.id,
+    rd.drawing_id,
+    rd.count,
+    SUM(IFNULL(wird.done_count, 0)) done_count
+  FROM request_details rd
+    INNER JOIN requests r
+      ON rd.request_id = r.id
+    LEFT JOIN work_item_request_details wird
+      ON rd.id = wird.request_detail_id
+    LEFT JOIN work_items wi
+      ON wird.work_item_id = wi.id
+  WHERE rd.is_deleted = 0
+  AND r.is_deleted = 0
+  GROUP BY rd.id
+  HAVING rd.count > SUM(IFNULL(wird.done_count, 0))) t")
+                    .SetResultTransformer(
+                        new ResultTransformer(
+                            fields =>
+                                Convert.ToInt32(fields[0]),
+                            objects => objects.Cast<int>().ToList()))
+                    .List<int>(), "");
+            return ExecuteFuncOnQueryOver(q => q.WhereRestrictionOn(o => o.Id).IsIn(ids.ToArray()).OrderBy(o => o.CreationDate).Asc.List());
         }
     }
 }

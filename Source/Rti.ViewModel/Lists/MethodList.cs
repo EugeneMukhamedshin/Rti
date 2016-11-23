@@ -22,7 +22,8 @@ namespace Rti.ViewModel.Lists
             return
                 RepositoryFactory.GetMethodRepository()
                     .GetAllActive()
-                    .Select(m => new MethodViewModel(m, RepositoryFactory));
+                    .Select(m => new MethodViewModel(m, RepositoryFactory))
+                    .OrderBy(o => o.Name);
         }
 
         protected override MethodViewModel DoCreateNewEntity()

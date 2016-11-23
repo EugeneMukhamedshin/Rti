@@ -68,7 +68,7 @@
                     <WrapPanel Width="370" Margin="5">
                         <Button Height="24" Content="Заказчики" Command="{Binding OpenCustomersCommand}"/>
                         <Button Height="24" Content="Поставщики" Command="{Binding OpenSuppliersCommand}"/>
-                        <Button Height="24" Content="Исполнители" Command="{Binding OpenManufacturersCommand}"/>
+                        <Button Height="24" Content="Реквизиты организации" Command="{Binding OpenManufacturersCommand}"/>
                         <Button Height="24" Content="Водители" Command="{Binding OpenDriversCommand}"/>
                         <Button Height="24" Content="Должности" Command="{Binding OpenJobsCommand}"/>
                         <Button Height="24" Content="Сотрудники" Command="{Binding OpenEmployeesCommand}"/>
@@ -78,7 +78,7 @@
                         <Button Height="24" Content="Детали" Command="{Binding OpenDetailsCommand}"/>
                         <Button Height="24" Content="Оборудование" Command="{Binding OpenMachinesCommand}"/>
                         <Button Height="24" Content="Константы" Command="{Binding OpenConstantsCommand}"/>
-                        <Button Height="24" Content="Способы изг." Command="{Binding OpenMethodsCommand}"/>
+                        <Button Height="24" Content="Тех. процесс" Command="{Binding OpenMethodsCommand}"/>
                         <Button Height="24" Content="Ед. изм." Command="{Binding OpenMeasureUnitsCommand}"/>
                     </WrapPanel>
                 </dx:DropDownButton>

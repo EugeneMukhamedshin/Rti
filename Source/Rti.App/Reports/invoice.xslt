@@ -1654,7 +1654,7 @@
           <Row ss:AutoFitHeight="0" ss:Height="12">
             <Cell ss:Index="2" ss:MergeAcross="36" ss:StyleID="s197">
               <Data ss:Type="String">
-                <xsl:value-of select="concat('Всего наименований ', set[@name='Summary']/row/@Count)"/>
+                <xsl:value-of select="concat('Всего наименований: ', set[@name='Summary']/row/@Count)"/>
               </Data>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>
@@ -1665,7 +1665,7 @@
             </Cell>
             <Cell ss:MergeAcross="34" ss:StyleID="s151">
               <Data ss:Type="String">
-                <xsl:value-of select="concat(concat(concat(concat('Всего на сумму ', rti:GetRepresentation(set[@name='Summary']/row/@SumWithNds)), ', в т. ч. НДС-18% - '), set[@name='Summary']/row/@Nds), ' руб.')"/>
+                <xsl:value-of select="concat(concat(concat(concat('Всего на сумму: ', rti:GetRepresentation(set[@name='Summary']/row/@SumWithNds)), ', в т. ч. НДС-18% - '), set[@name='Summary']/row/@Nds), ' руб.')"/>
               </Data>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>

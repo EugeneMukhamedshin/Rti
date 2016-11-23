@@ -62,8 +62,8 @@
                     </dxg:GridColumn>
                     <dxg:GridColumn FieldName="Details" Header="Детали" Width="120"/>
                     <dxg:GridColumn FieldName="WorkStartDate" Header="Дата запуска в производство" Width="100"/>
-                    <dxg:GridColumn FieldName="EquipmentLeadTime" Header="Срок изготовления оснастки " Width="100"/>
-                    <dxg:GridColumn FieldName="LeadTime" Header="Срок изготовления" Width="100"/>
+                    <dxg:GridColumn FieldName="EquipmentLeadTime" Header="Срок изготовления оснастки, дней" Width="100"/>
+                    <dxg:GridColumn FieldName="LeadTime" Header="Срок изготовления, дней" Width="100"/>
                     <dxg:GridColumn FieldName="ShipDate" Header="Дата отгрузки" Width="100"/>
                     <dxg:GridColumn FieldName="Status" Header="Статус" Width="50">
                         <dxg:GridColumn.CellTemplateSelector>

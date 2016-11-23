@@ -19,12 +19,12 @@ namespace Rti.ViewModel.Lists
             TypeMaps.Add(new Tuple<Type, Type>(typeof(DetailViewModel), typeof(DetailEdit)));
         }
 
-        protected override IEnumerable<DetailViewModel> GetItems()
-        {
+        protected override IEnumerable<DetailViewModel> GetItems(){
             return
                 RepositoryFactory.GetDetailRepository()
                     .GetAllActive()
-                    .Select(m => new DetailViewModel(m, RepositoryFactory));
+                    .Select(m => new DetailViewModel(m, RepositoryFactory))
+                    .OrderBy(o => o.Name);
         }
 
         protected override DetailViewModel DoCreateNewEntity()

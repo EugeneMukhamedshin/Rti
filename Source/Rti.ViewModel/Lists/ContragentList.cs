@@ -24,7 +24,7 @@ namespace Rti.ViewModel.Lists
                     case ContragentType.Supplier:
                         return "Поставщики";
                     case ContragentType.Manufacturer:
-                        return "Исполнители";
+                        return "Реквизиты организации";
                     default:
                         return string.Empty;
                 }
@@ -40,7 +40,7 @@ namespace Rti.ViewModel.Lists
 
         protected override IEnumerable<ContragentViewModel> GetItems()
         {
-            return RepositoryFactory.GetContragentRepository().GetAllActive(_listType).Select(o => new ContragentViewModel(o, RepositoryFactory));
+            return RepositoryFactory.GetContragentRepository().GetAllActive(_listType).Select(o => new ContragentViewModel(o, RepositoryFactory)).OrderBy(o => o.FullName);
         }
 
         protected override ContragentViewModel DoCreateNewEntity()

@@ -4,7 +4,7 @@
         xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-        Title="Способы изготовления" Height="400" Width="672">
+        Title="Тех. процесс" Height="400" Width="672">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
