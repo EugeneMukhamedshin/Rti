@@ -17,7 +17,7 @@ namespace Rti.ViewModel.Entities
         }
 
         /// <summary>
-        /// РљРѕР»РёС‡РµСЃС‚РІРѕ СЃСЉРµРјРѕРІ
+        /// Количество съемов
         /// </summary>
         public int TakeOffCount
         {

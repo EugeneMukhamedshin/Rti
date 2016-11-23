@@ -56,8 +56,7 @@ namespace Rti.ViewModel.Lists
         private void AddItem()
         {
             var newItem = DoCreateNewEntity();
-            Items.Add(newItem);
-        }
+            Items.Add(newItem);}
 
         protected override void OnItemsChanged()
         {

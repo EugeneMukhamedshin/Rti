@@ -79,6 +79,8 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new ShippedProductRecordRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.ShippingOrderRecord))
                 return (IRepository<TEntity>)new ShippingOrderRecordRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.Standard))
+                return (IRepository<TEntity>)new StandardRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.WorkItem))
                 return (IRepository<TEntity>)new WorkItemRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.WorkItemEmployeePackage))
@@ -161,6 +163,8 @@ namespace Rti.Model.Repository.NHibernate
 		public IShippedProductRecordRepository GetShippedProductRecordRepository() { return (IShippedProductRecordRepository) GetRepository<Rti.Model.Domain.ShippedProductRecord>(); }
 
 		public IShippingOrderRecordRepository GetShippingOrderRecordRepository() { return (IShippingOrderRecordRepository) GetRepository<Rti.Model.Domain.ShippingOrderRecord>(); }
+
+		public IStandardRepository GetStandardRepository() { return (IStandardRepository) GetRepository<Rti.Model.Domain.Standard>(); }
 
 		public IWorkItemRepository GetWorkItemRepository() { return (IWorkItemRepository) GetRepository<Rti.Model.Domain.WorkItem>(); }
 
@@ -575,6 +579,16 @@ namespace Rti.Model.Repository.NHibernate
 			var result = queryOver;
 			result = result.Fetch(o => o.Customer).Default;
 			result = result.Fetch(o => o.Drawing).Default;
+            return result;
+        }
+    }
+
+	public partial class StandardRepository : NHibernateRepository<Rti.Model.Domain.Standard>, IStandardRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.Standard, Rti.Model.Domain.Standard> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Standard, Rti.Model.Domain.Standard> queryOver)
+        {
+			var result = queryOver;
             return result;
         }
     }

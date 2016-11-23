@@ -65,12 +65,12 @@
                     <dxg:GridColumn FieldName="Request.InvoiceDate" Header="Дата" Width="80"/>
                     <dxg:GridColumn FieldName="Request.Customer.Name" Header="Заказчик" Width="100"/>
                     <dxg:GridColumn FieldName="Request.Sum" Header="Сумма по счету, руб." Width="100"/>
+                    <dxg:GridColumn FieldName="InvoiceFacture" Header="Счет фактура" Width="100"/>
                 </dxg:GridControlBand>
                 <dxg:GridControlBand Header="Оплата">
                     <dxg:GridColumn FieldName="PaymentDocNumber" Header="Номер" Width="50"/>
                     <dxg:GridColumn FieldName="PaymentDate" Header="Дата" Width="80"/>
                     <dxg:GridColumn FieldName="Sum" Header="Сумма оплаты, руб." Width="100"/>
-                    <dxg:GridColumn FieldName="InvoiceFacture" Header="Счет фактура" Width="100"/>
                 </dxg:GridControlBand>
                 <dxg:GridControlBand Header="Отгрузка">
                     <dxg:GridColumn FieldName="ShipmentDates" Header="Даты отгрузок" Width="80"/>

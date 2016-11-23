@@ -8,5 +8,6 @@ namespace Rti.Model.Repository.Interfaces
     {
         IList<ShipmentItem> GetByShipmentId(int shipmentId);
         IList<ShipmentItem> GetFollowingItems(int drawingId, DateTime shipmentDate, int shipmentOrder);
+        IList<ShipmentItem> GetByShipmentIds(int[] shipmentIds);
     }
 }

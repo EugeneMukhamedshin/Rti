@@ -6,7 +6,7 @@
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
-    Title="Журнал распоряжений на отгрузку" Height="350" Width="1024"
+    Title="Реестр отгрузок" Height="350" Width="1024"
     >
 
     <Grid>
@@ -48,9 +48,11 @@
             </dxg:GridControl.Resources>
             <dxg:GridControl.Columns>
                 <dxg:GridColumn FieldName="Date" Header="Дата" ReadOnly="True" Width="80"/>
-                <dxg:GridColumn FieldName="SortOrder" Header="Номер" Width="50"/>
-                <dxg:GridColumn FieldName="Request.Customer.Name" Header="Заказчик" Width="200"/>
-                <dxg:GridColumn FieldName="Request.Number" Header="Номер счета" Width="80"/>
+                <dxg:GridColumn FieldName="SortOrder" Header="Номер накладной" Width="80"/>
+                <dxg:GridColumn FieldName="Details" Header="Детали" Width="250"/>
+                <dxg:GridColumn FieldName="Request.Customer.Name" Header="Заказчик" Width="250"/>
+                <dxg:GridColumn FieldName="Request.Number" Header="Номер заявки" Width="80"/>
+                <dxg:GridColumn FieldName="Request.RegDate" Header="Дата заявки" Width="80"/>
                 <dxg:GridColumn FieldName="Request.InvoiceDate" Header="Дата счета" Width="80"/>
             </dxg:GridControl.Columns>
             <dxg:GridControl.View>

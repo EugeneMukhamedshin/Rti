@@ -18,7 +18,6 @@ namespace Rti.ViewModel.Entities
                 return Drawing != null && Drawing.Equipment != null && Drawing.Equipment.ExistanceEnum != Existance.Exist;
             }
         }
-
         public string FullDetailName
         {
             get { return string.Format("{0} {1}.{2}", Detail == null ? null : Detail.Name, Drawing.Group == null ? null : Drawing.Group.Name, Drawing.Name); }

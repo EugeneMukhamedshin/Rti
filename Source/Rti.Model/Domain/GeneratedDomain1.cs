@@ -410,6 +410,8 @@ namespace Rti.Model.Domain
 	{
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
+		[Field("payment_doc_number")]
+		public virtual Int32? PaymentDocNumber { get; set; }
 		[Field("payment_date")]
 		public virtual DateTime PaymentDate { get; set; }
 		[Field("sum")]
@@ -968,6 +970,38 @@ namespace Rti.Model.Domain
 		public virtual Contragent Customer { get; set; }
 		[Reference("drawing_id", false)]
 		public virtual Drawing Drawing { get; set; }
+	}
+
+	// The class for standard
+	[Table("standard")]
+	public partial class Standard: IIdentifiedEntity
+	{
+		[Field("id")]
+		public virtual Int32 Id { get; protected set; }
+		[Field("q1")]
+		public virtual String Q1 { get; set; }
+		[Field("q2")]
+		public virtual String Q2 { get; set; }
+		[Field("q3")]
+		public virtual String Q3 { get; set; }
+		[Field("q4")]
+		public virtual String Q4 { get; set; }
+		[Field("q5")]
+		public virtual String Q5 { get; set; }
+		[Field("q6")]
+		public virtual String Q6 { get; set; }
+		[Field("q7")]
+		public virtual String Q7 { get; set; }
+		[Field("q8")]
+		public virtual String Q8 { get; set; }
+		[Field("q9")]
+		public virtual String Q9 { get; set; }
+		[Field("q10")]
+		public virtual String Q10 { get; set; }
+		[Field("q11")]
+		public virtual String Q11 { get; set; }
+		[Field("q12")]
+		public virtual String Q12 { get; set; }
 	}
 
 	// The class for work_items

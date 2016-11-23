@@ -8,6 +8,7 @@
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     xmlns:components="clr-namespace:Rti.App.View.Components"
+    xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys"
     Title="Индивидуальный наряд" Height="600" Width="950">
     <Grid>
         <Grid>
@@ -63,6 +64,24 @@
                                 </DataTemplate>
                             </Setter.Value>
                         </Setter>
+                        <Setter Property="CellStyle">
+                            <Setter.Value>
+                                <Style BasedOn="{StaticResource {dxgt:GridRowThemeKey ResourceKey=LightweightCellStyle}}" TargetType="{x:Type dxg:LightweightCellEditor}">
+                                    <Setter Property="Background" Value="White"/>
+                                </Style>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="ReadOnly" Value="True">
+                                <Setter Property="CellStyle">
+                                    <Setter.Value>
+                                        <Style BasedOn="{StaticResource {dxgt:GridRowThemeKey ResourceKey=LightweightCellStyle}}" TargetType="{x:Type dxg:LightweightCellEditor}">
+                                            <Setter Property="Background" Value="#D2D2D2"/>
+                                        </Style>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
                 </dxg:GridControl.Resources>
                 <dxg:GridControl.Columns>

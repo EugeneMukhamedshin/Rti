@@ -9,7 +9,9 @@ using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Threading;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
+using System.Xml.XPath;
 using DevExpress.Xpf.Core;
 using log4net;
 using log4net.Config;
@@ -33,8 +35,7 @@ namespace Rti.App
         private readonly ILog _log = LogManager.GetLogger(typeof(App));
         private IViewService _viewService;
 
-        protected override void OnStartup(StartupEventArgs e)
-        {
+        protected override void OnStartup(StartupEventArgs e){
             try
             {
                 XmlConfigurator.Configure();
@@ -45,7 +46,6 @@ namespace Rti.App
                     new FrameworkPropertyMetadata(language));
                 base.OnStartup(e);
                 var repositoryFactory = new NHibernateRepositoryFactory();
-
                 _viewService = new ViewService();
 
                 var isDebug = e.Args.Any(arg => arg.ToLower().Equals("debug=true"));

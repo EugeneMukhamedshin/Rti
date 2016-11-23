@@ -42,6 +42,7 @@ namespace Rti.Model.Repository.Interfaces
 		IShipmentItemWorkItemRepository GetShipmentItemWorkItemRepository();
 		IShippedProductRecordRepository GetShippedProductRecordRepository();
 		IShippingOrderRecordRepository GetShippingOrderRecordRepository();
+		IStandardRepository GetStandardRepository();
 		IWorkItemRepository GetWorkItemRepository();
 		IWorkItemEmployeePackageRepository GetWorkItemEmployeePackageRepository();
 		IWorkItemEmployeePackageMachineRepository GetWorkItemEmployeePackageMachineRepository();
@@ -85,6 +86,7 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IShipmentItemWorkItemRepository : IRepository<Rti.Model.Domain.ShipmentItemWorkItem> { }
 	public partial interface IShippedProductRecordRepository : IRepository<Rti.Model.Domain.ShippedProductRecord> { }
 	public partial interface IShippingOrderRecordRepository : IRepository<Rti.Model.Domain.ShippingOrderRecord> { }
+	public partial interface IStandardRepository : IRepository<Rti.Model.Domain.Standard> { }
 	public partial interface IWorkItemRepository : IRepository<Rti.Model.Domain.WorkItem> { }
 	public partial interface IWorkItemEmployeePackageRepository : IRepository<Rti.Model.Domain.WorkItemEmployeePackage> { }
 	public partial interface IWorkItemEmployeePackageMachineRepository : IRepository<Rti.Model.Domain.WorkItemEmployeePackageMachine> { }

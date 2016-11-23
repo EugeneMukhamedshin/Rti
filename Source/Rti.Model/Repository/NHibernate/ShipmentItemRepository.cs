@@ -24,5 +24,10 @@ namespace Rti.Model.Repository.NHibernate
                               shipment.SortOrder > shipmentOrder))
                 .List());
         }
+
+        public IList<ShipmentItem> GetByShipmentIds(int[] shipmentIds)
+        {
+            return ExecuteFuncOnQueryOver(q => q.WhereRestrictionOn(o => o.Shipment.Id).IsIn(shipmentIds).List());
+        }
     }
 }

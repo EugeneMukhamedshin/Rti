@@ -145,12 +145,11 @@ namespace Rti.ViewModel.Lists
 
         private IEnumerable<RequestsReportRow> GetItems()
         {
-            return RepositoryFactory.GetRequestRepository().GetRequestReport(StartDate, EndDate);
+            return RepositoryFactory.GetRequestRepository().GetRequestReport(StartDate, EndDate).OrderByDescending(o => o.RegDate);
         }
 
         public DateTime EndDate
-        {
-            get { return _endDate; }
+        {get { return _endDate; }
             set
             {
                 if (value.Equals(_endDate)) return;

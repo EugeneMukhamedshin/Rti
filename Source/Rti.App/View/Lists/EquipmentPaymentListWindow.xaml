@@ -24,7 +24,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Button Content="{StaticResource AddImage}" Command="{Binding AddEquipmentPaymentCommand}" Width="32" Height="32" Margin="5" TabIndex="4"></Button>
-            <Button Content="++" Command="{Binding AddEquipmentPaymentToCurrentRequestCommand}" Width="32" Height="32" Margin="5" TabIndex="4" Padding="0"></Button>
+            <Button Content="++" Command="{Binding AddEquipmentPaymentToCurrentDrawingCommand}" Width="32" Height="32" Margin="5" TabIndex="4" Padding="0"></Button>
             <Button Content="{StaticResource DeleteImage}" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5" TabIndex="5"></Button>
             <Button Content="{StaticResource EditImage}" Command="{Binding EditEquipmentPaymentCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5" TabIndex="6"/>
             <Button Content="Показать оснастку..." Command="{Binding EditEquipmentCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="120" Height="32" Margin="5" TabIndex="6"/>
@@ -73,6 +73,7 @@
                     <dxg:GridColumn FieldName="Drawing.Equipment.Price" Header="Цена, руб." Width="80"/>
                 </dxg:GridControlBand>
                 <dxg:GridControlBand Header="Оплата">
+                    <dxg:GridColumn FieldName="PaymentDocNumber" Header="Номер" Width="80"/>
                     <dxg:GridColumn FieldName="PaymentDate" Header="Дата" Width="80"/>
                     <dxg:GridColumn FieldName="Sum" Header="Сумма оплаты, руб." Width="80"/>
                 </dxg:GridControlBand>

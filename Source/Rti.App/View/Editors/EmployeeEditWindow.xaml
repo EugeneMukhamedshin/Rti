@@ -39,6 +39,7 @@
                         </dxg:LookUpEditSettings>
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
+                <dxprg:PropertyDefinition Header="Примечание" Path="Note"/>
             </components:PropertyGridResponsible.PropertyDefinitions>
         </components:PropertyGridResponsible>
         <StackPanel Grid.Row="1" Orientation="Horizontal">

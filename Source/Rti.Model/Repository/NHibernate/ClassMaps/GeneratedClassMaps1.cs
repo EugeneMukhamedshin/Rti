@@ -372,6 +372,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 		{
 			Table("equipment_payments");
 			Id(o => o.Id, "id");
+			Map(o => o.PaymentDocNumber, "payment_doc_number");
 			Map(o => o.PaymentDate, "payment_date");
 			Map(o => o.Sum, "sum");
 			Map(o => o.Note, "note");
@@ -902,6 +903,34 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.IsDeleted, "is_deleted");
 			References(o => o.Customer, "customer_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
+			OnInitialized();
+		}
+	}
+
+	// The classmap for standard
+	public partial class StandardMap : BaseMap<Rti.Model.Domain.Standard>
+	{
+		public StandardMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("standard");
+			Id(o => o.Id, "id");
+			Map(o => o.Q1, "q1");
+			Map(o => o.Q2, "q2");
+			Map(o => o.Q3, "q3");
+			Map(o => o.Q4, "q4");
+			Map(o => o.Q5, "q5");
+			Map(o => o.Q6, "q6");
+			Map(o => o.Q7, "q7");
+			Map(o => o.Q8, "q8");
+			Map(o => o.Q9, "q9");
+			Map(o => o.Q10, "q10");
+			Map(o => o.Q11, "q11");
+			Map(o => o.Q12, "q12");
 			OnInitialized();
 		}
 	}
