@@ -32,7 +32,7 @@ namespace Rti.Model.Repository.NHibernate
                 s => s.CreateSQLQuery(@"
 SELECT
   wi.id,
-  wi.done_count - IFNULL(siwi.count, 0) not_shipped_count
+  wi.done_count - SUM(IFNULL(siwi.count, 0)) not_shipped_count
 FROM work_items wi
   LEFT JOIN (SELECT
       siwi.work_item_id,
@@ -47,10 +47,13 @@ FROM work_items wi
     ON siwi.work_item_id = wi.id
     AND (siwi.date < :p_date
     OR siwi.date = :p_date
-    AND siwi.sort_order < :p_sort_order)
+    AND siwi.sort_order < :p_sort_order
+    )
 WHERE wi.drawing_id = :p_drawing_id
 AND wi.work_date < :p_date
 AND wi.done_count - IFNULL(siwi.count, 0) > 0
+GROUP BY wi.id,
+         wi.done_count
 ORDER BY wi.work_date, wi.sort_order")
                     .SetInt32("p_drawing_id", drawingId)
                     .SetDateTime("p_date", date)
