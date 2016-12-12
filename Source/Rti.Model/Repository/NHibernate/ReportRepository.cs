@@ -127,6 +127,7 @@ SELECT
   r.number RequestNumber,
   r.reg_date RequestRegDate,
   rd.count RequestCount,
+  wi.done_count DoneCount,
   s.sort_order ShipmentNumber,
   s.date ShipmentDate,
   si.count ShipmentCount
@@ -141,6 +142,12 @@ FROM request_details rd
     ON rd.detail_id = d1.id
   INNER JOIN contragents c
     ON r.customer_id = c.id
+  LEFT JOIN (SELECT
+      request_detail_id,
+      SUM(done_count) done_count
+    FROM work_item_request_details wird
+    GROUP BY wird.request_detail_id) wi
+    ON wi.request_detail_id = rd.id
   LEFT JOIN shipment_items si
     ON si.request_detail_id = rd.id
   LEFT JOIN shipments s
@@ -148,11 +155,10 @@ FROM request_details rd
 WHERE r.reg_date BETWEEN :p_start_date AND :p_end_date
 AND r.is_deleted = 0
 AND d.id = IFNULL(:p_drawing_id, d.id)
-ORDER BY d.id ASC, r.reg_date ASC, s.date ASC";
+ORDER BY d.id ASC, r.reg_date ASC, r.id ASC, s.date ASC";
 
             var result = ExecuteFuncOnSession(
-                s =>
-                {
+                s =>{
                     var query = s.CreateSQLQuery(queryText)
                         .SetResultTransformer(Transformers.AliasToEntityMap);
                     query.SetParameter("p_start_date", startDate)
@@ -173,6 +179,7 @@ ORDER BY d.id ASC, r.reg_date ASC, s.date ASC";
                 CustomerName = o["CustomerName"],
                 RequestRegDate = o["RequestRegDate"],
                 RequestCount = o["RequestCount"],
+                DoneCount = o["DoneCount"],
                 DrawingId = o["DrawingId"],
                 DrawingName = o["DrawingName"],
                 GroupName = o["GroupName"],
@@ -216,6 +223,7 @@ ORDER BY d.id ASC, r.reg_date ASC, s.date ASC";
                                             new XAttribute("RequestNumber", requestGroup.Key.RequestNumber ?? string.Empty),
                                             new XAttribute("RequestRegDate", requestGroup.Key.RequestRegDate ?? string.Empty),
                                             new XAttribute("RequestCount", requestGroup.Key.RequestCount ?? string.Empty),
+                                            new XAttribute("DoneCount", requestGroup.Key.DoneCount ?? string.Empty),
                                             new XAttribute("CustomerName", requestGroup.Key.CustomerName ?? string.Empty),
                                             new XElement("Shipments",
                                                 requestGroup.Select(row =>

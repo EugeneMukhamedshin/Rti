@@ -173,9 +173,10 @@
       <Worksheet ss:Name="Лист1">
         <Table x:FullColumns="1" x:FullRows="1" ss:DefaultRowHeight="15">
           <Column ss:AutoFitWidth="0" ss:Width="82.5"/>
-          <Column ss:AutoFitWidth="0" ss:Width="78.75"/>
-          <Column ss:AutoFitWidth="0" ss:Width="70.5"/>
-          <Column ss:AutoFitWidth="0" ss:Width="113.25"/>
+          <Column ss:AutoFitWidth="0" ss:Width="85"/>
+          <Column ss:AutoFitWidth="0" ss:Width="50"/>
+          <Column ss:AutoFitWidth="0" ss:Width="120.25"/>
+          <Column ss:AutoFitWidth="0" ss:Width="63.75"/>
           <Column ss:AutoFitWidth="0" ss:Width="63.75"/>
           <Column ss:AutoFitWidth="0" ss:Width="73.5"/>
           <Column ss:AutoFitWidth="0" ss:Width="72.75"/>
@@ -267,20 +268,21 @@
         <Data ss:Type="String">Дата регистрации</Data>
       </Cell>
       <Cell ss:StyleID="s17">
-        <Data ss:Type="String">Количество по заявке</Data>
+        <Data ss:Type="String">Кол-во по заявке</Data>
+      </Cell>
+      <Cell ss:StyleID="s17">
+        <Data ss:Type="String">Кол-во изг-ное</Data>
       </Cell>
       <Cell ss:StyleID="s17">
         <Data ss:Type="String">№ накладной</Data>
       </Cell>
-      <Cell ss:StyleID="s17">
-        <Data ss:Type="String">Дата отгрузки</Data>
+      <Cell ss:StyleID="s17"><Data ss:Type="String">Дата отгрузки</Data>
       </Cell>
       <Cell ss:StyleID="s17">
-        <Data ss:Type="String">Количество отгруженного</Data>
+        <Data ss:Type="String">Кол-во отгруженного</Data>
       </Cell>
       <Cell ss:StyleID="s17">
-        <Data ss:Type="String">Разница</Data>
-      </Cell>
+        <Data ss:Type="String">Разница</Data></Cell>
     </Row>
 
     <xsl:apply-templates select="RequestDetails/RequestDetail" />
@@ -340,6 +342,11 @@
               <xsl:value-of select="../../@RequestCount"/>
             </Data>
           </Cell>
+          <Cell ss:StyleID="s20">
+            <Data ss:Type="Number">
+              <xsl:value-of select="../../@DoneCount"/>
+            </Data>
+          </Cell>
         </xsl:when>
         <xsl:otherwise>
           <Cell ss:StyleID="s191">
@@ -355,6 +362,10 @@
             </Data>
           </Cell>
           <Cell ss:StyleID="s21">
+            <Data ss:Type="String">
+            </Data>
+          </Cell>
+          <Cell ss:StyleID="s20">
             <Data ss:Type="String">
             </Data>
           </Cell>

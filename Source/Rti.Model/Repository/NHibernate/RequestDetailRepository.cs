@@ -27,7 +27,7 @@ namespace Rti.Model.Repository.NHibernate
                                  o.RequestDetailStateEnum == RequestDetailState.InProduction)).List());
         }
 
-        public IList<Tuple<int, int, int>> GetRequestsInProductionWithActualDoneCounts(int drawingId, DateTime date)
+        public IList<Tuple<int, int, int>> GetRequestsInProductionWithActualDoneCounts(int drawingId, int onWorkItemId)
         {
             return ExecuteFuncOnSession(
                 s => s.CreateSQLQuery(@"
@@ -45,7 +45,7 @@ FROM (SELECT
       FROM work_item_request_details wird
         INNER JOIN work_items wi
           ON wird.work_item_id = wi.id
-          AND wi.work_date < DATE(:p_date)) wird
+          AND wi.id < :p_on_wi_id) wird
       ON wird.request_detail_id = rd.id
   WHERE rd.drawing_id = :p_drawing_id
   AND rd.is_deleted = 0
@@ -54,9 +54,11 @@ FROM (SELECT
            rd.count) r
   INNER JOIN request_details rd
     ON rd.id = r.id
-WHERE r.count > r.done")
+  INNER JOIN requests r1 ON rd.request_id = r1.id
+WHERE r.count > r.done
+  ORDER BY r1.id, rd.id")
                     .SetInt32("p_drawing_id", drawingId)
-                    .SetDateTime("p_date", date)
+                    .SetInt32("p_on_wi_id", onWorkItemId)
                     .SetResultTransformer(
                         new ResultTransformer(
                             fields =>

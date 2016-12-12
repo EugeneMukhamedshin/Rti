@@ -115,9 +115,8 @@ namespace Rti.ViewModel.EditViewModel
                 var result = new List<CalculationViewModel>();
                 //result.Add(PlanCalculation);
                 if (Source.PlanCalculation != null)
-                    result.AddRange(calculationHistoryItems.Where(o => o.Id != Source.PlanCalculation.Id).OrderByDescending(o => o.CreatedDate));
-                result.Add(FactCalculation);
-                return result;
+                    result.AddRange(calculationHistoryItems.Where(o => o.Id != Source.PlanCalculation.Id).OrderByDescending(o => o.Id));
+                result.Add(FactCalculation);return result;
             }
         }
 
@@ -186,6 +185,8 @@ namespace Rti.ViewModel.EditViewModel
                     calculation.MainMaterial = 0;
             }
 
+            calculation.MainMaterial = calculation.MainMaterial ?? 0;
+
             // Транспортные
             calculation.Transport = constants.KTr.ToDecimal() / 100 * calculation.AllMaterials;
             // Основная зарплата
@@ -202,6 +203,7 @@ namespace Rti.ViewModel.EditViewModel
                 else
                     calculation.MainSalary = 0;
             }
+            calculation.MainSalary = calculation.MainSalary ?? 0;
             // Дополнительная зарплата
             calculation.AdditionalSalary = calculation.MainSalaryPerPress / 11;
             // Отчисления ЕСН
@@ -218,8 +220,7 @@ namespace Rti.ViewModel.EditViewModel
                 calculation.PowerForFormed = (getTime(ProcessType.Loading) + getTime(ProcessType.CuringOrCutting) + getTime(ProcessType.Unloading)) * (flowsheetMachines.First().Machine.TimePrice ?? 0) /
                                  drawing.Equipment.Output;
             else
-                calculation.PowerForFormed = 0;
-            // Электроэнергия прочая
+                calculation.PowerForFormed = 0;// Электроэнергия прочая
             calculation.OtherPower = calculation.MainSummary * constants.KEl.ToDecimal() / 100;
             // Итого (2)
             calculation.MainAndPowerSummary = calculation.MainSummary + calculation.PowerForFormed + calculation.OtherPower;
@@ -259,6 +260,7 @@ namespace Rti.ViewModel.EditViewModel
                     PlanCalculation.OtherMaterial = FactCalculation.OtherMaterial;
                 if (PlanCalculation.MainSalary == null)
                     PlanCalculation.MainSalary = FactCalculation.MainSalary;
+                Calculate(CalculationType.Plan);
             }
             if (calculationType == CalculationType.Plan && !PlanCalculation.IsSaved)
                 SavePlanCalculation();

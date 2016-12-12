@@ -12,9 +12,9 @@ namespace Rti.Model.Repository.Interfaces
         /// Возвращает набор кортежей, Item1 - requestDetailId, Item2 - requestCount, Item3 - doneCount
         /// </summary>
         /// <param name="drawingId"></param>
-        /// <param name="date"></param>
+        /// <param name="onWorkItemId"></param>
         /// <returns></returns>
-        IList<Tuple<int, int, int>> GetRequestsInProductionWithActualDoneCounts(int drawingId, DateTime date);
+        IList<Tuple<int, int, int>> GetRequestsInProductionWithActualDoneCounts(int drawingId, int onWorkItemId);
         IList<RequestDetail> GetRequestDetailsByIds(int[] ids);
         int GetNotShippedCount(int drawingId, DateTime date);
     }

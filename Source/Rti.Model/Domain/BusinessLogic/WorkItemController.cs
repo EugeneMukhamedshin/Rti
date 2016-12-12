@@ -21,7 +21,7 @@ namespace Rti.Model.Domain.BusinessLogic
             // Получаем актуальные остатки по заявкам на текущую дату
             var requestDetailDoneCounts =
                RepositoryFactory.GetRequestDetailRepository()
-                   .GetRequestsInProductionWithActualDoneCounts(workItem.Drawing.Id, workItem.WorkDate);
+                   .GetRequestsInProductionWithActualDoneCounts(workItem.Drawing.Id, workItem.Id);
 
             // Пересчитываем количество деталей по заявкам на текущую дату
             workItem.RequestCount = requestDetailDoneCounts.Sum(o => o.Item2 - o.Item3);
@@ -31,11 +31,10 @@ namespace Rti.Model.Domain.BusinessLogic
             var requestDetails = RepositoryFactory.GetRequestDetailRepository().GetRequestDetailsByIds(requestDetailDoneCounts.Select(o => o.Item1).ToArray());
             var index = 0;
             var dayDoneCount = (workItem.DoneCount ?? 0) - (workItem.RejectedCount ?? 0);
-            foreach (var requestDetail in requestDetails.OrderBy(o => o.Request.RegDate).ThenBy(o => o.SortOrder))
+            foreach (var requestDetail in requestDetails.OrderBy(o => o.Request.RegDate).ThenBy(o => o.Request.Id).ThenBy(o => o.SortOrder))
             {
                 if (dayDoneCount == 0)
-                    break;
-                var detail = new WorkItemRequestDetail
+                    break;var detail = new WorkItemRequestDetail
                 {
                     WorkItem = workItem,
                     RequestDetail = requestDetail,
@@ -57,7 +56,7 @@ namespace Rti.Model.Domain.BusinessLogic
                 RepositoryFactory.GetRequestDetailRepository().Update(detail.RequestDetail);
             }
 
-            var nextWorkItem = RepositoryFactory.GetWorkItemRepository().GetByDrawingId(workItem.Drawing.Id, workItem.WorkDate.AddDays(1)).OrderBy(o => o.WorkDate).FirstOrDefault();
+            var nextWorkItem = RepositoryFactory.GetWorkItemRepository().GetByDrawingId(workItem.Drawing.Id, workItem.WorkDate).OrderBy(o => o.Id).FirstOrDefault(o => o.Id > workItem.Id);
             if (nextWorkItem != null)
             {
                 PostWorkItem(nextWorkItem);
