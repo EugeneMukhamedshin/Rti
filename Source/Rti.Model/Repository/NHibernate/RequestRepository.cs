@@ -12,7 +12,7 @@ namespace Rti.Model.Repository.NHibernate
     {
         public int GetNewRequestNumber()
         {
-            return ExecuteFuncOnQueryOver(q => q.Select(Projections.Max("Number")).SingleOrDefault<int>()) + 1;
+            return ExecuteFuncOnQueryOver(q => q.Where(o => o.RegDate >= new DateTime(DateTime.Today.Year, 1, 1)).Select(Projections.Max("Number")).SingleOrDefault<int>()) + 1;
         }
 
         public Request GetByNumber(int number)

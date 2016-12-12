@@ -89,7 +89,12 @@ namespace Rti.ViewModel.Lists
 
         private void AddRequest()
         {
-            var view = new RequestEdit("Новая заявка", new RequestViewModel(null, RepositoryFactory), false, _viewService, RepositoryFactory);
+            var request = new RequestViewModel(null, RepositoryFactory)
+            {
+                RegDate = DateTime.Today,
+                Number = RepositoryFactory.GetRequestRepository().GetNewRequestNumber()
+            };
+            var view = new RequestEdit("Новая заявка", request, false, _viewService, RepositoryFactory);
             view.Refresh();
             _viewService.ShowViewDialog(view);
             Refresh();
