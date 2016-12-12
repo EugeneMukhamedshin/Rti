@@ -173,7 +173,7 @@ namespace Rti.ViewModel.EditViewModel
             // Было:
             // var material = calculationType == CalculationType.Plan ? drawing.MaterialByPassport : drawing.Material;
             // Стало:
-            var material = drawing.MaterialByPassport;
+            var material = drawing.Material;
             var mass = calculationType == CalculationType.Plan
                 ? drawing.MassCalculation == null ? null : drawing.MassCalculation.CalculatedMass
                 : drawing.MassWithShruff;
@@ -193,7 +193,11 @@ namespace Rti.ViewModel.EditViewModel
             {
                 if (drawing.Equipment != null && drawing.Equipment.Output != 0)
                 {
-                    calculation.MainSalary = (getTime(ProcessType.Loading) + getTime(ProcessType.CuringOrCutting) + getTime(ProcessType.Unloading)) / drawing.Equipment.Output * constants.KSt.ToDecimal();
+                    // Основную зарплату считать по времени агрузки+выгрузки, исключить время вулканизации
+                    // Было:
+                    //calculation.MainSalary = (getTime(ProcessType.Loading) + getTime(ProcessType.CuringOrCutting) + getTime(ProcessType.Unloading)) / drawing.Equipment.Output * constants.KSt.ToDecimal();
+                    // Стало
+                    calculation.MainSalary = (getTime(ProcessType.Loading) + getTime(ProcessType.Unloading)) / drawing.Equipment.Output * constants.KSt.ToDecimal();
                 }
                 else
                     calculation.MainSalary = 0;
@@ -210,8 +214,8 @@ namespace Rti.ViewModel.EditViewModel
             calculation.MainSummary = calculation.AllMaterials + calculation.Transport + calculation.MainSalaryPerPress + calculation.AdditionalSalary + calculation.FixedTax + calculation.TotalDivision +
                          calculation.TotalManufacture;
             // Электроэнергия для формовых
-            if (drawing.Equipment != null && drawing.Equipment.Output != 0)
-                calculation.PowerForFormed = getTime(ProcessType.CuringOrCutting) * flowsheetMachines.Max(fm => fm.Machine.TimePrice) /
+            if (drawing.Equipment != null && drawing.Equipment.Output != 0 && flowsheetMachines.Any())
+                calculation.PowerForFormed = (getTime(ProcessType.Loading) + getTime(ProcessType.CuringOrCutting) + getTime(ProcessType.Unloading)) * (flowsheetMachines.First().Machine.TimePrice ?? 0) /
                                  drawing.Equipment.Output;
             else
                 calculation.PowerForFormed = 0;

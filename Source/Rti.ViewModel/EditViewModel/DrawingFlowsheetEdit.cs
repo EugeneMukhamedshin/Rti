@@ -59,6 +59,7 @@ namespace Rti.ViewModel.EditViewModel
                 {
                     machine.CureTime = process.NormTime/(Entity.Equipment == null ? 0 : Entity.Equipment.Output);
                 }
+                Entity.CuttingTime = process.NormTime;
             }
         }
 
@@ -98,12 +99,15 @@ namespace Rti.ViewModel.EditViewModel
 
         protected override void DoSave()
         {
+            var cuttingProcess =
+                DrawingFlowsheetProcessList.Items.FirstOrDefault(
+                    o => o.Process.ProcessTypeEnum == ProcessType.CuringOrCutting);
+            Entity.CuttingTime = cuttingProcess == null ? 0 : cuttingProcess.NormTime;
             Entity.Equipment.SaveEntity();
             base.DoSave();
             DrawingFlowsheetMachineList.SaveChanges();
             DrawingFlowsheetProcessList.SaveChanges();
         }
-
         public override void Refresh()
         {
             base.Refresh();

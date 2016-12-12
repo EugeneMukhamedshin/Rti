@@ -240,6 +240,8 @@ namespace Rti.Model.Domain
 		public virtual String TechNote { get; set; }
 		[Field("summary_time")]
 		public virtual decimal? SummaryTime { get; set; }
+		[Field("cutting_time")]
+		public virtual decimal? CuttingTime { get; set; }
 		[Reference("group_id", false)]
 		public virtual Group Group { get; set; }
 		[Reference("detail_id", false)]

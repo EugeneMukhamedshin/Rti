@@ -8,7 +8,13 @@ namespace Rti.ViewModel.Entities
     {
         public decimal? Sum
         {
-            get { return Drawing != null && Drawing.FactCalculation != null ? DoneCount * Drawing.FactCalculation.Summary : null; }
+            // Цена в наряде - цена по чертежу. Ранее считалось по фактической калькуляции
+            get { return Drawing != null ? DoneCount * Drawing.Price : null; }
+        }
+
+        public decimal? MainSalary
+        {
+            get { return Drawing != null && Drawing.FactCalculation != null ? DoneCount*Drawing.FactCalculation.MainSalary : null; }
         }
 
         public int RemainedCount
@@ -34,12 +40,11 @@ namespace Rti.ViewModel.Entities
         /// </summary>
         public decimal MachineUsageTime
         {
-            get { return TakeOffCount * (FlowsheetMachine == null ? 0 : (FlowsheetMachine.CureTime ?? 0)); }
+            get { return TakeOffCount * (Drawing == null ? 0 : (Drawing.CuttingTime ?? 0)); }
         }
 
         protected override void OnPropertyChanged(string propertyName = null)
-        {
-            base.OnPropertyChanged(propertyName);
+        {base.OnPropertyChanged(propertyName);
             if (propertyName.In("DoneCount", "Drawing"))
                 OnPropertyChanged("Sum");
             if (propertyName.In("WorkDate", "SortOrder"))

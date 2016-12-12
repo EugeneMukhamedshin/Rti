@@ -125,8 +125,7 @@
         </Style>
       </Styles>
       <Worksheet ss:Name="Лист1">
-        <Table ss:ExpandedColumnCount="11" ss:ExpandedRowCount="11" x:FullColumns="1"
-         x:FullRows="1" ss:DefaultRowHeight="15">
+        <Table ss:DefaultRowHeight="15">
           <Column ss:Index="3" ss:AutoFitWidth="0" ss:Width="56.25"/>
           <Column ss:AutoFitWidth="0" ss:Width="81.75"/>
           <Column ss:AutoFitWidth="0" ss:Width="90.75" ss:Span="1"/>

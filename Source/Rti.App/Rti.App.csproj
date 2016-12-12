@@ -183,9 +183,10 @@
     <Compile Include="MainWindowSlim.xaml.cs">
       <DependentUpon>MainWindowSlim.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Components\Float0TextEditSettings.cs" />
-    <Compile Include="View\Components\Float2TextEditSettings.cs" />
-    <Compile Include="View\Components\Float3TextEditSettings.cs" />
+    <Compile Include="View\Components\Float0TextEditSettingsExtension.cs" />
+    <Compile Include="View\Components\Float2TextEditSettingsExtension.cs" />
+    <Compile Include="View\Components\Float4TextEditSettingsExtension.cs" />
+    <Compile Include="View\Components\Float3TextEditSettingsExtension.cs" />
     <Compile Include="View\Components\ImageContentExtension.cs" />
     <Compile Include="View\Components\PropertyGridResponsible.cs" />
     <Compile Include="View\Components\NumericEditSettingsExtension.cs" />

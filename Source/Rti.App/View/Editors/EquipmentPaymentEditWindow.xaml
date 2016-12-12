@@ -38,7 +38,7 @@
                     </dxprg:PropertyDefinition.EditSettings>
                 </dxprg:PropertyDefinition>
                 <dxprg:PropertyDefinition Header="Дата оплаты" Path="PaymentDate"/>
-                <!--<dxprg:PropertyDefinition Header="Номер п.п." Path="PaymentDocNumber"/>-->
+                <dxprg:PropertyDefinition Header="Номер п.п." Path="PaymentDocNumber"/>
                 <dxprg:PropertyDefinition Header="Сумма оплаты, руб." Path="Sum"/>
                 <!--<dxprg:PropertyDefinition Header="Счет фактура" Path="InvoiceFacture"/>-->
                 <dxprg:PropertyDefinition Header="Примечание" Path="Note"/>

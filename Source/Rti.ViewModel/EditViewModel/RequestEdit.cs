@@ -96,10 +96,13 @@ namespace Rti.ViewModel.EditViewModel
                 o => true,
                 o => OpenRequestReport());
             OpenDrawingEditCommand = new DelegateCommand(
-                "Открыть чертеж",
-                o => true,
+                "Открыть чертеж",o => true,
                 o => OpenDrawingEdit((RequestDetailViewModel)o));
         }
+
+        protected override bool CustomOkCommandCanExecute()
+        {
+            return true;}
 
         public DelegateCommand CreateEquipmentInvoiceCommand { get; set; }
 

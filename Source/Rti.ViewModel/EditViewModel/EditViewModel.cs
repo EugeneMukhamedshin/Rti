@@ -40,7 +40,7 @@ namespace Rti.ViewModel.EditViewModel
 
             OkCommand = new DelegateCommand(
                 "ОК",
-                o => Editable,
+                o => Editable || CustomOkCommandCanExecute(),
                 o => SaveAndClose());
 
             CancelCommand = new DelegateCommand(
@@ -50,6 +50,11 @@ namespace Rti.ViewModel.EditViewModel
             CloseCommand = new DelegateCommand(o => Close(true));
 
             Initialize();
+        }
+
+        protected virtual bool CustomOkCommandCanExecute()
+        {
+            return false;
         }
 
         private void Initialize()

@@ -203,6 +203,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.FactMass, "fact_mass");
 			Map(o => o.TechNote, "tech_note");
 			Map(o => o.SummaryTime, "summary_time");
+			Map(o => o.CuttingTime, "cutting_time");
 			References(o => o.Group, "group_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Detail, "detail_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.MaterialByPassport, "material_by_passport_id").Fetch.Join().Not.LazyLoad();

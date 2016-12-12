@@ -24,7 +24,7 @@
                 <dxprg:PropertyDefinition Header="1.6. Ткань" Path="Textile" EditSettings="{components:Float2TextEditSettings}"/>
                 <dxprg:PropertyDefinition Header="1.7. Другое" Path="OtherMaterial" EditSettings="{components:Float2TextEditSettings}"/>
                 <dxprg:PropertyDefinition Header="2. Транспортные" Path="Transport" IsReadOnly="True" EditSettings="{components:Float2TextEditSettings}"/>
-                <dxprg:PropertyDefinition Header="3. Основная зарплата" Path="MainSalary" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float2TextEditSettings}"/>
+                <dxprg:PropertyDefinition Header="3. Основная зарплата" Path="MainSalary" IsReadOnly="{Binding IsReadOnly}" EditSettings="{components:Float4TextEditSettings}"/>
                 <dxprg:PropertyDefinition Header="   Количество прессов" Path="PressCount" IsReadOnly="{Binding IsReadOnly}">
                     <dxprg:PropertyDefinition.EditSettings>
                         <dxe:ComboBoxEditSettings ItemsSource="{Binding PressCounts}"/>

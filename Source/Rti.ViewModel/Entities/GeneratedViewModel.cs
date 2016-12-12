@@ -833,6 +833,7 @@ namespace Rti.ViewModel.Entities
 		private Double? _factMass;
 		private String _techNote;
 		private Decimal? _summaryTime;
+		private Decimal? _cuttingTime;
 		private GroupViewModel _group;
 		private DetailViewModel _detail;
 		private MaterialViewModel _materialByPassport;
@@ -867,6 +868,7 @@ namespace Rti.ViewModel.Entities
 		public Double? FactMass { get { return _factMass; } set { if (Equals(_factMass, value)) return; _factMass = value; OnPropertyChanged("FactMass"); } }
 		public String TechNote { get { return _techNote; } set { if (Equals(_techNote, value)) return; _techNote = value; OnPropertyChanged("TechNote"); } }
 		public Decimal? SummaryTime { get { return _summaryTime; } set { if (Equals(_summaryTime, value)) return; _summaryTime = value; OnPropertyChanged("SummaryTime"); } }
+		public Decimal? CuttingTime { get { return _cuttingTime; } set { if (Equals(_cuttingTime, value)) return; _cuttingTime = value; OnPropertyChanged("CuttingTime"); } }
 		public GroupViewModel Group { get { return _group; } set { _group = value; OnPropertyChanged("Group"); } }
 		public DetailViewModel Detail { get { return _detail; } set { _detail = value; OnPropertyChanged("Detail"); } }
 		public MaterialViewModel MaterialByPassport { get { return _materialByPassport; } set { _materialByPassport = value; OnPropertyChanged("MaterialByPassport"); } }
@@ -902,6 +904,7 @@ namespace Rti.ViewModel.Entities
 			Entity.FactMass = FactMass; 
 			Entity.TechNote = TechNote; 
 			Entity.SummaryTime = SummaryTime; 
+			Entity.CuttingTime = CuttingTime; 
 			Entity.Group = Group == null ? null : Group.Entity; 
 			Entity.Detail = Detail == null ? null : Detail.Entity; 
 			Entity.MaterialByPassport = MaterialByPassport == null ? null : MaterialByPassport.Entity; 
@@ -941,6 +944,7 @@ namespace Rti.ViewModel.Entities
 			FactMass = Entity.FactMass; 
 			TechNote = Entity.TechNote; 
 			SummaryTime = Entity.SummaryTime; 
+			CuttingTime = Entity.CuttingTime; 
 			Group = Entity.Group == null ? null : new GroupViewModel(Entity.Group, RepositoryFactory); 
 			Detail = Entity.Detail == null ? null : new DetailViewModel(Entity.Detail, RepositoryFactory); 
 			MaterialByPassport = Entity.MaterialByPassport == null ? null : new MaterialViewModel(Entity.MaterialByPassport, RepositoryFactory); 
@@ -980,6 +984,7 @@ namespace Rti.ViewModel.Entities
 			FactMass = source.FactMass;
 			TechNote = source.TechNote;
 			SummaryTime = source.SummaryTime;
+			CuttingTime = source.CuttingTime;
 			Group = source.Group;
 			Detail = source.Detail;
 			MaterialByPassport = source.MaterialByPassport;
@@ -1046,6 +1051,8 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("TechNote", TechNote));
 			if (SummaryTime != null)
 				element.Add(new XAttribute("SummaryTime", SummaryTime));
+			if (CuttingTime != null)
+				element.Add(new XAttribute("CuttingTime", CuttingTime));
 			if (Group != null)
 				element.Add(Group.GetXElement("Group"));
 			if (Detail != null)

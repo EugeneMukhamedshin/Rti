@@ -55,15 +55,15 @@
                     <dxg:GridColumn FieldName="TaskCount" Header="Дневное задание" Width="60"/>
                     <dxg:GridColumn FieldName="DoneCount" Header="Выполнено" Width="60"/>
                     <dxg:GridColumn FieldName="BatchNumber" Header="Партия" Width="80"/>
-                    <dxg:GridColumn FieldName="Drawing.ActualCalculation.MainSalary" Header="Основная з.п., руб." Width="65"/>
-                    <dxg:GridColumn FieldName="Drawing.CalculationPrice" Header="Цена, без НДС, руб." Width="65"/>
+                    <dxg:GridColumn FieldName="Drawing.FactCalculation.MainSalary" Header="Основная з.п., руб." Width="65"/>
+                    <dxg:GridColumn FieldName="Drawing.Price" Header="Цена, без НДС, руб." Width="65"/>
                     <dxg:GridColumn FieldName="Sum" Header="Сумма, с НДС, руб." Width="65"/>
                     <dxg:GridColumn FieldName="Note" Header="Примечание" Width="120"/>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.TotalSummary>
                     <!--<dxg:GridSummaryItem ShowInColumn="BatchNumber" FieldName="Sum" SummaryType="Custom" DisplayFormat="Итого:"></dxg:GridSummaryItem>-->
                     <dxg:GridSummaryItem ShowInColumn="Sum" FieldName="Sum" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
-                    <dxg:GridSummaryItem ShowInColumn="Drawing.ActualCalculation.MainSalary" FieldName="Drawing.ActualCalculation.MainSalary" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
+                    <dxg:GridSummaryItem ShowInColumn="Drawing.FactCalculation.MainSalary" FieldName="MainSalary" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
                 </dxg:GridControl.TotalSummary>
                 <dxg:GridControl.View>
                     <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>

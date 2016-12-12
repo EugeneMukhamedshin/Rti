@@ -157,11 +157,12 @@
                                     <dxe:TextEditSettings Mask="f2" MaskType="Numeric" MaskCulture="ru-RU"/>
                                 </dxg:GridColumn.EditSettings>
                             </dxg:GridColumn>
-                            <dxg:GridColumn FieldName="CureTime" Header="Время вулканизации, мин." Width="180">
+                            <dxg:GridColumn FieldName="Machine.TimePrice" Header="Цена э/эн., руб/мин" Width="150"/>
+                            <!--<dxg:GridColumn FieldName="CureTime" Header="Время вулканизации, мин." Width="180">
                                 <dxg:GridColumn.EditSettings>
                                     <dxe:TextEditSettings Mask="f2" MaskType="Numeric" MaskCulture="ru-RU"/>
                                 </dxg:GridColumn.EditSettings>
-                            </dxg:GridColumn>
+                            </dxg:GridColumn>-->
                         </dxg:GridControl.Columns>
                         <dxg:GridControl.View>
                             <dxg:TableView EnableImmediatePosting="True" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
