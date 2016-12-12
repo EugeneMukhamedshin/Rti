@@ -17,6 +17,8 @@ namespace Rti.App.View.Lists
         {
             if (Equals(e.Column, _rowNumberColumn))
                 e.DisplayText = (e.ListSourceIndex + 1).ToString();
+            if (Equals(e.Column, _machineColumn))
+                e.DisplayText = ((ViewModel.Entities.WorkItemViewModel) e.Row).FlowsheetMachine.Machine.InvNumber;
         }
     }
 }

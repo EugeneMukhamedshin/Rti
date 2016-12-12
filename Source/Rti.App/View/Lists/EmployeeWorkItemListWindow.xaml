@@ -89,7 +89,7 @@
                     <dxg:GridColumn Binding="{Binding RequestCount}" Header="Количество по заявке, шт" Width="50" ReadOnly="True"/>
                     <dxg:GridColumn Binding="{Binding Drawing.CuttingTime, StringFormat=f0}" Header="Время вулканизации, мин" Width="50" ReadOnly="True"/>
                     <dxg:GridColumn Binding="{Binding FlowsheetMachine.PlateTemperature, StringFormat=f0}" Header="Температура вулканизации, град" Width="60" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="FlowsheetMachine" Header="Пресс" Width="50">
+                    <dxg:GridColumn FieldName="FlowsheetMachine" Header="Пресс" Width="50" Name="_machineColumn">
                         <dxg:GridColumn.EditSettings>
                             <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="MachineInvNum" ItemsSource="{Binding MachinesSource}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                                 <dxg:LookUpEditSettings.StyleSettings>

@@ -48,7 +48,7 @@ SELECT
 FROM requests r
   LEFT JOIN (SELECT
       rd.request_id,
-      MAX(rd.equipment_lead_time) equipment_lead_time,
+      MAX(e.lead_time) equipment_lead_time,
       GROUP_CONCAT(DISTINCT CONCAT(d.name, ' ', g.name, '.', dr.name)) details
     FROM request_details rd
       INNER JOIN details d
@@ -57,6 +57,8 @@ FROM requests r
         ON rd.drawing_id = dr.id
       INNER JOIN groups g
         ON rd.group_id = g.id
+      LEFT JOIN equipments e
+        ON dr.equipment_id = e.id
     GROUP BY rd.request_id) rd
     ON r.id = rd.request_id
   LEFT JOIN (SELECT

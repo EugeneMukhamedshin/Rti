@@ -8,6 +8,8 @@ namespace Rti.ViewModel.Entities
 {
     partial class RequestDetailViewModel
     {
+        private EquipmentViewModel _equipment;
+
         public decimal? PlanCalculationPrice { get { return Drawing == null ? null : Drawing.PlanCalculationPrice; } }
         public decimal? FactCalculationPrice { get { return Drawing == null ? null : Drawing.FactCalculationPrice; } }
 
@@ -18,6 +20,17 @@ namespace Rti.ViewModel.Entities
                 return Drawing != null && Drawing.Equipment != null && Drawing.Equipment.ExistanceEnum != Existance.Exist;
             }
         }
+
+        public EquipmentViewModel Equipment
+        {
+            get
+            {
+                if (_equipment == null)
+                    _equipment = new EquipmentViewModel(RepositoryFactory.GetEquipmentRepository().GetById(Drawing.Equipment.Id), RepositoryFactory);
+                return _equipment;
+            }
+        }
+
         public string FullDetailName
         {
             get { return string.Format("{0} {1}.{2}", Detail == null ? null : Detail.Name, Drawing.Group == null ? null : Drawing.Group.Name, Drawing.Name); }
