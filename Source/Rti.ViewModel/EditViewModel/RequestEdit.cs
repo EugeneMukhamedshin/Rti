@@ -317,7 +317,7 @@ namespace Rti.ViewModel.EditViewModel
             _deletedDetails.Clear();
             foreach (var detail in RequestDetails)
             {
-                if (detail.IsNewEntity || detail.IsChanged)
+                if (detail.IsNewEntity || detail.IsChanged || detail.RequestDetailStateEnum == RequestDetailState.New)
                 {
                     if (detail.Drawing == null || detail.Drawing.Equipment == null || detail.Drawing.CalculationPrice == null || detail.Drawing.Price == null)
                         detail.RequestDetailStateEnum = RequestDetailState.New;

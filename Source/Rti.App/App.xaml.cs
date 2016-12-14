@@ -17,6 +17,7 @@ using log4net;
 using log4net.Config;
 using log4net.Util;
 using Rti.Model.Domain;
+using Rti.Model.Domain.BusinessLogic;
 using Rti.Model.Repository.NHibernate;
 using Rti.ViewModel;
 using Rti.ViewModel.EditViewModel;
@@ -47,6 +48,20 @@ namespace Rti.App
                 base.OnStartup(e);
                 var repositoryFactory = new NHibernateRepositoryFactory();
                 _viewService = new ViewService();
+
+                var workItems =
+                    repositoryFactory.GetWorkItemRepository()
+                        .GetAll()
+                        .OrderBy(o => o.WorkDate)
+                        .ThenBy(o => o.SortOrder)
+                        .ThenBy(o => o.Id);
+
+                var workItemController = new WorkItemController(repositoryFactory);
+
+                foreach (var workItem in workItems)
+                {
+                    workItemController.PostWorkItem(workItem);
+                }
 
                 var isDebug = e.Args.Any(arg => arg.ToLower().Equals("debug=true"));
 
