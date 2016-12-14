@@ -8,13 +8,14 @@ namespace Rti.Model.Repository.Interfaces
     {
         IList<RequestDetail> GetByRequestId(int requestId);
         IList<RequestDetail> GetReadyToProduceByDrawingId(int drawingId);
+
         /// <summary>
         /// Возвращает набор кортежей, Item1 - requestDetailId, Item2 - requestCount, Item3 - doneCount
         /// </summary>
         /// <param name="drawingId"></param>
-        /// <param name="onWorkItemId"></param>
+        /// <param name="onWorkItem"></param>
         /// <returns></returns>
-        IList<Tuple<int, int, int>> GetRequestsInProductionWithActualDoneCounts(int drawingId, int onWorkItemId);
+        IList<Tuple<int, int, int>> GetRequestsInProductionWithActualDoneCounts(int drawingId, WorkItem onWorkItem);
         IList<RequestDetail> GetRequestDetailsByIds(int[] ids);
         int GetNotShippedCount(int drawingId, DateTime date);
     }

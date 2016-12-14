@@ -21,7 +21,7 @@ namespace Rti.Model.Domain.BusinessLogic
             // Получаем актуальные остатки по заявкам на текущую дату
             var requestDetailDoneCounts =
                RepositoryFactory.GetRequestDetailRepository()
-                   .GetRequestsInProductionWithActualDoneCounts(workItem.Drawing.Id, workItem.Id);
+                   .GetRequestsInProductionWithActualDoneCounts(workItem.Drawing.Id, workItem);
 
             // Пересчитываем количество деталей по заявкам на текущую дату
             workItem.RequestCount = requestDetailDoneCounts.Sum(o => o.Item2 - o.Item3);

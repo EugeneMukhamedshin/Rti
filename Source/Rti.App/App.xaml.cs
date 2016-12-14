@@ -49,19 +49,19 @@ namespace Rti.App
                 var repositoryFactory = new NHibernateRepositoryFactory();
                 _viewService = new ViewService();
 
-                var workItems =
-                    repositoryFactory.GetWorkItemRepository()
-                        .GetAll()
-                        .OrderBy(o => o.WorkDate)
-                        .ThenBy(o => o.SortOrder)
-                        .ThenBy(o => o.Id);
+                //var workItems =
+                //    repositoryFactory.GetWorkItemRepository()
+                //        .GetAll()
+                //        .OrderBy(o => o.WorkDate)
+                //        .ThenBy(o => o.SortOrder)
+                //        .ThenBy(o => o.Id);
 
-                var workItemController = new WorkItemController(repositoryFactory);
+                //var workItemController = new WorkItemController(repositoryFactory);
 
-                foreach (var workItem in workItems)
-                {
-                    workItemController.PostWorkItem(workItem);
-                }
+                //foreach (var workItem in workItems)
+                //{
+                //    workItemController.PostWorkItem(workItem);
+                //}
 
                 var isDebug = e.Args.Any(arg => arg.ToLower().Equals("debug=true"));
 
