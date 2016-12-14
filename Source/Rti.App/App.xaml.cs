@@ -45,8 +45,7 @@ namespace Rti.App
                 FrameworkElement.LanguageProperty.OverrideMetadata(
                     typeof(FrameworkElement),
                     new FrameworkPropertyMetadata(language));
-                base.OnStartup(e);
-                var repositoryFactory = new NHibernateRepositoryFactory();
+                base.OnStartup(e);var repositoryFactory = new NHibernateRepositoryFactory();
                 _viewService = new ViewService();
 
                 //var workItems =
