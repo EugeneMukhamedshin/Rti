@@ -17,5 +17,10 @@ namespace Rti.Model.Repository.NHibernate
             var maxSortOrder = ExecuteFuncOnQueryOver(q => q.Where(o => o.Date >= new DateTime(DateTime.Today.Year, 1, 1)).Select(Projections.Max<Shipment>(o => o.SortOrder)).SingleOrDefault<int?>());
             return maxSortOrder + 1 ?? 1;
         }
+
+        public IList<Shipment> GetByPaymentIds(int[] paymentIds)
+        {
+            return ExecuteFuncOnQueryOver(q => q.WhereRestrictionOn(o => o.Payment.Id).IsIn(paymentIds).List());
+        }
     }
 }

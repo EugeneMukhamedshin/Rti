@@ -315,11 +315,10 @@
             </Cell>
             <Cell ss:StyleID="s17">
               <Data ss:Type="String">
-                <xsl:value-of select="concat(concat(concat('Счет-фактура № ', set[@name='Shipments']/Shipment/Payment/@InvoiceFacture),' от '), rti:FormatDate(set[@name='Shipments']/Shipment/@Date, 'dd.MM.yyyy'))"/>
+                <xsl:value-of select="concat(concat(concat('Счет-фактура № ', set[@name='Shipments']/Shipment/@SortOrder),' от '), rti:FormatDate(set[@name='Shipments']/Shipment/@Date, 'dd.MM.yyyy'))"/>
               </Data>
               <NamedCell ss:Name="Print_Area"/>
-            </Cell>
-            <Cell>
+            </Cell><Cell>
               <NamedCell ss:Name="Print_Area"/>
               <NamedCell ss:Name="Print_Area"/>
             </Cell>

@@ -8,5 +8,6 @@ namespace Rti.Model.Repository.Interfaces
     {
         IList<Shipment> GetByPeriod(DateTime startDate, DateTime endDate);
         int GetNextSortOrder();
+        IList<Shipment> GetByPaymentIds(int[] paymentIds);
     }
 }

@@ -101,7 +101,9 @@
       </Styles>
       <Worksheet ss:Name="Лист1">
         <Table x:FullColumns="1" x:FullRows="1" ss:DefaultRowHeight="15">
-          <Column ss:Index="3" ss:AutoFitWidth="0" ss:Width="80.25"/>
+          <Column ss:AutoFitWidth="0" ss:Width="120"/>
+          <Column ss:AutoFitWidth="0" ss:Width="50"/>
+          <Column ss:AutoFitWidth="0" ss:Width="120"/>
           <Column ss:AutoFitWidth="0" ss:Width="63.75"/>
           <Column ss:AutoFitWidth="0" ss:Width="72"/>
           <Column ss:AutoFitWidth="0" ss:Width="73.5"/>
@@ -145,6 +147,7 @@
           </PageSetup>
           <Print>
             <ValidPrinterInfo/>
+            <Scale>91</Scale>
             <PaperSizeIndex>9</PaperSizeIndex>
             <HorizontalResolution>-3</HorizontalResolution>
             <VerticalResolution>-3</VerticalResolution>

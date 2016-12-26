@@ -269,35 +269,20 @@
       <Worksheet ss:Name="Лист1">
         <Table x:FullColumns="1" x:FullRows="1" ss:DefaultRowHeight="15">
           <Column ss:AutoFitWidth="0" ss:Width="14.25"/>
-          <Column ss:AutoFitWidth="0" ss:Width="73.5"/>
-          <Column ss:AutoFitWidth="0" ss:Width="70.5"/>
-          <Column ss:AutoFitWidth="0" ss:Width="59.25"/>
-          <Column ss:AutoFitWidth="0" ss:Width="45.75"/>
-          <Column ss:AutoFitWidth="0" ss:Width="51.75"/>
-          <Column ss:AutoFitWidth="0" ss:Width="54"/>
-          <Column ss:AutoFitWidth="0" ss:Width="55.5"/>
-          <Column ss:AutoFitWidth="0" ss:Width="42"/>
-          <Column ss:AutoFitWidth="0" ss:Width="51"/>
+          <Column ss:AutoFitWidth="0" ss:Width="150"/>
+          <Column ss:AutoFitWidth="0" ss:Width="170"/>
+          <Column ss:AutoFitWidth="0" ss:Width="40"/>
+          <Column ss:AutoFitWidth="0" ss:Width="40"/>
+          <Column ss:AutoFitWidth="0" ss:Width="40"/>
+          <Column ss:AutoFitWidth="0" ss:Width="170"/>
+          <Column ss:AutoFitWidth="0" ss:Width="40"/>
+          <Column ss:AutoFitWidth="0" ss:Width="40"/>
+          <Column ss:AutoFitWidth="0" ss:Width="150"/>
           <Row ss:Height="19.5">
             <Cell ss:Index="2" ss:StyleID="s33" ss:MergeAcross="2">
-              <Data ss:Type="String">Индивидуальный наряд № </Data>
+              <Data ss:Type="String">Индивидуальный наряд № <xsl:value-of select="WorkItemEmployeePackage/@Id"/> от <xsl:value-of select="rti:FormatDate(WorkItemEmployeePackage/@Date)"/>
+            </Data>
             </Cell>
-            <Cell ss:StyleID="s34">
-              <Data ss:Type="Number">
-                <xsl:value-of select="WorkItemEmployeePackage/@Id"/>
-              </Data>
-            </Cell>
-            <Cell ss:StyleID="s34"/>
-            <Cell ss:StyleID="s33">
-              <Data ss:Type="String">Дата</Data>
-            </Cell>
-            <Cell ss:StyleID="s34">
-              <Data ss:Type="String">
-                <xsl:value-of select="rti:FormatDate(WorkItemEmployeePackage/@Date)"/>
-              </Data>
-            </Cell>
-            <Cell ss:StyleID="s34"/>
-            <Cell ss:StyleID="s33"/>
           </Row>
           <Row ss:Height="19.5">
             <Cell ss:StyleID="s33"/>
@@ -337,10 +322,10 @@
             </Cell>
             <Cell ss:StyleID="s26"/>
             <Cell ss:StyleID="s26"/>
-            <Cell ss:StyleID="s39">
+            <Cell ss:StyleID="s39" ss:MergeAcross="1">
               <Data ss:Type="String">Участок</Data>
             </Cell>
-            <Cell ss:MergeAcross="1" ss:StyleID="m173513856">
+            <Cell ss:StyleID="m173513856">
               <Data ss:Type="String">
                 <xsl:value-of select="WorkItemEmployeePackage/@Block"/>
               </Data>
@@ -379,13 +364,13 @@
               <Data ss:Type="String">Наименование</Data>
             </Cell>
             <Cell ss:StyleID="s18">
-              <Data ss:Type="String">Оборудование (пресс)</Data>
+              <Data ss:Type="String">Пресс</Data>
             </Cell>
             <Cell ss:StyleID="s18">
-              <Data ss:Type="String">Количество (шт)</Data>
+              <Data ss:Type="String">Кол-во (шт)</Data>
             </Cell>
             <Cell ss:StyleID="s18">
-              <Data ss:Type="String">Выполнение (шт)</Data>
+              <Data ss:Type="String">Вып-но (шт)</Data>
             </Cell>
             <Cell ss:StyleID="s18">
               <Data ss:Type="String">Марка материала</Data>
@@ -394,7 +379,7 @@
               <Data ss:Type="String">Режим</Data>
             </Cell>
             <Cell ss:StyleID="s18">
-              <Data ss:Type="String">Температура</Data>
+              <Data ss:Type="String">Темп-ра</Data>
             </Cell>
             <Cell ss:StyleID="s19">
               <Data ss:Type="String">Примечание</Data>

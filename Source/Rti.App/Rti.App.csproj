@@ -854,7 +854,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Reports\GetRequestsByMethodsReport.xml" />
+    <Resource Include="Reports\GetRequestsByMethodsReport.xml">
+      <SubType>Designer</SubType>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Reports\GetDrawingShipmentsReport.xml" />

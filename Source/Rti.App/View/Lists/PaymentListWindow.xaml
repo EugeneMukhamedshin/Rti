@@ -57,27 +57,26 @@
                 </Style>
             </dxg:GridControl.Resources>
             <dxg:GridControl.Bands>
-                <dxg:GridControlBand>
-                    <dxg:GridColumn Header="№" UnboundType="Integer" Width="30" Name="_rowNumberColumn"/>
+                <dxg:GridControlBand VisibleIndex="0">
+                    <dxg:GridColumn Header="№" UnboundType="Integer" Width="30" Name="_rowNumberColumn" VisibleIndex="0"/>
                 </dxg:GridControlBand>
-                <dxg:GridControlBand Header="Счет">
-                    <dxg:GridColumn FieldName="Request.Number" Header="Номер" Width="50"/>
-                    <dxg:GridColumn FieldName="Request.InvoiceDate" Header="Дата" Width="80"/>
-                    <dxg:GridColumn FieldName="Request.Customer.Name" Header="Заказчик" Width="100"/>
-                    <dxg:GridColumn FieldName="Request.Sum" Header="Сумма по счету, руб." Width="100"/>
-                    <dxg:GridColumn FieldName="InvoiceFacture" Header="Счет фактура" Width="100"/>
+                <dxg:GridControlBand Header="Счет" VisibleIndex="1">
+                    <dxg:GridColumn FieldName="Request.Number" Header="№ сч." Width="30" VisibleIndex="1"/>
+                    <dxg:GridColumn FieldName="Request.InvoiceDate" Header="Дата сч." Width="75" VisibleIndex="2"/>
+                    <dxg:GridColumn FieldName="Request.Customer.Name" Header="Заказчик" Width="150" VisibleIndex="3"/>
+                    <dxg:GridColumn FieldName="Request.Sum" Header="Сумма по сч., руб." Width="80" VisibleIndex="4"/>
                 </dxg:GridControlBand>
-                <dxg:GridControlBand Header="Оплата">
-                    <dxg:GridColumn FieldName="PaymentDocNumber" Header="Номер" Width="50"/>
-                    <dxg:GridColumn FieldName="PaymentDate" Header="Дата" Width="80"/>
-                    <dxg:GridColumn FieldName="Sum" Header="Сумма оплаты, руб." Width="100"/>
+                <dxg:GridControlBand Header="Оплата" VisibleIndex="2">
+                    <dxg:GridColumn FieldName="PaymentDocNumber" Header="№ пл." Width="30" VisibleIndex="5"/>
+                    <dxg:GridColumn FieldName="PaymentDate" Header="Дата пл." Width="75" VisibleIndex="6"/>
+                    <dxg:GridColumn FieldName="Sum" Header="Сумма оплаты, руб." Width="80" VisibleIndex="7"/>
                 </dxg:GridControlBand>
-                <dxg:GridControlBand Header="Отгрузка">
-                    <dxg:GridColumn FieldName="ShipmentDates" Header="Даты отгрузок" Width="80"/>
-                    <dxg:GridColumn FieldName="ShipmentSum" Header="Сумма" Width="80"/>
+                <dxg:GridControlBand Header="Отгрузка" VisibleIndex="3">
+                    <dxg:GridColumn FieldName="ShipmentDates" Header="Счета-фактуры" Width="300" VisibleIndex="9"/>
+                    <dxg:GridColumn FieldName="ShipmentSum" Header="Сумма, руб." Width="60" VisibleIndex="8"/>
                 </dxg:GridControlBand>
-                <dxg:GridControlBand>
-                    <dxg:GridColumn Header="Примечание" FieldName="Note" Width="150"/>
+                <dxg:GridControlBand VisibleIndex="4">
+                    <dxg:GridColumn Header="Примечание" FieldName="Note" Width="150" VisibleIndex="10"/>
                 </dxg:GridControlBand>
             </dxg:GridControl.Bands>
             <dxg:GridControl.View>

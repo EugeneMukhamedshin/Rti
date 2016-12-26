@@ -29,5 +29,14 @@ namespace Rti.Model.Repository.NHibernate
         {
             return ExecuteFuncOnQueryOver(q => q.WhereRestrictionOn(o => o.Shipment.Id).IsIn(shipmentIds).List());
         }
+
+        public IList<ShipmentItem> GetByPaymentIds(int[] paymentIds)
+        {
+            Shipment shipment = null;
+            return ExecuteFuncOnQueryOver(q => q
+                .JoinAlias(o => o.Shipment, () => shipment)
+                .WhereRestrictionOn(() => shipment.Payment.Id).IsIn(paymentIds)
+                .List());
+        }
     }
 }

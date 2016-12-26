@@ -1,27 +1,26 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <?mso-application progid="Excel.Sheet"?>
 <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
  xmlns:o="urn:schemas-microsoft-com:office:office"
  xmlns:x="urn:schemas-microsoft-com:office:excel"
  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
- xmlns:html="http://www.w3.org/TR/REC-html40">
+ xmlns:html="http://www.w3.org/TR/REC-html40"
+ xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:rti="urn:rti">
  <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
-  <Author>Ekaterina_Lutkova</Author>
-  <LastAuthor>Мухамедшин</LastAuthor>
-  <LastPrinted>2016-06-28T12:03:35Z</LastPrinted>
-  <Created>2016-05-26T12:14:09Z</Created>
-  <LastSaved>2016-06-28T12:03:44Z</LastSaved>
-  <Company>SPecialiST RePack</Company>
+  <Author>Evgeniy Mukhamedshin</Author>
+  <LastAuthor>Evgeniy Mukhamedshin</LastAuthor>
+  <Created>2016-12-26T19:45:34Z</Created>
+  <LastSaved>2016-12-26T19:45:34Z</LastSaved>
   <Version>14.00</Version>
  </DocumentProperties>
  <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
   <AllowPNG/>
  </OfficeDocumentSettings>
  <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
-  <WindowHeight>11595</WindowHeight>
-  <WindowWidth>19200</WindowWidth>
-  <WindowTopX>0</WindowTopX>
-  <WindowTopY>0</WindowTopY>
+  <WindowHeight>10005</WindowHeight>
+  <WindowWidth>10005</WindowWidth>
+  <WindowTopX>120</WindowTopX>
+  <WindowTopY>135</WindowTopY>
   <ProtectStructure>False</ProtectStructure>
   <ProtectWindows>False</ProtectWindows>
  </ExcelWorkbook>
@@ -35,137 +34,364 @@
    <NumberFormat/>
    <Protection/>
   </Style>
-  <Style ss:ID="s16">
-   <Alignment ss:Vertical="Bottom" ss:ShrinkToFit="1" ss:WrapText="1"/>
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
-   </Borders>
-  </Style>
-  <Style ss:ID="s17">
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
-   </Borders>
-  </Style>
-  <Style ss:ID="s23">
-   <Alignment ss:Vertical="Bottom"/>
-   <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
-    ss:Color="#000000" ss:Bold="1"/>
-  </Style>
-  <Style ss:ID="s24">
-   <Alignment ss:Vertical="Bottom"/>
-  </Style>
-  <Style ss:ID="s25">
+  <Style ss:ID="s63">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
     ss:Color="#000000" ss:Bold="1"/>
   </Style>
-  <Style ss:ID="s26">
+  <Style ss:ID="s65">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders/>
    <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
     ss:Color="#000000" ss:Bold="1"/>
   </Style>
+  <Style ss:ID="s70">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="s71">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <NumberFormat ss:Format="Fixed"/>
+  </Style>
+  <Style ss:ID="s73">
+   <Alignment ss:Vertical="Bottom"/>
+  </Style>
+  <Style ss:ID="s76">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Top" ss:ShrinkToFit="1"
+    ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
+    ss:Color="#000000" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s77">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="12"
+    ss:Color="#000000" ss:Bold="1"/>
+   <NumberFormat ss:Format="Fixed"/>
+  </Style>
+  <Style ss:ID="s84">
+   <Alignment ss:Vertical="Bottom"/>
+   <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="12"
+    ss:Color="#000000" ss:Bold="1"/>
+   <NumberFormat ss:Format="Fixed"/>
+  </Style>
+  <Style ss:ID="s87">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="12"
+    ss:Color="#000000" ss:Bold="1"/>
+   <NumberFormat ss:Format="Fixed"/>
+  </Style>
+  <Style ss:ID="s88">
+   <Alignment ss:Vertical="Bottom"/>
+   <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="12"
+    ss:Color="#000000" ss:Bold="1"/>
+   <NumberFormat ss:Format="0"/>
+  </Style>
  </Styles>
  <Worksheet ss:Name="Лист1">
-  <Table ss:ExpandedColumnCount="6" ss:ExpandedRowCount="15" x:FullColumns="1"
+  <Table ss:ExpandedColumnCount="7" ss:ExpandedRowCount="35" x:FullColumns="1"
    x:FullRows="1" ss:DefaultRowHeight="15">
-   <Column ss:AutoFitWidth="0" ss:Width="51.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="39.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="114.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="39"/>
+   <Column ss:AutoFitWidth="0" ss:Width="144"/>
    <Column ss:AutoFitWidth="0" ss:Width="54"/>
-   <Column ss:Index="4" ss:AutoFitWidth="0" ss:Width="76.5"/>
-   <Column ss:AutoFitWidth="0" ss:Width="63"/>
-   <Column ss:AutoFitWidth="0" ss:Width="83.25"/>
-   <Row>
-    <Cell ss:MergeAcross="5" ss:StyleID="s25"><Data ss:Type="String">Отчет (по способу изготовления)</Data></Cell>
+   <Column ss:AutoFitWidth="0" ss:Width="48.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="61.5"/>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:MergeAcross="5" ss:StyleID="s63"><Data ss:Type="String">Отчет (по способу изготовления)</Data></Cell>
    </Row>
-   <Row>
-    <Cell ss:MergeAcross="5" ss:StyleID="s26"><Data ss:Type="String">01.06.2016-27.06.2016</Data></Cell>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:MergeAcross="5" ss:StyleID="s65"><Data ss:Type="String">26.11.2016-26.12.2016</Data></Cell>
    </Row>
    <Row ss:Index="4" ss:Height="45">
-    <Cell ss:StyleID="s16"><Data ss:Type="String">№ заявки</Data></Cell>
-    <Cell ss:StyleID="s16"><Data ss:Type="String">Чертеж</Data></Cell>
-    <Cell ss:StyleID="s16"><Data ss:Type="String">Группа</Data></Cell>
-    <Cell ss:StyleID="s16"><Data ss:Type="String">Наименование</Data></Cell>
-    <Cell ss:StyleID="s16"><Data ss:Type="String">Количество по заявке</Data></Cell>
-    <Cell ss:StyleID="s16"><Data ss:Type="String">Время изготовления, мин.</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">№ заяв.</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">Чертеж</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">Группа</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">Наименование</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">Кол-во по заявке</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">Время изг-я, мин.</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">Время варки/вырубки мин.</Data></Cell>
    </Row>
-   <Row>
-    <Cell ss:MergeAcross="5" ss:StyleID="s23"><Data ss:Type="String">Способ изготовления: Вырубка</Data></Cell>
+   <Row ss:Height="15.75">
+    <Cell ss:MergeAcross="6" ss:StyleID="s87"><Data ss:Type="String">           Способ изготовления: Формовка</Data></Cell>
    </Row>
-   <Row>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">1</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">230.678</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">8БП</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">Шайба</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">20</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">40</Data></Cell>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">370.210-1</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">8СЯ</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Прокладка</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">1000</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">1800</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">1400</Data></Cell>
    </Row>
-   <Row>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">1</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">340.678</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">8БП</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">Прокладка</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">10</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">10</Data></Cell>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">5</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">10-6 ГОСТ 19421-74</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Втулка предохранительная</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">140</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">378</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">350</Data></Cell>
    </Row>
-   <Row>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">5</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">120.255</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">9БП</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">Сальник</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">25</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">70</Data></Cell>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">5</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">68*50*9</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Прокладка отстойника</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">140</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">476</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">350</Data></Cell>
    </Row>
-   <Row>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">20</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">140.689</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">9СЯ</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">Прокладка</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">50</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">50</Data></Cell>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">6</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">6*10*16 ГОСТ 19421-74</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Втулка предохранительная</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">210</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">567</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">525</Data></Cell>
    </Row>
-   <Row>
-    <Cell ss:MergeAcross="5" ss:StyleID="s23"><Data ss:Type="String">Способ изготовления: Варка</Data></Cell>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">7</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">L40</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Трубка дренажная</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">70</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">217</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">175</Data></Cell>
    </Row>
-   <Row>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">29</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">111.678</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">8БП</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">Уплотнение</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">20</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">40</Data></Cell>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">4</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">10-6 ГОСТ 19421-74</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Втулка предохранительная</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">140</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">378</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">350</Data></Cell>
    </Row>
-   <Row>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">46</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">330.678</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">8БП</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">Сальник</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">10</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">40</Data></Cell>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">7</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">68*50*9</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Прокладка отстойника</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">200</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">680</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">500</Data></Cell>
    </Row>
-   <Row>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">2</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">120.367</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">9БП</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">Прокладка</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">25</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">50</Data></Cell>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">5</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">300</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Компенсатор</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">9</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">477</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">450</Data></Cell>
    </Row>
-   <Row>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">12</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">555.689</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">9СЯ</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="String">Прокладка</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">50</Data></Cell>
-    <Cell ss:StyleID="s17"><Data ss:Type="Number">150</Data></Cell>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">5</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">6*10*16 ГОСТ 19421-74</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Втулка предохранительная</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">140</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">378</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">350</Data></Cell>
    </Row>
-   <Row>
-    <Cell ss:MergeAcross="5" ss:StyleID="s24"/>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">6</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">307.026</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">8БП</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Колпачок</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">210</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">490</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">350</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">6</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">10-6 ГОСТ 19421-74</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Втулка предохранительная</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">140</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">378</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">350</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">7</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">18*22</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Палец</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">70</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">236.25</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">175</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">7</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">20*5*13</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Шайба с бортом</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">315</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">455</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">350</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">4</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">6*10*16 ГОСТ 19421-74</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Втулка предохранительная</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">140</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">378</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">350</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">7</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">207*8*8</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Прокладка</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">550</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">500</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">7</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">372.000</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">5-5АИ.</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Шайба обрезиненная</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">40</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">1000</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">800</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">3</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">10-6 ГОСТ 19421-74</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Втулка предохранительная</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">140</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">378</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">350</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">3</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">18*22</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Палец</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">70</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">236.25</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">175</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">3</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">760.023</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">8СЯ</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Пластина</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">11</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">154</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">110</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">3</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">372.000</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">5-5АИ.</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Шайба обрезиненная</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">10</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">250</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">200</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">3</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">6*10*16 ГОСТ 19421-74</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Втулка предохранительная</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">140</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">378</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">350</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">3</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">L40</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Трубка дренажная</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">70</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">217</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">175</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">3</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">760.024</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">8СЯ</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Пластина</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">5</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">70</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">50</Data></Cell>
+   </Row>
+   <Row ss:Height="15.75">
+    <Cell ss:MergeAcross="3" ss:StyleID="s77"><Data ss:Type="String">Итого</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R[-23]C:R[-1]C)"><Data ss:Type="Number">3510</Data></Cell>
+    <Cell ss:StyleID="s84" ss:Formula="=SUM(R[-23]C:R[-1]C)/480"><Data
+      ss:Type="Number">21.919791666666665</Data></Cell>
+    <Cell ss:StyleID="s84" ss:Formula="=SUM(R[-23]C:R[-1]C)/480"><Data
+      ss:Type="Number">18.197916666666668</Data></Cell>
+   </Row>
+   <Row ss:Height="15.75">
+    <Cell ss:MergeAcross="6" ss:StyleID="s87"><Data ss:Type="String">           Способ изготовления: Вырубка</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">8</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">18*55</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Прокладка</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">8000</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">444.44444399999998</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">222.22222199999999</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">8</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">27*45*1,5</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Шайба</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">5000</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">1900</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">1600</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">8</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">18*45*1,5</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Шайба</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="Number">2711</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">840.41</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">677.75</Data></Cell>
+   </Row>
+   <Row ss:Height="15.75">
+    <Cell ss:MergeAcross="3" ss:StyleID="s77"><Data ss:Type="String">Итого</Data></Cell>
+    <Cell ss:StyleID="s88" ss:Formula="=SUM(R[-3]C:R[-1]C)"><Data ss:Type="Number">15711</Data></Cell>
+    <Cell ss:StyleID="s84" ss:Formula="=SUM(R[-3]C:R[-1]C)/480"><Data
+      ss:Type="Number">6.6351134249999992</Data></Cell>
+    <Cell ss:StyleID="s84" ss:Formula="=SUM(R[-3]C:R[-1]C)/480"><Data
+      ss:Type="Number">5.2082754624999996</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:MergeAcross="5" ss:StyleID="s73"/>
    </Row>
   </Table>
   <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
@@ -174,18 +400,21 @@
     <Footer x:Margin="0.3" x:Data="Страница  &amp;P из &amp;N"/>
     <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
    </PageSetup>
+   <Unsynced/>
    <Print>
     <ValidPrinterInfo/>
     <PaperSizeIndex>9</PaperSizeIndex>
+    <Scale>91</Scale>
     <HorizontalResolution>-3</HorizontalResolution>
     <VerticalResolution>-3</VerticalResolution>
    </Print>
+   <ShowPageBreakZoom/>
    <Selected/>
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveRow>21</ActiveRow>
-     <ActiveCol>13</ActiveCol>
+     <ActiveRow>32</ActiveRow>
+     <ActiveCol>5</ActiveCol>
     </Pane>
    </Panes>
    <ProtectObjects>False</ProtectObjects>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.EditViewModel;
@@ -42,7 +43,8 @@ namespace Rti.ViewModel.Lists
                 o => true,
                 o => Refresh());
             StartDate = DateTime.Today.AddMonths(-1);
-            EndDate = DateTime.Today;}
+            EndDate = DateTime.Today;
+        }
 
         private void AddPayment()
         {
@@ -95,6 +97,30 @@ namespace Rti.ViewModel.Lists
                     .Select(o => new PaymentViewModel(o, RepositoryFactory))
                     .OrderBy(o => o.PaymentDate)
                     .ToList();
+        }
+
+        protected override void OnItemsChanged()
+        {
+            base.OnItemsChanged();
+            DoAsync(GetShipmentItems, res =>
+            {
+                var shipmentItems = res.ToList();
+                foreach (var payment in Items)
+                {
+                    payment.ShipmentDates = shipmentItems.Select(o => new ShipmentViewModel(o.Shipment, null)).Distinct().Where(o => o.Payment.Id == payment.Id)
+                        .Aggregate(string.Empty,
+                            (shipments, shipment) =>
+                                string.Format("{0}{1}№{2} от {3: dd.MM.yyyy}", shipments, shipments == string.Empty ? string.Empty : ", ",
+                                    shipment.SortOrder, shipment.Date));
+                    payment.ShipmentSum =
+                        shipmentItems.Where(o => o.Shipment.Payment.Id == payment.Id).Sum(o => o.Count*o.Price);
+                }
+            });
+        }
+
+        private IEnumerable<ShipmentItem> GetShipmentItems()
+        {
+            return RepositoryFactory.GetShipmentItemRepository().GetByPaymentIds(Items.Select(o => o.Id).ToArray());
         }
 
         protected override PaymentViewModel DoCreateNewEntity()

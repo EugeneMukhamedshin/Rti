@@ -118,7 +118,7 @@
                 <TextBlock Text="Основание" Grid.Column="0" Grid.Row="4"/>
                 <TextBlock Text="{Binding Entity.Request.Customer.Grounding}" Grid.Column="1" Grid.Row="4" FontSize="8" TextWrapping="Wrap"/>
                 <TextBlock Text="К платежному документу" Grid.Column="0" Grid.Row="5"/>
-                <dxg:LookUpEdit Grid.Column="1" Grid.Row="5" TabIndex="12" IsEnabled="{Binding Editable}" ItemsSource="{Binding PaymentsSource}" SelectedItem="{Binding Entity.Payment}" DisplayMember="FullName" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True">
+                <dxg:LookUpEdit NullText="Выберите платежный документ..." NullTextForeground="DarkGray" Grid.Column="1" Grid.Row="5" TabIndex="12" IsEnabled="{Binding Editable}" ItemsSource="{Binding PaymentsSource}" SelectedItem="{Binding Entity.Payment}" DisplayMember="FullName" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True">
                     <dxg:LookUpEdit.StyleSettings>
                         <dxg:SearchLookUpEditStyleSettings/>
                     </dxg:LookUpEdit.StyleSettings>

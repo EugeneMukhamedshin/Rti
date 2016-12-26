@@ -143,7 +143,13 @@ namespace Rti.ViewModel.EditViewModel
         {
             if (e.PropertyName == "Request" && !((ShipmentViewModel)sender).IsMapping)
             {
-                RefreshPaymentsSource();
+                DoAsync(RefreshPaymentsSource, () =>
+                {
+                    if (PaymentsSource.Count == 1)
+                        Entity.Payment = PaymentsSource.FirstOrDefault();
+                    else
+                        Entity.Payment = null;
+                });
                 ShipmentItemList.Items.Clear();
                 ShipmentItemList.RefreshRequestDetails(Entity.Request);
                 Entity.Recipient = Entity.Request.Customer;
@@ -189,8 +195,6 @@ namespace Rti.ViewModel.EditViewModel
                                 .Select(o => new PaymentViewModel(o, RepositoryFactory))
                                 .ToList()
                             : new List<PaymentViewModel>();
-            if (Entity.Payment == null)
-                Entity.Payment = PaymentsSource.FirstOrDefault();
             OnPropertyChanged("PaymentsSource");
         }
 
