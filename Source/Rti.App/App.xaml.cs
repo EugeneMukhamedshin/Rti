@@ -45,22 +45,9 @@ namespace Rti.App
                 FrameworkElement.LanguageProperty.OverrideMetadata(
                     typeof(FrameworkElement),
                     new FrameworkPropertyMetadata(language));
-                base.OnStartup(e);var repositoryFactory = new NHibernateRepositoryFactory();
+                base.OnStartup(e);
+                var repositoryFactory = new NHibernateRepositoryFactory();
                 _viewService = new ViewService();
-
-                //var workItems =
-                //    repositoryFactory.GetWorkItemRepository()
-                //        .GetAll()
-                //        .OrderBy(o => o.WorkDate)
-                //        .ThenBy(o => o.SortOrder)
-                //        .ThenBy(o => o.Id);
-
-                //var workItemController = new WorkItemController(repositoryFactory);
-
-                //foreach (var workItem in workItems)
-                //{
-                //    workItemController.PostWorkItem(workItem);
-                //}
 
                 var isDebug = e.Args.Any(arg => arg.ToLower().Equals("debug=true"));
 
@@ -77,11 +64,6 @@ namespace Rti.App
                 else
                 {
                     var viewModel = new RequestEdit("", new RequestViewModel(repositoryFactory.GetRequestRepository().GetByNumber(8), repositoryFactory), false, _viewService, repositoryFactory);
-                    //var viewModel = new MainViewModel(_viewService, repositoryFactory);
-                    //var viewModel = new ReportOfCompletionEdit("", new RequestViewModel(repositoryFactory.GetRequestRepository().GetByNumber(15), repositoryFactory), false, _viewService, repositoryFactory);
-                    //var viewModel = new ShipmentEdit("", new ShipmentViewModel(repositoryFactory.GetShipmentRepository().GetById(2), repositoryFactory), false, _viewService, repositoryFactory);
-                    //var viewModel = new ShipmentDirectExpencesReportViewModel("", _viewService, repositoryFactory,
-                    //    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Отчет.xls");
                     viewModel.Refresh();
                     _viewService.ShowView(viewModel, false, true);
                 }

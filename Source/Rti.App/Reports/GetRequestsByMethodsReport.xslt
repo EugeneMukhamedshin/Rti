@@ -56,13 +56,14 @@
             <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
             <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
             <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
-          </Borders><NumberFormat ss:Format="Fixed"/>
+          </Borders>
+          <NumberFormat ss:Format="Fixed"/>
         </Style>
         <Style ss:ID="s23">
           <Alignment ss:Vertical="Bottom"/>
           <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
            ss:Color="#000000" ss:Bold="1"/>
-        </Style>
+          <NumberFormat ss:Format="Fixed"/></Style>
         <Style ss:ID="s24">
           <Alignment ss:Vertical="Bottom"/>
         </Style>
@@ -132,7 +133,7 @@
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
           <PageSetup>
             <Header x:Margin="0.3"/>
-            <Footer x:Margin="0.3"/>
+            <Footer x:Margin="0.3" x:Data="Страница  &amp;P из &amp;N"/>
             <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
           </PageSetup>
           <Print>
@@ -172,6 +173,20 @@
 
     <xsl:apply-templates select="row" />
 
+    <Row>
+      <Cell ss:StyleID="s23" ss:MergeAcross="3">
+        <Data ss:Type="String">Итого</Data>
+      </Cell>
+      <Cell ss:StyleID="s23" ss:Formula="=SUM(R[-{count(row)}]C:R[-1]C)">
+        <Data ss:Type="Number">0</Data>
+      </Cell>
+      <Cell ss:StyleID="s23" ss:Formula="=SUM(R[-{count(row)}]C:R[-1]C)/480">
+        <Data ss:Type="Number">0</Data>
+      </Cell>
+      <Cell ss:StyleID="s23" ss:Formula="=SUM(R[-{count(row)}]C:R[-1]C)/480">
+        <Data ss:Type="Number">0</Data>
+      </Cell>
+    </Row>
   </xsl:template>
 
   <xsl:template match="row">
@@ -203,7 +218,9 @@
       </Cell>
       <Cell ss:StyleID="s171">
         <xsl:choose>
-          <xsl:when test="@CuttingTime=''"><Data ss:Type="String">ОШИБКА</Data></xsl:when>
+          <xsl:when test="@CuttingTime=''">
+            <Data ss:Type="String">ОШИБКА</Data>
+          </xsl:when>
           <xsl:otherwise>
             <Data ss:Type="Number">
               <xsl:value-of select="@WorkTime"/>
@@ -213,7 +230,9 @@
       </Cell>
       <Cell ss:StyleID="s171">
         <xsl:choose>
-          <xsl:when test="@CuttingTime=''"><Data ss:Type="String">ОШИБКА</Data></xsl:when>
+          <xsl:when test="@CuttingTime=''">
+            <Data ss:Type="String">ОШИБКА</Data>
+          </xsl:when>
           <xsl:otherwise>
             <Data ss:Type="Number">
               <xsl:value-of select="@CuttingTime"/>

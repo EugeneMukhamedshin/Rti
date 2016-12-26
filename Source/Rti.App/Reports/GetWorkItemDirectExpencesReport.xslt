@@ -117,14 +117,10 @@
       </Styles>
       <Worksheet ss:Name="Лист1">
         <Table x:FullColumns="1" x:FullRows="1" ss:DefaultRowHeight="15">
-          <Column ss:AutoFitWidth="0" ss:Width="84.75"/>
-          <Column ss:Index="3" ss:AutoFitWidth="0" ss:Width="80.25"/>
-          <Column ss:AutoFitWidth="0" ss:Width="66.75"/>
-          <Column ss:AutoFitWidth="0" ss:Width="64.5"/>
-          <Column ss:AutoFitWidth="0" ss:Width="52.5"/>
-          <Column ss:AutoFitWidth="0" ss:Width="59.25"/>
-          <Column ss:AutoFitWidth="0" ss:Width="84"/>
-          <Column ss:AutoFitWidth="0" ss:Width="84.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="111.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="42.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="147.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="49.5" ss:Span="6"/>
           <Row>
             <Cell ss:MergeAcross="8" ss:StyleID="s29">
               <Data ss:Type="String">
@@ -132,7 +128,7 @@
               </Data>
             </Cell>
           </Row>
-          <Row ss:Index="3" ss:Height="45">
+          <Row ss:Index="3" ss:Height="60">
             <Cell ss:StyleID="s19">
               <Data ss:Type="String">Чертеж</Data>
             </Cell>
@@ -143,22 +139,22 @@
               <Data ss:Type="String">Наименование</Data>
             </Cell>
             <Cell ss:StyleID="s19">
-              <Data ss:Type="String">Выполнено деталей, шт.</Data>
+              <Data ss:Type="String">Вып-но дета-лей, шт.</Data>
             </Cell>
             <Cell ss:StyleID="s19">
-              <Data ss:Type="String">Сырье и материалы, руб.</Data>
+              <Data ss:Type="String">Сырье и мат-лы, руб.</Data>
             </Cell>
             <Cell ss:StyleID="s19">
               <Data ss:Type="String">Основная зарплата, руб.</Data>
             </Cell>
             <Cell ss:StyleID="s19">
-              <Data ss:Type="String">Транспортные, руб.</Data>
+              <Data ss:Type="String">Трансп-е, руб.</Data>
             </Cell>
             <Cell ss:StyleID="s19">
-              <Data ss:Type="String">Электроэнергия для формовых, руб.</Data>
+              <Data ss:Type="String">Э/эн. для форм-х, руб.</Data>
             </Cell>
             <Cell ss:StyleID="s19">
-              <Data ss:Type="String">Электроэнергия прочая, руб.</Data>
+              <Data ss:Type="String">Э/эн. прочая, руб.</Data>
             </Cell>
             <Cell ss:StyleID="s19">
               <Data ss:Type="String">Итого, руб.</Data>
@@ -211,7 +207,7 @@
           <PageSetup>
             <Layout x:Orientation="Landscape"/>
             <Header x:Margin="0.3"/>
-            <Footer x:Margin="0.3"/>
+            <Footer x:Margin="0.3" x:Data="Страница  &amp;P из &amp;N"/>
             <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
           </PageSetup>
           <Print>

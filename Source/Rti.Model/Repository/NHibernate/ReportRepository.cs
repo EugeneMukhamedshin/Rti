@@ -410,7 +410,7 @@ FROM (SELECT
     d.name DrawingName,
     g.name GroupName,
     d1.name DetailName,
-    wi.done_count - wi.rejected_count DoneCount,
+    wi.done_count - IFNULL(wi.rejected_count, 0) DoneCount,
     IFNULL(c.Main_Material, 0) + IFNULL(c.Rubber, 0) + IFNULL(c.Clue, 0) + IFNULL(c.Armature, 0) + IFNULL(c.Sand, 0) + IFNULL(c.Textile, 0) + IFNULL(c.Other_Material, 0) MaterialCost,
     IFNULL(c.Transport, 0) TransportCost,
     IFNULL(c.Main_Salary, 0) SalaryCost,
