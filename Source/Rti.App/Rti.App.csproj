@@ -970,6 +970,9 @@
   <ItemGroup>
     <Resource Include="Reports\GetEquipmentInvoiceReport.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetDrawingShipmentsReportCompact.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -40,7 +40,7 @@ SELECT
   rd.equipment_lead_time,
   r.work_start_date,
   CASE WHEN IFNULL(si.not_shipped_count, 1) AND
-      r.ship_date <= CURRENT_DATE() THEN 5 WHEN si.not_shipped_count = 0 THEN 4 WHEN r.work_start_date IS NULL THEN 0 WHEN r.work_start_date IS NOT NULL AND
+      r.ship_date <= CURRENT_DATE() THEN 5 WHEN si.not_shipped_count <= 0 THEN 4 WHEN r.work_start_date IS NULL THEN 0 WHEN r.work_start_date IS NOT NULL AND
       DATEDIFF(r.ship_date, IFNULL(r.work_start_date, r.reg_date)) > r.lead_time THEN 1 WHEN r.work_start_date IS NOT NULL AND
       DATEDIFF(r.ship_date, IFNULL(r.work_start_date, r.reg_date)) = r.lead_time THEN 2 WHEN r.work_start_date IS NOT NULL AND
       DATEDIFF(r.ship_date, IFNULL(r.work_start_date, r.reg_date)) < r.lead_time THEN 3 END request_status,
