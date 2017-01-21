@@ -11,12 +11,14 @@
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" Visibility="{Binding Editable,Converter={StaticResource BooleanToCollapsedConverter}}">
-            <Button Content="Загрузить" Command="{Binding UploadImageCommand}" Width="90" Margin="5" TabIndex="0"></Button>
+            <!--<Button Content="Загрузить" Command="{Binding UploadImageCommand}" Width="90" Margin="5" TabIndex="0"></Button>-->
         </StackPanel>
-        <Image Source="{Binding Entity.Image}" Grid.Row="1" Margin="5" Stretch="Uniform"/>
+        <ScrollViewer Grid.Row="1">
+            <Image Source="{Binding Entity.Image}" Margin="5" Stretch="None"/>
+        </ScrollViewer>
         <StackPanel Grid.Row="2" Orientation="Horizontal" Visibility="{Binding Editable,Converter={StaticResource BooleanToCollapsedConverter}}">
-            <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>
-            <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
+            <!--<Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>-->
+            <Button Content="Закрыть"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
         </StackPanel>
     </Grid>
 </dx:DXWindow>

@@ -24,6 +24,8 @@ namespace Rti.ViewModel.EditViewModel
         public DelegateCommand OpenFlowsheetCommand { get; set; }
         public DelegateCommand OpenCalculationCommand { get; set; }
 
+        public ImageEdit ImageEdit { get; set; }
+
         public DrawingEdit(string name, DrawingViewModel entity, bool readOnly, IViewService viewService,
             IRepositoryFactory repositoryFactory)
             : base(name, entity, readOnly, viewService, repositoryFactory)
@@ -53,6 +55,10 @@ namespace Rti.ViewModel.EditViewModel
                 o => true,
                 o => OpenCalculation());
 
+            if (Entity.DrawingImage == null)
+                Entity.DrawingImage = new ImageViewModel(null, RepositoryFactory);
+            ImageEdit = new ImageEdit("Изображение", Entity.DrawingImage.Data, ReadOnly, ViewService, RepositoryFactory);
+
             Entity.PropertyChanged += (sender, args) =>
             {
                 if (args.PropertyName == "MaterialByPassport")
@@ -76,12 +82,17 @@ namespace Rti.ViewModel.EditViewModel
             MeasureUnitsSource = new Lazy<List<MeasureUnitViewModel>>(() => RepositoryFactory.GetMeasureUnitRepository().GetAllActive().Select(o => new MeasureUnitViewModel(o, RepositoryFactory)).ToList());
             EquipmentsSource = new Lazy<List<EquipmentViewModel>>(() => RepositoryFactory.GetEquipmentRepository().GetAllActive().Select(o => new EquipmentViewModel(o, RepositoryFactory)).ToList());
             MethodsSource = new Lazy<List<MethodViewModel>>(() => RepositoryFactory.GetMethodRepository().GetAllActive().Select(o => new MethodViewModel(o, RepositoryFactory)).ToList());
+
+            DoAsync(
+                () => Entity.DrawingImage.Data ?? RepositoryFactory.GetImageRepository().GetData(Entity.DrawingImage.Id),
+                res => ImageEdit.Entity.Data = res);
         }
 
         protected override void DoSave()
         {
             if (Entity.DrawingImage != null)
             {
+                Entity.DrawingImage.Data = ImageEdit.Entity.Data;
                 Entity.DrawingImage.SaveEntity();
                 RepositoryFactory.GetImageRepository().SaveData(Entity.DrawingImage.Id, Entity.DrawingImage.Data);
             }
@@ -113,8 +124,7 @@ namespace Rti.ViewModel.EditViewModel
             {
                 if (Entity.Equipment == null)
                     Entity.Equipment = equipment;
-            }
-        }
+            }}
 
         private void OpenDrawingMeasurementEdit()
         {
@@ -125,21 +135,24 @@ namespace Rti.ViewModel.EditViewModel
 
         private void OpenDrawingImage()
         {
-            var imageData = new byte[] { };
-            if (Entity.DrawingImage != null)
-                imageData = Entity.DrawingImage.Data ?? RepositoryFactory.GetImageRepository().GetData(Entity.DrawingImage.Id);
+            ViewService.ShowViewDialog(ImageEdit);
 
-            var viewModel = new ImageEdit("Просмотр чертежа", imageData, ReadOnly, ViewService, RepositoryFactory);
-            viewModel.Refresh();
-            if (ViewService.ShowViewDialog(viewModel) == true)
-            {
-                if (Entity.DrawingImage == null)
-                {
-                    var image = new ImageViewModel(null, RepositoryFactory);
-                    Entity.DrawingImage = image;
-                }
-                Entity.DrawingImage.Data = viewModel.Entity.Data;
-            }
+            //var imageData = new byte[] { };
+            //if (Entity.DrawingImage != null)
+            //    imageData = Entity.DrawingImage.Data ?? RepositoryFactory.GetImageRepository().GetData(Entity.DrawingImage.Id);
+
+            //var viewModel = new ImageEdit("Просмотр чертежа", imageData, ReadOnly, ViewService, RepositoryFactory);
+            //viewModel.Refresh();
+            //if (ViewService.ShowViewDialog(viewModel) == true)
+            //{
+            //    if (Entity.DrawingImage == null)
+            //    {
+            //        var image = new ImageViewModel(null, RepositoryFactory);
+            //        Entity.DrawingImage = image;
+            //    }
+            //    Entity.DrawingImage.Data = viewModel.Entity.Data;
+
+            //}
         }
 
         private void OpenFlowsheet()
