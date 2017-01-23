@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using Rti.Model.Domain;
+using Rti.Model.Domain.BusinessLogic;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
@@ -309,6 +310,14 @@ namespace Rti.ViewModel.EditViewModel
             Entity.Sum = RequestDetails.Sum(o => o.Sum);
             // Сохраняем заявку
             base.DoSave();
+
+            // Для проведения нарядов:
+            // Получаем все чертежи по заявке до сохранения, приклеиваем к ним новые чертежи, и убираем дубли
+            var drawings =
+                RepositoryFactory.GetRequestDetailRepository().GetByRequestId(Source.Id).Select(o => new DrawingViewModel(o.Drawing, RepositoryFactory))
+                .Union(RequestDetails.Select(o => o.Drawing))
+                .Distinct();
+
             // Сохраняем детали заявки
             foreach (var deletedDetail in _deletedDetails)
             {
@@ -327,6 +336,13 @@ namespace Rti.ViewModel.EditViewModel
 
                     detail.SaveEntity();
                 }
+            }
+
+            // Проводим наряды по всем затронутым чертежам (как удаленным так и добавленным)
+            var workItemController = new WorkItemController(RepositoryFactory);
+            foreach (var drawing in drawings)
+            {
+                workItemController.PostWorkItems(drawing.Id, Entity.RegDate);
             }
         }
 

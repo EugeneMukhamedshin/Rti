@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Windows.Media.Animation;
 using Rti.Model;
 using Rti.Model.Domain;
@@ -21,9 +23,62 @@ namespace Rti.ViewModel.Lists
         public DelegateCommand OpenFlowsheetCommand { get; set; }
         public DelegateCommand OpenCalculationCommand { get; set; }
 
-        public int Page { get; set; }
-        public int PageSize { get; set; }
+        public int Page
+        {
+            get { return _page; }
+            set
+            {
+                _page = value;
+                OnPropertyChanged("Page");
+            }
+        }
+
+        public int PageSize
+        {
+            get { return _pageSize; }
+            set
+            {
+                if (value != _pageSize)
+                    _page = 0;
+                _pageSize = value;
+                OnPropertyChanged("PageSize");
+            }
+        }
+
+        private bool _runFetch;
+        private Timer _fetchTimer;
+        private AsyncOperation _fetchAsyncOperation;
+
+        public string FilterString
+        {
+            get { return _filter; }
+            set
+            {
+                _runFetch = false;
+                _filter = value;
+                OnPropertyChanged("FilterString");
+                _fetchTimer.Change(1000, Timeout.Infinite);
+                _runFetch = true;
+            }
+        }
+
+        public bool IsFilterEnabled
+        {
+            get { return _isFilterEnabled; }
+            set
+            {
+                _isFilterEnabled = value; 
+                OnPropertyChanged();
+            }
+        }
+
         public bool IsLastPage { get; set; }
+
+        public List<int> PageSizes { get; set; }
+        private int _pageSize;
+        private int _page;
+        private string _filter;
+        private bool _isFilterEnabled;
 
         public DrawingList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(editMode, viewService, repositoryFactory)
@@ -38,10 +93,10 @@ namespace Rti.ViewModel.Lists
             EditDrawingCommand = new DelegateCommand(o => EditDrawing((DrawingViewModel)o));
             PrevPageCommand = new DelegateCommand(
                 "Предыдущая страница",
-                o => Page > 0,
+                o => _page > 0,
                 o =>
                 {
-                    Page--;
+                    _page--;
                     Refresh();
                 });
             NextPageCommand = new DelegateCommand(
@@ -49,7 +104,7 @@ namespace Rti.ViewModel.Lists
                 o => !IsLastPage,
                 o =>
                 {
-                    Page++;
+                    _page++;
                     Refresh();
                 });
             OpenFlowsheetCommand = new DelegateCommand(
@@ -61,8 +116,27 @@ namespace Rti.ViewModel.Lists
                 o => SelectedItem != null,
                 o => OpenCalculation());
 
-            Page = 0;
-            PageSize = 15;
+            PageSizes = new List<int>(new[] { 10, 20, 50, 100, 1000 });
+
+            _page = 0;
+            _pageSize = 20;
+            _filter = null;
+            IsFilterEnabled = true;
+
+            _fetchTimer = new Timer(FetchCallback, null, Timeout.Infinite, Timeout.Infinite);
+            _fetchAsyncOperation = AsyncOperationManager.CreateOperation(null);
+        }
+
+        private void FetchCallback(object state)
+        {
+            if (_runFetch)
+                _fetchAsyncOperation.Post(Refresh, null);
+        }
+
+        private void Refresh(object state)
+        {
+            IsFilterEnabled = false;
+            Refresh();
         }
 
         private void AddDrawing()
@@ -70,7 +144,7 @@ namespace Rti.ViewModel.Lists
             var drawing = DoCreateNewEntity();
             if (OpenViewModelEditWindow(drawing, "Новый чертеж", false))
             {
-                Page = 0;
+                _page = 0;
                 Refresh();
             }
         }
@@ -101,15 +175,15 @@ namespace Rti.ViewModel.Lists
         protected override void OnItemsChanged()
         {
             base.OnItemsChanged();
-            PrevPageCommand.RequeryCanExecute();
+            IsFilterEnabled = true;PrevPageCommand.RequeryCanExecute();
             NextPageCommand.RequeryCanExecute();
         }
 
         protected override IEnumerable<DrawingViewModel> GetItems()
         {
-            var items = RepositoryFactory.GetDrawingRepository().GetPage(Page, PageSize, new List<Expression<Func<Drawing, object>>> { });
-            IsLastPage = !(items.Count > PageSize);
-            return items.Take(PageSize).Select(o => new DrawingViewModel(o, RepositoryFactory)).ToList(); ;
+            var items = RepositoryFactory.GetDrawingRepository().GetPage(_page, _pageSize, _filter, new List<Expression<Func<Drawing, object>>> { });
+            IsLastPage = !(items.Count > _pageSize);
+            return items.Take(_pageSize).Select(o => new DrawingViewModel(o, RepositoryFactory)).ToList(); ;
         }
 
         protected override DrawingViewModel DoCreateNewEntity()
@@ -146,5 +220,12 @@ namespace Rti.ViewModel.Lists
         }
 
         public Action<bool?> Close { get; set; }
+
+        protected override void OnPropertyChanged(string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+            if (propertyName == "PageSize")
+                Refresh();
+        }
     }
 }

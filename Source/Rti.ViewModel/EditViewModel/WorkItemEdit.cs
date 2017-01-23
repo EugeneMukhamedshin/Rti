@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Rti.Model.Domain;
+using Rti.Model.Domain.BusinessLogic;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
 
@@ -28,12 +29,10 @@ namespace Rti.ViewModel.EditViewModel
         {
             if (!Entity.IsChanged)
                 return;
-            var controller = new WorkItemControllerViewModel(ViewService, RepositoryFactory);
-            if (!controller.ValidatePost(Entity))
-                return;
+            var controller = new WorkItemController(RepositoryFactory);
             base.DoSave();
 
-            controller.PostWorkItem(Source);
+            controller.PostWorkItems(Source.Drawing.Id, Source.WorkDate, Source.SortOrder);
         }
 
         protected override bool DoValidate()

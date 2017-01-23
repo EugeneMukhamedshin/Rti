@@ -41,11 +41,13 @@ FROM (SELECT
     SUM(IFNULL(wird.done_count, 0)) done
   FROM request_details rd
     LEFT JOIN (SELECT
-        wird.*
-      FROM work_item_request_details wird
-        INNER JOIN work_items wi
-          ON wird.work_item_id = wi.id
-          AND wi.work_date <= :p_work_date and wi.sort_order < :p_sort_order) wird
+      wird.*
+    FROM work_item_request_details wird
+      INNER JOIN work_items wi
+        ON wird.work_item_id = wi.id
+        AND (wi.work_date < :p_work_date
+        OR wi.work_date = :p_work_date
+        AND wi.sort_order < :p_sort_order)) wird
       ON wird.request_detail_id = rd.id
   WHERE rd.drawing_id = :p_drawing_id
   AND rd.is_deleted = 0

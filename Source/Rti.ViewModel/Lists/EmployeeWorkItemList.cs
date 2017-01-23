@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using Rti.Model;
 using Rti.Model.Domain;
+using Rti.Model.Domain.BusinessLogic;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
@@ -115,10 +116,10 @@ namespace Rti.ViewModel.Lists
 
         private void PostWorkItems()
         {
-            var controller = new WorkItemControllerViewModel(ViewService, RepositoryFactory);
-            foreach (var workItem in Items)
+            var controller = new WorkItemController(RepositoryFactory);
+            foreach (var workItem in Items.OrderBy(o => o.WorkDate).ThenBy(o => o.SortOrder))
             {
-                controller.PostWorkItem(workItem);
+                controller.PostWorkItems(workItem.Drawing.Id, workItem.WorkDate, workItem.SortOrder);
             }
         }
 

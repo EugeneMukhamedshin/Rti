@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Rti.Model.Domain.BusinessLogic;
 using Rti.Model.Domain.ReportEntities;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.EditViewModel;
@@ -83,6 +84,19 @@ namespace Rti.ViewModel.Lists
             var request = RepositoryFactory.GetRequestRepository().GetById(item.Id);
             request.IsDeleted = true;
             RepositoryFactory.GetRequestRepository().Update(request);
+
+            var requestDetails = RepositoryFactory.GetRequestDetailRepository().GetByRequestId(item.Id);
+            foreach (var requestDetail in requestDetails)
+            {
+                requestDetail.IsDeleted = true;
+                RepositoryFactory.GetRequestDetailRepository().Update(requestDetail);
+            }
+
+            var workItemController = new WorkItemController(RepositoryFactory);
+            foreach (var drawing in requestDetails.Select(o => o.Drawing).Distinct())
+            {
+                workItemController.PostWorkItems(drawing.Id, request.RegDate);
+            }
 
             Items.Remove(item);
         }

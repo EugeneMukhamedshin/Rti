@@ -13,6 +13,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="48"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="32"/>
             </Grid.RowDefinitions>
@@ -22,8 +23,14 @@
                 <Button Content="{DynamicResource EditImage}" Command="{Binding EditDrawingCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5"/>
                 <Button Content="&lt;" Command="{Binding PrevPageCommand}" Width="32" Height="32" Margin="5"/>
                 <Button Content="&gt;" Command="{Binding NextPageCommand}" Width="32" Height="32" Margin="5"/>
+                <Label Content="Строк на странице" VerticalAlignment="Center"/>
+                <ComboBox ItemsSource="{Binding PageSizes}" SelectedItem="{Binding PageSize}" IsSynchronizedWithCurrentItem="True" Width="70" Margin="5" Height="24" VerticalContentAlignment="Center"/>
             </StackPanel>
-            <dxg:GridControl TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="1">
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Label Content="Поиск" VerticalContentAlignment="Center" Margin="10"/>
+                <TextBox Text="{Binding FilterString,UpdateSourceTrigger=PropertyChanged}" Height="24" Margin="10" VerticalAlignment="Center" Width="250" IsEnabled="{Binding IsFilterEnabled}"/>
+            </StackPanel>
+            <dxg:GridControl TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2">
                 <dxmvvm:Interaction.Behaviors>
                     <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding EditEntityCommand}" PassEventArgsToCommand="True">
                         <dxmvvm:EventToCommand.EventArgsConverter>
@@ -74,10 +81,10 @@
                     <dxg:GridColumn FieldName="Note" Header="Примечание" Width="100"/>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>
-                    <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                    <dxg:TableView ShowSearchPanelMode="Never" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>
             </dxg:GridControl>
-            <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <StackPanel Orientation="Horizontal" Grid.Row="3">
                 <Button Content="Тех. карта" Command="{Binding OpenFlowsheetCommand}" Width="100" Margin="5" TabIndex="1000"></Button>
                 <Button Content="Калькуляция" Command="{Binding OpenCalculationCommand}" Width="100" Margin="5" TabIndex="1001"></Button>
             </StackPanel>

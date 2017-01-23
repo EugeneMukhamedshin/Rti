@@ -20,12 +20,12 @@ namespace Rti.ViewModel.Entities
                 return Drawing != null && Drawing.Equipment != null && Drawing.Equipment.ExistanceEnum != Existance.Exist;
             }
         }
-
+        
         public EquipmentViewModel Equipment
         {
             get
             {
-                if (_equipment == null)
+                if (_equipment == null && Drawing.Equipment != null)
                     _equipment = new EquipmentViewModel(RepositoryFactory.GetEquipmentRepository().GetById(Drawing.Equipment.Id), RepositoryFactory);
                 return _equipment;
             }

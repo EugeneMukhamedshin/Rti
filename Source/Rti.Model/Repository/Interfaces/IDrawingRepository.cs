@@ -9,7 +9,7 @@ namespace Rti.Model.Repository.Interfaces
     {
         IList<Drawing> GetAllActive(IEnumerable<Expression<Func<Drawing, object>>> expressions = null);
 
-        IList<Drawing> GetPage(int page, int pageSize, IEnumerable<Expression<Func<Drawing, object>>> expressions = null);
+        IList<Drawing> GetPage(int page, int pageSize, string filter, IEnumerable<Expression<Func<Drawing, object>>> expressions = null);
 
         int GetNextSortOrder();
         IList<Drawing> GetUnpaidEquipments();

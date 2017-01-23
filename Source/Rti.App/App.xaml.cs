@@ -49,6 +49,14 @@ namespace Rti.App
                 var repositoryFactory = new NHibernateRepositoryFactory();
                 _viewService = new ViewService();
 
+                //var drawings = repositoryFactory.GetDrawingRepository().GetAll();
+
+                //var workItemController = new WorkItemController(repositoryFactory);
+                //foreach (var drawing in drawings)
+                //{
+                //    workItemController.PostWorkItems(drawing.Id, DateTime.MinValue);
+                //}
+
                 var isDebug = e.Args.Any(arg => arg.ToLower().Equals("debug=true"));
 
                 if (!isDebug)

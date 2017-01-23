@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using NHibernate.Criterion;
 using NHibernate.Linq;
 using NHibernate.Transform;
@@ -16,9 +17,53 @@ namespace Rti.Model.Repository.NHibernate
             return ExecuteFuncOnQueryOver(q => q.Where(o => !o.IsDeleted).List(), expressions);
         }
 
-        public IList<Drawing> GetPage(int page, int pageSize, IEnumerable<Expression<Func<Drawing, object>>> expressions = null)
+        public IList<Drawing> GetPage(int page, int pageSize, string filter, IEnumerable<Expression<Func<Drawing, object>>> expressions = null)
         {
-            return ExecuteFuncOnQueryOver(q => q.Where(o => !o.IsDeleted).OrderBy(o => o.CreationDate).Desc.Skip(page * pageSize).Take(pageSize + 1).List(), expressions);
+            return ExecuteFuncOnQueryOver(
+                q =>
+                {
+                    q.Where(o => !o.IsDeleted);
+                    if (!string.IsNullOrWhiteSpace(filter))
+                    {
+                        var filterString = string.Format("%{0}%", filter);
+                        Detail detail = null;
+                        Group group = null;
+                        Material materialByPassport = null;
+                        Material material = null;
+                        Equipment equipment = null;
+                        Method method = null;
+                        q.Left.JoinAlias(o => o.Detail, () => detail)
+                         .Left.JoinAlias(o => o.Group, () => group)
+                         .Left.JoinAlias(o => o.MaterialByPassport, () => materialByPassport)
+                         .Left.JoinAlias(o => o.Material, () => material)
+                         .Left.JoinAlias(o => o.Equipment, () => equipment)
+                         .Left.JoinAlias(o => o.Method, () => method);
+                        q.And(
+                            Restrictions.Or(
+                                Restrictions.Or(
+                                    Restrictions.Or(
+                                        Restrictions.Or(
+                                            Restrictions.Or(
+                                                Restrictions.Or(
+                                                    Restrictions.Or(
+                                                        Restrictions.On<Drawing>(o => o.AdditionalInfo)
+                                                            .IsInsensitiveLike(filterString),
+                                                        Restrictions.On<Drawing>(o => o.Name)
+                                                            .IsInsensitiveLike(filterString)
+                                                        ),
+                                                    Restrictions.On(() => detail.Name).IsInsensitiveLike(filterString)
+                                                    ), Restrictions.On(() => group.Name).IsInsensitiveLike(filterString)
+                                                ),
+                                            Restrictions.On(() => materialByPassport.Name)
+                                                .IsInsensitiveLike(filterString)
+                                            ), Restrictions.On(() => material.Name).IsInsensitiveLike(filterString)
+                                        ), Restrictions.On(() => equipment.Name).IsInsensitiveLike(filterString)
+                                    ), Restrictions.On(() => method.Name).IsInsensitiveLike(filterString)
+                                ));
+                    }
+                    q.OrderBy(o => o.CreationDate).Desc.Skip(page * pageSize).Take(pageSize + 1);
+                    return q.List();
+                }, expressions);
         }
 
         public int GetNextSortOrder()

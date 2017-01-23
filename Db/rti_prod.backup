@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Devart (www.devart.com), export template file-->
+<!-- Modifying this generated file will probably render it invalid -->
+<ExportTemplate FormatVersion="1">
+  <LastSuccessfullDate>0001-01-01T00:00:00</LastSuccessfullDate>
+  <Provider>00000000-0000-0000-0000-000000000000</Provider>
+  <ConnectionName>information_schema.81.177.174.193</ConnectionName>
+  <ConnectionString>User Id=root;Host=81.177.174.193;Database=information_schema;Character Set=utf8</ConnectionString>
+  <Database>rti</Database>
+  <OutputDirectory>D:\Projects\Rti\Db</OutputDirectory>
+  <BaseFileName>rti_prod</BaseFileName>
+  <Mode>All</Mode>
+  <AppendTimestamp>False</AppendTimestamp>
+  <MaxDays>0</MaxDays>
+  <MaxFilesCount>0</MaxFilesCount>
+  <Compression />
+  <DatabaseObjects>
+    <DatabaseObjectType ObjectType="Table">
+      <DatabaseObject>additional_infos</DatabaseObject>
+      <DatabaseObject>calculations</DatabaseObject>
+      <DatabaseObject>constants</DatabaseObject>
+      <DatabaseObject>contracts</DatabaseObject>
+      <DatabaseObject>contragents</DatabaseObject>
+      <DatabaseObject>details</DatabaseObject>
+      <DatabaseObject>drawing_calculation_history</DatabaseObject>
+      <DatabaseObject>drawing_flowsheet_machines</DatabaseObject>
+      <DatabaseObject>drawing_flowsheet_processes</DatabaseObject>
+      <DatabaseObject>drawings</DatabaseObject>
+      <DatabaseObject>drivers</DatabaseObject>
+      <DatabaseObject>employees</DatabaseObject>
+      <DatabaseObject>equipment_payments</DatabaseObject>
+      <DatabaseObject>equipments</DatabaseObject>
+      <DatabaseObject>groups</DatabaseObject>
+      <DatabaseObject>jobs</DatabaseObject>
+      <DatabaseObject>machines</DatabaseObject>
+      <DatabaseObject>mass_calculations</DatabaseObject>
+      <DatabaseObject>material_arrival_records</DatabaseObject>
+      <DatabaseObject>materials</DatabaseObject>
+      <DatabaseObject>measure_units</DatabaseObject>
+      <DatabaseObject>methods</DatabaseObject>
+      <DatabaseObject>payments</DatabaseObject>
+      <DatabaseObject>processes</DatabaseObject>
+      <DatabaseObject>report_of_completion_items</DatabaseObject>
+      <DatabaseObject>request_details</DatabaseObject>
+      <DatabaseObject>requests</DatabaseObject>
+      <DatabaseObject>rolling_records</DatabaseObject>
+      <DatabaseObject>shaving_records</DatabaseObject>
+      <DatabaseObject>shipment_item_work_items</DatabaseObject>
+      <DatabaseObject>shipment_items</DatabaseObject>
+      <DatabaseObject>shipments</DatabaseObject>
+      <DatabaseObject>shipped_product_records</DatabaseObject>
+      <DatabaseObject>shipping_order_records</DatabaseObject>
+      <DatabaseObject>work_item_employee_package</DatabaseObject>
+      <DatabaseObject>work_item_employee_package_machines</DatabaseObject>
+      <DatabaseObject>work_item_package</DatabaseObject>
+      <DatabaseObject>work_item_request_details</DatabaseObject>
+      <DatabaseObject>work_items</DatabaseObject>
+    </DatabaseObjectType>
+  </DatabaseObjects>
+  <Options>
+    <PropertyValue Name="LockTables">false</PropertyValue>
+    <PropertyValue Name="IncludeVirtualColumnsData">false</PropertyValue>
+    <PropertyValue Name="IncludeUserInfo">false</PropertyValue>
+    <PropertyValue Name="DisableConstraints">false</PropertyValue>
+    <PropertyValue Name="UseDelayedInsert">false</PropertyValue>
+    <PropertyValue Name="InsertCommit">false</PropertyValue>
+    <PropertyValue Name="InsertCommitAfter" xml:space="preserve">100</PropertyValue>
+    <PropertyValue Name="IncludeColumnNames">false</PropertyValue>
+    <PropertyValue Name="BulkInsert">true</PropertyValue>
+    <PropertyValue Name="UseHexForBinary">false</PropertyValue>
+    <PropertyValue Name="FormatDdlText">false</PropertyValue>
+    <PropertyValue Name="SingleTransaction">false</PropertyValue>
+    <PropertyValue Name="LockAllTablesForRead">false</PropertyValue>
+    <PropertyValue Name="FlushLogs">false</PropertyValue>
+    <PropertyValue Name="IncludeNoAutoValueOnZero">true</PropertyValue>
+    <PropertyValue Name="IncludeEngine">false</PropertyValue>
+    <PropertyValue Name="IncludePartitionClause">true</PropertyValue>
+    <PropertyValue Name="ListIndividualHashPartitions">true</PropertyValue>
+    <PropertyValue Name="IgnoreDefiner">false</PropertyValue>
+    <PropertyValue Name="ResetTimestampToCurrentTimestamp">false</PropertyValue>
+    <PropertyValue Name="UseCreateOrReplace">true</PropertyValue>
+    <PropertyValue Name="IncludeConstraints">true</PropertyValue>
+    <PropertyValue Name="IncludeTriggers">true</PropertyValue>
+    <PropertyValue Name="IncludeIndexes">true</PropertyValue>
+    <PropertyValue Name="IncludeComments">true</PropertyValue>
+    <PropertyValue Name="DisableForeignKeys">true</PropertyValue>
+    <PropertyValue Name="IncludeAdditional">true</PropertyValue>
+    <PropertyValue Name="IgnoreColumnDefaultValues">false</PropertyValue>
+    <PropertyValue Name="IgnoreUdfs">true</PropertyValue>
+    <PropertyValue Name="WriteLog">false</PropertyValue>
+    <PropertyValue Name="LogFileName" xml:space="preserve">Backup.log</PropertyValue>
+    <PropertyValue Name="ErrorHandlingMode">0</PropertyValue>
+    <PropertyValue Name="IncludeDrop">true</PropertyValue>
+    <PropertyValue Name="IncludeIfExists">true</PropertyValue>
+    <PropertyValue Name="IncludeIfNotExists">false</PropertyValue>
+    <PropertyValue Name="IncludeCreateDatabase">false</PropertyValue>
+    <PropertyValue Name="IncludeUseDatabase">true</PropertyValue>
+    <PropertyValue Name="IncludeGrants">false</PropertyValue>
+    <PropertyValue Name="UseSchemaNamePrefix">false</PropertyValue>
+    <PropertyValue Name="GenerateComments">true</PropertyValue>
+    <PropertyValue Name="IncludePurge">false</PropertyValue>
+    <PropertyValue Name="IncludeCascadeConstraints">false</PropertyValue>
+    <PropertyValue Name="UseDelimiter">false</PropertyValue>
+    <PropertyValue Name="SplitAlterTable">false</PropertyValue>
+    <PropertyValue Name="IncludeColumnsOnly">false</PropertyValue>
+    <PropertyValue Name="IncludeEncryptedPassword">false</PropertyValue>
+    <PropertyValue Name="IncludeObjectGrants">false</PropertyValue>
+  </Options>
+</ExportTemplate>
