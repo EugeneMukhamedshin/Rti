@@ -44,6 +44,11 @@ namespace Rti.ViewModel.Entities
             get { return PlanCalculation != null ? PlanCalculation.Price : null; }
         }
 
+        /// <summary>
+        /// Не выполненное количество по данному чертежу
+        /// </summary>
+        public int UndoneCount { get; set; }
+
         public void RaiseCalculationPriceChanged()
         {
             OnPropertyChanged("CalculationPrice");

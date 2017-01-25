@@ -4358,6 +4358,7 @@ namespace Rti.ViewModel.Entities
 		private Int32? _taskCount;
 		private Int32? _doneCount;
 		private Int32? _rejectedCount;
+		private Int32? _overflowCount;
 		private String _note;
 		private Boolean _isParallel;
 		private String _batchNumber;
@@ -4371,6 +4372,7 @@ namespace Rti.ViewModel.Entities
 		public Int32? TaskCount { get { return _taskCount; } set { if (Equals(_taskCount, value)) return; _taskCount = value; OnPropertyChanged("TaskCount"); } }
 		public Int32? DoneCount { get { return _doneCount; } set { if (Equals(_doneCount, value)) return; _doneCount = value; OnPropertyChanged("DoneCount"); } }
 		public Int32? RejectedCount { get { return _rejectedCount; } set { if (Equals(_rejectedCount, value)) return; _rejectedCount = value; OnPropertyChanged("RejectedCount"); } }
+		public Int32? OverflowCount { get { return _overflowCount; } set { if (Equals(_overflowCount, value)) return; _overflowCount = value; OnPropertyChanged("OverflowCount"); } }
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
 		public Boolean IsParallel { get { return _isParallel; } set { if (Equals(_isParallel, value)) return; _isParallel = value; OnPropertyChanged("IsParallel"); } }
 		public String BatchNumber { get { return _batchNumber; } set { if (Equals(_batchNumber, value)) return; _batchNumber = value; OnPropertyChanged("BatchNumber"); } }
@@ -4385,6 +4387,7 @@ namespace Rti.ViewModel.Entities
 			Entity.TaskCount = TaskCount; 
 			Entity.DoneCount = DoneCount; 
 			Entity.RejectedCount = RejectedCount; 
+			Entity.OverflowCount = OverflowCount; 
 			Entity.Note = Note; 
 			Entity.IsParallel = IsParallel; 
 			Entity.BatchNumber = BatchNumber; 
@@ -4403,6 +4406,7 @@ namespace Rti.ViewModel.Entities
 			TaskCount = Entity.TaskCount; 
 			DoneCount = Entity.DoneCount; 
 			RejectedCount = Entity.RejectedCount; 
+			OverflowCount = Entity.OverflowCount; 
 			Note = Entity.Note; 
 			IsParallel = Entity.IsParallel; 
 			BatchNumber = Entity.BatchNumber; 
@@ -4421,6 +4425,7 @@ namespace Rti.ViewModel.Entities
 			TaskCount = source.TaskCount;
 			DoneCount = source.DoneCount;
 			RejectedCount = source.RejectedCount;
+			OverflowCount = source.OverflowCount;
 			Note = source.Note;
 			IsParallel = source.IsParallel;
 			BatchNumber = source.BatchNumber;
@@ -4452,6 +4457,8 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("DoneCount", DoneCount));
 			if (RejectedCount != null)
 				element.Add(new XAttribute("RejectedCount", RejectedCount));
+			if (OverflowCount != null)
+				element.Add(new XAttribute("OverflowCount", OverflowCount));
 			if (Note != null)
 				element.Add(new XAttribute("Note", Note));
 			element.Add(new XAttribute("IsParallel", IsParallel));

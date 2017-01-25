@@ -27,6 +27,7 @@
                                         <dxg:GridControl.Columns>
                                             <dxg:GridColumn FieldName="SortOrder" Header="№"/>
                                             <dxg:GridColumn FieldName="Name" Header="Наименование"/>
+                                            <dxg:GridColumn FieldName="UndoneCount" Header="Не выполнено"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
                                             <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AutoWidth="True"/>

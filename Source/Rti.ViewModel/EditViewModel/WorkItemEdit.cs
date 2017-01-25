@@ -22,7 +22,7 @@ namespace Rti.ViewModel.EditViewModel
         {
             base.Refresh();
             EmployeesSource = new Lazy<List<EmployeeViewModel>>(() => RepositoryFactory.GetEmployeeRepository().GetAllActive().Select(m => new EmployeeViewModel(m, RepositoryFactory)).ToList());
-            DrawingsSource = new Lazy<List<DrawingViewModel>>(() => RepositoryFactory.GetDrawingRepository().GetAllInWork().Select(m => new DrawingViewModel(m, RepositoryFactory)).ToList());
+            DrawingsSource = new Lazy<List<DrawingViewModel>>(() => RepositoryFactory.GetDrawingRepository().GetAllInWork(Entity.WorkDate, Entity.SortOrder).Select(m => new DrawingViewModel(m.Item1, RepositoryFactory) {UndoneCount = m.Item2}).ToList());
         }
 
         protected override void DoSave()
@@ -32,7 +32,7 @@ namespace Rti.ViewModel.EditViewModel
             var controller = new WorkItemController(RepositoryFactory);
             base.DoSave();
 
-            controller.PostWorkItems(Source.Drawing.Id, Source.WorkDate, Source.SortOrder);
+            controller.PostWorkItem(Source.Entity);
         }
 
         protected override bool DoValidate()

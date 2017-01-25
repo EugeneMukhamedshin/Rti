@@ -31,16 +31,11 @@ namespace Rti.Model.Domain.BusinessLogic
 
             foreach (var workItem in workItems)
             {
-                PostWorkItem1(workItem);
+                PostWorkItem(workItem);
             }
-            //var nextWorkItem = RepositoryFactory.GetWorkItemRepository().GetByDrawingId(workItem.Drawing.Id, workItem.WorkDate).OrderBy(o => o.Id).FirstOrDefault(o => o.Id > workItem.Id);
-            //if (nextWorkItem != null)
-            //{
-            //    PostWorkItem(nextWorkItem);
-            //}
         }
 
-        private void PostWorkItem1(WorkItem workItem)
+        public void PostWorkItem(WorkItem workItem)
         {
             // Удаляем предыдущие записи распределения
             RepositoryFactory.GetWorkItemRequestDetailRepository().DeleteByWorkItemId(workItem.Id);
@@ -49,10 +44,6 @@ namespace Rti.Model.Domain.BusinessLogic
             var requestDetailDoneCounts =
                 RepositoryFactory.GetRequestDetailRepository()
                     .GetRequestsInProductionWithActualDoneCounts(workItem.Drawing.Id, workItem);
-
-            // Пересчитываем количество деталей по заявкам на текущую дату
-            workItem.RequestCount = requestDetailDoneCounts.Sum(o => o.Item2 - o.Item3);
-            RepositoryFactory.GetWorkItemRepository().Update(workItem);
 
             // Получаем строки заявок для распределения фактически выполненной работы
             var requestDetails =
@@ -88,6 +79,11 @@ namespace Rti.Model.Domain.BusinessLogic
                     detail.RequestDetail.RequestDetailStateEnum = RequestDetailState.InProduction;
                 RepositoryFactory.GetRequestDetailRepository().Update(detail.RequestDetail);
             }
+            // Пересчитываем количество деталей по заявкам на текущую дату
+            workItem.RequestCount = requestDetailDoneCounts.Sum(o => o.Item2 - o.Item3);
+            // Записываем перевыполнение
+            workItem.OverflowCount = dayDoneCount;
+            RepositoryFactory.GetWorkItemRepository().Update(workItem);
         }
     }
 

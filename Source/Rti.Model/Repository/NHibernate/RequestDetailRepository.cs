@@ -66,8 +66,7 @@ WHERE r.count > r.done
                         new ResultTransformer(
                             fields =>
                                 new Tuple<int, int, int>(
-                                    (int) fields[0], 
-                                    (int)fields[1],
+                                    (int) fields[0], (int)fields[1],
                                     decimal.ToInt32((decimal) fields[2])),
                             objects => objects.Cast<Tuple<int, int, int>>().ToList()))
                     .List<Tuple<int, int, int>>(), "");

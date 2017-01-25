@@ -119,7 +119,7 @@ namespace Rti.ViewModel.Lists
             var controller = new WorkItemController(RepositoryFactory);
             foreach (var workItem in Items.OrderBy(o => o.WorkDate).ThenBy(o => o.SortOrder))
             {
-                controller.PostWorkItems(workItem.Drawing.Id, workItem.WorkDate, workItem.SortOrder);
+                controller.PostWorkItem(workItem.Entity);
             }
         }
 

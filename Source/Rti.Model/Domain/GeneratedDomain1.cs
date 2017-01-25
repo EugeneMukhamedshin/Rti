@@ -1024,6 +1024,8 @@ namespace Rti.Model.Domain
 		public virtual Int32? DoneCount { get; set; }
 		[Field("rejected_count")]
 		public virtual Int32? RejectedCount { get; set; }
+		[Field("overflow_count")]
+		public virtual Int32? OverflowCount { get; set; }
 		[Field("note")]
 		public virtual String Note { get; set; }
 		[Field("is_parallel")]

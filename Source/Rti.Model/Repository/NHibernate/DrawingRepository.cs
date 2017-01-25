@@ -80,35 +80,47 @@ namespace Rti.Model.Repository.NHibernate
             });
         }
 
-        public IList<Drawing> GetAllInWork()
+        public IList<Tuple<Drawing, int>> GetAllInWork(DateTime date, int sortOrder)
         {
-            var ids = ExecuteFuncOnSession(
+            var drawings = ExecuteFuncOnSession(
                 s => s.CreateSQLQuery(@"
 SELECT DISTINCT
-  t.drawing_id
+  t.drawing_id,
+  t.COUNT - t.done_count AS remained_count
 FROM (SELECT
-    rd.id,
+    rd.ID,
     rd.drawing_id,
-    rd.count,
+    rd.COUNT,
     SUM(IFNULL(wird.done_count, 0)) done_count
   FROM request_details rd
     INNER JOIN requests r
-      ON rd.request_id = r.id
-    LEFT JOIN work_item_request_details wird
-      ON rd.id = wird.request_detail_id
-    LEFT JOIN work_items wi
-      ON wird.work_item_id = wi.id
+      ON rd.request_id = r.ID
+    LEFT JOIN (SELECT
+        wird.request_detail_id,
+        wi.work_date,
+        wi.sort_order,
+        wird.done_count
+      FROM work_item_request_details wird
+        INNER JOIN work_items wi
+          ON wird.work_item_id = wi.ID
+      WHERE wi.work_date < :p_date
+      OR (wi.work_date = :p_date
+      AND wi.sort_order < :p_sort_order)) wird
+      ON rd.ID = wird.request_detail_id
   WHERE rd.is_deleted = 0
   AND r.is_deleted = 0
-  GROUP BY rd.id
-  HAVING rd.count > SUM(IFNULL(wird.done_count, 0))) t")
+  AND rd.request_detail_state_enum <> 0
+  GROUP BY rd.ID
+  HAVING rd.COUNT > SUM(IFNULL(wird.done_count, 0))) t")
+                    .SetDateTime("p_date", date)
+                    .SetInt32("p_sort_order", sortOrder)
                     .SetResultTransformer(
                         new ResultTransformer(
-                            fields =>
-                                Convert.ToInt32(fields[0]),
-                            objects => objects.Cast<int>().ToList()))
-                    .List<int>(), "");
-            return ExecuteFuncOnQueryOver(q => q.WhereRestrictionOn(o => o.Id).IsIn(ids.ToArray()).OrderBy(o => o.CreationDate).Asc.List());
+                            fields => new Tuple<int, int> (Convert.ToInt32(fields[0]), Convert.ToInt32(fields[1])),
+                            objects => objects.Cast<Tuple<int, int>>().ToList()))
+                    .List<Tuple<int, int>>(), "");
+            return ExecuteFuncOnQueryOver(q => q.WhereRestrictionOn(o => o.Id).IsIn(drawings.Select(d => d.Item1).ToArray()).OrderBy(o => o.CreationDate).Asc.List()
+            .Select(o => new Tuple <Drawing, int>(o, drawings.First(d => d.Item1.Equals(o.Id)).Item2)).ToList());
         }
     }
 }

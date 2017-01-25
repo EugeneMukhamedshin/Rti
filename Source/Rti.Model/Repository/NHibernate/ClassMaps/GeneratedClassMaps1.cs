@@ -954,6 +954,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.TaskCount, "task_count");
 			Map(o => o.DoneCount, "done_count");
 			Map(o => o.RejectedCount, "rejected_count");
+			Map(o => o.OverflowCount, "overflow_count");
 			Map(o => o.Note, "note");
 			Map(o => o.IsParallel, "is_parallel");
 			Map(o => o.BatchNumber, "batch_number");
