@@ -322,8 +322,7 @@ namespace Rti.ViewModel.EditViewModel
             foreach (var deletedDetail in _deletedDetails)
             {
                 deletedDetail.DeleteEntity();
-            }
-            _deletedDetails.Clear();
+            }_deletedDetails.Clear();
             foreach (var detail in RequestDetails)
             {
                 if (detail.IsNewEntity || detail.IsChanged || detail.RequestDetailStateEnum == RequestDetailState.New)

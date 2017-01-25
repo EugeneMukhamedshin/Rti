@@ -23,6 +23,16 @@ namespace Rti.ViewModel.Lists
         public DelegateCommand OpenFlowsheetCommand { get; set; }
         public DelegateCommand OpenCalculationCommand { get; set; }
 
+        public TextBoxController FindBoxController
+        {
+            get { return _findBoxController; }
+            set
+            {
+                _findBoxController = value;
+                OnPropertyChanged();
+            }
+        }
+
         public int Page
         {
             get { return _page; }
@@ -67,7 +77,7 @@ namespace Rti.ViewModel.Lists
             get { return _isFilterEnabled; }
             set
             {
-                _isFilterEnabled = value; 
+                _isFilterEnabled = value;
                 OnPropertyChanged();
             }
         }
@@ -79,6 +89,7 @@ namespace Rti.ViewModel.Lists
         private int _page;
         private string _filter;
         private bool _isFilterEnabled;
+        private TextBoxController _findBoxController;
 
         public DrawingList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(editMode, viewService, repositoryFactory)
@@ -122,6 +133,8 @@ namespace Rti.ViewModel.Lists
             _pageSize = 20;
             _filter = null;
             IsFilterEnabled = true;
+
+            FindBoxController = new TextBoxController();
 
             _fetchTimer = new Timer(FetchCallback, null, Timeout.Infinite, Timeout.Infinite);
             _fetchAsyncOperation = AsyncOperationManager.CreateOperation(null);
@@ -175,7 +188,9 @@ namespace Rti.ViewModel.Lists
         protected override void OnItemsChanged()
         {
             base.OnItemsChanged();
-            IsFilterEnabled = true;PrevPageCommand.RequeryCanExecute();
+            IsFilterEnabled = true;
+            FindBoxController.RaiseActivate();
+            PrevPageCommand.RequeryCanExecute();
             NextPageCommand.RequeryCanExecute();
         }
 
@@ -228,4 +243,22 @@ namespace Rti.ViewModel.Lists
                 Refresh();
         }
     }
+
+    public class TextBoxController : ITextBoxController
+    {
+        public event ActivateEventHandler Activate;
+
+        public void RaiseActivate()
+        {
+            if (Activate != null)
+                Activate(this);
+        }
+    }
+
+    public interface ITextBoxController
+    {
+        event ActivateEventHandler Activate;
+    }
+
+    public delegate void ActivateEventHandler(ITextBoxController sender);
 }

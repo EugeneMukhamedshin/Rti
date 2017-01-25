@@ -231,6 +231,7 @@
     <Compile Include="View\Editors\WorkItemEditWindow.xaml.cs">
       <DependentUpon>WorkItemEditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Helpers\TextBoxAttach.cs" />
     <Compile Include="View\Lists\EmployeeWorkItemListWindow.xaml.cs">
       <DependentUpon>EmployeeWorkItemListWindow.xaml</DependentUpon>
     </Compile>

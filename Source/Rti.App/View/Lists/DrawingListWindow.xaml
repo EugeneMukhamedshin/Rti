@@ -8,6 +8,7 @@
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:domain="clr-namespace:Rti.Model.Domain;assembly=Rti.Model"
         xmlns:components="clr-namespace:Rti.App.View.Components"
+        xmlns:helpers="clr-namespace:Rti.App.View.Helpers"
         Title="Чертежи (технологические карты, калькуляции)" Height="600" Width="1500" x:ClassModifier="internal" WindowState="Maximized">
     <Grid>
         <Grid>
@@ -28,7 +29,7 @@
             </StackPanel>
             <StackPanel Grid.Row="1" Orientation="Horizontal">
                 <Label Content="Поиск" VerticalContentAlignment="Center" Margin="10"/>
-                <TextBox Text="{Binding FilterString,UpdateSourceTrigger=PropertyChanged}" Height="24" Margin="10" VerticalAlignment="Center" Width="250" IsEnabled="{Binding IsFilterEnabled}"/>
+                <TextBox Text="{Binding FilterString,UpdateSourceTrigger=PropertyChanged}" Height="24" Margin="10" VerticalAlignment="Center" Width="250" helpers:TextBoxAttach.TextBoxController="{Binding FindBoxController}" IsEnabled="{Binding IsFilterEnabled}"/>
             </StackPanel>
             <dxg:GridControl TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2">
                 <dxmvvm:Interaction.Behaviors>
