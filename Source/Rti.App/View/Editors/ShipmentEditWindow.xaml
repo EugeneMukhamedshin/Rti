@@ -185,7 +185,7 @@
                     <!--<dxg:GridColumn Binding="{Binding RequestDetail.Drawing.Group.Name}" Header="Группа" Width="80" ReadOnly="True"/>-->
                     <dxg:GridColumn Binding="{Binding RequestDetail,Mode=TwoWay}" Header="Чертеж" Width="100">
                         <dxg:GridColumn.EditSettings>
-                            <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="Drawing.FullName" ItemsSource="{Binding ShipmentItemList.RequestDetailsSource}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                            <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="Drawing.FullName" ItemsSource="{Binding ShipmentItemList.RequestDetailsSource}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="450">
                                 <dxg:LookUpEditSettings.StyleSettings>
                                     <dxg:SearchLookUpEditStyleSettings/>
                                 </dxg:LookUpEditSettings.StyleSettings>
@@ -195,7 +195,9 @@
                                             <dxg:GridControl.Columns>
                                                 <dxg:GridColumn FieldName="Drawing.SortOrder" Header="№" Width="50"/>
                                                 <dxg:GridColumn FieldName="Drawing.FullName" Header="Наименование" Width="100"/>
-                                                <dxg:GridColumn FieldName="Drawing.Note" Header="Примечание" Width="180"/>
+                                                <dxg:GridColumn FieldName="Count" Header="Кол-во по заявке" Width="100"/>
+                                                <dxg:GridColumn FieldName="DoneCount" Header="Изготовлено" Width="100"/>
+                                                <dxg:GridColumn FieldName="ShippedCount" Header="Отгружено" Width="100"/>
                                             </dxg:GridControl.Columns>
                                             <dxg:GridControl.View>
                                                 <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AutoWidth="True"/>

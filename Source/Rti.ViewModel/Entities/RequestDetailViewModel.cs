@@ -9,6 +9,8 @@ namespace Rti.ViewModel.Entities
     partial class RequestDetailViewModel
     {
         private EquipmentViewModel _equipment;
+        private int _doneCount;
+        private int _shippedCount;
 
         public decimal? PlanCalculationPrice { get { return Drawing == null ? null : Drawing.PlanCalculationPrice; } }
         public decimal? FactCalculationPrice { get { return Drawing == null ? null : Drawing.FactCalculationPrice; } }
@@ -20,7 +22,7 @@ namespace Rti.ViewModel.Entities
                 return Drawing != null && Drawing.Equipment != null && Drawing.Equipment.ExistanceEnum != Existance.Exist;
             }
         }
-        
+
         public EquipmentViewModel Equipment
         {
             get
@@ -34,6 +36,18 @@ namespace Rti.ViewModel.Entities
         public string FullDetailName
         {
             get { return string.Format("{0} {1}.{2}", Detail == null ? null : Detail.Name, Drawing.Group == null ? null : Drawing.Group.Name, Drawing.Name); }
+        }
+
+        public int DoneCount
+        {
+            get { return _doneCount; }
+            set { _doneCount = value; OnPropertyChanged(); }
+        }
+
+        public int ShippedCount
+        {
+            get { return _shippedCount; }
+            set { _shippedCount = value; OnPropertyChanged(); }
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -57,7 +71,7 @@ namespace Rti.ViewModel.Entities
             Group = Drawing == null ? null : Drawing.Group;
             Detail = Drawing == null ? null : Drawing.Detail;
             Material = Drawing == null ? null : Drawing.MaterialByPassport;
-            Price = Drawing == null || !Drawing.Price.HasValue  ? 0 : Drawing.Price.Value;
+            Price = Drawing == null || !Drawing.Price.HasValue ? 0 : Drawing.Price.Value;
             CalculationPrice = Drawing == null ? null : (Drawing.PlanCalculationPrice ?? Drawing.FactCalculationPrice);
             AdditionalInfo = Drawing == null ? null : Drawing.AdditionalInfo;
         }

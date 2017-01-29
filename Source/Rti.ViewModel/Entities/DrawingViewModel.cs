@@ -45,6 +45,11 @@ namespace Rti.ViewModel.Entities
         }
 
         /// <summary>
+        /// Выполненное количество по данному чертежу
+        /// </summary>
+        public int DoneCount { get; set; }
+
+        /// <summary>
         /// Не выполненное количество по данному чертежу
         /// </summary>
         public int UndoneCount { get; set; }

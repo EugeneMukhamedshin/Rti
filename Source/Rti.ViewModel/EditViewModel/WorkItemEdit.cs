@@ -22,7 +22,7 @@ namespace Rti.ViewModel.EditViewModel
         {
             base.Refresh();
             EmployeesSource = new Lazy<List<EmployeeViewModel>>(() => RepositoryFactory.GetEmployeeRepository().GetAllActive().Select(m => new EmployeeViewModel(m, RepositoryFactory)).ToList());
-            DrawingsSource = new Lazy<List<DrawingViewModel>>(() => RepositoryFactory.GetDrawingRepository().GetAllInWork(Entity.WorkDate, Entity.SortOrder).Select(m => new DrawingViewModel(m.Item1, RepositoryFactory) {UndoneCount = m.Item2}).ToList());
+            DrawingsSource = new Lazy<List<DrawingViewModel>>(() => RepositoryFactory.GetDrawingRepository().GetAllInWork(Entity.WorkDate, Entity.SortOrder).Select(m => new DrawingViewModel(m.Item1, RepositoryFactory) {DoneCount=m.Item2, UndoneCount = m.Item3}).ToList());
         }
 
         protected override void DoSave()
@@ -31,6 +31,17 @@ namespace Rti.ViewModel.EditViewModel
                 return;
             var controller = new WorkItemController(RepositoryFactory);
             base.DoSave();
+
+            var package = new WorkItemEmployeePackageViewModel(
+                RepositoryFactory.GetWorkItemEmployeePackageRepository()
+                    .GetByEmployeeIds(new[] {Entity.Employee.Id}, Entity.WorkDate).FirstOrDefault(), RepositoryFactory);
+
+            if (package.IsNewEntity)
+            {
+                package.Employee = Entity.Employee;
+                package.Date = Entity.WorkDate;
+                package.SaveEntity();
+            }
 
             controller.PostWorkItem(Source.Entity);
         }

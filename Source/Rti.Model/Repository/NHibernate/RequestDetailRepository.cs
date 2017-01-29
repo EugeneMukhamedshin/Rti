@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Linq;
 using NHibernate.Transform;
@@ -66,8 +67,8 @@ WHERE r.count > r.done
                         new ResultTransformer(
                             fields =>
                                 new Tuple<int, int, int>(
-                                    (int) fields[0], (int)fields[1],
-                                    decimal.ToInt32((decimal) fields[2])),
+                                    (int)fields[0], (int)fields[1],
+                                    decimal.ToInt32((decimal)fields[2])),
                             objects => objects.Cast<Tuple<int, int, int>>().ToList()))
                     .List<Tuple<int, int, int>>(), "");
         }
@@ -89,6 +90,39 @@ WHERE r.count > r.done
                                 o.RequestDetailStateEnum != RequestDetailState.Shipped &&
                                 o.Request.RegDate <= date)
                             .Select(Projections.Sum<RequestDetail>(o => o.Count)).UnderlyingCriteria.UniqueResult<int>());
+        }
+
+        public IList<(int, int, int)> GetCountsByRequestId(int requestId, DateTime date, int? shipmentOrder = null)
+        {
+            return ExecuteFuncOnSession(
+                session =>
+                {
+                    RequestDetail rd = null;
+                    WorkItemRequestDetail wird = null;
+                    ShipmentItem si = null;
+                    WorkItem wi = null;
+                    Shipment s = null;
+                    object doneCount = null;
+                    object shippedCount = null;
+                    var order = shipmentOrder ?? int.MaxValue;
+                    return session.QueryOver(() => rd)
+                        .Where(() => !rd.IsDeleted && rd.Request.Id == requestId)
+                        .SelectList(list => list
+                            .Select(r => r.Id)
+                            .SelectSubQuery(QueryOver.Of(() => wird)
+                                .JoinAlias(o => o.WorkItem, () => wi)
+                                .Where(() => wird.RequestDetail.Id == rd.Id && wi.WorkDate <= date)
+                                .SelectList(l => l
+                                    .SelectSum(() => wird.DoneCount).WithAlias(() => doneCount)
+                                ))
+                            .SelectSubQuery(QueryOver.Of(() => si)
+                                .JoinAlias(o => o.Shipment, () => s)
+                                .Where(() => si.RequestDetail.Id == rd.Id && (s.Date < date || s.Date == date && s.SortOrder < order))
+                                .SelectList(l => l
+                                    .SelectSum(() => si.Count).WithAlias(() => shippedCount)
+                                ))
+                        ).List<object[]>().Select(o => ((int)o[0], (int?) o[1] ?? 0, (int?)o[2] ?? 0)).ToList();
+                });
         }
     }
 }

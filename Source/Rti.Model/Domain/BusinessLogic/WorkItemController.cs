@@ -87,8 +87,7 @@ namespace Rti.Model.Domain.BusinessLogic
         }
     }
 
-    public class ShipmentItemController
-    {
+    public class ShipmentItemController{
         public IRepositoryFactory RepositoryFactory { get; set; }
 
         public ShipmentItemController(IRepositoryFactory repositoryFactory)

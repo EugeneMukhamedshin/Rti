@@ -9,6 +9,7 @@ using System.Xml.Xsl;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Reporting.Generator;
+using Rti.ViewModel.Reporting.ViewModel;
 
 namespace Rti.ViewModel.Reporting
 {
@@ -234,15 +235,20 @@ namespace Rti.ViewModel.Reporting
             return GetReport(r => doc, xsl);
         }
 
-        public byte[] GetEmployeeWorkItemListReport(List<WorkItemViewModel> workItems, EmployeeViewModel employee, WorkItemEmployeePackageViewModel workItemEmployeePackage)
+        public byte[] GetEmployeeWorkItemListReport(List<EmployeeWorkItemListReportViewModel.ReportWorkItemPackageViewModel> workItemPackages)
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetEmployeeWorkItemListReport.xslt"));
             var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
                 new XElement("root",
-                    workItemEmployeePackage.GetXElement("WorkItemEmployeePackage"),
-                    employee.GetXElement("Employee"),
-                    new XElement("WorkItems",
-                        workItems.Select(o => o.GetXElement("WorkItem")))));
+                    workItemPackages.Select(
+                        wip => new XElement("Package",
+                            wip.WorkItemEmployeePackage.GetXElement("WorkItemEmployeePackage"),
+                            wip.WorkItemEmployeePackage.Employee.GetXElement("Employee"),
+                            new XElement("WorkItems",
+                                wip.WorkItems.Select(o => o.GetXElement("WorkItem")))
+                        )
+                    )
+                ));
             return GetReport(r => doc, xsl);
         }
 

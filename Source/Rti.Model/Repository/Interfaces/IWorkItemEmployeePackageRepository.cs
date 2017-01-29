@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using Rti.Model.Domain;
 
 namespace Rti.Model.Repository.Interfaces
 {
     public partial interface IWorkItemEmployeePackageRepository
     {
-        WorkItemEmployeePackage GetByEmployeeId(int employee, DateTime date);
+        IList<WorkItemEmployeePackage> GetByEmployeeIds(int[] employees, DateTime date);
     }
 }

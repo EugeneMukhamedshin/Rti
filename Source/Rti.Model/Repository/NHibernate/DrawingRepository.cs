@@ -80,12 +80,13 @@ namespace Rti.Model.Repository.NHibernate
             });
         }
 
-        public IList<Tuple<Drawing, int>> GetAllInWork(DateTime date, int sortOrder)
+        public IList<Tuple<Drawing, int, int>> GetAllInWork(DateTime date, int sortOrder)
         {
             var drawings = ExecuteFuncOnSession(
                 s => s.CreateSQLQuery(@"
 SELECT DISTINCT
   t.drawing_id,
+  t.done_count,
   t.COUNT - t.done_count AS remained_count
 FROM (SELECT
     rd.ID,
@@ -116,11 +117,11 @@ FROM (SELECT
                     .SetInt32("p_sort_order", sortOrder)
                     .SetResultTransformer(
                         new ResultTransformer(
-                            fields => new Tuple<int, int> (Convert.ToInt32(fields[0]), Convert.ToInt32(fields[1])),
-                            objects => objects.Cast<Tuple<int, int>>().ToList()))
-                    .List<Tuple<int, int>>(), "");
+                            fields => new Tuple<int, int, int> (Convert.ToInt32(fields[0]), Convert.ToInt32(fields[1]), Convert.ToInt32(fields[2])),
+                            objects => objects.Cast<Tuple<int, int, int>>().ToList()))
+                    .List<Tuple<int, int, int>>(), "");
             return ExecuteFuncOnQueryOver(q => q.WhereRestrictionOn(o => o.Id).IsIn(drawings.Select(d => d.Item1).ToArray()).OrderBy(o => o.CreationDate).Asc.List()
-            .Select(o => new Tuple <Drawing, int>(o, drawings.First(d => d.Item1.Equals(o.Id)).Item2)).ToList());
+            .Select(o => new Tuple <Drawing, int, int>(o, drawings.First(d => d.Item1.Equals(o.Id)).Item2, drawings.First(d => d.Item1.Equals(o.Id)).Item3)).ToList());
         }
     }
 }

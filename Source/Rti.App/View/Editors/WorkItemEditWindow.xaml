@@ -27,6 +27,7 @@
                                         <dxg:GridControl.Columns>
                                             <dxg:GridColumn FieldName="SortOrder" Header="№"/>
                                             <dxg:GridColumn FieldName="Name" Header="Наименование"/>
+                                            <dxg:GridColumn FieldName="DoneCount" Header="Выполнено"/>
                                             <dxg:GridColumn FieldName="UndoneCount" Header="Не выполнено"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>

@@ -17,8 +17,8 @@ namespace Rti.ViewModel.Lists
     public class WorkItemList : EntityList<WorkItemViewModel, WorkItem>, IClosable
     {
         private DateTime _date;
-        private List<EmployeeViewModel> _employeesSource;
-        private EmployeeViewModel _employee;
+        private List<WorkItemEmployeePackageViewModel> _workItemEmployeePackages;
+        private WorkItemEmployeePackageViewModel _workItemEmployeePackage;
 
         public DateTime Date
         {
@@ -40,26 +40,27 @@ namespace Rti.ViewModel.Lists
         public DelegateCommand CloseCommand { get; set; }
 
         public DelegateCommand ReportCommand { get; set; }
+        public DelegateCommand PrintAllEmployeeReportCommand { get; set; }
 
-        public EmployeeViewModel Employee
+        public WorkItemEmployeePackageViewModel WorkItemEmployeePackage
         {
-            get { return _employee; }
+            get { return _workItemEmployeePackage; }
             set
             {
-                if (Equals(value, _employee)) return;
-                _employee = value;
+                if (Equals(value, _workItemEmployeePackage)) return;
+                _workItemEmployeePackage = value;
                 OnPropertyChanged();
                 OpenEmployeeWorkItemListCommand.RequeryCanExecute();
             }
         }
 
-        public List<EmployeeViewModel> EmployeesSource
+        public List<WorkItemEmployeePackageViewModel> WorkItemEmployeePackages
         {
-            get { return _employeesSource; }
+            get { return _workItemEmployeePackages; }
             set
             {
-                if (Equals(value, _employeesSource)) return;
-                _employeesSource = value;
+                if (Equals(value, _workItemEmployeePackages)) return;
+                _workItemEmployeePackages = value;
                 OnPropertyChanged();
             }
         }
@@ -78,7 +79,7 @@ namespace Rti.ViewModel.Lists
                 o => AddWorkItem());
             OpenEmployeeWorkItemListCommand = new DelegateCommand(
                 "Открыть индивидуальный наряд",
-                o => Employee != null,
+                o => WorkItemEmployeePackage != null,
                 o => OpenEmployeeWorkItemList());
             OpenMakedDetailsReportCommand = new DelegateCommand(o => OpenMakedDetailsReport());
             CloseCommand = new DelegateCommand(
@@ -86,6 +87,23 @@ namespace Rti.ViewModel.Lists
                 o => true,
                 o => Close(true));
             ReportCommand = new DelegateCommand(o => Report());
+            PrintAllEmployeeReportCommand = new DelegateCommand(o => PrintAllEmployeeReport());
+        }
+
+        private void PrintAllEmployeeReport()
+        {
+            var viewModel = new EmployeeWorkItemListReportViewModel("Индивидуальный наряд", ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), string.Format("Индивидуальные наряды ({0:dd.MM.yyyy}).xls", Date))
+            {
+                WorkItemEmployeePackages = WorkItemEmployeePackages.Select(
+                    wip => new EmployeeWorkItemListReportViewModel.ReportWorkItemPackageViewModel
+                    {
+                        WorkItemEmployeePackage = wip,
+                        WorkItems = Items.Where(wi => wi.Employee.Id == wip.Employee.Id).ToList()
+                    }).ToList(),
+                ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
+            };
+            viewModel.GenerateReport();
         }
 
         private void OpenMakedDetailsReport()
@@ -122,7 +140,7 @@ namespace Rti.ViewModel.Lists
 
         private void OpenEmployeeWorkItemList()
         {
-            var list = new EmployeeWorkItemList(Employee, Date, EditMode, ViewService, RepositoryFactory);
+            var list = new EmployeeWorkItemList(WorkItemEmployeePackage.Employee, Date, EditMode, ViewService, RepositoryFactory);
             list.Refresh();
             ViewService.ShowViewDialog(list);
             Refresh();
@@ -163,10 +181,10 @@ namespace Rti.ViewModel.Lists
         protected override void OnItemsChanged()
         {
             base.OnItemsChanged();
-            RefreshEmployeesSource();
-            Items.CollectionChanged += (sender, args) => RefreshEmployeesSource();
+            RefreshWorkItemPackagesSource();
+            Items.CollectionChanged += (sender, args) => RefreshWorkItemPackagesSource();
             Items.CollectionChanged += (sender, args) => ResubscribeItems();
-            Employee = Items.Select(o => o.Employee).Distinct().FirstOrDefault();
+            WorkItemEmployeePackage = WorkItemEmployeePackages.FirstOrDefault();
         }
 
         private void ResubscribeItems()
@@ -180,13 +198,36 @@ namespace Rti.ViewModel.Lists
 
         private void ItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "Sum")
+            if (e.PropertyName == nameof(WorkItemViewModel.Employee))
+                RefreshWorkItemPackagesSource();
+            if (e.PropertyName == nameof(WorkItemViewModel.Sum))
                 OnPropertyChanged("Sum");
         }
 
-        private void RefreshEmployeesSource()
+        private void RefreshWorkItemPackagesSource()
         {
-            EmployeesSource = Items.Select(o => o.Employee).Distinct().OrderBy(o => o.FullName).ToList();
+            var employees = Items.Select(o => o.Employee).Distinct().ToList();
+            var employeeIds = employees.Select(o => o.Id).Distinct().ToArray();
+            var workItemEmployeePackages =
+                RepositoryFactory.GetWorkItemEmployeePackageRepository()
+                    .GetByEmployeeIds(employeeIds, Date)
+                    .OrderBy(o => o.Employee.FullName)
+                    .Select(o => new WorkItemEmployeePackageViewModel(o, RepositoryFactory))
+                    .ToList();
+            foreach (var employee in employees)
+            {
+                if (workItemEmployeePackages.All(o => o.Employee.Id != employee.Id))
+                {
+                    var package = new WorkItemEmployeePackageViewModel(null, RepositoryFactory)
+                    {
+                        Employee = employee,
+                        Date = Date
+                    };
+                    package.SaveEntity();
+                    workItemEmployeePackages.Add(package);
+                }
+            }
+            WorkItemEmployeePackages = workItemEmployeePackages;
         }
 
         public bool CanClose()

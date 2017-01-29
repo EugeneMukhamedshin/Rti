@@ -77,10 +77,18 @@ namespace Rti.ViewModel.Lists
             var viewModel = new EmployeeWorkItemListReportViewModel("Индивидуальный наряд", ViewService, RepositoryFactory,
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), string.Format("Индивидуальный наряд {0} ({1:dd.MM.yyyy}).xls", Employee.FullName, Date))
             {
-                Employee = Employee,
-                WorkItemEmployeePackage = WorkItemEmployeePackage,
-                WorkItems = Items.ToList(),
-                Date = Date,
+                WorkItemEmployeePackages = new List<EmployeeWorkItemListReportViewModel.ReportWorkItemPackageViewModel>
+                {
+                    new EmployeeWorkItemListReportViewModel.ReportWorkItemPackageViewModel
+                    {
+                        WorkItemEmployeePackage = WorkItemEmployeePackage,
+                        WorkItems = Items.ToList()
+                    }
+                },
+                //Employee = Employee,
+                //WorkItemEmployeePackage = WorkItemEmployeePackage,
+                //WorkItems = Items.ToList(),
+                //Date = Date,
                 ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
             };
             viewModel.GenerateReport();
@@ -126,7 +134,7 @@ namespace Rti.ViewModel.Lists
         public override void Refresh()
         {
             base.Refresh();
-            var package = RepositoryFactory.GetWorkItemEmployeePackageRepository().GetByEmployeeId(Employee.Id, Date);
+            var package = RepositoryFactory.GetWorkItemEmployeePackageRepository().GetByEmployeeIds(new [] {Employee.Id}, Date).FirstOrDefault();
             WorkItemEmployeePackage = new WorkItemEmployeePackageViewModel(package, RepositoryFactory);
             if (WorkItemEmployeePackage.IsNewEntity)
             {

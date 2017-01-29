@@ -33,7 +33,7 @@ namespace Rti.Model.Repository.NHibernate
                 _sessionFactory = Fluently.Configure()
                     .Database(
                         MySQLConfiguration.Standard.ConnectionString(connectionString)
-                            //.ShowSql()
+                            .ShowSql()
                     )
                     .Mappings(
                         m =>

@@ -151,9 +151,13 @@ namespace Rti.ViewModel.EditViewModel
                         Entity.Payment = null;
                 });
                 ShipmentItemList.Items.Clear();
-                ShipmentItemList.RefreshRequestDetails(Entity.Request);
+                ShipmentItemList.RefreshRequestDetails(Entity.Request, Entity.Date);
                 Entity.Recipient = Entity.Request.Customer;
                 Entity.Payer = Entity.Request.Customer;
+            }
+            if (e.PropertyName == "Date")
+            {
+                ShipmentItemList.RefreshRequestDetails(Entity.Request, Entity.Date, Entity.SortOrder);
             }
             if (e.PropertyName.In("IsReplace", "IsAddition"))
             {

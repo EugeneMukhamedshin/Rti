@@ -6,7 +6,7 @@
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
-    Title="Дневной наряд" Height="412.5" Width="1144">
+    Title="Дневной наряд" Height="412.5" Width="1144" WindowState="Maximized">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -80,7 +80,7 @@
                 <StackPanel Grid.Column="1" Width="300">
                     <StackPanel Orientation="Horizontal" Margin="5,5,0,0" HorizontalAlignment="Center">
                         <TextBlock Text="Исполнитель" VerticalAlignment="Center"/>
-                        <dxg:LookUpEdit TabIndex="3" Margin="5" ItemsSource="{Binding EmployeesSource}" SelectedItem="{Binding Employee}" DisplayMember="FullName" Width="200" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True">
+                        <dxg:LookUpEdit TabIndex="3" Margin="5" ItemsSource="{Binding WorkItemEmployeePackages}" SelectedItem="{Binding WorkItemEmployeePackage}" DisplayMember="Employee.FullName" Width="200" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True" PopupWidth="400">
                             <dxg:LookUpEdit.StyleSettings>
                                 <dxg:SearchLookUpEditStyleSettings/>
                             </dxg:LookUpEdit.StyleSettings>
@@ -88,10 +88,10 @@
                                 <ControlTemplate>
                                     <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
                                         <dxg:GridControl.Columns>
-                                            <dxg:GridColumn FieldName="SortOrder" Header="№"/>
-                                            <dxg:GridColumn FieldName="Code" Header="Код"/>
-                                            <dxg:GridColumn FieldName="FullName" Header="Полное имя"/>
-                                            <dxg:GridColumn FieldName="Job.Name" Header="Должность"/>
+                                            <dxg:GridColumn FieldName="Employee.SortOrder" Header="№"/>
+                                            <dxg:GridColumn FieldName="Employee.Code" Header="Код"/>
+                                            <dxg:GridColumn FieldName="Employee.FullName" Header="Полное имя"/>
+                                            <dxg:GridColumn FieldName="Employee.Job.Name" Header="Должность"/>
                                         </dxg:GridControl.Columns>
                                         <dxg:GridControl.View>
                                             <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AutoWidth="True"/>
@@ -102,6 +102,7 @@
                         </dxg:LookUpEdit>
                     </StackPanel>
                     <Button Content="Индивидуальный наряд" Command="{Binding OpenEmployeeWorkItemListCommand}" Margin="5,0,5,5" HorizontalAlignment="Stretch"/>
+                    <Button Content="Печатать все наряды" Command="{Binding PrintAllEmployeeReportCommand}" Margin="5,0,5,5" HorizontalAlignment="Stretch"/>
                 </StackPanel>
             </Grid>
             <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal">

@@ -278,163 +278,29 @@
           <Column ss:AutoFitWidth="0" ss:Width="40"/>
           <Column ss:AutoFitWidth="0" ss:Width="40"/>
           <Column ss:AutoFitWidth="0" ss:Width="150"/>
-          <Row ss:Height="19.5">
-            <Cell ss:Index="2" ss:StyleID="s33" ss:MergeAcross="2">
-              <Data ss:Type="String">Индивидуальный наряд № <xsl:value-of select="WorkItemEmployeePackage/@Id"/> от <xsl:value-of select="rti:FormatDate(WorkItemEmployeePackage/@Date)"/>
-            </Data>
-            </Cell>
-          </Row>
-          <Row ss:Height="19.5">
-            <Cell ss:StyleID="s33"/>
-            <Cell ss:StyleID="s33"/>
-            <Cell ss:StyleID="s33"/>
-            <Cell ss:StyleID="s35"/>
-            <Cell ss:StyleID="s35"/>
-            <Cell ss:StyleID="s35"/>
-            <Cell ss:StyleID="s35"/>
-            <Cell ss:StyleID="s35"/>
-            <Cell ss:StyleID="s33"/>
-            <Cell ss:StyleID="s33"/>
-          </Row>
-          <Row ss:Height="15.75"/>
-          <Row ss:Height="15.75">
-            <Cell ss:StyleID="s16"/>
-            <Cell ss:StyleID="s30">
-              <Data ss:Type="String">Исполнитель</Data>
-            </Cell>
-            <Cell ss:StyleID="s28" ss:MergeAcross="2">
-              <Data ss:Type="String">
-                <xsl:value-of select="Employee/@FullName"/>
-              </Data>
-            </Cell>
-            <Cell ss:StyleID="s38"/>
-            <Cell ss:StyleID="s38"/>
-            <Cell ss:StyleID="s38"/>
-            <Cell ss:StyleID="s38"/>
-          </Row>
-          <Row ss:Height="15.75">
-            <Cell ss:StyleID="s16"/>
-            <Cell ss:StyleID="s31">
-              <Data ss:Type="String">№ заявки</Data>
-            </Cell>
-            <Cell ss:StyleID="s29" ss:MergeAcross="2">
-              <Data ss:Type="String"></Data>
-            </Cell>
-            <Cell ss:StyleID="s26"/>
-            <Cell ss:StyleID="s26"/>
-            <Cell ss:StyleID="s39" ss:MergeAcross="1">
-              <Data ss:Type="String">Участок</Data>
-            </Cell>
-            <Cell ss:StyleID="m173513856">
-              <Data ss:Type="String">
-                <xsl:value-of select="WorkItemEmployeePackage/@Block"/>
-              </Data>
-            </Cell>
-          </Row>
-          <Row ss:Height="15.75">
-            <Cell ss:StyleID="s16"/>
-            <Cell ss:StyleID="s32">
-              <Data ss:Type="String">Дата заявки</Data>
-            </Cell>
-            <Cell ss:StyleID="s44" ss:MergeAcross="2">
-              <Data ss:Type="String"></Data>
-            </Cell>
-            <Cell ss:StyleID="s37"/>
-            <Cell ss:StyleID="s37"/>
-            <Cell ss:StyleID="s37"/>
-            <Cell ss:StyleID="s37"/>
-          </Row>
-          <Row ss:Height="15.75">
-            <Cell ss:Index="2" ss:StyleID="s26"/>
-            <Cell ss:StyleID="s26"/>
-            <Cell ss:StyleID="s26"/>
-            <Cell ss:StyleID="s26"/>
-            <Cell ss:StyleID="s26"/>
-            <Cell ss:StyleID="s26"/>
-            <Cell ss:StyleID="s26"/>
-          </Row>
-          <Row ss:Height="22.5" ss:StyleID="s20">
-            <Cell ss:StyleID="s17">
-              <Data ss:Type="String">№</Data>
-            </Cell>
-            <Cell ss:StyleID="s18">
-              <Data ss:Type="String">Номер детали (чертежа)</Data>
-            </Cell>
-            <Cell ss:StyleID="s18">
-              <Data ss:Type="String">Наименование</Data>
-            </Cell>
-            <Cell ss:StyleID="s18">
-              <Data ss:Type="String">Пресс</Data>
-            </Cell>
-            <Cell ss:StyleID="s18">
-              <Data ss:Type="String">Кол-во (шт)</Data>
-            </Cell>
-            <Cell ss:StyleID="s18">
-              <Data ss:Type="String">Вып-но (шт)</Data>
-            </Cell>
-            <Cell ss:StyleID="s18">
-              <Data ss:Type="String">Марка материала</Data>
-            </Cell>
-            <Cell ss:StyleID="s18">
-              <Data ss:Type="String">Режим</Data>
-            </Cell>
-            <Cell ss:StyleID="s18">
-              <Data ss:Type="String">Темп-ра</Data>
-            </Cell>
-            <Cell ss:StyleID="s19">
-              <Data ss:Type="String">Примечание</Data>
-            </Cell>
-          </Row>
-          <Row ss:Height="12" ss:StyleID="s24">
-            <Cell ss:StyleID="s21">
-              <Data ss:Type="Number">1</Data>
-            </Cell>
-            <Cell ss:StyleID="s22">
-              <Data ss:Type="Number">2</Data>
-            </Cell>
-            <Cell ss:StyleID="s22">
-              <Data ss:Type="Number">3</Data>
-            </Cell>
-            <Cell ss:StyleID="s22">
-              <Data ss:Type="Number">4</Data>
-            </Cell>
-            <Cell ss:StyleID="s22">
-              <Data ss:Type="Number">5</Data>
-            </Cell>
-            <Cell ss:StyleID="s22">
-              <Data ss:Type="Number">6</Data>
-            </Cell>
-            <Cell ss:StyleID="s22">
-              <Data ss:Type="Number">7</Data>
-            </Cell>
-            <Cell ss:StyleID="s22">
-              <Data ss:Type="Number">8</Data>
-            </Cell>
-            <Cell ss:StyleID="s22">
-              <Data ss:Type="Number">9</Data>
-            </Cell>
-            <Cell ss:StyleID="s23">
-              <Data ss:Type="Number">10</Data>
-            </Cell>
-          </Row>
 
-          <xsl:apply-templates select="WorkItems/WorkItem"/>
+          <xsl:apply-templates select="Package"/>
 
-          <Row ss:Height="11.25" ss:StyleID="s26"/>
         </Table>
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
           <PageSetup>
+            <Layout x:Orientation="Landscape"/>
             <Header x:Margin="0.31496062992125984"/>
             <Footer x:Margin="0.31496062992125984"/>
             <PageMargins x:Bottom="0.74803149606299213" x:Left="0.16" x:Right="0.11"
              x:Top="0.74803149606299213"/>
           </PageSetup>
+          <Unsynced/>
+          <FitToPage/>
           <Print>
+            <FitHeight>0</FitHeight>
             <ValidPrinterInfo/>
             <PaperSizeIndex>9</PaperSizeIndex>
+            <Scale>89</Scale>
             <HorizontalResolution>-3</HorizontalResolution>
             <VerticalResolution>-3</VerticalResolution>
           </Print>
+          <PageBreakZoom>60</PageBreakZoom>
           <Selected/>
           <Panes>
             <Pane>
@@ -446,6 +312,19 @@
           <ProtectObjects>False</ProtectObjects>
           <ProtectScenarios>False</ProtectScenarios>
         </WorksheetOptions>
+        <PageBreaks xmlns="urn:schemas-microsoft-com:office:excel">
+          <RowBreaks>
+            <RowBreak>
+              <Row>27</Row>
+            </RowBreak>
+            <RowBreak>
+              <Row>56</Row>
+            </RowBreak>
+            <RowBreak>
+              <Row>83</Row>
+            </RowBreak>
+          </RowBreaks>
+        </PageBreaks>
       </Worksheet>
       <Worksheet ss:Name="Лист2">
         <Table ss:ExpandedColumnCount="1" ss:ExpandedRowCount="1" x:FullColumns="1"
@@ -461,21 +340,156 @@
           <ProtectScenarios>False</ProtectScenarios>
         </WorksheetOptions>
       </Worksheet>
-      <Worksheet ss:Name="Лист3">
-        <Table ss:ExpandedColumnCount="1" ss:ExpandedRowCount="1" x:FullColumns="1"
-         x:FullRows="1" ss:DefaultRowHeight="15">
-        </Table>
-        <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
-          <PageSetup>
-            <Header x:Margin="0.3"/>
-            <Footer x:Margin="0.3" x:Data="Страница  &amp;P из &amp;N"/>
-            <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
-          </PageSetup>
-          <ProtectObjects>False</ProtectObjects>
-          <ProtectScenarios>False</ProtectScenarios>
-        </WorksheetOptions>
-      </Worksheet>
     </Workbook>
+  </xsl:template>
+
+  <xsl:template match="Package">
+    <Row ss:Height="19.5">
+      <Cell ss:Index="2" ss:StyleID="s33" ss:MergeAcross="2">
+        <Data ss:Type="String">
+          Индивидуальный наряд № <xsl:value-of select="WorkItemEmployeePackage/@Id"/> от <xsl:value-of select="rti:FormatDate(WorkItemEmployeePackage/@Date)"/>
+        </Data>
+      </Cell>
+    </Row>
+    <Row ss:Height="19.5">
+      <Cell ss:StyleID="s33"/>
+      <Cell ss:StyleID="s33"/>
+      <Cell ss:StyleID="s33"/>
+      <Cell ss:StyleID="s35"/>
+      <Cell ss:StyleID="s35"/>
+      <Cell ss:StyleID="s35"/>
+      <Cell ss:StyleID="s35"/>
+      <Cell ss:StyleID="s35"/>
+      <Cell ss:StyleID="s33"/>
+      <Cell ss:StyleID="s33"/>
+    </Row>
+    <Row ss:Height="15.75"/>
+    <Row ss:Height="15.75">
+      <Cell ss:StyleID="s16"/>
+      <Cell ss:StyleID="s30">
+        <Data ss:Type="String">Исполнитель</Data>
+      </Cell>
+      <Cell ss:StyleID="s28" ss:MergeAcross="2">
+        <Data ss:Type="String">
+          <xsl:value-of select="Employee/@FullName"/>
+        </Data>
+      </Cell>
+      <Cell ss:StyleID="s38"/>
+      <Cell ss:StyleID="s38"/>
+      <Cell ss:StyleID="s38"/>
+      <Cell ss:StyleID="s38"/>
+    </Row>
+    <Row ss:Height="15.75">
+      <Cell ss:StyleID="s16"/>
+      <Cell ss:StyleID="s31">
+        <Data ss:Type="String">№ заявки</Data>
+      </Cell>
+      <Cell ss:StyleID="s29" ss:MergeAcross="2">
+        <Data ss:Type="String"></Data>
+      </Cell>
+      <Cell ss:StyleID="s26"/>
+      <Cell ss:StyleID="s26"/>
+      <Cell ss:StyleID="s39" ss:MergeAcross="1">
+        <Data ss:Type="String">Участок</Data>
+      </Cell>
+      <Cell ss:StyleID="m173513856">
+        <Data ss:Type="String">
+          <xsl:value-of select="WorkItemEmployeePackage/@Block"/>
+        </Data>
+      </Cell>
+    </Row>
+    <Row ss:Height="15.75">
+      <Cell ss:StyleID="s16"/>
+      <Cell ss:StyleID="s32">
+        <Data ss:Type="String">Дата заявки</Data>
+      </Cell>
+      <Cell ss:StyleID="s44" ss:MergeAcross="2">
+        <Data ss:Type="String"></Data>
+      </Cell>
+      <Cell ss:StyleID="s37"/>
+      <Cell ss:StyleID="s37"/>
+      <Cell ss:StyleID="s37"/>
+      <Cell ss:StyleID="s37"/>
+    </Row>
+    <Row ss:Height="15.75">
+      <Cell ss:Index="2" ss:StyleID="s26"/>
+      <Cell ss:StyleID="s26"/>
+      <Cell ss:StyleID="s26"/>
+      <Cell ss:StyleID="s26"/>
+      <Cell ss:StyleID="s26"/>
+      <Cell ss:StyleID="s26"/>
+      <Cell ss:StyleID="s26"/>
+    </Row>
+    <Row ss:Height="22.5" ss:StyleID="s20">
+      <Cell ss:StyleID="s17">
+        <Data ss:Type="String">№</Data>
+      </Cell>
+      <Cell ss:StyleID="s18">
+        <Data ss:Type="String">Номер детали (чертежа)</Data>
+      </Cell>
+      <Cell ss:StyleID="s18">
+        <Data ss:Type="String">Наименование</Data>
+      </Cell>
+      <Cell ss:StyleID="s18">
+        <Data ss:Type="String">Пресс</Data>
+      </Cell>
+      <Cell ss:StyleID="s18">
+        <Data ss:Type="String">Кол-во (шт)</Data>
+      </Cell>
+      <Cell ss:StyleID="s18">
+        <Data ss:Type="String">Вып-но (шт)</Data>
+      </Cell>
+      <Cell ss:StyleID="s18">
+        <Data ss:Type="String">Марка материала</Data>
+      </Cell>
+      <Cell ss:StyleID="s18">
+        <Data ss:Type="String">Режим</Data>
+      </Cell>
+      <Cell ss:StyleID="s18">
+        <Data ss:Type="String">Темп-ра</Data>
+      </Cell>
+      <Cell ss:StyleID="s19">
+        <Data ss:Type="String">Примечание</Data>
+      </Cell>
+    </Row>
+    <Row ss:Height="12" ss:StyleID="s24">
+      <Cell ss:StyleID="s21">
+        <Data ss:Type="Number">1</Data>
+      </Cell>
+      <Cell ss:StyleID="s22">
+        <Data ss:Type="Number">2</Data>
+      </Cell>
+      <Cell ss:StyleID="s22">
+        <Data ss:Type="Number">3</Data>
+      </Cell>
+      <Cell ss:StyleID="s22">
+        <Data ss:Type="Number">4</Data>
+      </Cell>
+      <Cell ss:StyleID="s22">
+        <Data ss:Type="Number">5</Data>
+      </Cell>
+      <Cell ss:StyleID="s22">
+        <Data ss:Type="Number">6</Data>
+      </Cell>
+      <Cell ss:StyleID="s22">
+        <Data ss:Type="Number">7</Data>
+      </Cell>
+      <Cell ss:StyleID="s22">
+        <Data ss:Type="Number">8</Data>
+      </Cell>
+      <Cell ss:StyleID="s22">
+        <Data ss:Type="Number">9</Data>
+      </Cell>
+      <Cell ss:StyleID="s23">
+        <Data ss:Type="Number">10</Data>
+      </Cell>
+    </Row>
+
+    <xsl:apply-templates select="WorkItems/WorkItem"/>
+
+    <Row ss:Height="11.25" ss:StyleID="s26"/>
+    <Row ss:Height="11.25" ss:StyleID="s26"/>
+    <Row ss:Height="11.25" ss:StyleID="s26"/>
   </xsl:template>
 
   <xsl:template match="WorkItems/WorkItem">

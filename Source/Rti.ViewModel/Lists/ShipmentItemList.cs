@@ -109,7 +109,7 @@ namespace Rti.ViewModel.Lists
         public override void Refresh()
         {
             base.Refresh();
-            RefreshRequestDetails();
+            RefreshRequestDetails(Shipment.Request, Shipment.Date, Shipment.SortOrder);
         }
 
         protected override IEnumerable<ShipmentItemViewModel> GetItems()
@@ -117,10 +117,28 @@ namespace Rti.ViewModel.Lists
             return RepositoryFactory.GetShipmentItemRepository().GetByShipmentId(Shipment.Id).Select(o => new ShipmentItemViewModel(o, RepositoryFactory)).OrderBy(o => o.SortOrder).ToList();
         }
 
-        public void RefreshRequestDetails(RequestViewModel request = null)
+        public void RefreshRequestDetails(RequestViewModel request, DateTime date, int? shipmentOrder = null)
         {
             var req = request ?? Shipment.Request;
-            RequestDetailsSource = req != null ? RepositoryFactory.GetRequestDetailRepository().GetByRequestId(req.Id).Select(o => new RequestDetailViewModel(o, RepositoryFactory)).ToList() : new List<RequestDetailViewModel>();
+            List<RequestDetailViewModel> requestDetails;
+            if (req == null)
+                requestDetails = new List<RequestDetailViewModel>();
+            else
+            {
+                requestDetails = RepositoryFactory.GetRequestDetailRepository().GetByRequestId(req.Id).Select(o => new RequestDetailViewModel(o, RepositoryFactory)).ToList();
+                var counts = RepositoryFactory.GetRequestDetailRepository()
+                    .GetCountsByRequestId(req.Id, date, shipmentOrder);
+                foreach (var countTuple in counts)
+                {
+                    var rd = requestDetails.FirstOrDefault(o => o.Id == countTuple.Item1);
+                    if (rd != null)
+                    {
+                        rd.DoneCount = countTuple.Item2;
+                        rd.ShippedCount = countTuple.Item3;
+                    }
+                }
+            }
+            RequestDetailsSource = requestDetails.Where(o => o.Count > o.ShippedCount).ToList();
         }
 
         protected override ShipmentItemViewModel DoCreateNewEntity()
