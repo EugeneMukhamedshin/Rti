@@ -22,6 +22,25 @@
                 <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding StartDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
                 <TextBlock Text="Дата окончания" Margin="5" VerticalAlignment="Center"/>
                 <xctk:DateTimePicker TabIndex="2" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding EndDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
+                <TextBlock Text="Заказчик" Margin="5" VerticalAlignment="Center"/>
+                <dxg:LookUpEdit Margin="5" ItemsSource="{Binding CustomersSource.Value}" SelectedItem="{Binding SelectedCustomer}" DisplayMember="Name" Width="200" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True" PopupWidth="500" PopupHeight="400">
+                    <dxg:LookUpEdit.StyleSettings>
+                        <dxg:SearchLookUpEditStyleSettings/>
+                    </dxg:LookUpEdit.StyleSettings>
+                    <dxg:LookUpEdit.PopupContentTemplate>
+                        <ControlTemplate>
+                            <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
+                                <dxg:GridControl.Columns>
+                                    <dxg:GridColumn FieldName="SortOrder" Width="50" Header="№"/>
+                                    <dxg:GridColumn FieldName="Name" Width="150" Header="Наименование"/>
+                                </dxg:GridControl.Columns>
+                                <dxg:GridControl.View>
+                                    <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AutoWidth="True"/>
+                                </dxg:GridControl.View>
+                            </dxg:GridControl>
+                        </ControlTemplate>
+                    </dxg:LookUpEdit.PopupContentTemplate>
+                </dxg:LookUpEdit>
                 <Button Content="Обновить" Command="{Binding RefreshCommand}" Margin="5"></Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
@@ -31,7 +50,7 @@
                 <CheckBox Margin="10,0,0,0" VerticalAlignment="Center" Content="Неотгруженные" IsChecked="{Binding ShowNotShippedRequests}"></CheckBox>
                 <CheckBox Margin="10,0,0,0" VerticalAlignment="Center" Content="Отгруженные" IsChecked="{Binding ShowShippedRequests}"></CheckBox>
             </StackPanel>
-            <dxg:GridControl TabIndex="7" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2">
+            <dxg:GridControl TabIndex="7" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2" CustomSummary="GridControl_OnCustomSummary">
                 <dxmvvm:Interaction.Behaviors>
                     <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding EditRequestCommand}" PassEventArgsToCommand="True">
                         <dxmvvm:EventToCommand.EventArgsConverter>
@@ -51,9 +70,10 @@
                     </Style>
                 </dxg:GridControl.Resources>
                 <dxg:GridControl.Columns>
-                    <dxg:GridColumn FieldName="Number" Header="Номер заявки" ReadOnly="True" Width="50"/>
-                    <dxg:GridColumn FieldName="RegDate" Header="Дата регистрации" Width="100"/>
-                    <dxg:GridColumn Header="В произ-водстве" Width="60">
+                    <dxg:GridColumn FieldName="Number" Header="№" ReadOnly="True" Width="40"/>
+                    <dxg:GridColumn FieldName="RegDate" Header="Дата" Width="80"/>
+                    <dxg:GridColumn FieldName="CustomerName" Header="Заказчик" Width="180"/>
+                    <dxg:GridColumn Header="В произв." Width="60">
                         <dxg:GridColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox IsEnabled="False" IsChecked="{Binding RowData.Row.IsWorkStarted,Mode=OneWay}" HorizontalAlignment="Center"></CheckBox>
@@ -61,6 +81,7 @@
                         </dxg:GridColumn.CellTemplate>
                     </dxg:GridColumn>
                     <dxg:GridColumn FieldName="Details" Header="Детали" Width="120"/>
+                    <dxg:GridColumn FieldName="Sum" Header="Сумма, руб." Width="80"/>
                     <dxg:GridColumn FieldName="WorkStartDate" Header="Дата запуска в производство" Width="100"/>
                     <dxg:GridColumn FieldName="EquipmentLeadTime" Header="Срок изготовления оснастки, дней" Width="100"/>
                     <dxg:GridColumn FieldName="LeadTime" Header="Срок изготовления, дней" Width="100"/>
@@ -104,6 +125,9 @@
                     <dxg:GridColumn FieldName="LastPaymentDate" Header="Дата оплаты" Width="100"/>
                     <dxg:GridColumn FieldName="LastShipmentDate" Header="Дата отгрузки факт" Width="100"/>
                 </dxg:GridControl.Columns>
+                <dxg:GridControl.TotalSummary>
+                    <dxg:GridSummaryItem ShowInColumn="Sum" FieldName="Sum" SummaryType="Custom" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
+                </dxg:GridControl.TotalSummary>
                 <dxg:GridControl.View>
                     <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>

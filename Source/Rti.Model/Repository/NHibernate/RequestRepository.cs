@@ -25,7 +25,7 @@ namespace Rti.Model.Repository.NHibernate
             return ExecuteFuncOnQueryOver(q => q.Where(o => !o.IsDeleted).List());
         }
 
-        public IList<RequestsReportRow> GetRequestReport(DateTime startDate, DateTime endDate)
+        public IList<RequestsReportRow> GetRequestReport(DateTime startDate, DateTime endDate, int? customerId = null)
         {
             return ExecuteFuncOnSession(s =>
                 s.CreateSQLQuery(@"
@@ -44,12 +44,15 @@ SELECT
       DATEDIFF(r.ship_date, IFNULL(r.work_start_date, r.reg_date)) > r.lead_time THEN 1 WHEN r.work_start_date IS NOT NULL AND
       DATEDIFF(r.ship_date, IFNULL(r.work_start_date, r.reg_date)) = r.lead_time THEN 2 WHEN r.work_start_date IS NOT NULL AND
       DATEDIFF(r.ship_date, IFNULL(r.work_start_date, r.reg_date)) < r.lead_time THEN 3 END request_status,
-  rd.details
+  rd.details,
+  rd.sum,
+  c.name customer_name
 FROM requests r
   LEFT JOIN (SELECT
       rd.request_id,
       MAX(e.lead_time) equipment_lead_time,
-      GROUP_CONCAT(DISTINCT CONCAT(d.name, ' ', g.name, '.', dr.name)) details
+      GROUP_CONCAT(DISTINCT CONCAT(d.name, ' ', g.name, '.', dr.name)) details,
+      SUM(rd.Price * rd.count) Sum
     FROM request_details rd
       INNER JOIN details d
         ON rd.detail_id = d.id
@@ -87,10 +90,14 @@ FROM requests r
                rd.count) si
     GROUP BY si.request_id) si
     ON r.id = si.request_id
+  LEFT JOIN contragents c
+    ON r.customer_id = c.id
 WHERE r.is_deleted = 0
-AND r.reg_date BETWEEN :p_start_date AND :p_end_date")
+AND r.reg_date BETWEEN :p_start_date AND :p_end_date
+AND r.customer_id = IFNULL(:p_customer_id, r.customer_id)")
                     .SetParameter("p_start_date", startDate)
                     .SetParameter("p_end_date", endDate)
+                    .SetParameter("p_customer_id", customerId)
                     .SetResultTransformer(new ResultTransformer(objects => new RequestsReportRow
                     {
                         Id = (int)objects[0],
@@ -103,7 +110,9 @@ AND r.reg_date BETWEEN :p_start_date AND :p_end_date")
                         EquipmentLeadTime = (int?)objects[7],
                         WorkStartDate = (DateTime?)objects[8],
                         Status = (RequestStatus)Convert.ToInt32(objects[9]),
-                        Details = (string)objects[10]
+                        Details = (string)objects[10],
+                        Sum = (decimal?)objects[11],
+                        CustomerName = (string)objects[12]
                     },
                     objects => objects.Cast<RequestsReportRow>().ToList())).List<RequestsReportRow>(), "");
         }

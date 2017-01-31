@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Rti.Model.Domain;
 using Rti.Model.Domain.BusinessLogic;
 using Rti.Model.Domain.ReportEntities;
 using Rti.Model.Repository.Interfaces;
@@ -11,13 +12,25 @@ using Rti.ViewModel.Entities.Commands;
 
 namespace Rti.ViewModel.Lists
 {
-    public class RequestList: BaseViewModel
+    public class RequestList : BaseViewModel
     {
         private readonly IViewService _viewService;
         private RequestsReportRow _selectedItem;
         private ObservableCollection<RequestsReportRow> _items;
         private DateTime _startDate;
         private DateTime _endDate;
+
+        public Lazy<List<ContragentViewModel>> CustomersSource { get; set; }
+
+        public ContragentViewModel SelectedCustomer
+        {
+            get { return _selectedCustomer; }
+            set
+            {
+                _selectedCustomer = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ObservableCollection<RequestsReportRow> Items
         {
@@ -33,6 +46,7 @@ namespace Rti.ViewModel.Lists
         private List<RequestsReportRow> _requests = new List<RequestsReportRow>();
         private bool _showShippedRequests;
         private bool _showNotShippedRequests;
+        private ContragentViewModel _selectedCustomer;
 
         public RequestsReportRow SelectedItem
         {
@@ -122,6 +136,15 @@ namespace Rti.ViewModel.Lists
                 _requests = new List<RequestsReportRow>(res);
                 SetItems();
             });
+            CustomersSource =
+                new Lazy<List<ContragentViewModel>>(
+                    () =>
+                        new List<ContragentViewModel> {null}
+                            .Union(
+                                RepositoryFactory.GetContragentRepository()
+                                    .GetAllActive(ContragentType.Customer)
+                                    .Select(o => new ContragentViewModel(o, RepositoryFactory)))
+                            .ToList());
         }
 
         private void SetItems()
@@ -164,11 +187,12 @@ namespace Rti.ViewModel.Lists
 
         private IEnumerable<RequestsReportRow> GetItems()
         {
-            return RepositoryFactory.GetRequestRepository().GetRequestReport(StartDate, EndDate).OrderByDescending(o => o.RegDate);
+            return RepositoryFactory.GetRequestRepository().GetRequestReport(StartDate, EndDate, SelectedCustomer?.Id).OrderByDescending(o => o.RegDate);
         }
 
         public DateTime EndDate
-        {get { return _endDate; }
+        {
+            get { return _endDate; }
             set
             {
                 if (value.Equals(_endDate)) return;

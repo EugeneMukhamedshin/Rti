@@ -10,7 +10,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DevExpress.Data;
 using DevExpress.Xpf.Core;
+using DevExpress.Xpf.Grid;
+using Rti.Model.Domain.ReportEntities;
+using Rti.ViewModel.Entities;
 
 
 namespace Rti.App.View.Lists
@@ -23,6 +27,24 @@ namespace Rti.App.View.Lists
         public RequestListWindow()
         {
             InitializeComponent();
+        }
+
+        private void GridControl_OnCustomSummary(object sender, CustomSummaryEventArgs e)
+        {
+            if (((GridSummaryItem)e.Item).FieldName != "Sum")
+                return;
+            if (e.SummaryProcess == CustomSummaryProcess.Calculate)
+            {
+                var row = e.Row as RequestsReportRow;
+                if (row == null)
+                    return;
+                if (row.IsWorkStarted)
+                {
+                    var total = (decimal)(e.TotalValue ?? (decimal)0);
+                    total += row.Sum ?? 0;
+                    e.TotalValue = total;
+                }
+            }
         }
     }
 }

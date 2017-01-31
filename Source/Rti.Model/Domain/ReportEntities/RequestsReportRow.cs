@@ -30,5 +30,7 @@ namespace Rti.Model.Domain.ReportEntities
         public int? EquipmentLeadTime { get; set; }
         public RequestStatus Status { get; set; }
         public string Details { get; set; }
+        public decimal? Sum { get; set; }
+        public string CustomerName { get; set; }
     }
 }
