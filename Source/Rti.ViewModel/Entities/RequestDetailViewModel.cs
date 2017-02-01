@@ -27,7 +27,7 @@ namespace Rti.ViewModel.Entities
         {
             get
             {
-                if (_equipment == null && Drawing.Equipment != null)
+                if (_equipment == null && Drawing?.Equipment != null)
                     _equipment = new EquipmentViewModel(RepositoryFactory.GetEquipmentRepository().GetById(Drawing.Equipment.Id), RepositoryFactory);
                 return _equipment;
             }

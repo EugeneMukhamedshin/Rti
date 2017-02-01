@@ -123,5 +123,28 @@ FROM (SELECT
             return ExecuteFuncOnQueryOver(q => q.WhereRestrictionOn(o => o.Id).IsIn(drawings.Select(d => d.Item1).ToArray()).OrderBy(o => o.CreationDate).Asc.List()
             .Select(o => new Tuple <Drawing, int, int>(o, drawings.First(d => d.Item1.Equals(o.Id)).Item2, drawings.First(d => d.Item1.Equals(o.Id)).Item3)).ToList());
         }
+
+        public IList<(Drawing, int)> GetAllWithOverflowCount(DateTime date)
+        {
+            var drawings = ExecuteFuncOnSession(
+                s => s.CreateSQLQuery(@"
+SELECT
+  d.id,
+  IFNULL(SUM(wi.overflow_count), 0)
+FROM drawings d
+  LEFT JOIN work_items wi
+    ON d.id = wi.drawing_id
+    AND wi.work_date <= :p_date
+WHERE d.is_deleted = 0
+GROUP BY d.id")
+                    .SetDateTime("p_date", date)
+                    .SetResultTransformer(
+                        new ResultTransformer(
+                            fields => (Convert.ToInt32(fields[0]), Convert.ToInt32(fields[1])),
+                            objects => objects.Cast<(int, int)>().ToList()))
+                    .List<(int, int)>(), "");
+            return ExecuteFuncOnQueryOver(q => q.WhereRestrictionOn(o => o.Id).IsIn(drawings.Select(d => d.Item1).ToArray()).OrderBy(o => o.CreationDate).Asc.List()
+            .Select(o => (o, drawings.First(d => d.Item1.Equals(o.Id)).Item2)).ToList());
+        }
     }
 }

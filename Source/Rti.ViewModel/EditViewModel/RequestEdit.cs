@@ -300,7 +300,7 @@ namespace Rti.ViewModel.EditViewModel
 
         private void RefreshDrawings()
         {
-            DoAsync(() => RepositoryFactory.GetDrawingRepository().GetAllActive().OrderBy(o => o.Id).Select(o => new DrawingViewModel(o, RepositoryFactory)),
+            DoAsync(() => RepositoryFactory.GetDrawingRepository().GetAllWithOverflowCount(Entity.RegDate).OrderBy(o => o.Item1.CreationDate).Select(o => new DrawingViewModel(o.Item1, RepositoryFactory) {DoneCount = o.Item2}),
                 res => DrawingsSource = new List<DrawingViewModel>(res));
         }
 
