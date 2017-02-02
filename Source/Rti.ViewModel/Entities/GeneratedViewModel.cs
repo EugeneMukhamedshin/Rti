@@ -4710,17 +4710,20 @@ namespace Rti.ViewModel.Entities
 		private Int32 _id;
 		private Int32? _sortOrder;
 		private Int32 _doneCount;
+		private Boolean _isOverflowDistribution;
 		private WorkItemViewModel _workItem;
 		private RequestDetailViewModel _requestDetail;
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public Int32? SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
 		public Int32 DoneCount { get { return _doneCount; } set { if (Equals(_doneCount, value)) return; _doneCount = value; OnPropertyChanged("DoneCount"); } }
+		public Boolean IsOverflowDistribution { get { return _isOverflowDistribution; } set { if (Equals(_isOverflowDistribution, value)) return; _isOverflowDistribution = value; OnPropertyChanged("IsOverflowDistribution"); } }
 		public WorkItemViewModel WorkItem { get { return _workItem; } set { _workItem = value; OnPropertyChanged("WorkItem"); } }
 		public RequestDetailViewModel RequestDetail { get { return _requestDetail; } set { _requestDetail = value; OnPropertyChanged("RequestDetail"); } }
 		protected override void MapPropertiesToEntity()
 		{
 			Entity.SortOrder = SortOrder; 
 			Entity.DoneCount = DoneCount; 
+			Entity.IsOverflowDistribution = IsOverflowDistribution; 
 			Entity.WorkItem = WorkItem == null ? null : WorkItem.Entity; 
 			Entity.RequestDetail = RequestDetail == null ? null : RequestDetail.Entity; 
 		}
@@ -4731,6 +4734,7 @@ namespace Rti.ViewModel.Entities
 			Id = Entity.Id; 
 			SortOrder = Entity.SortOrder; 
 			DoneCount = Entity.DoneCount; 
+			IsOverflowDistribution = Entity.IsOverflowDistribution; 
 			WorkItem = Entity.WorkItem == null ? null : new WorkItemViewModel(Entity.WorkItem, RepositoryFactory); 
 			RequestDetail = Entity.RequestDetail == null ? null : new RequestDetailViewModel(Entity.RequestDetail, RepositoryFactory); 
 			IsMapping = false;
@@ -4741,6 +4745,7 @@ namespace Rti.ViewModel.Entities
 			IsMapping = true;
 			SortOrder = source.SortOrder;
 			DoneCount = source.DoneCount;
+			IsOverflowDistribution = source.IsOverflowDistribution;
 			WorkItem = source.WorkItem;
 			RequestDetail = source.RequestDetail;
 			CustomCopyFrom(source);
@@ -4761,6 +4766,7 @@ namespace Rti.ViewModel.Entities
 			if (SortOrder != null)
 				element.Add(new XAttribute("SortOrder", SortOrder));
 			element.Add(new XAttribute("DoneCount", DoneCount));
+			element.Add(new XAttribute("IsOverflowDistribution", IsOverflowDistribution));
 			if (WorkItem != null)
 				element.Add(WorkItem.GetXElement("WorkItem"));
 			if (RequestDetail != null)

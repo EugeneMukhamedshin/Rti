@@ -107,5 +107,21 @@ where
                         Expences = Convert.ToDecimal(objects[9])
                     }, objects => objects.Cast<RejectionReportRow>().ToList())).List<RejectionReportRow>(), "");
         }
+
+        public void DeleteByRequestDetailId(int requestDetailId, DateTime forDate)
+        {
+            ExecuteActionOnSession(
+                s =>
+                    s.CreateSQLQuery(@"
+DELETE wird.*
+  FROM work_item_request_details wird
+    INNER JOIN work_items wi
+      ON wi.id = wird.work_item_id
+WHERE wird.request_detail_id = :p_request_detail_id
+  AND wi.work_date < :p_date")
+                        .SetInt32("p_request_detail_id", requestDetailId)
+                        .SetDateTime("p_date", forDate)
+                        .ExecuteUpdate(), "");
+        }
     }
 }

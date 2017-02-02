@@ -24,7 +24,7 @@ namespace Rti.Model.Domain.BusinessLogic
 
         public void PostWorkItems(int drawingId, DateTime fromDate, int sortOrder = 0)
         {
-            var workItems = RepositoryFactory.GetWorkItemRepository().GetByDrawingId(drawingId, fromDate)
+            var workItems = RepositoryFactory.GetWorkItemRepository().GetByDrawingId(drawingId, fromDate, DateTime.MaxValue)
                 .OrderBy(o => o.WorkDate)
                 .ThenBy(o => o.SortOrder)
                 .Where(o => o.WorkDate >= fromDate && o.SortOrder >= sortOrder);
@@ -84,6 +84,44 @@ namespace Rti.Model.Domain.BusinessLogic
             // Записываем перевыполнение
             workItem.OverflowCount = dayDoneCount;
             RepositoryFactory.GetWorkItemRepository().Update(workItem);
+        }
+
+        /// <summary>
+        /// Распределяет строки детали по нарядам с OverFlowCount > 0 (перевыполнение)
+        /// </summary>
+        /// <param name="request"></param>
+        public void DistributeRequestDetails(Request request)
+        {
+            var details = RepositoryFactory.GetRequestDetailRepository().GetByRequestId(request.Id);
+            foreach (var detail in details)
+            {
+                RepositoryFactory.GetWorkItemRequestDetailRepository().DeleteByRequestDetailId(detail.Id, request.RegDate);
+
+                var workItems = RepositoryFactory.GetWorkItemRepository()
+                    .GetOverflowed(detail.Drawing.Id, request.RegDate.AddDays(-1));
+                var notDistributedCount = detail.Count;
+                foreach (var workItem in workItems)
+                {
+                    var count = Math.Min(notDistributedCount, workItem.Item2);
+                    if (count > 0)
+                    {
+                        var workItemRequestDetails =
+                            RepositoryFactory.GetWorkItemRequestDetailRepository().GetByWorkItemId(workItem.Item1.Id);
+                        var wird = new WorkItemRequestDetail
+                        {
+                            WorkItem = workItem.Item1,
+                            DoneCount = count,
+                            RequestDetail = detail,
+                            SortOrder = workItemRequestDetails.Count,
+                            IsOverflowDistribution = true
+                        };
+                        notDistributedCount -= count;
+                        RepositoryFactory.GetWorkItemRequestDetailRepository().Insert(wird);
+                        //workItem.OverflowCount -= count;
+                        //RepositoryFactory.GetWorkItemRepository().Update(workItem);
+                    }
+                }
+            }
         }
     }
 

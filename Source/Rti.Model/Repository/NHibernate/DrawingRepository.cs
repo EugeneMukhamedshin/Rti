@@ -130,11 +130,20 @@ FROM (SELECT
                 s => s.CreateSQLQuery(@"
 SELECT
   d.id,
-  IFNULL(SUM(wi.overflow_count), 0)
+  IFNULL(SUM(wi1.overflow_count), 0)
 FROM drawings d
-  LEFT JOIN work_items wi
-    ON d.id = wi.drawing_id
-    AND wi.work_date <= :p_date
+  LEFT JOIN (SELECT
+      wi.id AS work_item_id,
+      wi.drawing_id,
+      wi.work_date,
+      IFNULL(wi.overflow_count, 0) - SUM(IFNULL(wird.done_count, 0)) AS overflow_count
+    FROM work_items wi
+      LEFT JOIN work_item_request_details wird
+        ON wi.id = wird.work_item_id
+        AND wird.is_overflow_distribution = 1
+    GROUP BY wi.id) wi1
+    ON d.id = wi1.drawing_id
+    AND wi1.work_date <= :p_date
 WHERE d.is_deleted = 0
 GROUP BY d.id")
                     .SetDateTime("p_date", date)

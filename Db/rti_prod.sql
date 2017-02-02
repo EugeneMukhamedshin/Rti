@@ -1,8 +1,8 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.1.13.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 22.01.2017 9:58:29
--- Версия сервера: 5.7.12
+-- Дата скрипта: 02.02.2017 22:12:03
+-- Версия сервера: 5.6.35
 -- Версия клиента: 4.1
 --
 
@@ -82,7 +82,7 @@ CREATE TABLE calculations (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 536
+AUTO_INCREMENT = 554
 AVG_ROW_LENGTH = 4096
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -165,7 +165,7 @@ CREATE TABLE contragents (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 91
+AUTO_INCREMENT = 121
 AVG_ROW_LENGTH = 4096
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -184,70 +184,8 @@ CREATE TABLE details (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 167
+AUTO_INCREMENT = 180
 AVG_ROW_LENGTH = 8192
-CHARACTER SET utf8
-COLLATE utf8_general_ci
-ROW_FORMAT = DYNAMIC;
-
---
--- Описание для таблицы drawings
---
-DROP TABLE IF EXISTS drawings;
-CREATE TABLE drawings (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  creation_date DATETIME DEFAULT NULL,
-  sort_order INT(11) NOT NULL,
-  name VARCHAR(500) NOT NULL,
-  group_id INT(11) DEFAULT NULL,
-  detail_id INT(11) DEFAULT NULL,
-  additional_info VARCHAR(500) DEFAULT NULL,
-  material_by_passport_id INT(11) DEFAULT NULL,
-  material_id INT(11) DEFAULT NULL,
-  measure_unit_id INT(11) DEFAULT NULL,
-  code VARCHAR(255) DEFAULT NULL,
-  mass_calculation_id INT(11) DEFAULT NULL,
-  shruff_percent DOUBLE DEFAULT NULL COMMENT 'процент отходов',
-  mass_with_shruff DOUBLE DEFAULT NULL,
-  price DECIMAL(10, 2) DEFAULT NULL,
-  shaving_price DECIMAL(10, 2) DEFAULT NULL,
-  plan_calculation_id INT(11) DEFAULT NULL COMMENT 'плановая калькуляция',
-  fact_calculation_id INT(11) DEFAULT NULL COMMENT 'фактическая калькуляция',
-  calculation_price_manual DECIMAL(10, 2) DEFAULT NULL,
-  equipment_id INT(11) DEFAULT NULL,
-  method_id INT(11) DEFAULT NULL,
-  width DOUBLE DEFAULT NULL,
-  length DOUBLE DEFAULT NULL,
-  thickness DOUBLE DEFAULT NULL,
-  inner_diameter DOUBLE DEFAULT NULL,
-  outer_diameter DOUBLE DEFAULT NULL,
-  drawing_image_id INT(11) DEFAULT NULL,
-  note VARCHAR(500) DEFAULT NULL,
-  is_deleted INT(11) NOT NULL DEFAULT 0,
-  customer_id INT(11) DEFAULT NULL COMMENT 'заказчик',
-  secondary_customer_id INT(11) DEFAULT NULL COMMENT 'вторичный заказчик',
-  fact_mass DOUBLE DEFAULT NULL,
-  tech_note VARCHAR(255) DEFAULT NULL,
-  summary_time DECIMAL(10, 2) DEFAULT NULL,
-  cutting_time DECIMAL(10, 2) DEFAULT NULL COMMENT 'Время вулканизации/вырубки. Берется из процессов =tв.',
-  PRIMARY KEY (id),
-  INDEX FK_drawings_customer_id (customer_id),
-  INDEX FK_drawings_details_id (detail_id),
-  INDEX FK_drawings_equipments_id (equipment_id),
-  INDEX FK_drawings_fact_calculations_id (fact_calculation_id),
-  INDEX FK_drawings_groups_id (group_id),
-  INDEX FK_drawings_images_id (drawing_image_id),
-  INDEX FK_drawings_mass_calculations_id (mass_calculation_id),
-  INDEX FK_drawings_materials_bp_id (material_by_passport_id),
-  INDEX FK_drawings_materials_id (material_id),
-  INDEX FK_drawings_measure_units_id (measure_unit_id),
-  INDEX FK_drawings_methods_id (method_id),
-  INDEX FK_drawings_plan_calculations_id (plan_calculation_id),
-  INDEX FK_drawings_sec_customer_id (secondary_customer_id)
-)
-ENGINE = INNODB
-AUTO_INCREMENT = 387
-AVG_ROW_LENGTH = 1024
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
@@ -298,7 +236,7 @@ CREATE TABLE equipments (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 168
+AUTO_INCREMENT = 198
 AVG_ROW_LENGTH = 2730
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -318,7 +256,7 @@ CREATE TABLE groups (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 57
+AUTO_INCREMENT = 73
 AVG_ROW_LENGTH = 3276
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -405,7 +343,7 @@ CREATE TABLE mass_calculations (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 161
+AUTO_INCREMENT = 212
 AVG_ROW_LENGTH = 16384
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -430,7 +368,7 @@ CREATE TABLE materials (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 103
+AUTO_INCREMENT = 134
 AVG_ROW_LENGTH = 2730
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -508,7 +446,7 @@ CREATE TABLE work_item_package (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 28
+AUTO_INCREMENT = 29
 AVG_ROW_LENGTH = 963
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -516,79 +454,78 @@ COMMENT = 'дневной наряд'
 ROW_FORMAT = DYNAMIC;
 
 --
--- Описание для таблицы drawing_calculation_history
+-- Описание для таблицы drawings
 --
-DROP TABLE IF EXISTS drawing_calculation_history;
-CREATE TABLE drawing_calculation_history (
+DROP TABLE IF EXISTS drawings;
+CREATE TABLE drawings (
   id INT(11) NOT NULL AUTO_INCREMENT,
-  drawing_id INT(11) NOT NULL,
-  calculation_id INT(11) NOT NULL,
-  PRIMARY KEY (id),
-  CONSTRAINT FK_drawing_calculation_history_calculations_id FOREIGN KEY (calculation_id)
-    REFERENCES calculations(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_drawing_calculation_history_drawings_id FOREIGN KEY (drawing_id)
-    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT
-)
-ENGINE = INNODB
-AUTO_INCREMENT = 468
-AVG_ROW_LENGTH = 260
-CHARACTER SET utf8
-COLLATE utf8_general_ci
-ROW_FORMAT = DYNAMIC;
-
---
--- Описание для таблицы drawing_flowsheet_machines
---
-DROP TABLE IF EXISTS drawing_flowsheet_machines;
-CREATE TABLE drawing_flowsheet_machines (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  drawing_id INT(11) NOT NULL,
+  creation_date DATETIME DEFAULT NULL,
   sort_order INT(11) NOT NULL,
-  machine_id INT(11) NOT NULL,
-  plate_temperature DECIMAL(10, 2) DEFAULT NULL,
-  cure_time DECIMAL(10, 2) DEFAULT NULL,
+  name VARCHAR(500) NOT NULL,
+  group_id INT(11) DEFAULT NULL,
+  detail_id INT(11) DEFAULT NULL,
+  additional_info VARCHAR(500) DEFAULT NULL,
+  material_by_passport_id INT(11) DEFAULT NULL,
+  material_id INT(11) DEFAULT NULL,
+  measure_unit_id INT(11) DEFAULT NULL,
+  code VARCHAR(255) DEFAULT NULL,
+  mass_calculation_id INT(11) DEFAULT NULL,
+  shruff_percent DOUBLE DEFAULT NULL COMMENT 'процент отходов',
+  mass_with_shruff DOUBLE DEFAULT NULL,
+  price DECIMAL(10, 2) DEFAULT NULL,
+  shaving_price DECIMAL(10, 2) DEFAULT NULL,
+  plan_calculation_id INT(11) DEFAULT NULL COMMENT 'плановая калькуляция',
+  fact_calculation_id INT(11) DEFAULT NULL COMMENT 'фактическая калькуляция',
+  calculation_price_manual DECIMAL(10, 2) DEFAULT NULL,
+  equipment_id INT(11) DEFAULT NULL,
+  method_id INT(11) DEFAULT NULL,
+  width DOUBLE DEFAULT NULL,
+  length DOUBLE DEFAULT NULL,
+  thickness DOUBLE DEFAULT NULL,
+  inner_diameter DOUBLE DEFAULT NULL,
+  outer_diameter DOUBLE DEFAULT NULL,
+  drawing_image_id INT(11) DEFAULT NULL,
+  note VARCHAR(500) DEFAULT NULL,
+  is_deleted INT(11) NOT NULL DEFAULT 0,
+  customer_id INT(11) DEFAULT NULL COMMENT 'заказчик',
+  secondary_customer_id INT(11) DEFAULT NULL COMMENT 'вторичный заказчик',
+  fact_mass DOUBLE DEFAULT NULL,
+  tech_note VARCHAR(255) DEFAULT NULL,
+  summary_time DECIMAL(10, 2) DEFAULT NULL,
+  cutting_time DECIMAL(10, 2) DEFAULT NULL COMMENT 'Время вулканизации/вырубки. Берется из процессов =tв.',
   PRIMARY KEY (id),
-  CONSTRAINT FK_drawing_flowsheet_machines_drawings_id FOREIGN KEY (drawing_id)
-    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_drawing_flowsheet_machines_machines_id FOREIGN KEY (machine_id)
-    REFERENCES machines(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT FK_drawings_customer_id FOREIGN KEY (customer_id)
+    REFERENCES contragents(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_details_id FOREIGN KEY (detail_id)
+    REFERENCES details(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_equipments_id FOREIGN KEY (equipment_id)
+    REFERENCES equipments(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_fact_calculation_id FOREIGN KEY (fact_calculation_id)
+    REFERENCES calculations(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_groups_id FOREIGN KEY (group_id)
+    REFERENCES groups(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_images_id FOREIGN KEY (drawing_image_id)
+    REFERENCES images(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_mass_calculations_id FOREIGN KEY (mass_calculation_id)
+    REFERENCES mass_calculations(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_material_by_passport_id FOREIGN KEY (material_by_passport_id)
+    REFERENCES materials(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_materials_id FOREIGN KEY (material_id)
+    REFERENCES materials(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_measure_units_id FOREIGN KEY (measure_unit_id)
+    REFERENCES measure_units(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_methods_id FOREIGN KEY (method_id)
+    REFERENCES methods(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_plan_calculation_id FOREIGN KEY (plan_calculation_id)
+    REFERENCES calculations(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT FK_drawings_secondary_customer_id FOREIGN KEY (secondary_customer_id)
+    REFERENCES contragents(id) ON DELETE NO ACTION ON UPDATE NO ACTION
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 240
-AVG_ROW_LENGTH = 528
+AUTO_INCREMENT = 530
+AVG_ROW_LENGTH = 1024
 CHARACTER SET utf8
 COLLATE utf8_general_ci
-COMMENT = 'Оборудование технологической карты'
-ROW_FORMAT = DYNAMIC;
-
---
--- Описание для таблицы drawing_flowsheet_processes
---
-DROP TABLE IF EXISTS drawing_flowsheet_processes;
-CREATE TABLE drawing_flowsheet_processes (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  drawing_id INT(11) DEFAULT NULL,
-  sort_order INT(11) DEFAULT NULL,
-  process_id INT(11) NOT NULL COMMENT 'тип процесса',
-  is_included_to_summary INT(11) DEFAULT NULL,
-  name VARCHAR(255) DEFAULT NULL,
-  operation VARCHAR(255) DEFAULT NULL,
-  executor VARCHAR(255) DEFAULT NULL,
-  var_name VARCHAR(50) DEFAULT NULL,
-  norm_time DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-  note VARCHAR(4000) DEFAULT NULL,
-  PRIMARY KEY (id),
-  CONSTRAINT FK_flowsheet_processes_drawings_id FOREIGN KEY (drawing_id)
-    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_flowsheet_processes_processes_id FOREIGN KEY (process_id)
-    REFERENCES processes(id) ON DELETE RESTRICT ON UPDATE RESTRICT
-)
-ENGINE = INNODB
-AUTO_INCREMENT = 1403
-AVG_ROW_LENGTH = 69
-CHARACTER SET utf8
-COLLATE utf8_general_ci
-COMMENT = 'технологические процессы'
 ROW_FORMAT = DYNAMIC;
 
 --
@@ -613,30 +550,6 @@ AVG_ROW_LENGTH = 16384
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 COMMENT = 'сотрудники'
-ROW_FORMAT = DYNAMIC;
-
---
--- Описание для таблицы equipment_payments
---
-DROP TABLE IF EXISTS equipment_payments;
-CREATE TABLE equipment_payments (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  drawing_id INT(11) NOT NULL,
-  payment_doc_number INT(11) DEFAULT NULL,
-  payment_date DATETIME NOT NULL,
-  sum DECIMAL(10, 2) NOT NULL,
-  note VARCHAR(255) DEFAULT NULL,
-  is_deleted INT(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (id),
-  CONSTRAINT FK_equipment_payments_drawings_id FOREIGN KEY (drawing_id)
-    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT
-)
-ENGINE = INNODB
-AUTO_INCREMENT = 8
-AVG_ROW_LENGTH = 5461
-CHARACTER SET utf8
-COLLATE utf8_general_ci
-COMMENT = 'оплата изготовления оснастки'
 ROW_FORMAT = DYNAMIC;
 
 --
@@ -666,7 +579,7 @@ CREATE TABLE material_arrival_records (
     REFERENCES measure_units(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 42
+AUTO_INCREMENT = 74
 AVG_ROW_LENGTH = 16384
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -706,65 +619,110 @@ CREATE TABLE requests (
     REFERENCES contragents(id) ON DELETE NO ACTION ON UPDATE NO ACTION
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 398
+AUTO_INCREMENT = 503
 AVG_ROW_LENGTH = 3276
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
 
 --
--- Описание для таблицы rolling_records
+-- Описание для таблицы drawing_calculation_history
 --
-DROP TABLE IF EXISTS rolling_records;
-CREATE TABLE rolling_records (
+DROP TABLE IF EXISTS drawing_calculation_history;
+CREATE TABLE drawing_calculation_history (
   id INT(11) NOT NULL AUTO_INCREMENT,
-  sort_order INT(11) NOT NULL,
-  rolling_date DATETIME NOT NULL,
-  customer_id INT(11) NOT NULL,
   drawing_id INT(11) NOT NULL,
-  material_id INT(11) NOT NULL,
-  count INT(11) NOT NULL,
-  note VARCHAR(500) DEFAULT NULL,
-  is_deleted INT(11) NOT NULL DEFAULT 0,
+  calculation_id INT(11) NOT NULL,
   PRIMARY KEY (id),
-  CONSTRAINT FK_rolling_records_contragents_id FOREIGN KEY (customer_id)
-    REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_rolling_records_drawings_id FOREIGN KEY (drawing_id)
-    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_rolling_records_materials_id FOREIGN KEY (material_id)
-    REFERENCES materials(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT FK_drawing_calculation_history_calculations_id FOREIGN KEY (calculation_id)
+    REFERENCES calculations(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_drawing_calculation_history_drawings_id FOREIGN KEY (drawing_id)
+    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 14
-AVG_ROW_LENGTH = 16384
+AUTO_INCREMENT = 482
+AVG_ROW_LENGTH = 260
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
 
 --
--- Описание для таблицы shipping_order_records
+-- Описание для таблицы drawing_flowsheet_machines
 --
-DROP TABLE IF EXISTS shipping_order_records;
-CREATE TABLE shipping_order_records (
+DROP TABLE IF EXISTS drawing_flowsheet_machines;
+CREATE TABLE drawing_flowsheet_machines (
   id INT(11) NOT NULL AUTO_INCREMENT,
-  sort_order INT(11) NOT NULL,
-  order_date DATETIME NOT NULL,
-  customer_id INT(11) NOT NULL,
   drawing_id INT(11) NOT NULL,
-  count INT(11) NOT NULL,
+  sort_order INT(11) NOT NULL,
+  machine_id INT(11) NOT NULL,
+  plate_temperature DECIMAL(10, 2) DEFAULT NULL,
+  cure_time DECIMAL(10, 2) DEFAULT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_drawing_flowsheet_machines_drawings_id FOREIGN KEY (drawing_id)
+    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_drawing_flowsheet_machines_machines_id FOREIGN KEY (machine_id)
+    REFERENCES machines(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 269
+AVG_ROW_LENGTH = 528
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'Оборудование технологической карты'
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы drawing_flowsheet_processes
+--
+DROP TABLE IF EXISTS drawing_flowsheet_processes;
+CREATE TABLE drawing_flowsheet_processes (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  drawing_id INT(11) DEFAULT NULL,
+  sort_order INT(11) DEFAULT NULL,
+  process_id INT(11) NOT NULL COMMENT 'тип процесса',
+  is_included_to_summary INT(11) DEFAULT NULL,
+  name VARCHAR(255) DEFAULT NULL,
+  operation VARCHAR(255) DEFAULT NULL,
+  executor VARCHAR(255) DEFAULT NULL,
+  var_name VARCHAR(50) DEFAULT NULL,
+  norm_time DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+  note VARCHAR(4000) DEFAULT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_flowsheet_processes_drawings_id FOREIGN KEY (drawing_id)
+    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_flowsheet_processes_processes_id FOREIGN KEY (process_id)
+    REFERENCES processes(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 1524
+AVG_ROW_LENGTH = 69
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'технологические процессы'
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы equipment_payments
+--
+DROP TABLE IF EXISTS equipment_payments;
+CREATE TABLE equipment_payments (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  drawing_id INT(11) NOT NULL,
+  payment_doc_number INT(11) DEFAULT NULL,
+  payment_date DATETIME NOT NULL,
+  sum DECIMAL(10, 2) NOT NULL,
+  note VARCHAR(255) DEFAULT NULL,
   is_deleted INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (id),
-  CONSTRAINT FK_shipping_order_records_contragents_id FOREIGN KEY (customer_id)
-    REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_shipping_order_records_drawings_id FOREIGN KEY (drawing_id)
+  CONSTRAINT FK_equipment_payments_drawings_id FOREIGN KEY (drawing_id)
     REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 1
-AVG_ROW_LENGTH = 8192
+AUTO_INCREMENT = 8
+AVG_ROW_LENGTH = 5461
 CHARACTER SET utf8
 COLLATE utf8_general_ci
-COMMENT = 'журнал распоряжений на отгрузку'
+COMMENT = 'оплата изготовления оснастки'
 ROW_FORMAT = DYNAMIC;
 
 --
@@ -786,7 +744,7 @@ CREATE TABLE payments (
     REFERENCES requests(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 33
+AUTO_INCREMENT = 82
 AVG_ROW_LENGTH = 2730
 CHARACTER SET utf8
 COLLATE utf8_general_ci
@@ -852,8 +810,37 @@ CREATE TABLE request_details (
     REFERENCES requests(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 367
+AUTO_INCREMENT = 569
 AVG_ROW_LENGTH = 2340
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для таблицы rolling_records
+--
+DROP TABLE IF EXISTS rolling_records;
+CREATE TABLE rolling_records (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  sort_order INT(11) NOT NULL,
+  rolling_date DATETIME NOT NULL,
+  customer_id INT(11) NOT NULL,
+  drawing_id INT(11) NOT NULL,
+  material_id INT(11) NOT NULL,
+  count INT(11) NOT NULL,
+  note VARCHAR(500) DEFAULT NULL,
+  is_deleted INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_rolling_records_contragents_id FOREIGN KEY (customer_id)
+    REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_rolling_records_drawings_id FOREIGN KEY (drawing_id)
+    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_rolling_records_materials_id FOREIGN KEY (material_id)
+    REFERENCES materials(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 14
+AVG_ROW_LENGTH = 16384
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
@@ -922,6 +909,32 @@ COMMENT = 'Журнал учета оплаченной и отгруженно�
 ROW_FORMAT = DYNAMIC;
 
 --
+-- Описание для таблицы shipping_order_records
+--
+DROP TABLE IF EXISTS shipping_order_records;
+CREATE TABLE shipping_order_records (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  sort_order INT(11) NOT NULL,
+  order_date DATETIME NOT NULL,
+  customer_id INT(11) NOT NULL,
+  drawing_id INT(11) NOT NULL,
+  count INT(11) NOT NULL,
+  is_deleted INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_shipping_order_records_contragents_id FOREIGN KEY (customer_id)
+    REFERENCES contragents(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_shipping_order_records_drawings_id FOREIGN KEY (drawing_id)
+    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 1
+AVG_ROW_LENGTH = 8192
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'журнал распоряжений на отгрузку'
+ROW_FORMAT = DYNAMIC;
+
+--
 -- Описание для таблицы work_item_employee_package
 --
 DROP TABLE IF EXISTS work_item_employee_package;
@@ -937,48 +950,11 @@ CREATE TABLE work_item_employee_package (
     REFERENCES employees(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 50
+AUTO_INCREMENT = 59
 AVG_ROW_LENGTH = 1024
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 COMMENT = 'индивидуальный наряд'
-ROW_FORMAT = DYNAMIC;
-
---
--- Описание для таблицы work_items
---
-DROP TABLE IF EXISTS work_items;
-CREATE TABLE work_items (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  work_date DATE NOT NULL COMMENT 'дата',
-  sort_order INT(11) NOT NULL,
-  drawing_id INT(11) NOT NULL,
-  request_count INT(11) DEFAULT NULL COMMENT 'количество по текущим заявкам. Рассчитывается каждый раз при сохранении (BL)',
-  task_count INT(11) DEFAULT NULL,
-  done_count INT(11) DEFAULT NULL,
-  rejected_count INT(11) DEFAULT NULL COMMENT 'количество брака',
-  note VARCHAR(500) DEFAULT NULL,
-  employee_id INT(11) NOT NULL COMMENT 'Исполнитель',
-  flowsheet_machine_id INT(11) DEFAULT NULL,
-  is_parallel INT(11) NOT NULL DEFAULT 0 COMMENT 'признак одновременной работы',
-  batch_number VARCHAR(255) DEFAULT NULL,
-  PRIMARY KEY (id),
-  INDEX IDX_work_items_work_date (work_date),
-  UNIQUE INDEX UK_work_items (work_date, sort_order),
-  UNIQUE INDEX UK_work_items2 (work_date, drawing_id, employee_id),
-  CONSTRAINT FK_daily_work_package_details_drawings_id FOREIGN KEY (drawing_id)
-    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_daily_work_package_details_employees_id FOREIGN KEY (employee_id)
-    REFERENCES employees(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_work_items_flowsheet_machines_id FOREIGN KEY (flowsheet_machine_id)
-    REFERENCES drawing_flowsheet_machines(id) ON DELETE RESTRICT ON UPDATE RESTRICT
-)
-ENGINE = INNODB
-AUTO_INCREMENT = 125
-AVG_ROW_LENGTH = 496
-CHARACTER SET utf8
-COLLATE utf8_general_ci
-COMMENT = 'Строки дневного наряда'
 ROW_FORMAT = DYNAMIC;
 
 --
@@ -1054,27 +1030,41 @@ COMMENT = 'оборудование по индивидуальному наря
 ROW_FORMAT = DYNAMIC;
 
 --
--- Описание для таблицы work_item_request_details
+-- Описание для таблицы work_items
 --
-DROP TABLE IF EXISTS work_item_request_details;
-CREATE TABLE work_item_request_details (
+DROP TABLE IF EXISTS work_items;
+CREATE TABLE work_items (
   id INT(11) NOT NULL AUTO_INCREMENT,
-  work_item_id INT(11) NOT NULL,
-  request_detail_id INT(11) NOT NULL,
-  sort_order INT(11) DEFAULT NULL,
-  done_count INT(11) NOT NULL DEFAULT 0,
+  work_date DATE NOT NULL COMMENT 'дата',
+  sort_order INT(11) NOT NULL,
+  drawing_id INT(11) NOT NULL,
+  request_count INT(11) DEFAULT NULL COMMENT 'количество по текущим заявкам. Рассчитывается каждый раз при сохранении (BL)',
+  task_count INT(11) DEFAULT NULL COMMENT 'дневное задание',
+  done_count INT(11) DEFAULT NULL COMMENT 'количество выполненных деталей',
+  rejected_count INT(11) DEFAULT NULL COMMENT 'количество брака',
+  overflow_count INT(11) DEFAULT NULL COMMENT 'Количество, которое не распределилось по заявкам. Рассчитывается при сохранении (BL)',
+  note VARCHAR(500) DEFAULT NULL,
+  employee_id INT(11) NOT NULL COMMENT 'Исполнитель',
+  flowsheet_machine_id INT(11) DEFAULT NULL,
+  is_parallel INT(11) NOT NULL DEFAULT 0 COMMENT 'признак одновременной работы',
+  batch_number VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (id),
-  CONSTRAINT FK_work_item_request_details_request_details_id FOREIGN KEY (request_detail_id)
-    REFERENCES request_details(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT FK_work_item_request_details_work_items_id FOREIGN KEY (work_item_id)
-    REFERENCES work_items(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+  INDEX IDX_work_items_work_date (work_date),
+  UNIQUE INDEX UK_work_items (work_date, sort_order),
+  UNIQUE INDEX UK_work_items2 (work_date, drawing_id, employee_id),
+  CONSTRAINT FK_daily_work_package_details_drawings_id FOREIGN KEY (drawing_id)
+    REFERENCES drawings(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_daily_work_package_details_employees_id FOREIGN KEY (employee_id)
+    REFERENCES employees(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_work_items_flowsheet_machines_id FOREIGN KEY (flowsheet_machine_id)
+    REFERENCES drawing_flowsheet_machines(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
-AUTO_INCREMENT = 375
-AVG_ROW_LENGTH = 862
+AUTO_INCREMENT = 125
+AVG_ROW_LENGTH = 496
 CHARACTER SET utf8
 COLLATE utf8_general_ci
-COMMENT = 'привязка строк дневного наряда к строкам заявок'
+COMMENT = 'Строки дневного наряда'
 ROW_FORMAT = DYNAMIC;
 
 --
@@ -1108,6 +1098,30 @@ COMMENT = 'строки отгрузки'
 ROW_FORMAT = DYNAMIC;
 
 --
+-- Описание для таблицы work_item_request_details
+--
+DROP TABLE IF EXISTS work_item_request_details;
+CREATE TABLE work_item_request_details (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  work_item_id INT(11) NOT NULL,
+  request_detail_id INT(11) NOT NULL,
+  sort_order INT(11) DEFAULT NULL,
+  done_count INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_work_item_request_details_request_details_id FOREIGN KEY (request_detail_id)
+    REFERENCES request_details(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT FK_work_item_request_details_work_items_id FOREIGN KEY (work_item_id)
+    REFERENCES work_items(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 419
+AVG_ROW_LENGTH = 862
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+COMMENT = 'привязка строк дневного наряда к строкам заявок'
+ROW_FORMAT = DYNAMIC;
+
+--
 -- Описание для таблицы shipment_item_work_items
 --
 DROP TABLE IF EXISTS shipment_item_work_items;
@@ -1129,6 +1143,16 @@ CHARACTER SET utf8
 COLLATE utf8_general_ci
 COMMENT = 'распределение отгруженных деталей по выполненным партиям'
 ROW_FORMAT = DYNAMIC;
+
+--
+-- Описание для представления material_movings
+--
+DROP VIEW IF EXISTS material_movings CASCADE;
+CREATE OR REPLACE 
+	DEFINER = 'admin'@'%'
+VIEW material_movings
+AS
+	select 1 AS `rec_type`,`mar`.`waybill_date` AS `date`,`mar`.`material_id` AS `material_Id`,`mar`.`count` AS `COUNT` from `material_arrival_records` `mar` where (`mar`.`is_deleted` = 0) union all select 2 AS `rec_type`,`r`.`reg_date` AS `reg_date`,`d`.`material_id` AS `material_id`,(`rd`.`count` * `d`.`mass_with_shruff`) AS `rd.count * d.mass_with_shruff` from ((`request_details` `rd` join `requests` `r` on((`rd`.`request_id` = `r`.`id`))) join `drawings` `d` on((`rd`.`drawing_id` = `d`.`id`))) where ((`d`.`material_id` is not null) and (`r`.`is_deleted` = 0)) union all select 3 AS `rec_type`,`wi`.`work_date` AS `work_date`,`d`.`material_id` AS `material_id`,(`wi`.`task_count` * `d`.`mass_with_shruff`) AS `wi.task_count * d.mass_with_shruff` from (`work_items` `wi` join `drawings` `d` on((`wi`.`drawing_id` = `d`.`id`))) where (`d`.`material_id` is not null) union all select 4 AS `rec_type`,`s`.`date` AS `date`,`d`.`material_id` AS `material_id`,(`si`.`count` * `d`.`mass_with_shruff`) AS `si.count * d.mass_with_shruff` from (((`shipment_items` `si` join `request_details` `rd` on((`si`.`request_detail_id` = `rd`.`id`))) join `drawings` `d` on((`rd`.`drawing_id` = `d`.`id`))) join `shipments` `s` on((`si`.`shipment_id` = `s`.`id`))) where (`s`.`is_deleted` = 0);
 
 -- 
 -- Вывод данных для таблицы additional_infos
@@ -1521,7 +1545,25 @@ INSERT INTO calculations VALUES
 (532, 1.18, NULL, NULL, NULL, NULL, NULL, NULL, 0.08, 3.4700, 0.32, 1.17, 5.68, 7.57, 19.47, 2.73, 0.39, 22.59, 0.68, 23.27, 5.82, 29.08, 5.23, 34.32, NULL, 0, '2017-01-17 12:32:47', NULL),
 (533, 1.18, NULL, NULL, NULL, NULL, NULL, NULL, 0.08, 3.4700, 0.32, 1.17, 5.68, 7.57, 19.47, 2.73, 0.39, 22.59, 0.68, 23.27, 5.82, 29.08, 5.23, 34.32, NULL, 0, '2017-01-17 12:32:49', NULL),
 (534, 2.88, NULL, NULL, NULL, NULL, NULL, NULL, 0.20, 4.3375, 0.39, 1.47, 7.10, 9.46, 25.84, 5.25, 0.52, 31.61, 0.95, 32.56, 8.14, 40.70, 7.33, 48.02, NULL, 0, '2017-01-17 12:32:58', NULL),
-(535, 2.88, NULL, NULL, NULL, NULL, NULL, NULL, 0.20, 4.3375, 0.39, 1.47, 7.10, 9.46, 25.84, 5.25, 0.52, 31.61, 0.95, 32.56, 8.14, 40.70, 7.33, 48.02, NULL, 0, '2017-01-17 12:32:59', NULL);
+(535, 2.88, NULL, NULL, NULL, NULL, NULL, NULL, 0.20, 4.3375, 0.39, 1.47, 7.10, 9.46, 25.84, 5.25, 0.52, 31.61, 0.95, 32.56, 8.14, 40.70, 7.33, 48.02, NULL, 0, '2017-01-17 12:32:59', NULL),
+(536, 0.79, NULL, NULL, NULL, NULL, NULL, NULL, 0.06, 2.3133, 0.21, 0.78, 3.79, 5.05, 12.98, 2.80, 0.26, 16.04, 0.48, 16.52, 4.13, 20.65, 3.72, 24.37, NULL, 0, '2017-01-29 19:52:30', NULL),
+(537, 0.79, NULL, NULL, NULL, NULL, NULL, NULL, 0.06, 5.7833, 0.53, 1.96, 9.46, 12.62, 31.19, 3.50, 0.62, 35.31, 1.06, 36.37, 9.09, 45.46, 8.18, 53.65, NULL, 0, '2017-01-29 19:50:54', NULL),
+(538, 0.79, NULL, NULL, NULL, NULL, NULL, NULL, 0.06, 5.7833, 0.53, 1.96, 9.46, 12.62, 31.19, 2.80, 0.62, 34.61, 1.04, 35.65, 8.91, 44.56, 8.02, 52.58, NULL, 0, '2017-01-29 19:52:24', NULL),
+(539, 0.79, NULL, NULL, NULL, NULL, NULL, NULL, 0.06, 5.7833, 0.53, 1.96, 9.46, 12.62, 31.19, 2.80, 0.62, 34.61, 1.04, 35.65, 8.91, 44.56, 8.02, 52.58, NULL, 0, '2017-01-29 19:52:31', NULL),
+(540, 0.79, NULL, NULL, NULL, NULL, NULL, NULL, 0.06, 5.7833, 0.53, 1.96, 9.46, 12.62, 31.19, 2.80, 0.62, 34.61, 1.04, 35.65, 8.91, 44.56, 8.02, 52.58, NULL, 0, '2017-01-29 19:52:50', NULL),
+(541, 0.79, NULL, NULL, NULL, NULL, NULL, NULL, 0.06, 5.7833, 0.26, 0.98, 4.73, 6.31, 16.01, 2.80, 0.32, 19.13, 0.57, 19.71, 4.93, 24.64, 4.43, 29.07, NULL, 0, '2017-01-29 19:53:04', 2),
+(542, 463.20, NULL, NULL, NULL, NULL, NULL, NULL, 32.42, 86.7500, 7.89, 29.34, 141.95, 189.27, 950.83, 446.25, 19.02, 1416.09, 42.48, 1458.58, 364.64, 1823.22, 328.18, 2151.40, NULL, 0, '2017-02-02 21:31:23', NULL),
+(543, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 52.0500, 4.73, 17.60, 85.17, 113.56, 273.12, 403.75, 5.46, 682.33, 20.47, 702.80, 175.70, 878.50, 158.13, 1036.63, NULL, 0, '2017-02-02 21:29:26', NULL),
+(544, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 52.0500, 4.73, 17.60, 85.17, 113.56, 273.12, 403.75, 5.46, 682.33, 20.47, 702.80, 175.70, 878.50, 158.13, 1036.63, NULL, 0, '2017-02-02 21:30:13', NULL),
+(545, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 52.0500, 4.73, 17.60, 85.17, 113.56, 273.12, 446.25, 5.46, 724.83, 21.74, 746.58, 186.64, 933.22, 167.98, 1101.20, NULL, 0, '2017-02-02 21:31:25', NULL),
+(546, 1.57, NULL, NULL, NULL, NULL, NULL, NULL, 0.11, 1.9953, 0.18, 0.67, 3.26, 4.35, 12.15, 2.70, 0.24, 15.10, 0.45, 15.55, 3.89, 19.44, 3.50, 22.94, NULL, 0, '2017-02-02 22:52:45', NULL),
+(547, 1.57, NULL, NULL, NULL, NULL, NULL, NULL, 0.11, 6.0725, 0.55, 2.05, 9.94, 13.25, 33.55, 3.94, 0.67, 38.15, 1.14, 39.30, 9.82, 49.12, 8.84, 57.97, NULL, 0, '2017-02-02 22:49:20', NULL),
+(548, 1.57, NULL, NULL, NULL, NULL, NULL, NULL, 0.11, 6.0725, 0.55, 2.05, 9.94, 13.25, 33.55, 3.02, 0.67, 37.24, 1.12, 38.35, 9.59, 47.94, 8.63, 56.57, NULL, 0, '2017-02-02 22:50:08', NULL),
+(549, 1.57, NULL, NULL, NULL, NULL, NULL, NULL, 0.11, 6.0725, 0.55, 2.05, 9.94, 13.25, 33.55, 2.78, 0.67, 37.00, 1.11, 38.11, 9.53, 47.64, 8.57, 56.21, NULL, 0, '2017-02-02 22:50:50', NULL),
+(550, 1.57, NULL, NULL, NULL, NULL, NULL, NULL, 0.11, 6.0725, 0.55, 2.05, 9.94, 13.25, 33.55, 2.70, 0.67, 36.92, 1.11, 38.03, 9.51, 47.54, 8.56, 56.09, NULL, 0, '2017-02-02 22:52:46', NULL),
+(551, 364.80, NULL, 30.00, 251.00, 150.00, NULL, NULL, 55.71, 6.9400, 0.63, 2.35, 11.36, 15.14, 887.92, 391.00, 17.76, 1296.68, 38.90, 1335.58, 333.89, 1669.47, 300.50, 1969.97, NULL, 0, '2017-02-02 23:43:29', NULL),
+(552, 364.80, NULL, NULL, NULL, NULL, NULL, NULL, 25.54, 6.9400, 0.63, 2.35, 11.36, 15.14, 426.75, 391.00, 8.53, 826.28, 24.79, 851.07, 212.77, 1063.84, 191.49, 1255.33, NULL, 0, '2017-02-02 23:40:05', NULL),
+(553, 364.80, NULL, 30.00, 251.00, 150.00, NULL, NULL, 55.71, 6.9400, 0.63, 2.35, 11.36, 15.14, 887.92, 391.00, 17.76, 1296.68, 38.90, 1335.58, 333.89, 1669.47, 300.50, 1969.97, NULL, 0, '2017-02-02 23:43:30', NULL);
 
 -- 
 -- Вывод данных для таблицы constants
@@ -1611,7 +1653,37 @@ INSERT INTO contragents VALUES
 (87, 59, 'ООО ПНФ "ЛГ автоматика"', 0, '109457, г. Москва, ул. Зеленодольская, 28-1-58', NULL, NULL, NULL, NULL, NULL, '7721000970', '772101001', '40702810638330101420', '30101810400000000225', NULL, NULL, NULL, NULL, '044525225', 'ПАО "Сбербанк России"', NULL, NULL, 0),
 (88, 60, 'ООО "ЭКО_ЗАВОД"', 0, '614016, г. Пермь, ул. Куйбышева, 76 - 3', NULL, NULL, NULL, NULL, NULL, '5904650107', '590401001', '40702810849770015774', '30101810900000000603', NULL, NULL, NULL, NULL, ' 045773603', 'Западно-Уральский банк ОАО "Сбербанк России"', NULL, NULL, 0),
 (89, 61, 'ООО "СервисСофт"', 0, '3000004 г. Тула,ул. Щегловская засека, д.30', NULL, NULL, NULL, NULL, NULL, '7106061817', '710501001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(90, 62, 'ООО "Элма-1"', 0, NULL, NULL, NULL, NULL, NULL, 'Производство на склад', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
+(90, 62, 'ООО "Элма-1"', 0, NULL, NULL, NULL, NULL, NULL, 'Производство на склад', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(91, 9, 'ИП Мальцева Т.В.', 1, '624260, Свердловская обл., г.Асбест, ул.Ленинградская, д.33 кв.35', 'Мальцева Т.В.', NULL, '343-205-01-23', NULL, NULL, '660304061419', NULL, '40802810662320000544', '30101810900000000795', NULL, NULL, NULL, NULL, '046577795', 'ПАО КБ "УБРИР"', NULL, NULL, 0),
+(92, 10, 'ООО "Уралхимпродукт"', 1, '620089, г.Екатеринбург, ул.Саввы Белых, д.14 литер Ж к.2', 'Южакова О.Н.', NULL, NULL, NULL, NULL, '6685072062', '668501001', '40702810500280007217', '30101810400000000952', NULL, NULL, NULL, NULL, '046577952', 'Филиал Банка ВТБ (ПАО) ', NULL, NULL, 0),
+(93, 63, 'ООО "ТД "Техрезина"', 0, 'Россия, 192289, Санкт-Петербург, пр. 9-го Января, д. 13, корп. 1', NULL, NULL, NULL, NULL, NULL, '7816286766', '781601001', '40702810380010030389 ', '30101810200000000762 ', NULL, NULL, NULL, NULL, '044030762', 'АКБ "Росевробанк" (АО)', NULL, NULL, 0),
+(94, 64, 'АО "Альфа-Кинетика"', 0, '625023, г. Тюмень, ул. Харьковская, д.75, корп. 1', 'Скопченко Ксения Сергеевна', NULL, NULL, NULL, NULL, '7203367864', '720301001', '40702810938330000904', '30101810100000000964', NULL, NULL, NULL, NULL, '046577964', 'Филиал "Екатеринбургский" АО "АЛЬФА-БАНК"', NULL, NULL, 0),
+(95, 65, 'АО "Ремтехкомплект"', 0, '620078, Сведловская обл., г. Екатеринбург, ул. Вишневая, 46, оф. 401', NULL, NULL, NULL, NULL, NULL, '6674120898', '667001001', '40702810316110000199', '30101810500000000674', NULL, NULL, NULL, NULL, '046577674', 'ПАО "Сбербанк России"', NULL, NULL, 0),
+(96, 66, 'ЗАО "КранЭлектроМаш"', 0, '620090, Россия, г. Екатеринбург, ул. Техническая, д. 32, офис 52', NULL, NULL, NULL, NULL, NULL, '6659119249', '667801001', '40702810816090093438', '30101810500000000674', NULL, NULL, NULL, NULL, '046577674', 'Уральский банк ОАО "Сбербанк России"', NULL, NULL, 0),
+(97, 67, 'ИП Ябыков Николай Андреевич', 0, '429500, Чувашская Республика, Чебоксарский р-он, п. Кугеси, ул. Советская, 76-98', NULL, NULL, NULL, NULL, NULL, '211600470724', NULL, '40802810075040060099', '30101810300000000609', NULL, NULL, NULL, NULL, '049706609', 'Отделение № 8613 Сбербанк России г. Чебоксары', NULL, NULL, 0),
+(98, 68, 'АО "УЭТМ"', 0, 'Россия, 620017, г. Екатеринбург, ул. Фронтовых бригад, 22', NULL, NULL, NULL, NULL, NULL, '6673197337', '660850001', '40702810000261004126', '30101810800000000945', NULL, NULL, NULL, NULL, '046568945', 'Филиалл ОАО "ГПБ" г. Екатеринбург', NULL, NULL, 0),
+(99, 69, 'ООО "Эльмаш (УЭТМ)" ', 0, ' 620017, г. Екатеринбург, ул. Фронтовых бригад, д. 22', NULL, NULL, NULL, NULL, NULL, '6686007865', '660850001', '40702810100261004165 ', '30101810800000000945', NULL, NULL, NULL, NULL, ' 046568945', ' Ф-л ОАО "Газпромбанк" ', NULL, 'Грузополучатель', 0),
+(100, 70, 'АО ППЗ "Свердловский"', 0, '624021, Свердловская область, Сысертский район, с. Кашино', NULL, NULL, NULL, NULL, NULL, '6652021822', '668501001', '40702810500000022911', '30101810800000000756', NULL, NULL, NULL, NULL, '046577756', 'ПАО "СКБ-БАНК" г. Екатеринбург', NULL, NULL, 0),
+(101, 71, 'ООО "Элин-Техно"', 0, '620135, г. Екатеринбург, ул. Красных Командиров, 23', NULL, NULL, NULL, NULL, NULL, '6663078926', '667301001', '40702810116110101010', '30101810500000000674', NULL, NULL, NULL, NULL, '046577674', 'Уральский Банк СБ РФ', NULL, NULL, 0),
+(102, 1, 'ООО "ЭСАБ Тюмень"', 0, 'РФ, 625059, Тюменская область, г. Тюмень, 6 км Велижанского тракта, 13', NULL, NULL, NULL, NULL, NULL, '7202242140', '720301001', '40702810200014692253', '30101810300000000545', NULL, NULL, NULL, NULL, '044525545', 'АО "ЮниКредитБанк" г. Москва', NULL, NULL, 0),
+(103, 72, 'ООО ПК "Деталь"', 0, '620016, РФ, Свердловская обл., г. Екатеринбург, ул. Краснолесья, д. 30, помещение 80-88', NULL, NULL, NULL, NULL, NULL, '6671056210', '667101001', '40702810238190001513', '30101810100000000964', NULL, NULL, NULL, NULL, '046577964', 'Филиал "Екатеринбургский" АО "АЛЬФА-БАНК" ', NULL, NULL, 0),
+(104, 73, 'ООО "К5"', 0, 'РФ, Свердловская обл., г. Екатеринбург, ул. Посадская, д. 21, офис 101', NULL, NULL, NULL, NULL, NULL, '6658480540', '665801001', '40702810316540026727', '30101810500000000674', NULL, NULL, NULL, NULL, '046577674', 'Уральский Банк ПАО "Сбербанк"', NULL, NULL, 0),
+(105, 74, 'ООО ИЦ "ИСРЗ"', 0, 'Россия, 450027, Республика Башкортостан, г. Уфа, ул. Сельская Богородская, 57, помещение 58', NULL, NULL, NULL, NULL, NULL, '0278200789', '027601001', '40702810467010000030', '30101810280730000716', NULL, NULL, NULL, NULL, '048073716', 'ОАО Банк "АК БАРС" г. Уфа', NULL, NULL, 0),
+(106, 75, 'ООО НПО "ЭлектроКомплект"', 0, '428028, Чувашская Республика, г. Чебоксары, пр. Тракторостроителей, д. 5', NULL, NULL, '(8352) 37-95-22', NULL, NULL, '2130162736', '213001001', '40702810500000090240', '30101810200000000725', NULL, NULL, NULL, NULL, '049706725', 'АКБ  ПАО "Чувашкредитпромбанк"', NULL, NULL, 0),
+(107, 76, 'ООО НПП "ППТ"', 0, '456770, РФ, Челябинская обл., г. Снежинск, ул. Транспортная, д. 41Б, а/я 324', NULL, NULL, NULL, NULL, NULL, '7423021734', '742301001', '40702810872060112098', '30101810700000000602', NULL, NULL, NULL, NULL, '047501602', 'Челябинское отделение № 8597 ПАО "Сбербанк"', NULL, NULL, 0),
+(108, 77, 'ООО "Донкарб Графит"', 0, '346613, РФ, Ростовская обл., г. Новочеркасск, Алюминиевая площадка', NULL, NULL, NULL, NULL, NULL, '6150058730', '6615001001', '40702810412010000150', '30101810200000000222', NULL, NULL, NULL, NULL, '046015222', 'ФАКБ "Российский Капитал" (ПАО) ', NULL, NULL, 0),
+(109, 78, 'ООО "Каспийская гидротехническая компания"', 0, '414000, Астраханская обл., г. Астрахань, ул. Калинина/Бабушкина, 2/80, литер А/А', NULL, NULL, NULL, NULL, NULL, '3017060571', '301501001', '40702810700050300501', '30101810445250000836', NULL, NULL, NULL, NULL, '044525836', 'АКБ "РосЕвроБанк" (АО) г. Москва', NULL, NULL, 0),
+(110, 79, 'ООО "МЖДСК"', 0, '620026, РФ, Свердловская область, г. Екатеринбург, ул. Розы Люксембург, д. 56, офис 18', NULL, NULL, NULL, NULL, NULL, '6685046861', '668501001', '40702810300000020436', '30101810765770000406', NULL, NULL, NULL, NULL, '046577406', 'ПАО "Уралтрансбанк"', NULL, NULL, 0),
+(111, 80, 'ООО "Металлпроминдустрия"', 0, '454006, Челябинская обл., г. Челябинск, неж. пом 54, ул. Российская, 67, офис 400', 'Савко Марина Владимировна', NULL, '89525014581', NULL, NULL, '7453296743', '745301001', '40702810972000016326', '30101810700000000602', NULL, NULL, NULL, NULL, '047501602', 'ПАО СБЕРБАНК г. Челябинск', NULL, NULL, 0),
+(112, 81, 'ОАО "ЭФКО"', 0, '309850,  Белгородская обл., г. Алексеевка, ул. Фрунзе, д. 2', 'Тищенко Иван Николаевич', NULL, NULL, NULL, NULL, '3122000300', '312243001', '40702810407000075331', '30101810100000000633', NULL, NULL, NULL, NULL, '041403633', 'Д/о 8592/100 Белгородского отделения № 8592 ПАО "Сбербанк"', NULL, NULL, 0),
+(113, 82, 'ООО "Уральский дизель-моторный завод" ', 0, '620017, г. Екатеринбург, ул. Фронтовых бригад, д. 18', NULL, NULL, NULL, NULL, NULL, '6673105167', '667301001', '40702810614900000107', '30101810800000000756', NULL, NULL, NULL, NULL, '046577756', 'ПАО «СКБ-Банк»', NULL, NULL, 0),
+(114, 83, 'ООО "Теплострой-НН"', 0, '607662, Нижегородская обл., г. Кстово, пл. Мира, д. 5', 'Саутенков Вадим Вячеславович', NULL, NULL, NULL, NULL, '5250051991', '525001001', '40702810125500002637', '30101810700000000955', NULL, NULL, NULL, NULL, '043602955', 'Филиал № 6318 ВТБ 24 (ПАО) г. Самара', NULL, NULL, 0),
+(115, 84, 'ООО "Арлиз"', 0, '454091,Челябинская обл., г. Челябинск, ул. Пушкина, 15', 'Бакиров Дмитрий Рафаилович', NULL, NULL, NULL, NULL, '7453230090', '745301001', '40702810238090001561', '30101810100000000964', NULL, NULL, NULL, NULL, '046577964', 'АО "АЛЬФА-БАНК" в Филиале "Екатеринбургский"', NULL, NULL, 0),
+(116, 11, 'ИП Мишалов А.Н.', 1, '620075, г.Екатеринбург, ул.Малышева д.28 оф.702', 'Мишалов А.Н.', NULL, '383-35-06', NULL, NULL, '860225883490', NULL, '40802810238260000153', '30101810100000000964', NULL, NULL, '0191806900', NULL, '046577756', 'ф-л Екатеринбургский АО "Альфа-Банк"', NULL, NULL, 0),
+(117, 85, 'ООО "Р-Мост"', 0, '197342, г. Санкт-Петербург, ул. Сердобольская, д. 64, корп.1, литер А', 'Гаврилов Александр Егорович', NULL, NULL, NULL, NULL, '7707667257', '781401001', '40702810355160040819', '30101810500000000653', NULL, NULL, NULL, '1087746732446', '044030653', 'Северо-Западный банк ОАО "Сбербанк России" г. Санкт-Петербург', NULL, NULL, 0),
+(118, 86, 'ООО "КиИв"', 0, '624590, Свердловская область, г. Ивдель, ул. Набережная 2-я, д. 18, кв. 2', NULL, NULL, NULL, NULL, NULL, '6631009824', '663101001', '40702810316460050598', '30101810500000000674', NULL, NULL, NULL, NULL, '046577674', 'Уральский Банк Сбербанка РФ', NULL, NULL, 0),
+(119, 87, 'ООО "Транспортер"', 0, '620100, Россия, Свердловская область, г. Екатеринбург, ул. Сибирский тракт, 12, Литер Т, оф. 5', NULL, NULL, NULL, NULL, NULL, '6685032700', '668501001', '40702810363040000346', '30101810900000000795', NULL, NULL, NULL, NULL, '046577795', 'ОАО "УБРИР', 'tr3845539@yandex.ru', NULL, 0),
+(120, 88, 'ООО "Элком-Урал"', 0, '620041, г. Екатеринбург, ул. Советская, д. 2Б, кв. 2', NULL, NULL, NULL, NULL, NULL, '6670311034', '667001001', '40702810800000019769', '30101810765770000406', NULL, NULL, NULL, NULL, '046577406', 'ПАО "Уралтрансбанк" г. Екатеринбург', NULL, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы details
@@ -1757,349 +1829,20 @@ INSERT INTO details VALUES
 (163, 138, 'Ролик', NULL, 0),
 (164, 139, 'Ролик силиконовый', NULL, 0),
 (165, 140, 'Подвес', NULL, 0),
-(166, 141, 'Кольцо круглое', NULL, 0);
-
--- 
--- Вывод данных для таблицы drawings
---
-INSERT INTO drawings VALUES
-(50, '2016-12-04 16:11:06', 1, '370.210-1', 17, 26, NULL, 35, 35, 6, NULL, 46, 10, 0.007700000000000001, 50.00, 0.50, 493, 154, NULL, 37, 12, NULL, NULL, NULL, 20, 100, NULL, '250шт/см', 0, 19, NULL, 0.007, '250шт/см 30мин на перерывы', 9.00, 7.00),
-(51, '2016-12-07 14:29:05', 2, '233', 19, 26, NULL, 51, 51, 6, NULL, 49, 0, 0.14, 38.65, 0.80, 292, 155, NULL, 39, 12, 155, 780, 2.8, NULL, NULL, NULL, '240шт/см', 0, 30, NULL, 0.14, '2 рулона на 150шт (42кг) возврат отходов на вальцовку .Зазор вальцев 4 мм 240шт/см', 13.00, 10.00),
-(52, '2016-12-08 15:13:23', 3, '372.000', 20, 135, '4326 цена 131', 35, 52, 10, NULL, 50, NULL, 0.68, 484.00, 1.00, 281, 157, NULL, 40, 12, NULL, NULL, 21, 39, 200, 51, '20шт/см', 0, NULL, NULL, 0.68, '20шт/см', 55.00, 40.00),
-(53, '2016-12-08 16:13:54', 4, '10-6 ГОСТ 19421-74', 19, 136, 'Одновременная загрузка  втулки 6*10*16', 53, 53, 10, NULL, 51, 10, 0.0022, 6.78, 0.50, 205, 163, NULL, 41, 12, NULL, NULL, 6, 6, 16, 53, '140шт/см', 0, NULL, NULL, 0.002, NULL, 12.80, 10.00),
-(54, '2016-12-08 16:47:47', 5, '6*10*16 ГОСТ 19421-74', 19, 136, 'Одновременно 10-6', 53, 53, 10, NULL, 52, 11, 0.00222, 6.78, 0.50, 214, 172, NULL, 42, 12, NULL, NULL, NULL, NULL, NULL, 52, '210шт/см', 0, NULL, NULL, 0.002, '7пр-Цэ/мин=1,05руб,6прессформ, 210шт/см', 12.80, 10.00),
-(55, '2016-12-08 16:58:08', 6, '18*22', 19, 93, 'ч', 51, 51, 6, NULL, 53, 100, 0.016, 35.60, 0.50, 494, 178, NULL, 43, 12, NULL, NULL, NULL, NULL, NULL, 69, '140шт/см', 0, NULL, NULL, 0.016, '140шт/см', 8.50, 5.00),
-(56, '2016-12-08 17:13:54', 7, 'L40', 19, 137, NULL, 51, 51, 6, NULL, 54, 10, 0.0088, 8.58, 0.50, 220, 181, NULL, 44, 12, NULL, NULL, 40, 15, 20, NULL, '150шт/см', 0, NULL, NULL, 0.008, '152шт/см', 12.40, 10.00),
-(57, '2016-12-08 17:30:08', 8, '760.023', 17, 27, NULL, 58, 35, 6, NULL, 55, 0, 0.804, 262.50, 1.00, 377, 183, NULL, 45, 12, NULL, NULL, NULL, NULL, NULL, NULL, '32шт/см', 0, NULL, NULL, 0.804, '32шт/см', 14.00, 10.00),
-(58, '2016-12-08 17:43:06', 9, '760.024', 17, 27, NULL, 58, 35, 6, NULL, 63, 0, 0.904, 262.50, 1.00, 381, 186, NULL, 46, 12, NULL, NULL, NULL, NULL, NULL, NULL, '32шт/см', 0, NULL, NULL, 0.904, '32', 14.00, 10.00),
-(59, '2016-12-10 08:43:51', 10, '68*50*9', 19, 138, 'Энерготехсоюз', 35, 35, 6, NULL, 56, NULL, 0.015, 27.50, 0.50, 335, 302, NULL, 47, 12, NULL, NULL, 9, 50, 68, NULL, '140шт/см', 0, 24, NULL, 0.026, '140шт/см', 13.60, 10.00),
-(60, '2016-12-10 20:27:26', 11, '300', 21, 80, 'Эластомер', 59, 59, 6, NULL, 57, 40, 1.1493999999999998, 2805.00, 1.00, 439, 336, NULL, 48, 12, NULL, NULL, 114, 320, 368, NULL, '9шт/см', 0, 19, NULL, 1.149, '9шт/см', 60.00, 40.00),
-(61, '2016-12-10 21:40:00', 12, '20*5*13', 19, 139, NULL, 51, 51, 6, NULL, 58, 10, 0.0055000000000000005, 3.60, 0.50, 396, 337, NULL, 49, 12, NULL, NULL, 13, 5, 20, NULL, '315шт/см', 0, NULL, NULL, 0.004, '315шт/см', 13.00, 10.00),
-(62, '2016-12-11 23:45:16', 13, '307.026', 18, 52, 'Ч', 35, 35, 6, NULL, 89, 100, 0.004, 22.08, 0.80, 508, 338, NULL, 50, 12, NULL, NULL, NULL, NULL, NULL, 7, '210шт/см', 0, 19, NULL, 0.002, '210шт/см', 14.00, 10.00),
-(63, '2016-12-12 14:23:04', 14, '207*8*8', 19, 26, NULL, 53, 53, 6, NULL, 62, NULL, 0.058, 25.00, 0.80, 358, 343, NULL, 51, 12, NULL, NULL, NULL, NULL, NULL, NULL, '80шт/см', 0, NULL, NULL, 0.073, '80шт/см', 11.00, 6.00),
-(64, '2016-12-12 14:26:19', 15, '18*55', 19, 26, NULL, 47, 47, 6, NULL, 60, 0, 0.002, 1.20, 0.00, 501, 342, NULL, 53, 13, 18, 55, 1, NULL, NULL, NULL, '8000шт/см', 0, NULL, NULL, 0.002, '8000шт/см', 4.00, 2.00),
-(65, '2016-12-12 14:28:47', 16, '27*45*1,5', 19, 38, NULL, 47, 47, 6, NULL, 61, 0, 0.003, 2.55, 0.00, 505, 341, NULL, 54, 13, NULL, NULL, NULL, NULL, NULL, NULL, '1500шт/см', 0, 19, NULL, 0.003, NULL, 0.38, 0.32),
-(66, '2016-12-12 14:32:25', 17, '18*45*1,5', 19, 38, NULL, 47, 47, 6, NULL, 59, 0, 0.004, 2.55, 0.00, 444, 340, NULL, 52, 13, NULL, NULL, 1.5, 18, 45, NULL, '1500шт/см', 0, NULL, NULL, 0.004, '1500 шт/см', 0.31, 0.25),
-(67, '2016-12-16 19:17:31', 18, '106304', 19, 141, 'АВИСМА Оснастка в цене', 60, 62, 6, NULL, 64, NULL, 3.5, 1727.32, 1.00, 475, 445, NULL, 55, 12, 400, 400, 80, NULL, NULL, 2, '35 шт', 0, NULL, NULL, NULL, NULL, 60.00, 30.00),
-(68, '2016-12-16 19:39:02', 19, '106305', 19, 141, 'АВИСМА Оснастка в  цене', 60, 62, 6, NULL, 65, NULL, 2.24, 1481.92, 1.00, 477, 451, NULL, 56, 12, 300, 300, 80, NULL, NULL, 3, '10шт', 0, NULL, NULL, NULL, NULL, 60.00, 30.00),
-(69, '2016-12-20 12:42:30', 20, '106306', 19, 141, 'ч', 60, 62, 10, NULL, 67, 5, 7.75215, 2876.65, 1.00, 490, 455, NULL, 57, 12, NULL, NULL, NULL, NULL, NULL, 1, '20шт', 0, NULL, NULL, NULL, NULL, 75.00, 35.00),
-(70, '2017-01-11 17:06:50', 21, '370.782', 18, 38, NULL, 35, 35, 6, NULL, 71, NULL, 0.004, 19.31, NULL, NULL, NULL, NULL, 61, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, 12.00, 5.00),
-(71, '2017-01-11 23:56:44', 22, ' 15-22', 42, 142, NULL, 72, 72, 6, NULL, 68, NULL, 0.006, 60.60, NULL, NULL, NULL, NULL, 58, 13, NULL, NULL, 1.5, 60, 77, NULL, NULL, 0, NULL, NULL, 0.003, NULL, 8.50, 5.00),
-(72, '2017-01-13 09:46:31', 23, '370.014', 23, 36, NULL, 34, 35, 6, NULL, 69, NULL, 0.006, 22.00, NULL, NULL, NULL, NULL, 59, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.003, NULL, 10.00, 5.00),
-(73, '2017-01-13 10:07:57', 24, '370.145', 17, 33, NULL, 35, 35, 6, NULL, 70, NULL, 0.034, 20.11, NULL, NULL, NULL, NULL, 60, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.028, NULL, 12.00, 5.00),
-(74, '2017-01-13 10:53:50', 25, '011.01.15.11.401', 19, 143, 'ч', 68, 68, 6, NULL, 92, NULL, 0.089, 169.74, NULL, NULL, NULL, NULL, 109, 14, 40, 596, 3, NULL, NULL, 16, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(75, '2017-01-13 11:04:17', 26, '90-1302018', 19, 45, NULL, 53, 51, 6, NULL, 90, NULL, 0.064, 17.80, NULL, NULL, NULL, NULL, 62, 12, NULL, NULL, 33, 15, 53, NULL, NULL, 0, NULL, NULL, 0.058, NULL, 26.00, 10.00),
-(76, '2017-01-13 13:17:41', 27, '370.160', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(77, '2017-01-13 13:32:51', 28, '011.01.15.21.402', 19, 144, 'ч', 68, 68, 6, NULL, 91, NULL, 0.042, 85.60, NULL, NULL, NULL, NULL, 63, 14, 83, 228, 3, NULL, NULL, 15, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(78, '2017-01-13 13:36:38', 29, '011.01.15.21.401', 19, 144, 'ч', 68, 68, 6, NULL, 93, NULL, 0.043, 69.39, NULL, NULL, NULL, NULL, 113, 14, 83, 228, 3, NULL, NULL, 14, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(79, '2017-01-13 13:42:55', 30, '370.219', 17, 31, 'Ч', 73, 35, 6, NULL, 94, NULL, 0.026, 33.85, NULL, NULL, NULL, NULL, 64, 12, NULL, NULL, NULL, 166.5, 178, 48, NULL, 0, NULL, NULL, 0.021, NULL, 13.00, 7.00),
-(80, '2017-01-13 13:49:12', 31, '370.160', 17, 36, 'Ч', 75, 35, 6, NULL, 99, NULL, 0.016, 33.13, 0.00, NULL, NULL, NULL, 65, 12, NULL, NULL, 5.8, 100, 110, 41, NULL, 0, NULL, NULL, 0.012, NULL, 13.00, 7.00),
-(81, '2017-01-13 13:51:57', 32, '370.444', 17, 36, 'ч', 58, 80, 6, NULL, 98, NULL, 0.004, 20.00, NULL, NULL, NULL, NULL, 112, 13, NULL, NULL, 3, 17, 48, 54, 'Цена 16г (конкурентная)', 0, NULL, NULL, 0.003, NULL, 0.90, 0.30),
-(82, '2017-01-13 14:00:32', 33, '370.161', 17, 31, 'Ч', 75, 35, 6, NULL, 95, NULL, 0.004, 14.54, NULL, NULL, NULL, NULL, 66, 12, NULL, NULL, 4.1, 38, 46, 42, NULL, 0, NULL, NULL, 0.002, NULL, 11.00, 5.00),
-(83, '2017-01-13 14:01:48', 33, '370.048', 18, 31, NULL, 79, 79, 6, NULL, 86, NULL, 0.006, 18.00, NULL, NULL, NULL, NULL, 114, 13, NULL, NULL, 6, 24, 35, NULL, NULL, 0, NULL, NULL, 0.004, NULL, 1.00, 0.30),
-(84, '2017-01-13 14:02:36', 34, '155.022', 18, 26, NULL, 66, 66, 6, NULL, 85, 20, 0.021599999999999998, 16.00, NULL, 517, 509, NULL, 79, 13, 52, 52, 4, NULL, NULL, NULL, 'Цена 16г (конкурентная)', 0, NULL, NULL, 0.012, NULL, 0.30, 0.10),
-(85, '2017-01-13 14:03:24', 35, '370.425-01', 17, 26, NULL, 58, 79, 6, NULL, 100, NULL, 0.036, 35.85, NULL, NULL, NULL, NULL, 115, 13, 50, 110, 6, 31, NULL, NULL, NULL, 0, NULL, NULL, 0.03, NULL, 0.90, 0.30),
-(86, '2017-01-13 14:03:56', 36, '370.438', 17, 36, 'ч', 67, 35, 6, NULL, 106, NULL, 0.005, 7.12, NULL, NULL, NULL, NULL, 78, 12, NULL, NULL, NULL, NULL, NULL, 57, 'Цена 17г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(87, '2017-01-13 14:04:40', 37, '370.439', 17, 31, 'ч', 67, 35, 6, NULL, 102, 300, 0.004, 12.78, NULL, NULL, NULL, NULL, 77, 12, NULL, NULL, NULL, NULL, NULL, 58, 'Цена 17г', 0, NULL, NULL, 0.003, NULL, 13.00, 5.00),
-(88, '2017-01-13 14:07:27', 38, '370.163', 17, 31, 'Ч', 73, 35, 6, NULL, 101, 100, 0.002, 13.78, NULL, NULL, NULL, NULL, 67, 12, NULL, NULL, NULL, NULL, NULL, 43, 'Исчез чертеж', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(89, '2017-01-13 14:14:24', 39, '370.780', 18, 33, NULL, 76, 35, 6, NULL, 105, NULL, 0.006, 15.17, NULL, NULL, NULL, NULL, 68, 12, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 17г', 0, NULL, NULL, 0.004, NULL, 11.00, 5.00),
-(90, '2017-01-13 14:22:56', 40, '370.443', 17, 31, NULL, 67, 35, 6, NULL, 104, NULL, 0.048, 56.26, NULL, NULL, NULL, NULL, 69, 12, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 17г', 0, NULL, NULL, 0.042, NULL, 15.00, 5.00),
-(91, '2017-01-13 14:26:05', 41, '370.427', 17, 33, 'Ч', 67, 35, 6, NULL, 103, NULL, 0.003, 4.92, NULL, NULL, NULL, NULL, 70, 12, NULL, NULL, NULL, NULL, NULL, 23, NULL, 0, NULL, NULL, 0.001, NULL, 14.00, 5.00),
-(92, '2017-01-13 14:29:21', 42, '370.470.01', 17, 36, NULL, 35, 35, 6, NULL, NULL, NULL, 0.162, 93.50, NULL, NULL, NULL, NULL, 71, 12, NULL, NULL, NULL, NULL, NULL, 61, 'Цена для УЭК', 0, NULL, NULL, 0.144, NULL, 16.00, 8.00),
-(93, '2017-01-13 14:35:29', 43, '370.469', 17, 36, 'Ч', 78, 78, 6, NULL, NULL, NULL, 0.059, 58.58, NULL, NULL, NULL, NULL, 72, 13, NULL, NULL, NULL, NULL, NULL, 22, NULL, 0, NULL, NULL, 0.059, NULL, 0.40, 0.10),
-(94, '2017-01-13 14:51:15', 44, '370.498', 17, 33, NULL, 67, 35, 6, NULL, NULL, NULL, 0.164, 98.02, NULL, NULL, NULL, NULL, 73, 12, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 17г', 0, NULL, NULL, 0.144, NULL, 14.00, 8.00),
-(95, '2017-01-13 14:54:10', 45, '371.254', 17, 26, 'ч', 58, 80, 6, NULL, NULL, NULL, 0.001, 14.08, NULL, NULL, NULL, NULL, 80, 13, NULL, NULL, NULL, NULL, NULL, 55, 'Цена 17г', 0, NULL, NULL, 0.001, NULL, 0.04, 0.01),
-(96, '2017-01-13 14:55:08', 46, '371.181', 17, 26, 'Ч', 58, 66, 6, NULL, NULL, NULL, 0.009, 22.00, NULL, NULL, NULL, NULL, 74, 13, NULL, NULL, NULL, NULL, NULL, 50, NULL, 0, NULL, NULL, 0.009, NULL, 0.03, 0.01),
-(97, '2017-01-13 14:56:30', 47, '373.017', 17, 48, NULL, 67, 35, 6, NULL, NULL, NULL, 0.022, 34.96, NULL, NULL, NULL, NULL, 75, 12, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 17г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(98, '2017-01-13 14:58:53', 48, '370.441', 17, 31, 'ч', 67, 35, 6, NULL, 84, NULL, NULL, 24.29, NULL, NULL, NULL, NULL, 76, 13, NULL, NULL, NULL, NULL, NULL, 56, 'Цена 17г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(99, '2017-01-13 15:19:10', 49, 'У-36-16-4-2', 19, 145, NULL, 35, 35, 6, NULL, NULL, NULL, 0.1, 79.32, NULL, NULL, NULL, NULL, 81, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.092, NULL, 16.00, 10.00),
-(100, '2017-01-16 09:58:06', 50, '307.002', 24, 52, NULL, 35, 35, 6, NULL, NULL, NULL, 0.004, 23.12, NULL, NULL, NULL, NULL, 84, 12, NULL, NULL, NULL, NULL, NULL, NULL, '8БП 307.026', 0, NULL, NULL, 0.002, NULL, 9.00, 5.00),
-(101, '2017-01-16 09:59:17', 51, '371.018', 18, 26, NULL, 76, 35, 6, NULL, 138, NULL, 0.024, 22.00, NULL, NULL, NULL, NULL, 92, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.02, NULL, 15.00, 10.00),
-(102, '2017-01-16 10:00:19', 52, '372.018', 18, 36, 'Ч', 76, 35, 6, NULL, 75, 300, 0.004, 17.26, NULL, NULL, NULL, NULL, 83, 12, NULL, NULL, 5, 15, 21, 8, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(103, '2017-01-16 10:01:52', 53, '372.281', 18, 26, 'Ч', 48, 48, 6, NULL, 73, 300, 0.004, 20.46, NULL, NULL, NULL, NULL, 82, 13, NULL, NULL, 2, 16.5, 25, 40, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(104, '2017-01-16 10:03:59', 54, '371.053', 24, 26, NULL, 35, 35, 6, NULL, NULL, NULL, 0.012, 22.12, NULL, NULL, NULL, NULL, 86, 12, NULL, NULL, NULL, NULL, NULL, NULL, '128*137*4,5', 0, NULL, NULL, NULL, NULL, 12.00, 5.00),
-(105, '2017-01-16 10:07:17', 55, '371.089', 24, 26, '8СЯ 370.315; 022-028-36 (ГОСТ) ', 35, 35, 6, NULL, NULL, NULL, 0.002, 8.73, NULL, NULL, NULL, NULL, 87, 12, NULL, NULL, NULL, NULL, NULL, 4, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(106, '2017-01-16 10:07:52', 56, '371.091', 24, 26, '8КА.371.091; 8СЯ.370.168; 030х038х46 (ГОСТ)', 35, 35, 6, NULL, 83, NULL, 0.004, 17.97, NULL, 525, 524, NULL, 102, 12, NULL, NULL, 4.6, 30, 38, 5, NULL, 0, NULL, NULL, 0.002, NULL, NULL, 5.00),
-(107, '2017-01-16 10:08:29', 57, '371.092', 24, 26, '8КА.371.092; 22х14х2 (ГОСТ)', 48, 48, 6, NULL, NULL, NULL, 0.002, 16.36, NULL, 523, 522, NULL, 89, 13, NULL, NULL, NULL, NULL, NULL, 10, '22*14*2', 0, NULL, NULL, 0.001, NULL, 0.90, 0.30),
-(108, '2017-01-16 10:09:02', 58, '371.094', 24, 26, '8КА.371.094; 8СЯ.370.249; 110х120х58 (ГОСТ)', 35, 35, 6, NULL, 82, NULL, 0.016, 24.22, NULL, 521, 520, NULL, 101, 12, NULL, NULL, 5.8, 110, 120, 6, NULL, 0, NULL, NULL, 0.014, NULL, NULL, 5.00),
-(109, '2017-01-16 10:09:40', 59, '371.000', 24, 26, '8КА.371.000; 8КА.371.053; 128х137х4,5(ГОСТ)', 35, 35, 6, NULL, 81, NULL, 0.012, 39.15, NULL, 519, 518, NULL, 90, 12, NULL, NULL, 4.5, 128, 137, 9, '128*137*4,5', 0, NULL, NULL, 0.008, NULL, 12.00, 5.00),
-(110, '2017-01-16 10:55:25', 60, '432690541306400000', 19, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 72.41, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(111, '2017-01-16 11:08:57', 61, '155.538', 18, 26, 'Ч', 46, 46, 6, NULL, NULL, NULL, 0.004, 24.63, NULL, NULL, NULL, NULL, 93, 13, NULL, NULL, NULL, NULL, NULL, 13, '8КА 371.056', 0, NULL, NULL, 0.004, NULL, 1.60, 1.00),
-(112, '2017-01-16 11:11:48', 62, '372.052', 17, 36, NULL, 35, 57, 6, NULL, NULL, NULL, 0.25, 308.00, NULL, NULL, NULL, NULL, 94, 17, NULL, NULL, NULL, NULL, NULL, NULL, ' 1 шт  = 1.8 п.м', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(113, '2017-01-16 11:12:37', 63, '370.048', 18, 31, NULL, 58, 35, 6, NULL, NULL, NULL, 0.006, 21.25, NULL, NULL, NULL, NULL, 95, 12, NULL, NULL, NULL, NULL, NULL, 11, 'Цена 17г', 0, NULL, NULL, 0.004, NULL, 13.00, 5.00),
-(114, '2017-01-16 12:08:17', 64, 'ПВН.000', 25, 36, NULL, 34, 35, 6, NULL, 76, NULL, 0.022, 24.04, NULL, 535, 534, NULL, 96, 12, NULL, NULL, 20, 8, 45, NULL, 'Цена 17г', 0, NULL, NULL, 0.019, NULL, 12.00, 7.00),
-(115, '2017-01-16 12:10:21', 65, 'ПНН.001', 25, 36, NULL, 34, 35, 6, NULL, 77, NULL, 0.009, 12.54, NULL, 533, 531, NULL, 97, 12, NULL, NULL, 4.5, 11, 30, NULL, 'Цена 17г', 0, NULL, NULL, 0.007, NULL, 13.00, 8.00),
-(116, '2017-01-16 12:17:02', 66, 'ПНН.002', 25, 36, NULL, 34, 35, 6, NULL, 78, NULL, 0.009, 13.79, NULL, 530, 529, NULL, 98, 12, NULL, NULL, 12, 16, 32, NULL, 'Цена 17г', 0, NULL, NULL, 0.007, NULL, 10.00, 5.00),
-(117, '2017-01-16 12:18:12', 67, 'ПНН.003', 25, 36, NULL, 34, 35, 6, NULL, 79, NULL, 0.009, 15.13, NULL, 528, 526, NULL, 99, 12, NULL, NULL, 11, 20, 33, NULL, 'Цена 17г', 0, NULL, NULL, 0.007, NULL, 10.00, 5.00),
-(118, '2017-01-16 12:18:52', 68, '-', 19, 26, NULL, 35, 35, 6, NULL, 80, NULL, 0.002, 31.46, NULL, NULL, NULL, NULL, 100, 12, NULL, NULL, 5, 15, 21, NULL, '8БП 372.018', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(119, '2017-01-16 12:21:07', 69, '75х13х3', 19, 146, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 32.64, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(120, '2017-01-16 12:21:53', 70, '005.203', 25, 26, NULL, 79, 79, 6, NULL, NULL, NULL, 0.12, 108.05, NULL, NULL, NULL, NULL, 91, 13, NULL, NULL, NULL, NULL, NULL, NULL, 'ИПУ -10/630', 0, NULL, NULL, 0.12, NULL, 1.80, 1.00),
-(121, '2017-01-16 13:00:48', 71, 'РОЧ 20х30х3,3', 19, 147, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 2658.04, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(122, '2017-01-16 13:08:40', 72, 'РОЧ 30х40х7,8-1,0', 19, 147, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 4047.90, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(123, '2017-01-16 13:59:44', 73, 'Ф27', 19, 46, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 20.64, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(124, '2017-01-16 14:22:47', 74, '742.140', 18, 26, NULL, 45, 45, 6, NULL, 145, NULL, 0.03, 9.90, NULL, NULL, NULL, NULL, 151, 14, NULL, NULL, 3, 25, 120, NULL, NULL, 0, NULL, NULL, 0.022, NULL, 5.50, 3.00),
-(125, '2017-01-16 14:23:14', 75, '742.139', 18, 26, NULL, 45, 45, 6, NULL, 144, NULL, 0.026, 9.90, NULL, NULL, NULL, NULL, 150, 14, NULL, NULL, 3, 32, 120, NULL, NULL, 0, NULL, NULL, 0.02, NULL, 5.50, 3.00),
-(126, '2017-01-16 15:44:18', 76, '370.286', 17, 36, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 26.95, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 34, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(127, '2017-01-16 15:45:53', 77, '287.028.1', 18, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 90.51, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(128, '2017-01-16 16:10:02', 78, '370.166', 17, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 49.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 44, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(129, '2017-01-16 16:10:51', 79, '370.214', 17, 36, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 41.63, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 46, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(130, '2017-01-16 16:11:37', 80, '370.215', 17, 36, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 28.67, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 47, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(131, '2017-01-16 16:12:23', 81, '370.260', 17, 36, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 26.70, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(132, '2017-01-16 16:13:15', 82, '370.261', 17, 36, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 24.36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 30, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(133, '2017-01-16 16:17:54', 83, '287.621.1', 26, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 22.91, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(134, '2017-01-16 16:18:49', 84, '370.282', 17, 36, NULL, 73, 35, 6, NULL, 147, NULL, 0.054, 54.37, NULL, NULL, NULL, NULL, 153, 12, NULL, NULL, 8.6, 190, 207.2, NULL, NULL, 0, NULL, NULL, 0.05, NULL, 9.00, 5.00),
-(135, '2017-01-16 16:20:50', 85, '370.291', 17, 36, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 48.65, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 35, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(136, '2017-01-16 16:21:23', 86, '370.292', 17, 36, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 30.27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 36, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(137, '2017-01-16 16:22:09', 87, '370.293', 17, 36, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 13.59, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 37, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(138, '2017-01-16 16:22:54', 88, '370.294', 17, 31, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 28.36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 38, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(139, '2017-01-16 16:23:33', 89, '370.298', 17, 31, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 30.82, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 25, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(140, '2017-01-16 16:24:22', 90, '370.301', 17, 31, 'Ч', 73, 35, 6, NULL, 126, NULL, 0.12, 109.71, NULL, NULL, NULL, NULL, 131, 12, NULL, NULL, 8.6, 383, NULL, 26, NULL, 0, NULL, NULL, 0.098, NULL, 12.00, 8.00),
-(141, '2017-01-16 16:24:54', 91, '370.320', 17, 36, 'Ч', 73, NULL, 6, NULL, 122, 110, 0.008400000000000001, 19.21, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, 27, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(142, '2017-01-16 16:25:31', 92, '370.346', 17, 36, 'Ч', 73, 35, 6, NULL, 121, NULL, 0.104, 83.73, NULL, NULL, NULL, NULL, 130, 12, NULL, NULL, 8.6, 338, NULL, 28, NULL, 0, NULL, NULL, 0.08, NULL, 12.00, 8.00),
-(143, '2017-01-16 16:26:03', 93, '370.406', 17, 36, 'Ч', 75, NULL, 6, NULL, 120, NULL, 0.001, 6.13, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, 29, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(144, '2017-01-16 16:26:45', 94, '370.276', 17, 36, 'Ч', 73, NULL, 6, NULL, 119, 100, 0.014, 27.69, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, 31, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(145, '2017-01-16 16:29:05', 95, '8.700.205', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 208.48, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(146, '2017-01-16 16:29:45', 96, '8.371.166', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 72.04, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(147, '2017-01-16 16:30:19', 97, '8.371.165', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 237.29, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(148, '2017-01-16 16:31:09', 98, '425*160*305', 27, 148, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 15661.02, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(149, '2017-01-16 16:46:50', 99, '371.054', 24, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 20.21, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(150, '2017-01-16 17:14:03', 100, '5524.00.00', 28, 75, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 210.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(151, '2017-01-16 17:14:56', 101, '639680133020500000', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 160.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(152, '2017-01-16 17:16:07', 102, '50*60', 19, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 398.31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(153, '2017-01-16 17:16:59', 103, '45*65', 19, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 932.21, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(154, '2017-01-16 17:17:35', 104, '20*26*5,2', 19, 48, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 550.85, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(155, '2017-01-16 17:18:41', 105, '100 33а17р', 21, 120, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 2610.17, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(156, '2017-01-16 17:19:45', 106, '20.016', 29, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 55.09, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(157, '2017-01-16 17:20:30', 107, '370.565', 19, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 16.76, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(158, '2017-01-16 17:21:30', 108, '18*8,5*1,5', 30, 38, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 0.38, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(159, '2017-01-16 17:22:13', 109, '20*30*3,3', 31, 147, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 2658.04, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(160, '2017-01-16 17:23:10', 110, '30*40*7,8-1,0', 31, 147, NULL, 53, 59, 6, NULL, 124, NULL, 23.4, 4047.90, NULL, NULL, NULL, NULL, 128, 12, 300, 400, 78, NULL, NULL, NULL, NULL, 0, NULL, NULL, 24.6, NULL, 180.00, 160.00),
-(161, '2017-01-16 17:24:03', 111, '171', 32, 149, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 404.80, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'В наличии 5 шт - делали образцы для ООО "БИЗ"', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(162, '2017-01-16 17:25:27', 112, '2620.00.00.006', 33, 150, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 55.09, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(163, '2017-01-16 17:26:11', 113, '-', 34, 151, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 23.73, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(164, '2017-01-16 17:24:39', 112, 'Ф45', 19, 46, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 45.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(165, '2017-01-16 17:27:07', 114, '-', 19, 154, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 576.27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(166, '2017-01-16 17:29:00', 115, '001176-01', 35, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 25.59, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(167, '2017-01-16 17:29:39', 116, '6428.3500112', 19, 152, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 32.21, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(168, '2017-01-16 17:31:02', 117, '36-16-4-2', 36, 153, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 79.32, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(169, '2017-01-16 17:48:41', 118, '370.513.4', 40, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 365.66, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(170, '2017-01-16 17:50:45', 119, '370.513.5', 40, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 492.83, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(171, '2017-01-16 17:51:49', 120, '371.201.4', 41, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 132.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(172, '2017-01-16 17:52:34', 121, '371.201.2', 41, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 157.30, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(173, '2017-01-16 17:53:24', 122, '371.201.1', 41, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 157.30, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(174, '2017-01-16 17:56:57', 123, '287.005', 41, 88, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 97.81, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(175, '2017-01-16 19:36:31', 124, '370.425', 17, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 35.85, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(176, '2017-01-16 19:44:12', 125, '742.140', 18, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 9.90, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(177, '2017-01-16 20:05:37', 126, '372.033', 17, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 140.29, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(178, '2017-01-16 20:38:20', 127, '46*65', 19, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 932.21, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(179, '2017-01-16 21:47:20', 128, 'маслоуказателя', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 31.46, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 17г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(180, '2017-01-16 23:21:36', 129, '15-22', 42, 142, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 60.60, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(181, '2017-01-16 23:23:24', 130, '055-065-58-2-2', 19, 33, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 9.90, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(182, '2017-01-16 23:24:36', 131, '010-014-25-2-2', 19, 33, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 3.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(183, '2017-01-16 23:25:40', 132, '012-016-25-2-2', 19, 33, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 3.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(184, '2017-01-16 23:29:06', 133, '372.053', 17, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 38.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(185, '2017-01-16 23:31:12', 134, 'Э7.256.00.01', 43, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 13.99, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(186, '2017-01-16 23:32:16', 135, '011.01.15.11.401', 19, 143, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 169.74, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(187, '2017-01-16 23:33:49', 136, '011.01.15.21.402', 19, 144, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 85.60, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(188, '2017-01-16 23:34:43', 137, '011.01.15.21.401', 19, 144, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 69.39, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(189, '2017-01-16 23:35:40', 138, '370.145', 17, 33, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 20.11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(190, '2017-01-16 23:37:28', 139, '370.643', 18, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 48.48, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(191, '2017-01-16 23:39:11', 140, '370.470', 17, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 80.40, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 17, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(192, '2017-01-16 23:40:16', 141, '754.152.009', 46, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 32.20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(193, '2017-01-16 23:42:49', 142, '754.152.004', 46, 26, NULL, 34, 35, 6, NULL, 137, NULL, 0.01, 45.02, NULL, NULL, NULL, NULL, 143, 12, NULL, NULL, 4.5, 112, 120, NULL, NULL, 0, NULL, NULL, 0.006, NULL, 13.00, 5.00),
-(194, '2017-01-16 23:43:29', 143, '307.026', 18, 52, NULL, 76, 35, 6, NULL, NULL, NULL, 0.004, 22.08, NULL, NULL, NULL, NULL, 144, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.002, NULL, 11.00, 5.00),
-(195, '2017-01-16 23:46:36', 144, '450.063', 44, 156, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 385.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(196, '2017-01-16 23:47:43', 145, '529.00.01  306*365*1', 45, 157, 'ч', 71, 71, 6, NULL, NULL, NULL, NULL, 35.00, NULL, NULL, NULL, NULL, 145, 14, NULL, NULL, NULL, NULL, NULL, 68, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(197, '2017-01-16 23:50:09', 146, '450.063', 44, 156, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 385.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(198, '2017-01-17 09:46:06', 147, 'ДЭК', 19, 26, NULL, 81, 81, 6, NULL, 136, NULL, 0.187, 53.61, NULL, NULL, NULL, NULL, 103, 12, 64, 173, 12, NULL, NULL, 59, NULL, 0, NULL, NULL, NULL, NULL, 17.00, 10.00),
-(199, '2017-01-17 10:05:49', 148, 'Ф50 мм', 19, 46, NULL, 82, 82, 6, NULL, NULL, NULL, 0.073, 67.32, NULL, NULL, NULL, NULL, 104, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(200, '2017-01-17 10:12:29', 149, 'Ф37 мм', 19, 46, NULL, 59, 59, 6, NULL, 139, NULL, 0.034, 27.97, NULL, NULL, NULL, NULL, 105, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(201, '2017-01-17 10:15:06', 150, 'Ф45 мм', 19, 46, NULL, 82, 82, 6, NULL, NULL, NULL, 0.066, 41.36, NULL, NULL, NULL, NULL, 106, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(202, '2017-01-17 11:59:29', 151, '370.498', 17, 33, 'Ч', 67, 35, 6, NULL, 118, 110, 0.1239, 89.11, NULL, NULL, NULL, NULL, 142, 12, NULL, NULL, 12, 296, 320, 24, 'Цена 16г', 0, NULL, NULL, 0.145, NULL, 13.30, 8.00),
-(203, '2017-01-17 12:01:44', 152, '370.438', 17, 36, NULL, 67, 35, 6, NULL, 88, NULL, 0.001, 6.47, NULL, NULL, NULL, NULL, 108, 12, NULL, NULL, 3, 19.5, 25.5, 18, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(204, '2017-01-17 12:07:08', 153, '370.444', 17, 36, 'Ч', 58, 80, 6, NULL, 87, NULL, 0.006, 20.00, NULL, NULL, NULL, NULL, 107, 13, NULL, NULL, 3, 17, 48, 21, 'Цена 17г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(205, '2017-01-17 12:10:25', 154, '370.439', 17, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 11.62, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 19, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(206, '2017-01-17 12:12:25', 155, '373.017', 17, 48, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 31.78, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(207, '2017-01-17 12:13:36', 156, '370.441', 17, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 22.08, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 20, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(208, '2017-01-17 12:15:04', 157, '371.254', 17, 26, 'Ч', 86, 86, 6, NULL, 117, 100, 0.002, 12.80, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 49, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(209, '2017-01-17 12:16:33', 158, '155.022', 18, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 25.30, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(210, '2017-01-17 12:18:38', 159, '370.048', 18, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 19.32, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(211, '2017-01-17 12:19:40', 160, '370.780', 18, 33, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 13.79, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(212, '2017-01-17 12:20:47', 161, '370.443', 17, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 51.15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(213, '2017-01-17 13:05:49', 162, 'ПВН.000', 25, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 21.85, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(214, '2017-01-17 13:08:25', 163, 'ПНН.001', 25, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 11.40, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(215, '2017-01-17 13:09:42', 164, 'ПНН.002', 25, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 12.54, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(216, '2017-01-17 13:10:47', 165, 'ПНН.003', 25, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 13.75, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(217, '2017-01-17 13:12:28', 166, 'маслоуказателя', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 28.60, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(218, '2017-01-17 15:14:13', 167, '041.01.25.03.401', 19, 26, 'Ч', 42, 42, 6, NULL, 97, NULL, NULL, 36.00, NULL, NULL, NULL, NULL, 111, 14, 50, 50, 1, 42.5, NULL, 39, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(219, '2017-01-17 14:30:04', 168, '01.01.05.001', 47, 45, NULL, 51, 51, 6, NULL, 140, NULL, 1.513, 302.84, NULL, NULL, NULL, NULL, 146, 12, NULL, NULL, 42, 40, 140, NULL, NULL, 0, NULL, NULL, 1.36, NULL, 57.00, 50.00),
-(220, '2017-01-17 14:31:48', 169, '03.05.00.001', 47, 45, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 217.75, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(221, '2017-01-17 14:47:02', 170, '041.01.25.03.401', 19, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 36.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(222, '2017-01-17 15:50:44', 170, 'Ф37', 19, 46, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 27.97, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(223, '2017-01-17 17:05:38', 170, '30*55', 19, 36, NULL, 62, 62, 6, NULL, 107, NULL, 0.026, 1186.44, NULL, NULL, NULL, NULL, 116, 12, NULL, NULL, 55, 23, 42, NULL, 'Вулканизуется с армотурой', 0, NULL, NULL, 0.06, NULL, 14.00, 10.00),
-(224, '2017-01-17 17:06:09', 171, '27*55', 19, 36, NULL, 62, 62, 6, NULL, 108, NULL, 0.026, 1186.44, NULL, NULL, NULL, NULL, 117, 12, NULL, NULL, 55, 21, 42, NULL, 'Вулканизуется с арматурой', 0, NULL, NULL, 0.06, NULL, 14.00, 10.00),
-(225, '2017-01-17 17:29:30', 172, '011.01.27.00.401', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 99.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(226, '2017-01-17 17:29:57', 173, '011.01.27.00.402', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 99.30, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(227, '2017-01-17 17:30:24', 174, '011.01.15.11.403', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 932.20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(228, '2017-01-17 18:00:26', 175, 'Ф30', 19, 46, NULL, 59, 59, 6, NULL, 114, NULL, 0.02, 23.38, NULL, NULL, NULL, NULL, 123, 12, NULL, NULL, NULL, NULL, 30, NULL, NULL, 0, NULL, NULL, 0.016, NULL, 17.00, 12.00),
-(229, '2017-01-18 10:41:06', 176, '06.21.05.005', 48, 158, 'ч', 83, 83, 6, NULL, 116, NULL, 0.095, 178.20, NULL, NULL, NULL, NULL, 126, 12, NULL, NULL, 4, NULL, 142, 67, NULL, 0, NULL, NULL, 0.084, NULL, 15.00, 10.00),
-(230, '2017-01-18 10:41:47', 177, '06.21.05.005', 48, 158, 'ч', 83, 83, 6, NULL, 113, NULL, 0.095, 152.55, NULL, NULL, NULL, NULL, 122, 12, NULL, NULL, 4, NULL, 142, 66, NULL, 0, NULL, NULL, 0.084, NULL, 14.00, 10.00),
-(231, '2017-01-18 10:45:31', 178, 'U-15', 19, 159, 'Ч', 72, 72, 6, NULL, 112, NULL, 0.002, 423.73, NULL, NULL, NULL, NULL, 121, 12, NULL, NULL, 12, 3.5, 17, 65, NULL, 0, NULL, NULL, 0.001, NULL, 9.00, 5.00),
-(232, '2017-01-18 10:48:15', 179, 'AR-26', 19, 159, 'Ч', 72, 72, 6, NULL, 111, NULL, 0.007, 932.20, NULL, NULL, NULL, NULL, 120, 12, NULL, NULL, 22, 5.5, 26, 64, NULL, 0, NULL, NULL, 0.005, NULL, 9.00, 5.00),
-(233, '2017-01-18 12:03:23', 180, '160*90*35', 19, 70, NULL, 51, 51, 6, NULL, 115, NULL, 0.65, 304.60, NULL, NULL, NULL, NULL, 124, 12, 90, 160, 35, NULL, NULL, NULL, NULL, 0, NULL, NULL, 580, NULL, 24.00, 20.00),
-(234, '2017-01-18 13:02:23', 181, '456.116', 18, 160, NULL, 35, 35, 6, NULL, NULL, NULL, 0.008, 347.00, NULL, NULL, NULL, NULL, 125, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, 12.00, 8.00),
-(235, '2017-01-18 13:12:45', 182, '649.000А', 49, 36, NULL, 59, 59, 6, NULL, 110, NULL, 0.002, 19.48, NULL, NULL, NULL, NULL, 119, 12, NULL, NULL, 12, 3, 20, NULL, NULL, 0, NULL, NULL, 0.001, NULL, 10.00, 5.00),
-(236, '2017-01-18 13:14:47', 183, '26.013', 29, 65, NULL, 59, 59, 6, NULL, 109, NULL, 0.004, 21.45, NULL, NULL, NULL, NULL, 118, 12, NULL, NULL, 2, NULL, 40, NULL, NULL, 0, NULL, NULL, 0.003, NULL, 9.00, 5.00),
-(237, '2017-01-18 13:50:20', 184, '30007-01', 50, 161, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 418.64, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(238, '2017-01-18 13:50:59', 185, '30022', 50, 161, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 323.73, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(239, '2017-01-18 14:04:59', 186, '00.00.408', 51, 36, 'Ч', 42, 59, 6, NULL, 135, NULL, 0.002, 29.34, NULL, NULL, NULL, NULL, 141, 14, 33.3, 33.3, 1, 30.2, NULL, 62, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(240, '2017-01-18 15:37:19', 187, '150*72*55', 19, 162, 'Ч', 51, 51, 6, NULL, 125, NULL, 1.1, 440.68, NULL, NULL, NULL, NULL, 129, 12, NULL, NULL, 55, 72, 150, 63, NULL, 0, NULL, NULL, 0.98, NULL, 57.00, 50.00),
-(241, '2017-01-18 16:00:41', 188, '287.007', 24, 88, NULL, 34, 35, 6, NULL, NULL, NULL, NULL, 46.20, NULL, NULL, NULL, NULL, 140, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(242, '2017-01-18 16:15:20', 189, '007905', 52, 163, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 279.66, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 60, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(243, '2017-01-18 17:21:32', 190, '742.142', 18, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 9.90, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(244, '2017-01-18 17:22:00', 191, '742.144 (Электрокартон 1 мм)', 18, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 8.90, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(245, '2017-01-18 17:22:29', 192, '742.144 (Электрокартон 3 мм)', 18, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 9.90, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(246, '2017-01-19 09:48:14', 193, '371.127', 18, 26, NULL, 53, 34, 6, NULL, 123, NULL, 1.7, 616.00, NULL, NULL, NULL, NULL, 127, 12, NULL, NULL, 10, 450, 590, NULL, NULL, 0, NULL, NULL, 1.4, NULL, 26.00, 20.00),
-(247, '2017-01-19 11:10:33', 194, '8.271.006-01', 19, 26, NULL, 89, 89, 6, NULL, 134, NULL, 0.04, 70.50, NULL, NULL, NULL, NULL, 139, 13, 50, 60, 10, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.034, NULL, 1.10, 0.40),
-(248, '2017-01-19 11:11:20', 195, '8.761.136-01', 19, 26, NULL, 89, 89, 6, NULL, 133, NULL, 0.095, 120.30, NULL, NULL, NULL, NULL, 138, 13, 70, 80, 10, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.066, NULL, 1.10, 0.40),
-(249, '2017-01-19 11:13:56', 196, '70*100*5', 19, 26, NULL, 88, 88, 6, NULL, 132, NULL, 0.06, 85.40, NULL, NULL, NULL, NULL, 137, 13, 70, 100, 5, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.043, NULL, 1.00, 0.40),
-(250, '2017-01-19 11:14:37', 197, '70*80*5', 19, 26, NULL, 88, 89, 6, NULL, 131, NULL, 0.048, 72.00, NULL, NULL, NULL, NULL, 136, 13, 70, 80, 5, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.035, NULL, 1.00, 0.40),
-(251, '2017-01-19 11:14:59', 198, '50*50*10', 19, 26, NULL, 89, 89, 6, NULL, 130, NULL, 0.042, 57.00, NULL, NULL, NULL, NULL, 135, 13, 50, 50, 10, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.029, NULL, 0.46, 0.40),
-(252, '2017-01-19 11:39:12', 199, '4-86404 МСЦ', 19, 33, NULL, 35, 34, 6, NULL, 129, NULL, 0.052, 32.24, NULL, NULL, NULL, NULL, 134, 12, NULL, NULL, 20, 40, 68, NULL, NULL, 0, NULL, NULL, 0.042, NULL, 16.00, 8.00),
-(253, '2017-01-19 12:57:44', 200, '90*95*30', 19, 28, NULL, 51, 51, 6, NULL, 128, NULL, 0.038, 81.36, NULL, NULL, NULL, NULL, 133, 12, NULL, NULL, 30, 90, 95, NULL, NULL, 0, NULL, NULL, 0.028, NULL, 16.00, 10.00),
-(254, '2017-01-19 13:38:00', 201, '22*12.2*20', 19, 164, NULL, 90, 90, 6, NULL, 127, NULL, 0.01, 25.35, NULL, NULL, NULL, NULL, 132, 12, NULL, NULL, 20, 12.2, 22, NULL, NULL, 0, NULL, NULL, 0.008, NULL, 18.00, 10.00),
-(255, '2017-01-19 16:48:06', 202, '370.671', 53, 28, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 37.20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(256, '2017-01-19 17:12:48', 203, '370.470', 17, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 88.44, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(257, '2017-01-19 17:15:15', 204, '370.470.01', 17, 36, NULL, 35, 35, 6, NULL, NULL, NULL, 0.162, 112.78, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена общая', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(258, '2017-01-19 17:19:37', 205, '156.411', 18, 26, NULL, 76, 34, 6, NULL, 160, NULL, 2.5, 950.00, NULL, NULL, NULL, NULL, 167, 12, 588, 888, 12, NULL, NULL, NULL, NULL, 0, NULL, NULL, 2.12, NULL, 38.00, 30.00),
-(259, '2017-01-19 17:20:09', 206, '766.275', 18, 26, NULL, 76, 34, 6, NULL, 156, NULL, 2.5, 311.05, NULL, NULL, NULL, NULL, 162, 12, 588, 888, 12, NULL, NULL, NULL, NULL, 0, NULL, NULL, 2.12, NULL, 38.00, 30.00),
-(260, '2017-01-19 17:58:34', 207, '754.127.001', 54, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 338.80, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(261, '2017-01-20 00:57:39', 208, '12*16*22', 19, 28, NULL, 53, 53, 6, NULL, 159, NULL, 0.006, 15.26, NULL, NULL, NULL, NULL, 165, 12, NULL, NULL, 10, 12, 22, NULL, NULL, 0, NULL, NULL, 0.004, NULL, 13.00, 5.00),
-(262, '2017-01-20 01:04:02', 209, '30*11*18', 19, 36, NULL, 34, 35, 6, NULL, 158, NULL, 0.012, 17.50, NULL, NULL, NULL, NULL, 164, 12, NULL, NULL, 18, 11, 30, NULL, NULL, 0, NULL, NULL, 0.01, NULL, 15.00, 8.00),
-(263, '2017-01-20 01:05:23', 210, '15*35*4', 19, 67, NULL, NULL, 59, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(264, '2017-01-20 01:07:25', 211, '4-86404', 19, 33, NULL, NULL, 35, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(265, '2017-01-20 01:08:47', 212, 'ф50', 19, 46, NULL, NULL, 82, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(266, '2017-01-20 10:27:03', 213, '371.145', 17, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 25.55, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(267, '2017-01-20 11:44:37', 214, 'амортизационный', 19, 165, NULL, 94, 94, 6, NULL, 141, NULL, 0.014, 55.08, NULL, NULL, NULL, NULL, 147, 12, 127, 186, 1, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, 14.00, 10.00),
-(268, '2017-01-20 10:52:33', 214, '370.035', 24, 26, NULL, 34, 34, 6, NULL, 157, NULL, 0.002, 20.57, NULL, NULL, NULL, NULL, 163, 12, NULL, NULL, 4.5, 19, 28, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(269, '2017-01-20 11:53:49', 215, '1360.03.224-1', 19, 33, NULL, 35, 35, 6, NULL, 142, NULL, 0.032, 43.86, NULL, NULL, NULL, NULL, 148, 12, NULL, NULL, 20, 42, 64, NULL, NULL, 0, NULL, NULL, 0.028, NULL, 11.00, 5.00),
-(270, '2017-01-20 11:06:24', 216, 'амортизационный', 19, 165, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 55.08, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(271, '2017-01-20 11:07:04', 217, 'Подвес', 19, 44, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 16949.16, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(272, '2017-01-20 12:08:59', 218, 'МАР-1.00.50', 19, 36, NULL, 82, 82, 6, NULL, 143, NULL, 0.002, 110.17, 0.00, NULL, NULL, NULL, 149, 12, NULL, NULL, 3.6, 20, 28, NULL, NULL, 0, NULL, NULL, 0.001, NULL, 19.00, 15.00),
-(273, '2017-01-20 12:41:30', 219, 'М250', 19, 75, NULL, 94, 53, 6, NULL, 146, NULL, 0.45, 1170.00, NULL, NULL, NULL, NULL, 152, 12, NULL, NULL, 4.5, 13, 320, NULL, NULL, 0, NULL, NULL, 0.4, NULL, 50.00, 40.00),
-(274, '2017-01-20 13:25:14', 220, '370.303', 17, 31, NULL, 73, 35, 6, NULL, 148, NULL, 0.088, 74.07, NULL, NULL, NULL, NULL, 154, 12, NULL, NULL, 8.6, 274, 291.2, NULL, NULL, 0, NULL, NULL, 0.074, NULL, 9.00, 5.00),
-(275, '2017-01-20 12:31:06', 221, '938-35.2587', 19, 26, NULL, 48, 48, 6, NULL, 154, NULL, 0.016, 45.00, NULL, NULL, NULL, NULL, 160, 13, 35, 280, 2, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.012, NULL, 2.40, 0.40),
-(276, '2017-01-20 13:29:24', 221, '370.194', 17, 33, NULL, 73, 35, 6, NULL, 149, NULL, 0.003, 31.30, NULL, NULL, NULL, NULL, 155, 12, NULL, NULL, 4.7, 38.8, 48.2, NULL, NULL, 0, NULL, NULL, 0.002, NULL, 9.00, 5.00),
-(277, '2017-01-20 12:41:49', 222, '12*5-8', 19, 166, NULL, 35, 35, 6, NULL, 151, NULL, 0.004, 20.47, NULL, NULL, NULL, NULL, 157, 12, NULL, NULL, 8, 12, 22, NULL, NULL, 0, NULL, NULL, 0.002, NULL, 14.00, 8.00),
-(278, '2017-01-20 12:59:04', 223, '373.022', 17, 48, NULL, 69, 35, 6, NULL, 152, NULL, 0.022, 89.98, NULL, NULL, NULL, NULL, 158, 12, NULL, NULL, 10, 46, 68, NULL, NULL, 0, NULL, NULL, 0.016, NULL, 16.00, 8.00),
-(279, '2017-01-20 13:35:13', 224, '370.424', 17, 26, NULL, 98, 98, 6, NULL, 155, NULL, 0.006, 38.18, NULL, NULL, NULL, NULL, 161, 13, NULL, NULL, 4, 11, 36, NULL, NULL, 0, NULL, NULL, 0.004, NULL, 1.20, 0.40),
-(280, '2017-01-20 13:35:49', 225, '766.336', 18, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 568.98, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(281, '2017-01-20 13:36:10', 226, '766.191', 18, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 580.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(282, '2017-01-20 13:37:22', 227, '371.417', 18, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 110.74, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(283, '2017-01-20 13:38:45', 228, '370.107', 18, 38, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 59.89, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(284, '2017-01-20 13:39:35', 229, '216.241', 18, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 483.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(285, '2017-01-20 13:40:37', 230, '211.655.01', 18, 28, NULL, 73, 35, 6, NULL, 153, NULL, 0.013, 25.33, NULL, NULL, NULL, NULL, 159, 12, NULL, NULL, 10, 30, 44, NULL, NULL, 0, NULL, NULL, 0.01, NULL, 9.00, 5.00),
-(286, '2017-01-20 13:41:26', 231, '156.472', 18, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 148.58, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(287, '2017-01-20 13:42:10', 232, '156.465', 18, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 193.14, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(288, '2017-01-20 13:42:49', 233, '156.462', 18, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 196.95, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(289, '2017-01-20 13:43:32', 234, '156.361', 18, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 11.33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(290, '2017-01-20 14:46:47', 235, '12*5-8', 19, 31, NULL, 35, 35, 6, NULL, 150, NULL, 0.004, 20.47, NULL, NULL, NULL, NULL, 156, 12, NULL, NULL, 8, 12, 22, NULL, NULL, 1, NULL, NULL, 0.002, NULL, 13.00, 8.00),
-(291, '2017-01-20 15:49:05', 235, '371.073-01', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 85.27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(292, '2017-01-20 15:49:41', 236, '370.425-01', 17, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 32.59, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г (УЭЗЧ)', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(293, '2017-01-20 15:50:06', 237, '370.427', 17, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4.48, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г (УЭЗЧ)', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(294, '2017-01-20 15:50:32', 238, '370.437', 17, 33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.43, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г (УЭЗЧ)', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(295, '2017-01-20 15:50:55', 239, '370.482', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 31.79, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(296, '2017-01-20 15:51:31', 240, '370.483', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 130.41, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(297, '2017-01-20 15:52:01', 241, '370.484', 17, 33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 155.61, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(298, '2017-01-20 15:52:32', 242, '370.485', 17, 33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 39.40, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(299, '2017-01-20 15:52:56', 243, '370.486', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 132.23, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(300, '2017-01-20 15:53:23', 244, '370.496', 17, 33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 28.59, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(301, '2017-01-20 15:53:49', 245, '456.138.1', 18, 32, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 262.11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(302, '2017-01-20 15:54:14', 246, '371.073', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 85.27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(303, '2017-01-20 15:54:41', 247, '766.128', 17, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 407.20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(304, '2017-01-20 15:55:10', 248, '371.145', 17, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 23.23, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16 г (УЭЗЧ)', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(305, '2017-01-20 15:55:36', 249, '371.146', 17, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 426.88, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(306, '2017-01-20 15:56:00', 250, '371.147', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 159.09, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(307, '2017-01-20 15:56:26', 251, '371.148', 17, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 165.20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(308, '2017-01-20 15:56:49', 252, '371.169', 17, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 87.20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(309, '2017-01-20 15:57:27', 253, '371.198', 17, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 122.10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(310, '2017-01-20 15:57:55', 254, '373.017', 17, 48, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 31.78, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(311, '2017-01-20 15:58:20', 255, '373.018', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 43.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(312, '2017-01-20 15:58:43', 256, '766.004', 17, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 515.97, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(313, '2017-01-20 15:59:07', 257, '766.028-01', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 43.68, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(314, '2017-01-20 15:59:42', 258, '370.498', 17, 33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 89.11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(315, '2017-01-20 16:07:08', 259, '370.470.01', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 102.53, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г (УЭЗЧ)', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(316, '2017-01-20 17:12:32', 260, '304-98-04-05', 56, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 26.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(317, '2017-01-20 17:13:06', 261, '304-98-04-06', 56, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 25.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(318, '2017-01-20 17:13:51', 262, '304-168-7-2', 56, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(319, '2017-01-20 17:14:27', 263, '304-168-7-3', 56, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(320, '2017-01-20 17:15:01', 264, '304-168-8-2', 56, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(321, '2017-01-20 17:15:30', 265, '304-168-8-3', 56, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 15.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(322, '2017-01-20 17:16:01', 266, '304-168-9-2', 56, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(323, '2017-01-20 17:16:28', 267, '304-168-9-3', 56, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(324, '2017-01-20 17:50:04', 268, '370.286', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 26.95, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16гУЭЗЧ', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(325, '2017-01-20 17:50:44', 269, '287.028.1', 18, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 90.51, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г УЭЗЧ', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(326, '2017-01-20 17:51:19', 270, '370.160', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 33.13, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(327, '2017-01-20 17:51:45', 271, '370.161', 17, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14.54, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(328, '2017-01-20 17:52:09', 272, '370.163', 17, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 13.78, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(329, '2017-01-20 17:52:38', 273, '370.166', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 49.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(330, '2017-01-20 17:53:07', 274, '370.214', 17, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 41.63, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(331, '2017-01-20 17:53:43', 275, '370.215', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 28.67, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(332, '2017-01-20 17:54:16', 276, '370.260', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 26.70, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(333, '2017-01-20 22:25:14', 277, '31*24*8', 19, 28, NULL, NULL, 59, 6, NULL, NULL, NULL, NULL, 13.87, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(334, '2017-01-20 22:40:22', 278, '102.200.046', 45, 36, NULL, NULL, 102, 6, NULL, NULL, NULL, NULL, 17.80, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(335, '2017-01-20 22:43:56', 279, '215*245', 19, 36, NULL, NULL, 85, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(336, '2017-01-20 22:46:35', 280, '95*125*4', 19, 36, NULL, NULL, 85, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(337, '2017-01-20 22:47:49', 281, '65*85*4', 19, 36, NULL, NULL, 85, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(338, '2017-01-21 21:18:25', 282, '766.004', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 13, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(339, '2017-01-21 21:20:09', 283, '766.028-01', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(340, '2017-01-21 21:20:57', 284, '766.041', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(341, '2017-01-21 21:21:23', 285, '766.068', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(342, '2017-01-21 21:21:56', 286, '766.128', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(343, '2017-01-21 21:22:28', 287, '766.191', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(344, '2017-01-21 21:23:04', 288, '766.336', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(345, '2017-01-21 21:24:27', 289, '778.001', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(346, '2017-01-21 21:27:49', 290, '8.371.079-20', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(347, '2017-01-21 21:28:28', 291, '8.371.079-47', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(348, '2017-01-21 21:31:41', 292, '8.761.136', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(349, '2017-01-21 22:21:44', 293, '371.066', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(350, '2017-01-21 22:24:22', 294, '371.146', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(351, '2017-01-21 22:25:01', 295, '371.147', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(352, '2017-01-21 22:25:32', 296, '371.148', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(353, '2017-01-21 22:26:17', 297, '371.169', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(354, '2017-01-21 22:26:55', 298, '371.198', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(355, '2017-01-21 22:34:44', 299, '373.073-01', 17, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(356, '2017-01-21 22:38:46', 300, '40*68', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(357, '2017-01-21 22:39:54', 301, '400*4000*2', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(358, '2017-01-21 22:41:13', 302, '450.063', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(359, '2017-01-21 22:42:13', 303, '48*58*5', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(360, '2017-01-21 22:42:46', 304, '4*86404', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(361, '2017-01-21 22:43:31', 305, '50*3,5', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(362, '2017-01-21 22:43:56', 306, '529.00.01.  306*365*1', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(363, '2017-01-21 22:45:32', 307, '21699', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(364, '2017-01-21 22:45:51', 308, '29955', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(365, '2017-01-21 22:56:40', 309, '102*3,6', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(366, '2017-01-21 23:01:29', 310, '12*8-5', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(367, '2017-01-21 23:02:37', 311, '128.137', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(368, '2017-01-21 23:04:20', 312, '140*125', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(369, '2017-01-21 23:06:20', 313, '150*22', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(370, '2017-01-21 23:10:05', 314, '160*190', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(371, '2017-01-21 23:11:06', 315, '173.233*4', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(372, '2017-01-21 23:13:02', 316, '18*8', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(373, '2017-01-21 23:15:01', 317, '200*450', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(374, '2017-01-21 23:15:57', 318, '200.102.046', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(375, '2017-01-21 23:16:59', 319, '200*450*22', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(376, '2017-01-21 23:17:44', 320, '205*265*4', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(377, '2017-01-21 23:18:28', 321, '21,8*1,9', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(378, '2017-01-21 23:19:28', 322, '211.655.1', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(379, '2017-01-21 23:20:55', 323, '22*14', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(380, '2017-01-21 23:21:13', 324, '25*11*12', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(381, '2017-01-22 09:11:07', 325, '26*42*8', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(382, '2017-01-22 09:18:14', 326, '30*15*18', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(383, '2017-01-22 09:23:27', 327, '30*19*18', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(384, '2017-01-22 09:27:35', 328, '370.193', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(385, '2017-01-22 09:28:37', 329, '370.206', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(386, '2017-01-22 09:29:42', 330, '370.264', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL);
+(166, 141, 'Кольцо круглое', NULL, 0),
+(167, 142, 'Транспортная', NULL, 0),
+(168, 143, 'Кольцо силиконовое', NULL, 0),
+(169, 144, 'Прокладка виброгасящая', NULL, 0),
+(170, 145, 'Прокладка отстойника', NULL, 0),
+(171, 146, 'Прокладка под изолятор с овальным фланцем', NULL, 0),
+(172, 147, 'Прокладка под изолятор с квадратным фланцем', NULL, 0),
+(173, 148, 'Прокладка маслоуказателя', NULL, 0),
+(174, 149, 'Уплотнитель', NULL, 0),
+(175, 150, 'Обтирка проволоки', NULL, 0),
+(176, 151, 'Гуммирование', NULL, 0),
+(177, 152, 'Втулка защитная', NULL, 0),
+(178, 153, 'Металлообработка', NULL, 0),
+(179, 154, 'Уплотнение силиконовое армированное', NULL, 0);
 
 -- 
 -- Вывод данных для таблицы drivers
@@ -2143,9 +1886,9 @@ INSERT INTO equipments VALUES
 (65, 29, 'форма', 0, 0.000, 0.00, 1, 3, 3, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (66, 30, 'форма ', 0, 0.000, 0.00, 1, 6, 6, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (67, 31, 'Покупка', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
-(68, 32, 'форма', 0, 0.000, 0.00, 1, 5, 5, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(68, 32, 'Прессформа', 0, 0.000, 0.00, 1, 5, 5, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (69, 33, 'форма', 0, 0.000, 0.00, 2, 2, 4, NULL, NULL, NULL, NULL, 0, NULL, 0),
-(70, 34, 'форма', 0, 0.000, 0.00, 3, 40, 120, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(70, 34, 'Прессформа', 0, 0.000, 0.00, 3, 40, 120, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (71, 35, 'форма', 0, 0.000, 0.00, 4, 1, 4, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (72, 36, 'Просечка железкая', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (73, 37, 'форма', 0, 0.000, 0.00, 2, 1, 2, NULL, NULL, NULL, NULL, 0, NULL, 0),
@@ -2183,7 +1926,7 @@ INSERT INTO equipments VALUES
 (105, 69, 'Форма', 0, 0.000, 0.00, 6, 1, 6, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (106, 70, 'Форма', 0, 0.000, 0.00, 1, 12, 12, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (107, 71, 'Просечка', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0),
-(108, 72, 'Форма', 0, 0.000, 0.00, 4, 20, 80, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(108, 72, 'Прессформа', 0, 0.000, 0.00, 4, 20, 80, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (109, 73, 'Лазер', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (110, 74, 'Лазер', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (111, 75, 'Лазер', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0),
@@ -2193,8 +1936,8 @@ INSERT INTO equipments VALUES
 (115, 79, 'Просечка железная', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (116, 80, 'форма', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (117, 81, 'Форма', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0),
-(118, 82, 'форма', 0, 0.000, 0.00, 2, 1, 2, NULL, NULL, NULL, NULL, 0, NULL, 0),
-(119, 83, 'форма', 0, 0.000, 0.00, 3, 1, 3, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(118, 82, 'Прессформа', 0, 0.000, 0.00, 2, 1, 2, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(119, 83, 'Прессформа', 0, 0.000, 0.00, 3, 1, 3, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (120, 84, 'форма', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (121, 85, 'форма', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (122, 86, 'Прессформа', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0),
@@ -2242,7 +1985,37 @@ INSERT INTO equipments VALUES
 (164, 128, 'Прессформа', 0, 0.000, 0.00, 4, 1, 4, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (165, 129, 'Прессформа', 0, 0.000, 0.00, 6, 1, 6, NULL, NULL, NULL, NULL, 0, NULL, 0),
 (166, 130, 'Фильера', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0),
-(167, 131, 'Прессформа', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0);
+(167, 131, 'Прессформа', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(168, 132, 'Прессформа', 0, 0.000, 0.00, 6, 1, 6, 'МХК', NULL, NULL, 3210.00, 0, 'цена за 1шт', 0),
+(169, 133, 'Прессформа', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(170, 134, 'Прессформа', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(171, 135, 'Прессформа', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(172, 136, 'Прессформа', 0, 0.000, 0.00, 6, 1, 6, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(173, 137, 'Прессформа', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(174, 138, 'Прессформа', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(175, 139, 'Просечка', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(176, 140, 'Просечка', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(177, 141, 'Прессформа', 0, 0.000, 0.00, 1, 6, 6, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(178, 142, 'Прессформа', 0, 0.000, 0.00, 1, 9, 9, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(179, 143, 'Прессформа', 0, 0.000, 0.00, 1, 9, 9, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(180, 144, 'Просечка', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(181, 145, 'Штанец', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(182, 146, 'Штанец', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(183, 147, 'Штанец', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(184, 148, 'Штанец', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(185, 149, 'Прессформа', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(186, 150, 'Прессформа', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(187, 151, 'Прессформа', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(188, 152, 'Просечка железная', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(189, 153, 'Просечка железная', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(190, 154, 'Штанец', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(191, 155, 'Штанец', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(192, 156, 'Прессформа', 0, 0.000, 0.00, 0, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(193, 157, 'Прессформа', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(194, 158, 'Прессформа', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(195, 159, 'Прессформа', 0, 0.000, 0.00, 8, 1, 8, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(196, 160, 'Прессформа', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0),
+(197, 161, 'Прессформа', 0, 0.000, 0.00, 1, 1, 1, NULL, NULL, NULL, NULL, 0, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы groups
@@ -2287,7 +2060,23 @@ INSERT INTO groups VALUES
 (53, 37, '8ТН', NULL, 0),
 (54, 38, 'ВИЕЦ', NULL, 0),
 (55, 39, 'М', NULL, 1),
-(56, 39, 'АВШ-3,7/200', NULL, 0);
+(56, 39, 'АВШ-3,7/200', NULL, 0),
+(57, 40, 'R130.354.РТИ', NULL, 0),
+(58, 41, 'R160.354.РТИ', NULL, 0),
+(59, 42, 'R95.354.РТИ', NULL, 0),
+(60, 43, 'Транспортная', NULL, 0),
+(61, 44, 'S5АРУЕ', NULL, 0),
+(62, 45, '5СЯ', NULL, 0),
+(63, 46, 'ВЕЮИ', NULL, 0),
+(64, 47, 'НКАИ', NULL, 0),
+(65, 48, 'ТР', NULL, 0),
+(66, 49, 'ИГТ', NULL, 0),
+(67, 50, 'СИ', NULL, 0),
+(68, 51, 'для', NULL, 0),
+(69, 52, 'ВБИЕ', NULL, 0),
+(70, 53, 'DIN 3771', NULL, 0),
+(71, 54, 'МСЦ', NULL, 0),
+(72, 55, 'АУ ЭЦН', NULL, 0);
 
 -- 
 -- Вывод данных для таблицы jobs
@@ -2361,7 +2150,7 @@ INSERT INTO mass_calculations VALUES
 (68, 1, NULL, 1.5, NULL, NULL, 77, 60, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (69, 3, 1.3, 15, NULL, NULL, NULL, NULL, 11.3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (70, 1, 1.7, 7, NULL, NULL, 140, 125, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(71, 1, 1.3, 6, NULL, NULL, 26, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(71, 1, 1.7, 6, NULL, NULL, 26, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (72, 1, NULL, 6, NULL, NULL, 138, 126, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (73, 1, 2, 2, NULL, NULL, 25, 16.5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (74, 1, NULL, 5, NULL, NULL, 21, 15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -2374,7 +2163,7 @@ INSERT INTO mass_calculations VALUES
 (81, 1, 1.7, 4.5, NULL, NULL, 137, 128, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (82, 3, 1.7, 5.8, NULL, NULL, NULL, NULL, 110, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (83, 3, 1.7, 4.6, NULL, NULL, NULL, NULL, 30, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(84, 8, 1.7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(84, 3, 1.7, 5.8, NULL, NULL, NULL, NULL, 88.5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (85, 4, 1.7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 52, 52, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (86, 1, 1.7, 6, NULL, NULL, 35, 24, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (87, 1, 1.7, 3, NULL, NULL, 48, 17, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -2399,8 +2188,8 @@ INSERT INTO mass_calculations VALUES
 (106, 8, 1.7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0,005'),
 (107, 2, 1.7, 55, 8, 47, 42, 23, 30, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (108, 2, 1.7, 55, 8, 47, 42, 21, 27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(109, 0, 1.7, 2, NULL, NULL, 40, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(110, 1, 1.7, 12, NULL, NULL, 20, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(109, 0, 1.4, 2, NULL, NULL, 40, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(110, 1, 1.4, 12, NULL, NULL, 20, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (111, 1, 1.7, 22, NULL, NULL, 26, 5.5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (112, 1, 1.7, 12, NULL, NULL, 17, 3.5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (113, 0, 1.7, 4, NULL, NULL, 142, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -2450,7 +2239,58 @@ INSERT INTO mass_calculations VALUES
 (157, 3, 1.7, 4.5, NULL, NULL, NULL, NULL, 19, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (158, 1, 1.7, 18, NULL, NULL, 30, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (159, 1, 1.7, 10, NULL, NULL, 22, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(160, 5, 1.7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12, 888, 588, 758, 458, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(160, 5, 1.7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12, 888, 588, 758, 458, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(161, 3, 1.7, 12, NULL, NULL, NULL, NULL, 240, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(162, 1, 0.3, 25, NULL, NULL, 95, 48, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(163, 3, 1.7, 12, NULL, NULL, NULL, NULL, 296, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(164, 1, 1.7, 10, NULL, NULL, 68, 42, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(165, 0, 1.7, 60, NULL, NULL, 40, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(166, 1, 2, 0.5, NULL, NULL, 162, 125, NULL, NULL, 0.5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(167, 1, 1.7, 4, NULL, NULL, 36, 28, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(168, 3, 1.7, 12, NULL, NULL, NULL, NULL, 333, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(169, 6, 1.7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 910, 50, NULL, NULL, 15, NULL, NULL, NULL, NULL, NULL, NULL),
+(170, 4, 1.7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 492, 488, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(171, 3, 1.7, 8.6, NULL, NULL, NULL, NULL, 252.6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(172, 3, 1.7, 5.8, NULL, NULL, NULL, NULL, 133.3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(173, 3, 1.7, 5.8, NULL, NULL, NULL, NULL, 98.3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(174, 3, 1.7, 8.6, NULL, NULL, NULL, NULL, 213.6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(175, 3, 1.7, 5.8, NULL, NULL, NULL, NULL, 64.3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(176, 3, 1.7, 4.1, NULL, NULL, NULL, NULL, 28.3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(177, 3, 1.7, 1.9, NULL, NULL, NULL, NULL, 7.5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(178, 1, 1.7, 3, NULL, NULL, 176, 88, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(179, 4, 1.7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 820, 48, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(180, 1, 1.7, 6, NULL, NULL, 26, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(181, 1, NULL, 5, NULL, NULL, 16, 7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(182, 1, 1.7, 5, NULL, NULL, 16, 7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(183, 1, 2.3, 6, NULL, NULL, 50, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(184, 5, 1.7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12, 1230, 710, 1024, 24, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(185, 4, 1.25, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 246, 96, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(186, 4, 1.7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 158, 86, NULL, 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(187, 0, 1.7, 3, NULL, NULL, 165, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(188, 1, 1.4, 60, NULL, NULL, 90, 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(189, 1, 1.7, 5, NULL, NULL, 38, 22.5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(190, 1, NULL, 20, NULL, NULL, 32, 18, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(191, 1, 1.7, 4, NULL, NULL, 12, 6.5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(192, 1, 0.8, 16, NULL, NULL, 106, 34, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(193, 1, 0.8, 16, NULL, NULL, 150, 50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(194, 1, 0.44, 8, NULL, NULL, 110, 95, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(195, 5, 1.7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 240, 190, 200, 150, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(196, 1, 1.7, 4, NULL, NULL, 360, 264, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(197, 3, 1.7, 3, NULL, NULL, NULL, NULL, 22.5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(198, 3, 1.7, 3.3, NULL, NULL, NULL, NULL, 9.3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(199, 3, 1.7, 3.3, NULL, NULL, NULL, NULL, 9.3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(200, 5, 1.7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 410, 230, 280, 120, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(201, 4, 1.7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 52, 52, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(202, 4, 1.7, 4, NULL, NULL, 52, NULL, NULL, NULL, 4, 52, 52, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(203, 5, 1.7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 6, 275, 240, 185, 180, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(204, 1, 1.25, 2, NULL, NULL, 28, 14, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(205, 1, 1.7, 6, NULL, NULL, 30, 17, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(206, 1, 1.7, 6, NULL, NULL, 138, 126, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(207, 1, 1.7, 6, NULL, NULL, 138, 126, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(208, 8, 1.4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2,61'),
+(209, 1, 1.7, 21, NULL, NULL, 172, 136, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(210, 1, 1.7, 4.4, NULL, NULL, 19, 13, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(211, 4, 1.4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 30, 350, 150, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- 
 -- Вывод данных для таблицы materials
@@ -2468,12 +2308,12 @@ INSERT INTO materials VALUES
 (41, 10, 'Пластина1Н-1-ТМКЩ-М-3', 'ГОСТ 7338-90', 1.7, 3, 3000, 1000, 100.00, NULL, 0),
 (42, 11, 'Пластина 2Ф-1-АМС-М-1', 'ГОСТ 7338-90', 1.7, 1, 3000, 1000, 100.00, NULL, 0),
 (43, 12, 'Паронит ПОН-Б-2,0*500*500', 'ГОСТ481-80', 2, 2, 500, 500, NULL, NULL, 0),
-(44, 13, 'Картон электроизоляционный ЭВ-1,5', 'ГОСТ2824-86', 2, 1.5, NULL, NULL, NULL, NULL, 0),
-(45, 14, 'КартонБ-3,0-1500*1020', 'ГОСТ4194-88', 2, 3, 1500, 1020, NULL, NULL, 0),
+(44, 13, 'Картон электроизоляционный ЭВ-1,5', 'ГОСТ2824-86', 1, 1.5, NULL, NULL, NULL, NULL, 0),
+(45, 14, 'КартонБ-3,0-1500*1020', 'ГОСТ4194-88', 1, 3, 1500, 1020, NULL, NULL, 0),
 (46, 15, 'Паронит ПОН-Б 0,5-1000*1500', 'ГОСТ 481-80', 2, 0.5, 1500, 1000, 165.67, NULL, 0),
 (47, 16, 'Паронит ПОН-Б 1,5 1000*1500', 'ГОСТ 481,80', 2, 1.5, 1500, 1000, 140.00, NULL, 0),
 (48, 17, 'Паронит ПОН-Б 2,0 1000*1500', 'ГОСТ 481-80', 2, 2, 1500, 1000, 115.21, NULL, 0),
-(49, 18, 'Войлок тонкошерстный 8', 'ГОСТ 288-72', NULL, NULL, NULL, NULL, 593.22, NULL, 0),
+(49, 18, 'Войлок тонкошерстный ТС-8', 'ГОСТ 288-72', 0.44, NULL, NULL, NULL, 593.22, NULL, 0),
 (50, 19, 'Пластина 2Ф-1-МБС-С-5', 'ГОСТ 7338-90', 1.7, 5, 3000, 800, 111.23, NULL, 0),
 (51, 20, 'Смесь резиновая 199 гр.1в-13', 'ТУ 2512-046-00151081-2003', 1.4, NULL, NULL, NULL, 83.20, NULL, 0),
 (52, 21, 'Смесь резиновая 13-450', 'ТУ 2512-012-00149297-2004', 1.7, NULL, NULL, NULL, 116.00, NULL, 0),
@@ -2483,7 +2323,7 @@ INSERT INTO materials VALUES
 (56, 25, 'Смесь резиновая 93', 'ТУ 2512-046-00152081-2003', 1.7, NULL, NULL, NULL, 296.00, NULL, 0),
 (57, 26, 'Смесь резиновая В-14-1', 'ТУ 38 0051166-2015 (НТА)', 1.7, NULL, NULL, NULL, 152.80, NULL, 0),
 (58, 27, 'Пластина 12 7-ИРП-1233-7 УХЛ1 ', 'ТУ 38.30596-95', 1.7, 12, NULL, NULL, 180.00, NULL, 0),
-(59, 28, 'Резиновая смесь 1347', 'ТУ 38 0051166-2015 (НТА)', 1.7, NULL, NULL, NULL, 195.70, NULL, 0),
+(59, 28, 'Резиновая смесь 1347', 'ТУ 38 0051166-2015 (НТА)', 1.7, NULL, NULL, NULL, 195.70, NULL, 1),
 (60, 29, 'Смесь резиновая 1-1в-8 3-6701', 'ТУ 2512-046-00152081-2003', 1.7, NULL, NULL, NULL, 138.60, NULL, 0),
 (61, 30, 'Смесь резиновая1-1в-11-6190', 'ТУ 2512-046-00152081-2003', 1.7, NULL, NULL, NULL, 113.20, NULL, 0),
 (62, 31, 'Смесь резиновая 7-ИРП-1348', 'ТУ 2512-046-00152081-2003', 1.7, NULL, NULL, NULL, 194.70, NULL, 0),
@@ -2492,17 +2332,17 @@ INSERT INTO materials VALUES
 (65, 34, 'Пластина силиконовая', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
 (66, 35, 'Пластина 1Ф-МБС-М-4', 'ГОСТ 7738-90', 1.7, NULL, NULL, NULL, NULL, NULL, 0),
 (67, 36, 'Смесь резиновая 51-3029', 'ТУ 105.1325-79', 1.7, NULL, NULL, NULL, 197.15, NULL, 0),
-(68, 37, 'Пластина  Губчатая II-3 ', 'ТУ 38-105867-90', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(68, 37, 'Пластина  Губчатая II-3 ', 'ТУ 38-105867-90', 0.8, NULL, NULL, NULL, NULL, NULL, 0),
 (69, 38, 'Резина 51-1481', 'ТУ 38-105.1325-79', NULL, NULL, NULL, NULL, NULL, NULL, 0),
 (70, 39, 'Резина 3826с', 'ГОСТ 7338-79', NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(71, 40, 'Картон прокладочный А-S-1.0', 'ГОСТ 9347-74', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(71, 40, 'Картон прокладочный А-S-1.0', 'ГОСТ 9347-74', 1, NULL, NULL, NULL, NULL, NULL, 0),
 (72, 41, 'Пентасил 1621 RAL 3000', 'ТУ 2512-114-40245042', 1.6, NULL, NULL, NULL, 600.00, 'Сырая смесь', 0),
 (73, 42, 'Смесь резиновая ИРП-1321', NULL, 1.7, NULL, NULL, NULL, 600.00, NULL, 0),
 (74, 43, 'Капролон', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
 (75, 44, 'Смесь резиновая ИРП 1320 ', 'ТУ 38-105376-92', 1.7, NULL, NULL, NULL, 600.00, NULL, 0),
 (76, 45, 'Резиновая смесь гр3 тр-с ', 'ТУ 38.105376-92', 1.7, NULL, NULL, NULL, 250.00, NULL, 0),
 (77, 46, 'Пластина I - 25 прессованая', 'ТУ 38.105867-90', NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(78, 46, 'Пластина Губчатая I-25 ', 'ТУ 38.105867-90', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(78, 46, 'Пластина Губчатая I-25 ', 'ТУ 38.105867-90', 0.3, NULL, NULL, NULL, NULL, NULL, 0),
 (79, 47, 'Пластина 1ф-МБС-М-6', 'ГОСТ 7738-90', NULL, NULL, NULL, NULL, NULL, NULL, 0),
 (80, 48, 'Пластина МБС-М-3', 'ГОСТ 7738-90', NULL, NULL, NULL, NULL, NULL, NULL, 0),
 (81, 49, 'Ткань Доместик', 'ГОСТ 1104-69', NULL, NULL, NULL, NULL, NULL, NULL, 0),
@@ -2526,7 +2366,38 @@ INSERT INTO materials VALUES
 (99, 66, 'Пластина МБС-С-8', 'ГОСТ 7338-90', NULL, NULL, NULL, NULL, NULL, NULL, 0),
 (100, 67, 'Пластик Relax 2.85 ', NULL, NULL, NULL, NULL, NULL, NULL, '750гр', 0),
 (101, 68, 'Амортизационная резина 2959', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(102, 69, 'ИРП-1078', ' ТУ 38  0051166- 2015  НТА', 1.7, NULL, NULL, NULL, 154.30, NULL, 0);
+(102, 69, 'Смесь резиновая ИРП-1078-А', 'ТУ 38  0051166- 2015  НТА', 1.7, NULL, NULL, NULL, 154.30, NULL, 0),
+(103, 70, 'Силикон SuperMold M40', NULL, NULL, NULL, NULL, NULL, 640.00, NULL, 0),
+(104, 71, 'Полиуретан Poly 75-70', NULL, NULL, NULL, NULL, NULL, 1100.00, NULL, 0),
+(105, 72, 'Паста Полимер "О"', NULL, NULL, NULL, NULL, NULL, 150.00, NULL, 0),
+(106, 73, 'Кольцо резиновое 028-036-46-2-2- (27,5*4,6)', 'ГОСТ 9833-73', NULL, NULL, NULL, NULL, 6.44, NULL, 0),
+(107, 74, 'Кольцо резиновое 29,00*5,00 (030-040-50)', 'NBR 70', NULL, NULL, NULL, NULL, 4.83, NULL, 0),
+(108, 75, 'Манжета армированная 1,2-45*65-1', '8752-79', NULL, NULL, NULL, NULL, 15.68, NULL, 0),
+(109, 76, 'Кольцо резиновое 19,2*3,0 (020-025-30)', 'NBR 70', NULL, NULL, NULL, NULL, 0.85, NULL, 0),
+(110, 77, 'Кольцо резиновое 5,7*1,9 (006-009-19)', 'NBR 70', NULL, NULL, NULL, NULL, 1.78, NULL, 0),
+(111, 78, 'Кольцо резиновое 042-050-46-2-2 (41,0*4,6)', 'ГОСТ 9833-73', NULL, NULL, NULL, NULL, 6.36, NULL, 0),
+(112, 79, 'Кольцо резиновое 057-063-36-2-2 (56,0*3,6)', 'ГОСТ 9833-73', NULL, NULL, NULL, NULL, 25.85, NULL, 0),
+(113, 80, 'Кольцо резиновое 085-095-58-2-2 (82,5*5,8)', 'ГОСТ 9833-73', NULL, NULL, NULL, NULL, 20.00, NULL, 0),
+(114, 81, 'Кольцо резиновое 230-245-85-2-2 (226,00*8,50)', 'ГОСТ 9833-73', NULL, NULL, NULL, NULL, 127.12, NULL, 0),
+(115, 82, 'КАОН-1 3,0мм Картон асбестовый общего назначения', 'ГОСТ 2850-80', 1.25, 3, 1000, 800, 58.47, NULL, 0),
+(116, 83, 'Пластина 2Н-1-МБС-С-5', 'ГОСТ 7338-90', NULL, 5, NULL, NULL, 89.18, NULL, 0),
+(117, 84, 'Пластина 2Н-1-МБС-С-6', 'ГОСТ 7338-90', NULL, 6, NULL, NULL, 89.18, NULL, 0),
+(118, 85, 'Смесь резиновая ИРП-1352', 'ТУ 25,1-00152135-084-2005', 1.7, 0, NULL, NULL, NULL, NULL, 0),
+(119, 86, 'УМ Рулон 4', 'ГОСТ 12855-77', 1.7, 4, NULL, NULL, NULL, NULL, 0),
+(120, 87, 'Войлок тонкошерстный ТС-6', 'ГОСТ 288-72', 0.44, 6, NULL, NULL, NULL, NULL, 0),
+(121, 88, 'Резиновая смесь гр.2МП', 'ТУ 38.105376-82', 1.7, NULL, NULL, NULL, NULL, NULL, 0),
+(122, 89, 'Резиновая смесь ИРП 1334', 'ТУ 38.105376-92', 1.7, NULL, NULL, NULL, NULL, NULL, 0),
+(123, 90, 'Стержень ПА 6 с МОS2 ', NULL, NULL, 32, NULL, NULL, NULL, 'черный', 0),
+(124, 91, 'Пластик Flex Rec 2.85мм', NULL, 1.16, 2.85, NULL, NULL, 2290.00, NULL, 0),
+(125, 92, 'Пластик InnoFlax 2.85мм', NULL, 1.16, 2.85, NULL, NULL, 3600.00, NULL, 0),
+(126, 93, 'Клей адгезионный для 3D', NULL, NULL, NULL, NULL, NULL, 490.00, NULL, 0),
+(127, 94, 'Пластина Губчатая II-16,0', 'ТУ 38-105867-90', 0.8, 16, NULL, NULL, NULL, NULL, 0),
+(128, 95, 'УМ Рулон 2', 'ГОСТ 21855-77', 1.7, NULL, NULL, NULL, NULL, NULL, 0),
+(129, 96, 'Смесь резиновая ИРП-1375', 'ТУ 005.1166-87', 1.7, NULL, NULL, NULL, NULL, NULL, 0),
+(130, 97, 'Резина рулонная 6МТ', 'ГОСТ 12855-67', 1.7, NULL, NULL, NULL, NULL, NULL, 0),
+(131, 98, 'КАОН-1 2,00мм Картон асбестовый общего назначения', 'ГОСТ 2850-80', 1.25, NULL, NULL, NULL, NULL, NULL, 0),
+(132, 99, 'Смесь резиновая 3825', 'ТУ 38-005-1166-98', 1.7, NULL, NULL, NULL, NULL, NULL, 0),
+(133, 100, 'Смесь резиновая ИРП-1136', 'ТУ 33-005924-73', 1.7, NULL, NULL, NULL, NULL, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы measure_units
@@ -2561,7 +2432,7 @@ INSERT INTO methods VALUES
 (25, 14, 'Пескоструйный ', NULL, 0),
 (26, 15, 'Вулканизация + вырубка', NULL, 0),
 (27, 16, 'Вулканизация + вырубка', NULL, 1),
-(28, 16, '3ДП', NULL, 0);
+(28, 16, '3D - принтер', NULL, 0);
 
 -- 
 -- Вывод данных для таблицы processes
@@ -2593,7 +2464,750 @@ INSERT INTO work_item_package VALUES
 (24, '2016-12-19'),
 (25, '2016-12-15'),
 (26, '2017-01-13'),
-(27, '2017-01-09');
+(27, '2017-01-09'),
+(28, '2017-01-10');
+
+-- 
+-- Вывод данных для таблицы drawings
+--
+INSERT INTO drawings VALUES
+(50, '2016-12-04 16:11:06', 1, '370.210-1', 17, 26, NULL, 35, 35, 6, NULL, 46, 10, 0.007700000000000001, 50.00, 0.50, 493, 154, NULL, 37, 12, NULL, NULL, NULL, 20, 100, NULL, '250шт/см', 0, 19, NULL, 0.007, '250шт/см 30мин на перерывы', 9.00, 7.00),
+(51, '2016-12-07 14:29:05', 2, '233', 19, 26, NULL, 51, 51, 6, NULL, 49, 0, 0.14, 38.65, 0.80, 292, 155, NULL, 39, 12, 155, 780, 2.8, NULL, NULL, NULL, '240шт/см', 0, 30, NULL, 0.14, '2 рулона на 150шт (42кг) возврат отходов на вальцовку .Зазор вальцев 4 мм 240шт/см', 13.00, 10.00),
+(52, '2016-12-08 15:13:23', 3, '372.000', 20, 135, 'ч 4326 цена 131', 35, 52, 10, NULL, 50, NULL, 0.68, 484.00, 1.00, 281, 157, NULL, 40, 12, NULL, NULL, 21, 39, 200, 186, '20шт/см', 0, NULL, NULL, 0.68, '20шт/см', 55.00, 40.00),
+(53, '2016-12-08 16:13:54', 4, '10-6 ГОСТ 19421-74', 19, 136, 'Одновременная загрузка  втулки 6*10*16', 53, 53, 10, NULL, 51, 10, 0.0022, 6.78, 0.50, 205, 163, NULL, 41, 12, NULL, NULL, 6, 6, 16, NULL, '140шт/см', 0, NULL, NULL, 0.002, NULL, 12.80, 10.00),
+(54, '2016-12-08 16:47:47', 5, '6*10*16 ГОСТ 19421-74', 19, 136, 'Одновременно 10-6', 53, 53, 10, NULL, 52, 11, 0.00222, 6.78, 0.50, 214, 172, NULL, 42, 12, NULL, NULL, NULL, NULL, NULL, NULL, '210шт/см', 0, NULL, NULL, 0.002, '7пр-Цэ/мин=1,05руб,6прессформ, 210шт/см', 12.80, 10.00),
+(55, '2016-12-08 16:58:08', 6, '18*22', 19, 93, 'ч', 51, 51, 6, NULL, 53, 100, 0.016, 35.60, 0.50, 494, 178, NULL, 43, 12, NULL, NULL, NULL, NULL, NULL, NULL, '140шт/см', 0, NULL, NULL, 0.016, '140шт/см', 8.50, 5.00),
+(56, '2016-12-08 17:13:54', 7, 'L40', 19, 137, NULL, 51, 51, 6, NULL, 54, 10, 0.0088, 8.58, 0.50, 220, 181, NULL, 44, 12, NULL, NULL, 40, 15, 20, NULL, '150шт/см', 0, NULL, NULL, 0.008, '152шт/см', 12.40, 10.00),
+(57, '2016-12-08 17:30:08', 8, '760.023', 17, 27, NULL, 58, 35, 6, NULL, 55, 0, 0.804, 262.50, 1.00, 377, 183, NULL, 45, 12, NULL, NULL, NULL, NULL, NULL, NULL, '32шт/см', 0, NULL, NULL, 0.804, '32шт/см', 14.00, 10.00),
+(58, '2016-12-08 17:43:06', 9, '760.024', 17, 27, NULL, 58, 35, 6, NULL, 63, 0, 0.904, 262.50, 1.00, 381, 186, NULL, 46, 12, NULL, NULL, NULL, NULL, NULL, NULL, '32шт/см', 0, NULL, NULL, 0.904, '32', 14.00, 10.00),
+(59, '2016-12-10 08:43:51', 10, '68*50*9', 19, 138, 'Энерготехсоюз', 35, 35, 6, NULL, 56, NULL, 0.015, 27.50, 0.50, 335, 302, NULL, 47, 12, NULL, NULL, 9, 50, 68, NULL, '140шт/см', 0, 24, NULL, 0.026, '140шт/см', 13.60, 10.00),
+(60, '2016-12-10 20:27:26', 11, '300', 21, 80, 'Эластомер', 59, 59, 6, NULL, 57, 40, 1.1493999999999998, 2805.00, 1.00, 439, 336, NULL, 48, 12, NULL, NULL, 114, 320, 368, NULL, '9шт/см', 0, 19, NULL, 1.149, '9шт/см', 60.00, 40.00),
+(61, '2016-12-10 21:40:00', 12, '20*5*13', 19, 139, 'п/ф МХК переделано цена 10600', 51, 51, 6, NULL, 58, 10, 0.0055000000000000005, 3.60, 0.50, 396, 337, NULL, 49, 12, NULL, NULL, 13, 5, 20, 22, '315шт/см', 0, NULL, NULL, 0.004, '315шт/см', 13.00, 10.00),
+(62, '2016-12-11 23:45:16', 13, '307.026', 18, 52, 'Ч', 35, 35, 6, NULL, 89, 100, 0.004, 22.08, 0.80, 508, 338, NULL, 50, 12, NULL, NULL, NULL, NULL, NULL, NULL, '210шт/см', 0, 19, NULL, 0.002, '210шт/см', 14.00, 10.00),
+(63, '2016-12-12 14:23:04', 14, '207*8*8', 19, 26, NULL, 53, 53, 6, NULL, 62, NULL, 0.058, 25.00, 0.80, 358, 343, NULL, 51, 12, NULL, NULL, NULL, NULL, NULL, NULL, '80шт/см', 0, NULL, NULL, 0.073, '80шт/см', 11.00, 6.00),
+(64, '2016-12-12 14:26:19', 15, '18*55', 19, 26, NULL, 47, 47, 6, NULL, 60, 0, 0.002, 1.20, 0.00, 501, 342, NULL, 53, 13, 18, 55, 1, NULL, NULL, NULL, '8000шт/см', 0, NULL, NULL, 0.002, '8000шт/см', 4.00, 2.00),
+(65, '2016-12-12 14:28:47', 16, '27*45*1,5', 19, 38, NULL, 47, 47, 6, NULL, 61, 0, 0.003, 2.55, 0.00, 505, 341, NULL, 54, 13, NULL, NULL, NULL, NULL, NULL, NULL, '1500шт/см', 0, 19, NULL, 0.003, NULL, 0.38, 0.32),
+(66, '2016-12-12 14:32:25', 17, '18*45*1,5', 19, 38, NULL, 47, 47, 6, NULL, 59, 0, 0.004, 2.55, 0.00, 444, 340, NULL, 52, 13, NULL, NULL, 1.5, 18, 45, NULL, '1500шт/см', 0, NULL, NULL, 0.004, '1500 шт/см', 0.31, 0.25),
+(67, '2016-12-16 19:17:31', 18, '106304', 19, 141, 'АВИСМА Оснастка в цене', 60, 62, 6, NULL, 64, NULL, 3.5, 1727.32, 1.00, 475, 445, NULL, 55, 12, 400, 400, 80, NULL, NULL, NULL, '35 шт', 0, NULL, NULL, NULL, NULL, 60.00, 30.00),
+(68, '2016-12-16 19:39:02', 19, '106305', 19, 141, 'АВИСМА Оснастка в  цене', 60, 62, 6, NULL, 65, NULL, 2.24, 1481.92, 1.00, 477, 451, NULL, 56, 12, 300, 300, 80, NULL, NULL, NULL, '10шт', 0, NULL, NULL, NULL, NULL, 60.00, 30.00),
+(69, '2016-12-20 12:42:30', 20, '106306', 19, 141, 'ч', 60, 62, 10, NULL, 67, 5, 7.75215, 2876.65, 1.00, 490, 455, NULL, 57, 12, NULL, NULL, NULL, NULL, NULL, NULL, '20шт', 0, NULL, NULL, NULL, NULL, 75.00, 35.00),
+(70, '2017-01-11 17:06:50', 21, '370.782', 18, 38, NULL, 121, 35, 6, NULL, 71, NULL, NULL, 19.31, NULL, NULL, NULL, NULL, 61, 12, NULL, NULL, NULL, NULL, NULL, 188, NULL, 0, NULL, NULL, NULL, NULL, 12.00, 5.00),
+(71, '2017-01-11 23:56:44', 22, ' 15-22', 42, 142, NULL, 72, 72, 6, NULL, 68, NULL, 0.006, 60.60, NULL, NULL, NULL, NULL, 58, 13, NULL, NULL, 1.5, 60, 77, NULL, NULL, 0, NULL, NULL, 0.003, NULL, 8.50, 5.00),
+(72, '2017-01-13 09:46:31', 23, '370.014', 23, 36, NULL, 34, 35, 6, NULL, 69, NULL, 0.006, 22.00, NULL, 541, 536, NULL, 59, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.003, NULL, 8.00, 6.00),
+(73, '2017-01-13 10:07:57', 24, '370.145', 17, 33, NULL, 35, 35, 6, NULL, 70, NULL, 0.034, 20.11, NULL, NULL, NULL, NULL, 60, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.028, NULL, 12.00, 5.00),
+(74, '2017-01-13 10:53:50', 25, '011.01.15.11.401', 19, 143, 'ч', 68, 68, 6, NULL, 92, NULL, 0.089, 169.74, NULL, NULL, NULL, NULL, 109, 14, 40, 596, 3, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(75, '2017-01-13 11:04:17', 26, '90-1302018', 19, 45, NULL, 53, 51, 6, NULL, 90, NULL, 0.064, 17.80, NULL, NULL, NULL, NULL, 62, 12, NULL, NULL, 33, 15, 53, NULL, NULL, 0, NULL, NULL, 0.058, NULL, 26.00, 10.00),
+(76, '2017-01-13 13:17:41', 27, '370.160', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(77, '2017-01-13 13:32:51', 28, '011.01.15.21.402', 19, 144, 'ч', 68, 68, 6, NULL, 91, NULL, 0.042, 85.60, NULL, NULL, NULL, NULL, 63, 14, 83, 228, 3, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(78, '2017-01-13 13:36:38', 29, '011.01.15.21.401', 19, 144, 'ч', 68, 68, 6, NULL, 93, NULL, 0.043, 69.39, NULL, NULL, NULL, NULL, 113, 14, 83, 228, 3, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(79, '2017-01-13 13:42:55', 30, '370.219', 17, 31, 'Ч', 73, 35, 6, NULL, 94, NULL, 0.026, 33.85, NULL, NULL, NULL, NULL, 64, 12, NULL, NULL, NULL, 166.5, 178, NULL, NULL, 0, NULL, NULL, 0.021, NULL, 13.00, 7.00),
+(80, '2017-01-13 13:49:12', 31, '370.160', 17, 36, 'Ч', 75, 35, 6, NULL, 99, NULL, 0.016, 33.13, 0.00, NULL, NULL, NULL, 65, 12, NULL, NULL, 5.8, 100, 110, NULL, NULL, 0, NULL, NULL, 0.012, NULL, 13.00, 7.00),
+(81, '2017-01-13 13:51:57', 32, '370.444', 17, 36, 'ч', 58, 80, 6, NULL, 98, NULL, 0.004, 20.00, NULL, NULL, NULL, NULL, 112, 13, NULL, NULL, 3, 17, 48, NULL, 'Цена 16г (конкурентная)', 0, NULL, NULL, 0.003, NULL, 0.90, 0.30),
+(82, '2017-01-13 14:00:32', 33, '370.161', 17, 31, 'Ч', 75, 35, 6, NULL, 95, NULL, 0.004, 14.54, NULL, NULL, NULL, NULL, 66, 12, NULL, NULL, 4.1, 38, 46, NULL, NULL, 0, NULL, NULL, 0.002, NULL, 11.00, 5.00),
+(83, '2017-01-13 14:01:48', 33, '370.048', 18, 31, 'ч', 79, 79, 6, NULL, 86, NULL, 0.006, 18.00, NULL, NULL, NULL, NULL, 114, 13, NULL, NULL, 6, 24, 35, 184, NULL, 0, NULL, NULL, 0.004, NULL, 1.00, 0.30),
+(84, '2017-01-13 14:02:36', 34, '155.022', 18, 26, NULL, 66, 66, 6, NULL, 85, 20, 0.021599999999999998, 16.00, NULL, 517, 509, NULL, 79, 13, 52, 52, 4, NULL, NULL, NULL, 'Цена 16г (конкурентная)', 0, NULL, NULL, 0.012, NULL, 0.30, 0.10),
+(85, '2017-01-13 14:03:24', 35, '370.425-01', 17, 26, NULL, 58, 79, 6, NULL, 100, NULL, 0.036, 35.85, NULL, NULL, NULL, NULL, 115, 13, 50, 110, 6, 31, NULL, NULL, NULL, 0, NULL, NULL, 0.03, NULL, 0.90, 0.30),
+(86, '2017-01-13 14:03:56', 36, '370.438', 17, 36, 'ч', 67, 35, 6, NULL, 106, NULL, 0.005, 7.12, NULL, NULL, NULL, NULL, 78, 12, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 17г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(87, '2017-01-13 14:04:40', 37, '370.439', 17, 31, 'ч', 67, 35, 6, NULL, 102, 300, 0.004, 12.78, NULL, NULL, NULL, NULL, 77, 12, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 17г', 0, NULL, NULL, 0.003, NULL, 13.00, 5.00),
+(88, '2017-01-13 14:07:27', 38, '370.163', 17, 31, 'Ч', 73, 35, 6, NULL, 101, 100, 0.002, 13.78, NULL, NULL, NULL, NULL, 67, 12, NULL, NULL, NULL, NULL, NULL, NULL, 'Исчез чертеж', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(89, '2017-01-13 14:14:24', 39, '370.780', 18, 33, NULL, 76, 35, 6, NULL, 105, NULL, 0.006, 15.17, NULL, NULL, NULL, NULL, 68, 12, NULL, NULL, NULL, NULL, NULL, 196, 'Цена 17г', 0, NULL, NULL, 0.004, NULL, 11.00, 5.00),
+(90, '2017-01-13 14:22:56', 40, '370.443', 17, 31, NULL, 67, 35, 6, NULL, 104, NULL, 0.048, 56.26, NULL, NULL, NULL, NULL, 69, 12, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 17г', 0, NULL, NULL, 0.042, NULL, 15.00, 5.00),
+(91, '2017-01-13 14:26:05', 41, '370.427', 17, 33, 'Ч', 67, 35, 6, NULL, 103, NULL, 0.003, 4.92, NULL, NULL, NULL, NULL, 70, 12, NULL, NULL, NULL, NULL, NULL, 192, NULL, 0, NULL, NULL, 0.001, NULL, 14.00, 5.00),
+(92, '2017-01-13 14:29:21', 42, '370.470.01', 17, 36, NULL, 35, 35, 6, NULL, 161, NULL, 0.14, 93.50, NULL, NULL, NULL, NULL, 71, 12, NULL, NULL, 12, 240, NULL, 104, 'Цена для УЭК', 0, NULL, NULL, 0.12, NULL, 18.00, 10.00),
+(93, '2017-01-13 14:35:29', 43, '370.469', 17, 36, 'Ч', 78, 78, 6, NULL, 162, NULL, 0.08, 58.58, NULL, NULL, NULL, NULL, 72, 13, NULL, NULL, 25, 48, 95, 105, NULL, 0, NULL, NULL, 0.066, NULL, 0.40, 0.10),
+(94, '2017-01-13 14:51:15', 44, '370.498', 17, 33, NULL, 67, 35, 6, NULL, 163, NULL, 0.16, 98.02, NULL, NULL, NULL, NULL, 73, 12, NULL, NULL, 12, 296, NULL, 106, 'Цена 17г', 0, NULL, NULL, 0.144, NULL, 14.00, 8.00),
+(95, '2017-01-13 14:54:10', 45, '371.254', 17, 26, 'ч', 58, 80, 6, NULL, NULL, NULL, 0.001, 14.08, NULL, NULL, NULL, NULL, 80, 13, NULL, NULL, NULL, NULL, NULL, 107, 'Цена 17г', 0, NULL, NULL, 0.001, NULL, 0.04, 0.01),
+(96, '2017-01-13 14:55:08', 46, '371.181', 17, 26, 'Ч', 58, 66, 6, NULL, NULL, NULL, 0.009, 22.00, NULL, NULL, NULL, NULL, 74, 13, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.009, NULL, 0.03, 0.01),
+(97, '2017-01-13 14:56:30', 47, '373.017', 17, 48, NULL, 67, 35, 6, NULL, 164, NULL, 0.022, 34.96, NULL, NULL, NULL, NULL, 75, 12, NULL, NULL, 10, 42, 68, 108, 'Цена 17г', 0, NULL, NULL, 0.018, NULL, 17.00, 10.00),
+(98, '2017-01-13 14:58:53', 48, '370.441', 17, 31, 'ч', 67, 35, 6, NULL, 84, NULL, 0.016, 24.29, NULL, NULL, NULL, NULL, 76, 12, NULL, NULL, 5.8, 88.5, NULL, 109, 'Цена 17г', 0, NULL, NULL, 0.012, NULL, 18.00, 10.00),
+(99, '2017-01-13 15:19:10', 49, 'У-36-16-4-2', 19, 145, NULL, 35, 35, 6, NULL, 165, NULL, 0.1, 79.32, NULL, NULL, NULL, NULL, 81, 12, NULL, NULL, 60, NULL, 60, 119, NULL, 0, NULL, NULL, 0.092, NULL, 16.00, 10.00),
+(100, '2017-01-16 09:58:06', 50, '307.002', 24, 52, NULL, 35, 35, 6, NULL, NULL, NULL, 0.004, 23.13, NULL, NULL, NULL, NULL, 84, 12, NULL, NULL, NULL, NULL, NULL, 44, '8БП 307.026', 0, NULL, NULL, 0.002, NULL, 9.00, 5.00),
+(101, '2017-01-16 09:59:17', 51, '371.018', 18, 26, 'ч', 76, 35, 6, NULL, 138, NULL, 0.024, 22.00, NULL, NULL, NULL, NULL, 92, 12, NULL, NULL, NULL, NULL, NULL, 182, NULL, 0, NULL, NULL, 0.02, NULL, 15.00, 10.00),
+(102, '2017-01-16 10:00:19', 52, '372.018', 18, 36, 'Ч', 76, 35, 6, NULL, 75, 300, 0.004, 17.26, NULL, NULL, NULL, NULL, 83, 12, NULL, NULL, 5, 15, 21, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(103, '2017-01-16 10:01:52', 53, '372.281', 18, 26, 'Ч', 48, 48, 6, NULL, 73, 300, 0.004, 20.46, NULL, NULL, NULL, NULL, 82, 13, NULL, NULL, 2, 16.5, 25, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(104, '2017-01-16 10:03:59', 54, '371.053', 24, 26, NULL, 35, 35, 6, NULL, NULL, NULL, 0.012, 22.12, NULL, NULL, NULL, NULL, 86, 12, NULL, NULL, NULL, NULL, NULL, NULL, '128*137*4,5', 0, NULL, NULL, NULL, NULL, 12.00, 5.00),
+(105, '2017-01-16 10:07:17', 55, '371.089', 24, 26, '8СЯ 370.315; 022-028-36 (ГОСТ) ', 35, 35, 6, NULL, NULL, NULL, 0.002, 8.73, NULL, NULL, NULL, NULL, 87, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(106, '2017-01-16 10:07:52', 56, '371.091', 24, 26, '8КА.371.091; 8СЯ.370.168; 030х038х46 (ГОСТ)', 35, 35, 6, NULL, 83, NULL, 0.004, 17.97, NULL, 525, 524, NULL, 102, 12, NULL, NULL, 4.6, 30, 38, NULL, NULL, 0, NULL, NULL, 0.002, NULL, NULL, 5.00),
+(107, '2017-01-16 10:08:29', 57, '371.092', 24, 26, '8КА.371.092; 22х14х2 (ГОСТ)', 48, 48, 6, NULL, NULL, NULL, 0.002, 16.36, NULL, 523, 522, NULL, 89, 13, NULL, NULL, NULL, NULL, NULL, NULL, '22*14*2', 0, NULL, NULL, 0.001, NULL, 0.90, 0.30),
+(108, '2017-01-16 10:09:02', 58, '371.094', 24, 26, '8КА.371.094; 8СЯ.370.249; 110х120х58 (ГОСТ)', 35, 35, 6, NULL, 82, NULL, 0.016, 24.22, NULL, 521, 520, NULL, 101, 12, NULL, NULL, 5.8, 110, 120, NULL, NULL, 0, NULL, NULL, 0.014, NULL, NULL, 5.00),
+(109, '2017-01-16 10:09:40', 59, '371.000', 24, 26, '8КА.371.000; 8КА.371.053; 128х137х4,5(ГОСТ)', 35, 35, 6, NULL, 81, NULL, 0.012, 39.15, NULL, 519, 518, NULL, 90, 12, NULL, NULL, 4.5, 128, 137, NULL, '128*137*4,5', 0, NULL, NULL, 0.008, NULL, 12.00, 5.00),
+(110, '2017-01-16 10:55:25', 60, '432690541306400000', 19, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 72.41, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(111, '2017-01-16 11:08:57', 61, '155.538', 18, 26, 'Ч', 46, 46, 6, NULL, 166, NULL, 0.008, 24.63, NULL, NULL, NULL, NULL, 93, 13, NULL, NULL, 0.5, 125, 162, 121, '8КА 371.056', 0, NULL, NULL, 0.004, NULL, 1.60, 1.00),
+(112, '2017-01-16 11:11:48', 62, '372.052', 17, 36, NULL, 35, 57, 6, NULL, NULL, NULL, 0.25, 308.00, NULL, NULL, NULL, NULL, 94, 17, NULL, NULL, NULL, NULL, NULL, 122, ' 1 шт  = 1.8 п.м', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(113, '2017-01-16 11:12:37', 63, '370.048', 18, 31, 'ч', 58, 35, 6, NULL, NULL, NULL, 0.006, 21.25, NULL, NULL, NULL, NULL, 95, 12, NULL, NULL, NULL, NULL, NULL, 156, 'Цена 17г', 0, NULL, NULL, 0.004, NULL, 13.00, 5.00),
+(114, '2017-01-16 12:08:17', 64, 'ПВН.000', 25, 36, NULL, 34, 35, 6, NULL, 76, NULL, 0.022, 24.04, NULL, 535, 534, NULL, 96, 12, NULL, NULL, 20, 8, 45, NULL, 'Цена 17г', 0, NULL, NULL, 0.019, NULL, 12.00, 7.00),
+(115, '2017-01-16 12:10:21', 65, 'ПНН.001', 25, 36, NULL, 34, 35, 6, NULL, 77, NULL, 0.009, 12.54, NULL, 533, 531, NULL, 97, 12, NULL, NULL, 4.5, 11, 30, NULL, 'Цена 17г', 0, NULL, NULL, 0.007, NULL, 13.00, 8.00),
+(116, '2017-01-16 12:17:02', 66, 'ПНН.002', 25, 36, NULL, 34, 35, 6, NULL, 78, NULL, 0.009, 13.79, NULL, 530, 529, NULL, 98, 12, NULL, NULL, 12, 16, 32, NULL, 'Цена 17г', 0, NULL, NULL, 0.007, NULL, 10.00, 5.00),
+(117, '2017-01-16 12:18:12', 67, 'ПНН.003', 25, 36, NULL, 34, 35, 6, NULL, 79, NULL, 0.009, 15.13, NULL, 528, 526, NULL, 99, 12, NULL, NULL, 11, 20, 33, NULL, 'Цена 17г', 0, NULL, NULL, 0.007, NULL, 10.00, 5.00),
+(118, '2017-01-16 12:18:52', 68, '-', 19, 26, NULL, 35, 35, 6, NULL, 80, NULL, 0.002, 31.46, NULL, NULL, NULL, NULL, 100, 12, NULL, NULL, 5, 15, 21, NULL, '8БП 372.018', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(119, '2017-01-16 12:21:07', 69, '75х13х3', 19, 146, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 32.64, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(120, '2017-01-16 12:21:53', 70, '005.203', 25, 26, NULL, 79, 79, 6, NULL, NULL, NULL, 0.12, 108.05, NULL, NULL, NULL, NULL, 91, 13, NULL, NULL, NULL, NULL, NULL, NULL, 'ИПУ -10/630', 0, NULL, NULL, 0.12, NULL, 1.80, 1.00),
+(121, '2017-01-16 13:00:48', 71, 'РОЧ 20х30х3,3', 19, 147, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 2658.04, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(122, '2017-01-16 13:08:40', 72, 'РОЧ 30х40х7,8-1,0', 19, 147, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 4047.90, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(123, '2017-01-16 13:59:44', 73, 'Ф27', 19, 46, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 20.64, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(124, '2017-01-16 14:22:47', 74, '742.140', 18, 26, NULL, 45, 45, 6, NULL, 145, NULL, 0.03, 9.90, NULL, NULL, NULL, NULL, 151, 14, NULL, NULL, 3, 25, 120, NULL, NULL, 0, NULL, NULL, 0.022, NULL, 5.50, 3.00),
+(125, '2017-01-16 14:23:14', 75, '742.139', 18, 26, NULL, 45, 45, 6, NULL, 144, NULL, 0.026, 9.90, NULL, NULL, NULL, NULL, 150, 14, NULL, NULL, 3, 32, 120, NULL, NULL, 0, NULL, NULL, 0.02, NULL, 5.50, 3.00),
+(126, '2017-01-16 15:44:18', 76, '370.286', 17, 36, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 26.95, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(127, '2017-01-16 15:45:53', 77, '287.028.1', 18, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 90.51, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(128, '2017-01-16 16:10:02', 78, '370.166', 17, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 49.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(129, '2017-01-16 16:10:51', 79, '370.214', 17, 36, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 41.63, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(130, '2017-01-16 16:11:37', 80, '370.215', 17, 36, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 28.67, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(131, '2017-01-16 16:12:23', 81, '370.260', 17, 36, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 26.70, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(132, '2017-01-16 16:13:15', 82, '370.261', 17, 36, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 24.36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(133, '2017-01-16 16:17:54', 83, '287.621.1', 26, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 22.91, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(134, '2017-01-16 16:18:49', 84, '370.282', 17, 36, NULL, 73, 35, 6, NULL, 147, NULL, 0.054, 54.37, NULL, NULL, NULL, NULL, 153, 12, NULL, NULL, 8.6, 190, 207.2, NULL, NULL, 0, NULL, NULL, 0.05, NULL, 9.00, 5.00),
+(135, '2017-01-16 16:20:50', 85, '370.291', 17, 31, 'Ч', 73, NULL, 6, NULL, 174, 120, 0.046200000000000005, 48.65, NULL, NULL, NULL, NULL, 172, 12, NULL, NULL, NULL, NULL, NULL, 128, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(136, '2017-01-16 16:21:23', 86, '370.292', 17, 36, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 30.27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(137, '2017-01-16 16:22:09', 87, '370.293', 17, 36, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 13.59, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(138, '2017-01-16 16:22:54', 88, '370.294', 17, 31, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 28.36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(139, '2017-01-16 16:23:33', 89, '370.298', 17, 31, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 30.82, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(140, '2017-01-16 16:24:22', 90, '370.301', 17, 31, 'Ч', 73, 35, 6, NULL, 126, NULL, 0.12, 109.71, NULL, NULL, NULL, NULL, 131, 12, NULL, NULL, 8.6, 383, NULL, NULL, NULL, 0, NULL, NULL, 0.098, NULL, 12.00, 8.00),
+(141, '2017-01-16 16:24:54', 91, '370.320', 17, 36, 'Ч', 73, NULL, 6, NULL, 122, 110, 0.008400000000000001, 19.21, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(142, '2017-01-16 16:25:31', 92, '370.346', 17, 36, 'Ч', 73, 35, 6, NULL, 121, NULL, 0.104, 83.73, NULL, NULL, NULL, NULL, 130, 12, NULL, NULL, 8.6, 338, NULL, NULL, NULL, 0, NULL, NULL, 0.08, NULL, 12.00, 8.00),
+(143, '2017-01-16 16:26:03', 93, '370.406', 17, 36, 'Ч', 75, NULL, 6, NULL, 120, NULL, 0.001, 6.13, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(144, '2017-01-16 16:26:45', 94, '370.276', 17, 36, 'Ч', 73, NULL, 6, NULL, 119, 100, 0.014, 27.69, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(145, '2017-01-16 16:29:05', 95, '8.700.205', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 208.48, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(146, '2017-01-16 16:29:45', 96, '8.371.166', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 72.04, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(147, '2017-01-16 16:30:19', 97, '8.371.165', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 237.29, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(148, '2017-01-16 16:31:09', 98, '425*160*305', 27, 148, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 15661.02, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(149, '2017-01-16 16:46:50', 99, '371.054', 24, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 20.21, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(150, '2017-01-16 17:14:03', 100, '5524.00.00', 28, 75, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 210.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(151, '2017-01-16 17:14:56', 101, '639680133020500000', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 160.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(152, '2017-01-16 17:16:07', 102, '50*60', 19, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 398.31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(153, '2017-01-16 17:16:59', 103, '45*65', 19, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 932.21, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(154, '2017-01-16 17:17:35', 104, '20*26*5,2', 19, 48, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 550.85, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(155, '2017-01-16 17:18:41', 105, '100 33а17р', 21, 120, NULL, 94, 94, 6, NULL, 208, 18, 3.0797999999999996, 2610.17, NULL, 545, 542, NULL, 193, 12, NULL, NULL, NULL, NULL, NULL, 201, NULL, 0, NULL, NULL, NULL, NULL, 115.00, 80.00),
+(156, '2017-01-16 17:19:45', 106, '20.016', 29, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 55.09, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(157, '2017-01-16 17:20:30', 107, '370.565', 17, 33, NULL, 129, NULL, 6, NULL, 198, NULL, NULL, 16.76, NULL, NULL, NULL, NULL, 186, 12, NULL, NULL, NULL, NULL, NULL, 190, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(158, '2017-01-16 17:21:30', 108, '18*8,5*1,5', 30, 38, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 0.38, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(159, '2017-01-16 17:22:13', 109, '20*30*3,3', 31, 147, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 2658.04, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(160, '2017-01-16 17:23:10', 110, '30*40*7,8-1,0', 31, 147, NULL, 53, 59, 6, NULL, 124, NULL, 23.4, 4047.90, NULL, NULL, NULL, NULL, 128, 12, 300, 400, 78, NULL, NULL, NULL, NULL, 0, NULL, NULL, 24.6, NULL, 180.00, 160.00),
+(161, '2017-01-16 17:24:03', 111, '171', 32, 149, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 404.80, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'В наличии 5 шт - делали образцы для ООО "БИЗ"', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(162, '2017-01-16 17:25:27', 112, '2620.00.00.006', 33, 150, NULL, 123, 74, 6, NULL, 190, 10, 0.0143, 55.09, NULL, NULL, NULL, NULL, NULL, 28, NULL, NULL, NULL, NULL, NULL, 178, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(163, '2017-01-16 17:26:11', 113, '-', 34, 151, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 23.73, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(164, '2017-01-16 17:24:39', 112, 'Ф45', 19, 46, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 45.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(165, '2017-01-16 17:27:07', 114, '-', 19, 154, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 576.27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(166, '2017-01-16 17:29:00', 115, '001176-01', 35, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 25.59, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(167, '2017-01-16 17:29:39', 116, '6428.3500112', 19, 152, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 32.21, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(168, '2017-01-16 17:31:02', 117, '36-16-4-2', 36, 153, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 79.32, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(169, '2017-01-16 17:48:41', 118, '370.513.4', 40, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 365.66, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(170, '2017-01-16 17:50:45', 119, '370.513.5', 40, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 492.83, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(171, '2017-01-16 17:51:49', 120, '371.201.4', 41, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 132.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(172, '2017-01-16 17:52:34', 121, '371.201.2', 41, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 157.30, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(173, '2017-01-16 17:53:24', 122, '371.201.1', 41, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 157.30, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(174, '2017-01-16 17:56:57', 123, '287.005', 41, 88, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 97.81, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(175, '2017-01-16 19:36:31', 124, '370.425', 17, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 35.85, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(176, '2017-01-16 19:44:12', 125, '742.140', 18, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 9.90, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(177, '2017-01-16 20:05:37', 126, '372.033', 17, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 140.29, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(178, '2017-01-16 20:38:20', 127, '46*65', 19, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 932.21, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(179, '2017-01-16 21:47:20', 128, 'маслоуказателя', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 31.46, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 17г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(180, '2017-01-16 23:21:36', 129, '15-22', 42, 142, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 60.60, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(181, '2017-01-16 23:23:24', 130, '055-065-58-2-2', 19, 33, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 9.90, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(182, '2017-01-16 23:24:36', 131, '010-014-25-2-2', 19, 33, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 3.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(183, '2017-01-16 23:25:40', 132, '012-016-25-2-2', 19, 33, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 3.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(184, '2017-01-16 23:29:06', 133, '372.053', 17, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 38.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(185, '2017-01-16 23:31:12', 134, 'Э7.256.00.01', 43, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 13.99, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(186, '2017-01-16 23:32:16', 135, '011.01.15.11.401', 19, 143, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 169.74, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(187, '2017-01-16 23:33:49', 136, '011.01.15.21.402', 19, 144, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 85.60, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(188, '2017-01-16 23:34:43', 137, '011.01.15.21.401', 19, 144, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 69.39, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(189, '2017-01-16 23:35:40', 138, '370.145', 17, 33, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 26.62, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 46, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(190, '2017-01-16 23:37:28', 139, '370.643', 18, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 48.48, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(191, '2017-01-16 23:39:11', 140, '370.470', 17, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 80.40, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(192, '2017-01-16 23:40:16', 141, '754.152.009', 46, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 32.20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(193, '2017-01-16 23:42:49', 142, '754.152.004', 46, 26, NULL, 34, 35, 6, NULL, 137, NULL, 0.01, 45.02, NULL, NULL, NULL, NULL, 143, 12, NULL, NULL, 4.5, 112, 120, NULL, NULL, 0, NULL, NULL, 0.006, NULL, 13.00, 5.00),
+(194, '2017-01-16 23:43:29', 143, '307.026', 18, 52, NULL, 76, 35, 6, NULL, NULL, NULL, 0.004, 22.08, NULL, NULL, NULL, NULL, 144, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.002, NULL, 11.00, 5.00),
+(195, '2017-01-16 23:46:36', 144, '450.063', 44, 156, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 385.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(196, '2017-01-16 23:47:43', 145, '529.00.01  306*365*1', 45, 157, 'ч', 71, 71, 6, NULL, NULL, NULL, NULL, 35.00, NULL, NULL, NULL, NULL, 145, 14, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(197, '2017-01-16 23:50:09', 146, '450.063', 44, 156, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 385.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(198, '2017-01-17 09:46:06', 147, 'ДЭК', 19, 26, NULL, 81, 81, 6, NULL, 136, NULL, 0.187, 53.61, NULL, NULL, NULL, NULL, 103, 12, 64, 173, 12, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, 17.00, 10.00),
+(199, '2017-01-17 10:05:49', 148, 'Ф50 мм', 19, 46, NULL, 82, 82, 6, NULL, NULL, NULL, 0.073, 67.32, NULL, NULL, NULL, NULL, 104, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(200, '2017-01-17 10:12:29', 149, 'Ф37 мм', 19, 46, NULL, 59, 59, 6, NULL, 139, NULL, 0.034, 27.97, NULL, NULL, NULL, NULL, 105, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(201, '2017-01-17 10:15:06', 150, 'Ф45 мм', 19, 46, NULL, 82, 82, 6, NULL, NULL, NULL, 0.066, 41.36, NULL, NULL, NULL, NULL, 106, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(202, '2017-01-17 11:59:29', 151, '370.498', 17, 33, 'Ч', 67, 35, 6, NULL, 118, 110, 0.1239, 89.11, NULL, NULL, NULL, NULL, 142, 12, NULL, NULL, 12, 296, 320, NULL, 'Цена 16г', 0, NULL, NULL, 0.145, NULL, 13.30, 8.00),
+(203, '2017-01-17 12:01:44', 152, '370.438', 17, 36, NULL, 67, 35, 6, NULL, 88, NULL, 0.001, 6.47, NULL, NULL, NULL, NULL, 108, 12, NULL, NULL, 3, 19.5, 25.5, 189, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(204, '2017-01-17 12:07:08', 153, '370.444', 17, 36, 'Ч', 58, 80, 6, NULL, 87, NULL, 0.006, 42.54, NULL, NULL, NULL, NULL, 107, 13, NULL, NULL, 3, 17, 48, 3, 'Цена 17г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(205, '2017-01-17 12:10:25', 154, '370.439', 17, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 11.62, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(206, '2017-01-17 12:12:25', 155, '373.017', 17, 48, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 31.78, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(207, '2017-01-17 12:13:36', 156, '370.441', 17, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 22.08, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(208, '2017-01-17 12:15:04', 157, '371.254', 17, 26, 'Ч', 86, 86, 6, NULL, 117, 100, 0.002, 12.80, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(209, '2017-01-17 12:16:33', 158, '155.022', 18, 26, NULL, 58, NULL, 6, NULL, 202, 20, 0.021599999999999998, 25.30, NULL, NULL, NULL, NULL, 189, 13, NULL, NULL, NULL, NULL, NULL, 193, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(210, '2017-01-17 12:18:38', 159, '370.048', 18, 31, 'ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 19.32, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 185, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(211, '2017-01-17 12:19:40', 160, '370.780', 18, 33, NULL, 76, 35, 6, NULL, 205, 20, 0.006, 13.79, NULL, NULL, NULL, NULL, 192, 12, NULL, NULL, NULL, NULL, NULL, 195, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(212, '2017-01-17 12:20:47', 161, '370.443', 17, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 51.15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(213, '2017-01-17 13:05:49', 162, 'ПВН.000', 25, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 21.85, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(214, '2017-01-17 13:08:25', 163, 'ПНН.001', 25, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 11.40, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(215, '2017-01-17 13:09:42', 164, 'ПНН.002', 25, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 12.54, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(216, '2017-01-17 13:10:47', 165, 'ПНН.003', 25, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 13.75, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(217, '2017-01-17 13:12:28', 166, 'маслоуказателя', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 28.60, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(218, '2017-01-17 15:14:13', 167, '041.01.25.03.401', 19, 26, 'Ч', 42, 42, 6, NULL, 97, NULL, NULL, 36.00, NULL, NULL, NULL, NULL, 111, 14, 50, 50, 1, 42.5, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(219, '2017-01-17 14:30:04', 168, '01.01.05.001', 47, 45, NULL, 51, 51, 6, NULL, 140, NULL, NULL, 302.84, NULL, NULL, NULL, NULL, 146, 12, NULL, NULL, 42, 40, 140, 166, NULL, 0, NULL, NULL, 1.36, NULL, 57.00, 50.00),
+(220, '2017-01-17 14:31:48', 169, '03.05.00.001', 47, 45, NULL, 51, 51, 6, NULL, 188, NULL, NULL, 217.75, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, 165, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(221, '2017-01-17 14:47:02', 170, '041.01.25.03.401', 19, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 36.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(222, '2017-01-17 15:50:44', 170, 'Ф37', 19, 46, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 27.97, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(223, '2017-01-17 17:05:38', 170, '30*55', 19, 36, NULL, 62, 62, 6, NULL, 107, NULL, 0.026, 1186.44, NULL, NULL, NULL, NULL, 116, 12, NULL, NULL, 55, 23, 42, NULL, 'Вулканизуется с армотурой', 0, NULL, NULL, 0.06, NULL, 14.00, 10.00),
+(224, '2017-01-17 17:06:09', 171, '27*55', 19, 36, NULL, 62, 62, 6, NULL, 108, NULL, 0.026, 1186.44, NULL, NULL, NULL, NULL, 117, 12, NULL, NULL, 55, 21, 42, NULL, 'Вулканизуется с арматурой', 0, NULL, NULL, 0.06, NULL, 14.00, 10.00),
+(225, '2017-01-17 17:29:30', 172, '011.01.27.00.401', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 99.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(226, '2017-01-17 17:29:57', 173, '011.01.27.00.402', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 99.30, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(227, '2017-01-17 17:30:24', 174, '011.01.15.11.403', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 932.20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(228, '2017-01-17 18:00:26', 175, 'Ф30', 19, 46, NULL, 59, 59, 6, NULL, 114, NULL, 0.02, 23.38, NULL, NULL, NULL, NULL, 123, 12, NULL, NULL, NULL, NULL, 30, NULL, NULL, 0, NULL, NULL, 0.016, NULL, 17.00, 12.00),
+(229, '2017-01-18 10:41:06', 176, '06.21.05.005', 48, 158, 'ч', 83, 83, 6, NULL, 116, NULL, 0.095, 178.20, NULL, NULL, NULL, NULL, 126, 12, NULL, NULL, 4, NULL, 142, NULL, NULL, 0, NULL, NULL, 0.084, NULL, 15.00, 10.00),
+(230, '2017-01-18 10:41:47', 177, '06.21.05.005', 48, 158, 'ч', 83, 83, 6, NULL, 113, NULL, 0.095, 152.55, NULL, NULL, NULL, NULL, 122, 12, NULL, NULL, 4, NULL, 142, NULL, NULL, 0, NULL, NULL, 0.084, NULL, 14.00, 10.00),
+(231, '2017-01-18 10:45:31', 178, 'U-15', 19, 159, 'Ч', 72, 72, 6, NULL, 112, NULL, 0.002, 423.73, NULL, NULL, NULL, NULL, 121, 12, NULL, NULL, 12, 3.5, 17, NULL, NULL, 0, NULL, NULL, 0.001, NULL, 9.00, 5.00),
+(232, '2017-01-18 10:48:15', 179, 'AR-26', 19, 159, 'Ч', 72, 72, 6, NULL, 111, NULL, 0.007, 932.20, NULL, NULL, NULL, NULL, 120, 12, NULL, NULL, 22, 5.5, 26, NULL, NULL, 0, NULL, NULL, 0.005, NULL, 9.00, 5.00),
+(233, '2017-01-18 12:03:23', 180, '160*90*35', 19, 70, NULL, 51, 51, 6, NULL, 115, NULL, 0.65, 304.60, NULL, NULL, NULL, NULL, 124, 12, 90, 160, 35, NULL, NULL, NULL, NULL, 0, NULL, NULL, 580, NULL, 24.00, 20.00),
+(234, '2017-01-18 13:02:23', 181, '456.116', 18, 160, NULL, 35, 35, 6, NULL, NULL, NULL, 0.008, 347.00, NULL, NULL, NULL, NULL, 125, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, 12.00, 8.00),
+(235, '2017-01-18 13:12:45', 182, '649.000А', 49, 36, NULL, 94, 94, 6, NULL, 110, 10, 0.0055000000000000005, 19.48, NULL, NULL, NULL, NULL, 119, 12, NULL, NULL, 12, 3, 20, 204, NULL, 0, NULL, NULL, 0.001, NULL, 10.00, 5.00),
+(236, '2017-01-18 13:14:47', 183, '26.013', 29, 65, NULL, 94, 94, 6, NULL, 109, 10, 0.0044, 21.45, NULL, NULL, NULL, NULL, 118, 12, NULL, NULL, 2, NULL, 40, 203, NULL, 0, NULL, NULL, 0.003, NULL, 9.00, 5.00),
+(237, '2017-01-18 13:50:20', 184, '30007-01', 50, 161, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 418.64, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(238, '2017-01-18 13:50:59', 185, '30022', 50, 161, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 323.73, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(239, '2017-01-18 14:04:59', 186, '00.00.408', 51, 36, 'Ч', 42, 59, 6, NULL, 135, NULL, 0.002, 29.34, NULL, NULL, NULL, NULL, 141, 14, 33.3, 33.3, 1, 30.2, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(240, '2017-01-18 15:37:19', 187, '150*72*55', 19, 162, 'Ч', 51, 51, 6, NULL, 125, NULL, 1.1, 440.68, NULL, NULL, NULL, NULL, 129, 12, NULL, NULL, 55, 72, 150, NULL, NULL, 0, NULL, NULL, 0.98, NULL, 57.00, 50.00),
+(241, '2017-01-18 16:00:41', 188, '287.007', 24, 88, NULL, 34, 35, 6, NULL, 189, NULL, NULL, 46.20, NULL, NULL, NULL, NULL, 140, 12, NULL, NULL, NULL, NULL, NULL, 167, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(242, '2017-01-18 16:15:20', 189, '007905', 52, 163, 'Ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 279.66, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(243, '2017-01-18 17:21:32', 190, '742.142', 18, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 9.90, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(244, '2017-01-18 17:22:00', 191, '742.144 (Электрокартон 1 мм)', 18, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 8.90, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(245, '2017-01-18 17:22:29', 192, '742.144 (Электрокартон 3 мм)', 18, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 9.90, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(246, '2017-01-19 09:48:14', 193, '371.127', 18, 26, NULL, 53, 34, 6, NULL, 123, NULL, 1.7, 616.00, NULL, NULL, NULL, NULL, 127, 12, NULL, NULL, 10, 450, 590, NULL, NULL, 0, NULL, NULL, 1.4, NULL, 26.00, 20.00),
+(247, '2017-01-19 11:10:33', 194, '8.271.006-01', 19, 26, NULL, 89, 89, 6, NULL, 134, NULL, 0.04, 70.50, NULL, NULL, NULL, NULL, 139, 13, 50, 60, 10, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.034, NULL, 1.10, 0.40),
+(248, '2017-01-19 11:11:20', 195, '8.761.136-01', 19, 26, NULL, 89, 89, 6, NULL, 133, NULL, 0.095, 120.30, NULL, NULL, NULL, NULL, 138, 13, 70, 80, 10, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.066, NULL, 1.10, 0.40),
+(249, '2017-01-19 11:13:56', 196, '70*100*5', 19, 26, NULL, 88, 88, 6, NULL, 132, NULL, 0.06, 85.40, NULL, NULL, NULL, NULL, 137, 13, 70, 100, 5, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.043, NULL, 1.00, 0.40),
+(250, '2017-01-19 11:14:37', 197, '70*80*5', 19, 26, NULL, 88, 89, 6, NULL, 131, NULL, 0.048, 72.00, NULL, NULL, NULL, NULL, 136, 13, 70, 80, 5, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.035, NULL, 1.00, 0.40),
+(251, '2017-01-19 11:14:59', 198, '50*50*10', 19, 26, NULL, 89, 89, 6, NULL, 130, NULL, 0.042, 57.00, NULL, NULL, NULL, NULL, 135, 13, 50, 50, 10, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.029, NULL, 0.46, 0.40),
+(252, '2017-01-19 11:39:12', 199, '4-86404 МСЦ', 19, 33, NULL, 35, 34, 6, NULL, 129, NULL, 0.052, 32.24, NULL, NULL, NULL, NULL, 134, 12, NULL, NULL, 20, 40, 68, NULL, NULL, 0, NULL, NULL, 0.042, NULL, 16.00, 8.00),
+(253, '2017-01-19 12:57:44', 200, '90*95*30', 19, 28, NULL, 51, 51, 6, NULL, 128, NULL, 0.038, 81.36, NULL, NULL, NULL, NULL, 133, 12, NULL, NULL, 30, 90, 95, NULL, NULL, 0, NULL, NULL, 0.028, NULL, 16.00, 10.00),
+(254, '2017-01-19 13:38:00', 201, '22*12.2*20', 19, 164, NULL, 90, 90, 6, NULL, 127, NULL, 0.01, 25.35, NULL, NULL, NULL, NULL, 132, 12, NULL, NULL, 20, 12.2, 22, NULL, NULL, 0, NULL, NULL, 0.008, NULL, 18.00, 10.00),
+(255, '2017-01-19 16:48:06', 202, '370.671', 53, 28, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 37.20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(256, '2017-01-19 17:12:48', 203, '370.470', 17, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 88.44, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(257, '2017-01-19 17:15:15', 204, '370.470.01', 17, 36, NULL, 35, 35, 6, NULL, NULL, NULL, 0.162, 112.78, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена общая', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(258, '2017-01-19 17:19:37', 205, '156.411', 18, 26, NULL, 76, 34, 6, NULL, 160, NULL, 2.5, 950.00, NULL, NULL, NULL, NULL, 167, 12, 588, 888, 12, NULL, NULL, NULL, NULL, 0, NULL, NULL, 2.12, NULL, 38.00, 30.00),
+(259, '2017-01-19 17:20:09', 206, '766.275', 18, 26, NULL, 76, 34, 6, NULL, 156, NULL, 2.5, 311.05, NULL, NULL, NULL, NULL, 162, 12, 588, 888, 12, NULL, NULL, NULL, NULL, 0, NULL, NULL, 2.12, NULL, 38.00, 30.00),
+(260, '2017-01-19 17:58:34', 207, '754.127.001', 54, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 338.80, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(261, '2017-01-20 00:57:39', 208, '12*16*22', 19, 28, NULL, 53, 53, 6, NULL, 159, NULL, 0.006, 15.26, NULL, NULL, NULL, NULL, 165, 12, NULL, NULL, 10, 12, 22, 197, NULL, 0, NULL, NULL, 0.004, NULL, 13.00, 5.00),
+(262, '2017-01-20 01:04:02', 209, '30*11*18', 65, 36, NULL, 34, 35, 6, NULL, 158, NULL, 0.012, 17.50, NULL, 550, 546, NULL, 164, 12, NULL, NULL, 18, 11, 30, 168, NULL, 0, NULL, NULL, 0.01, NULL, 10.30, 8.00),
+(263, '2017-01-20 01:05:23', 210, '15*35*4', 19, 67, NULL, 94, 94, 6, NULL, 211, 10, 2.4255000000000004, NULL, NULL, 553, 551, NULL, 197, 12, 150, 350, 40, NULL, NULL, 205, NULL, 0, NULL, NULL, NULL, NULL, 92.00, 90.00),
+(264, '2017-01-20 01:07:25', 211, '4-86404', 19, 33, NULL, NULL, 35, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(265, '2017-01-20 01:08:47', 212, 'Ф50 мм', 19, 46, NULL, NULL, 82, 6, NULL, NULL, NULL, NULL, 41.30, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, 25, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(266, '2017-01-20 10:27:03', 213, '371.145', 17, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 25.55, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(267, '2017-01-20 11:44:37', 214, 'амортизационный', 19, 165, NULL, 94, 94, 6, NULL, 141, NULL, 0.014, 55.08, NULL, NULL, NULL, NULL, 147, 12, 127, 186, 1, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, 14.00, 10.00),
+(268, '2017-01-20 10:52:33', 214, '370.035', 24, 26, NULL, 34, 34, 6, NULL, 157, NULL, 0.002, 20.57, NULL, NULL, NULL, NULL, 163, 12, NULL, NULL, 4.5, 19, 28, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(269, '2017-01-20 11:53:49', 215, '1360.03.224-1', 19, 33, NULL, 35, 35, 6, NULL, 142, NULL, 0.032, 43.86, NULL, NULL, NULL, NULL, 148, 12, NULL, NULL, 20, 42, 64, NULL, NULL, 0, NULL, NULL, 0.028, NULL, 11.00, 5.00),
+(270, '2017-01-20 11:06:24', 216, 'амортизационный', 19, 165, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 55.08, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(271, '2017-01-20 11:07:04', 217, 'Подвес', 19, 44, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 16949.16, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(272, '2017-01-20 12:08:59', 218, 'МАР-1.00.50', 19, 36, NULL, 82, 82, 6, NULL, 143, NULL, 0.002, 110.17, 0.00, NULL, NULL, NULL, 149, 12, NULL, NULL, 3.6, 20, 28, NULL, NULL, 0, NULL, NULL, 0.001, NULL, 19.00, 15.00),
+(273, '2017-01-20 12:41:30', 219, 'М250', 19, 75, NULL, 94, 53, 6, NULL, 146, NULL, 0.45, 1170.00, NULL, NULL, NULL, NULL, 152, 12, NULL, NULL, 4.5, 13, 320, NULL, NULL, 0, NULL, NULL, 0.4, NULL, 50.00, 40.00),
+(274, '2017-01-20 13:25:14', 220, '370.303', 17, 31, NULL, 73, 35, 6, NULL, 148, NULL, 0.088, 74.07, NULL, NULL, NULL, NULL, 154, 12, NULL, NULL, 8.6, 274, 291.2, NULL, NULL, 0, NULL, NULL, 0.074, NULL, 9.00, 5.00),
+(275, '2017-01-20 12:31:06', 221, '938-35.2587', 19, 26, NULL, 48, 48, 6, NULL, 154, NULL, 0.016, 45.00, NULL, NULL, NULL, NULL, 160, 13, 35, 280, 2, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0.012, NULL, 2.40, 0.40),
+(276, '2017-01-20 13:29:24', 221, '370.194', 17, 33, NULL, 73, 35, 6, NULL, 149, NULL, 0.003, 31.30, NULL, NULL, NULL, NULL, 155, 12, NULL, NULL, 4.7, 38.8, 48.2, NULL, NULL, 0, NULL, NULL, 0.002, NULL, 9.00, 5.00),
+(277, '2017-01-20 12:41:49', 222, '12*5-8', 19, 166, NULL, 35, 35, 6, NULL, 151, NULL, 0.004, 20.47, NULL, NULL, NULL, NULL, 157, 12, NULL, NULL, 8, 12, 22, NULL, NULL, 0, NULL, NULL, 0.002, NULL, 14.00, 8.00),
+(278, '2017-01-20 12:59:04', 223, '373.022', 17, 48, NULL, 69, 35, 6, NULL, 152, NULL, 0.022, 89.98, NULL, NULL, NULL, NULL, 158, 12, NULL, NULL, 10, 46, 68, NULL, NULL, 0, NULL, NULL, 0.016, NULL, 16.00, 8.00),
+(279, '2017-01-20 13:35:13', 224, '370.424', 17, 26, NULL, 98, 98, 6, NULL, 155, NULL, 0.006, 38.18, NULL, NULL, NULL, NULL, 161, 13, NULL, NULL, 4, 11, 36, NULL, NULL, 0, NULL, NULL, 0.004, NULL, 1.20, 0.40),
+(280, '2017-01-20 13:35:49', 225, '766.336', 18, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 568.98, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 118, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(281, '2017-01-20 13:36:10', 226, '766.191', 18, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 580.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 117, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(282, '2017-01-20 13:37:22', 227, '371.417', 18, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 110.74, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(283, '2017-01-20 13:38:45', 228, '370.107', 18, 38, 'ч', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 59.89, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 183, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(284, '2017-01-20 13:39:35', 229, '216.241', 18, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 483.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(285, '2017-01-20 13:40:37', 230, '211.655.01', 18, 28, NULL, 73, 35, 6, NULL, 153, NULL, 0.013, 25.33, NULL, NULL, NULL, NULL, 159, 12, NULL, NULL, 10, 30, 44, NULL, NULL, 0, NULL, NULL, 0.01, NULL, 9.00, 5.00),
+(286, '2017-01-20 13:41:26', 231, '156.472', 18, 26, NULL, 130, NULL, 6, NULL, 203, 20, 0.4008, 148.58, NULL, NULL, NULL, NULL, 190, 13, NULL, NULL, NULL, NULL, NULL, 194, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(287, '2017-01-20 13:42:10', 232, '156.465', 18, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 193.14, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(288, '2017-01-20 13:42:49', 233, '156.462', 18, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 196.95, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(289, '2017-01-20 13:43:32', 234, '156.361', 18, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 11.33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(290, '2017-01-20 14:46:47', 235, '12*5-8', 19, 31, NULL, 35, 35, 6, NULL, 150, NULL, 0.004, 20.47, NULL, NULL, NULL, NULL, 156, 12, NULL, NULL, 8, 12, 22, NULL, NULL, 1, NULL, NULL, 0.002, NULL, 13.00, 8.00),
+(291, '2017-01-20 15:49:05', 235, '371.073-01', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 85.27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(292, '2017-01-20 15:49:41', 236, '370.425-01', 17, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 32.59, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г (УЭЗЧ)', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(293, '2017-01-20 15:50:06', 237, '370.427', 17, 33, NULL, 129, NULL, 6, NULL, 199, 20, 0, 4.48, NULL, NULL, NULL, NULL, 187, 12, NULL, NULL, NULL, NULL, NULL, 191, 'Цена 16г (УЭЗЧ)', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(294, '2017-01-20 15:50:32', 238, '370.437', 17, 33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.43, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г (УЭЗЧ)', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(295, '2017-01-20 15:50:55', 239, '370.482', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 31.79, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(296, '2017-01-20 15:51:31', 240, '370.483', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 130.41, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(297, '2017-01-20 15:52:01', 241, '370.484', 17, 33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 155.61, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(298, '2017-01-20 15:52:32', 242, '370.485', 17, 33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 39.40, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(299, '2017-01-20 15:52:56', 243, '370.486', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 132.23, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(300, '2017-01-20 15:53:23', 244, '370.496', 17, 33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 28.59, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(301, '2017-01-20 15:53:49', 245, '456.138.1', 18, 32, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 262.11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(302, '2017-01-20 15:54:14', 246, '371.073', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 85.27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(303, '2017-01-20 15:54:41', 247, '766.128', 17, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 407.20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 116, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(304, '2017-01-20 15:55:10', 248, '371.145', 17, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 23.23, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16 г (УЭЗЧ)', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(305, '2017-01-20 15:55:36', 249, '371.146', 17, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 426.88, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(306, '2017-01-20 15:56:00', 250, '371.147', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 159.09, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(307, '2017-01-20 15:56:26', 251, '371.148', 17, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 165.20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(308, '2017-01-20 15:56:49', 252, '371.169', 17, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 87.20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(309, '2017-01-20 15:57:27', 253, '371.198', 17, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 122.10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(310, '2017-01-20 15:57:55', 254, '373.017', 17, 48, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 31.78, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(311, '2017-01-20 15:58:20', 255, '373.018', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 43.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(312, '2017-01-20 15:58:43', 256, '766.004', 17, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 515.97, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 115, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(313, '2017-01-20 15:59:07', 257, '766.028-01', 17, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 43.68, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 114, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(314, '2017-01-20 15:59:42', 258, '370.498', 17, 33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 89.11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(315, '2017-01-20 16:07:08', 259, '370.470.01', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 102.53, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г (УЭЗЧ)', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(316, '2017-01-20 17:12:32', 260, '304-98-04-05', 56, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 26.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(317, '2017-01-20 17:13:06', 261, '304-98-04-06', 56, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 25.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(318, '2017-01-20 17:13:51', 262, '304-168-7-2', 56, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(319, '2017-01-20 17:14:27', 263, '304-168-7-3', 56, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(320, '2017-01-20 17:15:01', 264, '304-168-8-2', 56, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(321, '2017-01-20 17:15:30', 265, '304-168-8-3', 56, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 15.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(322, '2017-01-20 17:16:01', 266, '304-168-9-2', 56, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(323, '2017-01-20 17:16:28', 267, '304-168-9-3', 56, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(324, '2017-01-20 17:50:04', 268, '370.286', 17, 36, NULL, 75, NULL, 6, NULL, 173, 200, 0.012, 26.95, NULL, NULL, NULL, NULL, 171, 12, NULL, NULL, NULL, NULL, NULL, 127, 'Цена 16гУЭЗЧ', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(325, '2017-01-20 17:50:44', 269, '287.028.1', 18, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 90.51, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Цена 16г УЭЗЧ', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(326, '2017-01-20 17:51:19', 270, '370.160', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 33.13, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(327, '2017-01-20 17:51:45', 271, '370.161', 17, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14.54, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(328, '2017-01-20 17:52:09', 272, '370.163', 17, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 13.78, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(329, '2017-01-20 17:52:38', 273, '370.166', 17, 31, NULL, 73, NULL, 6, NULL, 171, 150, 0.0625, 49.12, NULL, NULL, NULL, NULL, 169, 12, NULL, NULL, NULL, NULL, NULL, 125, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(330, '2017-01-20 17:53:07', 274, '370.214', 17, 31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 41.63, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(331, '2017-01-20 17:53:43', 275, '370.215', 17, 36, NULL, 73, NULL, 6, NULL, 172, 200, 0.018000000000000002, 28.67, NULL, NULL, NULL, NULL, 170, 12, NULL, NULL, NULL, NULL, NULL, 126, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(332, '2017-01-20 17:54:16', 276, '370.260', 17, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 26.70, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(333, '2017-01-20 22:25:14', 277, '31*24*8', 19, 28, NULL, NULL, 59, 6, NULL, NULL, NULL, NULL, 13.87, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(334, '2017-01-20 22:40:22', 278, '102.200.046', 45, 36, NULL, 133, 102, 6, NULL, 210, 100, 0.002, 17.80, NULL, NULL, NULL, NULL, 195, 12, NULL, NULL, NULL, NULL, NULL, 202, NULL, 0, NULL, NULL, NULL, NULL, 5.00, 5.00),
+(335, '2017-01-20 22:43:56', 279, '215*245', 19, 36, NULL, NULL, 85, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(336, '2017-01-20 22:46:35', 280, '95*125*4', 19, 36, NULL, NULL, 85, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(337, '2017-01-20 22:47:49', 281, '65*85*4', 19, 36, NULL, NULL, 85, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(338, '2017-01-21 21:18:25', 282, '766.004', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 13, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(339, '2017-01-21 21:20:09', 283, '766.028-01', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(340, '2017-01-21 21:20:57', 284, '766.041', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(341, '2017-01-21 21:21:23', 285, '766.068', 17, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 31.40, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 75, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(342, '2017-01-21 21:21:56', 286, '766.128', 17, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 112, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(343, '2017-01-21 21:22:28', 287, '766.191', 18, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 111, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(344, '2017-01-21 21:23:04', 288, '766.336', 18, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 113, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(345, '2017-01-21 21:24:27', 289, '778.001', 22, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 42.90, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(346, '2017-01-21 21:27:49', 290, '8.371.079-20', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 319.20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 29, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(347, '2017-01-21 21:28:28', 291, '8.371.079-47', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 220.40, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 28, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(348, '2017-01-21 21:31:41', 292, '8.761.136', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(349, '2017-01-21 22:21:44', 293, '371.066', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(350, '2017-01-21 22:24:22', 294, '371.146', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(351, '2017-01-21 22:25:01', 295, '371.147', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(352, '2017-01-21 22:25:32', 296, '371.148', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(353, '2017-01-21 22:26:17', 297, '371.169', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(354, '2017-01-21 22:26:55', 298, '371.198', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(355, '2017-01-21 22:34:44', 299, '373.073-01', 17, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(356, '2017-01-21 22:38:46', 300, '40*68', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(357, '2017-01-21 22:39:54', 301, '400*4000*2', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(358, '2017-01-21 22:41:13', 302, '450.063', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(359, '2017-01-21 22:42:13', 303, '48*58*5', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(360, '2017-01-21 22:42:46', 304, '4*86404', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(361, '2017-01-21 22:43:31', 305, '50*3,5', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(362, '2017-01-21 22:43:56', 306, '529.00.01.  306*365*1', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(363, '2017-01-21 22:45:32', 307, '21699', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(364, '2017-01-21 22:45:51', 308, '29955', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(365, '2017-01-21 22:56:40', 309, '102*3,6', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(366, '2017-01-21 23:01:29', 310, '12*8-5', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(367, '2017-01-21 23:02:37', 311, '128.137', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(368, '2017-01-21 23:04:20', 312, '140*125', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(369, '2017-01-21 23:06:20', 313, '150*22', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(370, '2017-01-21 23:10:05', 314, '160*190', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(371, '2017-01-21 23:11:06', 315, '173.233*4', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(372, '2017-01-21 23:13:02', 316, '18*8', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(373, '2017-01-21 23:15:01', 317, '200*450', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(374, '2017-01-21 23:15:57', 318, '200.102.046', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(375, '2017-01-21 23:16:59', 319, '200*450*22', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(376, '2017-01-21 23:17:44', 320, '205*265*4', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(377, '2017-01-21 23:18:28', 321, '21,8*1,9', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(378, '2017-01-21 23:19:28', 322, '211.655.1', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(379, '2017-01-21 23:20:55', 323, '22*14', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(380, '2017-01-21 23:21:13', 324, '25*11*12', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(381, '2017-01-22 09:11:07', 325, '26*42*8', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(382, '2017-01-22 09:18:14', 326, '30*15*18', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(383, '2017-01-22 09:23:27', 327, '30*19*18', 65, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 19.20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 85, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(384, '2017-01-22 09:27:35', 328, '370.193', 17, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 29.37, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 143, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(385, '2017-01-22 09:28:37', 329, '370.206', 19, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(386, '2017-01-22 09:29:42', 330, '370.264', 17, 33, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 23.49, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 144, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(387, '2017-01-30 11:12:38', 331, '004032', 19, 110, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 7203.39, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(388, '2017-01-30 11:21:21', 332, '172*136*21 509.500.00.00.33-01', 19, 33, NULL, 132, 132, 6, NULL, 209, 10, 0.3421, 650.00, NULL, NULL, NULL, NULL, 194, 12, NULL, NULL, NULL, NULL, NULL, 6, NULL, 0, NULL, NULL, NULL, NULL, 7.00, 7.00),
+(389, '2017-01-30 11:21:59', 333, '182.00.00.002', 57, 48, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 267.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 7, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(390, '2017-01-30 11:22:29', 334, '180.00.00.003', 58, 48, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 340.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 8, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(391, '2017-01-30 11:23:02', 335, '182.00.00.000', 59, 48, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 220.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 9, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(392, '2017-01-30 11:25:01', 336, '182.00.00.003', 58, 48, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 340.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(393, '2017-01-30 11:51:10', 337, '155.022', 18, 26, NULL, 58, NULL, 6, NULL, 201, 20, 0.021599999999999998, 27.83, NULL, NULL, NULL, NULL, 188, 13, NULL, NULL, NULL, NULL, NULL, 11, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(394, '2017-01-30 11:55:58', 338, '371.181', 17, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 57.67, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12, 'Цена УЭК', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(395, '2017-01-30 12:01:31', 339, 'доставка', 19, 167, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 700.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 13, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(396, '2017-01-30 12:06:50', 340, '046-052-36-2-3', 19, 44, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 10169.49, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(397, '2017-01-30 12:07:21', 341, '046-052-36-2-3', 19, 168, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 27.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 15, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(398, '2017-01-30 12:07:51', 342, '032-038-36-2-3', 19, 44, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 10169.49, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(399, '2017-01-30 12:08:32', 343, '032-038-36-2-3', 19, 33, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 24.58, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 17, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(400, '2017-01-30 12:16:06', 344, '8.761.265', 19, 169, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 47.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 18, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(401, '2017-01-30 12:16:40', 345, '670095.005 70*80', 61, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 75.60, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 19, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(402, '2017-01-30 12:18:08', 346, '8.271.006', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 46.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 20, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(403, '2017-01-30 12:19:40', 347, 'ф38мм', 19, 47, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 168, 12, NULL, NULL, NULL, NULL, NULL, 21, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(404, '2017-01-30 12:28:09', 348, '287.025.1', 18, 96, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 40.68, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 23, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(405, '2017-01-30 12:28:42', 349, '192.141.1', 26, 96, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 42.45, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(406, '2017-01-30 12:40:53', 350, '18*45*1,5', 19, 38, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 1.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 26, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(407, '2017-01-30 12:45:23', 351, '28*42*2', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 1.12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 27, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(408, '2017-01-30 12:49:14', 352, '8.371.079-48', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 325.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 30, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(409, '2017-01-30 12:49:38', 353, '8.371.079-34', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 285.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 31, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(410, '2017-01-30 12:52:57', 354, '456.118', 18, 160, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 266.20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 32, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(411, '2017-01-30 12:53:24', 355, '456.210', 44, 160, 'ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 302.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 33, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(412, '2017-01-30 12:55:03', 356, '456.063', 62, 160, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 352.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 34, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(413, '2017-01-30 12:58:18', 357, '374.425', 18, 38, NULL, 128, NULL, 6, NULL, 195, 10, 0.058300000000000005, 93.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 35, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(414, '2017-01-30 12:58:45', 358, '370.973', 18, 38, NULL, 119, NULL, 6, NULL, 191, 20, 0.0012, 11.78, NULL, NULL, NULL, NULL, 181, 13, NULL, NULL, NULL, NULL, NULL, 36, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(415, '2017-01-30 12:59:34', 359, '370.203', 18, 38, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 13.70, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 37, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(416, '2017-01-30 14:08:19', 360, '754.152.017', 46, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 44.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 38, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(417, '2017-01-30 14:09:03', 361, '370.00Н', 24, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 19.95, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 39, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(418, '2017-01-30 14:09:38', 362, '371.054', 24, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 21.17, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 40, 'УЭТМ-М', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(419, '2017-01-30 14:10:41', 363, '371.069', 24, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 44.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 41, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(420, '2017-01-30 14:11:25', 364, '372.001', 24, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 22.77, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 42, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(421, '2017-01-30 14:12:01', 365, '710.00Н', 24, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 23.24, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 43, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(422, '2017-01-30 14:13:11', 366, '754.152.015', 46, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 44.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 45, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(423, '2017-01-30 14:15:28', 367, '754.152.013-02', 63, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 44.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 47, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(424, '2017-01-30 14:16:25', 368, '754.179.001', 63, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 43.81, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 48, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(425, '2017-01-30 14:18:03', 369, '754.176.002', 64, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 25.96, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 49, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(426, '2017-01-30 14:19:05', 370, '370.021', 22, 38, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 32.19, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 51, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(427, '2017-01-30 14:19:41', 371, '218.043', 18, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 77.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 52, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(428, '2017-01-30 14:20:17', 372, '370.144', 17, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 23.03, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 53, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(429, '2017-01-30 14:20:53', 373, '754.152.003', 46, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 43.94, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 54, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(430, '2017-01-30 14:27:51', 374, '66*47*18', 65, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 57.20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 55, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(431, '2017-01-30 14:28:20', 375, '25*11*12', 65, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 14.25, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 56, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(432, '2017-01-30 14:28:55', 376, '52*31*18', 65, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 31.13, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 57, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(433, '2017-01-30 14:29:29', 377, '46*26*18', 65, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 39.60, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 58, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(434, '2017-01-30 14:29:55', 378, '34*16*18', 65, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 34.10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 59, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(435, '2017-01-30 14:31:07', 379, 'расширительного бака', 19, 170, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 27.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 60, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(436, '2017-01-30 14:32:40', 380, 'ИПУ-10/630', 19, 171, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 166.56, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 61, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(437, '2017-01-30 14:33:50', 381, 'ИПУ-10/630', 19, 172, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 166.56, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 62, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(438, '2017-01-30 14:34:57', 382, '25-630кВА', 33, 173, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 18.15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 63, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(439, '2017-01-30 14:36:06', 383, '95*85*3', 19, 38, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 29.59, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 64, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(440, '2017-01-30 14:36:44', 384, '22*16*3', 19, 38, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 20.35, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 65, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(441, '2017-01-30 14:46:48', 385, 'МОП-2', 19, 59, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 20.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 66, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(442, '2017-01-30 14:52:49', 386, 'конусный', 19, 174, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 148.31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 67, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(443, '2017-01-30 14:55:09', 387, '8.700.201', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 320.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 68, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(444, '2017-01-30 14:57:52', 388, '371.018', 18, 26, 'ч', 76, NULL, 6, NULL, 207, 20, 0.03, 23.24, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 69, 'Элта', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(445, '2017-01-30 14:58:47', 389, '155.538', 18, 26, 'Элта', NULL, NULL, 6, NULL, NULL, NULL, NULL, 22.39, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 70, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(446, '2017-01-30 15:02:43', 390, '1360.03.224-1', 19, 33, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 63.56, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 71, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(447, '2017-01-30 15:05:29', 391, '155.186', 17, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 180.58, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 72, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(448, '2017-01-30 15:06:09', 392, '155.182', 17, 26, NULL, 119, NULL, 6, NULL, 169, NULL, NULL, 102.08, NULL, NULL, NULL, NULL, NULL, 13, NULL, NULL, NULL, NULL, NULL, 73, '5 отв.', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(449, '2017-01-30 15:06:43', 393, '155.159', 17, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 180.58, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 74, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(450, '2017-01-30 15:08:18', 394, '370.448', 17, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 22.15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 76, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(451, '2017-01-30 15:09:05', 395, '372.051', 17, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 11.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 77, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(452, '2017-01-30 15:10:10', 396, '370.469', 17, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 53.26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 78, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(453, '2017-01-30 15:37:13', 397, '07-01.33.002', 19, 175, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 62.71, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 79, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(454, '2017-01-30 15:37:42', 398, '43*20*2', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 10.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 80, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(455, '2017-01-30 15:39:55', 399, '171500.000.03.002', 66, 72, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 54.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 81, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(456, '2017-01-30 15:45:16', 400, '500.04.00.006', 67, 112, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 466.11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 82, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(457, '2017-01-30 15:47:22', 401, '90*70*12', 65, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 58.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 83, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(458, '2017-01-30 15:48:25', 402, '38*20*18', 65, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 34.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 84, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(459, '2017-01-30 15:53:19', 403, '148*4/90', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 211.87, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 86, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(460, '2017-01-30 15:53:39', 404, '215*6/90 200.06-00.00.24.9', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 211.87, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 87, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(461, '2017-01-30 15:54:07', 405, '340*4/90', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 211.87, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 88, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(462, '2017-01-30 15:54:27', 406, '430*6/9', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 211.87, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 89, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(463, '2017-01-30 15:54:48', 407, '106*9,5/90 200.10-00.00.41.9', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 45.77, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 90, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(464, '2017-01-30 15:58:36', 408, 'резиновыйтип V гр В-С', 19, 72, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 762.72, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 91, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(465, '2017-01-30 16:23:50', 409, 'Ф150*108*8 мм', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 47.46, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 92, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(466, '2017-01-30 16:28:12', 410, 'ИПУ-10-2000 4 мм', 19, 172, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 149.91, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 93, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(467, '2017-01-30 16:44:17', 411, 'ролика подъемника Ф124', 19, 176, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 6779.67, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 94, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(468, '2017-01-30 16:52:25', 412, 'Ф125*108*120', 19, 28, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 110.17, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 95, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(469, '2017-01-30 16:59:35', 413, 'кабеля диам 40', 68, 177, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 23.73, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 96, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(470, '2017-01-30 17:00:08', 414, 'кабеля диам 30', 68, 177, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 18.65, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 97, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(471, '2017-01-30 17:00:39', 415, 'кабеля диам 24', 68, 177, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 12.72, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 98, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(472, '2017-01-30 17:01:15', 416, 'кабеля диам 18', 68, 177, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 12.72, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 99, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(473, '2017-01-30 17:01:48', 417, 'кабеля диам 14', 68, 177, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 10.17, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(474, '2017-01-30 17:03:24', 418, 'кабеля диам 10', 68, 177, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 8.48, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 101, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(475, '2017-01-30 17:19:30', 419, '15*35*5,2', 19, 67, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 1864.41, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 102, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(476, '2017-01-30 17:25:44', 420, '740.233 (камера)', 44, 178, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 100.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 103, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(477, '2017-01-31 09:45:09', 421, '40*50*3', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 10.17, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 110, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(478, '2017-01-31 09:51:59', 422, '754.152.207', 69, 26, NULL, 118, NULL, 6, NULL, 167, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, 120, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(479, '2017-01-31 10:00:18', 423, '370.504', 17, 31, NULL, 69, NULL, 6, NULL, 168, 200, 0.192, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 123, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(480, '2017-01-31 10:12:29', 424, '155.204', 17, 26, NULL, 58, NULL, 6, NULL, 170, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 124, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(481, '2017-01-31 10:35:58', 425, '370.298', 18, 38, NULL, 131, 131, 6, NULL, 204, 20, 0.0012, 5.19, NULL, NULL, NULL, NULL, 191, 13, NULL, NULL, NULL, NULL, NULL, 129, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(482, '2017-01-31 10:39:15', 426, '374.285', 18, 33, NULL, 127, NULL, 6, NULL, 192, 20, 0.1212, 64.39, NULL, NULL, NULL, NULL, 182, 13, NULL, NULL, NULL, NULL, NULL, 130, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(483, '2017-01-31 10:39:52', 427, '374.413', 18, 33, NULL, 127, NULL, 6, NULL, 193, 20, 0.2412, 80.77, NULL, NULL, NULL, NULL, 183, 13, NULL, NULL, NULL, NULL, NULL, 131, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(484, '2017-01-31 10:40:22', 428, '374.422', 18, 35, NULL, 49, NULL, 6, NULL, 194, 200, 0.026999999999999996, 51.80, NULL, NULL, NULL, NULL, 184, 13, NULL, NULL, NULL, NULL, NULL, 132, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(485, '2017-01-31 10:40:59', 429, '391.188', 18, 26, NULL, 58, NULL, 6, NULL, 196, 10, 0.35200000000000004, 605.54, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 133, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(486, '2017-01-31 10:41:28', 430, '391.216', 18, 26, NULL, 58, NULL, 6, NULL, 200, 20, 0.49559999999999993, 240.98, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 134, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(487, '2017-01-31 10:41:56', 431, '704.997-01', 18, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 38.62, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 135, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(488, '2017-01-31 10:42:21', 432, '704.997-02', 18, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 30.78, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 136, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(489, '2017-01-31 10:42:53', 433, '707.228', 18, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 5.54, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 137, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(490, '2017-01-31 10:43:10', 434, '717.085', 18, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 13.88, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 138, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(491, '2017-01-31 10:43:39', 435, '768.735', 18, 26, NULL, 41, NULL, 6, NULL, 186, NULL, NULL, 34.95, NULL, NULL, NULL, NULL, NULL, 13, NULL, NULL, NULL, NULL, NULL, 139, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(492, '2017-01-31 10:43:19', 435, '57', 19, 75, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 279.67, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 140, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(493, '2017-01-31 10:45:12', 436, '76', 19, 75, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 322.04, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 141, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(494, '2017-01-31 10:44:07', 436, '768.960', 18, 26, NULL, 41, NULL, 6, NULL, 187, 400, 0.545, 63.52, NULL, NULL, NULL, NULL, NULL, 13, NULL, NULL, NULL, NULL, NULL, 142, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(495, '2017-01-31 10:51:22', 437, '370.292', 17, 31, 'ч', 75, NULL, 6, NULL, 175, 120, 0.006600000000000001, 16.95, NULL, NULL, NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, 145, 'Энергомаш сп 30', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(496, '2017-01-31 10:52:21', 438, '370.293', 17, 31, 'ч', 75, NULL, 6, NULL, 176, 25, 0.00125, 11.88, NULL, NULL, NULL, NULL, 173, 12, NULL, NULL, NULL, NULL, NULL, 146, 'Энергомаш сп.30', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(497, '2017-01-31 10:53:19', 439, '370.320', 17, 31, 'ч', NULL, NULL, 6, NULL, NULL, NULL, NULL, 9.70, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 147, 'Энергомаш сп 30', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(498, '2017-01-31 10:54:14', 440, '370.406', 17, 31, 'кольцо покупное 006-009-19', 75, NULL, 6, NULL, 177, 200, 0, 9.39, NULL, NULL, NULL, NULL, 174, 12, NULL, NULL, NULL, NULL, NULL, 148, 'Энергомаш сп30', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(499, '2017-01-31 10:55:32', 441, '370.438', 17, 31, NULL, 67, 35, 6, NULL, 197, 20, 0, 6.22, NULL, NULL, NULL, NULL, 185, 12, NULL, NULL, NULL, NULL, NULL, 149, 'Энергомаш сп30', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(500, '2017-01-31 10:56:20', 442, '710.183', 17, 38, NULL, 120, 120, 6, NULL, 183, NULL, 0.004, 14.89, NULL, NULL, NULL, NULL, 180, 13, NULL, NULL, 6, 36, 50, 150, NULL, 0, NULL, NULL, 0.002, NULL, 0.70, 0.30),
+(501, '2017-01-31 10:58:25', 443, '760.163', 17, 26, NULL, 115, NULL, 6, NULL, 185, 10, 0.0979, 28.10, NULL, NULL, NULL, NULL, NULL, 13, NULL, NULL, NULL, NULL, NULL, 151, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(502, '2017-01-31 11:11:41', 444, '372.210-01', 26, 36, NULL, 122, 35, 6, NULL, 182, NULL, 0.002, 5.32, NULL, NULL, NULL, NULL, 179, 12, NULL, NULL, 5, 7, 16, 152, NULL, 0, NULL, NULL, 0.001, NULL, 10.00, 5.00),
+(503, '2017-01-31 11:13:25', 445, '370.782', 18, 38, NULL, 121, 35, 6, NULL, 180, NULL, 0.004, 16.23, NULL, NULL, NULL, NULL, 177, 12, NULL, NULL, 6, 17, 30, 153, 'Энергомаш сп 30', 0, NULL, NULL, 0.002, NULL, 10.00, 5.00),
+(504, '2017-01-31 11:14:43', 446, '768.959', 18, 26, NULL, 33, 33, 6, NULL, 179, NULL, 0.12, 95.64, NULL, NULL, NULL, NULL, 176, 13, 48, 820, 3, NULL, NULL, 154, NULL, 0, NULL, NULL, 0.102, NULL, 0.70, 0.30),
+(505, '2017-01-31 11:18:39', 447, '391.186', 18, 26, NULL, 33, 33, 6, NULL, 178, NULL, 0.09, 46.05, NULL, NULL, NULL, NULL, 175, 13, NULL, NULL, 3, 88, 176, 155, 'Энергомаш сп.30', 0, NULL, NULL, 0.086, NULL, 0.70, 0.30),
+(506, '2017-01-31 12:40:08', 448, '740.234 (камера)', 44, 178, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 100.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 157, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(507, '2017-01-31 15:47:13', 449, '50,17*5,33', 70, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 22.19, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 158, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(508, '2017-01-31 15:47:46', 450, '41*3', 70, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 35.89, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 159, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(509, '2017-01-31 15:48:12', 451, '37,47*5,33', 70, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 20.08, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 160, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(510, '2017-01-31 15:47:32', 449, '760.000', 62, 26, NULL, NULL, NULL, 6, NULL, 184, NULL, 3.52, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 161, 'клей ', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(511, '2017-01-31 16:00:10', 452, '450-465-85-2-3 по ГОСТ 9833', 19, 110, NULL, 35, NULL, 6, NULL, NULL, NULL, NULL, 355.94, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 162, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(512, '2017-01-31 16:14:32', 453, '69,44*3,53', 70, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 43.45, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 163, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(513, '2017-01-31 16:22:52', 454, '110,40*5,33', 70, 31, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 34.61, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 164, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(514, '2017-02-01 11:00:36', 455, '372.349.1', 26, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 245.03, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 169, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(515, '2017-02-01 11:01:51', 456, '372.427.1', 18, 36, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 171.98, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 170, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(516, '2017-02-01 14:29:13', 457, '4-86404', 71, 33, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 29.31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 171, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(517, '2017-02-01 14:30:24', 458, '130-140-58-2-2', 19, 33, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 11.89, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 172, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(518, '2017-02-01 14:37:17', 459, '33*41*2', 19, 179, NULL, 64, NULL, 6, NULL, NULL, NULL, NULL, 11.87, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 173, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(519, '2017-02-01 14:54:51', 460, 'В8-20', 19, 28, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 118.91, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 174, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(520, '2017-02-01 14:56:34', 461, '4-86404', 71, 33, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 26.64, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 175, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(521, '2017-02-01 15:08:38', 462, '00.00.09', 72, 48, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 101.70, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 176, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(522, '2017-02-01 15:09:17', 463, 'манжета АУ ЭЦН-00.00.09', 19, 44, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 13559.33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 177, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(523, '2017-02-01 17:39:41', 464, '48*8', 19, 146, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 38.14, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 179, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(524, '2017-02-01 17:51:36', 465, 'колеса', 19, 176, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 1920.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 180, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(525, '2017-02-01 17:56:17', 466, '121*181*3', 19, 26, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 66.10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 181, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(526, '2017-02-01 18:10:29', 467, '1503608-VER-A', 19, 33, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 2.30, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 187, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(527, '2017-02-02 11:18:09', 468, '724.150', 18, 28, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 17.64, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 198, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(528, '2017-02-02 13:01:58', 469, '45*65*18', 19, 33, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 45.77, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 199, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(529, '2017-02-02 13:02:27', 470, '57*77*22', 19, 33, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 62.72, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 200, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- 
+-- Вывод данных для таблицы employees
+--
+INSERT INTO employees VALUES
+(19, 1, 'БСА', 'Бородулин СА', 35, NULL, 0),
+(20, 2, 'ВАВ', 'Вершинин АВ', 35, NULL, 0),
+(21, 3, 'ШАМ', 'Шатров АМ', 35, NULL, 0),
+(22, 4, 'ШЕА', 'Шатров ЕА', 35, NULL, 0),
+(23, 5, 'ССЮ', 'Скребнев СЮ', 35, NULL, 0),
+(24, 6, 'ПАВ', 'Пучков АВ', 35, NULL, 0),
+(25, 7, 'ШЭП', 'Шагаев ЭП', 35, NULL, 0),
+(26, 8, 'ЛЕА', 'Логвинов ЕА', 40, NULL, 0),
+(27, 9, 'НВА', 'Непейков ВА', 35, NULL, 0),
+(28, 10, 'ХИХ', 'Хасанов ИХ', 39, NULL, 0),
+(29, 11, 'ГАВ', 'Гоголин АВ', 40, NULL, 0),
+(30, 12, 'ПДА', 'Погадаев ДА', 41, NULL, 0),
+(31, 13, 'НЕВ', 'Наумова ЕВ', 30, NULL, 0),
+(32, 14, 'МНА', 'Морозова НА', 36, NULL, 0),
+(33, 15, 'НВ', 'Наумов В', 42, NULL, 0),
+(34, 16, 'ТАС', 'Тюренкова АС', 36, NULL, 0),
+(35, 17, 'МАА', 'Микишев АА', 38, NULL, 0),
+(36, 18, 'СНИ', 'Сазонов НИ', 35, NULL, 0),
+(37, 19, 'КЕВ', 'Каминская ЕВ', 36, NULL, 0),
+(38, 20, 'СЛА', 'Санникова ЛА', 36, NULL, 0),
+(39, 21, 'ГОА', 'Губин ОА', 38, NULL, 0),
+(40, 22, 'ХЮВ', 'Холодников ЮВ', 27, NULL, 0),
+(41, 23, 'ХЕЮ', 'Холодникова ЕЮ', 31, NULL, 0),
+(42, 24, 'ХМЮ', 'Холодников МЮ', 44, NULL, 0),
+(43, 25, 'ПНА', 'Поскребышева НА', 32, NULL, 0),
+(44, 26, 'РТВ', 'Раупова ТВ', 29, NULL, 0),
+(45, 27, 'ХВП', 'Холодникова ВП', 28, NULL, 0),
+(46, 28, 'БРГ', 'Бородулин Р.Г', 35, NULL, 0);
+
+-- 
+-- Вывод данных для таблицы material_arrival_records
+--
+INSERT INTO material_arrival_records VALUES
+(6, 1, '1/2480', 39, 3379.71, '2016-12-06 00:00:00', '2453', 46, 10, 140.40, 20.400, NULL, 0),
+(7, 2, '1/2480', 39, 2542.00, '2016-12-06 00:00:00', '2453', 47, 10, 115.20, 18.700, NULL, 0),
+(8, 3, '1/2480', 39, 2269.44, '2016-12-06 00:00:00', '2453', 48, 10, 115.20, 19.700, NULL, 0),
+(9, 4, 'Т-1341', 38, 7000.00, '2016-12-06 00:00:00', 'Т-1341', 49, 10, 593.22, 10.000, NULL, 0),
+(10, 5, '1113', 40, 8085.00, '2016-12-05 00:00:00', '1113', 50, 10, 111.23, 61.599, NULL, 0),
+(11, 6, '5000', 40, 5600.00, '2016-12-05 00:00:00', '6000', 47, 10, 140.00, 40.000, NULL, 0),
+(12, 7, '5001', 40, 2620.00, '2016-12-05 00:00:00', '6001', 35, 10, 131.00, 20.000, NULL, 0),
+(13, 8, '5002', 40, 6656.80, '2016-12-05 00:00:00', '6002', 51, 10, 83.21, 80.000, NULL, 0),
+(14, 9, '5003', 40, 3944.00, '2016-12-05 00:00:00', '6003', 52, 10, 116.00, 34.000, NULL, 0),
+(15, 10, '5004', 40, 2283.00, '2016-12-05 00:00:00', '6004', 53, 10, 228.30, 10.000, NULL, 0),
+(16, 11, '5005', 40, 1875.00, '2016-12-05 00:00:00', '6005', 55, 10, 125.00, 15.000, NULL, 0),
+(17, 12, '5006', 40, 3914.00, '2016-12-05 00:00:00', '6006', 59, 10, 195.70, 20.000, NULL, 0),
+(18, 13, '148', 40, 9000.00, '2016-12-21 00:00:00', '148', 51, 10, 90.00, 100.000, NULL, 0),
+(19, 14, '141716416Ф от 23 .12.2016', 41, 4683.42, '2016-12-23 00:00:00', '8998/16', 63, 10, 147.00, 27.000, NULL, 0),
+(20, 15, '141716416Ф от 23.12.16', 41, 28286.37, '2016-12-23 00:00:00', '8998/16', 53, 10, 228.30, 105.000, NULL, 0),
+(21, 16, '141716416Ф от 23.12.16', 41, 27824.40, '2016-12-23 00:00:00', '8998/16', 35, 10, 131.00, 180.000, NULL, 0),
+(22, 17, '141716416Ф от 23.12.16', 41, 29364.30, '2016-12-23 00:00:00', '8998/16', 34, 10, 118.50, 210.000, NULL, 0),
+(23, 18, '141716416Ф от 23.12.16', 41, 21261.24, '2016-12-23 00:00:00', '8998/16', 62, 10, 138.60, 130.000, NULL, 0),
+(24, 19, '141716416Ф от 23.12.16', 41, 12272.00, '2016-12-23 00:00:00', '8998/16', 51, 10, 83.20, 125.000, NULL, 0),
+(25, 20, '53/1', 39, 4540.26, '2017-01-13 00:00:00', '53', 48, 10, 115.20, 330.400, NULL, 0),
+(26, 21, '53/1', 39, 4858.65, '2017-01-13 00:00:00', '53/1', 93, 10, 135.00, 30.500, NULL, 0),
+(27, 22, '9717ф', 41, 35494.40, '2017-01-13 00:00:00', '110/17', 62, 10, 148.30, 182.000, NULL, 0),
+(28, 23, '9717ф', 41, 31848.91, '2017-01-13 00:00:00', '110/17', 94, 10, 150.40, 200.000, NULL, 0),
+(29, 24, '9717ф', 41, 7852.90, '2017-01-13 00:00:00', '110/17', 82, 10, 266.20, 25.000, NULL, 0),
+(30, 25, '9717ф', 41, 21330.00, '2017-01-13 00:00:00', '110/17', 95, 10, 118.50, 180.000, NULL, 0),
+(31, 26, '9717ф', 41, 14560.00, '2017-01-19 00:00:00', '110/17', 51, 10, 83.20, 175.000, NULL, 0),
+(32, 27, '9717ф', 41, 18549.60, '2017-01-13 00:00:00', '110/17', 35, 10, 131.00, 120.000, NULL, 0),
+(33, 28, '8', 82, 702000.00, '2017-01-12 00:00:00', '8', 96, 6, 1983.05, 300.000, NULL, 0),
+(34, 29, '1617a', 41, 396000.92, '2017-01-10 00:00:00', '30/17', 53, 10, 228.30, 147.000, NULL, 0),
+(35, 30, '1617ф', 41, 39931.20, '2017-01-10 00:00:00', '30/17', 94, 10, 150.40, 225.000, NULL, 0),
+(36, 31, '1617ф', 41, 15705.80, '2017-01-10 00:00:00', '30/17', 82, 10, 266.20, 50.000, NULL, 0),
+(37, 32, '15', 83, 2834.16, '2017-01-11 00:00:00', '15', 97, 10, 124.58, 19.280, NULL, 0),
+(38, 33, '15', 83, 8129.10, '2017-01-11 00:00:00', '15', 98, 10, 124.58, 55.300, NULL, 0),
+(39, 34, '15', 83, 10686.90, '2017-01-11 00:00:00', '15', 99, 10, 124.58, 72.700, NULL, 0),
+(40, 35, '1', 81, 120000.00, '2017-01-11 00:00:00', '1', 92, 7, 375.00, 32.000, NULL, 0),
+(41, 36, '4', 80, 6420.00, '2017-01-10 00:00:00', '4', 100, 6, 1813.56, 3.000, NULL, 0),
+(42, 37, '113', 92, 919.60, '2017-01-23 00:00:00', '113', 106, 6, 6.44, 121.000, NULL, 0),
+(43, 38, '113', 92, 2850.00, '2017-01-23 00:00:00', '113', 107, 6, 4.83, 500.000, NULL, 0),
+(44, 39, '113', 92, 296.00, '2017-01-23 00:00:00', '113', 108, 6, 15.68, 16.000, NULL, 0),
+(45, 40, '113', 92, 500.00, '2017-01-23 00:00:00', '113', 109, 6, 0.85, 500.000, NULL, 0),
+(46, 41, '113', 92, 138.60, '2017-01-23 00:00:00', '113', 110, 6, 1.78, 66.000, NULL, 0),
+(47, 42, '113', 92, 1462.50, '2017-01-23 00:00:00', '113', 111, 6, 6.36, 195.000, NULL, 0),
+(48, 43, '113', 92, 274.50, '2017-01-23 00:00:00', '113', 112, 6, 25.85, 9.000, NULL, 0),
+(49, 44, '113', 92, 755.20, '2017-01-23 00:00:00', '113', 113, 6, 20.00, 32.000, NULL, 0),
+(50, 45, '113', 92, 3000.00, '2017-01-23 00:00:00', '113', 114, 6, 127.12, 20.000, NULL, 0),
+(51, 46, '113', 92, 4512.60, '2017-01-23 00:00:00', '113', 115, 10, 58.47, 65.400, NULL, 0),
+(52, 47, '52', 91, 300.00, '2017-01-27 00:00:00', '52', 105, 6, 150.00, 2.000, NULL, 0),
+(53, 48, '52', 91, 32800.00, '2017-01-27 00:00:00', '52', 103, 10, 640.00, 5.125, NULL, 0),
+(54, 49, '52', 91, 2002.00, '2017-01-27 00:00:00', '52', 104, 10, 1100.00, 1.820, NULL, 0),
+(55, 50, '25817ф', 41, 26620.80, '2017-01-23 00:00:00', '274/17', 94, 10, 150.40, 150.000, NULL, 0),
+(56, 51, '25817ф', 41, 39600.92, '2017-01-23 00:00:00', '274/17', 53, 10, 228.30, 147.000, NULL, 0),
+(57, 52, '25817ф', 41, 26721.69, '2017-01-23 00:00:00', '274/17', 57, 10, 146.10, 155.000, NULL, 0),
+(58, 53, '25817ф ', 41, 27299.06, '2017-01-23 00:00:00', '274/17', 62, 10, 148.30, 156.000, NULL, 0),
+(59, 54, '25817ф', 41, 4004.00, '2017-01-23 00:00:00', '274/17', 78, 10, 154.00, 26.000, NULL, 0),
+(60, 55, '31717ф', 41, 30916.00, '2017-01-25 00:00:00', '339/17', 35, 10, 131.00, 200.000, NULL, 0),
+(61, 56, '31717ф', 41, 20974.50, '2017-01-25 00:00:00', '339/17', 95, 10, 118.50, 150.000, NULL, 0),
+(62, 57, '31717ф', 41, 14726.40, '2017-01-25 00:00:00', '339/17', 51, 10, 83.20, 150.000, NULL, 0),
+(63, 58, '71', 40, 4446.75, '2017-01-27 00:00:00', '71', 33, 10, 62.29, 60.500, NULL, 0),
+(64, 59, '71', 40, 4503.84, '2017-01-27 00:00:00', '71', 98, 10, 89.18, 42.800, NULL, 0),
+(65, 60, '71', 40, 5419.35, '2017-01-27 00:00:00', '71', 116, 10, 89.18, 51.500, NULL, 0),
+(66, 61, '71', 40, 13343.16, '2017-01-27 00:00:00', '71', 117, 10, 89.18, 126.800, NULL, 0),
+(67, 62, '44817ф', 41, 12366.40, '2017-01-31 00:00:00', '480/17', 35, 10, 131.00, 80.000, NULL, 0),
+(68, 63, '44817ф', 41, 7852.90, '2017-01-31 00:00:00', '480/17', 82, 10, 266.20, 25.000, NULL, 0),
+(69, 64, '44817ф', 41, 29364.30, '2017-01-31 00:00:00', '480/17', 34, 10, 118.50, 210.000, NULL, 0),
+(70, 65, '2114', 83, 7056.00, '2016-12-27 00:00:00', '2114', 99, 10, 124.58, 48.000, NULL, 0),
+(71, 66, '45', 116, 2290.00, '2017-01-31 00:00:00', '45', 100, 6, 2290.00, 1.000, NULL, 0),
+(72, 67, '45', 116, 7200.00, '2017-01-31 00:00:00', '45', 124, 6, 3600.00, 2.000, NULL, 0),
+(73, 68, '45', 116, 1390.00, '2017-01-31 00:00:00', '45', 126, 6, 1390.00, 1.000, NULL, 0);
+
+-- 
+-- Вывод данных для таблицы requests
+--
+INSERT INTO requests VALUES
+(226, 1, '2016-12-04 00:00:00', '2016-12-15 00:00:00', '2017-01-13 00:00:00', '2016-12-28 00:00:00', NULL, 20, 19, 20, 50000.00, 1, NULL, 0, NULL, NULL, 1, '2016-12-04'),
+(235, 2, '2016-11-15 00:00:00', '2016-11-16 00:00:00', '2016-12-01 00:00:00', '2016-12-07 00:00:00', NULL, NULL, 30, 20, 19325.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(239, 3, '2016-12-08 00:00:00', '2016-12-08 00:00:00', NULL, '2016-12-28 00:00:00', 1, 1, 19, 20, 14031.00, 1, NULL, 0, 1, '2016-12-08', 2, '2016-12-08'),
+(251, 4, '2016-12-07 00:00:00', '2016-12-08 00:00:00', '2016-12-31 00:00:00', '2016-12-28 00:00:00', NULL, 17, 22, 20, 1898.40, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(253, 5, '2016-12-07 00:00:00', '2016-12-08 00:00:00', '2016-12-31 00:00:00', '2016-12-28 00:00:00', NULL, 17, 19, 20, 30993.40, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(255, 6, '2016-12-07 00:00:00', '2016-12-08 00:00:00', '2016-12-31 00:00:00', '2016-12-28 00:00:00', NULL, 17, 19, 20, 7009.80, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(258, 7, '2016-12-07 00:00:00', '2016-12-08 00:00:00', '2016-12-31 00:00:00', '2016-12-28 00:00:00', NULL, 17, 19, 20, 31586.60, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(259, 8, '2016-12-07 00:00:00', '2016-12-08 00:00:00', '2016-12-31 00:00:00', '2016-12-28 00:00:00', NULL, 17, 19, 20, 29263.05, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(265, 1, '2017-01-09 00:00:00', '2017-01-14 00:00:00', '2017-01-27 00:00:00', '2017-01-13 00:00:00', NULL, NULL, 30, 20, 35600.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(273, 2, '2017-01-13 00:00:00', NULL, NULL, NULL, NULL, NULL, 21, NULL, 0.00, 0, NULL, 1, NULL, NULL, NULL, NULL),
+(278, 3, '2017-01-09 00:00:00', '2017-01-12 00:00:00', NULL, '2017-01-13 00:00:00', NULL, 25, 44, 20, 96759.13, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(281, 4, '2017-01-09 00:00:00', '2017-01-09 00:00:00', '2017-01-23 00:00:00', '2017-01-16 00:00:00', NULL, 10, 63, 20, 3539.10, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(282, 5, '2017-01-09 00:00:00', '2017-01-09 00:00:00', '2017-02-06 00:00:00', '2017-01-16 00:00:00', NULL, 20, 62, 20, 31322.04, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(283, 6, '2017-01-09 00:00:00', '2017-01-09 00:00:00', '2017-01-23 00:00:00', '2017-01-16 00:00:00', NULL, 10, 50, 20, 1656.60, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(286, 7, '2017-01-10 00:00:00', '2017-01-10 00:00:00', '2017-02-01 00:00:00', '2017-01-16 00:00:00', NULL, 20, 61, 20, 10500.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(288, 8, '2017-01-10 00:00:00', '2017-01-10 00:00:00', '2017-02-01 00:00:00', '2017-01-16 00:00:00', NULL, 15, 51, 20, 7680.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(289, 9, '2017-01-10 00:00:00', '2017-01-10 00:00:00', '2017-01-13 00:00:00', '2017-01-16 00:00:00', NULL, 2, 51, 20, 160.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(290, 10, '2017-01-10 00:00:00', NULL, NULL, '2017-01-16 00:00:00', NULL, 15, 44, 20, 13559.46, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(291, 11, '2017-01-10 00:00:00', NULL, NULL, '2017-01-16 00:00:00', NULL, 20, 59, 20, 11017.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(302, 12, '2017-01-11 00:00:00', NULL, NULL, '2017-01-16 00:00:00', NULL, 20, 58, 20, 46983.06, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(305, 13, '2017-01-11 00:00:00', '2017-01-13 00:00:00', NULL, NULL, NULL, 12, 30, NULL, 19325.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(306, 14, '2017-01-11 00:00:00', '2017-01-12 00:00:00', NULL, NULL, NULL, 15, 57, 20, 2754.50, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(307, 15, '2017-01-11 00:00:00', '2017-01-18 00:00:00', NULL, NULL, NULL, 10, 44, 20, 201.12, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(308, 16, '2017-01-11 00:00:00', '2017-01-18 00:00:00', NULL, '2017-01-20 00:00:00', NULL, 15, 25, 20, 7600.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(309, 17, '2017-01-12 00:00:00', NULL, NULL, NULL, NULL, 20, 55, 20, 80960.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(310, 18, '2017-01-12 00:00:00', '2017-01-20 00:00:00', NULL, '2017-02-01 00:00:00', NULL, 15, 54, 20, 11018.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(311, 19, '2017-01-12 00:00:00', NULL, NULL, NULL, NULL, 20, 54, NULL, 23730.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(312, 20, '2017-01-12 00:00:00', NULL, NULL, '2017-01-17 00:00:00', NULL, 20, 52, 20, 69152.40, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(313, 21, '2017-01-13 00:00:00', NULL, NULL, NULL, NULL, 15, 53, 20, 7677.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(314, 22, '2017-01-13 00:00:00', NULL, NULL, NULL, NULL, 15, 52, NULL, 3221.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(315, 23, '2017-01-13 00:00:00', '2017-01-19 00:00:00', NULL, NULL, NULL, 15, 51, 20, 2606.76, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(316, 24, '2017-01-13 00:00:00', NULL, NULL, NULL, NULL, 20, 48, 20, 23796.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(317, 25, '2017-01-16 00:00:00', '2017-01-16 00:00:00', NULL, NULL, NULL, 20, 49, 20, 24527.70, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(318, 26, '2017-01-16 00:00:00', '2017-01-17 00:00:00', NULL, NULL, NULL, 20, 50, 20, 18336.12, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(319, 27, '2017-01-16 00:00:00', NULL, NULL, NULL, NULL, 20, 51, 20, 2606.76, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(320, 28, '2017-01-16 00:00:00', '2017-01-20 00:00:00', NULL, NULL, NULL, 20, 49, 20, 3408.50, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(321, 29, '2017-01-16 00:00:00', '2017-01-19 00:00:00', NULL, '2017-01-17 00:00:00', NULL, 22, 24, 20, 115316.56, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(322, 30, '2017-01-16 00:00:00', '2017-01-19 00:00:00', NULL, '2017-01-17 00:00:00', NULL, 15, 64, 20, 4128.00, 1, NULL, 0, 3, '2017-01-16', NULL, NULL),
+(323, 31, '2017-01-16 00:00:00', '2017-01-19 00:00:00', NULL, '2017-01-17 00:00:00', NULL, 20, 44, 20, 4800.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(324, 32, '2017-01-16 00:00:00', NULL, NULL, NULL, NULL, 20, 49, 20, 18513.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(325, 33, '2017-01-16 00:00:00', NULL, NULL, NULL, NULL, 20, 56, 23, 67059.40, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(328, 34, '2017-01-17 00:00:00', '2017-01-09 00:00:00', NULL, '2017-01-17 00:00:00', NULL, NULL, 22, 20, 62040.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(329, 35, '2017-01-17 00:00:00', NULL, NULL, '2017-01-17 00:00:00', NULL, NULL, 45, 20, 6060.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(330, 36, '2017-01-17 00:00:00', NULL, NULL, '2017-01-17 00:00:00', NULL, NULL, 46, 20, 9170.40, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(331, 37, '2017-01-17 00:00:00', NULL, NULL, '2017-01-17 00:00:00', NULL, NULL, 21, 20, 1760.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(332, 38, '2017-01-17 00:00:00', NULL, NULL, '2017-01-17 00:00:00', NULL, NULL, 53, 20, 7677.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(334, 39, '2017-01-17 00:00:00', '2017-01-18 00:00:00', NULL, '2017-01-17 00:00:00', NULL, NULL, 72, 20, 30284.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(337, 40, '2017-01-17 00:00:00', NULL, NULL, '2017-01-17 00:00:00', NULL, NULL, 70, 20, 360.00, 0, NULL, 0, 1, '2017-01-17', NULL, NULL),
+(340, 41, '2017-01-17 00:00:00', NULL, NULL, NULL, NULL, NULL, 73, 20, 27410.60, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(342, 42, '2017-01-17 00:00:00', '2017-01-19 00:00:00', NULL, '2017-01-17 00:00:00', NULL, NULL, 24, 20, 108050.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(344, 43, '2017-01-17 00:00:00', NULL, NULL, '2017-01-17 00:00:00', NULL, NULL, 74, 20, 9491.52, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(346, 44, '2017-01-17 00:00:00', NULL, NULL, '2017-01-17 00:00:00', NULL, NULL, 70, 20, 9719.60, 1, NULL, 0, 2, '2017-01-17', NULL, NULL),
+(348, 45, '2017-01-17 00:00:00', '2017-01-19 00:00:00', NULL, '2017-01-17 00:00:00', NULL, NULL, 75, 20, 11690.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(349, 46, '2017-01-18 00:00:00', NULL, NULL, '2017-01-18 00:00:00', NULL, NULL, 54, 20, 88971.75, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(350, 47, '2017-01-18 00:00:00', NULL, NULL, '2017-01-18 00:00:00', NULL, NULL, 52, 20, 27118.60, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(351, 48, '2017-01-18 00:00:00', NULL, NULL, '2017-01-18 00:00:00', NULL, NULL, 55, 20, 60920.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(353, 49, '2017-01-18 00:00:00', NULL, NULL, '2017-01-18 00:00:00', NULL, NULL, 44, 20, 104447.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(354, 50, '2017-01-18 00:00:00', NULL, NULL, '2017-01-18 00:00:00', NULL, NULL, 57, 20, 21625.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(355, 51, '2017-01-18 00:00:00', NULL, NULL, '2017-01-18 00:00:00', NULL, NULL, 57, 20, 5509.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(356, 52, '2017-01-18 00:00:00', '2017-01-20 00:00:00', NULL, '2017-01-18 00:00:00', NULL, NULL, 76, 20, 22271.10, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(357, 53, '2017-01-18 00:00:00', NULL, NULL, NULL, NULL, NULL, 70, 20, 352.08, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(358, 54, '2017-01-18 00:00:00', NULL, NULL, NULL, NULL, NULL, 68, 20, 17627.20, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(360, 55, '2017-01-18 00:00:00', NULL, NULL, '2017-01-18 00:00:00', NULL, NULL, 46, 20, 2359.04, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(362, 56, '2017-01-18 00:00:00', '2017-01-20 00:00:00', NULL, '2017-01-18 00:00:00', 2, NULL, 77, 20, 13423.68, 1, NULL, 0, 4, '2017-01-18', NULL, NULL),
+(363, 57, '2017-01-18 00:00:00', NULL, NULL, '2017-01-19 00:00:00', NULL, NULL, 50, 20, 5513.96, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(364, 58, '2017-01-18 00:00:00', NULL, NULL, '2017-01-19 00:00:00', NULL, NULL, 49, 20, 12471.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(365, 59, '2017-01-19 00:00:00', NULL, NULL, '2017-01-19 00:00:00', NULL, NULL, 63, 20, 3539.10, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(367, 60, '2017-01-19 00:00:00', NULL, NULL, '2017-01-19 00:00:00', NULL, NULL, 78, 20, 48816.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(368, 61, '2017-01-19 00:00:00', NULL, NULL, '2017-01-19 00:00:00', NULL, NULL, 79, 20, 50700.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(370, 62, '2017-01-19 00:00:00', NULL, NULL, '2017-01-19 00:00:00', NULL, NULL, 84, 20, 14880.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(372, 63, '2017-01-19 00:00:00', NULL, NULL, '2017-01-19 00:00:00', NULL, NULL, 44, 20, 119215.40, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(375, 64, '2017-01-20 00:00:00', '2017-01-18 00:00:00', NULL, '2017-01-20 00:00:00', NULL, NULL, 49, 20, 18899.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(377, 65, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 49, 20, 2624.95, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(378, 66, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 44, 20, 92400.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(379, 67, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 85, 20, 18050.76, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(380, 68, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 86, 20, 8772.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(383, 69, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 87, 20, 175500.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(384, 70, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 36, 20, 62040.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(386, 71, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 88, 20, 27000.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(387, 72, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 87, 20, 6141.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(388, 73, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 24, 20, 2699.40, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(390, 74, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 44, 20, 255238.40, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(391, 75, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 44, 20, 141341.94, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(392, 76, '2017-01-20 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 49, 20, 22800.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(393, 77, '2017-01-20 00:00:00', NULL, NULL, NULL, NULL, NULL, 44, 20, 0.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(395, 78, '2017-01-20 00:00:00', '2017-01-08 00:00:00', NULL, NULL, NULL, NULL, 89, 20, 7630.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(396, 79, '2017-01-20 00:00:00', '2017-01-08 00:00:00', NULL, NULL, NULL, NULL, 90, 20, 0.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(402, 80, '2017-01-30 00:00:00', NULL, NULL, NULL, NULL, NULL, 90, 20, 50.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(403, 81, '2017-01-30 00:00:00', NULL, NULL, NULL, NULL, NULL, 90, 20, 50.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(406, 82, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 93, 20, 72033.90, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(407, 83, '2017-01-23 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 34, 20, 38446.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(410, 84, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 49, 20, 10163.31, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(411, 85, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 30, 20, 71900.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(412, 86, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 94, 20, 24216.48, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(413, 87, '2017-01-30 00:00:00', NULL, NULL, '2017-02-01 00:00:00', NULL, NULL, 63, 20, 97694.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(415, 88, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 44, 20, 37143.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(416, 89, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 95, 20, 2065.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(417, 90, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 96, 20, 7500.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(418, 91, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 97, 20, 11200.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(419, 92, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 63, 20, 15460.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(421, 93, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 44, 20, 13390.30, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(422, 94, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 50, 20, 130.88, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(424, 95, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 98, 20, 14266.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(426, 96, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 21, 20, 105863.25, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(428, 97, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 21, 20, 34455.05, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(429, 98, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 100, 20, 7000.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(432, 99, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 101, 20, 2966.20, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(433, 100, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 63, 20, 640.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(434, 101, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 50, 20, 5937.24, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(436, 102, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 86, 20, 12712.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(438, 103, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 50, 20, 17615.64, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(439, 104, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 102, 20, 11003.36, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(440, 105, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 33, 20, 5400.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(441, 106, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 103, 20, 9322.20, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(442, 107, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 49, 23, 3920.40, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(443, 108, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 104, 20, 2215.41, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(444, 109, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 86, 20, 36610.56, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(445, 110, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 105, 20, 9322.20, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(447, 111, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 106, 20, 9492.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
+(448, 112, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 107, 20, 1499.10, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(449, 113, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 62, 20, 40678.02, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(450, 114, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 108, 20, 33051.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(451, 115, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 109, 20, 12292.50, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(453, 116, '2017-01-27 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 110, 23, 55932.30, 0, NULL, 1, NULL, NULL, NULL, NULL),
+(461, 117, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 110, 23, 55932.30, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(464, 118, '2017-01-30 00:00:00', NULL, NULL, '2017-01-30 00:00:00', NULL, NULL, 49, 20, 9100.00, 0, NULL, 1, NULL, NULL, NULL, NULL),
+(465, 119, '2017-01-31 00:00:00', NULL, NULL, '2017-01-31 00:00:00', NULL, NULL, 111, 20, 10170.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(466, 120, '2017-01-31 00:00:00', NULL, NULL, '2017-01-31 00:00:00', NULL, NULL, 98, 20, 51051.22, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(467, 121, '2017-01-31 00:00:00', NULL, NULL, '2017-01-31 00:00:00', NULL, NULL, 112, 20, 18051.30, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(468, 122, '2017-01-31 00:00:00', NULL, NULL, '2017-01-31 00:00:00', NULL, NULL, 49, 20, 9100.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(469, 123, '2017-01-31 00:00:00', NULL, NULL, '2017-01-31 00:00:00', NULL, NULL, 49, 20, 4911.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(472, 124, '2017-02-01 00:00:00', NULL, NULL, '2017-02-01 00:00:00', NULL, 15, 24, 20, 30800.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(473, 125, '2017-02-01 00:00:00', NULL, NULL, '2017-02-01 00:00:00', NULL, NULL, 24, 20, 1750.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(475, 126, '2017-02-01 00:00:00', NULL, NULL, '2017-02-01 00:00:00', NULL, NULL, 113, 20, 1784.10, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(478, 127, '2017-02-01 00:00:00', NULL, '2017-02-28 00:00:00', '2017-02-01 00:00:00', NULL, 25, 114, 20, 118700.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(479, 128, '2017-02-01 00:00:00', NULL, NULL, '2017-02-01 00:00:00', NULL, NULL, 29, 20, 105205.90, 0, NULL, 0, 5, '2017-02-01', NULL, NULL),
+(480, 129, '2017-02-01 00:00:00', NULL, NULL, '2017-02-01 00:00:00', NULL, NULL, 115, 20, 23729.33, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(481, 130, '2017-02-01 00:00:00', NULL, NULL, '2017-02-01 00:00:00', NULL, NULL, 117, 23, 78305.22, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(482, 131, '2017-02-01 00:00:00', NULL, NULL, '2017-02-01 00:00:00', NULL, NULL, 52, 20, 7628.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(485, 132, '2017-02-01 00:00:00', NULL, NULL, '2017-02-01 00:00:00', NULL, NULL, 118, 20, 1920.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(486, 133, '2017-02-01 00:00:00', NULL, NULL, '2017-02-01 00:00:00', NULL, NULL, 119, 20, 3305.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(488, 134, '2017-02-01 00:00:00', NULL, NULL, '2017-02-01 00:00:00', NULL, NULL, 53, 20, 27600.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(490, 135, '2017-02-02 00:00:00', NULL, NULL, '2017-02-02 00:00:00', NULL, NULL, 120, 20, 2615.10, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(491, 136, '2017-02-02 00:00:00', NULL, NULL, '2017-02-02 00:00:00', NULL, NULL, 44, 20, 31434.40, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(493, 137, '2016-12-30 00:00:00', '2017-01-09 00:00:00', NULL, NULL, NULL, NULL, 90, 20, 2800.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
+(494, 137, '2017-02-02 00:00:00', NULL, NULL, '2017-02-02 00:00:00', NULL, NULL, 48, 20, 1084.90, 0, NULL, 0, NULL, NULL, NULL, NULL);
 
 -- 
 -- Вывод данных для таблицы drawing_calculation_history
@@ -2950,7 +3564,21 @@ INSERT INTO drawing_calculation_history VALUES
 (464, 116, 530),
 (465, 115, 532),
 (466, 115, 533),
-(467, 114, 535);
+(467, 114, 535),
+(468, 72, 537),
+(469, 72, 538),
+(470, 72, 539),
+(471, 72, 540),
+(472, 72, 541),
+(473, 155, 543),
+(474, 155, 544),
+(475, 155, 545),
+(476, 262, 547),
+(477, 262, 548),
+(478, 262, 549),
+(479, 262, 550),
+(480, 263, 552),
+(481, 263, 553);
 
 -- 
 -- Вывод данных для таблицы drawing_flowsheet_machines
@@ -2995,9 +3623,9 @@ INSERT INTO drawing_flowsheet_machines VALUES
 (70, 71, 5, 18, 1.00, 1.67),
 (71, 71, 6, 19, 1.00, 1.67),
 (72, 71, 7, 20, 1.00, 1.67),
-(73, 72, 1, 14, 180.00, 1.67),
-(74, 72, 2, 15, 180.00, 1.67),
-(75, 72, 3, 16, 180.00, 1.67),
+(73, 72, 1, 14, 180.00, 2.00),
+(74, 72, 2, 15, 180.00, 2.00),
+(75, 72, 3, 16, 180.00, 2.00),
 (76, 73, 1, 14, 180.00, 1.25),
 (77, 73, 2, 15, 180.00, 1.25),
 (78, 73, 3, 16, 182.00, 1.25),
@@ -3029,9 +3657,9 @@ INSERT INTO drawing_flowsheet_machines VALUES
 (104, 91, 1, 9, 160.00, 0.04),
 (105, 91, 2, 10, 160.00, 0.04),
 (106, 91, 3, 17, 160.00, 0.04),
-(107, 92, 1, 9, 180.00, 2.00),
-(108, 92, 2, 17, 180.00, 2.00),
-(109, 92, 3, 13, 180.00, 2.00),
+(107, 92, 1, 9, 180.00, 2.50),
+(108, 92, 2, 17, 180.00, 2.50),
+(109, 92, 3, 13, 180.00, 2.50),
 (110, 93, 1, 18, 0.00, 0.10),
 (111, 93, 2, 19, 0.00, 0.10),
 (112, 93, 3, 20, 0.00, 0.10),
@@ -3047,8 +3675,8 @@ INSERT INTO drawing_flowsheet_machines VALUES
 (122, 96, 2, 19, 0.00, 0.01),
 (123, 95, 1, 18, 0.00, 0.00),
 (124, 95, 2, 19, 0.00, 0.00),
-(125, 99, 1, 17, 170.00, 5.00),
-(126, 99, 2, 10, 170.00, 5.00),
+(125, 99, 1, 17, 180.00, 5.00),
+(126, 99, 2, 10, 180.00, 5.00),
 (127, 61, 2, 16, 190.00, 1.11),
 (128, 61, 3, 15, 190.00, 1.11),
 (129, 61, 4, 14, 190.00, 1.11),
@@ -3161,7 +3789,36 @@ INSERT INTO drawing_flowsheet_machines VALUES
 (236, 259, 1, 12, 160.00, 30.00),
 (237, 262, 1, 16, 180.00, 2.00),
 (238, 261, 1, 15, 180.00, 0.83),
-(239, 258, 1, 12, 160.00, 30.00);
+(239, 258, 1, 12, 160.00, 30.00),
+(240, 97, 1, 9, 180.00, 0.63),
+(241, 97, 2, 13, 180.00, 0.63),
+(242, 97, 3, 17, 180.00, 0.63),
+(243, 97, 4, 10, 180.00, 0.63),
+(244, 98, 1, 10, 180.00, 1.11),
+(245, 98, 2, 13, 180.00, 1.11),
+(246, 98, 3, 17, 180.00, 1.11),
+(247, 99, 3, 16, 180.00, 5.00),
+(248, 99, 4, 15, 180.00, 5.00),
+(249, 99, 5, 14, 180.00, 5.00),
+(250, 505, 1, 20, 0.00, 0.30),
+(251, 505, 2, 19, 0.00, 0.30),
+(252, 505, 3, 18, 0.00, 0.30),
+(253, 504, 1, 20, 0.00, 0.30),
+(254, 504, 2, 19, 0.00, 0.30),
+(255, 504, 3, 18, 0.00, 0.30),
+(256, 503, 1, 16, 180.00, 0.83),
+(257, 503, 2, 15, 180.00, 0.83),
+(258, 503, 3, 14, 180.00, 0.83),
+(259, 502, 1, 16, 180.00, 0.56),
+(260, 502, 2, 15, 180.00, 0.56),
+(261, 502, 3, 14, 180.00, 0.56),
+(262, 500, 1, 18, 0.00, 0.30),
+(263, 500, 2, 19, 0.00, 0.30),
+(264, 500, 3, 20, 0.00, 0.30),
+(265, 155, 1, 8, 170.00, 80.00),
+(266, 388, 1, 8, 160.00, 7.00),
+(267, 334, 1, 8, 180.00, 0.63),
+(268, 263, 1, 8, 170.00, 90.00);
 
 -- 
 -- Вывод данных для таблицы drawing_flowsheet_processes
@@ -3404,9 +4061,9 @@ INSERT INTO drawing_flowsheet_processes VALUES
 (493, 72, 4, 4, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
 (494, 72, 5, 5, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
 (495, 72, 6, 6, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
-(496, 72, 7, 7, 1, NULL, NULL, NULL, NULL, 2.00, NULL),
-(497, 72, 8, 8, 1, NULL, NULL, NULL, NULL, 5.00, NULL),
-(498, 72, 9, 9, 1, NULL, NULL, NULL, NULL, 3.00, NULL),
+(496, 72, 7, 7, 1, NULL, NULL, NULL, NULL, 1.00, NULL),
+(497, 72, 8, 8, 1, NULL, NULL, NULL, NULL, 6.00, NULL),
+(498, 72, 9, 9, 1, NULL, NULL, NULL, NULL, 1.00, NULL),
 (499, 72, 10, 10, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
 (500, 72, 11, 11, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
 (501, 73, 1, 1, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
@@ -3515,7 +4172,7 @@ INSERT INTO drawing_flowsheet_processes VALUES
 (604, 92, 5, 5, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
 (605, 92, 6, 6, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
 (606, 92, 7, 7, 1, NULL, NULL, NULL, NULL, 4.00, NULL),
-(607, 92, 8, 8, 1, NULL, NULL, NULL, NULL, 8.00, NULL),
+(607, 92, 8, 8, 1, NULL, NULL, NULL, NULL, 10.00, NULL),
 (608, 92, 9, 9, 1, NULL, NULL, NULL, NULL, 4.00, NULL),
 (609, 92, 10, 10, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
 (610, 92, 11, 11, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
@@ -4284,9 +4941,9 @@ INSERT INTO drawing_flowsheet_processes VALUES
 (1373, 262, 4, 4, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
 (1374, 262, 5, 5, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
 (1375, 262, 6, 6, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
-(1376, 262, 7, 7, 1, NULL, NULL, NULL, NULL, 4.00, NULL),
+(1376, 262, 7, 7, 1, NULL, NULL, NULL, NULL, 1.30, NULL),
 (1377, 262, 8, 8, 1, NULL, NULL, NULL, NULL, 8.00, NULL),
-(1378, 262, 9, 9, 1, NULL, NULL, NULL, NULL, 3.00, NULL),
+(1378, 262, 9, 9, 1, NULL, NULL, NULL, NULL, 1.00, NULL),
 (1379, 262, 10, 10, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
 (1380, 262, 11, 11, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
 (1381, 261, 1, 1, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
@@ -4310,40 +4967,128 @@ INSERT INTO drawing_flowsheet_processes VALUES
 (1399, 258, 8, 8, 1, NULL, NULL, NULL, NULL, 30.00, NULL),
 (1400, 258, 9, 9, 1, NULL, NULL, NULL, NULL, 4.00, NULL),
 (1401, 258, 10, 10, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
-(1402, 258, 11, 11, 1, NULL, NULL, NULL, NULL, 0.00, NULL);
-
--- 
--- Вывод данных для таблицы employees
---
-INSERT INTO employees VALUES
-(19, 1, 'БСА', 'Бородулин СА', 35, NULL, 0),
-(20, 2, 'ВАВ', 'Вершинин АВ', 35, NULL, 0),
-(21, 3, 'ШАМ', 'Шатров АМ', 35, NULL, 0),
-(22, 4, 'ШЕА', 'Шатров ЕА', 35, NULL, 0),
-(23, 5, 'ССЮ', 'Скребнев СЮ', 35, NULL, 0),
-(24, 6, 'ПАВ', 'Пучков АВ', 35, NULL, 0),
-(25, 7, 'ШЭП', 'Шагаев ЭП', 35, NULL, 0),
-(26, 8, 'ЛЕА', 'Логвинов ЕА', 40, NULL, 0),
-(27, 9, 'НВА', 'Непейков ВА', 35, NULL, 0),
-(28, 10, 'ХИХ', 'Хасанов ИХ', 39, NULL, 0),
-(29, 11, 'ГАВ', 'Гоголин АВ', 40, NULL, 0),
-(30, 12, 'ПДА', 'Погадаев ДА', 41, NULL, 0),
-(31, 13, 'НЕВ', 'Наумова ЕВ', 30, NULL, 0),
-(32, 14, 'МНА', 'Морозова НА', 36, NULL, 0),
-(33, 15, 'НВ', 'Наумов В', 42, NULL, 0),
-(34, 16, 'ТАС', 'Тюренкова АС', 36, NULL, 0),
-(35, 17, 'МАА', 'Микишев АА', 38, NULL, 0),
-(36, 18, 'СНИ', 'Сазонов НИ', 35, NULL, 0),
-(37, 19, 'КЕВ', 'Каминская ЕВ', 36, NULL, 0),
-(38, 20, 'СЛА', 'Санникова ЛА', 36, NULL, 0),
-(39, 21, 'ГОА', 'Губин ОА', 38, NULL, 0),
-(40, 22, 'ХЮВ', 'Холодников ЮВ', 27, NULL, 0),
-(41, 23, 'ХЕЮ', 'Холодникова ЕЮ', 31, NULL, 0),
-(42, 24, 'ХМЮ', 'Холодников МЮ', 44, NULL, 0),
-(43, 25, 'ПНА', 'Поскребышева НА', 32, NULL, 0),
-(44, 26, 'РТВ', 'Раупова ТВ', 29, NULL, 0),
-(45, 27, 'ХВП', 'Холодникова ВП', 28, NULL, 0),
-(46, 28, 'БРГ', 'Бородулин Р.Г', 35, NULL, 0);
+(1402, 258, 11, 11, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1403, 97, 1, 1, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1404, 97, 2, 2, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1405, 97, 3, 3, 1, NULL, NULL, NULL, NULL, 0.00, '8 мм'),
+(1406, 97, 4, 4, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1407, 97, 5, 5, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1408, 97, 6, 6, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1409, 97, 7, 7, 1, NULL, NULL, NULL, NULL, 4.00, NULL),
+(1410, 97, 8, 8, 1, NULL, NULL, NULL, NULL, 10.00, NULL),
+(1411, 97, 9, 9, 1, NULL, NULL, NULL, NULL, 3.00, NULL),
+(1412, 97, 10, 10, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1413, 97, 11, 11, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1414, 98, 1, 1, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1415, 98, 2, 2, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1416, 98, 3, 3, 1, NULL, NULL, NULL, NULL, 0.00, '5 мм'),
+(1417, 98, 4, 4, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1418, 98, 5, 5, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1419, 98, 6, 6, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1420, 98, 7, 7, 1, NULL, NULL, NULL, NULL, 4.00, NULL),
+(1421, 98, 8, 8, 1, NULL, NULL, NULL, NULL, 10.00, NULL),
+(1422, 98, 9, 9, 1, NULL, NULL, NULL, NULL, 4.00, NULL),
+(1423, 98, 10, 10, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1424, 98, 11, 11, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1425, 505, 1, 1, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1426, 505, 2, 2, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1427, 505, 3, 3, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1428, 505, 4, 4, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1429, 505, 5, 5, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1430, 505, 6, 6, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1431, 505, 7, 7, 1, NULL, NULL, NULL, NULL, 0.20, NULL),
+(1432, 505, 8, 8, 1, NULL, NULL, NULL, NULL, 0.30, NULL),
+(1433, 505, 9, 9, 1, NULL, NULL, NULL, NULL, 0.20, NULL),
+(1434, 505, 10, 10, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1435, 505, 11, 11, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1436, 504, 1, 1, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1437, 504, 2, 2, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1438, 504, 3, 3, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1439, 504, 4, 4, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1440, 504, 5, 5, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1441, 504, 6, 6, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1442, 504, 7, 7, 1, NULL, NULL, NULL, NULL, 0.20, NULL),
+(1443, 504, 8, 8, 1, NULL, NULL, NULL, NULL, 0.30, NULL),
+(1444, 504, 9, 9, 1, NULL, NULL, NULL, NULL, 0.20, NULL),
+(1445, 504, 10, 10, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1446, 504, 11, 11, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1447, 503, 1, 1, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1448, 503, 2, 2, 1, NULL, NULL, NULL, NULL, 0.00, '6 мм'),
+(1449, 503, 3, 3, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1450, 503, 4, 4, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1451, 503, 5, 5, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1452, 503, 6, 6, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1453, 503, 7, 7, 1, NULL, NULL, NULL, NULL, 2.00, NULL),
+(1454, 503, 8, 8, 1, NULL, NULL, NULL, NULL, 5.00, NULL),
+(1455, 503, 9, 9, 1, NULL, NULL, NULL, NULL, 3.00, NULL),
+(1456, 503, 10, 10, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1457, 503, 11, 11, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1458, 502, 1, 1, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1459, 502, 2, 2, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1460, 502, 3, 3, 1, NULL, NULL, NULL, NULL, 0.00, '10 мм'),
+(1461, 502, 4, 4, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1462, 502, 5, 5, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1463, 502, 6, 6, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1464, 502, 7, 7, 1, NULL, NULL, NULL, NULL, 2.00, NULL),
+(1465, 502, 8, 8, 1, NULL, NULL, NULL, NULL, 5.00, NULL),
+(1466, 502, 9, 9, 1, NULL, NULL, NULL, NULL, 3.00, NULL),
+(1467, 502, 10, 10, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1468, 502, 11, 11, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1469, 500, 1, 1, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1470, 500, 2, 2, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1471, 500, 3, 3, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1472, 500, 4, 4, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1473, 500, 5, 5, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1474, 500, 6, 6, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1475, 500, 7, 7, 1, NULL, NULL, NULL, NULL, 0.20, NULL),
+(1476, 500, 8, 8, 1, NULL, NULL, NULL, NULL, 0.30, NULL),
+(1477, 500, 9, 9, 1, NULL, NULL, NULL, NULL, 0.20, NULL),
+(1478, 500, 10, 10, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1479, 500, 11, 11, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1480, 155, 1, 1, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1481, 155, 2, 2, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1482, 155, 3, 3, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1483, 155, 4, 4, 1, NULL, NULL, NULL, NULL, 10.00, NULL),
+(1484, 155, 5, 5, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1485, 155, 6, 6, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1486, 155, 7, 7, 1, NULL, NULL, NULL, NULL, 10.00, NULL),
+(1487, 155, 8, 8, 1, NULL, NULL, NULL, NULL, 80.00, NULL),
+(1488, 155, 9, 9, 1, NULL, NULL, NULL, NULL, 15.00, NULL),
+(1489, 155, 10, 10, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1490, 155, 11, 11, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1491, 388, 1, 1, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1492, 388, 2, 2, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1493, 388, 3, 3, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1494, 388, 4, 4, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1495, 388, 5, 5, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1496, 388, 6, 6, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1497, 388, 7, 7, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1498, 388, 8, 8, 1, NULL, NULL, NULL, NULL, 7.00, NULL),
+(1499, 388, 9, 9, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1500, 388, 10, 10, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1501, 388, 11, 11, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1502, 334, 1, 1, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1503, 334, 2, 2, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1504, 334, 3, 3, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1505, 334, 4, 4, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1506, 334, 5, 5, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1507, 334, 6, 6, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1508, 334, 7, 7, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1509, 334, 8, 8, 1, NULL, NULL, NULL, NULL, 5.00, NULL),
+(1510, 334, 9, 9, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1511, 334, 10, 10, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1512, 334, 11, 11, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1513, 263, 1, 1, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1514, 263, 2, 2, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1515, 263, 3, 3, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1516, 263, 4, 4, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1517, 263, 5, 5, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1518, 263, 6, 6, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1519, 263, 7, 7, 1, NULL, NULL, NULL, NULL, 1.00, NULL),
+(1520, 263, 8, 8, 1, NULL, NULL, NULL, NULL, 90.00, NULL),
+(1521, 263, 9, 9, 1, NULL, NULL, NULL, NULL, 1.00, NULL),
+(1522, 263, 10, 10, 1, NULL, NULL, NULL, NULL, 0.00, NULL),
+(1523, 263, 11, 11, 1, NULL, NULL, NULL, NULL, 0.00, NULL);
 
 -- 
 -- Вывод данных для таблицы equipment_payments
@@ -4352,158 +5097,6 @@ INSERT INTO equipment_payments VALUES
 (5, 50, NULL, '2016-12-09 00:00:00', 5000.00, NULL, 0),
 (6, 52, NULL, '2016-12-09 00:00:00', 5000.00, NULL, 1),
 (7, 57, 348, '2016-12-24 00:00:00', 2000.00, NULL, 1);
-
--- 
--- Вывод данных для таблицы material_arrival_records
---
-INSERT INTO material_arrival_records VALUES
-(6, 1, '1/2480', 39, 3379.71, '2016-12-06 00:00:00', '2453', 46, 10, 140.40, 20.400, NULL, 0),
-(7, 2, '1/2480', 39, 2542.00, '2016-12-06 00:00:00', '2453', 47, 10, 115.20, 18.700, NULL, 0),
-(8, 3, '1/2480', 39, 2269.44, '2016-12-06 00:00:00', '2453', 48, 10, 115.20, 19.700, NULL, 0),
-(9, 4, 'Т-1341', 38, 7000.00, '2016-12-06 00:00:00', 'Т-1341', 49, 10, 593.22, 10.000, NULL, 0),
-(10, 5, '1113', 40, 8085.00, '2016-12-05 00:00:00', '1113', 50, 10, 111.23, 61.599, NULL, 0),
-(11, 6, '5000', 40, 5600.00, '2016-12-05 00:00:00', '6000', 47, 10, 140.00, 40.000, NULL, 0),
-(12, 7, '5001', 40, 2620.00, '2016-12-05 00:00:00', '6001', 35, 10, 131.00, 20.000, NULL, 0),
-(13, 8, '5002', 40, 6656.80, '2016-12-05 00:00:00', '6002', 51, 10, 83.21, 80.000, NULL, 0),
-(14, 9, '5003', 40, 3944.00, '2016-12-05 00:00:00', '6003', 52, 10, 116.00, 34.000, NULL, 0),
-(15, 10, '5004', 40, 2283.00, '2016-12-05 00:00:00', '6004', 53, 10, 228.30, 10.000, NULL, 0),
-(16, 11, '5005', 40, 1875.00, '2016-12-05 00:00:00', '6005', 55, 10, 125.00, 15.000, NULL, 0),
-(17, 12, '5006', 40, 3914.00, '2016-12-05 00:00:00', '6006', 59, 10, 195.70, 20.000, NULL, 0),
-(18, 13, '148', 40, 9000.00, '2016-12-21 00:00:00', '148', 51, 10, 90.00, 100.000, NULL, 0),
-(19, 14, '141716416Ф от 23 .12.2016', 41, 4683.42, '2016-12-23 00:00:00', '8998/16', 63, 10, 147.00, 27.000, NULL, 0),
-(20, 15, '141716416Ф от 23.12.16', 41, 28286.37, '2016-12-23 00:00:00', '8998/16', 53, 10, 228.30, 105.000, NULL, 0),
-(21, 16, '141716416Ф от 23.12.16', 41, 27824.40, '2016-12-23 00:00:00', '8998/16', 35, 10, 131.00, 180.000, NULL, 0),
-(22, 17, '141716416Ф от 23.12.16', 41, 29364.30, '2016-12-23 00:00:00', '8998/16', 34, 10, 118.50, 210.000, NULL, 0),
-(23, 18, '141716416Ф от 23.12.16', 41, 21261.24, '2016-12-23 00:00:00', '8998/16', 62, 10, 138.60, 130.000, NULL, 0),
-(24, 19, '141716416Ф от 23.12.16', 41, 12272.00, '2016-12-23 00:00:00', '8998/16', 51, 10, 83.20, 125.000, NULL, 0),
-(25, 20, '53/1', 39, 4540.26, '2017-01-13 00:00:00', '53', 48, 10, 115.20, 330.400, NULL, 0),
-(26, 21, '53/1', 39, 4858.65, '2017-01-13 00:00:00', '53/1', 93, 10, 135.00, 30.500, NULL, 0),
-(27, 22, '9717ф', 41, 35494.40, '2017-01-13 00:00:00', '110/17', 62, 10, 148.30, 182.000, NULL, 0),
-(28, 23, '9717ф', 41, 31848.91, '2017-01-13 00:00:00', '110/17', 94, 10, 150.40, 200.000, NULL, 0),
-(29, 24, '9717ф', 41, 7852.90, '2017-01-13 00:00:00', '110/17', 82, 10, 266.20, 25.000, NULL, 0),
-(30, 25, '9717ф', 41, 21330.00, '2017-01-13 00:00:00', '110/17', 95, 10, 118.50, 180.000, NULL, 0),
-(31, 26, '9717ф', 41, 14560.00, '2017-01-19 00:00:00', '110/17', 51, 10, 83.20, 175.000, NULL, 0),
-(32, 27, '9717ф', 41, 18549.60, '2017-01-13 00:00:00', '110/17', 35, 10, 131.00, 120.000, NULL, 0),
-(33, 28, '8', 82, 702000.00, '2017-01-12 00:00:00', '8', 96, 6, 1983.05, 300.000, NULL, 0),
-(34, 29, '1617a', 41, 396000.92, '2017-01-10 00:00:00', '30/17', 53, 10, 228.30, 147.000, NULL, 0),
-(35, 30, '1617ф', 41, 39931.20, '2017-01-10 00:00:00', '30/17', 94, 10, 150.40, 225.000, NULL, 0),
-(36, 31, '1617ф', 41, 15705.80, '2017-01-10 00:00:00', '30/17', 82, 10, 266.20, 50.000, NULL, 0),
-(37, 32, '15', 83, 2834.16, '2017-01-11 00:00:00', '15', 97, 10, 124.58, 19.280, NULL, 0),
-(38, 33, '15', 83, 6129.10, '2017-01-11 00:00:00', '15', 98, 10, 124.58, 55.300, NULL, 0),
-(39, 34, '15', 83, 10686.90, '2017-01-11 00:00:00', '15', 99, 10, 124.58, 72.700, NULL, 0),
-(40, 35, '1', 81, 120000.00, '2017-01-11 00:00:00', '1', 92, 7, 375.00, 32.000, NULL, 0),
-(41, 36, '4', 80, 6420.00, '2017-01-10 00:00:00', '4', 100, 6, 1813.56, 3.000, NULL, 0);
-
--- 
--- Вывод данных для таблицы requests
---
-INSERT INTO requests VALUES
-(226, 1, '2016-12-04 00:00:00', '2016-12-15 00:00:00', '2017-01-13 00:00:00', '2016-12-28 00:00:00', NULL, 20, 19, 20, 50000.00, 1, NULL, 0, NULL, NULL, 1, '2016-12-04'),
-(235, 2, '2016-11-15 00:00:00', '2016-11-16 00:00:00', '2016-12-01 00:00:00', '2016-12-07 00:00:00', NULL, NULL, 30, 20, 19325.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
-(239, 3, '2016-12-08 00:00:00', '2016-12-08 00:00:00', NULL, '2016-12-28 00:00:00', 1, 1, 19, 20, 14031.00, 1, NULL, 0, 1, '2016-12-08', 2, '2016-12-08'),
-(251, 4, '2016-12-07 00:00:00', '2016-12-08 00:00:00', '2016-12-31 00:00:00', '2016-12-28 00:00:00', NULL, 17, 22, 20, 1898.40, 1, NULL, 0, NULL, NULL, NULL, NULL),
-(253, 5, '2016-12-07 00:00:00', '2016-12-08 00:00:00', '2016-12-31 00:00:00', '2016-12-28 00:00:00', NULL, 17, 19, 20, 30993.40, 1, NULL, 0, NULL, NULL, NULL, NULL),
-(255, 6, '2016-12-07 00:00:00', '2016-12-08 00:00:00', '2016-12-31 00:00:00', '2016-12-28 00:00:00', NULL, 17, 19, 20, 7009.80, 1, NULL, 0, NULL, NULL, NULL, NULL),
-(258, 7, '2016-12-07 00:00:00', '2016-12-08 00:00:00', '2016-12-31 00:00:00', '2016-12-28 00:00:00', NULL, 17, 19, 20, 31586.60, 1, NULL, 0, NULL, NULL, NULL, NULL),
-(259, 8, '2016-12-07 00:00:00', '2016-12-08 00:00:00', '2016-12-31 00:00:00', '2016-12-28 00:00:00', NULL, 17, 19, 20, 29263.05, 1, NULL, 0, NULL, NULL, NULL, NULL),
-(265, 1, '2017-01-09 00:00:00', '2017-01-14 00:00:00', '2017-01-27 00:00:00', '2017-01-13 00:00:00', NULL, NULL, 30, 20, 35600.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(273, 2, '2017-01-13 00:00:00', NULL, NULL, NULL, NULL, NULL, 21, NULL, 0.00, 0, NULL, 1, NULL, NULL, NULL, NULL),
-(278, 3, '2017-01-09 00:00:00', '2017-01-12 00:00:00', NULL, '2017-01-13 00:00:00', NULL, 25, 44, 20, 96759.13, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(281, 4, '2017-01-09 00:00:00', '2017-01-09 00:00:00', '2017-01-23 00:00:00', '2017-01-16 00:00:00', NULL, 10, 63, 20, 3539.10, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(282, 5, '2017-01-09 00:00:00', '2017-01-09 00:00:00', '2017-02-06 00:00:00', '2017-01-16 00:00:00', NULL, 20, 62, 20, 31322.04, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(283, 6, '2017-01-09 00:00:00', '2017-01-09 00:00:00', '2017-01-23 00:00:00', '2017-01-16 00:00:00', NULL, 10, 50, 20, 1656.60, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(286, 7, '2017-01-10 00:00:00', '2017-01-10 00:00:00', '2017-02-01 00:00:00', '2017-01-16 00:00:00', NULL, 20, 61, 20, 10500.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(288, 8, '2017-01-10 00:00:00', '2017-01-10 00:00:00', '2017-02-01 00:00:00', '2017-01-16 00:00:00', NULL, 15, 51, 20, 7680.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(289, 9, '2017-01-10 00:00:00', '2017-01-10 00:00:00', '2017-01-13 00:00:00', '2017-01-16 00:00:00', NULL, 2, 51, 20, 160.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(290, 10, '2017-01-10 00:00:00', NULL, NULL, '2017-01-16 00:00:00', NULL, 15, 44, 20, 13559.46, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(291, 11, '2017-01-10 00:00:00', NULL, NULL, '2017-01-16 00:00:00', NULL, 20, 59, 20, 11017.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(302, 12, '2017-01-11 00:00:00', NULL, NULL, '2017-01-16 00:00:00', NULL, 20, 58, 20, 46983.06, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(305, 13, '2017-01-11 00:00:00', '2017-01-13 00:00:00', NULL, NULL, NULL, 12, 30, NULL, 19325.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
-(306, 14, '2017-01-11 00:00:00', '2017-01-12 00:00:00', NULL, NULL, NULL, 15, 57, 20, 2754.50, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(307, 15, '2017-01-11 00:00:00', '2017-01-18 00:00:00', NULL, NULL, NULL, 10, 44, 20, 201.12, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(308, 16, '2017-01-11 00:00:00', '2017-01-18 00:00:00', NULL, '2017-01-20 00:00:00', NULL, 15, 25, 20, 7600.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(309, 17, '2017-01-12 00:00:00', NULL, NULL, NULL, NULL, 20, 55, 20, 80960.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(310, 18, '2017-01-12 00:00:00', '2017-01-20 00:00:00', NULL, NULL, NULL, 15, 54, 20, 11018.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(311, 19, '2017-01-12 00:00:00', NULL, NULL, NULL, NULL, 20, 54, NULL, 23730.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(312, 20, '2017-01-12 00:00:00', NULL, NULL, '2017-01-17 00:00:00', NULL, 20, 52, 20, 69152.40, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(313, 21, '2017-01-13 00:00:00', NULL, NULL, NULL, NULL, 15, 53, 20, 7677.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(314, 22, '2017-01-13 00:00:00', NULL, NULL, NULL, NULL, 15, 52, NULL, 3221.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(315, 23, '2017-01-13 00:00:00', '2017-01-19 00:00:00', NULL, NULL, NULL, 15, 51, 20, 2606.76, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(316, 24, '2017-01-13 00:00:00', NULL, NULL, NULL, NULL, 20, 48, 20, 23796.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(317, 25, '2017-01-16 00:00:00', '2017-01-16 00:00:00', NULL, NULL, NULL, 20, 49, 20, 24527.70, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(318, 26, '2017-01-16 00:00:00', '2017-01-17 00:00:00', NULL, NULL, NULL, 20, 50, 20, 18336.12, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(319, 27, '2017-01-16 00:00:00', NULL, NULL, NULL, NULL, 20, 51, 20, 2606.76, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(320, 28, '2017-01-16 00:00:00', '2017-01-20 00:00:00', NULL, NULL, NULL, 20, 49, 20, 3408.50, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(321, 29, '2017-01-16 00:00:00', '2017-01-19 00:00:00', NULL, '2017-01-17 00:00:00', NULL, 22, 24, 20, 115316.56, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(322, 30, '2017-01-16 00:00:00', '2017-01-19 00:00:00', NULL, '2017-01-17 00:00:00', NULL, 15, 64, 20, 4128.00, 0, NULL, 0, 3, '2017-01-16', NULL, NULL),
-(323, 31, '2017-01-16 00:00:00', '2017-01-19 00:00:00', NULL, '2017-01-17 00:00:00', NULL, 20, 44, 20, 4800.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(324, 32, '2017-01-16 00:00:00', NULL, NULL, NULL, NULL, 20, 49, 20, 18513.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(325, 33, '2017-01-16 00:00:00', NULL, NULL, NULL, NULL, 20, 56, 23, 67059.40, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(328, 34, '2017-01-17 00:00:00', '2017-01-09 00:00:00', NULL, '2017-01-17 00:00:00', NULL, NULL, 22, 20, 62040.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
-(329, 35, '2017-01-17 00:00:00', NULL, NULL, '2017-01-17 00:00:00', NULL, NULL, 45, 20, 6060.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
-(330, 36, '2017-01-17 00:00:00', NULL, NULL, '2017-01-17 00:00:00', NULL, NULL, 46, 20, 9170.40, 1, NULL, 0, NULL, NULL, NULL, NULL),
-(331, 37, '2017-01-17 00:00:00', NULL, NULL, '2017-01-17 00:00:00', NULL, NULL, 21, 20, 1760.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
-(332, 38, '2017-01-17 00:00:00', NULL, NULL, '2017-01-17 00:00:00', NULL, NULL, 53, 20, 7677.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(334, 39, '2017-01-17 00:00:00', '2017-01-18 00:00:00', NULL, '2017-01-17 00:00:00', NULL, NULL, 72, 20, 30284.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(337, 40, '2017-01-17 00:00:00', NULL, NULL, '2017-01-17 00:00:00', NULL, NULL, 70, 20, 360.00, 0, NULL, 0, 1, '2017-01-17', NULL, NULL),
-(340, 41, '2017-01-17 00:00:00', NULL, NULL, NULL, NULL, NULL, 73, 20, 27410.60, 1, NULL, 0, NULL, NULL, NULL, NULL),
-(342, 42, '2017-01-17 00:00:00', '2017-01-19 00:00:00', NULL, '2017-01-17 00:00:00', NULL, NULL, 24, 20, 108050.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(344, 43, '2017-01-17 00:00:00', NULL, NULL, '2017-01-17 00:00:00', NULL, NULL, 74, 20, 9491.52, 1, NULL, 0, NULL, NULL, NULL, NULL),
-(346, 44, '2017-01-17 00:00:00', NULL, NULL, '2017-01-17 00:00:00', NULL, NULL, 70, 20, 9719.60, 0, NULL, 0, 2, '2017-01-17', NULL, NULL),
-(348, 45, '2017-01-17 00:00:00', '2017-01-19 00:00:00', NULL, '2017-01-17 00:00:00', NULL, NULL, 75, 20, 11690.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(349, 46, '2017-01-18 00:00:00', NULL, NULL, '2017-01-18 00:00:00', NULL, NULL, 54, 20, 88971.75, 1, NULL, 0, NULL, NULL, NULL, NULL),
-(350, 47, '2017-01-18 00:00:00', NULL, NULL, '2017-01-18 00:00:00', NULL, NULL, 52, 20, 27118.60, 1, NULL, 0, NULL, NULL, NULL, NULL),
-(351, 48, '2017-01-18 00:00:00', NULL, NULL, '2017-01-18 00:00:00', NULL, NULL, 55, 20, 60920.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(353, 49, '2017-01-18 00:00:00', NULL, NULL, '2017-01-18 00:00:00', NULL, NULL, 44, 20, 104447.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(354, 50, '2017-01-18 00:00:00', NULL, NULL, '2017-01-18 00:00:00', NULL, NULL, 57, 20, 21625.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(355, 51, '2017-01-18 00:00:00', NULL, NULL, '2017-01-18 00:00:00', NULL, NULL, 57, 20, 5509.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(356, 52, '2017-01-18 00:00:00', '2017-01-20 00:00:00', NULL, '2017-01-18 00:00:00', NULL, NULL, 76, 20, 22271.10, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(357, 53, '2017-01-18 00:00:00', NULL, NULL, NULL, NULL, NULL, 70, 20, 352.08, 1, NULL, 0, NULL, NULL, NULL, NULL),
-(358, 54, '2017-01-18 00:00:00', NULL, NULL, NULL, NULL, NULL, 68, 20, 17627.20, 1, NULL, 0, NULL, NULL, NULL, NULL),
-(360, 55, '2017-01-18 00:00:00', NULL, NULL, '2017-01-18 00:00:00', NULL, NULL, 46, 20, 2359.04, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(362, 56, '2017-01-18 00:00:00', '2017-01-20 00:00:00', NULL, '2017-01-18 00:00:00', 2, NULL, 77, 20, 13423.68, 0, NULL, 0, 4, '2017-01-18', NULL, NULL),
-(363, 57, '2017-01-18 00:00:00', NULL, NULL, '2017-01-19 00:00:00', NULL, NULL, 50, 20, 5513.96, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(364, 58, '2017-01-18 00:00:00', NULL, NULL, '2017-01-19 00:00:00', NULL, NULL, 49, 20, 12471.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(365, 59, '2017-01-19 00:00:00', NULL, NULL, '2017-01-19 00:00:00', NULL, NULL, 63, 20, 3539.10, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(367, 60, '2017-01-19 00:00:00', NULL, NULL, '2017-01-19 00:00:00', NULL, NULL, 78, 20, 48816.00, 1, NULL, 0, NULL, NULL, NULL, NULL),
-(368, 61, '2017-01-19 00:00:00', NULL, NULL, '2017-01-19 00:00:00', NULL, NULL, 79, 20, 50700.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(370, 62, '2017-01-19 00:00:00', NULL, NULL, '2017-01-19 00:00:00', NULL, NULL, 84, 20, 14880.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(372, 63, '2017-01-19 00:00:00', NULL, NULL, '2017-01-19 00:00:00', NULL, NULL, 44, 20, 119215.40, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(375, 64, '2017-01-20 00:00:00', '2017-01-18 00:00:00', NULL, '2017-01-20 00:00:00', NULL, NULL, 49, 20, 18899.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(377, 65, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 49, 20, 2624.95, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(378, 66, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 44, 20, 92400.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(379, 67, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 85, 20, 18050.76, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(380, 68, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 86, 20, 8772.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(383, 69, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 87, 20, 175500.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(384, 70, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 36, 20, 62040.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(386, 71, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 88, 20, 27000.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(387, 72, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 87, 20, 6141.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(388, 73, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 24, 20, 2699.40, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(390, 74, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 44, 20, 255238.40, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(391, 75, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 44, 20, 141341.94, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(392, 76, '2017-01-20 00:00:00', NULL, NULL, '2017-01-20 00:00:00', NULL, NULL, 49, 20, 22800.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(393, 77, '2017-01-20 00:00:00', NULL, NULL, NULL, NULL, NULL, 44, 20, 0.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(395, 78, '2017-01-20 00:00:00', '2017-01-08 00:00:00', NULL, NULL, NULL, NULL, 89, 20, 7630.00, 0, NULL, 0, NULL, NULL, NULL, NULL),
-(396, 79, '2017-01-20 00:00:00', '2017-01-08 00:00:00', NULL, NULL, NULL, NULL, 90, 20, 0.00, 0, NULL, 0, NULL, NULL, NULL, NULL);
-
--- 
--- Вывод данных для таблицы rolling_records
---
-INSERT INTO rolling_records VALUES
-(6, 1, '2016-12-08 00:00:00', 19, 52, 52, 10, NULL, 0),
-(7, 2, '2016-12-08 00:00:00', 19, 53, 53, 10, NULL, 0),
-(8, 3, '2016-12-08 00:00:00', 19, 54, 53, 140, NULL, 0),
-(9, 4, '2016-12-08 00:00:00', 19, 55, 51, 70, NULL, 0),
-(10, 5, '2016-12-08 00:00:00', 19, 56, 51, 70, NULL, 0),
-(11, 6, '2016-12-08 00:00:00', 19, 57, 55, 11, NULL, 0),
-(12, 7, '2016-12-08 00:00:00', 19, 58, 55, 5, NULL, 0),
-(13, 8, '2016-12-23 00:00:00', 19, 52, 52, 10, NULL, 0);
-
--- 
--- Вывод данных для таблицы shipping_order_records
---
-
--- Таблица rti.shipping_order_records не содержит данных
 
 -- 
 -- Вывод данных для таблицы payments
@@ -4533,7 +5126,56 @@ INSERT INTO payments VALUES
 (29, 357, '2016-12-27 00:00:00', '14734', NULL, 415.45, NULL, 0),
 (30, 358, '2016-12-21 00:00:00', '498', NULL, 20800.10, NULL, 0),
 (31, 305, '2017-01-12 00:00:00', '63', NULL, 23942.20, NULL, 0),
-(32, 367, '2016-12-22 00:00:00', '439', NULL, 57602.88, NULL, 0);
+(32, 367, '2016-12-22 00:00:00', '439', NULL, 57602.88, NULL, 0),
+(33, 306, '2017-01-11 00:00:00', '2', NULL, 3250.31, NULL, 0),
+(34, 278, '2017-01-11 00:00:00', '1', NULL, 157850.31, 'cч 2', 0),
+(35, 282, '2017-01-11 00:00:00', '18', NULL, 36960.01, NULL, 0),
+(36, 283, '2017-01-12 00:00:00', '20', NULL, 1955.02, NULL, 0),
+(37, 317, '2017-01-13 00:00:00', '14', NULL, 30311.29, NULL, 0),
+(38, 318, '2017-01-16 00:00:00', '32', NULL, 21636.28, NULL, 0),
+(39, 307, '2017-01-15 00:00:00', '11', NULL, 237.32, NULL, 0),
+(40, 308, '2017-01-17 00:00:00', '179', NULL, 8968.00, NULL, 0),
+(41, 288, '2017-01-17 00:00:00', '2681', NULL, 9062.40, NULL, 0),
+(42, 334, '2017-01-17 00:00:00', '56', NULL, 35735.12, NULL, 0),
+(43, 289, '2017-01-18 00:00:00', '3517', NULL, 188.80, NULL, 0),
+(44, 323, '2017-01-18 00:00:00', '14', NULL, 2832.00, NULL, 0),
+(45, 322, '2017-01-18 00:00:00', '56', NULL, 4871.04, NULL, 0),
+(46, 348, '2017-01-18 00:00:00', '306', NULL, 13794.20, NULL, 0),
+(47, 316, '2017-01-18 00:00:00', '47', NULL, 28079.28, NULL, 0),
+(48, 321, '2017-01-18 00:00:00', '43', NULL, 68000.00, NULL, 0),
+(49, 342, '2017-01-18 00:00:00', '44', NULL, 69000.00, NULL, 0),
+(50, 362, '2017-01-18 00:00:00', '34', NULL, 15839.94, NULL, 0),
+(51, 265, '2017-01-19 00:00:00', '229', NULL, 21000.00, NULL, 0),
+(52, 356, '2017-01-19 00:00:00', '5', NULL, 26279.90, NULL, 0),
+(53, 320, '2017-01-19 00:00:00', '21', NULL, 3408.50, NULL, 0),
+(54, 324, '2017-01-19 00:00:00', '21', NULL, 18513.00, NULL, 0),
+(55, 364, '2017-01-19 00:00:00', '21', NULL, 12471.00, NULL, 0),
+(56, 310, '2017-01-19 00:00:00', '12', NULL, 11018.00, NULL, 0),
+(57, 311, '2017-01-19 00:00:00', '12', NULL, 23730.00, NULL, 0),
+(58, 363, '2017-01-20 00:00:00', '63', NULL, 6056.49, NULL, 0),
+(59, 360, '2017-01-23 00:00:00', '20', NULL, 2783.67, NULL, 0),
+(60, 353, '2017-01-23 00:00:00', '17', NULL, 61623.73, NULL, 0),
+(61, 406, '2017-01-20 00:00:00', '112', NULL, 85000.00, NULL, 0),
+(62, 411, '2017-01-30 00:00:00', '302', NULL, 42500.00, NULL, 0),
+(63, 354, '2017-01-24 00:00:00', '19', NULL, 5811.51, NULL, 0),
+(64, 443, '2017-01-30 00:00:00', '38', NULL, 2614.18, NULL, 0),
+(65, 429, '2017-01-30 00:00:00', '192', NULL, 8260.00, NULL, 0),
+(66, 434, '2017-01-27 00:00:00', '108', NULL, 7005.94, NULL, 0),
+(67, 447, '2017-01-27 00:00:00', '47', NULL, 11200.56, NULL, 0),
+(68, 354, '2017-01-24 00:00:00', '19', NULL, 5811.51, NULL, 0),
+(69, 355, '2017-01-24 00:00:00', '20', NULL, 6500.62, NULL, 0),
+(70, 370, '2017-01-24 00:00:00', '12', NULL, 17558.40, NULL, 0),
+(71, 377, '2017-01-24 00:00:00', '302', NULL, 42500.00, NULL, 0),
+(72, 353, '2017-01-20 00:00:00', '17', NULL, 61623.73, NULL, 0),
+(73, 286, '2017-01-25 00:00:00', '2001', NULL, 4956.00, NULL, 0),
+(74, 417, '2017-01-25 00:00:00', '19', NULL, 8850.00, NULL, 0),
+(75, 368, '2017-01-25 00:00:00', '415', NULL, 59826.00, NULL, 0),
+(76, 372, '2017-01-25 00:00:00', '22', NULL, 70337.09, NULL, 0),
+(77, 432, '2017-01-26 00:00:00', '61', NULL, 3500.12, NULL, 0),
+(78, 346, '2017-01-26 00:00:00', '922', NULL, 11469.13, NULL, 0),
+(79, 351, '2017-01-26 00:00:00', '153', NULL, 35942.80, NULL, 0),
+(80, 278, '2017-02-01 00:00:00', '120', NULL, 10000.00, NULL, 1),
+(81, 384, '2017-01-26 00:00:00', '773', NULL, 73207.20, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы report_of_completion_items
@@ -4545,8 +5187,8 @@ INSERT INTO payments VALUES
 -- Вывод данных для таблицы request_details
 --
 INSERT INTO request_details VALUES
-(58, 226, 1, 50, 17, 26, NULL, NULL, 1000, 50.00, NULL, 50000.00, 35, NULL, 2, 0),
-(59, 235, 1, 51, 19, 26, NULL, NULL, 500, 38.65, 38.09, 19325.00, 51, NULL, 2, 0),
+(58, 226, 1, 50, 17, 26, NULL, NULL, 1000, 50.00, NULL, 50000.00, 35, NULL, 3, 0),
+(59, 235, 1, 51, 19, 26, NULL, NULL, 500, 38.65, 38.09, 19325.00, 51, NULL, 3, 0),
 (60, 239, 1, 52, 20, 135, '4326', NULL, 10, 484.00, 350.57, 4840.00, 52, NULL, 3, 0),
 (61, 239, 2, 53, 19, 136, 'Одновременная загрузка  втулки 6*10*16', NULL, 140, 6.78, 12.85, 949.20, 53, NULL, 3, 0),
 (62, 239, 3, 54, 19, 136, NULL, NULL, 140, 6.78, 12.86, 949.20, 53, NULL, 3, 0),
@@ -4555,20 +5197,20 @@ INSERT INTO request_details VALUES
 (65, 239, 6, 57, 17, 27, NULL, NULL, 11, 262.50, 305.72, 2887.50, 58, NULL, 3, 0),
 (66, 239, 7, 58, 17, 27, NULL, NULL, 5, 262.50, 421.05, 1312.50, 58, NULL, 3, 0),
 (67, 251, 1, 53, 19, 136, 'Одновременная загрузка  втулки 6*10*16', NULL, 140, 6.78, 6.79, 949.20, 53, NULL, 3, 0),
-(68, 251, 2, 54, 19, 136, NULL, NULL, 140, 6.78, 6.80, 949.20, 53, NULL, 2, 0),
+(68, 251, 2, 54, 19, 136, NULL, NULL, 140, 6.78, 6.80, 949.20, 53, NULL, 3, 0),
 (69, 253, 1, 60, 19, 80, 'Эластомер', NULL, 9, 2805.00, 2805.00, 25245.00, 59, NULL, 3, 0),
 (70, 253, 2, 53, 19, 136, 'Одновременная загрузка  втулки 6*10*16', NULL, 140, 6.78, 6.79, 949.20, 53, NULL, 3, 0),
 (71, 253, 3, 54, 19, 136, NULL, NULL, 140, 6.78, 6.80, 949.20, 53, NULL, 3, 0),
 (72, 253, 4, 59, 19, 138, 'Энерготехсоюз', NULL, 140, 27.50, 27.49, 3850.00, 35, NULL, 3, 0),
-(73, 255, 1, 53, 19, 136, 'Одновременная загрузка  втулки 6*10*16', NULL, 140, 6.78, 6.79, 949.20, 53, NULL, 1, 0),
-(74, 255, 2, 54, 19, 136, NULL, NULL, 210, 6.78, 6.80, 1423.80, 53, NULL, 1, 0),
+(73, 255, 1, 53, 19, 136, 'Одновременная загрузка  втулки 6*10*16', NULL, 140, 6.78, 6.79, 949.20, 53, NULL, 3, 0),
+(74, 255, 2, 54, 19, 136, NULL, NULL, 210, 6.78, 6.80, 1423.80, 53, NULL, 3, 0),
 (75, 255, 3, 62, 18, 52, NULL, NULL, 210, 22.08, 58.05, 4636.80, 35, NULL, 3, 0),
 (76, 258, 1, 55, 19, 93, NULL, NULL, 70, 35.60, 33.16, 2492.00, 51, NULL, 3, 0),
 (77, 258, 2, 56, 19, 137, NULL, NULL, 70, 8.58, 8.54, 600.60, 51, NULL, 3, 0),
 (78, 258, 4, 61, 19, 139, NULL, NULL, 315, 3.60, 9.46, 1134.00, 51, NULL, 3, 0),
-(79, 258, 5, 59, 19, 138, 'Энерготехсоюз', NULL, 200, 27.50, 27.49, 5500.00, 35, NULL, 2, 0),
+(79, 258, 5, 59, 19, 138, 'Энерготехсоюз', NULL, 200, 27.50, 27.49, 5500.00, 35, NULL, 3, 0),
 (80, 258, 6, 63, 19, 26, NULL, NULL, 100, 25.00, 24.05, 2500.00, 53, NULL, 3, 0),
-(81, 258, 7, 52, 20, 135, '4326 цена 131', NULL, 40, 484.00, 479.22, 19360.00, 35, NULL, 2, 0),
+(81, 258, 7, 52, 20, 135, '4326 цена 131', NULL, 40, 484.00, 479.22, 19360.00, 35, NULL, 3, 0),
 (82, 259, 1, 65, 19, 38, NULL, NULL, 5000, 2.55, 2.10, 12750.00, 47, NULL, 3, 0),
 (83, 259, 2, 64, 19, 26, NULL, NULL, 8000, 1.20, 1.07, 9600.00, 47, NULL, 3, 0),
 (84, 259, 3, 66, 19, 38, '1500 шт/см ', NULL, 2711, 2.55, 2.29, 6913.05, 47, NULL, 3, 0),
@@ -4611,7 +5253,7 @@ INSERT INTO request_details VALUES
 (163, 290, 2, 178, 19, 36, NULL, NULL, 6, 932.21, NULL, 5593.26, NULL, NULL, 0, 0),
 (164, 291, 1, 154, 19, 48, NULL, NULL, 20, 550.85, NULL, 11017.00, NULL, NULL, 0, 0),
 (165, 302, 1, 155, 21, 120, NULL, NULL, 18, 2610.17, NULL, 46983.06, NULL, NULL, 0, 0),
-(166, 305, 1, 51, 19, 26, NULL, NULL, 500, 38.65, 38.35, 19325.00, 51, NULL, 1, 0),
+(166, 305, 1, 51, 19, 26, NULL, NULL, 500, 38.65, 38.35, 19325.00, 51, NULL, 2, 0),
 (167, 306, 1, 156, 29, 26, NULL, NULL, 50, 55.09, NULL, 2754.50, NULL, NULL, 0, 0),
 (168, 307, 1, 157, 19, 31, NULL, NULL, 12, 16.76, NULL, 201.12, NULL, NULL, 0, 0),
 (169, 308, 1, 158, 30, 38, NULL, NULL, 20000, 0.38, NULL, 7600.00, NULL, NULL, 0, 0),
@@ -4798,7 +5440,217 @@ INSERT INTO request_details VALUES
 (363, 392, 6, 321, 56, 31, NULL, NULL, 100, 15.00, NULL, 1500.00, NULL, NULL, 0, 0),
 (364, 392, 7, 323, 56, 31, NULL, NULL, 100, 14.00, NULL, 1400.00, NULL, NULL, 0, 0),
 (365, 395, 1, 261, 19, 28, NULL, NULL, 500, 15.26, NULL, 7630.00, 53, NULL, 0, 0),
-(366, 396, 1, 336, 19, 36, NULL, NULL, 500, 0.00, NULL, 0.00, NULL, NULL, 0, 0);
+(366, 396, 1, 336, 19, 36, NULL, NULL, 500, 0.00, NULL, 0.00, NULL, NULL, 0, 0),
+(367, 402, 1, 50, 17, 26, NULL, NULL, 1, 50.00, 19.36, 50.00, 35, NULL, 1, 0),
+(368, 403, 1, 50, 17, 26, NULL, NULL, 1, 50.00, 19.36, 50.00, 35, NULL, 1, 0),
+(369, 406, 1, 387, 19, 110, NULL, NULL, 10, 7203.39, NULL, 72033.90, NULL, NULL, 0, 0),
+(370, 407, 1, 388, 19, 33, NULL, NULL, 5, 650.00, NULL, 3250.00, NULL, NULL, 0, 0),
+(371, 407, 2, 389, 57, 48, NULL, NULL, 68, 267.00, NULL, 18156.00, NULL, NULL, 0, 0),
+(372, 407, 3, 392, 58, 48, NULL, NULL, 32, 340.00, NULL, 10880.00, NULL, NULL, 0, 0),
+(373, 407, 4, 391, 59, 48, NULL, NULL, 28, 220.00, NULL, 6160.00, NULL, NULL, 0, 0),
+(374, 410, 1, 204, 17, 36, 'Ч', NULL, 9, 42.54, NULL, 382.86, 58, NULL, 0, 0),
+(375, 410, 2, 113, 18, 31, NULL, NULL, 18, 21.25, NULL, 382.50, 58, NULL, 0, 0),
+(376, 410, 3, 393, 18, 26, NULL, NULL, 9, 27.83, NULL, 250.47, NULL, NULL, 0, 0),
+(377, 410, 4, 85, 17, 26, NULL, NULL, 9, 35.85, NULL, 322.65, 58, NULL, 0, 0),
+(378, 410, 5, 86, 17, 36, 'ч', NULL, 9, 7.12, NULL, 64.08, 67, NULL, 0, 0),
+(379, 410, 6, 87, 17, 31, 'ч', NULL, 9, 12.78, NULL, 115.02, 67, NULL, 0, 0),
+(380, 410, 7, 89, 18, 33, NULL, NULL, 9, 15.17, NULL, 136.53, 76, NULL, 0, 0),
+(381, 410, 8, 90, 17, 31, NULL, NULL, 9, 56.26, NULL, 506.34, 67, NULL, 0, 0),
+(382, 410, 9, 91, 17, 33, 'Ч', NULL, 9, 4.92, NULL, 44.28, 67, NULL, 0, 0),
+(383, 410, 10, 92, 17, 36, NULL, NULL, 48, 93.50, NULL, 4488.00, 35, NULL, 0, 0),
+(384, 410, 11, 93, 17, 36, 'Ч', NULL, 9, 58.58, NULL, 527.22, 78, NULL, 0, 0),
+(385, 410, 12, 94, 17, 33, NULL, NULL, 18, 98.02, NULL, 1764.36, 67, NULL, 0, 0),
+(386, 410, 13, 95, 17, 26, 'ч', NULL, 9, 14.08, NULL, 126.72, 58, NULL, 0, 0),
+(387, 410, 14, 394, 17, 26, NULL, NULL, 9, 57.67, NULL, 519.03, NULL, NULL, 0, 0),
+(388, 410, 15, 97, 17, 48, NULL, NULL, 9, 34.96, NULL, 314.64, 67, NULL, 0, 0),
+(389, 410, 16, 98, 17, 31, 'ч', NULL, 9, 24.29, NULL, 218.61, 67, NULL, 0, 0),
+(390, 411, 1, 75, 19, 45, NULL, NULL, 4000, 17.80, NULL, 71200.00, 53, NULL, 0, 0),
+(391, 411, 2, 395, 19, 167, NULL, NULL, 1, 700.00, NULL, 700.00, NULL, NULL, 0, 0),
+(392, 412, 1, 396, 19, 44, NULL, NULL, 1, 10169.49, NULL, 10169.49, NULL, NULL, 0, 0),
+(393, 412, 2, 397, 19, 168, NULL, NULL, 75, 27.12, NULL, 2034.00, NULL, NULL, 0, 0),
+(394, 412, 3, 398, 19, 44, NULL, NULL, 1, 10169.49, NULL, 10169.49, NULL, NULL, 0, 0),
+(395, 412, 4, 399, 19, 33, NULL, NULL, 75, 24.58, NULL, 1843.50, NULL, NULL, 0, 0),
+(396, 413, 1, 400, 19, 169, NULL, NULL, 52, 47.00, NULL, 2444.00, NULL, NULL, 0, 0),
+(399, 415, 1, 404, 18, 96, NULL, NULL, 600, 40.68, NULL, 24408.00, NULL, NULL, 0, 0),
+(400, 415, 2, 405, 26, 96, NULL, NULL, 300, 42.45, NULL, 12735.00, NULL, NULL, 0, 0),
+(401, 416, 1, 265, 19, 46, NULL, NULL, 50, 41.30, NULL, 2065.00, NULL, NULL, 0, 0),
+(402, 417, 1, 406, 19, 38, NULL, NULL, 5000, 1.50, NULL, 7500.00, NULL, NULL, 0, 0),
+(403, 418, 1, 407, 19, 26, NULL, NULL, 10000, 1.12, NULL, 11200.00, NULL, NULL, 0, 0),
+(404, 419, 1, 408, 19, 26, NULL, NULL, 16, 325.00, NULL, 5200.00, NULL, NULL, 0, 0),
+(405, 419, 2, 409, 19, 26, NULL, NULL, 36, 285.00, NULL, 10260.00, NULL, NULL, 0, 0),
+(406, 421, 1, 410, 18, 160, NULL, NULL, 4, 266.20, NULL, 1064.80, NULL, NULL, 0, 0),
+(407, 421, 2, 411, 44, 160, NULL, NULL, 7, 302.50, NULL, 2117.50, NULL, NULL, 0, 0),
+(408, 421, 3, 412, 62, 160, NULL, NULL, 29, 352.00, NULL, 10208.00, NULL, NULL, 0, 0),
+(409, 422, 1, 107, 24, 26, '8КА.371.092; 22х14х2 (ГОСТ)', NULL, 8, 16.36, 14.84, 130.88, 48, NULL, 1, 0),
+(410, 424, 1, 413, 18, 38, NULL, NULL, 50, 93.00, NULL, 4650.00, NULL, NULL, 0, 0),
+(411, 424, 2, 414, 18, 38, NULL, NULL, 700, 11.78, NULL, 8246.00, NULL, NULL, 0, 0),
+(412, 424, 3, 415, 18, 38, NULL, NULL, 100, 13.70, NULL, 1370.00, NULL, NULL, 0, 0),
+(413, 426, 1, 416, 46, 26, NULL, NULL, 24, 44.00, NULL, 1056.00, NULL, NULL, 0, 0),
+(414, 426, 2, 417, 24, 26, NULL, NULL, 450, 19.95, NULL, 8977.50, NULL, NULL, 0, 0),
+(415, 426, 3, 418, 24, 26, NULL, NULL, 100, 21.17, NULL, 2117.00, NULL, NULL, 0, 0),
+(416, 426, 4, 419, 24, 26, NULL, NULL, 30, 44.00, NULL, 1320.00, NULL, NULL, 0, 0),
+(417, 426, 5, 107, 24, 26, '8КА.371.092; 22х14х2 (ГОСТ)', NULL, 150, 16.36, 14.84, 2454.00, 48, NULL, 1, 0),
+(418, 426, 6, 420, 24, 26, NULL, NULL, 110, 22.77, NULL, 2504.70, NULL, NULL, 0, 0),
+(419, 426, 7, 421, 24, 26, NULL, NULL, 250, 23.24, NULL, 5810.00, NULL, NULL, 0, 0),
+(420, 426, 8, 100, 24, 52, NULL, NULL, 400, 23.13, NULL, 9252.00, 35, NULL, 0, 0),
+(421, 426, 9, 422, 46, 26, NULL, NULL, 24, 44.00, NULL, 1056.00, NULL, NULL, 0, 0),
+(422, 426, 10, 189, 17, 33, NULL, NULL, 150, 26.62, NULL, 3993.00, NULL, NULL, 0, 0),
+(423, 426, 11, 423, 63, 26, NULL, NULL, 200, 44.00, NULL, 8800.00, NULL, NULL, 0, 0),
+(424, 426, 12, 424, 63, 26, NULL, NULL, 5, 43.81, NULL, 219.05, NULL, NULL, 0, 0),
+(425, 426, 13, 425, 64, 26, NULL, NULL, 300, 25.96, NULL, 7788.00, NULL, NULL, 0, 0),
+(426, 426, 14, 345, 22, 26, NULL, NULL, 200, 42.90, NULL, 8580.00, NULL, NULL, 0, 0),
+(427, 426, 15, 426, 22, 38, NULL, NULL, 200, 32.19, NULL, 6438.00, NULL, NULL, 0, 0),
+(428, 426, 16, 427, 18, 26, NULL, NULL, 230, 77.00, NULL, 17710.00, NULL, NULL, 0, 0),
+(429, 426, 17, 428, 17, 26, NULL, NULL, 200, 23.03, NULL, 4606.00, NULL, NULL, 0, 0),
+(430, 426, 18, 429, 46, 36, NULL, NULL, 300, 43.94, NULL, 13182.00, NULL, NULL, 0, 0),
+(431, 428, 1, 430, 65, 36, NULL, NULL, 6, 57.20, NULL, 343.20, NULL, NULL, 0, 0),
+(432, 428, 2, 431, 65, 36, NULL, NULL, 10, 14.25, NULL, 142.50, NULL, NULL, 0, 0),
+(433, 428, 3, 432, 65, 36, NULL, NULL, 15, 31.13, NULL, 466.95, NULL, NULL, 0, 0),
+(434, 428, 4, 433, 65, 36, NULL, NULL, 5, 39.60, NULL, 198.00, NULL, NULL, 0, 0),
+(435, 428, 5, 434, 65, 31, NULL, NULL, 13, 34.10, NULL, 443.30, NULL, NULL, 0, 0),
+(436, 428, 6, 435, 19, 170, NULL, NULL, 6, 27.50, NULL, 165.00, NULL, NULL, 0, 0),
+(437, 428, 7, 436, 19, 171, NULL, NULL, 51, 166.56, NULL, 8494.56, NULL, NULL, 0, 0),
+(438, 428, 8, 437, 19, 172, NULL, NULL, 132, 166.56, NULL, 21985.92, NULL, NULL, 0, 0),
+(439, 428, 9, 438, 33, 173, NULL, NULL, 12, 18.15, NULL, 217.80, NULL, NULL, 0, 0),
+(440, 428, 10, 439, 19, 38, NULL, NULL, 18, 29.59, NULL, 532.62, NULL, NULL, 0, 0),
+(441, 428, 11, 440, 19, 38, NULL, NULL, 72, 20.35, NULL, 1465.20, NULL, NULL, 0, 0),
+(442, 429, 1, 441, 19, 59, NULL, NULL, 350, 20.00, NULL, 7000.00, NULL, NULL, 0, 0),
+(443, 432, 1, 442, 19, 174, NULL, NULL, 20, 148.31, NULL, 2966.20, NULL, NULL, 0, 0),
+(444, 433, 1, 443, 19, 26, NULL, NULL, 2, 320.00, NULL, 640.00, NULL, NULL, 0, 0),
+(445, 434, 1, 105, 24, 26, '8СЯ 370.315; 022-028-36 (ГОСТ) ', NULL, 21, 8.73, NULL, 183.33, 35, NULL, 0, 0),
+(446, 434, 2, 102, 18, 36, 'Ч', NULL, 27, 17.26, NULL, 466.02, 76, NULL, 0, 0),
+(447, 434, 3, 103, 18, 26, 'Ч', NULL, 48, 20.46, NULL, 982.08, 48, NULL, 0, 0),
+(448, 434, 4, 90, 17, 31, NULL, NULL, 3, 56.26, NULL, 168.78, 67, NULL, 0, 0),
+(449, 434, 5, 93, 17, 36, 'Ч', NULL, 3, 58.58, NULL, 175.74, 78, NULL, 0, 0),
+(450, 434, 6, 444, 18, 26, NULL, NULL, 156, 23.24, NULL, 3625.44, NULL, NULL, 0, 0),
+(451, 434, 7, 445, 18, 26, 'Элта', NULL, 15, 22.39, NULL, 335.85, NULL, NULL, 0, 0),
+(452, 436, 1, 446, 19, 33, NULL, NULL, 200, 63.56, NULL, 12712.00, NULL, NULL, 0, 0),
+(453, 438, 1, 447, 17, 36, NULL, NULL, 7, 180.58, NULL, 1264.06, NULL, NULL, 0, 0),
+(454, 438, 2, 448, 17, 26, NULL, NULL, 14, 102.08, NULL, 1429.12, NULL, NULL, 0, 0),
+(455, 438, 3, 449, 17, 36, NULL, NULL, 7, 180.58, NULL, 1264.06, NULL, NULL, 0, 0),
+(456, 438, 4, 341, 17, 26, NULL, NULL, 84, 31.40, NULL, 2637.60, NULL, NULL, 0, 0),
+(457, 438, 5, 95, 17, 26, 'ч', NULL, 21, 14.08, NULL, 295.68, 58, NULL, 0, 0),
+(458, 438, 6, 256, 17, 31, NULL, NULL, 84, 88.44, NULL, 7428.96, NULL, NULL, 0, 0),
+(459, 438, 7, 450, 17, 36, NULL, NULL, 21, 22.15, NULL, 465.15, NULL, NULL, 0, 0),
+(460, 438, 8, 90, 17, 31, NULL, NULL, 21, 56.26, NULL, 1181.46, 67, NULL, 0, 0),
+(461, 438, 9, 451, 17, 36, NULL, NULL, 21, 11.50, NULL, 241.50, NULL, NULL, 0, 0),
+(462, 438, 10, 452, 17, 36, NULL, NULL, 21, 53.26, NULL, 1118.46, NULL, NULL, 0, 0),
+(463, 438, 11, 211, 18, 33, NULL, NULL, 21, 13.79, NULL, 289.59, NULL, NULL, 0, 0),
+(464, 439, 1, 453, 19, 175, NULL, NULL, 16, 62.71, NULL, 1003.36, NULL, NULL, 0, 0),
+(465, 439, 2, 454, 19, 26, NULL, NULL, 1000, 10.00, NULL, 10000.00, NULL, NULL, 0, 0),
+(466, 440, 1, 455, 66, 72, NULL, NULL, 100, 54.00, NULL, 5400.00, NULL, NULL, 0, 0),
+(467, 441, 1, 456, 67, 112, NULL, NULL, 20, 466.11, NULL, 9322.20, NULL, NULL, 0, 0),
+(468, 442, 1, 457, 65, 36, NULL, NULL, 12, 58.00, NULL, 696.00, NULL, NULL, 0, 0),
+(469, 442, 2, 430, 65, 36, NULL, NULL, 12, 57.20, NULL, 686.40, NULL, NULL, 0, 0),
+(470, 442, 3, 433, 65, 36, NULL, NULL, 20, 39.60, NULL, 792.00, NULL, NULL, 0, 0),
+(471, 442, 4, 458, 65, 36, NULL, NULL, 20, 34.00, NULL, 680.00, NULL, NULL, 0, 0),
+(472, 442, 5, 434, 65, 31, NULL, NULL, 20, 34.10, NULL, 682.00, NULL, NULL, 0, 0),
+(473, 442, 6, 383, 65, 36, NULL, NULL, 20, 19.20, NULL, 384.00, NULL, NULL, 0, 0),
+(474, 443, 1, 459, 19, 26, NULL, NULL, 1, 211.87, NULL, 211.87, NULL, NULL, 0, 0),
+(475, 443, 2, 460, 19, 26, NULL, NULL, 2, 211.87, NULL, 423.74, NULL, NULL, 0, 0),
+(476, 443, 3, 461, 19, 26, NULL, NULL, 2, 211.87, NULL, 423.74, NULL, NULL, 0, 0),
+(477, 443, 4, 462, 19, 26, NULL, NULL, 2, 211.87, NULL, 423.74, NULL, NULL, 0, 0),
+(478, 443, 5, 463, 19, 26, NULL, NULL, 16, 45.77, NULL, 732.32, NULL, NULL, 0, 0),
+(479, 444, 1, 464, 19, 72, NULL, NULL, 48, 762.72, NULL, 36610.56, NULL, NULL, 0, 0),
+(480, 445, 1, 456, 67, 112, NULL, NULL, 20, 466.11, NULL, 9322.20, NULL, NULL, 0, 0),
+(481, 447, 1, 465, 19, 26, NULL, NULL, 200, 47.46, NULL, 9492.00, NULL, NULL, 0, 0),
+(482, 448, 1, 466, 19, 172, NULL, NULL, 10, 149.91, NULL, 1499.10, NULL, NULL, 0, 0),
+(483, 449, 1, 467, 19, 176, NULL, NULL, 6, 6779.67, NULL, 40678.02, NULL, NULL, 0, 0),
+(484, 450, 1, 468, 19, 28, NULL, NULL, 300, 110.17, NULL, 33051.00, NULL, NULL, 0, 0),
+(485, 451, 1, 469, 68, 177, NULL, NULL, 100, 23.73, NULL, 2373.00, NULL, NULL, 0, 0),
+(486, 451, 2, 470, 68, 177, NULL, NULL, 100, 18.65, NULL, 1865.00, NULL, NULL, 0, 0),
+(487, 451, 3, 471, 68, 177, NULL, NULL, 100, 12.72, NULL, 1272.00, NULL, NULL, 0, 0),
+(488, 451, 4, 472, 68, 177, NULL, NULL, 200, 12.72, NULL, 2544.00, NULL, NULL, 0, 0),
+(489, 451, 5, 473, 68, 177, NULL, NULL, 250, 10.17, NULL, 2542.50, NULL, NULL, 0, 0),
+(490, 451, 6, 474, 68, 177, NULL, NULL, 200, 8.48, NULL, 1696.00, NULL, NULL, 0, 0),
+(491, 453, 1, 475, 19, 67, NULL, NULL, 30, 1864.41, NULL, 55932.30, NULL, NULL, 0, 1),
+(492, 461, 1, 475, 19, 67, NULL, NULL, 30, 1864.41, NULL, 55932.30, NULL, NULL, 0, 0),
+(493, 464, 1, 476, 62, 178, NULL, NULL, 91, 100.00, NULL, 9100.00, NULL, NULL, 0, 1),
+(494, 465, 1, 477, 19, 26, NULL, NULL, 1000, 10.17, NULL, 10170.00, NULL, NULL, 0, 0),
+(495, 466, 1, 481, 18, 38, NULL, NULL, 140, 5.19, NULL, 726.60, NULL, NULL, 0, 0),
+(496, 466, 2, 482, 18, 33, NULL, NULL, 36, 64.39, NULL, 2318.04, NULL, NULL, 0, 0),
+(497, 466, 3, 483, 18, 33, NULL, NULL, 12, 80.77, NULL, 969.24, NULL, NULL, 0, 0),
+(498, 466, 4, 484, 18, 35, NULL, NULL, 37, 51.80, NULL, 1916.60, NULL, NULL, 0, 0),
+(499, 466, 5, 485, 18, 26, NULL, NULL, 4, 605.54, NULL, 2422.16, NULL, NULL, 0, 0),
+(500, 466, 6, 487, 18, 26, NULL, NULL, 18, 38.62, NULL, 695.16, NULL, NULL, 0, 0),
+(501, 466, 7, 488, 18, 26, NULL, NULL, 18, 30.78, NULL, 554.04, NULL, NULL, 0, 0),
+(502, 466, 8, 489, 18, 26, NULL, NULL, 112, 5.54, NULL, 620.48, NULL, NULL, 0, 0),
+(503, 466, 9, 490, 18, 26, NULL, NULL, 72, 13.88, NULL, 999.36, NULL, NULL, 0, 0),
+(504, 466, 10, 491, 18, 26, NULL, NULL, 9, 34.95, NULL, 314.55, NULL, NULL, 0, 0),
+(505, 466, 11, 494, 18, 26, NULL, NULL, 32, 63.52, NULL, 2032.64, NULL, NULL, 0, 0),
+(506, 466, 12, 384, 17, 31, NULL, NULL, 36, 29.37, NULL, 1057.32, NULL, NULL, 0, 0),
+(507, 466, 13, 386, 17, 33, NULL, NULL, 108, 23.49, NULL, 2536.92, NULL, NULL, 0, 0),
+(508, 466, 14, 495, 17, 31, NULL, NULL, 47, 16.95, NULL, 796.65, NULL, NULL, 0, 0),
+(509, 466, 15, 496, 17, 31, NULL, NULL, 82, 11.88, NULL, 974.16, NULL, NULL, 0, 0),
+(510, 466, 16, 497, 17, 31, NULL, NULL, 202, 9.70, NULL, 1959.40, NULL, NULL, 0, 0),
+(511, 466, 17, 498, 17, 31, NULL, NULL, 24, 9.39, NULL, 225.36, NULL, NULL, 0, 0),
+(512, 466, 18, 499, 17, 33, NULL, NULL, 202, 6.22, NULL, 1256.44, NULL, NULL, 0, 0),
+(513, 466, 19, 500, 17, 38, NULL, NULL, 18, 14.89, NULL, 268.02, NULL, NULL, 0, 0),
+(514, 466, 20, 501, 17, 26, NULL, NULL, 36, 28.10, NULL, 1011.60, NULL, NULL, 0, 0),
+(515, 466, 21, 502, 26, 36, NULL, NULL, 118, 5.32, NULL, 627.76, NULL, NULL, 0, 0),
+(516, 466, 22, 503, 18, 38, NULL, NULL, 60, 16.23, NULL, 973.80, NULL, NULL, 0, 0),
+(517, 466, 23, 504, 18, 26, NULL, NULL, 250, 95.64, NULL, 23910.00, NULL, NULL, 0, 0),
+(518, 466, 24, 505, 18, 26, NULL, NULL, 20, 46.05, NULL, 921.00, NULL, NULL, 0, 0),
+(519, 466, 25, 486, 18, 26, NULL, NULL, 4, 240.98, NULL, 963.92, NULL, NULL, 0, 0),
+(520, 467, 1, 492, 19, 75, NULL, NULL, 30, 279.67, NULL, 8390.10, NULL, NULL, 0, 0),
+(521, 467, 2, 493, 19, 75, NULL, NULL, 30, 322.04, NULL, 9661.20, NULL, NULL, 0, 0),
+(522, 468, 1, 476, 62, 178, NULL, NULL, 51, 100.00, NULL, 5100.00, NULL, NULL, 0, 0),
+(523, 468, 2, 506, 44, 178, NULL, NULL, 40, 100.00, NULL, 4000.00, NULL, NULL, 0, 0),
+(524, 469, 1, 246, 18, 26, NULL, NULL, 6, 616.00, NULL, 3696.00, 53, NULL, 0, 0),
+(525, 469, 2, 444, 18, 26, NULL, NULL, 30, 23.24, NULL, 697.20, NULL, NULL, 0, 0),
+(526, 469, 3, 102, 18, 36, 'Ч', NULL, 30, 17.26, NULL, 517.80, 76, NULL, 0, 0),
+(527, 472, 1, 246, 18, 26, NULL, NULL, 50, 616.00, NULL, 30800.00, 53, NULL, 0, 0),
+(528, 473, 1, 262, 65, 36, NULL, NULL, 100, 17.50, NULL, 1750.00, 34, NULL, 1, 0),
+(529, 475, 1, 507, 70, 31, NULL, NULL, 20, 22.19, NULL, 443.80, NULL, NULL, 0, 0),
+(530, 475, 2, 508, 70, 31, NULL, NULL, 10, 35.89, NULL, 358.90, NULL, NULL, 0, 0),
+(531, 475, 3, 509, 70, 31, NULL, NULL, 10, 20.08, NULL, 200.80, NULL, NULL, 0, 0),
+(532, 475, 4, 512, 70, 31, NULL, NULL, 10, 43.45, NULL, 434.50, NULL, NULL, 0, 0),
+(533, 475, 5, 513, 70, 31, NULL, NULL, 10, 34.61, NULL, 346.10, NULL, NULL, 0, 0),
+(534, 413, 2, 250, 19, 26, NULL, NULL, 1000, 72.00, NULL, 72000.00, 88, NULL, 0, 0),
+(535, 413, 3, 402, 19, 26, NULL, NULL, 500, 46.50, NULL, 23250.00, NULL, NULL, 0, 0),
+(536, 478, 1, 518, 19, 179, NULL, NULL, 10000, 11.87, NULL, 118700.00, 64, NULL, 0, 0),
+(537, 479, 1, 516, 71, 33, NULL, NULL, 750, 29.31, NULL, 21982.50, NULL, NULL, 0, 0),
+(538, 479, 2, 520, 71, 33, NULL, NULL, 2450, 26.64, NULL, 65268.00, NULL, NULL, 0, 0),
+(539, 479, 3, 519, 19, 28, NULL, NULL, 150, 118.91, NULL, 17836.50, NULL, NULL, 0, 0),
+(540, 479, 4, 517, 19, 33, NULL, NULL, 10, 11.89, NULL, 118.90, NULL, NULL, 0, 0),
+(541, 480, 1, 521, 72, 48, NULL, NULL, 100, 101.70, NULL, 10170.00, NULL, NULL, 0, 0),
+(542, 480, 2, 522, 19, 44, NULL, NULL, 1, 13559.33, NULL, 13559.33, NULL, NULL, 0, 0),
+(543, 481, 1, 475, 19, 67, NULL, NULL, 42, 1864.41, NULL, 78305.22, NULL, NULL, 0, 0),
+(544, 482, 1, 523, 19, 146, NULL, NULL, 200, 38.14, NULL, 7628.00, NULL, NULL, 0, 0),
+(545, 485, 1, 524, 19, 176, NULL, NULL, 1, 1920.00, NULL, 1920.00, NULL, NULL, 0, 0),
+(546, 486, 1, 525, 19, 26, NULL, NULL, 50, 66.10, NULL, 3305.00, NULL, NULL, 0, 0),
+(547, 488, 1, 526, 19, 33, NULL, NULL, 12000, 2.30, NULL, 27600.00, NULL, NULL, 0, 0),
+(548, 490, 1, 194, 18, 52, NULL, NULL, 30, 22.08, NULL, 662.40, 76, NULL, 0, 0),
+(549, 490, 2, 101, 18, 26, 'ч', NULL, 10, 22.00, NULL, 220.00, 76, NULL, 0, 0),
+(550, 490, 3, 445, 18, 26, 'Элта', NULL, 10, 22.39, NULL, 223.90, NULL, NULL, 0, 0),
+(551, 490, 4, 103, 18, 26, 'Ч', NULL, 40, 20.46, NULL, 818.40, 48, NULL, 0, 0),
+(553, 491, 1, 84, 18, 26, NULL, NULL, 360, 16.00, 11.87, 5760.00, 66, NULL, 1, 0),
+(554, 491, 2, 101, 18, 26, 'ч', NULL, 150, 22.00, NULL, 3300.00, 76, NULL, 0, 0),
+(555, 491, 3, 103, 18, 26, 'Ч', NULL, 70, 20.46, NULL, 1432.20, 48, NULL, 0, 0),
+(556, 491, 4, 279, 17, 26, NULL, NULL, 150, 38.18, NULL, 5727.00, 98, NULL, 0, 0),
+(557, 491, 5, 90, 17, 31, NULL, NULL, 50, 56.26, NULL, 2813.00, 67, NULL, 0, 0),
+(558, 491, 6, 315, 17, 36, NULL, NULL, 100, 102.53, NULL, 10253.00, NULL, NULL, 0, 0),
+(561, 490, 5, 102, 18, 36, 'Ч', NULL, 40, 17.26, NULL, 690.40, 76, NULL, 0, 0),
+(562, 491, 7, 97, 17, 48, NULL, NULL, 50, 34.96, NULL, 1748.00, 67, NULL, 0, 0),
+(563, 491, 8, 285, 18, 28, NULL, NULL, 4, 25.33, NULL, 101.32, 73, NULL, 0, 0),
+(564, 491, 9, 527, 18, 28, NULL, NULL, 17, 17.64, NULL, 299.88, NULL, NULL, 0, 0),
+(565, 493, 1, 262, 65, 36, NULL, NULL, 160, 17.50, NULL, 2800.00, 34, NULL, 1, 0),
+(566, 493, 2, 263, 19, 67, NULL, NULL, 7, 0.00, NULL, 0.00, NULL, NULL, 0, 0),
+(567, 494, 1, 528, 19, 33, NULL, NULL, 10, 45.77, NULL, 457.70, NULL, NULL, 0, 0),
+(568, 494, 2, 529, 19, 33, NULL, NULL, 10, 62.72, NULL, 627.20, NULL, NULL, 0, 0);
+
+-- 
+-- Вывод данных для таблицы rolling_records
+--
+INSERT INTO rolling_records VALUES
+(6, 1, '2016-12-08 00:00:00', 19, 52, 52, 10, NULL, 0),
+(7, 2, '2016-12-08 00:00:00', 19, 53, 53, 10, NULL, 0),
+(8, 3, '2016-12-08 00:00:00', 19, 54, 53, 140, NULL, 0),
+(9, 4, '2016-12-08 00:00:00', 19, 55, 51, 70, NULL, 0),
+(10, 5, '2016-12-08 00:00:00', 19, 56, 51, 70, NULL, 0),
+(11, 6, '2016-12-08 00:00:00', 19, 57, 55, 11, NULL, 0),
+(12, 7, '2016-12-08 00:00:00', 19, 58, 55, 5, NULL, 0),
+(13, 8, '2016-12-23 00:00:00', 19, 52, 52, 10, NULL, 0);
 
 -- 
 -- Вывод данных для таблицы shaving_records
@@ -4819,6 +5671,12 @@ INSERT INTO shaving_records VALUES
 --
 
 -- Таблица rti.shipped_product_records не содержит данных
+
+-- 
+-- Вывод данных для таблицы shipping_order_records
+--
+
+-- Таблица rti.shipping_order_records не содержит данных
 
 -- 
 -- Вывод данных для таблицы work_item_employee_package
@@ -4856,78 +5714,16 @@ INSERT INTO work_item_employee_package VALUES
 (46, '2016-12-10 00:00:00', 19, NULL),
 (47, '2016-12-10 00:00:00', 20, NULL),
 (48, '2017-01-20 00:00:00', 25, NULL),
-(49, '2017-01-09 00:00:00', 19, 'Формовой');
-
--- 
--- Вывод данных для таблицы work_items
---
-INSERT INTO work_items VALUES
-(50, '2016-12-05', 1, 50, 1000, 250, 250, 0, NULL, 19, 34, 1, '05.12.2016/1'),
-(51, '2016-12-06', 1, 50, 1000, 250, 250, 0, NULL, 19, 34, 0, '06.12.2016/1'),
-(52, '2016-12-07', 1, 50, 1000, 250, 250, 0, NULL, 19, 34, 1, '07.12.2016/1'),
-(53, '2016-12-08', 1, 52, 50, 10, 10, 0, NULL, 23, 37, 0, '08.12.2016/1'),
-(55, '2016-12-09', 1, 50, 1000, 340, 340, 0, NULL, 19, 34, 0, '09.12.2016/1'),
-(57, '2016-12-08', 2, 53, 560, 140, 140, 0, NULL, 23, 38, 1, '08.12.2016/2'),
-(58, '2016-12-09', 2, 51, 500, 216, 216, 0, NULL, 20, 35, 0, '09.12.2016/2'),
-(60, '2016-12-12', 1, 51, 500, 76, 76, 0, NULL, 20, 35, 0, '12.12.2016/1'),
-(61, '2016-12-13', 1, 51, 500, 100, 100, 0, NULL, 20, 35, 0, '13.12.2016/1'),
-(62, '2016-12-14', 1, 51, 500, 240, 240, 0, NULL, 21, 35, 0, '14.12.2016/1'),
-(63, '2016-12-08', 3, 54, 630, 140, 140, 0, NULL, 23, 39, 1, '08.12.2016/3'),
-(64, '2016-12-08', 4, 55, 70, 70, 70, 0, NULL, 23, 40, 1, '08.12.2016/4'),
-(65, '2016-12-08', 5, 56, 70, 70, 70, 0, NULL, 23, 41, 1, '08.12.2016/5'),
-(66, '2016-12-08', 6, 57, 11, 11, 11, 0, NULL, 23, 42, 1, '08.12.2016/6'),
-(67, '2016-12-08', 7, 58, 5, 5, 5, 0, NULL, 23, 43, 1, '08.12.2016/7'),
-(68, '2016-12-10', 1, 50, 1000, 100, 100, 0, NULL, 19, 34, 0, '10.12.2016/1'),
-(69, '2016-12-10', 2, 51, 500, 10, 10, 0, NULL, 20, 35, 0, '10.12.2016/2'),
-(72, '2016-12-08', 8, 60, 9, 9, 9, 0, NULL, 20, 45, 0, '08.12.2016/8'),
-(73, '2016-12-08', 9, 53, 420, 140, 140, 0, NULL, 20, 46, 1, '08.12.2016/9'),
-(74, '2016-12-08', 10, 54, 490, 140, 140, 0, NULL, 20, 47, 1, '08.12.2016/10'),
-(75, '2016-12-08', 11, 59, 340, 140, 140, 0, NULL, 20, 48, 0, '08.12.2016/11'),
-(76, '2016-12-08', 12, 50, 250, 250, 250, 0, NULL, 22, 34, 1, '08.12.2016/12'),
-(77, '2016-12-19', 1, 52, 50, 10, 10, 0, NULL, 20, 37, 0, '19.12.2016/1'),
-(78, '2016-12-19', 2, 53, 560, 140, 140, 0, NULL, 20, 38, 0, '19.12.2016/2'),
-(79, '2016-12-19', 3, 54, 630, 140, 140, 0, NULL, 21, 39, 0, '19.12.2016/3'),
-(80, '2016-12-19', 4, 55, 140, 70, 140, 0, NULL, 22, 40, 0, '19.12.2016/4'),
-(81, '2016-12-19', 5, 56, 140, 70, 140, 0, NULL, 22, 41, 0, '19.12.2016/5'),
-(82, '2016-12-19', 6, 59, 335, 200, 195, 0, NULL, 21, 44, 0, '19.12.2016/6'),
-(83, '2016-12-19', 7, 61, 315, 315, 315, 0, NULL, 26, 49, 0, '19.12.2016/7'),
-(84, '2016-12-19', 8, 62, 210, 210, 210, 0, NULL, 24, 50, 0, '19.12.2016/8'),
-(85, '2016-12-19', 9, 63, 96, 96, 96, 0, NULL, 27, 62, 0, '19.12.2016/9'),
-(86, '2016-12-19', 10, 64, 8000, 8000, 8000, 0, NULL, 24, 61, 0, '19.12.2016/10'),
-(87, '2016-12-19', 11, 65, 5000, 5000, 5000, 0, NULL, 26, 56, 0, '19.12.2016/11'),
-(88, '2016-12-19', 12, 66, 1500, 1500, 1500, 0, NULL, 23, 53, 0, '19.12.2016/12'),
-(89, '2016-12-16', 1, 52, 50, 10, 10, 0, NULL, 19, 37, 0, '16.12.2016/1'),
-(90, '2016-12-16', 2, 53, 560, 140, 140, 0, NULL, 20, 38, 0, '16.12.2016/2'),
-(91, '2016-12-16', 3, 54, 630, 140, 140, 0, NULL, 21, 39, 0, '16.12.2016/3'),
-(92, '2016-12-16', 4, 59, 280, 5, 5, 0, NULL, 22, 44, 0, '16.12.2016/4'),
-(93, '2016-12-16', 5, 63, 100, 4, 4, 0, NULL, 23, 62, 0, '16.12.2016/5'),
-(94, '2016-12-16', 6, 66, 2711, 1211, 1211, 0, NULL, 26, 53, 0, '16.12.2016/6'),
-(95, '2016-12-15', 1, 52, 50, 10, 10, 0, NULL, 19, 37, 0, '15.12.2016/1'),
-(96, '2016-12-15', 2, 52, 30, 10, 10, NULL, NULL, 20, 37, 0, '15.12.2016/2'),
-(97, '2016-12-15', 3, 54, 630, 60, 60, 0, NULL, 19, 39, 0, '15.12.2016/3'),
-(98, '2016-12-20', 1, 54, 630, 10, 10, 0, NULL, 24, 39, 0, '20.12.2016/1'),
-(99, '2017-01-09', 1, 101, 0, 315, 315, NULL, NULL, 19, 156, 0, '09.01.2017/1'),
-(100, '2017-01-10', 1, 101, 0, 360, NULL, NULL, NULL, 19, NULL, 0, '10.01.2017/1'),
-(104, '2017-01-20', 1, 246, 0, 20, NULL, NULL, NULL, 25, 199, 0, '20.01.2017/1'),
-(105, '2017-01-20', 2, 269, 0, 160, NULL, NULL, NULL, 25, 220, 0, '20.01.2017/2'),
-(106, '2017-01-20', 3, 273, 0, 1, NULL, NULL, 'Образец', 25, 223, 0, '20.01.2017/3'),
-(108, '2017-01-20', 4, 270, 0, 20, NULL, NULL, NULL, 21, NULL, 0, '20.01.2017/4'),
-(109, '2017-01-09', 2, 201, 0, 204, NULL, NULL, NULL, 22, NULL, 0, '09.01.2017/2'),
-(110, '2017-01-09', 3, 201, 0, 200, NULL, NULL, NULL, 21, NULL, 0, '09.01.2017/3'),
-(111, '2017-01-09', 4, 160, 0, 2, NULL, NULL, NULL, 21, NULL, 0, '09.01.2017/4'),
-(112, '2017-01-09', 5, 191, 0, 120, NULL, NULL, NULL, 21, NULL, 0, '09.01.2017/5'),
-(113, '2017-01-09', 6, 286, 0, 8, NULL, NULL, NULL, 24, NULL, 0, '09.01.2017/6'),
-(114, '2017-01-09', 7, 280, 0, 32, NULL, NULL, NULL, 24, NULL, 0, '09.01.2017/7'),
-(115, '2017-01-09', 8, 283, 0, 150, NULL, NULL, NULL, 24, NULL, 0, '09.01.2017/8'),
-(116, '2017-01-09', 9, 101, 0, 315, NULL, NULL, NULL, 23, NULL, 0, '09.01.2017/9'),
-(117, '2017-01-09', 10, 201, 0, 204, NULL, NULL, NULL, 20, NULL, 0, '09.01.2017/10'),
-(118, '2017-01-09', 11, 190, 0, 180, NULL, NULL, NULL, 25, NULL, 0, '09.01.2017/11'),
-(119, '2017-01-09', 12, 261, 0, 44, NULL, NULL, NULL, 25, NULL, 0, '09.01.2017/12'),
-(120, '2017-01-09', 13, 261, 0, 210, 210, NULL, NULL, 19, 238, 0, '09.01.2017/13'),
-(121, '2017-01-09', 14, 261, 0, 240, NULL, NULL, NULL, 22, NULL, 0, '09.01.2017/14'),
-(122, '2017-01-09', 15, 336, 0, 80, NULL, NULL, NULL, 22, NULL, 0, '09.01.2017/15'),
-(123, '2017-01-09', 16, 336, 0, 2, NULL, NULL, NULL, 46, NULL, 0, '09.01.2017/16'),
-(124, '2017-01-09', 17, 336, 0, 80, NULL, NULL, NULL, 20, NULL, 0, '09.01.2017/17');
+(49, '2017-01-09 00:00:00', 19, 'Формовой'),
+(50, '2017-01-09 00:00:00', 22, NULL),
+(51, '2017-01-09 00:00:00', 21, NULL),
+(52, '2017-01-09 00:00:00', 24, NULL),
+(53, '2017-01-09 00:00:00', 23, NULL),
+(54, '2017-01-09 00:00:00', 20, NULL),
+(55, '2017-01-09 00:00:00', 25, NULL),
+(56, '2017-01-09 00:00:00', 46, NULL),
+(57, '2017-01-10 00:00:00', 19, NULL),
+(58, '2017-01-27 00:00:00', 19, NULL);
 
 -- 
 -- Вывод данных для таблицы shipments
@@ -4948,9 +5744,7 @@ INSERT INTO shipments VALUES
 (34, 13, '2016-12-19', 253, 19, 19, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 13, '2016-12-19', NULL),
 (35, 14, '2016-12-21', 255, 19, 19, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 14, '2016-12-19', NULL),
 (36, 15, '2016-12-21', 226, 19, 19, 13, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 15, '2016-12-21', NULL),
-(37, 16, '2016-12-24', 259, 19, 19, 15, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 16, '2016-12-24', NULL),
-(38, 1, '2017-01-17', 328, 22, 22, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, '2017-01-17', NULL),
-(39, 2, '2017-01-17', 329, 45, 45, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 2, '2017-01-17', NULL);
+(37, 16, '2016-12-24', 259, 19, 19, 15, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 16, '2016-12-24', NULL);
 
 -- 
 -- Вывод данных для таблицы work_item_employee_package_machines
@@ -5005,56 +5799,75 @@ INSERT INTO work_item_employee_package_machines VALUES
 (63, 49, 480, 175, 15);
 
 -- 
--- Вывод данных для таблицы work_item_request_details
+-- Вывод данных для таблицы work_items
 --
-INSERT INTO work_item_request_details VALUES
-(234, 50, 58, 0, 250),
-(302, 51, 58, 0, 250),
-(305, 52, 58, 0, 250),
-(307, 72, 69, 0, 9),
-(313, 75, 72, 0, 140),
-(316, 53, 81, 0, 10),
-(318, 57, 67, 0, 140),
-(319, 73, 70, 0, 140),
-(321, 63, 68, 0, 140),
-(322, 74, 71, 0, 140),
-(325, 64, 63, 0, 70),
-(328, 65, 64, 0, 70),
-(331, 66, 65, 0, 11),
-(332, 67, 66, 0, 5),
-(333, 76, 58, 0, 250),
-(334, 55, 58, 0, 340),
-(335, 58, 59, 0, 216),
-(339, 60, 59, 0, 76),
-(342, 61, 59, 0, 100),
-(344, 62, 59, 0, 240),
-(345, 95, 81, 0, 10),
-(346, 96, 81, 0, 10),
-(347, 97, 68, 0, 60),
-(349, 89, 81, 0, 10),
-(350, 90, 67, 0, 140),
-(351, 94, 84, 0, 1211),
-(352, 93, 80, 0, 4),
-(353, 91, 68, 0, 140),
-(355, 92, 72, 0, 5),
-(356, 77, 81, 0, 10),
-(357, 78, 67, 0, 140),
-(358, 83, 78, 0, 315),
-(359, 87, 82, 0, 5000),
-(360, 85, 80, 0, 96),
-(361, 84, 75, 0, 210),
-(362, 86, 83, 0, 8000),
-(363, 88, 84, 0, 1500),
-(364, 79, 68, 0, 140),
-(366, 82, 72, 0, 135),
-(367, 82, 79, 1, 60),
-(368, 80, 76, 0, 70),
-(369, 80, 63, 1, 70),
-(370, 81, 77, 0, 70),
-(371, 81, 64, 1, 70),
-(372, 98, 68, 0, 10),
-(373, 68, 58, 0, 100),
-(374, 69, 59, 0, 10);
+INSERT INTO work_items VALUES
+(50, '2016-12-05', 1, 50, 1000, 250, 250, 0, 0, NULL, 19, 34, 1, '05.12.2016/1'),
+(51, '2016-12-06', 1, 50, 750, 250, 250, 0, 0, NULL, 19, 34, 0, '06.12.2016/1'),
+(52, '2016-12-07', 1, 50, 500, 250, 250, 0, 0, NULL, 19, 34, 1, '07.12.2016/1'),
+(53, '2016-12-08', 1, 52, 50, 10, 10, 0, 0, NULL, 23, 37, 0, '08.12.2016/1'),
+(55, '2016-12-09', 1, 50, 0, 340, 340, 0, 340, NULL, 19, 34, 0, '09.12.2016/1'),
+(57, '2016-12-08', 2, 53, 560, 140, 140, 0, 0, NULL, 23, 38, 1, '08.12.2016/2'),
+(58, '2016-12-09', 2, 51, 1000, 216, 216, 0, 0, NULL, 20, 35, 0, '09.12.2016/2'),
+(60, '2016-12-12', 1, 51, 774, 76, 76, 0, 0, NULL, 20, 35, 0, '12.12.2016/1'),
+(61, '2016-12-13', 1, 51, 698, 100, 100, 0, 0, NULL, 20, 35, 0, '13.12.2016/1'),
+(62, '2016-12-14', 1, 51, 598, 240, 240, 0, 0, NULL, 21, 35, 0, '14.12.2016/1'),
+(63, '2016-12-08', 3, 54, 630, 140, 140, 0, 0, NULL, 23, 39, 1, '08.12.2016/3'),
+(64, '2016-12-08', 4, 55, 140, 70, 70, 0, 0, NULL, 23, 40, 1, '08.12.2016/4'),
+(65, '2016-12-08', 5, 56, 140, 70, 70, 0, 0, NULL, 23, 41, 1, '08.12.2016/5'),
+(66, '2016-12-08', 6, 57, 11, 11, 11, 0, 0, NULL, 23, 42, 1, '08.12.2016/6'),
+(67, '2016-12-08', 7, 58, 5, 5, 5, 0, 0, NULL, 23, 43, 1, '08.12.2016/7'),
+(68, '2016-12-10', 1, 50, 0, 100, 100, 0, 100, NULL, 19, 34, 0, '10.12.2016/1'),
+(69, '2016-12-10', 2, 51, 784, 10, 10, 0, 0, NULL, 20, 35, 0, '10.12.2016/2'),
+(72, '2016-12-08', 8, 60, 9, 9, 9, 0, 0, NULL, 20, 45, 0, '08.12.2016/8'),
+(73, '2016-12-08', 9, 53, 420, 140, 140, 0, 0, NULL, 20, 46, 1, '08.12.2016/9'),
+(74, '2016-12-08', 10, 54, 490, 140, 140, 0, 0, NULL, 20, 47, 1, '08.12.2016/10'),
+(75, '2016-12-08', 11, 59, 340, 140, 140, 0, 0, NULL, 20, 48, 0, '08.12.2016/11'),
+(76, '2016-12-08', 12, 50, 250, 250, 250, 0, 0, NULL, 22, 34, 1, '08.12.2016/12'),
+(77, '2016-12-19', 1, 52, 10, 10, 10, 0, 0, NULL, 20, 37, 0, '19.12.2016/1'),
+(78, '2016-12-19', 2, 53, 140, 140, 140, 0, 0, NULL, 20, 38, 0, '19.12.2016/2'),
+(79, '2016-12-19', 3, 54, 150, 140, 140, 0, 0, NULL, 21, 39, 0, '19.12.2016/3'),
+(80, '2016-12-19', 4, 55, 70, 70, 140, 0, 70, NULL, 22, 40, 0, '19.12.2016/4'),
+(81, '2016-12-19', 5, 56, 70, 70, 140, 0, 70, NULL, 22, 41, 0, '19.12.2016/5'),
+(82, '2016-12-19', 6, 59, 195, 200, 195, 0, 0, NULL, 21, 44, 0, '19.12.2016/6'),
+(83, '2016-12-19', 7, 61, 315, 315, 315, 0, 0, NULL, 26, 49, 0, '19.12.2016/7'),
+(84, '2016-12-19', 8, 62, 210, 210, 210, 0, 0, NULL, 24, 50, 0, '19.12.2016/8'),
+(85, '2016-12-19', 9, 63, 96, 96, 96, 0, 0, NULL, 27, 62, 0, '19.12.2016/9'),
+(86, '2016-12-19', 10, 64, 8000, 8000, 8000, 0, 0, NULL, 24, 61, 0, '19.12.2016/10'),
+(87, '2016-12-19', 11, 65, 5000, 5000, 5000, 0, 0, NULL, 26, 56, 0, '19.12.2016/11'),
+(88, '2016-12-19', 12, 66, 1500, 1500, 1500, 0, 0, NULL, 23, 53, 0, '19.12.2016/12'),
+(89, '2016-12-16', 1, 52, 20, 10, 10, 0, 0, NULL, 19, 37, 0, '16.12.2016/1'),
+(90, '2016-12-16', 2, 53, 280, 140, 140, 0, 0, NULL, 20, 38, 0, '16.12.2016/2'),
+(91, '2016-12-16', 3, 54, 290, 140, 140, 0, 0, NULL, 21, 39, 0, '16.12.2016/3'),
+(92, '2016-12-16', 4, 59, 200, 5, 5, 0, 0, NULL, 22, 44, 0, '16.12.2016/4'),
+(93, '2016-12-16', 5, 63, 100, 4, 4, 0, 0, NULL, 23, 62, 0, '16.12.2016/5'),
+(94, '2016-12-16', 6, 66, 2711, 1211, 1211, 0, 0, NULL, 26, 53, 0, '16.12.2016/6'),
+(95, '2016-12-15', 1, 52, 40, 10, 10, 0, 0, NULL, 19, 37, 0, '15.12.2016/1'),
+(96, '2016-12-15', 2, 52, 30, 10, 10, NULL, 0, NULL, 20, 37, 0, '15.12.2016/2'),
+(97, '2016-12-15', 3, 54, 350, 60, 60, 0, 0, NULL, 19, 39, 0, '15.12.2016/3'),
+(98, '2016-12-20', 1, 54, 10, 10, 10, 0, 0, NULL, 24, 39, 0, '20.12.2016/1'),
+(99, '2017-01-09', 1, 101, 0, 315, 315, NULL, 315, NULL, 19, 156, 0, '09.01.2017/1'),
+(100, '2017-01-10', 1, 101, 0, 360, NULL, NULL, 0, NULL, 19, NULL, 0, '10.01.2017/1'),
+(104, '2017-01-20', 1, 246, 0, 20, NULL, NULL, 0, NULL, 25, 199, 0, '20.01.2017/1'),
+(105, '2017-01-20', 2, 269, 0, 160, NULL, NULL, 0, NULL, 25, 220, 0, '20.01.2017/2'),
+(106, '2017-01-20', 3, 273, 0, 1, NULL, NULL, 0, 'Образец', 25, 223, 0, '20.01.2017/3'),
+(108, '2017-01-20', 4, 270, 0, 20, NULL, NULL, 0, NULL, 21, NULL, 0, '20.01.2017/4'),
+(109, '2017-01-09', 2, 201, 0, 204, NULL, NULL, 0, NULL, 22, NULL, 0, '09.01.2017/2'),
+(110, '2017-01-09', 3, 201, 0, 200, NULL, NULL, 0, NULL, 21, NULL, 0, '09.01.2017/3'),
+(111, '2017-01-09', 4, 160, 0, 2, NULL, NULL, 0, NULL, 21, NULL, 0, '09.01.2017/4'),
+(112, '2017-01-09', 5, 191, 0, 120, NULL, NULL, 0, NULL, 21, NULL, 0, '09.01.2017/5'),
+(113, '2017-01-09', 6, 286, 0, 8, NULL, NULL, 0, NULL, 24, NULL, 0, '09.01.2017/6'),
+(114, '2017-01-09', 7, 280, 0, 32, NULL, NULL, 0, NULL, 24, NULL, 0, '09.01.2017/7'),
+(115, '2017-01-09', 8, 283, 0, 150, NULL, NULL, 0, NULL, 24, NULL, 0, '09.01.2017/8'),
+(116, '2017-01-09', 9, 101, 0, 315, NULL, NULL, 0, NULL, 23, NULL, 0, '09.01.2017/9'),
+(117, '2017-01-09', 10, 201, 0, 204, NULL, NULL, 0, NULL, 20, NULL, 0, '09.01.2017/10'),
+(118, '2017-01-09', 11, 190, 0, 180, NULL, NULL, 0, NULL, 25, NULL, 0, '09.01.2017/11'),
+(119, '2017-01-09', 12, 261, 0, 44, NULL, NULL, 0, NULL, 25, NULL, 0, '09.01.2017/12'),
+(120, '2017-01-09', 13, 261, 0, 210, 210, NULL, 210, NULL, 19, 238, 0, '09.01.2017/13'),
+(121, '2017-01-09', 14, 261, 0, 240, NULL, NULL, 0, NULL, 22, NULL, 0, '09.01.2017/14'),
+(122, '2017-01-09', 15, 336, 0, 80, NULL, NULL, 0, NULL, 22, NULL, 0, '09.01.2017/15'),
+(123, '2017-01-09', 16, 336, 0, 2, NULL, NULL, 0, NULL, 46, NULL, 0, '09.01.2017/16'),
+(124, '2017-01-09', 17, 336, 0, 80, NULL, NULL, 0, NULL, 20, NULL, 0, '09.01.2017/17');
 
 -- 
 -- Вывод данных для таблицы shipment_items
@@ -5092,6 +5905,55 @@ INSERT INTO shipment_items VALUES
 (56, 34, 1, 70, 140, 6.78, 18, NULL, NULL, NULL, '16.12.2016/2'),
 (57, 35, 1, 74, 90, 6.78, 18, NULL, NULL, NULL, '16.12.2016/3,19.12.2016/3,20.12.2016/1'),
 (58, 36, 1, 58, 100, 50.00, 18, NULL, NULL, NULL, '05.12.2016/1,08.12.2016/12');
+
+-- 
+-- Вывод данных для таблицы work_item_request_details
+--
+INSERT INTO work_item_request_details VALUES
+(375, 50, 58, 0, 250),
+(376, 51, 58, 0, 250),
+(377, 52, 58, 0, 250),
+(378, 76, 58, 0, 250),
+(379, 58, 59, 0, 216),
+(380, 69, 59, 0, 10),
+(381, 60, 59, 0, 76),
+(382, 61, 59, 0, 100),
+(383, 62, 59, 0, 98),
+(384, 62, 166, 1, 142),
+(385, 53, 81, 0, 10),
+(386, 95, 81, 0, 10),
+(387, 96, 81, 0, 10),
+(388, 89, 81, 0, 10),
+(389, 77, 60, 0, 10),
+(390, 57, 67, 0, 140),
+(391, 73, 70, 0, 140),
+(392, 90, 73, 0, 140),
+(393, 78, 61, 0, 140),
+(394, 63, 68, 0, 140),
+(395, 74, 71, 0, 140),
+(396, 97, 74, 0, 60),
+(397, 91, 74, 0, 140),
+(398, 79, 74, 0, 10),
+(399, 79, 62, 1, 130),
+(400, 98, 62, 0, 10),
+(401, 64, 76, 0, 70),
+(402, 80, 63, 0, 70),
+(403, 65, 77, 0, 70),
+(404, 81, 64, 0, 70),
+(405, 66, 65, 0, 11),
+(406, 67, 66, 0, 5),
+(407, 75, 72, 0, 140),
+(408, 92, 79, 0, 5),
+(409, 82, 79, 0, 195),
+(410, 72, 69, 0, 9),
+(411, 83, 78, 0, 315),
+(412, 84, 75, 0, 210),
+(413, 93, 80, 0, 4),
+(414, 85, 80, 0, 96),
+(415, 86, 83, 0, 8000),
+(416, 87, 82, 0, 5000),
+(417, 94, 84, 0, 1211),
+(418, 88, 84, 0, 1500);
 
 -- 
 -- Вывод данных для таблицы shipment_item_work_items

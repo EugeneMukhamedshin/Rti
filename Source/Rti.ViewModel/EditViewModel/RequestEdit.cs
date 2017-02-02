@@ -311,13 +311,6 @@ namespace Rti.ViewModel.EditViewModel
             // Сохраняем заявку
             base.DoSave();
 
-            // Для проведения нарядов:
-            // Получаем все чертежи по заявке до сохранения, приклеиваем к ним новые чертежи, и убираем дубли
-            var drawings =
-                RepositoryFactory.GetRequestDetailRepository().GetByRequestId(Source.Id).Select(o => new DrawingViewModel(o.Drawing, RepositoryFactory))
-                .Union(RequestDetails.Select(o => o.Drawing))
-                .Distinct();
-
             // Сохраняем детали заявки
             foreach (var deletedDetail in _deletedDetails)
             {
@@ -338,12 +331,8 @@ namespace Rti.ViewModel.EditViewModel
                 }
             }
 
-            // Проводим наряды по всем затронутым чертежам (как удаленным так и добавленным)
-            var workItemController = new WorkItemController(RepositoryFactory);
-            foreach (var drawing in drawings)
-            {
-                workItemController.PostWorkItems(drawing.Id, Entity.RegDate);
-            }
+            var wic = new WorkItemController(RepositoryFactory);
+            wic.DistributeRequestDetails(Source.Entity);
         }
 
         protected override bool DoValidate()

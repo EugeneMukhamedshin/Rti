@@ -1035,6 +1035,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Id(o => o.Id, "id");
 			Map(o => o.SortOrder, "sort_order");
 			Map(o => o.DoneCount, "done_count");
+			Map(o => o.IsOverflowDistribution, "is_overflow_distribution");
 			References(o => o.WorkItem, "work_item_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.RequestDetail, "request_detail_id").Fetch.Join().Not.LazyLoad();
 			OnInitialized();

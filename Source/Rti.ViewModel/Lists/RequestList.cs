@@ -104,13 +104,15 @@ namespace Rti.ViewModel.Lists
             {
                 requestDetail.IsDeleted = true;
                 RepositoryFactory.GetRequestDetailRepository().Update(requestDetail);
+
+                RepositoryFactory.GetWorkItemRequestDetailRepository().DeleteByRequestDetailId(requestDetail.Id, DateTime.MaxValue);
             }
 
-            var workItemController = new WorkItemController(RepositoryFactory);
-            foreach (var drawing in requestDetails.Select(o => o.Drawing).Distinct())
-            {
-                workItemController.PostWorkItems(drawing.Id, request.RegDate);
-            }
+            //var workItemController = new WorkItemController(RepositoryFactory);
+            //foreach (var drawing in requestDetails.Select(o => o.Drawing).Distinct())
+            //{
+            //    workItemController.PostWorkItems(drawing.Id, request.RegDate);
+            //}
 
             Items.Remove(item);
         }

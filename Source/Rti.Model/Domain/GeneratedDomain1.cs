@@ -1090,6 +1090,8 @@ namespace Rti.Model.Domain
 		public virtual Int32? SortOrder { get; set; }
 		[Field("done_count")]
 		public virtual Int32 DoneCount { get; set; }
+		[Field("is_overflow_distribution")]
+		public virtual Boolean IsOverflowDistribution { get; set; }
 		[Reference("work_item_id", false)]
 		public virtual WorkItem WorkItem { get; set; }
 		[Reference("request_detail_id", false)]
