@@ -52,8 +52,8 @@ namespace Rti.ViewModel.EditViewModel
                 if (!Save())
                     return;
             }
-            var viewModel = new ShipmentTorg12ReportViewModel("Товарная накладная", ViewService, RepositoryFactory,
-            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Товарная накладная.xls")
+            var viewModel = new ShipmentTorg12ReportViewModel($"Товарная накладная {Entity.SortOrder} от {Entity.Date:dd.MM.yyyy}г.", ViewService, RepositoryFactory,
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), $"Товарная накладная {Entity.SortOrder} от {Entity.Date:dd.MM.yyyy}г.xls")
             {
                 Shipment = Source,
                 ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
@@ -70,8 +70,8 @@ namespace Rti.ViewModel.EditViewModel
                 if (!Save())
                     return;
             }
-            var viewModel = new ShipmentFactureReportViewModel("Счет-фактура", ViewService, RepositoryFactory,
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Счет-фактура.xls")
+            var viewModel = new ShipmentFactureReportViewModel($"Счет-фактура {Entity.SortOrder} от {Entity.Date:dd.MM.yyyy}г.", ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), $"Счет-фактура {Entity.SortOrder} от {Entity.Date:dd.MM.yyyy}г.xls")
             {
                 Shipment = Source,
                 ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
@@ -125,7 +125,7 @@ namespace Rti.ViewModel.EditViewModel
                     return;
             }
             var viewModel = new ShipmentUniversalDocumentReportViewModel("Универсальный передаточный документ", ViewService, RepositoryFactory,
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Универсальный передаточный документ.xls")
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), $"УПД {Entity.SortOrder} от {Entity.Date:dd.MM.yyyy}г.xls")
             {
                 Shipment = Source,
                 ExtensionFilter = "Файлы Excel (*.xls)|*.xls"

@@ -196,7 +196,7 @@
   </xsl:template>
 
   <xsl:template match="set[@name='ShipmentItems']/ShipmentItem">
-    <Worksheet ss:Name="{@FullDetailName}">
+    <Worksheet ss:Name="Строка {position()}">
       <Names>
         <NamedRange ss:Name="Print_Area" ss:RefersTo="=Лист1!R1C1:R25C13"/>
       </Names>

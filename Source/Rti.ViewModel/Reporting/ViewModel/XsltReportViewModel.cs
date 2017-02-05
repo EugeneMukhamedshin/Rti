@@ -39,6 +39,7 @@ namespace Rti.ViewModel.Reporting.ViewModel
             }
             catch (Exception ex)
             {
+                throw new InvalidOperationException($"Ошибка при открытии отчета. Возможно, файл с именем {fileName} уже открыт.", ex);
             }
             finally
             {

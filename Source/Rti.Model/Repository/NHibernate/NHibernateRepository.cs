@@ -14,6 +14,35 @@ namespace Rti.Model.Repository.NHibernate
     {
         private ILog _log = LogManager.GetLogger(typeof(NHibernateRepository));
 
+        //public TResult ExecuteInTransaction<TResult>(Func<ISession, TResult> func)
+        //{
+        //    try
+        //    {
+        //        using (var session = new NHibernateContext().SessionFactory.OpenSession())
+        //        {
+        //            using (var transaction = session.BeginTransaction())
+        //            {
+        //                try
+        //                {
+        //                    var result = func(session);
+        //                    transaction.Commit();
+        //                    return result;
+        //                }
+        //                catch
+        //                {
+        //                    transaction.Rollback();
+        //                    throw;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)n
+        //    {
+        //        _log.ErrorExt(String.Format("{0}: Ошибка при выполнении запроса", description), ex);
+        //        throw;
+        //    }
+        //}
+
         protected TResult ExecuteFuncOnSession<TResult>(Func<ISession, TResult> func, String description = null)
         {
             try

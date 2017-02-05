@@ -811,7 +811,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Reports\GetShipmentTorg12Report.xslt">
+    <None Include="Reports\GetShipmentTorg12Report_Deprecated.xslt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -822,7 +822,7 @@
     <Resource Include="Reports\facture.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Reports\GetShipmentFactureReport.xslt">
+    <None Include="Reports\GetShipmentFactureReport_Deprecated.xslt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -982,6 +982,33 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="AppIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetShipmentTorg12Report.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetShipmentReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetShipmentFactureReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetShipmentFactureReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetShipmentUniversalDocumentReport_Deprecated.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetShipmentUniversalDocumentReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\GetTransportShipmentReport.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
