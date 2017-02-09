@@ -90,13 +90,21 @@ namespace Rti.ViewModel.EditViewModel
 
         protected override void DoSave()
         {
-            if (Entity.DrawingImage != null)
+            using (RepositoryFactory.CreateSessionScope())
             {
-                Entity.DrawingImage.Data = ImageEdit.Entity.Data;
-                Entity.DrawingImage.SaveEntity();
-                RepositoryFactory.GetImageRepository().SaveData(Entity.DrawingImage.Id, Entity.DrawingImage.Data);
+                using (var transactionScope = RepositoryFactory.CreateTransactionScope())
+                {
+                    if (Entity.DrawingImage != null)
+                    {
+                        Entity.DrawingImage.Data = ImageEdit.Entity.Data;
+                        Entity.DrawingImage.SaveEntity();
+                        RepositoryFactory.GetImageRepository()
+                            .SaveData(Entity.DrawingImage.Id, Entity.DrawingImage.Data);
+                    }
+                    base.DoSave();
+                    transactionScope.Commit();
+                }
             }
-            base.DoSave();
         }
 
         private void OpenMassCalculationEdit()
@@ -124,7 +132,8 @@ namespace Rti.ViewModel.EditViewModel
             {
                 if (Entity.Equipment == null)
                     Entity.Equipment = equipment;
-            }}
+            }
+        }
 
         private void OpenDrawingMeasurementEdit()
         {

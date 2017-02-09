@@ -73,7 +73,7 @@ ORDER BY wi.work_date, wi.sort_order")
             return ExecuteFuncOnQueryOver(q => q.WhereRestrictionOn(o => o.Id).IsIn(ids).List());
         }
 
-        public IList<ValueTuple<WorkItem, int>> GetOverflowed(int drawingId, DateTime forDate)
+        public IList<Tuple<WorkItem, int>> GetOverflowed(int drawingId, DateTime forDate)
         {
             var overflows = ExecuteFuncOnSession(
                 s => s.CreateSQLQuery(@"
@@ -95,11 +95,11 @@ WHERE t.overflow_count > 0")
                     .SetDateTime("p_date", forDate)
                     .SetResultTransformer(
                         new ResultTransformer(
-                            fields => (Convert.ToInt32(fields[0]), Convert.ToInt32(fields[1])),
-                            objects => objects.Cast<(int, int)>().ToList()))
-                    .List<(int, int)>(), "");
+                            fields => new Tuple<int, int>(Convert.ToInt32(fields[0]), Convert.ToInt32(fields[1])),
+                            objects => objects.Cast<Tuple<int, int>>().ToList()))
+                    .List<Tuple<int, int>>(), "");
             return ExecuteFuncOnQueryOver(q => q.WhereRestrictionOn(o => o.Id).IsIn(overflows.Select(d => d.Item1).ToArray()).OrderBy(o => o.WorkDate).Asc.ThenBy(o => o.SortOrder).Asc.List()
-            .Select(o => (o, overflows.First(d => d.Item1.Equals(o.Id)).Item2)).ToList());
+            .Select(o => new Tuple<WorkItem, int>(o, overflows.First(d => d.Item1.Equals(o.Id)).Item2)).ToList());
         }
     }
 }

@@ -124,7 +124,7 @@ FROM (SELECT
             .Select(o => new Tuple <Drawing, int, int>(o, drawings.First(d => d.Item1.Equals(o.Id)).Item2, drawings.First(d => d.Item1.Equals(o.Id)).Item3)).ToList());
         }
 
-        public IList<(Drawing, int)> GetAllWithOverflowCount(DateTime date)
+        public IList<Tuple<Drawing, int>> GetAllWithOverflowCount(DateTime date)
         {
             var drawings = ExecuteFuncOnSession(
                 s => s.CreateSQLQuery(@"
@@ -149,11 +149,26 @@ GROUP BY d.id")
                     .SetDateTime("p_date", date)
                     .SetResultTransformer(
                         new ResultTransformer(
-                            fields => (Convert.ToInt32(fields[0]), Convert.ToInt32(fields[1])),
-                            objects => objects.Cast<(int, int)>().ToList()))
-                    .List<(int, int)>(), "");
+                            fields => new Tuple<int, int>(Convert.ToInt32(fields[0]), Convert.ToInt32(fields[1])),
+                            objects => objects.Cast<Tuple<int, int>>().ToList()))
+                    .List<Tuple<int, int>>(), "");
             return ExecuteFuncOnQueryOver(q => q.WhereRestrictionOn(o => o.Id).IsIn(drawings.Select(d => d.Item1).ToArray()).OrderBy(o => o.CreationDate).Asc.List()
-            .Select(o => (o, drawings.First(d => d.Item1.Equals(o.Id)).Item2)).ToList());
+            .Select(o => new Tuple<Drawing, int>(o, drawings.First(d => d.Item1.Equals(o.Id)).Item2)).ToList());
+        }
+
+        public bool ValidateDeleteDrawing(int id)
+        {
+            return ExecuteFuncOnSession(session =>
+            {
+                RequestDetail rd = null;
+                var result =
+                    session
+                        .QueryOver(() => rd)
+                        .Where(o => o.Drawing.Id == id)
+                        .Select(Projections.Count(() => rd.Id))
+                        .SingleOrDefault<int>();
+                return result == 0;
+            });
         }
     }
 }

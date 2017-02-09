@@ -27,6 +27,6 @@ namespace Rti.Model.Repository.Interfaces
         /// <param name="date">Дата, на которую необходимо получить остатки по изготовленному количеству и отгруженному количеству</param>
         /// <param name="shipmentOrder">Номер отгрузки в текущей дате, если null, то учитываются все отгрузки в текущей дате</param>
         /// <returns></returns>
-        IList<(int, int, int)> GetCountsByRequestId(int requestId, DateTime date, int? shipmentOrder = null);
+        IList<Tuple<int, int, int>> GetCountsByRequestId(int requestId, DateTime date, int? shipmentOrder = null);
     }
 }

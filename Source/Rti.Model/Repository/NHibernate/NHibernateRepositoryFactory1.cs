@@ -94,6 +94,16 @@ namespace Rti.Model.Repository.NHibernate
 			return new NHibernateRepository<TEntity>();
 		}
 
+		public ISessionScope CreateSessionScope()
+		{
+			return new NHibernateSessionScope();
+		}
+
+		public ITransactionScope CreateTransactionScope()
+		{
+			return new NHibernateTransactionScope();
+		}
+
 		public IAdditionalInfoRepository GetAdditionalInfoRepository() { return (IAdditionalInfoRepository) GetRepository<Rti.Model.Domain.AdditionalInfo>(); }
 
 		public ICalculationRepository GetCalculationRepository() { return (ICalculationRepository) GetRepository<Rti.Model.Domain.Calculation>(); }

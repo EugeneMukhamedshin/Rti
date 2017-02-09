@@ -157,7 +157,7 @@
                     <dxg:GridColumn Binding="{Binding Drawing.Equipment.ExistanceEnum,Converter={StaticResource EnumToStringConverter}}" Header="Наличие оснастки" Width="60" ReadOnly="True"/>
                     <dxg:GridColumn Binding="{Binding AdditionalInfo,Mode=TwoWay}" Header="Доп. инфо" Width="80"/>
                     <dxg:GridColumn Binding="{Binding Count,Mode=TwoWay}" Header="Кол-во" Width="50" EditSettings="{components:TextEditSettings Mask=f0,MaskType=Numeric}"/>
-                    <dxg:GridColumn Binding="{Binding Price,Mode=TwoWay}" Header="Цена" Width="50" EditSettings="{components:Float2TextEditSettings}" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding Price,Mode=TwoWay}" Header="Цена" Width="50" EditSettings="{components:Float2TextEditSettings}"/>
                     <dxg:GridColumn Width="20">
                         <dxg:GridColumn.CellTemplate>
                             <DataTemplate>

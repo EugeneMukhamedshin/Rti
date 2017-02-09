@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using log4net;
 using log4net.Util;
@@ -14,39 +13,14 @@ namespace Rti.Model.Repository.NHibernate
     {
         private ILog _log = LogManager.GetLogger(typeof(NHibernateRepository));
 
-        //public TResult ExecuteInTransaction<TResult>(Func<ISession, TResult> func)
-        //{
-        //    try
-        //    {
-        //        using (var session = new NHibernateContext().SessionFactory.OpenSession())
-        //        {
-        //            using (var transaction = session.BeginTransaction())
-        //            {
-        //                try
-        //                {
-        //                    var result = func(session);
-        //                    transaction.Commit();
-        //                    return result;
-        //                }
-        //                catch
-        //                {
-        //                    transaction.Rollback();
-        //                    throw;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)n
-        //    {
-        //        _log.ErrorExt(String.Format("{0}: Ошибка при выполнении запроса", description), ex);
-        //        throw;
-        //    }
-        //}
-
         protected TResult ExecuteFuncOnSession<TResult>(Func<ISession, TResult> func, String description = null)
         {
             try
             {
+                if (NHibernateSessionScope.Session != null)
+                {
+                    return func(NHibernateSessionScope.Session);
+                }
                 using (var session = new NHibernateContext().SessionFactory.OpenSession())
                 {
                     using (var transaction = session.BeginTransaction())
@@ -67,7 +41,7 @@ namespace Rti.Model.Repository.NHibernate
             }
             catch (Exception ex)
             {
-                _log.ErrorExt(String.Format("{0}: Ошибка при выполнении запроса", description), ex);
+                _log.ErrorExt($"{description}: Ошибка при выполнении запроса", ex);
                 throw;
             }
         }
@@ -76,6 +50,11 @@ namespace Rti.Model.Repository.NHibernate
         {
             try
             {
+                if (NHibernateSessionScope.Session != null)
+                {
+                    action(NHibernateSessionScope.Session);
+                    return;
+                }
                 using (var session = new NHibernateContext().SessionFactory.OpenSession())
                 {
                     using (var transaction = session.BeginTransaction())
@@ -95,7 +74,7 @@ namespace Rti.Model.Repository.NHibernate
             }
             catch (Exception ex)
             {
-                _log.ErrorExt(String.Format("{0}: Ошибка при выполнении запроса", description), ex);
+                _log.ErrorExt($"{description}: Ошибка при выполнении запроса", ex);
                 throw;
             }
         }
@@ -103,7 +82,7 @@ namespace Rti.Model.Repository.NHibernate
 
     public class NHibernateRepository<TEntity> : NHibernateRepository, IRepository<TEntity> where TEntity : class, IIdentifiedEntity
     {
-        private ILog _log = LogManager.GetLogger(typeof (NHibernateRepository<TEntity>));
+        private readonly ILog _log = LogManager.GetLogger(typeof (NHibernateRepository<TEntity>));
 
         public void Insert(TEntity entity)
         {
@@ -113,19 +92,19 @@ namespace Rti.Model.Repository.NHibernate
         public void Update(TEntity entity)
         {
             ExecuteActionOnSession(session => session.Update(entity),
-                                     String.Format("Update {0}", typeof (TEntity).Name));
+                $"Update {typeof(TEntity).Name}");
         }
 
         public virtual void Delete(TEntity entity)
         {
             ExecuteActionOnSession(session => session.Delete(entity),
-                                     String.Format("Delete {0}", typeof (TEntity).Name));
+                $"Delete {typeof(TEntity).Name}");
         }
 
         public virtual IEnumerable<TEntity> GetAll()
         {
             return ExecuteFuncOnQueryOver(query => query.List(), null,
-                                          String.Format("Read all {0}", typeof (TEntity).Name));
+                $"Read all {typeof(TEntity).Name}");
         }
 
         public TEntity GetById(int id)
@@ -133,7 +112,7 @@ namespace Rti.Model.Repository.NHibernate
             return ExecuteFuncOnQueryOver(
                 query => query.Where(entity => entity.Id == id).SingleOrDefault(),
                 null,
-                String.Format("Read one {0} by Id=[{1}]", typeof(TEntity), id));
+                $"Read one {typeof(TEntity)} by Id=[{id}]");
         }
 
         protected virtual IQueryOver<TEntity, TEntity> GetDefaultQueryOver(IQueryOver<TEntity, TEntity> queryOver)
@@ -145,7 +124,7 @@ namespace Rti.Model.Repository.NHibernate
         {
             try
             {
-                using (var session = new NHibernateContext().SessionFactory.OpenSession())
+                var deleg = new Func<ISession, TResult>(session =>
                 {
                     var dbSet = session.QueryOver<TEntity>();
                     if (expressions == null)
@@ -159,11 +138,19 @@ namespace Rti.Model.Repository.NHibernate
                     }
                     var result = func(dbSet);
                     return result;
+                });
+                if (NHibernateSessionScope.Session != null)
+                {
+                    return deleg(NHibernateSessionScope.Session);
+                }
+                using (var session = new NHibernateContext().SessionFactory.OpenSession())
+                {
+                    return deleg(session);
                 }
             }
             catch (Exception ex)
             {
-                _log.ErrorExt(String.Format("{0}: Ошибка при выполнении запроса", description), ex);
+                _log.ErrorExt($"{description}: Ошибка при выполнении запроса", ex);
                 throw;
             }
         }

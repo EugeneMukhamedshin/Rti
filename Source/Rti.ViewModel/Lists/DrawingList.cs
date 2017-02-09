@@ -149,6 +149,7 @@ namespace Rti.ViewModel.Lists
         private void Refresh(object state)
         {
             IsFilterEnabled = false;
+            _page = 0;
             Refresh();
         }
 
@@ -209,6 +210,16 @@ namespace Rti.ViewModel.Lists
                 CreationDate = DateTime.Now,
                 Name = "Новый чертеж"
             };
+        }
+
+        protected override bool ValidateDelete(DrawingViewModel entity)
+        {
+            if (!RepositoryFactory.GetDrawingRepository().ValidateDeleteDrawing(entity.Id))
+            {
+                ViewService.ShowMessage(new MessageViewModel("Внимание", "Невоможно удалить чертеж, по которому есть заявки", true));
+                return false;
+            }
+            return base.ValidateDelete(entity);
         }
 
         protected override void DoDeleteEntity(DrawingViewModel entity)

@@ -11,6 +11,6 @@ namespace Rti.Model.Repository.Interfaces
         IList<WorkItem> GetByDrawingId(int drawingId, DateTime startDate, DateTime endDate);
         IList<Tuple<int, int>> GetNotShippedByDrawingId(int drawingId, DateTime date, int sortOrder);
         IList<WorkItem> GetWorkItemsByIds(int[] ids);
-        IList<(WorkItem, int)> GetOverflowed(int drawingId, DateTime forDate);
+        IList<Tuple<WorkItem, int>> GetOverflowed(int drawingId, DateTime forDate);
     }
 }

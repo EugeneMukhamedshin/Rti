@@ -92,7 +92,7 @@ WHERE r.count > r.done
                             .Select(Projections.Sum<RequestDetail>(o => o.Count)).UnderlyingCriteria.UniqueResult<int>());
         }
 
-        public IList<(int, int, int)> GetCountsByRequestId(int requestId, DateTime date, int? shipmentOrder = null)
+        public IList<Tuple<int, int, int>> GetCountsByRequestId(int requestId, DateTime date, int? shipmentOrder = null)
         {
             return ExecuteFuncOnSession(
                 session =>
@@ -121,7 +121,7 @@ WHERE r.count > r.done
                                 .SelectList(l => l
                                     .SelectSum(() => si.Count).WithAlias(() => shippedCount)
                                 ))
-                        ).List<object[]>().Select(o => ((int)o[0], (int?) o[1] ?? 0, (int?)o[2] ?? 0)).ToList();
+                        ).List<object[]>().Select(o => new Tuple<int, int, int>((int)o[0], (int?) o[1] ?? 0, (int?)o[2] ?? 0)).ToList();
                 });
         }
     }

@@ -89,11 +89,16 @@ namespace Rti.ViewModel.Lists
         {
             if (SelectedItem == null)
                 return;
-            if (ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Подтвердите удаление")) == true)
+            if (ValidateDelete(SelectedItem) && ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Подтвердите удаление")))
             {
                 DoDeleteEntity(SelectedItem);
                 Items.Remove(SelectedItem);
             }
+        }
+
+        protected virtual bool ValidateDelete(TEntityViewModel entity)
+        {
+            return true;
         }
 
         private void EditEntity(object o)

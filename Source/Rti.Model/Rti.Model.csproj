@@ -106,6 +106,7 @@
     <Compile Include="Repository\Interfaces\IPaymentRepository.cs" />
     <Compile Include="Repository\Interfaces\IReportOfCompletionItemRepository.cs" />
     <Compile Include="Repository\Interfaces\IReportRepository.cs" />
+    <Compile Include="Repository\Interfaces\ISessionScope.cs" />
     <Compile Include="Repository\Interfaces\IShipmentItemRepository.cs" />
     <Compile Include="Repository\Interfaces\IShipmentItemWorkItemRepository.cs" />
     <Compile Include="Repository\Interfaces\IShipmentRepository.cs" />
@@ -153,6 +154,8 @@
     <Compile Include="Repository\NHibernate\DriverRepository.cs" />
     <Compile Include="Repository\NHibernate\EmployeeRepository.cs" />
     <Compile Include="Repository\NHibernate\EquipmentPaymentRepository.cs" />
+    <Compile Include="Repository\NHibernate\NHibernateSessionScope.cs" />
+    <Compile Include="Repository\NHibernate\NHibernateTransactionScope.cs" />
     <Compile Include="Repository\NHibernate\PaymentRepository.cs" />
     <Compile Include="Repository\NHibernate\ReportOfCompletionItemRepository.cs" />
     <Compile Include="Repository\NHibernate\ReportRepository.cs" />

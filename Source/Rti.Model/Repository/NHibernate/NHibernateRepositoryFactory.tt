@@ -37,6 +37,16 @@ foreach (var type in types)
 			return new NHibernateRepository<TEntity>();
 		}
 
+		public ISessionScope CreateSessionScope()
+		{
+			return new NHibernateSessionScope();
+		}
+
+		public ITransactionScope CreateTransactionScope()
+		{
+			return new NHibernateTransactionScope();
+		}
+
 <#
 foreach (var type in types)
 {

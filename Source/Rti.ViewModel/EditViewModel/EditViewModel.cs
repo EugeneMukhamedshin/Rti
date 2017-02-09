@@ -1,4 +1,6 @@
 ﻿using System;
+using log4net;
+using log4net.Util;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
@@ -8,6 +10,8 @@ namespace Rti.ViewModel.EditViewModel
 {
     public class EditViewModel<TObject> : BaseViewModel, IClosable, IValidatable
     {
+        private ILog _log = LogManager.GetLogger(typeof(EditViewModel<>));
+
         private string _name;
         protected readonly IViewService ViewService;
         private TObject _entity;
@@ -81,7 +85,16 @@ namespace Rti.ViewModel.EditViewModel
         {
             if (!Validate())
                 return false;
-            DoSave();
+            try
+            {
+                DoSave();
+            }
+            catch (Exception ex)
+            {
+                _log.ErrorExt("Произошла ошибка при сохранении", ex);
+                ViewService.ShowMessage(new MessageViewModel("Ошибка", "Произошла ошибка при сохранении.", true));
+                return false;
+            }
             return true;
         }
 

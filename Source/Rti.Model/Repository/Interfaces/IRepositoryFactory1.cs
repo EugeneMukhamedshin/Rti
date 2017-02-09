@@ -7,6 +7,9 @@ namespace Rti.Model.Repository.Interfaces
     {
         IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IIdentifiedEntity;
 
+        ISessionScope CreateSessionScope();
+        ITransactionScope CreateTransactionScope();
+
 		IAdditionalInfoRepository GetAdditionalInfoRepository();
 		ICalculationRepository GetCalculationRepository();
 		IConstantRepository GetConstantRepository();

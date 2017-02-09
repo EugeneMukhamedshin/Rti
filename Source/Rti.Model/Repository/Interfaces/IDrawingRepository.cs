@@ -14,6 +14,7 @@ namespace Rti.Model.Repository.Interfaces
         int GetNextSortOrder();
         IList<Drawing> GetUnpaidEquipments();
         IList<Tuple<Drawing, int, int>> GetAllInWork(DateTime date, int sortOrder);
-        IList<(Drawing, int)> GetAllWithOverflowCount(DateTime date);
+        IList<Tuple<Drawing, int>> GetAllWithOverflowCount(DateTime date);
+        bool ValidateDeleteDrawing(int id);
     }
 }
