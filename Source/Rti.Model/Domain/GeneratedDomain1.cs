@@ -20,6 +20,20 @@ namespace Rti.Model.Domain
 		public virtual Boolean IsDeleted { get; set; }
 	}
 
+	// The class for attachments
+	[Table("attachments")]
+	public partial class Attachment: IIdentifiedEntity
+	{
+		[Field("id")]
+		public virtual Int32 Id { get; protected set; }
+		[Field("data")]
+		public virtual byte[] Data { get; set; }
+		[Field("filename")]
+		public virtual String Filename { get; set; }
+		[Reference("drawing_id", false)]
+		public virtual Drawing Drawing { get; set; }
+	}
+
 	// The class for calculations
 	[Table("calculations")]
 	public partial class Calculation: IIdentifiedEntity
@@ -262,8 +276,6 @@ namespace Rti.Model.Domain
 		public virtual Equipment Equipment { get; set; }
 		[Reference("method_id", false)]
 		public virtual Method Method { get; set; }
-		[Reference("drawing_image_id", false)]
-		public virtual Image DrawingImage { get; set; }
 		[Reference("customer_id", false)]
 		public virtual Contragent Customer { get; set; }
 		[Reference("secondary_customer_id", false)]
@@ -440,16 +452,6 @@ namespace Rti.Model.Domain
 		public virtual String Note { get; set; }
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
-	}
-
-	// The class for images
-	[Table("images")]
-	public partial class Image: IIdentifiedEntity
-	{
-		[Field("id")]
-		public virtual Int32 Id { get; protected set; }
-		[Field("data")]
-		public virtual byte[] Data { get; set; }
 	}
 
 	// The class for jobs
@@ -972,38 +974,6 @@ namespace Rti.Model.Domain
 		public virtual Contragent Customer { get; set; }
 		[Reference("drawing_id", false)]
 		public virtual Drawing Drawing { get; set; }
-	}
-
-	// The class for standard
-	[Table("standard")]
-	public partial class Standard: IIdentifiedEntity
-	{
-		[Field("id")]
-		public virtual Int32 Id { get; protected set; }
-		[Field("q1")]
-		public virtual String Q1 { get; set; }
-		[Field("q2")]
-		public virtual String Q2 { get; set; }
-		[Field("q3")]
-		public virtual String Q3 { get; set; }
-		[Field("q4")]
-		public virtual String Q4 { get; set; }
-		[Field("q5")]
-		public virtual String Q5 { get; set; }
-		[Field("q6")]
-		public virtual String Q6 { get; set; }
-		[Field("q7")]
-		public virtual String Q7 { get; set; }
-		[Field("q8")]
-		public virtual String Q8 { get; set; }
-		[Field("q9")]
-		public virtual String Q9 { get; set; }
-		[Field("q10")]
-		public virtual String Q10 { get; set; }
-		[Field("q11")]
-		public virtual String Q11 { get; set; }
-		[Field("q12")]
-		public virtual String Q12 { get; set; }
 	}
 
 	// The class for work_items

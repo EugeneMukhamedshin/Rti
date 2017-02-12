@@ -29,7 +29,7 @@
             <Button Content="{StaticResource EditImage}" Command="{Binding EditEquipmentPaymentCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5" TabIndex="6"/>
             <Button Content="Показать оснастку..." Command="{Binding EditEquipmentCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="120" Height="32" Margin="5" TabIndex="6"/>
         </StackPanel>
-        <dxg:GridControl TabIndex="7" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2" CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText">
+        <dxg:GridControl TabIndex="7" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2" CustomUnboundColumnData="GridControl_OnCustomUnboundColumnData">
             <dxmvvm:Interaction.Behaviors>
                 <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding EditEquipmentPaymentCommand}" PassEventArgsToCommand="True">
                     <dxmvvm:EventToCommand.EventArgsConverter>
@@ -59,7 +59,7 @@
             </dxg:GridControl.Resources>
             <dxg:GridControl.Bands>
                 <dxg:GridControlBand>
-                    <dxg:GridColumn Header="№" UnboundType="Integer" Width="30" Name="_rowNumberColumn"/>
+                    <dxg:GridColumn Header="№" FieldName="Counter" UnboundType="Integer" Width="30" Name="_rowNumberColumn"/>
                 </dxg:GridControlBand>
                 <dxg:GridControlBand Header="Оснастка">
                     <dxg:GridColumn FieldName="Drawing.FullName" Header="Номер" Width="80"/>

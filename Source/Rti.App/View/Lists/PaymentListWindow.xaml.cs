@@ -1,4 +1,7 @@
-﻿using DevExpress.Xpf.Grid;
+﻿using System.Collections;
+using System.Collections.Generic;
+using DevExpress.Xpf.Grid;
+using Rti.ViewModel.Entities;
 
 namespace Rti.App.View.Lists
 {
@@ -11,11 +14,13 @@ namespace Rti.App.View.Lists
         {
             InitializeComponent();
         }
-        private void GridControl_OnCustomColumnDisplayText(object sender, CustomColumnDisplayTextEventArgs e)
-        {
-            if (Equals(e.Column, _rowNumberColumn))
-                e.DisplayText = (e.ListSourceIndex + 1).ToString();
-        }
 
+        private void GridControl_OnCustomUnboundColumnData(object sender, GridColumnDataEventArgs e)
+        {
+            if (Equals(e.Column, _rowNumberColumn) && e.IsGetData)
+            {
+                e.Value = e.ListSourceRowIndex + 1;
+            }
+        }
     }
 }

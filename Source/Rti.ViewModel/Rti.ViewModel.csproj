@@ -99,6 +99,7 @@
     <Compile Include="EditViewModel\SelectorViewModel.cs" />
     <Compile Include="EditViewModel\ShavingRecordEdit.cs" />
     <Compile Include="EditViewModel\ShippingOrderRecordEdit.cs" />
+    <Compile Include="Entities\AttachmentViewModel.cs" />
     <Compile Include="Entities\CalculationViewModel.cs" />
     <Compile Include="Entities\Commands\DelegateCommand.cs" />
     <Compile Include="Entities\Commands\RequeryableCommand.cs" />

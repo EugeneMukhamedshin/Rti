@@ -17,6 +17,9 @@ namespace Rti.Model.Repository.Interfaces
 {
     public interface IRepositoryFactory
     {
+        ISessionScope CreateSessionScope();
+        ITransactionScope CreateTransactionScope();
+
         IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IIdentifiedEntity;
 
 <#

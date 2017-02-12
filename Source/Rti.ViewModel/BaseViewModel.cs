@@ -72,7 +72,8 @@ namespace Rti.ViewModel
             {
                 IsLoading = true;
                 var task = new TaskFactory<TResult>().StartNew(loadData);
-                while (!_currentTasks.TryAdd(task, false)) { }var result = await task;
+                while (!_currentTasks.TryAdd(task, false)) { }
+                var result = await task;
                 if (updateViewModel != null)
                     updateViewModel(result);
                 bool val;

@@ -24,6 +24,24 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 		}
 	}
 
+	// The classmap for attachments
+	public partial class AttachmentMap : BaseMap<Rti.Model.Domain.Attachment>
+	{
+		public AttachmentMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("attachments");
+			Id(o => o.Id, "id");
+			Map(o => o.Filename, "filename");
+			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
+			OnInitialized();
+		}
+	}
+
 	// The classmap for calculations
 	public partial class CalculationMap : BaseMap<Rti.Model.Domain.Calculation>
 	{
@@ -214,7 +232,6 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			References(o => o.FactCalculation, "fact_calculation_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Equipment, "equipment_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Method, "method_id").Fetch.Join().Not.LazyLoad();
-			References(o => o.DrawingImage, "drawing_image_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Customer, "customer_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.SecondaryCustomer, "secondary_customer_id").Fetch.Join().Not.LazyLoad();
 			OnInitialized();
@@ -399,22 +416,6 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.Name, "name");
 			Map(o => o.Note, "note");
 			Map(o => o.IsDeleted, "is_deleted");
-			OnInitialized();
-		}
-	}
-
-	// The classmap for images
-	public partial class ImageMap : BaseMap<Rti.Model.Domain.Image>
-	{
-		public ImageMap()
-		{
-			Initialize();
-		}
-
-		private void Initialize()
-		{
-			Table("images");
-			Id(o => o.Id, "id");
 			OnInitialized();
 		}
 	}
@@ -904,34 +905,6 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.IsDeleted, "is_deleted");
 			References(o => o.Customer, "customer_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Drawing, "drawing_id").Fetch.Join().Not.LazyLoad();
-			OnInitialized();
-		}
-	}
-
-	// The classmap for standard
-	public partial class StandardMap : BaseMap<Rti.Model.Domain.Standard>
-	{
-		public StandardMap()
-		{
-			Initialize();
-		}
-
-		private void Initialize()
-		{
-			Table("standard");
-			Id(o => o.Id, "id");
-			Map(o => o.Q1, "q1");
-			Map(o => o.Q2, "q2");
-			Map(o => o.Q3, "q3");
-			Map(o => o.Q4, "q4");
-			Map(o => o.Q5, "q5");
-			Map(o => o.Q6, "q6");
-			Map(o => o.Q7, "q7");
-			Map(o => o.Q8, "q8");
-			Map(o => o.Q9, "q9");
-			Map(o => o.Q10, "q10");
-			Map(o => o.Q11, "q11");
-			Map(o => o.Q12, "q12");
 			OnInitialized();
 		}
 	}

@@ -13,10 +13,12 @@ namespace Rti.App.View.Lists
             InitializeComponent();
         }
 
-        private void GridControl_OnCustomColumnDisplayText(object sender, CustomColumnDisplayTextEventArgs e)
+        private void GridControl_OnCustomUnboundColumnData(object sender, GridColumnDataEventArgs e)
         {
-            if (Equals(e.Column, RowNumberColumn))
-                e.DisplayText = (e.ListSourceIndex + 1).ToString();
+            if (Equals(e.Column, RowNumberColumn) && e.IsGetData)
+            {
+                e.Value = e.ListSourceRowIndex + 1;
+            }
         }
     }
 }

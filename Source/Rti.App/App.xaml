@@ -16,6 +16,7 @@
         <Image x:Key="AddImage" Source="Content/Images/add.png" x:Shared="False"></Image>
         <Image x:Key="DeleteImage" Source="Content/Images/delete.png" x:Shared="False"></Image>
         <Image x:Key="EditImage" Source="Content/Images/edit.png" x:Shared="False"></Image>
+        <Image x:Key="ZoomImage" Source="Content/Images/zoom.png" x:Shared="False"></Image>
         
         <Style TargetType="Button">
             <Style.Setters>

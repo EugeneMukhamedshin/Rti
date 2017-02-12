@@ -94,6 +94,7 @@
     <Compile Include="Domain\AccessType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Interfaces\IAdditionalInfoRepository.cs" />
+    <Compile Include="Repository\Interfaces\IAttachmentRepository.cs" />
     <Compile Include="Repository\Interfaces\IConstantRepository.cs" />
     <Compile Include="Repository\Interfaces\IContractRepository.cs" />
     <Compile Include="Repository\Interfaces\IContragentRepository.cs" />
@@ -110,13 +111,13 @@
     <Compile Include="Repository\Interfaces\IShipmentItemRepository.cs" />
     <Compile Include="Repository\Interfaces\IShipmentItemWorkItemRepository.cs" />
     <Compile Include="Repository\Interfaces\IShipmentRepository.cs" />
+    <Compile Include="Repository\Interfaces\ITransactionScope.cs" />
     <Compile Include="Repository\Interfaces\IWorkItemPackageMachineRepository.cs" />
     <Compile Include="Repository\Interfaces\IWorkItemEmployeePackageRepository.cs" />
     <Compile Include="Repository\Interfaces\IEquipmentRepository.cs" />
     <Compile Include="Repository\Interfaces\IDrawingFlowsheetMachineRepository.cs" />
     <Compile Include="Repository\Interfaces\IDrawingFlowsheetProcessRepository.cs" />
     <Compile Include="Repository\Interfaces\IGroupRepository.cs" />
-    <Compile Include="Repository\Interfaces\IImageRepository.cs" />
     <Compile Include="Repository\Interfaces\IJobRepository.cs" />
     <Compile Include="Repository\Interfaces\IMachineRepository.cs" />
     <Compile Include="Repository\Interfaces\IMaterialArrivalRecordRepository.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Repository\Interfaces\IWorkItemRepository.cs" />
     <Compile Include="Repository\Interfaces\IWorkItemRequestDetailRepository.cs" />
     <Compile Include="Repository\NHibernate\AdditionalInfoRepository.cs" />
+    <Compile Include="Repository\NHibernate\AttachmentRepository.cs" />
     <Compile Include="Repository\NHibernate\ClassMaps\BaseMap.cs" />
     <Compile Include="Repository\NHibernate\ClassMaps\GeneratedClassMaps1.cs">
       <AutoGen>True</AutoGen>
@@ -170,7 +172,6 @@
     <Compile Include="Repository\NHibernate\DrawingFlowsheetProcessRepository.cs" />
     <Compile Include="Repository\NHibernate\FlowsheetRepository.cs" />
     <Compile Include="Repository\NHibernate\GroupRepository.cs" />
-    <Compile Include="Repository\NHibernate\ImageRepository.cs" />
     <Compile Include="Repository\NHibernate\JobRepository.cs" />
     <Compile Include="Repository\NHibernate\MachineRepository.cs" />
     <Compile Include="Repository\NHibernate\MaterialArrivalRecordRepository.cs" />

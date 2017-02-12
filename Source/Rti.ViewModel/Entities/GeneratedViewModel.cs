@@ -85,6 +85,81 @@ namespace Rti.ViewModel.Entities
         }
 	}
 
+	// The viewmodel for Attachment
+	public partial class AttachmentViewModel : EntityViewModel<Rti.Model.Domain.Attachment, AttachmentViewModel>
+	{
+		// Конструктор для маппинга
+		public AttachmentViewModel() { }
+
+        public AttachmentViewModel(Rti.Model.Domain.Attachment entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+		private Int32 _id;
+		private Byte[] _data;
+		private String _filename;
+		private DrawingViewModel _drawing;
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+		public Byte[] Data { get { return _data; } set { if (Equals(_data, value)) return; _data = value; OnPropertyChanged("Data"); } }
+		public String Filename { get { return _filename; } set { if (Equals(_filename, value)) return; _filename = value; OnPropertyChanged("Filename"); } }
+		public DrawingViewModel Drawing { get { return _drawing; } set { _drawing = value; OnPropertyChanged("Drawing"); } }
+		protected override void MapPropertiesToEntity()
+		{
+			Entity.Data = Data; 
+			Entity.Filename = Filename; 
+			Entity.Drawing = Drawing == null ? null : Drawing.Entity; 
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+			IsMapping = true;
+			Id = Entity.Id; 
+			Data = Entity.Data; 
+			Filename = Entity.Filename; 
+			Drawing = Entity.Drawing == null ? null : new DrawingViewModel(Entity.Drawing, RepositoryFactory); 
+			IsMapping = false;
+		}
+
+		public override void CopyFrom(AttachmentViewModel source)
+		{
+			IsMapping = true;
+			Data = source.Data;
+			Filename = source.Filename;
+			Drawing = source.Drawing;
+			CustomCopyFrom(source);
+			IsMapping = false;
+		}
+
+		public override AttachmentViewModel Clone()
+		{
+			var copy = new AttachmentViewModel(null, RepositoryFactory);
+			copy.CopyFrom(this);
+			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			if (Data != null)
+				element.Add(new XAttribute("Data", Data));
+			if (Filename != null)
+				element.Add(new XAttribute("Filename", Filename));
+			if (Drawing != null)
+				element.Add(Drawing.GetXElement("Drawing"));
+			CustomFillXElement(element);
+			return element;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(AttachmentViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((AttachmentViewModel) obj);
+        }
+	}
+
 	// The viewmodel for Calculation
 	public partial class CalculationViewModel : EntityViewModel<Rti.Model.Domain.Calculation, CalculationViewModel>
 	{
@@ -844,7 +919,6 @@ namespace Rti.ViewModel.Entities
 		private CalculationViewModel _factCalculation;
 		private EquipmentViewModel _equipment;
 		private MethodViewModel _method;
-		private ImageViewModel _drawingImage;
 		private ContragentViewModel _customer;
 		private ContragentViewModel _secondaryCustomer;
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
@@ -879,7 +953,6 @@ namespace Rti.ViewModel.Entities
 		public CalculationViewModel FactCalculation { get { return _factCalculation; } set { _factCalculation = value; OnPropertyChanged("FactCalculation"); } }
 		public EquipmentViewModel Equipment { get { return _equipment; } set { _equipment = value; OnPropertyChanged("Equipment"); } }
 		public MethodViewModel Method { get { return _method; } set { _method = value; OnPropertyChanged("Method"); } }
-		public ImageViewModel DrawingImage { get { return _drawingImage; } set { _drawingImage = value; OnPropertyChanged("DrawingImage"); } }
 		public ContragentViewModel Customer { get { return _customer; } set { _customer = value; OnPropertyChanged("Customer"); } }
 		public ContragentViewModel SecondaryCustomer { get { return _secondaryCustomer; } set { _secondaryCustomer = value; OnPropertyChanged("SecondaryCustomer"); } }
 		protected override void MapPropertiesToEntity()
@@ -915,7 +988,6 @@ namespace Rti.ViewModel.Entities
 			Entity.FactCalculation = FactCalculation == null ? null : FactCalculation.Entity; 
 			Entity.Equipment = Equipment == null ? null : Equipment.Entity; 
 			Entity.Method = Method == null ? null : Method.Entity; 
-			Entity.DrawingImage = DrawingImage == null ? null : DrawingImage.Entity; 
 			Entity.Customer = Customer == null ? null : Customer.Entity; 
 			Entity.SecondaryCustomer = SecondaryCustomer == null ? null : SecondaryCustomer.Entity; 
 		}
@@ -955,7 +1027,6 @@ namespace Rti.ViewModel.Entities
 			FactCalculation = Entity.FactCalculation == null ? null : new CalculationViewModel(Entity.FactCalculation, RepositoryFactory); 
 			Equipment = Entity.Equipment == null ? null : new EquipmentViewModel(Entity.Equipment, RepositoryFactory); 
 			Method = Entity.Method == null ? null : new MethodViewModel(Entity.Method, RepositoryFactory); 
-			DrawingImage = Entity.DrawingImage == null ? null : new ImageViewModel(Entity.DrawingImage, RepositoryFactory); 
 			Customer = Entity.Customer == null ? null : new ContragentViewModel(Entity.Customer, RepositoryFactory); 
 			SecondaryCustomer = Entity.SecondaryCustomer == null ? null : new ContragentViewModel(Entity.SecondaryCustomer, RepositoryFactory); 
 			IsMapping = false;
@@ -995,7 +1066,6 @@ namespace Rti.ViewModel.Entities
 			FactCalculation = source.FactCalculation;
 			Equipment = source.Equipment;
 			Method = source.Method;
-			DrawingImage = source.DrawingImage;
 			Customer = source.Customer;
 			SecondaryCustomer = source.SecondaryCustomer;
 			CustomCopyFrom(source);
@@ -1073,8 +1143,6 @@ namespace Rti.ViewModel.Entities
 				element.Add(Equipment.GetXElement("Equipment"));
 			if (Method != null)
 				element.Add(Method.GetXElement("Method"));
-			if (DrawingImage != null)
-				element.Add(DrawingImage.GetXElement("DrawingImage"));
 			if (Customer != null)
 				element.Add(Customer.GetXElement("Customer"));
 			if (SecondaryCustomer != null)
@@ -1881,67 +1949,6 @@ namespace Rti.ViewModel.Entities
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((GroupViewModel) obj);
-        }
-	}
-
-	// The viewmodel for Image
-	public partial class ImageViewModel : EntityViewModel<Rti.Model.Domain.Image, ImageViewModel>
-	{
-		// Конструктор для маппинга
-		public ImageViewModel() { }
-
-        public ImageViewModel(Rti.Model.Domain.Image entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		private Int32 _id;
-		private Byte[] _data;
-		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
-		public Byte[] Data { get { return _data; } set { if (Equals(_data, value)) return; _data = value; OnPropertyChanged("Data"); } }
-		protected override void MapPropertiesToEntity()
-		{
-			Entity.Data = Data; 
-		}
-
-		protected override void MapPropertiesFromEntity()
-		{
-			IsMapping = true;
-			Id = Entity.Id; 
-			Data = Entity.Data; 
-			IsMapping = false;
-		}
-
-		public override void CopyFrom(ImageViewModel source)
-		{
-			IsMapping = true;
-			Data = source.Data;
-			CustomCopyFrom(source);
-			IsMapping = false;
-		}
-
-		public override ImageViewModel Clone()
-		{
-			var copy = new ImageViewModel(null, RepositoryFactory);
-			copy.CopyFrom(this);
-			return copy;
-		}
-
-		public XElement GetXElement(string name)
-		{
-			var element = new XElement(name);
-			element.Add(new XAttribute("Id", Id));
-			if (Data != null)
-				element.Add(new XAttribute("Data", Data));
-			CustomFillXElement(element);
-			return element;
-		}
-
-        public override int GetHashCode() { return _id; }
-        protected bool Equals(ImageViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((ImageViewModel) obj);
         }
 	}
 
@@ -4202,144 +4209,6 @@ namespace Rti.ViewModel.Entities
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((ShippingOrderRecordViewModel) obj);
-        }
-	}
-
-	// The viewmodel for Standard
-	public partial class StandardViewModel : EntityViewModel<Rti.Model.Domain.Standard, StandardViewModel>
-	{
-		// Конструктор для маппинга
-		public StandardViewModel() { }
-
-        public StandardViewModel(Rti.Model.Domain.Standard entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
-
-		private Int32 _id;
-		private String _q1;
-		private String _q2;
-		private String _q3;
-		private String _q4;
-		private String _q5;
-		private String _q6;
-		private String _q7;
-		private String _q8;
-		private String _q9;
-		private String _q10;
-		private String _q11;
-		private String _q12;
-		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
-		public String Q1 { get { return _q1; } set { if (Equals(_q1, value)) return; _q1 = value; OnPropertyChanged("Q1"); } }
-		public String Q2 { get { return _q2; } set { if (Equals(_q2, value)) return; _q2 = value; OnPropertyChanged("Q2"); } }
-		public String Q3 { get { return _q3; } set { if (Equals(_q3, value)) return; _q3 = value; OnPropertyChanged("Q3"); } }
-		public String Q4 { get { return _q4; } set { if (Equals(_q4, value)) return; _q4 = value; OnPropertyChanged("Q4"); } }
-		public String Q5 { get { return _q5; } set { if (Equals(_q5, value)) return; _q5 = value; OnPropertyChanged("Q5"); } }
-		public String Q6 { get { return _q6; } set { if (Equals(_q6, value)) return; _q6 = value; OnPropertyChanged("Q6"); } }
-		public String Q7 { get { return _q7; } set { if (Equals(_q7, value)) return; _q7 = value; OnPropertyChanged("Q7"); } }
-		public String Q8 { get { return _q8; } set { if (Equals(_q8, value)) return; _q8 = value; OnPropertyChanged("Q8"); } }
-		public String Q9 { get { return _q9; } set { if (Equals(_q9, value)) return; _q9 = value; OnPropertyChanged("Q9"); } }
-		public String Q10 { get { return _q10; } set { if (Equals(_q10, value)) return; _q10 = value; OnPropertyChanged("Q10"); } }
-		public String Q11 { get { return _q11; } set { if (Equals(_q11, value)) return; _q11 = value; OnPropertyChanged("Q11"); } }
-		public String Q12 { get { return _q12; } set { if (Equals(_q12, value)) return; _q12 = value; OnPropertyChanged("Q12"); } }
-		protected override void MapPropertiesToEntity()
-		{
-			Entity.Q1 = Q1; 
-			Entity.Q2 = Q2; 
-			Entity.Q3 = Q3; 
-			Entity.Q4 = Q4; 
-			Entity.Q5 = Q5; 
-			Entity.Q6 = Q6; 
-			Entity.Q7 = Q7; 
-			Entity.Q8 = Q8; 
-			Entity.Q9 = Q9; 
-			Entity.Q10 = Q10; 
-			Entity.Q11 = Q11; 
-			Entity.Q12 = Q12; 
-		}
-
-		protected override void MapPropertiesFromEntity()
-		{
-			IsMapping = true;
-			Id = Entity.Id; 
-			Q1 = Entity.Q1; 
-			Q2 = Entity.Q2; 
-			Q3 = Entity.Q3; 
-			Q4 = Entity.Q4; 
-			Q5 = Entity.Q5; 
-			Q6 = Entity.Q6; 
-			Q7 = Entity.Q7; 
-			Q8 = Entity.Q8; 
-			Q9 = Entity.Q9; 
-			Q10 = Entity.Q10; 
-			Q11 = Entity.Q11; 
-			Q12 = Entity.Q12; 
-			IsMapping = false;
-		}
-
-		public override void CopyFrom(StandardViewModel source)
-		{
-			IsMapping = true;
-			Q1 = source.Q1;
-			Q2 = source.Q2;
-			Q3 = source.Q3;
-			Q4 = source.Q4;
-			Q5 = source.Q5;
-			Q6 = source.Q6;
-			Q7 = source.Q7;
-			Q8 = source.Q8;
-			Q9 = source.Q9;
-			Q10 = source.Q10;
-			Q11 = source.Q11;
-			Q12 = source.Q12;
-			CustomCopyFrom(source);
-			IsMapping = false;
-		}
-
-		public override StandardViewModel Clone()
-		{
-			var copy = new StandardViewModel(null, RepositoryFactory);
-			copy.CopyFrom(this);
-			return copy;
-		}
-
-		public XElement GetXElement(string name)
-		{
-			var element = new XElement(name);
-			element.Add(new XAttribute("Id", Id));
-			if (Q1 != null)
-				element.Add(new XAttribute("Q1", Q1));
-			if (Q2 != null)
-				element.Add(new XAttribute("Q2", Q2));
-			if (Q3 != null)
-				element.Add(new XAttribute("Q3", Q3));
-			if (Q4 != null)
-				element.Add(new XAttribute("Q4", Q4));
-			if (Q5 != null)
-				element.Add(new XAttribute("Q5", Q5));
-			if (Q6 != null)
-				element.Add(new XAttribute("Q6", Q6));
-			if (Q7 != null)
-				element.Add(new XAttribute("Q7", Q7));
-			if (Q8 != null)
-				element.Add(new XAttribute("Q8", Q8));
-			if (Q9 != null)
-				element.Add(new XAttribute("Q9", Q9));
-			if (Q10 != null)
-				element.Add(new XAttribute("Q10", Q10));
-			if (Q11 != null)
-				element.Add(new XAttribute("Q11", Q11));
-			if (Q12 != null)
-				element.Add(new XAttribute("Q12", Q12));
-			CustomFillXElement(element);
-			return element;
-		}
-
-        public override int GetHashCode() { return _id; }
-        protected bool Equals(StandardViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((StandardViewModel) obj);
         }
 	}
 

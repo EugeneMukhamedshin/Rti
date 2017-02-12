@@ -90,7 +90,7 @@
                 <CheckBox Content="В производстве с" Margin="5" IsChecked="{Binding Entity.IsWorkStarted}"/>
                 <xctk:DateTimePicker TabIndex="5" Margin="5" VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.WorkStartDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed" IsEnabled="{Binding Editable}"/>
             </StackPanel>
-            <dxg:GridControl Name="GridControl" CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding RequestDetails}" SelectedItem="{Binding SelectedRequestDetail}" SelectionMode="Row" Grid.Row="3">
+            <dxg:GridControl Name="GridControl" CustomUnboundColumnData="GridControl_OnCustomUnboundColumnData"  TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding RequestDetails}" SelectedItem="{Binding SelectedRequestDetail}" SelectionMode="Row" Grid.Row="3">
                 <dxg:GridControl.Resources>
                     <Style TargetType="dxg:GridColumn">
                         <Setter Property="HeaderTemplate">
@@ -121,7 +121,7 @@
                     </Style>
                 </dxg:GridControl.Resources>
                 <dxg:GridControl.Columns>
-                    <dxg:GridColumn UnboundType="Integer" Header="№" ReadOnly="True" Width="40" Name="RowNumberColumn"/>
+                    <dxg:GridColumn UnboundType="Integer" FieldName="Counter" Header="№" ReadOnly="True" Width="40" Name="RowNumberColumn"/>
                     <!--<dxg:GridColumn Binding="{Binding Group.Name}" Header="Группа" Width="50" ReadOnly="True"/>-->
                     <dxg:GridColumn Binding="{Binding Drawing,Mode=TwoWay}" Header="Чертеж" Width="100">
                         <dxg:GridColumn.EditSettings>

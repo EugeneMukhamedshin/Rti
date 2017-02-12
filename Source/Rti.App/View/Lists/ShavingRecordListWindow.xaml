@@ -50,7 +50,7 @@
             <Button Content="{StaticResource DeleteImage}" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5" TabIndex="5"></Button>
             <Button Content="{StaticResource EditImage}" Command="{Binding EditEntityCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5" TabIndex="6"/>
         </StackPanel>
-        <dxg:GridControl TabIndex="7" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2" CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText">
+        <dxg:GridControl TabIndex="7" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2" CustomUnboundColumnData="GridControl_OnCustomUnboundColumnData">
             <dxmvvm:Interaction.Behaviors>
                 <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding EditEntityCommand}" PassEventArgsToCommand="True">
                     <dxmvvm:EventToCommand.EventArgsConverter>
@@ -70,7 +70,7 @@
                 </Style>
             </dxg:GridControl.Resources>
             <dxg:GridControl.Columns>
-                <dxg:GridColumn UnboundType="Integer" Header="№" ReadOnly="True" Width="40" Name="RowNumberColumn"/>
+                <dxg:GridColumn UnboundType="Integer" FieldName="Counter" Header="№" ReadOnly="True" Width="40" Name="RowNumberColumn"/>
                 <dxg:GridColumn FieldName="ShaverEmployee.FullName" Header="ФИО обрезчика" Width="150"/>
                 <dxg:GridColumn FieldName="ShaveDate" Header="Дата обрезки" Width="100"/>
                 <dxg:GridColumn FieldName="Drawing.Group.Name" Header="Группа" Width="100"/>

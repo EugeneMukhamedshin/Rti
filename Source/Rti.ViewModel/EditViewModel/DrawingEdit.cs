@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
@@ -10,19 +12,56 @@ namespace Rti.ViewModel.EditViewModel
 {
     public class DrawingEdit : EditEntityViewModel<DrawingViewModel, Drawing>
     {
+        private ObservableCollection<AttachmentViewModel> _attachments;
+        private AttachmentViewModel _selectedAttachment;
+
+        public ObservableCollection<AttachmentViewModel> Attachments
+        {
+            get { return _attachments; }
+            set
+            {
+                _attachments = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public AttachmentViewModel SelectedAttachment
+        {
+            get { return _selectedAttachment; }
+            set
+            {
+                _selectedAttachment = value;
+                OnPropertyChanged();
+            }
+        }
+
         public Lazy<List<GroupViewModel>> GroupsSource { get; set; }
+
         public Lazy<List<DetailViewModel>> DetailsSource { get; set; }
+
         public Lazy<List<MaterialViewModel>> MaterialsSource { get; set; }
+
         public Lazy<List<MeasureUnitViewModel>> MeasureUnitsSource { get; set; }
+
         public Lazy<List<EquipmentViewModel>> EquipmentsSource { get; set; }
+
         public Lazy<List<MethodViewModel>> MethodsSource { get; set; }
 
         public DelegateCommand OpenMassCalculationCommand { get; set; }
+
         public DelegateCommand OpenEquipmentEditCommand { get; set; }
+
         public DelegateCommand OpenDrawingMeasurementEditCommand { get; set; }
+
         public DelegateCommand OpenDrawingImageCommand { get; set; }
+
         public DelegateCommand OpenFlowsheetCommand { get; set; }
+
         public DelegateCommand OpenCalculationCommand { get; set; }
+
+        public DelegateCommand AddAttachmentCommand { get; set; }
+        public DelegateCommand DeleteAttachmentCommand { get; set; }
+        public DelegateCommand ViewAttachmentCommand { get; set; }
 
         public ImageEdit ImageEdit { get; set; }
 
@@ -55,9 +94,9 @@ namespace Rti.ViewModel.EditViewModel
                 o => true,
                 o => OpenCalculation());
 
-            if (Entity.DrawingImage == null)
-                Entity.DrawingImage = new ImageViewModel(null, RepositoryFactory);
-            ImageEdit = new ImageEdit("Изображение", Entity.DrawingImage.Data, ReadOnly, ViewService, RepositoryFactory);
+            AddAttachmentCommand = new DelegateCommand(o => AddAttachment());
+            DeleteAttachmentCommand = new DelegateCommand(o => DeleteAttachment());
+            ViewAttachmentCommand = new DelegateCommand(o => ViewAttachment());
 
             Entity.PropertyChanged += (sender, args) =>
             {
@@ -83,9 +122,12 @@ namespace Rti.ViewModel.EditViewModel
             EquipmentsSource = new Lazy<List<EquipmentViewModel>>(() => RepositoryFactory.GetEquipmentRepository().GetAllActive().Select(o => new EquipmentViewModel(o, RepositoryFactory)).ToList());
             MethodsSource = new Lazy<List<MethodViewModel>>(() => RepositoryFactory.GetMethodRepository().GetAllActive().Select(o => new MethodViewModel(o, RepositoryFactory)).ToList());
 
-            DoAsync(
-                () => Entity.DrawingImage.Data ?? RepositoryFactory.GetImageRepository().GetData(Entity.DrawingImage.Id),
-                res => ImageEdit.Entity.Data = res);
+            DoAsync(() => RepositoryFactory.GetAttachmentRepository().GetByDrawingId(Source.Id).Select(o => new AttachmentViewModel(o, RepositoryFactory)),
+                res =>
+                {
+                    Attachments = new ObservableCollection<AttachmentViewModel>(res);
+                    SelectedAttachment = Attachments.FirstOrDefault();
+                });
         }
 
         protected override void DoSave()
@@ -94,14 +136,12 @@ namespace Rti.ViewModel.EditViewModel
             {
                 using (var transactionScope = RepositoryFactory.CreateTransactionScope())
                 {
-                    if (Entity.DrawingImage != null)
-                    {
-                        Entity.DrawingImage.Data = ImageEdit.Entity.Data;
-                        Entity.DrawingImage.SaveEntity();
-                        RepositoryFactory.GetImageRepository()
-                            .SaveData(Entity.DrawingImage.Id, Entity.DrawingImage.Data);
-                    }
                     base.DoSave();
+                    foreach (var attachment in Attachments)
+                    {
+                        attachment.SaveEntity();
+                        RepositoryFactory.GetAttachmentRepository().SaveData(attachment.Id, attachment.Data);
+                    }
                     transactionScope.Commit();
                 }
             }
@@ -142,26 +182,58 @@ namespace Rti.ViewModel.EditViewModel
             ViewService.ShowViewDialog(viewModel);
         }
 
+        private void AddAttachment()
+        {
+            string fileName = null;
+            if (ViewService.ShowFileDialog(ref fileName, "Изображения (*.jpg)|*.jpg", false))
+            {
+                var attachment = new AttachmentViewModel(null, RepositoryFactory)
+                {
+                    Filename = Path.GetFileName(fileName),
+                    Data = File.ReadAllBytes(fileName),
+                    Drawing = Source
+                };
+
+                if (!Source.IsNewEntity)
+                {
+                    using (RepositoryFactory.CreateSessionScope())
+                    {
+                        using (var transaction = RepositoryFactory.CreateTransactionScope())
+                        {
+                            attachment.SaveEntity();
+                            RepositoryFactory.GetAttachmentRepository().SaveData(attachment.Id, attachment.Data);
+
+                            transaction.Commit();
+                        }
+                    }
+                }
+                Attachments.Add(attachment);
+                SelectedAttachment = attachment;
+            }
+        }
+
+        private void DeleteAttachment()
+        {
+            if (SelectedAttachment != null && ViewService.ShowConfirmation(new MessageViewModel("Удаление", "Подтвердите удаление")))
+            {
+                SelectedAttachment.DeleteEntity();
+
+                Attachments.Remove(SelectedAttachment);
+            }
+        }
+
+        private void ViewAttachment()
+        {
+            if (SelectedAttachment == null)
+                return;
+            var path = Path.Combine(Path.GetTempPath(), SelectedAttachment.Filename);
+            File.WriteAllBytes(path, SelectedAttachment.Data);
+            System.Diagnostics.Process.Start(path);
+        }
+
         private void OpenDrawingImage()
         {
             ViewService.ShowViewDialog(ImageEdit);
-
-            //var imageData = new byte[] { };
-            //if (Entity.DrawingImage != null)
-            //    imageData = Entity.DrawingImage.Data ?? RepositoryFactory.GetImageRepository().GetData(Entity.DrawingImage.Id);
-
-            //var viewModel = new ImageEdit("Просмотр чертежа", imageData, ReadOnly, ViewService, RepositoryFactory);
-            //viewModel.Refresh();
-            //if (ViewService.ShowViewDialog(viewModel) == true)
-            //{
-            //    if (Entity.DrawingImage == null)
-            //    {
-            //        var image = new ImageViewModel(null, RepositoryFactory);
-            //        Entity.DrawingImage = image;
-            //    }
-            //    Entity.DrawingImage.Data = viewModel.Entity.Data;
-
-            //}
         }
 
         private void OpenFlowsheet()

@@ -5,12 +5,13 @@ namespace Rti.Model.Repository.Interfaces
 {
     public interface IRepositoryFactory
     {
-        IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IIdentifiedEntity;
-
         ISessionScope CreateSessionScope();
         ITransactionScope CreateTransactionScope();
 
+        IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IIdentifiedEntity;
+
 		IAdditionalInfoRepository GetAdditionalInfoRepository();
+		IAttachmentRepository GetAttachmentRepository();
 		ICalculationRepository GetCalculationRepository();
 		IConstantRepository GetConstantRepository();
 		IContractRepository GetContractRepository();
@@ -25,7 +26,6 @@ namespace Rti.Model.Repository.Interfaces
 		IEquipmentRepository GetEquipmentRepository();
 		IEquipmentPaymentRepository GetEquipmentPaymentRepository();
 		IGroupRepository GetGroupRepository();
-		IImageRepository GetImageRepository();
 		IJobRepository GetJobRepository();
 		IMachineRepository GetMachineRepository();
 		IMassCalculationRepository GetMassCalculationRepository();
@@ -45,7 +45,6 @@ namespace Rti.Model.Repository.Interfaces
 		IShipmentItemWorkItemRepository GetShipmentItemWorkItemRepository();
 		IShippedProductRecordRepository GetShippedProductRecordRepository();
 		IShippingOrderRecordRepository GetShippingOrderRecordRepository();
-		IStandardRepository GetStandardRepository();
 		IWorkItemRepository GetWorkItemRepository();
 		IWorkItemEmployeePackageRepository GetWorkItemEmployeePackageRepository();
 		IWorkItemEmployeePackageMachineRepository GetWorkItemEmployeePackageMachineRepository();
@@ -55,6 +54,7 @@ namespace Rti.Model.Repository.Interfaces
     }
 
 	public partial interface IAdditionalInfoRepository : IRepository<Rti.Model.Domain.AdditionalInfo> { }
+	public partial interface IAttachmentRepository : IRepository<Rti.Model.Domain.Attachment> { }
 	public partial interface ICalculationRepository : IRepository<Rti.Model.Domain.Calculation> { }
 	public partial interface IConstantRepository : IRepository<Rti.Model.Domain.Constant> { }
 	public partial interface IContractRepository : IRepository<Rti.Model.Domain.Contract> { }
@@ -69,7 +69,6 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IEquipmentRepository : IRepository<Rti.Model.Domain.Equipment> { }
 	public partial interface IEquipmentPaymentRepository : IRepository<Rti.Model.Domain.EquipmentPayment> { }
 	public partial interface IGroupRepository : IRepository<Rti.Model.Domain.Group> { }
-	public partial interface IImageRepository : IRepository<Rti.Model.Domain.Image> { }
 	public partial interface IJobRepository : IRepository<Rti.Model.Domain.Job> { }
 	public partial interface IMachineRepository : IRepository<Rti.Model.Domain.Machine> { }
 	public partial interface IMassCalculationRepository : IRepository<Rti.Model.Domain.MassCalculation> { }
@@ -89,7 +88,6 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IShipmentItemWorkItemRepository : IRepository<Rti.Model.Domain.ShipmentItemWorkItem> { }
 	public partial interface IShippedProductRecordRepository : IRepository<Rti.Model.Domain.ShippedProductRecord> { }
 	public partial interface IShippingOrderRecordRepository : IRepository<Rti.Model.Domain.ShippingOrderRecord> { }
-	public partial interface IStandardRepository : IRepository<Rti.Model.Domain.Standard> { }
 	public partial interface IWorkItemRepository : IRepository<Rti.Model.Domain.WorkItem> { }
 	public partial interface IWorkItemEmployeePackageRepository : IRepository<Rti.Model.Domain.WorkItemEmployeePackage> { }
 	public partial interface IWorkItemEmployeePackageMachineRepository : IRepository<Rti.Model.Domain.WorkItemEmployeePackageMachine> { }

@@ -11,6 +11,8 @@ namespace Rti.Model.Repository.NHibernate
         {
             if (typeof(TEntity) == typeof(Rti.Model.Domain.AdditionalInfo))
                 return (IRepository<TEntity>)new AdditionalInfoRepository();
+            if (typeof(TEntity) == typeof(Rti.Model.Domain.Attachment))
+                return (IRepository<TEntity>)new AttachmentRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Calculation))
                 return (IRepository<TEntity>)new CalculationRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Constant))
@@ -39,8 +41,6 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new EquipmentPaymentRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Group))
                 return (IRepository<TEntity>)new GroupRepository();
-            if (typeof(TEntity) == typeof(Rti.Model.Domain.Image))
-                return (IRepository<TEntity>)new ImageRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Job))
                 return (IRepository<TEntity>)new JobRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.Machine))
@@ -79,8 +79,6 @@ namespace Rti.Model.Repository.NHibernate
                 return (IRepository<TEntity>)new ShippedProductRecordRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.ShippingOrderRecord))
                 return (IRepository<TEntity>)new ShippingOrderRecordRepository();
-            if (typeof(TEntity) == typeof(Rti.Model.Domain.Standard))
-                return (IRepository<TEntity>)new StandardRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.WorkItem))
                 return (IRepository<TEntity>)new WorkItemRepository();
             if (typeof(TEntity) == typeof(Rti.Model.Domain.WorkItemEmployeePackage))
@@ -105,6 +103,8 @@ namespace Rti.Model.Repository.NHibernate
 		}
 
 		public IAdditionalInfoRepository GetAdditionalInfoRepository() { return (IAdditionalInfoRepository) GetRepository<Rti.Model.Domain.AdditionalInfo>(); }
+
+		public IAttachmentRepository GetAttachmentRepository() { return (IAttachmentRepository) GetRepository<Rti.Model.Domain.Attachment>(); }
 
 		public ICalculationRepository GetCalculationRepository() { return (ICalculationRepository) GetRepository<Rti.Model.Domain.Calculation>(); }
 
@@ -133,8 +133,6 @@ namespace Rti.Model.Repository.NHibernate
 		public IEquipmentPaymentRepository GetEquipmentPaymentRepository() { return (IEquipmentPaymentRepository) GetRepository<Rti.Model.Domain.EquipmentPayment>(); }
 
 		public IGroupRepository GetGroupRepository() { return (IGroupRepository) GetRepository<Rti.Model.Domain.Group>(); }
-
-		public IImageRepository GetImageRepository() { return (IImageRepository) GetRepository<Rti.Model.Domain.Image>(); }
 
 		public IJobRepository GetJobRepository() { return (IJobRepository) GetRepository<Rti.Model.Domain.Job>(); }
 
@@ -174,8 +172,6 @@ namespace Rti.Model.Repository.NHibernate
 
 		public IShippingOrderRecordRepository GetShippingOrderRecordRepository() { return (IShippingOrderRecordRepository) GetRepository<Rti.Model.Domain.ShippingOrderRecord>(); }
 
-		public IStandardRepository GetStandardRepository() { return (IStandardRepository) GetRepository<Rti.Model.Domain.Standard>(); }
-
 		public IWorkItemRepository GetWorkItemRepository() { return (IWorkItemRepository) GetRepository<Rti.Model.Domain.WorkItem>(); }
 
 		public IWorkItemEmployeePackageRepository GetWorkItemEmployeePackageRepository() { return (IWorkItemEmployeePackageRepository) GetRepository<Rti.Model.Domain.WorkItemEmployeePackage>(); }
@@ -194,6 +190,17 @@ namespace Rti.Model.Repository.NHibernate
         protected override IQueryOver<Rti.Model.Domain.AdditionalInfo, Rti.Model.Domain.AdditionalInfo> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.AdditionalInfo, Rti.Model.Domain.AdditionalInfo> queryOver)
         {
 			var result = queryOver;
+            return result;
+        }
+    }
+
+	public partial class AttachmentRepository : NHibernateRepository<Rti.Model.Domain.Attachment>, IAttachmentRepository
+    {
+
+        protected override IQueryOver<Rti.Model.Domain.Attachment, Rti.Model.Domain.Attachment> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Attachment, Rti.Model.Domain.Attachment> queryOver)
+        {
+			var result = queryOver;
+			result = result.Fetch(o => o.Drawing).Default;
             return result;
         }
     }
@@ -264,7 +271,6 @@ namespace Rti.Model.Repository.NHibernate
 			result = result.Fetch(o => o.FactCalculation).Default;
 			result = result.Fetch(o => o.Equipment).Default;
 			result = result.Fetch(o => o.Method).Default;
-			result = result.Fetch(o => o.DrawingImage).Default;
 			result = result.Fetch(o => o.Customer).Default;
 			result = result.Fetch(o => o.SecondaryCustomer).Default;
             return result;
@@ -353,16 +359,6 @@ namespace Rti.Model.Repository.NHibernate
     {
 
         protected override IQueryOver<Rti.Model.Domain.Group, Rti.Model.Domain.Group> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Group, Rti.Model.Domain.Group> queryOver)
-        {
-			var result = queryOver;
-            return result;
-        }
-    }
-
-	public partial class ImageRepository : NHibernateRepository<Rti.Model.Domain.Image>, IImageRepository
-    {
-
-        protected override IQueryOver<Rti.Model.Domain.Image, Rti.Model.Domain.Image> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Image, Rti.Model.Domain.Image> queryOver)
         {
 			var result = queryOver;
             return result;
@@ -589,16 +585,6 @@ namespace Rti.Model.Repository.NHibernate
 			var result = queryOver;
 			result = result.Fetch(o => o.Customer).Default;
 			result = result.Fetch(o => o.Drawing).Default;
-            return result;
-        }
-    }
-
-	public partial class StandardRepository : NHibernateRepository<Rti.Model.Domain.Standard>, IStandardRepository
-    {
-
-        protected override IQueryOver<Rti.Model.Domain.Standard, Rti.Model.Domain.Standard> GetDefaultQueryOver(IQueryOver<Rti.Model.Domain.Standard, Rti.Model.Domain.Standard> queryOver)
-        {
-			var result = queryOver;
             return result;
         }
     }

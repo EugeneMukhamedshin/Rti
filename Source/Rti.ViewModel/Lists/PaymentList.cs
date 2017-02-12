@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
-using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
 
@@ -86,17 +83,17 @@ namespace Rti.ViewModel.Lists
                 request.IsPaid = requestPayments.Sum(o => o.Sum) >= request.Sum;
                 request.SaveEntity();
             }
-
         }
 
         protected override IEnumerable<PaymentViewModel> GetItems()
         {
-            return
+            var list =
                 RepositoryFactory.GetPaymentRepository()
                     .GetByPeriod(StartDate, EndDate)
                     .Select(o => new PaymentViewModel(o, RepositoryFactory))
                     .OrderBy(o => o.PaymentDate)
                     .ToList();
+            return list;
         }
 
         protected override void OnItemsChanged()

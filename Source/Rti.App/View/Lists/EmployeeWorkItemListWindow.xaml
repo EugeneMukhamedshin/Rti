@@ -27,7 +27,7 @@
                 <TextBlock Text="Участок" Margin="5" VerticalAlignment="Center" Width="60"/>
                 <TextBox Text="{Binding WorkItemEmployeePackage.Block}" Margin="5" VerticalAlignment="Center" Width="100"/>
             </StackPanel>
-            <dxg:GridControl CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding PackageMachines}" SelectionMode="Row" Grid.Row="2">
+            <dxg:GridControl TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding PackageMachines}" SelectionMode="Row" Grid.Row="2">
                 <dxg:GridControl.Resources>
                     <Style TargetType="dxg:GridColumn">
                         <Setter Property="HeaderTemplate">
@@ -48,7 +48,7 @@
                     <dxg:TableView EnableImmediatePosting="True" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>
             </dxg:GridControl>
-            <dxg:GridControl CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="3">
+            <dxg:GridControl CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText" CustomUnboundColumnData="GridControl_OnCustomUnboundColumnData" TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="3">
                 <dxg:GridControl.Resources>
                     <Style TargetType="dxg:GridColumn">
                         <Setter Property="HeaderTemplate">
@@ -83,7 +83,7 @@
                     </Style>
                 </dxg:GridControl.Resources>
                 <dxg:GridControl.Columns>
-                    <dxg:GridColumn UnboundType="Integer" Header="№ пп" ReadOnly="True" Width="40" Name="_rowNumberColumn"/>
+                    <dxg:GridColumn UnboundType="Integer" FieldName="Counter" Header="№ пп" ReadOnly="True" Width="40" Name="_rowNumberColumn"/>
                     <dxg:GridColumn Binding="{Binding Drawing.Detail.Name}" Header="Наименование детали" Width="120" ReadOnly="True"/>
                     <dxg:GridColumn Binding="{Binding Drawing.FullName}" Header="Номер детали" Width="80" ReadOnly="True"/>
                     <dxg:GridColumn Binding="{Binding RequestCount}" Header="Количество по заявке, шт" Width="50" ReadOnly="True"/>

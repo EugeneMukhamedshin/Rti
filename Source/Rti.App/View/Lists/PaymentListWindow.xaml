@@ -28,7 +28,7 @@
             <Button Content="{StaticResource DeleteImage}" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5" TabIndex="5"></Button>
             <Button Content="{StaticResource EditImage}" Command="{Binding EditPaymentCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5" TabIndex="6"/>
         </StackPanel>
-        <dxg:GridControl TabIndex="7" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2" CustomColumnDisplayText="GridControl_OnCustomColumnDisplayText">
+        <dxg:GridControl TabIndex="7" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2" CustomUnboundColumnData="GridControl_OnCustomUnboundColumnData">
             <dxmvvm:Interaction.Behaviors>
                 <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding EditPaymentCommand}" PassEventArgsToCommand="True">
                     <dxmvvm:EventToCommand.EventArgsConverter>
@@ -58,7 +58,10 @@
             </dxg:GridControl.Resources>
             <dxg:GridControl.Bands>
                 <dxg:GridControlBand VisibleIndex="0">
-                    <dxg:GridColumn Header="№" UnboundType="Integer" Width="30" Name="_rowNumberColumn" VisibleIndex="0"/>
+                    <dxg:GridColumn Header="№" FieldName="counter" UnboundType="Integer" Width="30" Name="_rowNumberColumn" VisibleIndex="0"/>
+                </dxg:GridControlBand>
+                <dxg:GridControlBand VisibleIndex="0">
+                    <dxg:GridColumn Header="№" Width="30" FieldName="Order" VisibleIndex="0"/>
                 </dxg:GridControlBand>
                 <dxg:GridControlBand Header="Счет" VisibleIndex="1">
                     <dxg:GridColumn FieldName="Request.Number" Header="№ сч." Width="30" VisibleIndex="1"/>
@@ -85,3 +88,4 @@
         </dxg:GridControl>
     </Grid>
 </dx:DXWindow>
+
