@@ -158,6 +158,34 @@
 
           <xsl:apply-templates select="Employees/Employee" />
 
+          <Row>
+            <Cell ss:StyleID="s23">
+              <Data ss:Type="String">
+              </Data>
+            </Cell>
+            <Cell ss:StyleID="m104615400">
+              <Data ss:Type="String">
+              </Data>
+            </Cell>
+            <Cell ss:StyleID="m104615400">
+              <Data ss:Type="String">
+              </Data>
+            </Cell>
+            <Cell ss:StyleID="m104615400">
+              <Data ss:Type="String">ИТОГО по всем сотрудникам
+              </Data>
+            </Cell>
+            <Cell ss:StyleID="m104615400">
+              <Data ss:Type="Number">
+                <xsl:value-of select="Report/@DoneCount"/>
+              </Data>
+            </Cell>
+            <Cell ss:StyleID="m1046154000">
+              <Data ss:Type="Number">
+                <xsl:value-of select="Report/@MainSalary"/>
+              </Data>
+            </Cell>
+          </Row>
         </Table>
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
           <PageSetup>
@@ -204,8 +232,7 @@
         </Data>
       </Cell>
       <Cell ss:StyleID="m104615400">
-        <Data ss:Type="String">
-          ИТОГО
+        <Data ss:Type="String">ИТОГО
         </Data>
       </Cell>
       <Cell ss:StyleID="m104615400">

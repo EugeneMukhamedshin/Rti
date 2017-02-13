@@ -619,13 +619,15 @@ WHERE MainSalary + AdditionalSalary > 0",
             var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
                 new XElement("root",
                     new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")),
-                        new XAttribute("EndDate", endDate.ToString("dd.MM.yyyy"))),
+                        new XAttribute("EndDate", endDate.ToString("dd.MM.yyyy")),
+                        new XAttribute("DoneCount", rows.Sum(o => Convert.ToInt32(o.Attribute("DoneCount").Value)).ToString()),
+                        new XAttribute("MainSalary", rows.Sum(o => Convert.ToDecimal(o.Attribute("MainSalary").Value,
+                                                CultureInfo.InvariantCulture)).ToString(CultureInfo.InvariantCulture))),
                     new XElement("Employees",
                         rowDict.Select(g =>
                             new XElement("Employee",
                                 new XAttribute("EmployeeId", g.Key.EmployeeId),
-                                new XAttribute("EmployeeFullName", g.Key.EmployeeFullName),
-                                new XElement("WorkItems", g),
+                                new XAttribute("EmployeeFullName", g.Key.EmployeeFullName),new XElement("WorkItems", g),
                                 new XAttribute("DoneCount",
                                     g.Sum(
                                         o =>

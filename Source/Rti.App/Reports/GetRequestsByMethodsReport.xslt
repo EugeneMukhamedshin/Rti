@@ -242,7 +242,7 @@
       </Cell>
       <Cell ss:StyleID="s71">
         <xsl:choose>
-          <xsl:when test="@CuttingTime=''">
+          <xsl:when test="@WorkTime=''">
             <Data ss:Type="String">ОШИБКА</Data>
           </xsl:when>
           <xsl:otherwise>
