@@ -36,6 +36,8 @@ namespace Rti.ViewModel.Lists
 
         public DelegateCommand OpenEmployeeWorkItemListCommand { get; set; }
         public DelegateCommand OpenMakedDetailsReportCommand { get; set; }
+        public DelegateCommand PrevDayCommand { get; set; }
+        public DelegateCommand NextDayCommand { get; set; }
 
         public DelegateCommand CloseCommand { get; set; }
 
@@ -88,6 +90,9 @@ namespace Rti.ViewModel.Lists
                 o => Close(true));
             ReportCommand = new DelegateCommand(o => Report());
             PrintAllEmployeeReportCommand = new DelegateCommand(o => PrintAllEmployeeReport());
+
+            PrevDayCommand = new DelegateCommand(o => Date = Date.AddDays(-1));
+            NextDayCommand = new DelegateCommand(o => Date = Date.AddDays(1));
         }
 
         private void PrintAllEmployeeReport()

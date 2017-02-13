@@ -11,11 +11,21 @@ namespace Rti.Model.Repository.NHibernate
             return ExecuteFuncOnQueryOver(q => q.Where(o => o.Request.Id == requestId).List());
         }
 
-        public IList<Payment> GetByPeriod(DateTime startDate, DateTime endDate)
+        public IList<Payment> GetByPeriod(DateTime startDate, DateTime endDate, int? customerId)
         {
             return
                 ExecuteFuncOnQueryOver(
-                    q => q.WhereRestrictionOn(o => o.PaymentDate).IsBetween(startDate).And(endDate).List());
+                    q =>
+                    {
+                        Request request = null;
+                        q = q.WhereRestrictionOn(o => o.PaymentDate).IsBetween(startDate).And(endDate);
+                        if (customerId.HasValue)
+                        {
+                            q = q.JoinAlias(o => o.Request, () => request)
+                                .Where(o => request.Customer.Id == customerId.Value);
+                        }
+                        return q.List();
+                    });
         }
     }
 }

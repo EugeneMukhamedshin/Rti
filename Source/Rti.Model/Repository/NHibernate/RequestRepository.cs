@@ -25,7 +25,7 @@ namespace Rti.Model.Repository.NHibernate
             return ExecuteFuncOnQueryOver(q => q.Where(o => !o.IsDeleted).List());
         }
 
-        public IList<RequestsReportRow> GetRequestReport(DateTime startDate, DateTime endDate, int? customerId = null)
+        public IList<RequestsReportRow> GetRequestReport(DateTime startDate, DateTime endDate, int? customerId)
         {
             return ExecuteFuncOnSession(s =>
                 s.CreateSQLQuery(@"

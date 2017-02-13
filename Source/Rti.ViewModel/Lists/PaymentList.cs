@@ -17,6 +17,9 @@ namespace Rti.ViewModel.Lists
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public ContragentViewModel Customer { get; set; }
+
+        public Lazy<List<ContragentViewModel>> CustomersSource { get; set; }
 
         public PaymentList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(editMode, viewService, repositoryFactory)
@@ -85,11 +88,23 @@ namespace Rti.ViewModel.Lists
             }
         }
 
+        public override void Refresh()
+        {
+            base.Refresh();
+            CustomersSource =
+                new Lazy<List<ContragentViewModel>>(
+                    () =>
+                        new List<ContragentViewModel> {null}.Union(
+                            RepositoryFactory.GetContragentRepository()
+                                .GetAllActive(ContragentType.Customer)
+                                .Select(o => new ContragentViewModel(o, RepositoryFactory))).ToList());
+        }
+
         protected override IEnumerable<PaymentViewModel> GetItems()
         {
             var list =
                 RepositoryFactory.GetPaymentRepository()
-                    .GetByPeriod(StartDate, EndDate)
+                    .GetByPeriod(StartDate, EndDate, Customer?.Id)
                     .Select(o => new PaymentViewModel(o, RepositoryFactory))
                     .OrderBy(o => o.PaymentDate)
                     .ToList();
@@ -110,7 +125,7 @@ namespace Rti.ViewModel.Lists
                                 string.Format("{0}{1}№{2} от {3: dd.MM.yyyy}", shipments, shipments == string.Empty ? string.Empty : ", ",
                                     shipment.SortOrder, shipment.Date));
                     payment.ShipmentSum =
-                        shipmentItems.Where(o => o.Shipment.Payment.Id == payment.Id).Sum(o => o.Count*o.Price);
+                        shipmentItems.Where(o => o.Shipment.Payment.Id == payment.Id).Sum(o => o.Count * o.Price);
                 }
             });
         }

@@ -5,7 +5,7 @@ namespace Rti.ViewModel.Entities
     public partial class PaymentViewModel
     {
         private string _shipmentDates;
-        private decimal? _shipmentSum;
+        private decimal _shipmentSum;
         public string FullName { get { return string.Format("№{0} от {1:dd.MM.yyyy}г.", PaymentDocNumber, PaymentDate); } }
 
         public string ShipmentDates
@@ -18,7 +18,7 @@ namespace Rti.ViewModel.Entities
             }
         }
 
-        public decimal? ShipmentSum
+        public decimal ShipmentSum
         {
             get { return _shipmentSum; }
             set { _shipmentSum = value;

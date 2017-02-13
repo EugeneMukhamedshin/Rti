@@ -21,6 +21,7 @@ namespace Rti.ViewModel.Lists
         private DateTime _endDate;
 
         public Lazy<List<ContragentViewModel>> CustomersSource { get; set; }
+        public Lazy<List<DrawingViewModel>> DrawingsSource { get; set; }
 
         public ContragentViewModel SelectedCustomer
         {
@@ -28,6 +29,16 @@ namespace Rti.ViewModel.Lists
             set
             {
                 _selectedCustomer = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DrawingViewModel SelectedDrawing
+        {
+            get { return _selectedDrawing; }
+            set
+            {
+                _selectedDrawing = value;
                 OnPropertyChanged();
             }
         }
@@ -47,6 +58,7 @@ namespace Rti.ViewModel.Lists
         private bool _showShippedRequests;
         private bool _showNotShippedRequests;
         private ContragentViewModel _selectedCustomer;
+        private DrawingViewModel _selectedDrawing;
 
         public RequestsReportRow SelectedItem
         {
@@ -141,11 +153,20 @@ namespace Rti.ViewModel.Lists
             CustomersSource =
                 new Lazy<List<ContragentViewModel>>(
                     () =>
-                        new List<ContragentViewModel> {null}
+                        new List<ContragentViewModel> { null }
                             .Union(
                                 RepositoryFactory.GetContragentRepository()
                                     .GetAllActive(ContragentType.Customer)
                                     .Select(o => new ContragentViewModel(o, RepositoryFactory)))
+                            .ToList());
+            DrawingsSource =
+                new Lazy<List<DrawingViewModel>>(
+                    () =>
+                        new List<DrawingViewModel> { null }
+                            .Union(
+                                RepositoryFactory.GetDrawingRepository()
+                                    .GetAllActive()
+                                    .Select(o => new DrawingViewModel(o, RepositoryFactory)))
                             .ToList());
         }
 

@@ -13,7 +13,7 @@ namespace Rti.ViewModel.Reporting
     {
         public void BuildReport(DateTime startDate, DateTime endDate, IRepositoryFactory repositoryFactory)
         {
-            var rows = repositoryFactory.GetRequestRepository().GetRequestReport(startDate, endDate);
+            var rows = repositoryFactory.GetRequestRepository().GetRequestReport(startDate, endDate, null);
             var doc = new XDocument(new XDeclaration("2.0", "utf-8", "true"),
                 new XElement("root",
                     new XElement("set",

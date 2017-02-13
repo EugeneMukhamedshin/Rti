@@ -7,6 +7,6 @@ namespace Rti.Model.Repository.Interfaces
     public partial interface IPaymentRepository : IRepository<Rti.Model.Domain.Payment>
     {
         IList<Payment> GetByRequestId(int requestId);
-        IList<Payment> GetByPeriod(DateTime startDate, DateTime endDate);
+        IList<Payment> GetByPeriod(DateTime startDate, DateTime endDate, int? customerId);
     }
 }

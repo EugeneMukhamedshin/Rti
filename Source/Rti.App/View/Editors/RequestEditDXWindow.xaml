@@ -125,7 +125,7 @@
                     <!--<dxg:GridColumn Binding="{Binding Group.Name}" Header="Группа" Width="50" ReadOnly="True"/>-->
                     <dxg:GridColumn Binding="{Binding Drawing,Mode=TwoWay}" Header="Чертеж" Width="100">
                         <dxg:GridColumn.EditSettings>
-                            <dxg:LookUpEditSettings AllowDefaultButton="True" DisplayMember="FullName" ItemsSource="{Binding DrawingsSource}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350" IsSynchronizedWithCurrentItem="True">
+                            <dxg:LookUpEditSettings AllowDefaultButton="True" DisplayMember="FullName" ItemsSource="{Binding DrawingsSource}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="550" IsSynchronizedWithCurrentItem="True">
                                 <dxg:LookUpEditSettings.StyleSettings>
                                     <dxg:SearchLookUpEditStyleSettings/>
                                 </dxg:LookUpEditSettings.StyleSettings>
@@ -135,6 +135,8 @@
                                             <dxg:GridControl.Columns>
                                                 <dxg:GridColumn FieldName="SortOrder" Header="№" Width="50"/>
                                                 <dxg:GridColumn FieldName="FullName" Header="Наименование" Width="100"/>
+                                                <dxg:GridColumn FieldName="Price" Header="Цена" Width="60"/>
+                                                <dxg:GridColumn FieldName="AdditionalInfo" Header="Доп. инфо" Width="150"/>
                                                 <dxg:GridColumn FieldName="DoneCount" Header="В наличии, шт." Width="80"/>
                                             </dxg:GridControl.Columns>
                                             <dxg:GridControl.View>
