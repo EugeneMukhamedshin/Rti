@@ -81,7 +81,7 @@ from (
       INNER JOIN details d
         ON rd.detail_id = d.id
       INNER JOIN materials m
-        ON rd.material_id = m.id
+        ON d1.material_id = m.id
       INNER JOIN calculations c
         ON d1.fact_calculation_id = c.id
       INNER JOIN employees e

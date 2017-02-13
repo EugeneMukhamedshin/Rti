@@ -168,7 +168,7 @@
                     <dxg:GridColumn Binding="{Binding FactCalculationPrice}" Header="Цена по факт. кальк." Width="60" EditSettings="{components:Float2TextEditSettings}" ReadOnly="True"/>
                     <dxg:GridColumn Binding="{Binding PlanCalculationPrice}" Header="Цена по план. кальк." Width="60" EditSettings="{components:Float2TextEditSettings}" ReadOnly="True"/>
                     <dxg:GridColumn Binding="{Binding Sum}" Header="Сумма" ReadOnly="True" Width="60"/>
-                    <dxg:GridColumn Binding="{Binding Material.Name}" Header="Материал" Width="80" ReadOnly="True"/>
+                    <dxg:GridColumn Binding="{Binding Drawing.Material.Name}" Header="Материал" Width="80" ReadOnly="True"/>
                     <dxg:GridColumn Binding="{Binding Equipment.LeadTime,Mode=TwoWay}" Header="Срок изг. оснастки" Width="60" EditSettings="{components:TextEditSettings Mask=f0}"/>
                     <dxg:GridColumn Binding="{Binding Note,Mode=TwoWay}" Header="Примечание" Width="120">
                         <dxg:GridColumn.EditSettings>

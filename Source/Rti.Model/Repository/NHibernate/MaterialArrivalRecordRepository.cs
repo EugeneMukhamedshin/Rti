@@ -7,7 +7,7 @@ namespace Rti.Model.Repository.NHibernate
 {
     public partial class MaterialArrivalRecordRepository
     {
-        public IList<MaterialArrivalRecord> GetByInterval(DateTime startDate, DateTime endDate, int? materialId)
+        public IList<MaterialArrivalRecord> GetByInterval(DateTime startDate, DateTime endDate, int?supplierId, int? materialId)
         {
             return
                 ExecuteFuncOnQueryOver(
@@ -19,6 +19,8 @@ namespace Rti.Model.Repository.NHibernate
                             .And(o => !o.IsDeleted);
                         if (materialId.HasValue)
                             result = result.And(o => o.Material.Id == materialId);
+                        if (supplierId.HasValue)
+                            result = result.And(o => o.Supplier.Id == supplierId);
                         return result.List();
                     });
         }

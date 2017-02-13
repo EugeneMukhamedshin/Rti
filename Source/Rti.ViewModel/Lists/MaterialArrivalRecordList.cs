@@ -17,8 +17,11 @@ namespace Rti.ViewModel.Lists
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public MaterialViewModel Material { get; set; }
+        public ContragentViewModel Supplier { get; set; }
 
         public Lazy<List<MaterialViewModel>> MaterialsSource { get; set; }
+
+        public Lazy<List<ContragentViewModel>> SuppliersSource { get; set; }
 
         public MaterialArrivalRecordList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(editMode, viewService, repositoryFactory)
@@ -43,10 +46,17 @@ namespace Rti.ViewModel.Lists
             MaterialsSource =
                 new Lazy<List<MaterialViewModel>>(
                     () =>
-                        new List<MaterialViewModel>() {null}.Union(
+                        new List<MaterialViewModel> { null }.Union(
                             RepositoryFactory.GetMaterialRepository()
                                 .GetAllActive()
                                 .Select(m => new MaterialViewModel(m, RepositoryFactory))).ToList());
+            SuppliersSource =
+                new Lazy<List<ContragentViewModel>>(
+                    () =>
+                        new List<ContragentViewModel> { null }.Union(
+                            RepositoryFactory.GetContragentRepository()
+                                .GetAllActive(ContragentType.Supplier)
+                                .Select(o => new ContragentViewModel(o, RepositoryFactory))).ToList());
         }
 
         private void AddRecord()
@@ -58,7 +68,7 @@ namespace Rti.ViewModel.Lists
 
         protected override IEnumerable<MaterialArrivalRecordViewModel> GetItems()
         {
-            var items = RepositoryFactory.GetMaterialArrivalRecordRepository().GetByInterval(StartDate, EndDate, Material == null ? (int?)null : Material.Id);
+            var items = RepositoryFactory.GetMaterialArrivalRecordRepository().GetByInterval(StartDate, EndDate, Supplier?.Id, Material?.Id);
             return items.Select(o => new MaterialArrivalRecordViewModel(o, RepositoryFactory)).ToList(); ;
         }
 

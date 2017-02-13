@@ -20,8 +20,27 @@
             <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding StartDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
             <TextBlock Text="Дата окончания" Margin="5" VerticalAlignment="Center"/>
             <xctk:DateTimePicker TabIndex="2" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding EndDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
+            <TextBlock Text="Поставщик" Margin="5" VerticalAlignment="Center"/>
+            <dxg:LookUpEdit TabIndex="3" Margin="5" ItemsSource="{Binding SuppliersSource.Value}" SelectedItem="{Binding Supplier}" DisplayMember="Name" Width="200" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True" PopupWidth="500" PopupHeight="400">
+                <dxg:LookUpEdit.StyleSettings>
+                    <dxg:SearchLookUpEditStyleSettings/>
+                </dxg:LookUpEdit.StyleSettings>
+                <dxg:LookUpEdit.PopupContentTemplate>
+                    <ControlTemplate>
+                        <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
+                            <dxg:GridControl.Columns>
+                                <dxg:GridColumn FieldName="SortOrder" Width="50" Header="№"/>
+                                <dxg:GridColumn FieldName="Name" Width="150" Header="Наименование"/>
+                            </dxg:GridControl.Columns>
+                            <dxg:GridControl.View>
+                                <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AutoWidth="True"/>
+                            </dxg:GridControl.View>
+                        </dxg:GridControl>
+                    </ControlTemplate>
+                </dxg:LookUpEdit.PopupContentTemplate>
+            </dxg:LookUpEdit>
             <TextBlock Text="Материал" Margin="5" VerticalAlignment="Center"/>
-            <dxg:LookUpEdit TabIndex="3" Margin="5" ItemsSource="{Binding MaterialsSource.Value}" SelectedItem="{Binding Material}" DisplayMember="Name" Width="200" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True" PopupWidth="500" PopupHeight="400">
+            <dxg:LookUpEdit TabIndex="4" Margin="5" ItemsSource="{Binding MaterialsSource.Value}" SelectedItem="{Binding Material}" DisplayMember="Name" Width="200" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True" PopupWidth="500" PopupHeight="400">
                 <dxg:LookUpEdit.StyleSettings>
                     <dxg:SearchLookUpEditStyleSettings/>
                 </dxg:LookUpEdit.StyleSettings>
@@ -81,6 +100,11 @@
                 <dxg:GridColumn FieldName="Sum" Header="Сумма" Width="100"/>
                 <dxg:GridColumn FieldName="ForwardedTo" Header="Передано" Width="100"/>
             </dxg:GridControl.Columns>
+            <dxg:GridControl.TotalSummary>
+                <dxg:GridSummaryItem ShowInColumn="InvoiceSum" FieldName="InvoiceSum" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
+                <dxg:GridSummaryItem ShowInColumn="Count" FieldName="Count" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
+                <dxg:GridSummaryItem ShowInColumn="Sum" FieldName="Sum" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
+            </dxg:GridControl.TotalSummary>
             <dxg:GridControl.View>
                 <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
             </dxg:GridControl.View>
