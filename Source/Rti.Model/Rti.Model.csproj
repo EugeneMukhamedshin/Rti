@@ -92,6 +92,7 @@
     <Compile Include="Domain\ReportEntities\RequestStatus.cs" />
     <Compile Include="Domain\RequestDetailState.cs" />
     <Compile Include="Domain\AccessType.cs" />
+    <Compile Include="Domain\Shipment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Interfaces\IAdditionalInfoRepository.cs" />
     <Compile Include="Repository\Interfaces\IAttachmentRepository.cs" />
@@ -147,6 +148,7 @@
       <DependentUpon>GeneratedClassMaps.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\NHibernate\ClassMaps\ReferencesConvention.cs" />
+    <Compile Include="Repository\NHibernate\ClassMaps\ShipmentMap.cs" />
     <Compile Include="Repository\NHibernate\ConstantRepository.cs" />
     <Compile Include="Repository\NHibernate\ContractRepository.cs" />
     <Compile Include="Repository\NHibernate\ContragentRepository.cs" />

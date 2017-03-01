@@ -21,7 +21,16 @@ namespace Rti.ViewModel.Lists
         private DateTime _endDate;
 
         public Lazy<List<ContragentViewModel>> CustomersSource { get; set; }
-        public Lazy<List<DrawingViewModel>> DrawingsSource { get; set; }
+
+        public List<DrawingViewModel> DrawingsSource
+        {
+            get { return _drawingsSource; }
+            set
+            {
+                _drawingsSource = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ContragentViewModel SelectedCustomer
         {
@@ -59,6 +68,7 @@ namespace Rti.ViewModel.Lists
         private bool _showNotShippedRequests;
         private ContragentViewModel _selectedCustomer;
         private DrawingViewModel _selectedDrawing;
+        private List<DrawingViewModel> _drawingsSource;
 
         public RequestsReportRow SelectedItem
         {
@@ -159,15 +169,14 @@ namespace Rti.ViewModel.Lists
                                     .GetAllActive(ContragentType.Customer)
                                     .Select(o => new ContragentViewModel(o, RepositoryFactory)))
                             .ToList());
-            DrawingsSource =
-                new Lazy<List<DrawingViewModel>>(
-                    () =>
-                        new List<DrawingViewModel> { null }
-                            .Union(
-                                RepositoryFactory.GetDrawingRepository()
-                                    .GetAllActive()
-                                    .Select(o => new DrawingViewModel(o, RepositoryFactory)))
-                            .ToList());
+            DoAsync(
+                () => RepositoryFactory.GetDrawingRepository()
+                    .GetAllActive()
+                    .Select(o => new DrawingViewModel(o, RepositoryFactory)),
+                res =>
+                    DrawingsSource =
+                        new List<DrawingViewModel>(new[] {(DrawingViewModel) null}
+                            .Union(res)));
         }
 
         private void SetItems()
@@ -210,7 +219,7 @@ namespace Rti.ViewModel.Lists
 
         private IEnumerable<RequestsReportRow> GetItems()
         {
-            return RepositoryFactory.GetRequestRepository().GetRequestReport(StartDate, EndDate, SelectedCustomer?.Id).OrderByDescending(o => o.RegDate);
+            return RepositoryFactory.GetRequestRepository().GetRequestReport(StartDate, EndDate, SelectedCustomer?.Id, SelectedDrawing?.Id).OrderByDescending(o => o.RegDate);
         }
 
         public DateTime EndDate

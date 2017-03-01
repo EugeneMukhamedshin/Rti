@@ -10,18 +10,38 @@ namespace Rti.ViewModel.Lists
 {
     public class ShipmentList : EntityList<ShipmentViewModel, Shipment>
     {
-        private DrawingViewModel _drawing;
+        private ContragentViewModel _selectedCustomer;
+        private DrawingViewModel _selectedDrawing;
+        private List<DrawingViewModel> _drawingsSource;
 
-        /// <summary>
-        /// Чертеж для фильтрации заявок
-        /// </summary>
-        public DrawingViewModel Drawing
+        public Lazy<List<ContragentViewModel>> CustomersSource { get; set; }
+
+        public List<DrawingViewModel> DrawingsSource
         {
-            get { return _drawing; }
+            get { return _drawingsSource; }
             set
             {
-                if (Equals(value, _drawing)) return;
-                _drawing = value;
+                _drawingsSource = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ContragentViewModel SelectedCustomer
+        {
+            get { return _selectedCustomer; }
+            set
+            {
+                _selectedCustomer = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DrawingViewModel SelectedDrawing
+        {
+            get { return _selectedDrawing; }
+            set
+            {
+                _selectedDrawing = value;
                 OnPropertyChanged();
             }
         }
@@ -59,8 +79,8 @@ namespace Rti.ViewModel.Lists
         protected override IEnumerable<ShipmentViewModel> GetItems()
         {
             var shipments = RepositoryFactory.GetShipmentRepository()
-                .GetByPeriod(StartDate, EndDate)
-                .Select(o => new ShipmentViewModel(o, RepositoryFactory) {})
+                .GetByPeriod(StartDate, EndDate, SelectedCustomer?.Id, SelectedDrawing?.Id)
+                .Select(o => new ShipmentViewModel(o, RepositoryFactory) { })
                 .OrderBy(o => o.SortOrder)
                 .ToList();
             var shipmentDetails =
@@ -75,6 +95,28 @@ namespace Rti.ViewModel.Lists
                                     o.RequestDetail.Drawing.Name)));
             }
             return shipments;
+        }
+
+        public override void Refresh()
+        {
+            base.Refresh();
+            CustomersSource =
+                new Lazy<List<ContragentViewModel>>(
+                    () =>
+                        new List<ContragentViewModel> {null}
+                            .Union(
+                                RepositoryFactory.GetContragentRepository()
+                                    .GetAllActive(ContragentType.Customer)
+                                    .Select(o => new ContragentViewModel(o, RepositoryFactory)))
+                            .ToList());
+            DoAsync(
+                () => RepositoryFactory.GetDrawingRepository()
+                    .GetAllActive()
+                    .Select(o => new DrawingViewModel(o, RepositoryFactory)),
+                res =>
+                    DrawingsSource =
+                        new List<DrawingViewModel>(new[] {(DrawingViewModel) null}
+                            .Union(res)));
         }
 
         protected override ShipmentViewModel DoCreateNewEntity()

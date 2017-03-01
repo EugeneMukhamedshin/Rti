@@ -10,7 +10,7 @@ namespace Rti.Model.Repository.Interfaces
         int GetNewRequestNumber();
         Request GetByNumber(int number);
         IList<Request> GetUnshipped();
-        IList<RequestsReportRow> GetRequestReport(DateTime startDate, DateTime endDate, int? customerId);
+        IList<RequestsReportRow> GetRequestReport(DateTime startDate, DateTime endDate, int? customerId, int? drawingId);
         IList<Request> GetUnpaid();
         int GetNextSpecificationNumber();
         int GetNextEquipmentInvoiceNumber();

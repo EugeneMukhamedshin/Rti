@@ -13,13 +13,12 @@ namespace Rti.ViewModel.Reporting
     {
         public void BuildReport(DateTime startDate, DateTime endDate, IRepositoryFactory repositoryFactory)
         {
-            var rows = repositoryFactory.GetRequestRepository().GetRequestReport(startDate, endDate, null);
+            var rows = repositoryFactory.GetRequestRepository().GetRequestReport(startDate, endDate, null, null);
             var doc = new XDocument(new XDeclaration("2.0", "utf-8", "true"),
                 new XElement("root",
                     new XElement("set",
                         new XAttribute("name", "Rows"),
-                        rows.Select(o => new XElement("row",
-                            new XAttribute("Number", o.Number),
+                        rows.Select(o => new XElement("row",new XAttribute("Number", o.Number),
                             new XAttribute("RegDate", o.RegDate),
                             new XAttribute("LeadTime", o.LeadTime.HasValue ? o.LeadTime.ToString() : string.Empty),
                             new XAttribute("ShipDate", o.ShipDate.HasValue ? o.ShipDate.Value.ToString("dd.MM.yyyy") : string.Empty),

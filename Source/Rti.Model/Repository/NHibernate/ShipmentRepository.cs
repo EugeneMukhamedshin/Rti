@@ -7,9 +7,31 @@ namespace Rti.Model.Repository.NHibernate
 {
     public partial class ShipmentRepository
     {
-        public IList<Shipment> GetByPeriod(DateTime startDate, DateTime endDate)
+        public IList<Shipment> GetByPeriod(DateTime startDate, DateTime endDate, int? customerId, int? drawingId)
         {
-            return ExecuteFuncOnQueryOver(q => q.Where(o => !o.IsDeleted).AndRestrictionOn(o => o.Date).IsBetween(startDate).And(endDate).List());
+            return
+                ExecuteFuncOnSession(
+                    session =>
+                    {
+                        Shipment s = null;
+                        var q = session
+                            .QueryOver(() => s)
+                            .Where(() => !s.IsDeleted)
+                            .AndRestrictionOn(() => s.Date)
+                            .IsBetween(startDate)
+                            .And(endDate);
+                        if (customerId.HasValue)
+                            q = q.Where(() => s.Recipient.Id == customerId.Value);
+                        if (drawingId.HasValue)
+                        {
+                            RequestDetail rd = null;
+                            return
+                                q.JoinQueryOver<ShipmentItem>(o => o.ShipmentItems)
+                                .JoinAlias(o => o.RequestDetail, () => rd)
+                                    .Where(() => rd.Drawing.Id == drawingId.Value).List();
+                        }
+                        return q.List();
+                    });
         }
 
         public int GetNextSortOrder()

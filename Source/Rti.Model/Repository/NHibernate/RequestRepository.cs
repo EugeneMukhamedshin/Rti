@@ -25,7 +25,7 @@ namespace Rti.Model.Repository.NHibernate
             return ExecuteFuncOnQueryOver(q => q.Where(o => !o.IsDeleted).List());
         }
 
-        public IList<RequestsReportRow> GetRequestReport(DateTime startDate, DateTime endDate, int? customerId)
+        public IList<RequestsReportRow> GetRequestReport(DateTime startDate, DateTime endDate, int? customerId, int? drawingId)
         {
             return ExecuteFuncOnSession(s =>
                 s.CreateSQLQuery(@"
@@ -48,6 +48,14 @@ SELECT
   rd.sum,
   c.name customer_name
 FROM requests r
+  INNER JOIN (SELECT
+    DISTINCT
+      r1.id
+    FROM requests r1
+      INNER JOIN request_details rd1
+        ON r1.id = rd1.request_id
+        AND rd1.drawing_id = IFNULL(:p_drawing_id, rd1.drawing_id)) rds
+    ON rds.id = r.id
   LEFT JOIN (SELECT
       rd.request_id,
       MAX(e.lead_time) equipment_lead_time,
@@ -97,6 +105,7 @@ AND r.reg_date BETWEEN :p_start_date AND :p_end_date
 AND r.customer_id = IFNULL(:p_customer_id, r.customer_id)")
                     .SetParameter("p_start_date", startDate)
                     .SetParameter("p_end_date", endDate)
+                    .SetParameter("p_drawing_id", drawingId)
                     .SetParameter("p_customer_id", customerId)
                     .SetResultTransformer(new ResultTransformer(objects => new RequestsReportRow
                     {
