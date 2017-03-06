@@ -33,14 +33,23 @@ namespace Rti.ViewModel.Entities
         protected override void OnPropertyChanged(string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
-            if (propertyName.In("SortOrder", "IsReplace", "IsAddition"))
-                OnPropertyChanged("FullNumber");
+            if (!IsMapping)
+            {
+                if (propertyName.In("Date", "IsReplace", "IsAddition"))
+                    GetSortOrder();
+                if (propertyName.In("SortOrder", "IsReplace", "IsAddition"))
+                    OnPropertyChanged("FullNumber");
+            }
         }
-
         public override void CustomFillXElement(XElement element)
         {
             base.CustomFillXElement(element);
             element.Add(new XAttribute("Grounding", Grounding));
+        }
+
+        public void GetSortOrder()
+        {
+            SortOrder = RepositoryFactory.GetShipmentRepository().GetNextSortOrder(Date, IsReplace, IsAddition);
         }
     }
 }

@@ -237,9 +237,9 @@ namespace Rti.ViewModel
         {
             var shipment = new ShipmentViewModel(null, RepositoryFactory)
             {
-                Date = DateTime.Today,
-                SortOrder = RepositoryFactory.GetShipmentRepository().GetNextSortOrder()
+                Date = DateTime.Today
             };
+            shipment.GetSortOrder();
             shipment.DeliveryDocNumber = shipment.SortOrder;
             shipment.DeliveryDocDate = shipment.Date;
             var editViewModel = new ShipmentEdit("Отгрузка", shipment, false, ViewService, RepositoryFactory);

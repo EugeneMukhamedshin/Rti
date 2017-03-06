@@ -7,7 +7,7 @@ namespace Rti.Model.Repository.Interfaces
     public partial interface IShipmentRepository
     {
         IList<Shipment> GetByPeriod(DateTime startDate, DateTime endDate, int? customerId, int? drawingId);
-        int GetNextSortOrder();
+        int GetNextSortOrder(DateTime shipmentDate, bool isReplace, bool isAddition);
         IList<Shipment> GetByPaymentIds(int[] paymentIds);
     }
 }

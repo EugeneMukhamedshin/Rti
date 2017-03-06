@@ -87,7 +87,7 @@
                 </dxg:GridControl.Resources>
                 <dxg:GridControl.Columns>
                     <dxg:GridColumn FieldName="Date" Header="Дата" ReadOnly="True" Width="80"/>
-                    <dxg:GridColumn FieldName="SortOrder" Header="Номер накладной" Width="80"/>
+                    <dxg:GridColumn FieldName="FullNumber" Header="Номер накладной" Width="80"/>
                     <dxg:GridColumn FieldName="Details" Header="Детали" Width="250"/>
                     <dxg:GridColumn FieldName="Request.Customer.Name" Header="Заказчик" Width="250"/>
                     <dxg:GridColumn FieldName="Request.Number" Header="Номер заявки" Width="80"/>

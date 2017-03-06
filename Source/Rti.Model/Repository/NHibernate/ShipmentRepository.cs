@@ -18,8 +18,7 @@ namespace Rti.Model.Repository.NHibernate
                             .QueryOver(() => s)
                             .Where(() => !s.IsDeleted)
                             .AndRestrictionOn(() => s.Date)
-                            .IsBetween(startDate)
-                            .And(endDate);
+                            .IsBetween(startDate).And(endDate);
                         if (customerId.HasValue)
                             q = q.Where(() => s.Recipient.Id == customerId.Value);
                         if (drawingId.HasValue)
@@ -34,9 +33,9 @@ namespace Rti.Model.Repository.NHibernate
                     });
         }
 
-        public int GetNextSortOrder()
+        public int GetNextSortOrder(DateTime shipmentDate, bool isReplace, bool isAddition)
         {
-            var maxSortOrder = ExecuteFuncOnQueryOver(q => q.Where(o => o.Date >= new DateTime(DateTime.Today.Year, 1, 1)).Select(Projections.Max<Shipment>(o => o.SortOrder)).SingleOrDefault<int?>());
+            var maxSortOrder = ExecuteFuncOnQueryOver(q => q.Where(o => o.Date >= new DateTime(shipmentDate.Year, 1, 1) && o.IsReplace == isReplace && o.IsAddition == isAddition).Select(Projections.Max<Shipment>(o => o.SortOrder)).SingleOrDefault<int?>());
             return maxSortOrder + 1 ?? 1;
         }
 

@@ -124,8 +124,8 @@ namespace Rti.ViewModel.Lists
             var shipment = new ShipmentViewModel(null, RepositoryFactory)
             {
                 Date = DateTime.Today,
-                SortOrder = RepositoryFactory.GetShipmentRepository().GetNextSortOrder()
             };
+            shipment.GetSortOrder();
             shipment.DeliveryDocNumber = shipment.SortOrder;
             shipment.DeliveryDocDate = shipment.Date;
             return shipment;
