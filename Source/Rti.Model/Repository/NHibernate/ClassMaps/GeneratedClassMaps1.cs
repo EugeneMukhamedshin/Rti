@@ -921,6 +921,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 		{
 			Table("work_items");
 			Id(o => o.Id, "id");
+			Map(o => o.IsWithoutRequest, "is_without_request");
 			Map(o => o.WorkDate, "work_date");
 			Map(o => o.SortOrder, "sort_order");
 			Map(o => o.RequestCount, "request_count");

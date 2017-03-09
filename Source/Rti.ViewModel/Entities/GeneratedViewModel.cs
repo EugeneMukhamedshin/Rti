@@ -4221,6 +4221,7 @@ namespace Rti.ViewModel.Entities
         public WorkItemViewModel(Rti.Model.Domain.WorkItem entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
 
 		private Int32 _id;
+		private Boolean _isWithoutRequest;
 		private DateTime _workDate;
 		private Int32 _sortOrder;
 		private Int32? _requestCount;
@@ -4235,6 +4236,7 @@ namespace Rti.ViewModel.Entities
 		private EmployeeViewModel _employee;
 		private DrawingFlowsheetMachineViewModel _flowsheetMachine;
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+		public Boolean IsWithoutRequest { get { return _isWithoutRequest; } set { if (Equals(_isWithoutRequest, value)) return; _isWithoutRequest = value; OnPropertyChanged("IsWithoutRequest"); } }
 		public DateTime WorkDate { get { return _workDate; } set { if (Equals(_workDate, value)) return; _workDate = value; OnPropertyChanged("WorkDate"); } }
 		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
 		public Int32? RequestCount { get { return _requestCount; } set { if (Equals(_requestCount, value)) return; _requestCount = value; OnPropertyChanged("RequestCount"); } }
@@ -4250,6 +4252,7 @@ namespace Rti.ViewModel.Entities
 		public DrawingFlowsheetMachineViewModel FlowsheetMachine { get { return _flowsheetMachine; } set { _flowsheetMachine = value; OnPropertyChanged("FlowsheetMachine"); } }
 		protected override void MapPropertiesToEntity()
 		{
+			Entity.IsWithoutRequest = IsWithoutRequest; 
 			Entity.WorkDate = WorkDate; 
 			Entity.SortOrder = SortOrder; 
 			Entity.RequestCount = RequestCount; 
@@ -4269,6 +4272,7 @@ namespace Rti.ViewModel.Entities
 		{
 			IsMapping = true;
 			Id = Entity.Id; 
+			IsWithoutRequest = Entity.IsWithoutRequest; 
 			WorkDate = Entity.WorkDate; 
 			SortOrder = Entity.SortOrder; 
 			RequestCount = Entity.RequestCount; 
@@ -4288,6 +4292,7 @@ namespace Rti.ViewModel.Entities
 		public override void CopyFrom(WorkItemViewModel source)
 		{
 			IsMapping = true;
+			IsWithoutRequest = source.IsWithoutRequest;
 			WorkDate = source.WorkDate;
 			SortOrder = source.SortOrder;
 			RequestCount = source.RequestCount;
@@ -4316,6 +4321,7 @@ namespace Rti.ViewModel.Entities
 		{
 			var element = new XElement(name);
 			element.Add(new XAttribute("Id", Id));
+			element.Add(new XAttribute("IsWithoutRequest", IsWithoutRequest));
 			element.Add(new XAttribute("WorkDate", WorkDate));
 			element.Add(new XAttribute("SortOrder", SortOrder));
 			if (RequestCount != null)

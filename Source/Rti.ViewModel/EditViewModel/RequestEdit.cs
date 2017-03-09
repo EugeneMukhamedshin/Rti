@@ -99,7 +99,14 @@ namespace Rti.ViewModel.EditViewModel
             OpenDrawingEditCommand = new DelegateCommand(
                 "Открыть чертеж",o => true,
                 o => OpenDrawingEdit((RequestDetailViewModel)o));
+
+            Entity.PropertyChanged += Entity_PropertyChanged;
         }
+
+        private void Entity_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "RegDate")
+                RefreshDrawings();}
 
         protected override bool CustomOkCommandCanExecute()
         {

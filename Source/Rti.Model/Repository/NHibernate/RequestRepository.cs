@@ -59,7 +59,7 @@ FROM requests r
   LEFT JOIN (SELECT
       rd.request_id,
       MAX(e.lead_time) equipment_lead_time,
-      GROUP_CONCAT(DISTINCT CONCAT(d.name, ' ', g.name, '.', dr.name)) details,
+      GROUP_CONCAT(DISTINCT CONCAT(d.name, ' ', g.name, '.', dr.name, ' (', rd.count, 'шт.)') SEPARATOR ';') details,
       SUM(rd.Price * rd.count) Sum
     FROM request_details rd
       INNER JOIN details d

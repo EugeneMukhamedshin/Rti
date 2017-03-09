@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using Rti.Model;
 
@@ -28,7 +30,11 @@ namespace Rti.ViewModel.Entities
 
         public string Documents { get { return "Паспорт"; } }
 
-        public string Details { get; set; }
+        public string Details => Entity.ShipmentItems.Aggregate(string.Empty,
+            (res, o) =>
+                $"{res}{(res == string.Empty ? string.Empty : ";")}{o.RequestDetail.Detail.Name} {o.RequestDetail.Group.Name}.{o.RequestDetail.Drawing.Name} ({o.Count}шт.)");
+
+        public string DetailsMultilined => Details.Replace(';', '\n');
 
         protected override void OnPropertyChanged(string propertyName = null)
         {
@@ -41,6 +47,7 @@ namespace Rti.ViewModel.Entities
                     OnPropertyChanged("FullNumber");
             }
         }
+
         public override void CustomFillXElement(XElement element)
         {
             base.CustomFillXElement(element);

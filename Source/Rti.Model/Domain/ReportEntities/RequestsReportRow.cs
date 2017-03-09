@@ -4,10 +4,7 @@ namespace Rti.Model.Domain.ReportEntities
 {
     public class RequestsReportRow : IIdentifiedEntity
     {
-        public bool IsWorkStarted
-        {
-            get { return WorkStartDate.HasValue; }
-        }
+        public bool IsWorkStarted => WorkStartDate.HasValue;
 
         //public RequestStatus Status
         //{
@@ -18,6 +15,8 @@ namespace Rti.Model.Domain.ReportEntities
         //            : Diff == LeadTime ? RequestStatus.Yellow : RequestStatus.Red;
         //    }
         //}
+
+        public string DetailsMultilined => Details.Replace(';', '\n');
 
         public int Id { get; set; }
         public int Number { get; set; }

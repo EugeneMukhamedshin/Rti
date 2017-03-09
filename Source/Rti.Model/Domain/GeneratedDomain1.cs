@@ -982,6 +982,8 @@ namespace Rti.Model.Domain
 	{
 		[Field("id")]
 		public virtual Int32 Id { get; protected set; }
+		[Field("is_without_request")]
+		public virtual Boolean IsWithoutRequest { get; set; }
 		[Field("work_date")]
 		public virtual DateTime WorkDate { get; set; }
 		[Field("sort_order")]

@@ -9,15 +9,17 @@
     Width="470" Height="390" MinWidth="470" MinHeight="390" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
-        <components:PropertyGridResponsible Grid.Row="0" ShowMenuButtonInRows="False" SortMode="Definitions" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
+        <CheckBox IsChecked="{Binding Entity.IsWithoutRequest}" Content="Показать все чертежи (Наряд не по заявке)" Margin="5"></CheckBox>
+        <components:PropertyGridResponsible Grid.Row="1" ShowMenuButtonInRows="False" SortMode="Definitions" SelectedObject="{Binding Entity}" ShowProperties="WithPropertyDefinitions" ShowCategories="False" ShowToolPanel="False" ShowSearchBox="False">
             <components:PropertyGridResponsible.PropertyDefinitions>
                 <dxprg:PropertyDefinition Header="№" Path="SortOrder" IsReadOnly="True"/>
                 <dxprg:PropertyDefinition Header="Чертеж" Path="Drawing" PostOnEditValueChanged="True">
                     <dxprg:PropertyDefinition.EditSettings>
-                        <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="Name" ItemsSource="{Binding DrawingsSource.Value}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                        <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="Name" ItemsSource="{Binding DrawingsSource}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
                             <dxg:LookUpEditSettings.StyleSettings>
                                 <dxg:SearchLookUpEditStyleSettings/>
                             </dxg:LookUpEditSettings.StyleSettings>
@@ -67,7 +69,7 @@
                 <dxprg:PropertyDefinition Header="Примечание" Path="Note" Height="100"/>
             </components:PropertyGridResponsible.PropertyDefinitions>
         </components:PropertyGridResponsible>
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button Content="Сохранить" Command="{Binding OkCommand}" Width="90" Margin="5" IsDefault="True" TabIndex="1000"></Button>
             <Button Content="Отмена"  Command="{Binding CancelCommand}" Width="90" Margin="5" TabIndex="1001"></Button>
         </StackPanel>

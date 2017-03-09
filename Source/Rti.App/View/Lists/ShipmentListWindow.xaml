@@ -88,7 +88,24 @@
                 <dxg:GridControl.Columns>
                     <dxg:GridColumn FieldName="Date" Header="Дата" ReadOnly="True" Width="80"/>
                     <dxg:GridColumn FieldName="FullNumber" Header="Номер накладной" Width="80"/>
-                    <dxg:GridColumn FieldName="Details" Header="Детали" Width="250"/>
+                    <dxg:GridColumn Header="Детали" Width="250">
+                        <dxg:GridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="15"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock TextAlignment="Left" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Margin="5,0" Text="{Binding RowData.Row.Details,Mode=OneWay}" ToolTip="{Binding RowData.Row.DetailsMultilined,Mode=OneWay}"></TextBlock>
+                                    <dx:DropDownButton Grid.Column="1">
+                                        <dx:DropDownButton.PopupContent>
+                                            <TextBox IsEnabled="True" IsReadOnly="True" Padding="10" Text="{Binding RowData.Row.DetailsMultilined,Mode=OneWay}"></TextBox>
+                                        </dx:DropDownButton.PopupContent>
+                                    </dx:DropDownButton>
+                                </Grid>
+                            </DataTemplate>
+                        </dxg:GridColumn.CellTemplate>
+                    </dxg:GridColumn>
                     <dxg:GridColumn FieldName="Request.Customer.Name" Header="Заказчик" Width="250"/>
                     <dxg:GridColumn FieldName="Request.Number" Header="Номер заявки" Width="80"/>
                     <dxg:GridColumn FieldName="Request.RegDate" Header="Дата заявки" Width="80"/>

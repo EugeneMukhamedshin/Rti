@@ -83,17 +83,6 @@ namespace Rti.ViewModel.Lists
                 .Select(o => new ShipmentViewModel(o, RepositoryFactory) { })
                 .OrderBy(o => o.SortOrder)
                 .ToList();
-            var shipmentDetails =
-                RepositoryFactory.GetShipmentItemRepository().GetByShipmentIds(shipments.Select(o => o.Id).ToArray());
-            foreach (var shipment in shipments)
-            {
-                shipment.Details = shipmentDetails.Where(o => o.Shipment.Id == shipment.Id)
-                    .Aggregate(string.Empty,
-                        (res, o) =>
-                            string.Format("{0}{1}{2}", res, res == string.Empty ? string.Empty : ";",
-                                string.Format("{0} {1}.{2}", o.RequestDetail.Detail.Name, o.RequestDetail.Group.Name,
-                                    o.RequestDetail.Drawing.Name)));
-            }
             return shipments;
         }
 

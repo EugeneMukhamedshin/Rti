@@ -99,7 +99,25 @@
                             </DataTemplate>
                         </dxg:GridColumn.CellTemplate>
                     </dxg:GridColumn>
-                    <dxg:GridColumn FieldName="Details" Header="Детали" Width="120"/>
+                    <!--<dxg:GridColumn FieldName="Details" Header="Детали" Width="120"/>-->
+                    <dxg:GridColumn Header="Детали" Width="135">
+                        <dxg:GridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="15"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock TextAlignment="Left" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Margin="5,0" Text="{Binding RowData.Row.Details,Mode=OneWay}" ToolTip="{Binding RowData.Row.DetailsMultilined,Mode=OneWay}"></TextBlock>
+                                    <dx:DropDownButton Grid.Column="1">
+                                        <dx:DropDownButton.PopupContent>
+                                            <TextBox IsEnabled="True" IsReadOnly="True" Padding="10" Text="{Binding RowData.Row.DetailsMultilined,Mode=OneWay}"></TextBox>
+                                        </dx:DropDownButton.PopupContent>
+                                    </dx:DropDownButton>
+                                </Grid>
+                            </DataTemplate>
+                        </dxg:GridColumn.CellTemplate>
+                    </dxg:GridColumn>
                     <dxg:GridColumn FieldName="Sum" Header="Сумма, руб." Width="80"/>
                     <dxg:GridColumn FieldName="WorkStartDate" Header="Дата запуска в производство" Width="100"/>
                     <dxg:GridColumn FieldName="EquipmentLeadTime" Header="Срок изготовления оснастки, дней" Width="100"/>
