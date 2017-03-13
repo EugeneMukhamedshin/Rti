@@ -58,8 +58,7 @@ namespace Rti.App
             AddToRegistry<ConstantEdit, ConstantEditWindow>();
 
             // Заявки
-            AddToRegistry<RequestEdit, RequestEditDxWindow>();
-            AddToRegistry<ReportOfCompletionEdit, ReportOfCompletionEditWindow>();
+            AddToRegistry<RequestEdit, RequestEditDxWindow>();AddToRegistry<ReportOfCompletionEdit, ReportOfCompletionEditWindow>();
             AddToRegistry<RequestSpecificationReportEdit, RequestSpecificationReportEditWindow>();
             AddToRegistry<EquipmentInvoiceReportEdit, EquipmentInvoiceReportEditWindow>();
             AddToRegistry<RequestList, RequestListWindow>();
@@ -76,6 +75,7 @@ namespace Rti.App
             // Дневные наряды
             AddToRegistry<WorkItemList, WorkItemListWindow>();
             AddToRegistry<WorkItemEdit, WorkItemEditWindow>();
+            AddToRegistry<UnfilledWorkItemDateList, UnfilledWorkItemDateListWindow>();
 
             // Индивидуальный наряд
             AddToRegistry<EmployeeWorkItemList, EmployeeWorkItemListWindow>();

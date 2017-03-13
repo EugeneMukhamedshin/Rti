@@ -30,6 +30,7 @@ namespace Rti.ViewModel
         public DelegateCommand OpenDrawingsCommand { get; set; }
 
         public DelegateCommand OpenDailyWorkPackagesCommand { get; set; }
+        public DelegateCommand OpenUnfilledWorkItemsCommand { get; set; }
         public DelegateCommand OpenMakedDetailsReportCommand { get; set; }
 
 
@@ -125,6 +126,7 @@ namespace Rti.ViewModel
             OpenDrawingsCommand = new DelegateCommand(o => HasFullAccess, o => OpenDrawingList());
 
             OpenDailyWorkPackagesCommand = new DelegateCommand(o => HasFullAccess, o => OpenWorkItems());
+            OpenUnfilledWorkItemsCommand = new DelegateCommand(o => HasFullAccess, o => OpenUnfilledWorkItems());
             OpenMakedDetailsReportCommand = new DelegateCommand(o => HasFullAccess, o => OpenMakedDetailsReport());
 
             OpenShipmentsCommand = new DelegateCommand(o => HasFullAccess, o => OpenShipments());
@@ -204,7 +206,16 @@ namespace Rti.ViewModel
             ViewService.ShowViewDialog(viewModel);
         }
 
-
+        public void OpenUnfilledWorkItems()
+        {
+            var viewModel = new UnfilledWorkItemDateList(ViewService, RepositoryFactory)
+            {
+                StartDate = new DateTime(DateTime.Today.Year, 1, 1),
+                EndDate = DateTime.Today.AddDays(1)
+            };
+            viewModel.Refresh();
+            ViewService.ShowViewDialog(viewModel);
+        }
         private void OpenMakedDetailsReport()
         {
             var viewModel = new MakedDetailsReportViewModel("Реестр изготовленных деталей", ViewService, RepositoryFactory,
@@ -301,6 +312,7 @@ namespace Rti.ViewModel
             OpenRequestListCommand.RequeryCanExecute();
             OpenDrawingsCommand.RequeryCanExecute();
             OpenDailyWorkPackagesCommand.RequeryCanExecute();
+            OpenUnfilledWorkItemsCommand.RequeryCanExecute();
             OpenMakedDetailsReportCommand.RequeryCanExecute();
             OpenShipmentsCommand.RequeryCanExecute();
 

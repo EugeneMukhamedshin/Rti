@@ -126,8 +126,7 @@ AND r.customer_id = IFNULL(:p_customer_id, r.customer_id)")
                     objects => objects.Cast<RequestsReportRow>().ToList())).List<RequestsReportRow>(), "");
         }
 
-        public IList<Request> GetUnpaid()
-        {
+        public IList<Request> GetUnpaid(){
             return ExecuteFuncOnQueryOver(q => q.Where(o => !o.IsPaid).List());
         }
 

@@ -202,7 +202,7 @@ namespace Rti.ViewModel.Reporting
             var processes =
                 RepositoryFactory.GetDrawingFlowsheetProcessRepository()
                     .GetByDrawingId(drawing.Id)
-                    .Select(o => new DrawingFlowsheetProcessViewModel(o, RepositoryFactory));
+                    .Where(o => o.NormTime != 0).Select(o => new DrawingFlowsheetProcessViewModel(o, RepositoryFactory));
             var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
                 new XElement("root",
                     drawing.GetXElement("Drawing"),
@@ -292,6 +292,12 @@ namespace Rti.ViewModel.Reporting
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetM15Report.xslt"));
             return GetReport(r => new XDocument(new XDeclaration("2.0", "utf8", "true"), new XElement("root")), xsl);
+        }
+
+        public byte[] GetUnfilledWorkItemsReport(DateTime startDate, DateTime endDate)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetUnfilledWorkItemsReport.xslt"));
+            return GetReport(r => r.GetUnfilledWorkItemsReport(startDate, endDate), xsl);
         }
     }
 }

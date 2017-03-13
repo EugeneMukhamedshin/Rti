@@ -55,7 +55,10 @@
                 <Button Height="32" Content="Реестр заявок" Command="{Binding OpenRequestListCommand}"/>
             </StackPanel>
             <StackPanel Grid.Row="2" Grid.Column="1">
-                <Button Height="42" Content="Наряд" Command="{Binding OpenDailyWorkPackagesCommand}"/>
+                <StackPanel Orientation="Horizontal" Margin="0">
+                    <Button Height="42" Width="146" Content="Наряд" Command="{Binding OpenDailyWorkPackagesCommand}"/>
+                    <Button Height="42" Width="30" Content="..." Command="{Binding OpenUnfilledWorkItemsCommand}"/>
+                </StackPanel>
                 <Button Height="32" Content="Реестр изг. дет." Command="{Binding OpenMakedDetailsReportCommand}"/>
             </StackPanel>
             <StackPanel Grid.Row="3" Grid.Column="1">

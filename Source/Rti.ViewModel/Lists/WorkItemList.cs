@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Channels;
 using Rti.Model;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
@@ -33,16 +32,14 @@ namespace Rti.ViewModel.Lists
         }
 
         public DelegateCommand AddWorkItemCommand { get; set; }
-
         public DelegateCommand OpenEmployeeWorkItemListCommand { get; set; }
         public DelegateCommand OpenMakedDetailsReportCommand { get; set; }
         public DelegateCommand PrevDayCommand { get; set; }
         public DelegateCommand NextDayCommand { get; set; }
-
         public DelegateCommand CloseCommand { get; set; }
-
         public DelegateCommand ReportCommand { get; set; }
         public DelegateCommand PrintAllEmployeeReportCommand { get; set; }
+        public DelegateCommand UnfilledWorkItemsReportCommand { get; set; }
 
         public WorkItemEmployeePackageViewModel WorkItemEmployeePackage
         {
@@ -93,6 +90,20 @@ namespace Rti.ViewModel.Lists
 
             PrevDayCommand = new DelegateCommand(o => Date = Date.AddDays(-1));
             NextDayCommand = new DelegateCommand(o => Date = Date.AddDays(1));
+
+            UnfilledWorkItemsReportCommand = new DelegateCommand(o => UnfilledWorkItemsReport());
+        }
+
+        private void UnfilledWorkItemsReport()
+        {
+            var viewModel = new UnfilledWorkItemsReportViewModel("Незаполненные наряды", ViewService, RepositoryFactory,
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Незаполненные наряды.xls")
+            {
+                StartDate = new DateTime(DateTime.Today.Year, 1, 1),
+                EndDate = DateTime.Today.AddDays(1),
+                ExtensionFilter = "Файлы Excel (*.xls)|*.xls"
+            };
+            viewModel.GenerateReport();
         }
 
         private void PrintAllEmployeeReport()
@@ -114,13 +125,14 @@ namespace Rti.ViewModel.Lists
         private void OpenMakedDetailsReport()
         {
             var viewModel = new MakedDetailsReportViewModel("Реестр изготовленных деталей", ViewService, RepositoryFactory,
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Реестр изготовленных деталей.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" };
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"), "Реестр изготовленных деталей.xls")
+            { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" };
             ViewService.ShowViewDialog(viewModel);
         }
 
         private void Report()
         {
-            var workItemPackage = new WorkItemPackageViewModel(RepositoryFactory.GetWorkItemPackageRepository().GetByDate(Date), RepositoryFactory) {};
+            var workItemPackage = new WorkItemPackageViewModel(RepositoryFactory.GetWorkItemPackageRepository().GetByDate(Date), RepositoryFactory) { };
             if (workItemPackage.IsNewEntity)
             {
                 workItemPackage.Date = Date;

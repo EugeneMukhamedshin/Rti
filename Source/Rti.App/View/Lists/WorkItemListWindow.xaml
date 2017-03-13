@@ -19,9 +19,10 @@
             <StackPanel Orientation="Horizontal" Grid.Row="0">
                 <TextBlock Text="Выберите дату дневного наряда" Margin="5" VerticalAlignment="Center"/>
                 <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Date}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"></xctk:DateTimePicker>
-                <Button Content="Пред. день" Command="{Binding PrevDayCommand}" Margin="5"></Button>
-                <Button Content="След. день" Command="{Binding NextDayCommand}" Margin="5"></Button>
-            </StackPanel>
+                <Button Content="Пред. день" Command="{Binding PrevDayCommand}" Margin="5" Width="80"></Button>
+                <Button Content="След. день" Command="{Binding NextDayCommand}" Margin="5" Width="80"></Button>
+                <!--<Button Content="Незаполненные наряды" Command="{Binding UnfilledWorkItemsReportCommand}" Margin="5" Width="100"/>-->
+            </StackPanel> 
             <StackPanel Orientation="Horizontal" Grid.Row="1">
                 <Button Content="{StaticResource AddImage}" Command="{Binding AddWorkItemCommand}" Width="32" Height="32" Margin="5"></Button>
                 <Button Content="{StaticResource DeleteImage}" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5"></Button>

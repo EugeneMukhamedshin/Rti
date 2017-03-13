@@ -928,5 +928,23 @@ GROUP BY wird.request_detail_id",
                 q => q.SetParameter("p_request_id", requestId));
             return new XDocument(new XDeclaration("2.0", "utf8", "true"), new XElement("root", rows));
         }
+
+        public XDocument GetUnfilledWorkItemsReport(DateTime startDate, DateTime endDate)
+        {
+            var rows = GetXElementsFromQuery(@"
+SELECT
+  dates.dt UnfilledDate
+FROM (SELECT
+    DATE_ADD(:p_start_date, INTERVAL i.ID DAY) dt
+  FROM ids i) dates
+  LEFT JOIN work_items wi
+    ON wi.work_date = dates.dt
+WHERE dates.dt <= :p_end_date
+GROUP BY dates.dt
+HAVING COUNT(wi.ID) = 0",
+                q => q.SetParameter("p_start_date", startDate)
+                    .SetParameter("p_end_date", endDate));
+            return new XDocument(new XDeclaration("2.0", "utf8", "true"), new XElement("root", rows));
+        }
     }
 }

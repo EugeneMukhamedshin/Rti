@@ -6,7 +6,7 @@
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
-    Title="Журнал оснастки" Height="450" Width="1200"
+    Title="Журнал оснастки" Height="450" Width="1200" WindowState="Maximized"
     >
 
     <Grid>
@@ -81,6 +81,9 @@
                     <dxg:GridColumn FieldName="Note" Header="Примечание" Width="150"/>
                 </dxg:GridControlBand>
             </dxg:GridControl.Bands>
+            <dxg:GridControl.TotalSummary>
+                <dxg:GridSummaryItem ShowInColumn="Sum" FieldName="Sum" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
+            </dxg:GridControl.TotalSummary>
             <dxg:GridControl.View>
                 <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
             </dxg:GridControl.View>

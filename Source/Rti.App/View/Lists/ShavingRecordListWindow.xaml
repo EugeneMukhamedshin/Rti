@@ -6,7 +6,7 @@
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
-    Title="Журнал обрезки облоя" Height="500" Width="1024"
+    Title="Журнал обрезки облоя" Height="500" Width="1024" WindowState="Maximized"
     >
 
     <Grid>
@@ -14,7 +14,7 @@
             <RowDefinition Height="32"/>
             <RowDefinition Height="48"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="120"/>
+            <RowDefinition Height="180"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <TextBlock Text="Дата начала" Margin="5" VerticalAlignment="Center"/>
@@ -83,8 +83,13 @@
                 <dxg:GridColumn FieldName="Drawing.ShavingPrice" Header="Цена обрезки" Width="100"/>
                 <dxg:GridColumn FieldName="Salary" Header="Заработная плата" Width="100"/>
             </dxg:GridControl.Columns>
+            <dxg:GridControl.TotalSummary>
+                <dxg:GridSummaryItem ShowInColumn="InputCount" FieldName="InputCount" SummaryType="Sum" DisplayFormat="{}{0:f0}"></dxg:GridSummaryItem>
+                <dxg:GridSummaryItem ShowInColumn="FlawCount" FieldName="FlawCount" SummaryType="Sum" DisplayFormat="{}{0:f0}"></dxg:GridSummaryItem>
+                <dxg:GridSummaryItem ShowInColumn="Salary" FieldName="Salary" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
+            </dxg:GridControl.TotalSummary>
             <dxg:GridControl.View>
-                <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="False" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
             </dxg:GridControl.View>
         </dxg:GridControl>
         <dxg:GridControl TabIndex="8" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding SalaryItems}" SelectionMode="Row" Grid.Row="3">

@@ -6,7 +6,7 @@
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-    Title="Журнал прихода материалов" Height="350" Width="1024"
+    Title="Журнал прихода материалов" Height="350" Width="1024" WindowState="Maximized"
     >
 
     <Grid>
@@ -102,7 +102,7 @@
             </dxg:GridControl.Columns>
             <dxg:GridControl.TotalSummary>
                 <dxg:GridSummaryItem ShowInColumn="InvoiceSum" FieldName="InvoiceSum" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
-                <dxg:GridSummaryItem ShowInColumn="Count" FieldName="Count" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
+                <dxg:GridSummaryItem ShowInColumn="Count" FieldName="Count" SummaryType="Sum" DisplayFormat="{}{0:f3}"></dxg:GridSummaryItem>
                 <dxg:GridSummaryItem ShowInColumn="Sum" FieldName="Sum" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
             </dxg:GridControl.TotalSummary>
             <dxg:GridControl.View>

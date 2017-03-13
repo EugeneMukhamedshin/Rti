@@ -101,5 +101,26 @@ WHERE t.overflow_count > 0")
             return ExecuteFuncOnQueryOver(q => q.WhereRestrictionOn(o => o.Id).IsIn(overflows.Select(d => d.Item1).ToArray()).OrderBy(o => o.WorkDate).Asc.ThenBy(o => o.SortOrder).Asc.List()
             .Select(o => new Tuple<WorkItem, int>(o, overflows.First(d => d.Item1.Equals(o.Id)).Item2)).ToList());
         }
+
+        public IList<DateTime> GetUnfilledDates(DateTime startDate, DateTime endDate)
+        {
+            return ExecuteFuncOnSession(session =>
+            {
+                var q = session.CreateSQLQuery(@"
+SELECT
+  date(dates.dt) UnfilledDate
+FROM (SELECT
+    DATE_ADD(:p_start_date, INTERVAL i.ID - 1 DAY) dt
+  FROM ids i) dates
+  LEFT JOIN work_items wi
+    ON wi.work_date = dates.dt
+WHERE dates.dt <= :p_end_date
+GROUP BY dates.dt
+HAVING COUNT(wi.ID) = 0")
+                    .SetParameter("p_start_date", startDate)
+                    .SetParameter("p_end_date", endDate);
+                return q.List<DateTime>();
+            });
+        }
     }
 }

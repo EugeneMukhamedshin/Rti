@@ -1,0 +1,66 @@
+﻿<dx:DXWindow
+    x:Class="Rti.App.View.Lists.UnfilledWorkItemDateListWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    Title="Даты с незаполненными нарядами" Height="500" Width="500">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="32"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                <TextBlock Text="Период с" Margin="5" VerticalAlignment="Center"/>
+                <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding StartDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"></xctk:DateTimePicker>
+                <TextBlock Text="по" Margin="5" VerticalAlignment="Center"/>
+                <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding EndDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"></xctk:DateTimePicker>
+                <Button Content="Обновить" Command="{Binding RefreshCommand}" Margin="5" Width="100"/>
+            </StackPanel> 
+            <dxg:GridControl TabIndex="5" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedDate}" SelectionMode="Row" Grid.Row="1">
+                <dxmvvm:Interaction.Behaviors>
+                    <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding OpenDateCommand}" PassEventArgsToCommand="True">
+                        <dxmvvm:EventToCommand.EventArgsConverter>
+                            <dx:EventArgsToDataRowConverter/>
+                        </dxmvvm:EventToCommand.EventArgsConverter>
+                    </dxmvvm:EventToCommand>
+                </dxmvvm:Interaction.Behaviors>
+                <dxg:GridControl.Resources>
+                    <Style TargetType="dxg:GridColumn">
+                        <Setter Property="HeaderTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </dxg:GridControl.Resources>
+                <dxg:GridControl.Columns>
+                    <dxg:GridColumn FieldName="Date" Header="Дата" Width="80"/>
+                </dxg:GridControl.Columns>
+                <dxg:GridControl.TotalSummary>
+                    <!--<dxg:GridSummaryItem ShowInColumn="BatchNumber" FieldName="Sum" SummaryType="Custom" DisplayFormat="Итого:"></dxg:GridSummaryItem>-->
+                    <dxg:GridSummaryItem ShowInColumn="Sum" FieldName="Sum" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
+                    <dxg:GridSummaryItem ShowInColumn="Drawing.FactCalculation.MainSalary" FieldName="MainSalary" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
+                </dxg:GridControl.TotalSummary>
+                <dxg:GridControl.View>
+                    <dxg:TableView ShowSearchPanelMode="Never" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                </dxg:GridControl.View>
+            </dxg:GridControl>
+            <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+                <Button Content="Закрыть"  Command="{Binding CloseCommand}" Width="80" Margin="5" TabIndex="1001"/>
+            </StackPanel>
+        </Grid>
+        <Border Opacity="0.8" Visibility="{Binding IsLoading,Converter={StaticResource BooleanToVisibilityConverter}}" Background="AliceBlue">
+            <StackPanel VerticalAlignment="Center">
+                <ProgressBar IsIndeterminate="True" Width="200" Height="32" Opacity="0.5"/>
+                <Label Content="{Binding LoadingMessage}" HorizontalContentAlignment="Center"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</dx:DXWindow>

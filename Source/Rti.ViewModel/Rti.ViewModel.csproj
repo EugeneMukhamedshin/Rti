@@ -143,6 +143,7 @@
     <Compile Include="Lists\ShipmentItemList.cs" />
     <Compile Include="Lists\PaymentList.cs" />
     <Compile Include="Lists\ShipmentList.cs" />
+    <Compile Include="Lists\UnfilledDatesList.cs" />
     <Compile Include="Lists\WorkItemList.cs" />
     <Compile Include="Lists\DetailList.cs" />
     <Compile Include="Lists\DrawingList.cs" />

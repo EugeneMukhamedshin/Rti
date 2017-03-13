@@ -104,6 +104,7 @@
             <dxg:GridControl.TotalSummary>
                 <dxg:GridSummaryItem ShowInColumn="Request.Sum" FieldName="Request.Sum" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
                 <dxg:GridSummaryItem ShowInColumn="Sum" FieldName="Sum" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
+                <dxg:GridSummaryItem ShowInColumn="ShipmentSum" FieldName="ShipmentSum" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
             </dxg:GridControl.TotalSummary>
             <dxg:GridControl.View>
                 <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>

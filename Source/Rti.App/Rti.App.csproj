@@ -253,6 +253,9 @@
     <Compile Include="View\Lists\ShipmentListWindow.xaml.cs">
       <DependentUpon>ShipmentListWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Lists\UnfilledWorkItemDateListWindow.xaml.cs">
+      <DependentUpon>UnfilledWorkItemDateListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Lists\WorkItemListWindow.xaml.cs">
       <DependentUpon>WorkItemListWindow.xaml</DependentUpon>
     </Compile>
@@ -544,6 +547,10 @@
     <Page Include="View\Lists\ShipmentListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lists\UnfilledWorkItemDateListWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Lists\WorkItemListWindow.xaml">
       <SubType>Designer</SubType>
@@ -1020,6 +1027,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Content\Images\zoom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reports\GetUnfilledWorkItemsReport.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
