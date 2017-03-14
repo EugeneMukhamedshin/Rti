@@ -209,6 +209,7 @@
     <Compile Include="Reporting\ViewModel\RequestsByMethodsReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\RequestSpecificationReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\SalaryReportViewModel.cs" />
+    <Compile Include="Reporting\ViewModel\ShavingRecordReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\ShipmentDirectExpencesReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\ShipmentFactureReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\ShipmentPassportReportViewModel.cs" />

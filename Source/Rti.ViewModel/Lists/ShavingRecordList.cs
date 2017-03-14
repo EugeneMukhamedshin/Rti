@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Rti.Model;
 using Rti.Model.Domain;
@@ -8,6 +9,7 @@ using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
 using Rti.ViewModel.Reporting;
+using Rti.ViewModel.Reporting.ViewModel;
 
 namespace Rti.ViewModel.Lists
 {
@@ -18,6 +20,7 @@ namespace Rti.ViewModel.Lists
         public DelegateCommand RefreshCommand { get; set; }
 
         public DelegateCommand OpenRejectionReportCommand { get; set; }
+        public DelegateCommand ReportCommand { get; set; }
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -42,9 +45,22 @@ namespace Rti.ViewModel.Lists
                 "Реестр брака",
                 o => true,
                 o => OpenRejectionReport());
+            ReportCommand = new DelegateCommand(o => Report());
             StartDate = DateTime.Today.AddMonths(-1);
             EndDate = DateTime.Today;
         }
+
+        private void Report()
+        {
+            var viewModel = new ShavingRecordReportViewModel("Журнал обрезки облоя", Items, ViewService,
+                RepositoryFactory, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"),
+                "Журнал обрезки облоя.xls")
+            {
+                ExtensionFilter = "Файлы Excel (*.xls)|*.xls",
+                StartDate = StartDate,
+                EndDate = EndDate
+            };
+            viewModel.GenerateReport();}
 
         private void OpenRejectionReport()
         {

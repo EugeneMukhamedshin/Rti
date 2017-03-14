@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Linq;
 
 namespace Rti.ViewModel.Entities
 {
@@ -11,6 +12,12 @@ namespace Rti.ViewModel.Entities
             base.OnPropertyChanged(propertyName);
             if (propertyName == "InputCount" || propertyName == "Drawing")
                 OnPropertyChanged("Salary");
+        }
+
+        public override void CustomFillXElement(XElement element)
+        {
+            base.CustomFillXElement(element);
+            element.Add(new XAttribute("Salary", Salary ?? 0));
         }
     }
 }

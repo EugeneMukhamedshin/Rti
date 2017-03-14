@@ -299,5 +299,20 @@ namespace Rti.ViewModel.Reporting
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetUnfilledWorkItemsReport.xslt"));
             return GetReport(r => r.GetUnfilledWorkItemsReport(startDate, endDate), xsl);
         }
+
+        public byte[] GetShavingReport(DateTime startDate, DateTime endDate, List<ShavingRecordViewModel> items)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetShavingReport.xslt"));
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                    new XElement("Report", new XAttribute("StartDate", startDate), new XAttribute("EndDate", endDate)),
+                    new XElement("ShavingRecords",
+                        items.Select(o =>
+                        {
+                            var element = o.GetXElement("ShavingRecord");
+                            element.Add(new XAttribute("RowNumber", items.IndexOf(o) + 1));
+                            return element;}))));
+            return GetReport(r => doc, xsl);
+        }
     }
 }
