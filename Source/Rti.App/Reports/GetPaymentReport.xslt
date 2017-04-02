@@ -250,7 +250,7 @@
       </Cell>
       <Cell ss:StyleID="s84">
         <Data ss:Type="Number">
-          <xsl:value-of select="Request/@Sum"/>
+          <xsl:value-of select="Request/@SumWithNds"/>
         </Data>
       </Cell>
       <Cell ss:StyleID="s84">

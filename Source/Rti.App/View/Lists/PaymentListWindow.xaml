@@ -84,7 +84,7 @@
                     <dxg:GridColumn FieldName="Request.Number" Header="№ сч." Width="30" VisibleIndex="1"/>
                     <dxg:GridColumn FieldName="Request.InvoiceDate" Header="Дата сч." Width="75" VisibleIndex="2"/>
                     <dxg:GridColumn FieldName="Request.Customer.Name" Header="Заказчик" Width="150" VisibleIndex="3"/>
-                    <dxg:GridColumn FieldName="Request.Sum" Header="Сумма по сч., руб." Width="80" VisibleIndex="4"/>
+                    <dxg:GridColumn FieldName="Request.SumWithNds" Header="Сумма по сч., руб." Width="80" VisibleIndex="4"/>
                 </dxg:GridControlBand>
                 <dxg:GridControlBand Header="Оплата" VisibleIndex="2">
                     <dxg:GridColumn FieldName="PaymentDocNumber" Header="№ пл." Width="30" VisibleIndex="5"/>
@@ -100,7 +100,7 @@
                 </dxg:GridControlBand>
             </dxg:GridControl.Bands>
             <dxg:GridControl.TotalSummary>
-                <dxg:GridSummaryItem ShowInColumn="Request.Sum" FieldName="Request.Sum" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
+                <dxg:GridSummaryItem ShowInColumn="Request.SumWithNds" FieldName="Request.SumWithNds" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
                 <dxg:GridSummaryItem ShowInColumn="Sum" FieldName="Sum" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
                 <dxg:GridSummaryItem ShowInColumn="ShipmentSum" FieldName="ShipmentSum" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
             </dxg:GridControl.TotalSummary>

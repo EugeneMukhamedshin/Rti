@@ -130,21 +130,18 @@ namespace Rti.ViewModel.Lists
 
         protected override void OnItemsChanged()
         {
-            base.OnItemsChanged();
-            DoAsync(GetShipmentItems, res =>
+            var shipmentItems = GetShipmentItems().ToList();
+            foreach (var payment in Items)
             {
-                var shipmentItems = res.ToList();
-                foreach (var payment in Items)
-                {
-                    payment.ShipmentDates = shipmentItems.Select(o => new ShipmentViewModel(o.Shipment, null)).Distinct().Where(o => o.Payment.Id == payment.Id)
-                        .Aggregate(string.Empty,
-                            (shipments, shipment) =>
-                                string.Format("{0}{1}№{2} от {3: dd.MM.yyyy}", shipments, shipments == string.Empty ? string.Empty : ", ",
-                                    shipment.SortOrder, shipment.Date));
-                    payment.ShipmentSum =
-                        shipmentItems.Where(o => o.Shipment.Payment.Id == payment.Id).Sum(o => o.Count * o.Price);
-                }
-            });
+                payment.ShipmentDates = shipmentItems.Select(o => new ShipmentViewModel(o.Shipment, null)).Distinct().Where(o => o.Payment.Id == payment.Id)
+                    .Aggregate(string.Empty,
+                        (shipments, shipment) =>
+                            string.Format("{0}{1}№{2} от {3: dd.MM.yyyy}", shipments, shipments == string.Empty ? string.Empty : ", ",
+                                shipment.SortOrder, shipment.Date));
+                payment.ShipmentSum =
+                    shipmentItems.Where(o => o.Shipment.Payment.Id == payment.Id).Sum(o => o.Count * o.Price) * (decimal)1.18;
+            }
+            base.OnItemsChanged();
         }
 
         private IEnumerable<ShipmentItem> GetShipmentItems()
