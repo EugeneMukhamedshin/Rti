@@ -36,7 +36,7 @@ namespace Rti.ViewModel.Entities
                     result = (pi * MaterialDensity * (RndDNar * RndDNar * RndDShn - RndDSr * RndDSr * RndS2 - RndDVn * RndDVn * RndS1)) / 4000;
                     break;
                 case DetailType.MoldingRound4:
-                    result = (pi * MaterialDensity * RndDShn * RndDShn * RndDSr) / 4000;
+                    result = (pi * pi * MaterialDensity * RndDShn * RndDShn * RndDVn) / 4000;
                     break;
                 case DetailType.MoldingSquare1:
                     result = (SqB * SqL * SqS * MaterialDensity) / 1000;

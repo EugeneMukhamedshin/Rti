@@ -824,7 +824,7 @@
           <PageSetup>
             <Layout x:Orientation="Landscape"/>
             <Header x:Margin="0.3"/>
-            <Footer x:Margin="0.3"/>
+            <Footer x:Margin="0.31496062992125984" x:Data="Страница  &amp;P из &amp;N"/>
             <PageMargins x:Bottom="0.75" x:Left="0.25" x:Right="0.25" x:Top="0.75"/>
           </PageSetup>
           <Print>

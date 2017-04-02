@@ -2652,7 +2652,7 @@
           <PageSetup>
             <Layout x:Orientation="Landscape"/>
             <Header x:Margin="0.31496062992125984"/>
-            <Footer x:Margin="0.31496062992125984"/>
+            <Footer x:Margin="0.31496062992125984" x:Data="Страница  &amp;P из &amp;N"/>
             <PageMargins x:Bottom="0.74803149606299213" x:Left="0.23622047244094491"
              x:Right="0.23622047244094491" x:Top="0.74803149606299213"/>
           </PageSetup>

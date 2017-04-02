@@ -1798,7 +1798,7 @@
           <PageSetup>
             <Layout x:Orientation="Landscape"/>
             <Header x:Margin="0.11811023622047245"/>
-            <Footer x:Margin="0.11811023622047245"/>
+            <Footer x:Margin="0.31496062992125984" x:Data="Страница  &amp;P из &amp;N"/>
             <PageMargins x:Bottom="0.15748031496062992" x:Left="0.82677165354330717"
              x:Right="3.937007874015748E-2" x:Top="0.19685039370078741"/>
           </PageSetup>

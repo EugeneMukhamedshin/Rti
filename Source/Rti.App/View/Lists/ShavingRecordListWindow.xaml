@@ -14,6 +14,7 @@
             <RowDefinition Height="32"/>
             <RowDefinition Height="48"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
             <RowDefinition Height="180"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
@@ -93,7 +94,8 @@
                 <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
             </dxg:GridControl.View>
         </dxg:GridControl>
-        <dxg:GridControl TabIndex="8" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding SalaryItems}" SelectionMode="Row" Grid.Row="3">
+        <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch"></GridSplitter>
+        <dxg:GridControl TabIndex="8" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding SalaryItems}" SelectionMode="Row" Grid.Row="4">
             <dxg:GridControl.Resources>
                 <Style TargetType="dxg:GridColumn">
                     <Setter Property="HeaderTemplate">

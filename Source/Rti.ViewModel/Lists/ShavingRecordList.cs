@@ -60,7 +60,8 @@ namespace Rti.ViewModel.Lists
                 StartDate = StartDate,
                 EndDate = EndDate
             };
-            viewModel.GenerateReport();}
+            viewModel.GenerateReport();
+        }
 
         private void OpenRejectionReport()
         {

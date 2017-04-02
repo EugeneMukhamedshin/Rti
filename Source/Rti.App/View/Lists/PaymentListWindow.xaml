@@ -40,6 +40,7 @@
                 </dxg:LookUpEdit.PopupContentTemplate>
             </dxg:LookUpEdit>
             <Button Content="Обновить" Command="{Binding RefreshCommand}" Margin="5"></Button>
+            <Button Content="Печать" Command="{Binding ReportCommand}" Margin="5"></Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Button Content="{StaticResource AddImage}" Command="{Binding AddPaymentCommand}" Width="32" Height="32" Margin="5" TabIndex="4"></Button>
@@ -78,9 +79,6 @@
             <dxg:GridControl.Bands>
                 <dxg:GridControlBand VisibleIndex="0">
                     <dxg:GridColumn Header="№" FieldName="counter" UnboundType="Integer" Width="30" Name="_rowNumberColumn" VisibleIndex="0"/>
-                </dxg:GridControlBand>
-                <dxg:GridControlBand VisibleIndex="0">
-                    <dxg:GridColumn Header="№" Width="30" FieldName="Order" VisibleIndex="0"/>
                 </dxg:GridControlBand>
                 <dxg:GridControlBand Header="Счет" VisibleIndex="1">
                     <dxg:GridColumn FieldName="Request.Number" Header="№ сч." Width="30" VisibleIndex="1"/>

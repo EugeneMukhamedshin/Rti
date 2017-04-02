@@ -103,79 +103,104 @@
       <Worksheet ss:Name="Лист1">
         <Table x:FullColumns="1" x:FullRows="1" ss:DefaultRowHeight="15">
           <Column ss:AutoFitWidth="0" ss:Width="28.5"/>
-          <Column ss:AutoFitWidth="0" ss:Width="144"/>
-          <Column ss:AutoFitWidth="0" ss:Width="54.75"/>
-          <Column ss:AutoFitWidth="0" ss:Width="142.5"/>
-          <Column ss:AutoFitWidth="0" ss:Width="144"/>
-          <Column ss:AutoFitWidth="0" ss:Width="59.25"/>
-          <Column ss:AutoFitWidth="0" ss:Width="56.25"/>
-          <Column ss:AutoFitWidth="0" ss:Width="144"/>
-          <Column ss:AutoFitWidth="0" ss:Width="72.75"/>
-          <Column ss:AutoFitWidth="0" ss:Width="67.5"/>
+          <Column ss:AutoFitWidth="0" ss:Width="110"/>
+          <Column ss:AutoFitWidth="0" ss:Width="110"/>
+          <Column ss:AutoFitWidth="0" ss:Width="40"/>
+          <Column ss:AutoFitWidth="0" ss:Width="40"/>
+          <Column ss:AutoFitWidth="0" ss:Width="40"/>
+          <Column ss:AutoFitWidth="0" ss:Width="110"/>
+          <Column ss:AutoFitWidth="0" ss:Width="40"/>
+          <Column ss:AutoFitWidth="0" ss:Width="70"/>
+          <Column ss:AutoFitWidth="0" ss:Width="70"/>
+          <Column ss:AutoFitWidth="0" ss:Width="40"/>
+          <Column ss:AutoFitWidth="0" ss:Width="70"/>
+          <Column ss:AutoFitWidth="0" ss:Width="70"/>
+          <Column ss:AutoFitWidth="0" ss:Width="220"/>
           <Row ss:Height="21">
-            <Cell ss:MergeAcross="9" ss:StyleID="s71">
-              <Data ss:Type="String">Журнал обрезки облоя</Data>
+            <Cell ss:MergeAcross="7" ss:StyleID="s71">
+              <Data ss:Type="String">Журнал оплаты оснастки</Data>
             </Cell>
           </Row>
           <Row>
-            <Cell ss:MergeAcross="9" ss:StyleID="s67">
+            <Cell ss:MergeAcross="7" ss:StyleID="s67">
               <Data ss:Type="String">с <xsl:value-of select="rti:FormatDate(Report/@StartDate)"/> по <xsl:value-of select="rti:FormatDate(Report/@EndDate)"/></Data>
             </Cell>
           </Row>
-          <Row ss:Height="15.75"/><Row ss:Height="30.75">
-            <Cell ss:StyleID="s85">
+          <Row ss:Height="15.75"/>
+          <Row>
+            <Cell ss:StyleID="s85" ss:MergeDown="1">
               <Data ss:Type="String">№</Data>
             </Cell>
+            <Cell ss:StyleID="s85" ss:MergeAcross="8">
+              <Data ss:Type="String">Оснастка</Data>
+            </Cell>
+            <Cell ss:StyleID="s85" ss:MergeAcross="2">
+              <Data ss:Type="String">Оплата</Data>
+            </Cell>
+            <Cell ss:StyleID="s85" ss:MergeDown="1">
+              <Data ss:Type="String">Примечание</Data>
+            </Cell>
+          </Row>
+          <Row ss:Height="30.75">
+            <Cell ss:Index="2" ss:StyleID="s86">
+              <Data ss:Type="String">Номер</Data>
+            </Cell>
             <Cell ss:StyleID="s86">
-              <Data ss:Type="String">ФИО обрезчика</Data>
+              <Data ss:Type="String">Оснастка</Data>
+            </Cell>
+            <Cell ss:StyleID="s86">
+              <Data ss:Type="String">Кол-во форм</Data>
+            </Cell>
+            <Cell ss:StyleID="s86">
+              <Data ss:Type="String">Гнезд-ность</Data>
+            </Cell>
+            <Cell ss:StyleID="s86">
+              <Data ss:Type="String">Выход партии</Data>
+            </Cell>
+            <Cell ss:StyleID="s86">
+              <Data ss:Type="String">Изготовитель</Data>
+            </Cell>
+            <Cell ss:StyleID="s86">
+              <Data ss:Type="String">Срок изг-я</Data>
+            </Cell>
+            <Cell ss:StyleID="s86">
+              <Data ss:Type="String">Дата изг-я</Data>
+            </Cell>
+            <Cell ss:StyleID="s86">
+              <Data ss:Type="String">Цена, руб.</Data>
+            </Cell>
+            <Cell ss:StyleID="s86">
+              <Data ss:Type="String">Номер</Data>
             </Cell>
             <Cell ss:StyleID="s86">
               <Data ss:Type="String">Дата</Data>
             </Cell>
             <Cell ss:StyleID="s86">
-              <Data ss:Type="String">Деталь</Data>
-            </Cell>
-            <Cell ss:StyleID="s86">
-              <Data ss:Type="String">ФИО прессовщика</Data>
-            </Cell>
-            <Cell ss:StyleID="s86">
-              <Data ss:Type="String">Входное кол-во, шт.</Data>
-            </Cell>
-            <Cell ss:StyleID="s86">
-              <Data ss:Type="String">Кол-во брака, шт.</Data>
-            </Cell>
-            <Cell ss:StyleID="s86">
-              <Data ss:Type="String">Материал</Data>
-            </Cell>
-            <Cell ss:StyleID="s86">
-              <Data ss:Type="String">Цена обрезки, руб.</Data>
-            </Cell>
-            <Cell ss:StyleID="s87">
-              <Data ss:Type="String">Заработная плата, руб.</Data>
+              <Data ss:Type="String">Сумма оплаты, руб.</Data>
             </Cell>
           </Row>
 
-          <xsl:apply-templates select="ShavingRecords/ShavingRecord" />
+          <xsl:apply-templates select="EquipmentPayments/EquipmentPayment" />
 
           <Row>
             <Cell ss:StyleID="s79"/>
             <Cell ss:StyleID="s79"/>
-            <Cell ss:StyleID="s79"/>
-            <Cell ss:StyleID="s79"/>
+            <Cell ss:StyleID="s79"/><Cell ss:StyleID="s79"/>
             <Cell ss:StyleID="s93">
               <Data ss:Type="String">Итого</Data>
             </Cell>
-            <Cell ss:StyleID="s93" ss:Formula="=SUM(R[-{count(ShavingRecords/ShavingRecord)}]C:R[-1]C)">
+            <Cell ss:StyleID="s93" ss:Formula="=SUM(R[-{count(EquipmentPayments/EquipmentPayment)}]C:R[-1]C)">
               <Data ss:Type="Number">1400</Data>
-            </Cell>
-            <Cell ss:StyleID="s93" ss:Formula="=SUM(R[-{count(ShavingRecords/ShavingRecord)}]C:R[-1]C)">
+            </Cell><Cell ss:StyleID="s93"/>
+            <Cell ss:StyleID="s93"/>
+            <Cell ss:StyleID="s93"/>
+            <Cell ss:StyleID="s93"/>
+            <Cell ss:StyleID="s93"/>
+            <Cell ss:StyleID="s93"/>
+            <Cell ss:StyleID="s93" ss:Formula="=SUM(R[-{count(EquipmentPayments/EquipmentPayment)}]C:R[-1]C)">
               <Data ss:Type="Number">1400</Data>
             </Cell>
             <Cell ss:StyleID="s93"/>
-            <Cell ss:StyleID="s93"/>
-            <Cell ss:StyleID="s93" ss:Formula="=SUM(R[-{count(ShavingRecords/ShavingRecord)}]C:R[-1]C)">
-              <Data ss:Type="Number">1400</Data>
-            </Cell>
           </Row>
         </Table>
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
@@ -185,16 +210,17 @@
             <Footer x:Margin="0.31496062992125984" x:Data="Страница  &amp;P из &amp;N"/>
             <PageMargins x:Bottom="0.75" x:Left="0.25" x:Right="0.25" x:Top="0.75"/>
           </PageSetup>
+          <Unsynced/>
+          <FitToPage/>
           <Print>
+            <FitHeight>0</FitHeight>
             <ValidPrinterInfo/>
             <PaperSizeIndex>9</PaperSizeIndex>
-            <Scale>76</Scale>
             <HorizontalResolution>600</HorizontalResolution>
             <VerticalResolution>600</VerticalResolution>
           </Print>
           <PageBreakZoom>60</PageBreakZoom>
-          <Selected/>
-          <Panes>
+          <Selected/><Panes>
             <Pane>
               <Number>3</Number>
               <ActiveRow>10</ActiveRow>
@@ -202,61 +228,82 @@
             </Pane>
           </Panes>
           <ProtectObjects>False</ProtectObjects>
-          <ProtectScenarios>False</ProtectScenarios></WorksheetOptions>
+          <ProtectScenarios>False</ProtectScenarios>
+        </WorksheetOptions>
       </Worksheet>
     </Workbook>
   </xsl:template>
 
-  <xsl:template match="ShavingRecords/ShavingRecord">
+  <xsl:template match="EquipmentPayments/EquipmentPayment">
     <Row>
       <Cell ss:StyleID="s84">
-        <Data ss:Type="String">
+        <Data ss:Type="Number">
           <xsl:value-of select="@RowNumber"/>
         </Data>
       </Cell>
       <Cell ss:StyleID="s84">
         <Data ss:Type="String">
-          <xsl:value-of select="ShaverEmployee/@FullName"/>
+          <xsl:value-of select="Drawing/Detail/@Name"/>  <xsl:value-of select="Drawing/Group/@Name"/>.<xsl:value-of select="Drawing/@Name"/>
         </Data>
       </Cell>
       <Cell ss:StyleID="s84">
         <Data ss:Type="String">
-          <xsl:value-of select="rti:FormatDate(@ShaveDate)"/>
+          <xsl:value-of select="Drawing/Equipment/@Name"/>
+        </Data>
+      </Cell>
+      <Cell ss:StyleID="s84">
+        <Data ss:Type="Number">
+          <xsl:value-of select="Drawing/Equipment/@FormCount"/>
+        </Data>
+      </Cell>
+      <Cell ss:StyleID="s84">
+        <Data ss:Type="Number">
+          <xsl:value-of select="Drawing/Equipment/@SlotCount"/>
+        </Data>
+      </Cell>
+      <Cell ss:StyleID="s84">
+        <Data ss:Type="Number">
+          <xsl:value-of select="Drawing/Equipment/@Output"/>
         </Data>
       </Cell>
       <Cell ss:StyleID="s84">
         <Data ss:Type="String">
-          <xsl:value-of select="Drawing/Detail/@Name"/> <xsl:value-of select="Drawing/Group/@Name"/>.<xsl:value-of select="Drawing/@Name"/>
+          <xsl:value-of select="Drawing/Equipment/@Manufacturer"/>
+        </Data>
+      </Cell>
+      <Cell ss:StyleID="s84">
+        <Data ss:Type="Number">
+          <xsl:value-of select="Drawing/Equipment/@LeadTime"/>
         </Data>
       </Cell>
       <Cell ss:StyleID="s84">
         <Data ss:Type="String">
-          <xsl:value-of select="MakerEmployee/@FullName"/>
+          <xsl:value-of select="rti:FormatDate(Drawing/Equipment/@CompleteDate)"/>
         </Data>
       </Cell>
       <Cell ss:StyleID="s84">
         <Data ss:Type="Number">
-          <xsl:value-of select="@InputCount"/>
-        </Data>
-      </Cell>
-      <Cell ss:StyleID="s84">
-        <Data ss:Type="Number">
-          <xsl:value-of select="@FlawCount"/>
+          <xsl:value-of select="Drawing/Equipment/@Price"/>
         </Data>
       </Cell>
       <Cell ss:StyleID="s84">
         <Data ss:Type="String">
-          <xsl:value-of select="Drawing/Material/@Name"/>
+          <xsl:value-of select="@PaymentDocNumber"/>
+        </Data>
+      </Cell>
+      <Cell ss:StyleID="s84">
+        <Data ss:Type="String">
+          <xsl:value-of select="rti:FormatDate(@PaymentDate)"/>
         </Data>
       </Cell>
       <Cell ss:StyleID="s84">
         <Data ss:Type="Number">
-          <xsl:value-of select="Drawing/@ShavingPrice"/>
+          <xsl:value-of select="@Sum"/>
         </Data>
       </Cell>
       <Cell ss:StyleID="s84">
-        <Data ss:Type="Number">
-          <xsl:value-of select="@Salary"/>
+        <Data ss:Type="String">
+          <xsl:value-of select="@Note"/>
         </Data>
       </Cell>
     </Row>

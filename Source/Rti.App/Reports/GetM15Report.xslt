@@ -5509,7 +5509,7 @@
           <PageSetup>
             <Layout x:Orientation="Landscape"/>
             <Header x:Margin="0.19685039370078741"/>
-            <Footer x:Margin="0.19685039370078741"/>
+            <Footer x:Margin="0.31496062992125984" x:Data="Страница  &amp;P из &amp;N"/>
             <PageMargins x:Bottom="0.39370078740157483" x:Left="0.98425196850393704"
              x:Right="0.94488188976377963" x:Top="0.70866141732283472"/>
           </PageSetup>
@@ -5547,7 +5547,7 @@
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
           <PageSetup>
             <Header x:Margin="0.3"/>
-            <Footer x:Margin="0.3" x:Data="Страница  &amp;P из &amp;N"/>
+            <Footer x:Margin="0.31496062992125984" x:Data="Страница  &amp;P из &amp;N"/>
             <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
           </PageSetup>
           <TopRowVisible>15</TopRowVisible>

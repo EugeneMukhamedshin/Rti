@@ -92,7 +92,7 @@ namespace Rti.ViewModel.EditViewModel
                     {
                         detailType,
                         rDShn,
-                        rDSr,
+                        rDVn,
                         p
                     }
                 },

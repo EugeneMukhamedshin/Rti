@@ -1957,7 +1957,7 @@
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
           <PageSetup>
             <Header x:Margin="0.31496062992125984"/>
-            <Footer x:Margin="0.31496062992125984"/>
+            <Footer x:Margin="0.31496062992125984" x:Data="Страница  &amp;P из &amp;N"/>
             <PageMargins x:Bottom="0.74803149606299213" x:Left="0.70866141732283461"
              x:Right="0.70866141732283461" x:Top="0.74803149606299213"/>
           </PageSetup>

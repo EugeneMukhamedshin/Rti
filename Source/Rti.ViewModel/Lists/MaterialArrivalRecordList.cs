@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
+using Rti.ViewModel.Reporting.ViewModel;
 
 namespace Rti.ViewModel.Lists
 {
@@ -13,6 +15,7 @@ namespace Rti.ViewModel.Lists
     {
         public DelegateCommand AddRecordCommand { get; set; }
         public DelegateCommand RefreshCommand { get; set; }
+        public DelegateCommand ReportCommand { get; set; }
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -22,6 +25,7 @@ namespace Rti.ViewModel.Lists
         public Lazy<List<MaterialViewModel>> MaterialsSource { get; set; }
 
         public Lazy<List<ContragentViewModel>> SuppliersSource { get; set; }
+
 
         public MaterialArrivalRecordList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(editMode, viewService, repositoryFactory)
@@ -36,8 +40,22 @@ namespace Rti.ViewModel.Lists
                 "Обновить",
                 o => true,
                 o => Refresh());
+            ReportCommand = new DelegateCommand(o => Report());
             StartDate = DateTime.Today.AddMonths(-1);
             EndDate = DateTime.Today;
+        }
+
+        private void Report()
+        {
+            var viewModel = new MaterialArrivalRecordReportViewModel("Журнал прихода материала", Items, ViewService,
+                RepositoryFactory, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"),
+                "Журнал птрихода материала.xls")
+            {
+                ExtensionFilter = "Файлы Excel (*.xls)|*.xls",
+                StartDate = StartDate,
+                EndDate = EndDate
+            };
+            viewModel.GenerateReport();
         }
 
         public override void Refresh()

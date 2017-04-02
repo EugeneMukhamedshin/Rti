@@ -6,6 +6,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using System.Xml.Xsl;
+using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Reporting.Generator;
@@ -312,6 +313,70 @@ namespace Rti.ViewModel.Reporting
                             var element = o.GetXElement("ShavingRecord");
                             element.Add(new XAttribute("RowNumber", items.IndexOf(o) + 1));
                             return element;}))));
+            return GetReport(r => doc, xsl);
+        }
+
+        public byte[] GetRollingReport(DateTime startDate, DateTime endDate, List<RollingRecordViewModel> items)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetRollingReport.xslt"));
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                    new XElement("Report", new XAttribute("StartDate", startDate), new XAttribute("EndDate", endDate)),
+                    new XElement("RollingRecords",
+                        items.Select(o =>
+                        {
+                            var element = o.GetXElement("RollingRecord");
+                            element.Add(new XAttribute("RowNumber", items.IndexOf(o) + 1));
+                            return element;
+                        }))));
+            return GetReport(r => doc, xsl);
+        }
+
+        public byte[] GetEquipmentPaymentReport(DateTime startDate, DateTime endDate, List<EquipmentPaymentViewModel> items)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetEquipmentPaymentReport.xslt"));
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                    new XElement("Report", new XAttribute("StartDate", startDate), new XAttribute("EndDate", endDate)),
+                    new XElement("EquipmentPayments",
+                        items.Select(o =>
+                        {
+                            var element = o.GetXElement("EquipmentPayment");
+                            element.Add(new XAttribute("RowNumber", items.IndexOf(o) + 1));
+                            return element;
+                        }))));
+            return GetReport(r => doc, xsl);
+        }
+
+        public byte[] GetMaterialArrivalRecordReport(DateTime startDate, DateTime endDate, List<MaterialArrivalRecordViewModel> items)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetMaterialArrivalRecordReport.xslt"));
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                    new XElement("Report", new XAttribute("StartDate", startDate), new XAttribute("EndDate", endDate)),
+                    new XElement("MaterialArrivalRecords",
+                        items.Select(o =>
+                        {
+                            var element = o.GetXElement("MaterialArrivalRecord");
+                            element.Add(new XAttribute("RowNumber", items.IndexOf(o) + 1));
+                            return element;
+                        }))));
+            return GetReport(r => doc, xsl);
+        }
+
+        public byte[] GetPaymentReport(DateTime startDate, DateTime endDate, List<PaymentViewModel> items)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetPaymentReport.xslt"));
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                    new XElement("Report", new XAttribute("StartDate", startDate), new XAttribute("EndDate", endDate)),
+                    new XElement("Payments",
+                        items.Select(o =>
+                        {
+                            var element = o.GetXElement("Payment");
+                            element.Add(new XAttribute("RowNumber", items.IndexOf(o) + 1));
+                            return element;
+                        }))));
             return GetReport(r => doc, xsl);
         }
     }

@@ -49,6 +49,10 @@ namespace Rti.App
                 var repositoryFactory = new NHibernateRepositoryFactory();
                 _viewService = new ViewService();
 
+                //var vm = new PaymentList(true, _viewService, repositoryFactory) {StartDate = DateTime.MinValue, EndDate = DateTime.MaxValue};
+                //vm.Refresh();
+                //_viewService.ShowView(vm, false, false);
+                //return;
                 var isDebug = e.Args.Any(arg => arg.ToLower().Equals("debug=true"));
 
                 if (!isDebug)
@@ -57,8 +61,7 @@ namespace Rti.App
                     _viewService.ShowView(mainViewModel, false, true);
                     var loginViewModel = new LoginViewModel(_viewService, repositoryFactory);
                     _viewService.ShowViewDialog(loginViewModel);
-                    if (!loginViewModel.LoggedOn)
-                        mainViewModel.Close(null);
+                    if (!loginViewModel.LoggedOn)mainViewModel.Close(null);
                     mainViewModel.Job = new JobViewModel(loginViewModel.Job, repositoryFactory);
                 }
                 else

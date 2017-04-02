@@ -1,3 +1,4 @@
+using System.Xml.Linq;
 using Rti.Model;
 
 namespace Rti.ViewModel.Entities
@@ -31,6 +32,13 @@ namespace Rti.ViewModel.Entities
             base.OnPropertyChanged(propertyName);
             if (propertyName.In("PaymentDocNumber", "PaymentDate"))
                 OnPropertyChanged("FullName");
+        }
+
+        public override void CustomFillXElement(XElement element)
+        {
+            base.CustomFillXElement(element);
+            element.Add(new XAttribute("ShipmentSum", ShipmentSum));
+            element.Add(new XAttribute("ShipmentDates", ShipmentDates));
         }
     }
 }
