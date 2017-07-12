@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
 using Rti.Model;
@@ -9,9 +10,14 @@ namespace Rti.ViewModel.Entities
     {
         public string FullNumber
         {
-            get
+            get { return string.Format("{0}{1}", SortOrder, IsReplace ? "Á" : IsAddition ? "Ä" : string.Empty); }
+            set
             {
-                return string.Format("{0}{1}", SortOrder, IsReplace ? "Á" : IsAddition ? "Ä" : string.Empty);
+                var sortOrder = _sortOrder;
+                if (int.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out sortOrder))
+                {
+                    SortOrder = sortOrder;
+                }
             }
         }
 
@@ -43,9 +49,9 @@ namespace Rti.ViewModel.Entities
             {
                 if (propertyName.In("Date", "IsReplace", "IsAddition"))
                     GetSortOrder();
-                if (propertyName.In("SortOrder", "IsReplace", "IsAddition"))
-                    OnPropertyChanged("FullNumber");
             }
+            if (propertyName.In("SortOrder", "IsReplace", "IsAddition"))
+                OnPropertyChanged("FullNumber");
         }
 
         public override void CustomFillXElement(XElement element)

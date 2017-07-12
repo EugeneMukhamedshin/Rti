@@ -156,7 +156,7 @@
                     <TextBlock Grid.Row="0" Grid.Column="4" Text="Довоз продукции" FontSize="10" HorizontalAlignment="Center"/>
                     <!--<TextBlock Grid.Row="0" Grid.Column="5" Text="Счет фактура" FontSize="10" HorizontalAlignment="Center"/>-->
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="ТОВАРНАЯ НАКЛАДНАЯ" FontSize="12" FontWeight="Bold"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Entity.FullNumber,Mode=OneWay}" TabIndex="13" IsEnabled="False"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Entity.FullNumber}" TabIndex="13" IsEnabled="True"/>
                     <xctk:DateTimePicker Grid.Row="1" Grid.Column="2" TabIndex="14" Margin="3" VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding Entity.Date}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed" IsEnabled="{Binding Editable}"/>
                     <CheckBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" IsChecked="{Binding Entity.IsReplace}"/>
                     <CheckBox Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" IsChecked="{Binding Entity.IsAddition}"/>
