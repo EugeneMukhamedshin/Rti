@@ -110,7 +110,15 @@
                     <dxg:GridColumn FieldName="Request.Number" Header="Номер заявки" Width="80"/>
                     <dxg:GridColumn FieldName="Request.RegDate" Header="Дата заявки" Width="80"/>
                     <dxg:GridColumn FieldName="Request.InvoiceDate" Header="Дата счета" Width="80"/>
+                    <dxg:GridColumn FieldName="ShipmentSum" Header="Сумма по отгрузке, руб." Width="80"/>
+                    <dxg:GridColumn FieldName="RequestSum" Header="Сумма по счету, руб." Width="80"/>
+                    <dxg:GridColumn FieldName="SumDiff" Header="Разница, руб." Width="80"/>
                 </dxg:GridControl.Columns>
+                <dxg:GridControl.TotalSummary>
+                    <dxg:GridSummaryItem ShowInColumn="ShipmentSum" FieldName="ShipmentSum" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
+                    <dxg:GridSummaryItem ShowInColumn="RequestSum" FieldName="RequestSum" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
+                    <dxg:GridSummaryItem ShowInColumn="SumDiff" FieldName="SumDiff" SummaryType="Sum" DisplayFormat="{}{0:f2}"></dxg:GridSummaryItem>
+                </dxg:GridControl.TotalSummary>
                 <dxg:GridControl.View>
                     <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>

@@ -38,6 +38,27 @@
                 </dxg:LookUpEdit.PopupContentTemplate>
             </dxg:LookUpEdit>
         </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Чертеж" VerticalAlignment="Center" Margin="5" Width="120"/>
+            <dxg:LookUpEdit TabIndex="2" Margin="5" VerticalAlignment="Center" Width="200" AllowDefaultButton="true" DisplayMember="FullName" ItemsSource="{Binding DrawingsSource.Value}" SelectedItem="{Binding Drawing}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                <dxg:LookUpEdit.StyleSettings>
+                    <dxg:SearchLookUpEditStyleSettings/>
+                </dxg:LookUpEdit.StyleSettings>
+                <dxg:LookUpEdit.PopupContentTemplate>
+                    <ControlTemplate>
+                        <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
+                            <dxg:GridControl.Columns>
+                                <dxg:GridColumn FieldName="SortOrder" Header="№"/>
+                                <dxg:GridColumn FieldName="FullName" Header="Наименование"/>
+                            </dxg:GridControl.Columns>
+                            <dxg:GridControl.View>
+                                <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AutoWidth="True"/>
+                            </dxg:GridControl.View>
+                        </dxg:GridControl>
+                    </ControlTemplate>
+                </dxg:LookUpEdit.PopupContentTemplate>
+            </dxg:LookUpEdit>
+        </StackPanel>
         <!--<StackPanel Orientation="Horizontal">
             <TextBlock Text="Путь к файлу" VerticalAlignment="Center" Margin="5" Width="120"/>
             <TextBox Margin="5" VerticalAlignment="Center" Text="{Binding FileName}" Width="300" TabIndex="5"/>

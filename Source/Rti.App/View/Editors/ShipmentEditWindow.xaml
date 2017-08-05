@@ -195,6 +195,7 @@
                                             <dxg:GridControl.Columns>
                                                 <dxg:GridColumn FieldName="Drawing.SortOrder" Header="№" Width="50"/>
                                                 <dxg:GridColumn FieldName="Drawing.FullName" Header="Наименование" Width="100"/>
+                                                <dxg:GridColumn FieldName="Drawing.Price" Header="Цена, руб." Width="100"/>
                                                 <dxg:GridColumn FieldName="Count" Header="Кол-во по заявке" Width="100"/>
                                                 <dxg:GridColumn FieldName="DoneCount" Header="Изготовлено" Width="100"/>
                                                 <dxg:GridColumn FieldName="ShippedCount" Header="Отгружено" Width="100"/>

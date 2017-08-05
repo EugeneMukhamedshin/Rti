@@ -103,13 +103,13 @@ namespace Rti.ViewModel.Reporting
                 GetReport(
                     r =>
                         r.GetShipmentDirectExpencesReport(startDate, endDate,
-                            shipment == null ? (int?)null : shipment.Id), xsl);
+                            shipment?.Id), xsl);
         }
 
-        public byte[] GetSalaryReport(DateTime startDate, DateTime endDate, EmployeeViewModel employee)
+        public byte[] GetSalaryReport(DateTime startDate, DateTime endDate, EmployeeViewModel employee, DrawingViewModel drawing)
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetSalaryReport.xslt"));
-            return GetReport(r => r.GetSalaryReport(startDate, endDate, employee == null ? (int?)null : employee.Id),
+            return GetReport(r => r.GetSalaryReport(startDate, endDate, employee?.Id, drawing?.Id),
                 xsl);
         }
 

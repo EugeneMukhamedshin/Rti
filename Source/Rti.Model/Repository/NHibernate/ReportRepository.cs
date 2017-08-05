@@ -577,7 +577,7 @@ FROM (SELECT
         }
 
         // Done
-        public XDocument GetSalaryReport(DateTime startDate, DateTime endDate, int? employeeId)
+        public XDocument GetSalaryReport(DateTime startDate, DateTime endDate, int? employeeId, int? drawingId)
         {
             var rows = GetXElementsFromQuery(@"
 SELECT
@@ -605,12 +605,14 @@ FROM (SELECT
       ON d.fact_calculation_id = c.id
   WHERE wi.work_date BETWEEN :p_start_date AND :p_end_date
   AND e.id = IFNULL(:p_employee_id, e.id)
+  AND d.id = IFNULL(:p_drawing_id, d.id)
   ORDER BY e.full_name, wi.work_date, wi.sort_order) T
 WHERE MainSalary + AdditionalSalary > 0",
                 query =>
                     query.SetParameter("p_start_date", startDate)
                         .SetParameter("p_end_date", endDate)
-                        .SetParameter("p_employee_id", employeeId));
+                        .SetParameter("p_employee_id", employeeId)
+                        .SetParameter("p_drawing_id", drawingId));
             var rowDict = rows.ToLookup(e => new
             {
                 EmployeeId = e.Attribute("EmployeeId").Value,

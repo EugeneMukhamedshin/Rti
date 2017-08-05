@@ -38,7 +38,8 @@ namespace Rti.ViewModel.Entities
         {
             base.CustomFillXElement(element);
             element.Add(new XAttribute("ShipmentSum", ShipmentSum));
-            element.Add(new XAttribute("ShipmentDates", ShipmentDates));
+            if (ShipmentDates != null)
+                element.Add(new XAttribute("ShipmentDates", ShipmentDates));
         }
     }
 }
