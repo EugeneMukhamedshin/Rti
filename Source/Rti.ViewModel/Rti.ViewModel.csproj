@@ -139,9 +139,11 @@
     <Compile Include="Lists\ContragentList.cs" />
     <Compile Include="Lists\EmployeeWorkItemList.cs" />
     <Compile Include="Lists\EquipmentPaymentList.cs" />
+    <Compile Include="Lists\ObjectList.cs" />
     <Compile Include="Lists\RequestList.cs" />
     <Compile Include="Lists\ShipmentItemList.cs" />
     <Compile Include="Lists\PaymentList.cs" />
+    <Compile Include="Lists\ShipmentRowList.cs" />
     <Compile Include="Lists\ShipmentList.cs" />
     <Compile Include="Lists\UnfilledDatesList.cs" />
     <Compile Include="Lists\WorkItemList.cs" />

@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Rti.Model.Domain;
+using Rti.Model.Domain.ReportEntities;
 using Rti.Model.Repository.Interfaces;
+using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
 using Rti.ViewModel.Reporting.ViewModel;
 
 namespace Rti.ViewModel.Lists
 {
-    public class ShipmentList : EntityList<ShipmentViewModel, Shipment>
+    public class ShipmentRowList : ObjectList<ShipmentRow>
     {
         private ContragentViewModel _selectedCustomer;
         private DrawingViewModel _selectedDrawing;
@@ -49,13 +51,14 @@ namespace Rti.ViewModel.Lists
         }
 
         public DelegateCommand AddShipmentCommand { get; set; }
+        public DelegateCommand EditShipmentCommand { get; set; }
         public DelegateCommand RefreshCommand { get; set; }
         public DelegateCommand PrintCommand { get; set; }
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public ShipmentList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory)
+        public ShipmentRowList(bool editMode, IViewService viewService, IRepositoryFactory repositoryFactory)
             : base(editMode, viewService, repositoryFactory)
         {
             TypeMaps.Add(new Tuple<Type, Type>(typeof(ShipmentViewModel), typeof(EditViewModel.ShipmentEdit)));
@@ -64,6 +67,10 @@ namespace Rti.ViewModel.Lists
                "Добавить отгрузку",
                o => true,
                o => AddShipment());
+            EditShipmentCommand = new DelegateCommand(
+                "Изменить",
+                o => o != null,
+                EditShipment);
             RefreshCommand = new DelegateCommand(
                 "Обновить",
                 o => true,
@@ -78,16 +85,35 @@ namespace Rti.ViewModel.Lists
 
         private void AddShipment()
         {
-            var record = DoCreateNewEntity();
-            if (OpenViewModelEditWindow(record, "Новая отгрузка", false) && StartDate <= record.Date && record.Date <= EndDate)
-                Items.Add(record);
+            var shipment = new ShipmentViewModel(null, RepositoryFactory)
+            {
+                Date = DateTime.Today,
+            };
+            shipment.GetSortOrder();
+            shipment.DeliveryDocNumber = shipment.SortOrder;
+            shipment.DeliveryDocDate = shipment.Date;
+            var view = new ShipmentEdit("Новая отгрузка", shipment, false, ViewService, RepositoryFactory);
+            view.Refresh();
+            ViewService.ShowViewDialog(view);
+            Refresh();
         }
 
-        protected override IEnumerable<ShipmentViewModel> GetItems()
+        private void EditShipment(object o)
+        {
+            var shipmentRow = o as ShipmentRow;
+            if (shipmentRow == null)
+                return;
+            var shipment = new ShipmentViewModel(RepositoryFactory.GetShipmentRepository().GetById(shipmentRow.Id), RepositoryFactory);
+            var view = new ShipmentEdit($"Отгрузка №{shipment.FullNumber} от {shipment.Date:dd.MM.yyyyг.}", shipment, false, ViewService, RepositoryFactory);
+            view.Refresh();
+            ViewService.ShowViewDialog(view);
+            Refresh();
+        }
+
+        protected override IEnumerable<ShipmentRow> GetItems()
         {
             var shipments = RepositoryFactory.GetShipmentRepository()
-                .GetByPeriod(StartDate, EndDate, SelectedCustomer?.Id, SelectedDrawing?.Id)
-                .Select(o => new ShipmentViewModel(o, RepositoryFactory) { })
+                .GetRowsByPeriod(StartDate, EndDate, SelectedCustomer?.Id, SelectedDrawing?.Id)
                 .OrderBy(o => o.SortOrder)
                 .ToList();
             return shipments;
@@ -99,7 +125,7 @@ namespace Rti.ViewModel.Lists
             CustomersSource =
                 new Lazy<List<ContragentViewModel>>(
                     () =>
-                        new List<ContragentViewModel> {null}
+                        new List<ContragentViewModel> { null }
                             .Union(
                                 RepositoryFactory.GetContragentRepository()
                                     .GetAllActive(ContragentType.Customer)
@@ -111,24 +137,23 @@ namespace Rti.ViewModel.Lists
                     .Select(o => new DrawingViewModel(o, RepositoryFactory)),
                 res =>
                     DrawingsSource =
-                        new List<DrawingViewModel>(new[] {(DrawingViewModel) null}
+                        new List<DrawingViewModel>(new[] { (DrawingViewModel)null }
                             .Union(res)));
         }
 
         public void Print()
         {
-            //var viewModel = new ShipmentListReportViewModel("Реестр отгрузок", Items, ViewService,
-            //    RepositoryFactory, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"),
-            //    $"Реестр отгрузок {StartDate:dd.MM.yyyy}-{EndDate:dd.MM.yyyy}.xls")
-            //{
-            //    ExtensionFilter = "Файлы Excel (*.xls)|*.xls",
-            //    StartDate = StartDate,
-            //    EndDate = EndDate
-            //};
-            //viewModel.GenerateReport();
+            var viewModel = new ShipmentListReportViewModel("Реестр отгрузок", Items, ViewService,
+                RepositoryFactory, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"),$"Реестр отгрузок {StartDate:dd.MM.yyyy}-{EndDate:dd.MM.yyyy}.xls")
+            {
+                ExtensionFilter = "Файлы Excel (*.xls)|*.xls",
+                StartDate = StartDate,
+                EndDate = EndDate
+            };
+            viewModel.GenerateReport();
         }
 
-        protected override ShipmentViewModel DoCreateNewEntity()
+        protected override ShipmentRow DoCreateNewEntity()
         {
             var shipment = new ShipmentViewModel(null, RepositoryFactory)
             {
@@ -137,16 +162,18 @@ namespace Rti.ViewModel.Lists
             shipment.GetSortOrder();
             shipment.DeliveryDocNumber = shipment.SortOrder;
             shipment.DeliveryDocDate = shipment.Date;
-            return shipment;
+            return new ShipmentRow();
         }
 
-        protected override void DoDeleteEntity(ShipmentViewModel entity)
+        protected override void DoDeleteEntity(ShipmentRow entity)
         {
-            entity.IsDeleted = true;
-            entity.SaveEntity();
+            var repository = RepositoryFactory.GetShipmentRepository();
+            var shipment = repository.GetById(entity.Id);
+            shipment.IsDeleted = true;
+            repository.Update(shipment);
         }
 
-        protected override bool AcceptFind(ShipmentViewModel entity, string searchText)
+        protected override bool AcceptFind(ShipmentRow entity, string searchText)
         {
             return false;
         }

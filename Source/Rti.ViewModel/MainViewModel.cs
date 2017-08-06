@@ -225,7 +225,7 @@ namespace Rti.ViewModel
         }
         private void OpenShipments()
         {
-            var viewModel = new ShipmentList(true, ViewService, RepositoryFactory);
+            var viewModel = new ShipmentRowList(true, ViewService, RepositoryFactory);
             viewModel.Refresh();
             ViewService.ShowViewDialog(viewModel);
         }

@@ -81,7 +81,7 @@ namespace Rti.App
             AddToRegistry<EmployeeWorkItemList, EmployeeWorkItemListWindow>();
 
             // Отгрузка
-            AddToRegistry<ShipmentList, ShipmentListWindow>();
+            AddToRegistry<ShipmentRowList, ShipmentListWindow>();
             AddToRegistry<ShipmentEdit, ShipmentEditWindow>();AddToRegistry<DeliveryEdit, DeliveryEditWindow>();
 
             // Платежи

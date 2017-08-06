@@ -65,11 +65,11 @@
             <StackPanel Orientation="Horizontal" Grid.Row="1">
                 <Button Content="{StaticResource AddImage}" Command="{Binding AddShipmentCommand}" Width="32" Height="32" Margin="5" TabIndex="4"></Button>
                 <Button Content="{StaticResource DeleteImage}" Command="{Binding DeleteEntityCommand}" Width="32" Height="32" Margin="5" TabIndex="5"></Button>
-                <Button Content="{StaticResource EditImage}" Command="{Binding EditEntityCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5" TabIndex="6"/>
+                <Button Content="{StaticResource EditImage}" Command="{Binding EditShipmentCommand}" CommandParameter="{Binding SelectedItem,Mode=OneWay}" Width="32" Height="32" Margin="5" TabIndex="6"/>
             </StackPanel>
             <dxg:GridControl TabIndex="7" Margin="5" AutoGenerateColumns="None" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SelectionMode="Row" Grid.Row="2">
                 <dxmvvm:Interaction.Behaviors>
-                    <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding EditEntityCommand}" PassEventArgsToCommand="True">
+                    <dxmvvm:EventToCommand EventName="MouseDoubleClick" Command="{Binding EditShipmentCommand}" PassEventArgsToCommand="True">
                         <dxmvvm:EventToCommand.EventArgsConverter>
                             <dx:EventArgsToDataRowConverter/>
                         </dxmvvm:EventToCommand.EventArgsConverter>
@@ -107,10 +107,10 @@
                             </DataTemplate>
                         </dxg:GridColumn.CellTemplate>
                     </dxg:GridColumn>
-                    <dxg:GridColumn FieldName="Request.Customer.Name" Header="Заказчик" Width="250"/>
-                    <dxg:GridColumn FieldName="Request.Number" Header="Номер заявки" Width="80"/>
-                    <dxg:GridColumn FieldName="Request.RegDate" Header="Дата заявки" Width="80"/>
-                    <dxg:GridColumn FieldName="Request.InvoiceDate" Header="Дата счета" Width="80"/>
+                    <dxg:GridColumn FieldName="CustomerName" Header="Заказчик" Width="250"/>
+                    <dxg:GridColumn FieldName="RequestNumber" Header="Номер заявки" Width="80"/>
+                    <dxg:GridColumn FieldName="RequestRegDate" Header="Дата заявки" Width="80"/>
+                    <dxg:GridColumn FieldName="InvoiceDate" Header="Дата счета" Width="80"/>
                     <dxg:GridColumn FieldName="ShipmentSum" Header="Сумма по отгрузке, руб." Width="80"/>
                     <dxg:GridColumn FieldName="RequestSum" Header="Сумма по счету, руб." Width="80"/>
                     <dxg:GridColumn FieldName="SumDiff" Header="Разница, руб." Width="80"/>

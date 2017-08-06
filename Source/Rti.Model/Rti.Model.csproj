@@ -90,6 +90,7 @@
     <Compile Include="Domain\ReportEntities\RejectionReportRow.cs" />
     <Compile Include="Domain\ReportEntities\RequestsReportRow.cs" />
     <Compile Include="Domain\ReportEntities\RequestStatus.cs" />
+    <Compile Include="Domain\ReportEntities\ShipmentRow.cs" />
     <Compile Include="Domain\RequestDetailState.cs" />
     <Compile Include="Domain\AccessType.cs" />
     <Compile Include="Domain\Shipment.cs" />

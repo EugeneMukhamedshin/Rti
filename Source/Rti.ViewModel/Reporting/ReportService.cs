@@ -7,6 +7,7 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 using System.Xml.Xsl;
 using Rti.Model.Domain;
+using Rti.Model.Domain.ReportEntities;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Reporting.Generator;
@@ -380,7 +381,7 @@ namespace Rti.ViewModel.Reporting
             return GetReport(r => doc, xsl);
         }
 
-        public byte[] GetShipmentListReport(DateTime startDate, DateTime endDate, List<ShipmentViewModel> items)
+        public byte[] GetShipmentListReport(DateTime startDate, DateTime endDate, List<ShipmentRow> items)
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetShipmentListReport.xslt"));
             var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
@@ -389,7 +390,22 @@ namespace Rti.ViewModel.Reporting
                     new XElement("Shipments",
                         items.Select(o =>
                         {
-                            var element = o.GetXElement("Shipment");
+                            var element = new XElement("Shipment");
+                            element.Add(new XAttribute("Id", o.Id));
+                            element.Add(new XAttribute("SortOrder", o.SortOrder));
+                            element.Add(new XAttribute("Date", o.Date));
+                            element.Add(new XAttribute("IsReplace", o.IsReplace));
+                            element.Add(new XAttribute("IsAddition", o.IsAddition));
+                            element.Add(new XAttribute("Details", o.Details));
+                            element.Add(new XAttribute("FullNumber", o.FullNumber));
+                            element.Add(new XAttribute("CustomerName", o.CustomerName));
+                            element.Add(new XAttribute("RequestNumber", o.RequestNumber));
+                            element.Add(new XAttribute("RequestRegDate", o.RequestRegDate));
+                            if (o.InvoiceDate != null)
+                                element.Add(new XAttribute("InvoiceDate", o.InvoiceDate));
+                            element.Add(new XAttribute("ShipmentSum", o.ShipmentSum));
+                            element.Add(new XAttribute("RequestSum", o.RequestSum));
+                            element.Add(new XAttribute("SumDiff", o.SumDiff));
                             element.Add(new XAttribute("RowNumber", items.IndexOf(o) + 1));
                             return element;
                         }))));

@@ -218,22 +218,22 @@
       </Cell>
       <Cell ss:StyleID="s84">
         <Data ss:Type="String">
-          <xsl:value-of select="Request/Customer/@Name"/>
+          <xsl:value-of select="@CustomerName"/>
         </Data>
       </Cell>
       <Cell ss:StyleID="s84">
         <Data ss:Type="String">
-          <xsl:value-of select="Request/@Number"/>
+          <xsl:value-of select="@RequestNumber"/>
         </Data>
       </Cell>
       <Cell ss:StyleID="s84">
         <Data ss:Type="String">
-          <xsl:value-of select="rti:FormatDate(Request/@RegDate)"/>
+          <xsl:value-of select="rti:FormatDate(@RequestRegDate)"/>
         </Data>
       </Cell>
       <Cell ss:StyleID="s84">
         <Data ss:Type="String">
-          <xsl:value-of select="rti:FormatDate(Request/@InvoiceDate)"/>
+          <xsl:value-of select="rti:FormatDate(@InvoiceDate)"/>
         </Data>
       </Cell>
       <Cell ss:StyleID="s84">
