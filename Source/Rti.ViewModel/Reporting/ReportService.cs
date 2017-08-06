@@ -379,5 +379,20 @@ namespace Rti.ViewModel.Reporting
                         }))));
             return GetReport(r => doc, xsl);
         }
-    }
+
+        public byte[] GetShipmentListReport(DateTime startDate, DateTime endDate, List<ShipmentViewModel> items)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetShipmentListReport.xslt"));
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                    new XElement("Report", new XAttribute("StartDate", startDate), new XAttribute("EndDate", endDate)),
+                    new XElement("Shipments",
+                        items.Select(o =>
+                        {
+                            var element = o.GetXElement("Shipment");
+                            element.Add(new XAttribute("RowNumber", items.IndexOf(o) + 1));
+                            return element;
+                        }))));
+            return GetReport(r => doc, xsl);
+        }}
 }

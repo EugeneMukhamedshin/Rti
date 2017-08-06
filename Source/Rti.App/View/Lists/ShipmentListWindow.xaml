@@ -6,7 +6,7 @@
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
-    Title="Реестр отгрузок" Height="350" Width="1024" WindowState="Maximized"
+    Title="Реестр отгрузок" Height="350" Width="1183.4" WindowState="Maximized"
     >
 
     <Grid>
@@ -60,6 +60,7 @@
                     </dxg:LookUpEdit.PopupContentTemplate>
                 </dxg:LookUpEdit>
                 <Button Content="Обновить" Command="{Binding RefreshCommand}" Margin="5"></Button>
+                <Button Content="Печать" Command="{Binding PrintCommand}" Margin="5"></Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
                 <Button Content="{StaticResource AddImage}" Command="{Binding AddShipmentCommand}" Width="32" Height="32" Margin="5" TabIndex="4"></Button>

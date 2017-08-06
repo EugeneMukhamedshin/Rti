@@ -62,7 +62,11 @@ namespace Rti.ViewModel.Entities
         public override void CustomFillXElement(XElement element)
         {
             base.CustomFillXElement(element);
+            element.Add(new XAttribute("FullNumber", FullNumber));
             element.Add(new XAttribute("Grounding", Grounding));
+            element.Add(new XAttribute("ShipmentSum", ShipmentSum));
+            element.Add(new XAttribute("RequestSum", RequestSum ?? 0));
+            element.Add(new XAttribute("SumDiff", SumDiff));
         }
 
         public void GetSortOrder()
