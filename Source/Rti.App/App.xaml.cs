@@ -1,30 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Threading;
-using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Serialization;
-using System.Xml.XPath;
 using DevExpress.Xpf.Core;
 using log4net;
 using log4net.Config;
 using log4net.Util;
-using Rti.Model.Domain;
-using Rti.Model.Domain.BusinessLogic;
 using Rti.Model.Repository.NHibernate;
 using Rti.ViewModel;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Lists;
-using Rti.ViewModel.Reporting.Generator;
-using Rti.ViewModel.Reporting.ViewModel;
 
 namespace Rti.App
 {
@@ -49,12 +37,7 @@ namespace Rti.App
                 var repositoryFactory = new NHibernateRepositoryFactory();
                 _viewService = new ViewService();
 
-                //var vm = new PaymentList(true, _viewService, repositoryFactory) {StartDate = DateTime.MinValue, EndDate = DateTime.MaxValue};
-                //vm.Refresh();
-                //_viewService.ShowView(vm, false, false);
-                //return;
                 var isDebug = e.Args.Any(arg => arg.ToLower().Equals("debug=true"));
-
                 if (!isDebug)
                 {
                     var mainViewModel = new MainViewModel(_viewService, repositoryFactory);

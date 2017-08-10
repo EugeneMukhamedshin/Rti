@@ -68,17 +68,6 @@ namespace Rti.ViewModel.EditViewModel
             var controller = new WorkItemController(RepositoryFactory);
             base.DoSave();
 
-            var package = new WorkItemEmployeePackageViewModel(
-                RepositoryFactory.GetWorkItemEmployeePackageRepository()
-                    .GetByEmployeeIds(new[] {Entity.Employee.Id}, Entity.WorkDate).FirstOrDefault(), RepositoryFactory);
-
-            if (package.IsNewEntity)
-            {
-                package.Employee = Entity.Employee;
-                package.Date = Entity.WorkDate;
-                package.SaveEntity();
-            }
-
             controller.PostWorkItem(Source.Entity);
         }
 

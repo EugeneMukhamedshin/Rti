@@ -37,6 +37,23 @@ namespace Rti.Model.Domain.BusinessLogic
 
         public void PostWorkItem(WorkItem workItem)
         {
+            if (workItem.Employee == null)
+                return;
+
+            // Создаем пакет при необходимости
+            var package = RepositoryFactory.GetWorkItemEmployeePackageRepository()
+                  .GetByEmployeeIds(new[] { workItem.Employee.Id }, workItem.WorkDate).FirstOrDefault();
+
+            if (package == null)
+            {
+                package = new WorkItemEmployeePackage
+                {
+                    Employee = workItem.Employee,
+                    Date = workItem.WorkDate
+                };
+                RepositoryFactory.GetWorkItemEmployeePackageRepository().Insert(package);
+            }
+
             // Удаляем предыдущие записи распределения
             RepositoryFactory.GetWorkItemRequestDetailRepository().DeleteByWorkItemId(workItem.Id);
 
