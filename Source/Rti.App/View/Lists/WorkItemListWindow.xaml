@@ -149,7 +149,7 @@
                     <dxg:GridColumn FieldName="Drawing.FactCalculation.MainSalary" Header="Основная з.п., руб." Width="65" ReadOnly="True"/>
                     <dxg:GridColumn FieldName="Drawing.Price" Header="Цена, без НДС, руб." Width="65" ReadOnly="True"/>
                     <dxg:GridColumn FieldName="Sum" Header="Сумма, с НДС, руб." Width="65" ReadOnly="True"/>
-                    <dxg:GridColumn FieldName="Note" Header="Примечание" Width="220"/>
+                    <dxg:GridColumn FieldName="Note" Header="Примечание" Width="500"/>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.TotalSummary>
                     <!--<dxg:GridSummaryItem ShowInColumn="BatchNumber" FieldName="Sum" SummaryType="Custom" DisplayFormat="Итого:"></dxg:GridSummaryItem>-->

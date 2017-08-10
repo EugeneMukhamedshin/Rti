@@ -15,6 +15,8 @@ namespace Rti.ViewModel.Lists
 
         protected readonly List<Tuple<Type, Type>> TypeMaps = new List<Tuple<Type, Type>>();
 
+        protected List<TEntity> DeletedItems = new List<TEntity>();
+
         public bool EditMode { get; set; }
         public IViewService ViewService { get; set; }
 
@@ -90,6 +92,7 @@ namespace Rti.ViewModel.Lists
             if (ValidateDelete(SelectedItem) && ViewService.ShowConfirmation(new MessageViewModel("Внимание", "Подтвердите удаление")))
             {
                 DoDeleteEntity(SelectedItem);
+                DeletedItems.Add(SelectedItem);
                 Items.Remove(SelectedItem);
             }
         }

@@ -233,11 +233,12 @@ namespace Rti.ViewModel.Lists
                     Drawing = new DrawingViewModel(detail.Drawing, RepositoryFactory),
                     WorkDate = Date,
                     SortOrder = Items.Any() ? Items.Max(o => o.SortOrder) + 1 : 1,
-                    Note = $"Заявка №{SelectedRequest.Number} от {SelectedRequest.RegDate:dd.MM.yyyy}г. Строка {detail.SortOrder}"
+                    Note = $"Заявка №{SelectedRequest.Number} от {SelectedRequest.RegDate:dd.MM.yyyy}г. строка {detail.SortOrder} ({detail.Count}шт.)"
                 };
                 workItem.SaveEntity();
                 Items.Add(workItem);
             }
+            SelectedRequest = null;
         }
 
         private void OpenEmployeeWorkItemList()
@@ -340,7 +341,7 @@ namespace Rti.ViewModel.Lists
 
         private void SaveSelectedItem()
         {
-            if (SelectedItem != null && SelectedItem.IsChanged)
+            if (SelectedItem != null && SelectedItem.IsChanged && !DeletedItems.Contains(SelectedItem))
             {
                 SelectedItem.SaveEntity();
                 new WorkItemController(RepositoryFactory).PostWorkItem(SelectedItem.Entity);

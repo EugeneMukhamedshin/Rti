@@ -5,7 +5,7 @@
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-    Title="{Binding Name}" Height="167.5" Width="525"
+    Title="{Binding Name}" Height="193.605" Width="525"
     >
 
     <StackPanel>
