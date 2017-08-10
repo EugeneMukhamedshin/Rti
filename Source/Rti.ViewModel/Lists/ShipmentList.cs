@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.Entities;
 using Rti.ViewModel.Entities.Commands;
+using Rti.ViewModel.Reporting.ViewModel;
 
 namespace Rti.ViewModel.Lists
 {
@@ -48,6 +50,7 @@ namespace Rti.ViewModel.Lists
 
         public DelegateCommand AddShipmentCommand { get; set; }
         public DelegateCommand RefreshCommand { get; set; }
+        public DelegateCommand PrintCommand { get; set; }
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -65,6 +68,10 @@ namespace Rti.ViewModel.Lists
                 "Обновить",
                 o => true,
                 o => Refresh());
+            PrintCommand = new DelegateCommand(
+                "Печать",
+                o => true,
+                o => Print());
             StartDate = DateTime.Today.AddMonths(-1);
             EndDate = DateTime.Today;
         }
@@ -106,6 +113,19 @@ namespace Rti.ViewModel.Lists
                     DrawingsSource =
                         new List<DrawingViewModel>(new[] {(DrawingViewModel) null}
                             .Union(res)));
+        }
+
+        public void Print()
+        {
+            //var viewModel = new ShipmentListReportViewModel("Реестр отгрузок", Items, ViewService,
+            //    RepositoryFactory, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports"),
+            //    $"Реестр отгрузок {StartDate:dd.MM.yyyy}-{EndDate:dd.MM.yyyy}.xls")
+            //{
+            //    ExtensionFilter = "Файлы Excel (*.xls)|*.xls",
+            //    StartDate = StartDate,
+            //    EndDate = EndDate
+            //};
+            //viewModel.GenerateReport();
         }
 
         protected override ShipmentViewModel DoCreateNewEntity()

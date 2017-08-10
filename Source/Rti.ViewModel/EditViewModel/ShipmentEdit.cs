@@ -223,8 +223,8 @@ namespace Rti.ViewModel.EditViewModel
                 var doneCount = notShippedWorkItems.Sum(o => o.Item2);
                 if (shipmentItem.Count > doneCount)
                 {
-                    ViewService.ShowMessage(new MessageViewModel("Ошибка", string.Format("По чертежу {0} невозможно отгрузить {1} деталей, т.к. изготовлено всего {2} деталей", shipmentItem.RequestDetail.Drawing.FullName, shipmentItem.Count, doneCount)));
-                    return false;
+                    ViewService.ShowMessage(new MessageViewModel("Внимание", string.Format("По чертежу {0} невозможно отгрузить {1} деталей, т.к. изготовлено всего {2} деталей", shipmentItem.RequestDetail.Drawing.FullName, shipmentItem.Count, doneCount)));
+                    //return false;
                 }
                 if (!controller.ValidatePost(shipmentItem))
                 {

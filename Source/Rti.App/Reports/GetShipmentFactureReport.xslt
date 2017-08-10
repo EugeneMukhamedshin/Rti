@@ -187,6 +187,10 @@
           <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
           <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="9" ss:Italic="1"/>
         </Style>
+        <Style ss:ID="s801">
+          <Alignment ss:Horizontal="Left" ss:Vertical="Bottom" ss:WrapText="1"/>
+          <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="8" ss:Italic="1"/>
+        </Style>
         <Style ss:ID="s81">
           <Borders/>
           <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="9" ss:Italic="1"/>
@@ -313,8 +317,29 @@
             <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
           </Borders>
           <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="8"/>
+          <NumberFormat ss:Format="Fixed"/>
+        </Style>
+        <Style ss:ID="s1241">
+          <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+          <Borders>
+            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+          </Borders>
+          <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="8"/>
         </Style>
         <Style ss:ID="s125">
+          <Borders>
+            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+            <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+          </Borders>
+          <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="8"/>
+          <NumberFormat ss:Format="Fixed"/>
+        </Style>
+        <Style ss:ID="s1251">
           <Borders>
             <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
             <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -341,6 +366,7 @@
             <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
           </Borders>
           <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="8" ss:Bold="1"/>
+          <NumberFormat ss:Format="Fixed"/>
         </Style>
         <Style ss:ID="s135">
           <Borders>
@@ -350,6 +376,7 @@
             <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
           </Borders>
           <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="8" ss:Bold="1"/>
+          <NumberFormat ss:Format="Fixed"/>
         </Style>
         <Style ss:ID="s137">
           <Alignment ss:Horizontal="Left" ss:Vertical="Bottom" ss:WrapText="1"/>
@@ -404,9 +431,9 @@
           <Column ss:AutoFitWidth="0" ss:Width="33"/>
           <Column ss:AutoFitWidth="0" ss:Width="41.25"/>
           <Column ss:AutoFitWidth="0" ss:Width="89.25"/>
-          <Row ss:AutoFitHeight="0" ss:Height="18.75">
+          <Row ss:AutoFitHeight="0" ss:Height="33">
             <Cell ss:Index="12" ss:MergeAcross="3" ss:StyleID="s63">
-              <Data ss:Type="String">Приложение №1 к постановлению Правительства Российской Федерации от 26 декабря 2011г. №1137 </Data>
+              <Data ss:Type="String">Приложение №1 к постановлению Правительства Российской Федерации  от 26 декабря 2011г.№1137 (в редакции постановления Правительства Российской Федерации от 25.05.2017г. №625)</Data>
             </Cell>
           </Row>
           <Row ss:AutoFitHeight="0" ss:Height="15">
@@ -480,7 +507,7 @@
               <Data ss:Type="String">ГРУЗООТПРАВИТЕЛЬ и его адрес</Data>
             </Cell>
             <Cell ss:StyleID="s82"/>
-            <Cell ss:StyleID="s83">
+            <Cell ss:StyleID="s85">
               <Data ss:Type="String"><xsl:value-of select="set[@name='Shipments']/Shipment/Request/Manufacturer/@FullName"/></Data>
             </Cell>
             <Cell ss:StyleID="s83"/>
@@ -578,6 +605,17 @@
               <Data ss:Type="String">(7)</Data>
             </Cell>
           </Row>
+          <Row ss:AutoFitHeight="0" ss:Height="24">
+            <Cell ss:MergeAcross="1" ss:StyleID="s801">
+              <Data ss:Type="String">Идентификатор государственного контракта, договора, соглашения</Data>
+            </Cell>
+            <Cell ss:StyleID="s73"/>
+            <Cell ss:StyleID="s88"/>
+            <Cell ss:StyleID="s74"/>
+            <Cell ss:Index="15" ss:StyleID="s67">
+              <Data ss:Type="String">(8)</Data>
+            </Cell>
+          </Row>
           <Row ss:AutoFitHeight="0" ss:Height="0.75">
             <Cell ss:StyleID="s88"/>
             <Cell ss:StyleID="s88"/>
@@ -648,7 +686,7 @@
               <Data ss:Type="String">В том числе сумма акциза</Data>
             </Cell>
             <Cell ss:MergeDown="1" ss:StyleID="m134286560">
-              <Data ss:Type="String">Налого-вая ставка</Data>
+              <Data ss:Type="String">Налого-вая ставка, %</Data>
             </Cell>
             <Cell ss:MergeDown="1" ss:StyleID="m134286580">
               <ss:Data ss:Type="String" xmlns="http://www.w3.org/TR/REC-html40">
@@ -671,7 +709,7 @@
               <Data ss:Type="String">Номер таможенной деклорации</Data>
             </Cell>
           </Row>
-          <Row ss:AutoFitHeight="0" ss:Height="50.25" ss:StyleID="s93">
+          <Row ss:AutoFitHeight="0" ss:Height="66" ss:StyleID="s93">
             <Cell ss:Index="4" ss:StyleID="s111">
               <Data ss:Type="String">Код</Data>
             </Cell>
@@ -803,10 +841,13 @@
             <Cell ss:Index="6" ss:MergeAcross="1" ss:StyleID="s143">
               <Data ss:Type="String">ф.и.о.</Data>
             </Cell>
+            <Cell ss:Index="9" ss:MergeAcross="6" ss:StyleID="s143">
+              <Data ss:Type="String">(реквизиты свидетельства о государственной  регистрации индивидуального предпринимателя)</Data>
+            </Cell>
           </Row>
           <Row>
             <Cell ss:StyleID="s92">
-              <Data ss:Type="String">Примечание.Первый экземпляр-покупателю, второй экхземпляр- продавцу.</Data>
+              <Data ss:Type="String">Примечание.Первый экземпляр-покупателю, второй экземпляр- продавцу.</Data>
             </Cell>
             <Cell ss:StyleID="s92"/>
             <Cell ss:StyleID="s88"/>
@@ -858,13 +899,13 @@
       <Cell ss:MergeAcross="2" ss:StyleID="s120">
         <Data ss:Type="String"><xsl:value-of select="@FullDetailName"/></Data>
       </Cell>
-      <Cell ss:StyleID="s124">
+      <Cell ss:StyleID="s1241">
         <Data ss:Type="Number"><xsl:value-of select="RequestDetail/Drawing/MeasureUnit/@Code"/></Data>
       </Cell>
-      <Cell ss:StyleID="s124">
+      <Cell ss:StyleID="s1241">
         <Data ss:Type="String"><xsl:value-of select="RequestDetail/Drawing/MeasureUnit/@Name"/></Data>
       </Cell>
-      <Cell ss:StyleID="s125">
+      <Cell ss:StyleID="s1251">
         <Data ss:Type="Number"><xsl:value-of select="@Count"/></Data>
       </Cell>
       <Cell ss:StyleID="s125">
@@ -877,12 +918,12 @@
           <xsl:value-of select="@Sum"/>
         </Data>
       </Cell>
-      <Cell ss:StyleID="s124">
+      <Cell ss:StyleID="s1241">
         <Data ss:Type="String">-</Data>
       </Cell>
-      <Cell ss:StyleID="s124">
+      <Cell ss:StyleID="s1241">
         <Data ss:Type="Number">
-          <xsl:value-of select="@NdsPercent div 100"/>
+          <xsl:value-of select="@NdsPercent"/>
         </Data>
       </Cell>
       <Cell ss:StyleID="s124">

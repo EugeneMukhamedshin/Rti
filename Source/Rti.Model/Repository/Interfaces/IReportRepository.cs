@@ -11,7 +11,7 @@ namespace Rti.Model.Repository.Interfaces
         XDocument GetRequestDirectExpencesReport(DateTime startDate, DateTime endDate, int? requestId);
         XDocument GetWorkItemDirectExpencesReport(DateTime startDate, DateTime endDate);
         XDocument GetShipmentDirectExpencesReport(DateTime startDate, DateTime endDate, int? shipmentId);
-        XDocument GetSalaryReport(DateTime startDate, DateTime endDate, int? employeeId);
+        XDocument GetSalaryReport(DateTime startDate, DateTime endDate, int? employeeId, int? drawingId);
         XDocument GetMakedDetailsReport(DateTime startDate, DateTime endDate, int? drawingId);
         XDocument GetMaterialMovingFullReport(DateTime startDate, DateTime endDate, int? materialId);
         XDocument GetMaterialMovingRequestReport(DateTime startDate, DateTime endDate, int? materialId);

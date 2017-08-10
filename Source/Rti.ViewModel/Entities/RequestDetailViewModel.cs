@@ -27,9 +27,10 @@ namespace Rti.ViewModel.Entities
         {
             get
             {
-                if (_equipment == null && Drawing?.Equipment != null)
-                    _equipment = new EquipmentViewModel(RepositoryFactory.GetEquipmentRepository().GetById(Drawing.Equipment.Id), RepositoryFactory);
-                return _equipment;
+                return Drawing?.Equipment;
+                //if (_equipment == null && Drawing?.Equipment != null)
+                //    _equipment = new EquipmentViewModel(RepositoryFactory.GetEquipmentRepository().GetById(Drawing.Equipment.Id), RepositoryFactory);
+                //return _equipment;
             }
         }
 
@@ -60,7 +61,7 @@ namespace Rti.ViewModel.Entities
             if (propertyName == "Drawing")
             {
                 FillFromDrawing();
-                OnPropertyChanged("EquipmentLeadTimeReadOnly");
+                OnPropertyChanged("EquipmentLea`dTimeReadOnly");
                 OnPropertyChanged("PlanCalculationPrice");
                 OnPropertyChanged("FactCalculationPrice");
             }

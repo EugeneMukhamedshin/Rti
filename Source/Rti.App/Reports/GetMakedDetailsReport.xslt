@@ -65,8 +65,9 @@
           <Column ss:AutoFitWidth="0" ss:Width="60.75"/>
           <Row ss:Index="2">
             <Cell ss:MergeAcross="2" ss:StyleID="s19">
-              <Data ss:Type="String"><xsl:value-of select="rti:FormatDate(Report/@StartDate)"/> - <xsl:value-of select="rti:FormatDate(Report/@EndDate)"/>
-            </Data>
+              <Data ss:Type="String">
+                <xsl:value-of select="rti:FormatDate(Report/@StartDate)"/> - <xsl:value-of select="rti:FormatDate(Report/@EndDate)"/>
+              </Data>
             </Cell>
           </Row>
           <Row>
@@ -89,9 +90,29 @@
               <Data ss:Type="String">Кол-во</Data>
             </Cell>
           </Row>
-          
+
           <xsl:apply-templates select="Details/row"/>
-          
+
+          <Row>
+            <Cell ss:StyleID="s65">
+              <Data ss:Type="String"></Data>
+            </Cell>
+            <Cell ss:StyleID="s65">
+              <Data ss:Type="String"></Data>
+            </Cell>
+            <Cell ss:StyleID="s65">
+              <Data ss:Type="String"></Data>
+            </Cell>
+            <Cell ss:StyleID="s65">
+              <Data ss:Type="String"></Data></Cell>
+            <Cell ss:StyleID="s65">
+              <Data ss:Type="String">ИТОГО</Data>
+            </Cell>
+            <Cell ss:StyleID="s65" ss:Formula="=SUM(R[-{count(Details/row)}]C:R[-1]C)">
+              <Data ss:Type="Number">0</Data>
+            </Cell>
+          </Row>
+
         </Table>
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
           <PageSetup>
@@ -118,7 +139,8 @@
               <ActiveRow>18</ActiveRow>
               <ActiveCol>4</ActiveCol>
             </Pane>
-          </Panes><ProtectObjects>False</ProtectObjects>
+          </Panes>
+          <ProtectObjects>False</ProtectObjects>
           <ProtectScenarios>False</ProtectScenarios>
         </WorksheetOptions>
       </Worksheet>

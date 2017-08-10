@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using Rti.Model;
 using Rti.Model.Domain;
+using Rti.Model.Domain.BusinessLogic;
+using Rti.Model.Domain.ReportEntities;
 using Rti.Model.Repository.Interfaces;
 using Rti.ViewModel.EditViewModel;
 using Rti.ViewModel.Entities;
@@ -19,6 +21,18 @@ namespace Rti.ViewModel.Lists
         private List<WorkItemEmployeePackageViewModel> _workItemEmployeePackages;
         private WorkItemEmployeePackageViewModel _workItemEmployeePackage;
 
+        public List<RequestsReportRow> RequestsSource
+        {
+            get { return _requestsSource; }
+            set
+            {
+                _requestsSource = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public RequestsReportRow SelectedRequest { get; set; }
+
         public DateTime Date
         {
             get { return _date; }
@@ -30,8 +44,33 @@ namespace Rti.ViewModel.Lists
                 Refresh();
             }
         }
+        private List<DrawingViewModel> _drawingsSource;
+        private List<RequestsReportRow> _requestsSource;
+        private List<EmployeeViewModel> _employeesSource;
+
+        public List<EmployeeViewModel> EmployeesSource
+        {
+            get { return _employeesSource; }
+            set
+            {
+                _employeesSource = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public List<DrawingViewModel> DrawingsSource
+        {
+            get { return _drawingsSource; }
+            set
+            {
+                _drawingsSource = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public DelegateCommand AddWorkItemCommand { get; set; }
+        public DelegateCommand AddRequestWorkItemsCommand { get; set; }
         public DelegateCommand OpenEmployeeWorkItemListCommand { get; set; }
         public DelegateCommand OpenMakedDetailsReportCommand { get; set; }
         public DelegateCommand PrevDayCommand { get; set; }
@@ -40,6 +79,7 @@ namespace Rti.ViewModel.Lists
         public DelegateCommand ReportCommand { get; set; }
         public DelegateCommand PrintAllEmployeeReportCommand { get; set; }
         public DelegateCommand UnfilledWorkItemsReportCommand { get; set; }
+        public DelegateCommand SaveSelectedItemCommand { get; set; }
 
         public WorkItemEmployeePackageViewModel WorkItemEmployeePackage
         {
@@ -76,6 +116,10 @@ namespace Rti.ViewModel.Lists
                 "Добавить строку",
                 o => EditMode,
                 o => AddWorkItem());
+            AddRequestWorkItemsCommand = new DelegateCommand(
+                "Добавить работу по заявке",
+                o => EditMode,
+                o => AddRequestWorkItems());
             OpenEmployeeWorkItemListCommand = new DelegateCommand(
                 "Открыть индивидуальный наряд",
                 o => WorkItemEmployeePackage != null,
@@ -92,6 +136,28 @@ namespace Rti.ViewModel.Lists
             NextDayCommand = new DelegateCommand(o => Date = Date.AddDays(1));
 
             UnfilledWorkItemsReportCommand = new DelegateCommand(o => UnfilledWorkItemsReport());
+
+            SaveSelectedItemCommand = new DelegateCommand(o => SaveSelectedItem());
+        }
+
+        public override void Refresh()
+        {
+            base.Refresh();
+
+            DoAsync(() => RepositoryFactory.GetRequestRepository()
+                            .GetRequestReport(DateTime.MinValue, DateTime.MaxValue, null, null)
+                            .OrderByDescending(o => o.RegDate)
+                            .ToList(),
+                            res => RequestsSource = res);
+            DoAsync(() => RepositoryFactory.GetEmployeeRepository().GetAllActive().Select(m => new EmployeeViewModel(m, RepositoryFactory)).ToList(),
+                res => EmployeesSource = res);
+            DoAsync(
+                () => RepositoryFactory.GetDrawingRepository()
+                        .GetAllActive()
+                        .Select(o => new DrawingViewModel(o, RepositoryFactory))
+                        .ToList(),
+                res => DrawingsSource = res);
+
         }
 
         private void UnfilledWorkItemsReport()
@@ -153,6 +219,26 @@ namespace Rti.ViewModel.Lists
             var workItem = DoCreateNewEntity();
             if (OpenViewModelEditWindow(workItem, "Новая запись дневного наряда", false))
                 Items.Add(workItem);
+        }
+
+        private void AddRequestWorkItems()
+        {
+            if (SelectedRequest == null)
+                return;
+            var details = RepositoryFactory.GetRequestDetailRepository().GetByRequestId(SelectedRequest.Id);
+            foreach (var detail in details)
+            {
+                var workItem = new WorkItemViewModel(null, RepositoryFactory)
+                {
+                    Drawing = new DrawingViewModel(detail.Drawing, RepositoryFactory),
+                    WorkDate = Date,
+                    SortOrder = Items.Any() ? Items.Max(o => o.SortOrder) + 1 : 1,
+                    Note = $"Заявка №{SelectedRequest.Number} от {SelectedRequest.RegDate:dd.MM.yyyy}г. строка {detail.SortOrder} ({detail.Count}шт.)"
+                };
+                workItem.SaveEntity();
+                Items.Add(workItem);
+            }
+            SelectedRequest = null;
         }
 
         private void OpenEmployeeWorkItemList()
@@ -223,7 +309,7 @@ namespace Rti.ViewModel.Lists
 
         private void RefreshWorkItemPackagesSource()
         {
-            var employees = Items.Select(o => o.Employee).Distinct().ToList();
+            var employees = Items.Where(o => o.Employee != null).Select(o => o.Employee).Distinct().ToList();
             var employeeIds = employees.Select(o => o.Id).Distinct().ToArray();
             var workItemEmployeePackages =
                 RepositoryFactory.GetWorkItemEmployeePackageRepository()
@@ -245,6 +331,21 @@ namespace Rti.ViewModel.Lists
                 }
             }
             WorkItemEmployeePackages = workItemEmployeePackages;
+        }
+
+        protected override void OnSelectedItemChanging()
+        {
+            base.OnSelectedItemChanging();
+            SaveSelectedItem();
+        }
+
+        private void SaveSelectedItem()
+        {
+            if (SelectedItem != null && SelectedItem.IsChanged && !DeletedItems.Contains(SelectedItem))
+            {
+                SelectedItem.SaveEntity();
+                new WorkItemController(RepositoryFactory).PostWorkItem(SelectedItem.Entity);
+            }
         }
 
         public bool CanClose()

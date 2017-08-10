@@ -3,6 +3,7 @@
 namespace Rti.Model.Domain
 {
     public partial class Shipment
-    {public virtual IList<ShipmentItem> ShipmentItems { get; set; }
+    {
+        public virtual IList<ShipmentItem> ShipmentItems { get; set; }
     }
 }

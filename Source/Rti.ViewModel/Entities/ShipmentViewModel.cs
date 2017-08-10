@@ -40,6 +40,11 @@ namespace Rti.ViewModel.Entities
             (res, o) =>
                 $"{res}{(res == string.Empty ? string.Empty : ";")}{o.RequestDetail.Detail.Name} {o.RequestDetail.Group.Name}.{o.RequestDetail.Drawing.Name} ({o.Count}רע.)");
 
+        public decimal ShipmentSum => Entity.ShipmentItems.Aggregate((decimal)0, (res, o) => res + o.Count * o.Price);
+
+        public decimal? RequestSum => Request.Sum;
+        public decimal SumDiff => (RequestSum ?? 0) - ShipmentSum;
+
         public string DetailsMultilined => Details.Replace(';', '\n');
 
         protected override void OnPropertyChanged(string propertyName = null)
@@ -57,7 +62,11 @@ namespace Rti.ViewModel.Entities
         public override void CustomFillXElement(XElement element)
         {
             base.CustomFillXElement(element);
+            element.Add(new XAttribute("FullNumber", FullNumber));
             element.Add(new XAttribute("Grounding", Grounding));
+            element.Add(new XAttribute("ShipmentSum", ShipmentSum));
+            element.Add(new XAttribute("RequestSum", RequestSum ?? 0));
+            element.Add(new XAttribute("SumDiff", SumDiff));
         }
 
         public void GetSortOrder()
