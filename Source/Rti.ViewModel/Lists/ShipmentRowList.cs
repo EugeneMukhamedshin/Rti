@@ -173,6 +173,12 @@ namespace Rti.ViewModel.Lists
             repository.Update(shipment);
         }
 
+        protected override void RequeryCommandsOnSelectionChanged()
+        {
+            base.RequeryCommandsOnSelectionChanged();
+            EditShipmentCommand.RequeryCanExecute();
+        }
+
         protected override bool AcceptFind(ShipmentRow entity, string searchText)
         {
             return false;

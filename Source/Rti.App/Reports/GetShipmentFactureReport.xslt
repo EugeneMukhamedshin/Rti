@@ -140,7 +140,7 @@
           <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="8" ss:Bold="1"/>
         </Style>
         <Style ss:ID="s63">
-          <Alignment ss:Horizontal="Center" ss:Vertical="Top" ss:WrapText="1"/>
+          <Alignment ss:Horizontal="Right" ss:Vertical="Top" ss:WrapText="1"/>
           <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="7"/>
         </Style>
         <Style ss:ID="s65">
@@ -167,6 +167,9 @@
            ss:Italic="1"/>
         </Style>
         <Style ss:ID="s73">
+          <Borders>
+            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+          </Borders>
           <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
           <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="9"/>
         </Style>
@@ -204,10 +207,16 @@
           <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="9"/>
         </Style>
         <Style ss:ID="s85">
+          <Borders>
+            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+          </Borders>
           <Alignment ss:Horizontal="Left" ss:Vertical="Top"/>
           <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="8"/>
         </Style>
         <Style ss:ID="s87">
+          <Borders>
+            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+          </Borders>
           <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
           <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="8"/>
         </Style>
@@ -215,6 +224,9 @@
           <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="8"/>
         </Style>
         <Style ss:ID="s90">
+          <Borders>
+            <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+          </Borders>
           <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
           <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="8"/>
         </Style>
@@ -418,27 +430,31 @@
       <Worksheet ss:Name="Счет-фактура">
         <Table x:FullColumns="1" x:FullRows="1">
           <Column ss:AutoFitWidth="0" ss:Width="29.25"/>
-          <Column ss:AutoFitWidth="0" ss:Width="130.5"/>
+          <Column ss:AutoFitWidth="0" ss:Width="163"/>
+          <Column ss:AutoFitWidth="0" ss:Width="31.5"/>
           <Column ss:AutoFitWidth="0" ss:Width="31.5"/>
           <Column ss:AutoFitWidth="0" ss:Width="29.25"/>
-          <Column ss:AutoFitWidth="0" ss:Width="59.25"/>
+          <Column ss:AutoFitWidth="0" ss:Width="39.23"/>
           <Column ss:AutoFitWidth="0" ss:Width="39"/>
-          <Column ss:AutoFitWidth="0" ss:Width="42"/>
+          <Column ss:AutoFitWidth="0" ss:Width="56"/>
           <Column ss:AutoFitWidth="0" ss:Width="70.5"/>
-          <Column ss:AutoFitWidth="0" ss:Width="33" ss:Span="1"/>
-          <Column ss:Index="11" ss:AutoFitWidth="0" ss:Width="36.75"/>
+          <Column ss:AutoFitWidth="0" ss:Width="33"/>
+          <Column ss:AutoFitWidth="0" ss:Width="56"/>
+          <Column ss:AutoFitWidth="0" ss:Width="56"/>
           <Column ss:AutoFitWidth="0" ss:Width="61.5"/>
           <Column ss:AutoFitWidth="0" ss:Width="33"/>
           <Column ss:AutoFitWidth="0" ss:Width="41.25"/>
           <Column ss:AutoFitWidth="0" ss:Width="89.25"/>
-          <Row ss:AutoFitHeight="0" ss:Height="33">
-            <Cell ss:Index="12" ss:MergeAcross="3" ss:StyleID="s63">
-              <Data ss:Type="String">Приложение №1 к постановлению Правительства Российской Федерации  от 26 декабря 2011г.№1137 (в редакции постановления Правительства Российской Федерации от 25.05.2017г. №625)</Data>
+          <Row ss:AutoFitHeight="0" ss:Height="42">
+            <Cell ss:Index="10" ss:MergeAcross="5" ss:StyleID="s63">
+              <Data ss:Type="String">Приложение №1 к постановлению Правительства Российской Федерации от 26 декабря 2011г.№1137 (в редакции постановлений Правительства Российской Федерации от 25 мая 2017 г. №625, от 19 августа 2017 г. №981)</Data>
             </Cell>
           </Row>
           <Row ss:AutoFitHeight="0" ss:Height="15">
+            <Cell ss:StyleID="s66"/>
             <Cell ss:MergeAcross="3" ss:StyleID="s65">
-              <Data ss:Type="String">Счет-фактура №<xsl:value-of select="set[@name='Shipments']/Shipment/@SortOrder"/> от <xsl:value-of select="rti:FormatDate(set[@name='Shipments']/Shipment/@Date, 'dd.MM.yyyy')"/></Data>
+              <Data ss:Type="String">Счет-фактура №<xsl:value-of select="set[@name='Shipments']/Shipment/@SortOrder"/> от <xsl:value-of select="rti:FormatDate(set[@name='Shipments']/Shipment/@Date, 'dd.MM.yyyy')"/>
+              </Data>
             </Cell>
             <Cell ss:Index="10" ss:StyleID="s66"/>
             <Cell ss:StyleID="s66"/>
@@ -450,6 +466,7 @@
             </Cell>
           </Row>
           <Row ss:AutoFitHeight="0" ss:Height="12">
+            <Cell ss:StyleID="s66"/>
             <Cell ss:MergeAcross="3" ss:StyleID="s65">
               <Data ss:Type="String">Исправление №                 от</Data>
             </Cell>
@@ -462,10 +479,11 @@
             <Cell ss:MergeAcross="1" ss:StyleID="s71">
               <Data ss:Type="String">ПРОДАВЕЦ:</Data>
             </Cell>
-            <Cell ss:MergeAcross="9" ss:StyleID="s73">
-              <Data ss:Type="String"><xsl:value-of select="set[@name='Shipments']/Shipment/Request/Manufacturer/@Name"/></Data>
+            <Cell ss:MergeAcross="11" ss:StyleID="s73">
+              <Data ss:Type="String">
+                <xsl:value-of select="set[@name='Shipments']/Shipment/Request/Manufacturer/@Name"/>
+              </Data>
             </Cell>
-            <Cell ss:MergeAcross="1" ss:StyleID="s74"/>
             <Cell ss:StyleID="s67">
               <Data ss:Type="String">(2)</Data>
             </Cell>
@@ -474,11 +492,11 @@
             <Cell ss:MergeAcross="1" ss:StyleID="s77">
               <Data ss:Type="String">Адрес:</Data>
             </Cell>
-            <Cell ss:MergeAcross="9" ss:StyleID="s73">
-              <Data ss:Type="String"><xsl:value-of select="set[@name='Shipments']/Shipment/Request/Manufacturer/@Address"/></Data>
+            <Cell ss:MergeAcross="11" ss:StyleID="s73">
+              <Data ss:Type="String">
+                <xsl:value-of select="set[@name='Shipments']/Shipment/Request/Manufacturer/@Address"/>
+              </Data>
             </Cell>
-            <Cell ss:StyleID="s74"/>
-            <Cell ss:StyleID="s78"/>
             <Cell ss:StyleID="s67">
               <Data ss:Type="String">(2а)</Data>
             </Cell>
@@ -487,17 +505,14 @@
             <Cell ss:MergeAcross="1" ss:StyleID="s80">
               <ss:Data ss:Type="String"
       xmlns="http://www.w3.org/TR/REC-html40">
-                <I>
-                  ИНН/КПП <Font html:Size="8">продавца:</Font>
-                </I>
+                <I>ИНН/КПП <Font html:Size="8">продавца:</Font></I>
               </ss:Data>
             </Cell>
-            <Cell ss:MergeAcross="9" ss:StyleID="s73">
-              <Data ss:Type="String"><xsl:value-of select="set[@name='Shipments']/Shipment/Request/Manufacturer/@Inn"/>  /  <xsl:value-of select="set[@name='Shipments']/Shipment/Request/Manufacturer/@Kpp"/>
-            </Data>
+            <Cell ss:MergeAcross="11" ss:StyleID="s73">
+              <Data ss:Type="String">
+                <xsl:value-of select="set[@name='Shipments']/Shipment/Request/Manufacturer/@Inn"/>  /  <xsl:value-of select="set[@name='Shipments']/Shipment/Request/Manufacturer/@Kpp"/>
+              </Data>
             </Cell>
-            <Cell ss:StyleID="s74"/>
-            <Cell ss:StyleID="s78"/>
             <Cell ss:StyleID="s67">
               <Data ss:Type="String">(2б)</Data>
             </Cell>
@@ -507,20 +522,11 @@
               <Data ss:Type="String">ГРУЗООТПРАВИТЕЛЬ и его адрес</Data>
             </Cell>
             <Cell ss:StyleID="s82"/>
-            <Cell ss:StyleID="s85">
-              <Data ss:Type="String"><xsl:value-of select="set[@name='Shipments']/Shipment/Request/Manufacturer/@FullName"/></Data>
+            <Cell ss:StyleID="s85" ss:MergeAcross="11">
+              <Data ss:Type="String">
+                <xsl:value-of select="set[@name='Shipments']/Shipment/Request/Manufacturer/@FullName"/>
+              </Data>
             </Cell>
-            <Cell ss:StyleID="s83"/>
-            <Cell ss:StyleID="s83"/>
-            <Cell ss:StyleID="s83"/>
-            <Cell ss:StyleID="s83"/>
-            <Cell ss:StyleID="s83"/>
-            <Cell ss:StyleID="s83"/>
-            <Cell ss:StyleID="s83"/>
-            <Cell ss:StyleID="s83"/>
-            <Cell ss:StyleID="s83"/>
-            <Cell ss:StyleID="s74"/>
-            <Cell ss:StyleID="s78"/>
             <Cell ss:StyleID="s67">
               <Data ss:Type="String">(3)</Data>
             </Cell>
@@ -530,10 +536,11 @@
               <Data ss:Type="String">ГРУЗОПОЛУЧАТЕЛЬ и его адрес</Data>
             </Cell>
             <Cell ss:StyleID="s82"/>
-            <Cell ss:MergeAcross="9" ss:StyleID="s85">
-              <Data ss:Type="String"><xsl:value-of select="set[@name='Shipments']/Shipment/Recipient/@FullName"/></Data>
+            <Cell ss:MergeAcross="11" ss:StyleID="s85">
+              <Data ss:Type="String">
+                <xsl:value-of select="set[@name='Shipments']/Shipment/Recipient/@FullName"/>
+              </Data>
             </Cell>
-            <Cell ss:MergeAcross="1" ss:StyleID="s74"/>
             <Cell ss:StyleID="s67">
               <Data ss:Type="String">(4)</Data>
             </Cell>
@@ -542,10 +549,10 @@
             <Cell ss:MergeAcross="1" ss:StyleID="s77">
               <Data ss:Type="String">К платежно-расчетному документу</Data>
             </Cell>
-            <Cell ss:MergeAcross="9" ss:StyleID="s85">
-              <Data ss:Type="String">№<xsl:value-of select="set[@name='Shipments']/Shipment/Payment/@PaymentDocNumber"/> от <xsl:value-of select="rti:FormatDate(set[@name='Shipments']/Shipment/Payment/@PaymentDate, 'dd.MM.yyyy')"/></Data>
+            <Cell ss:MergeAcross="11" ss:StyleID="s85">
+              <Data ss:Type="String">№<xsl:value-of select="set[@name='Shipments']/Shipment/Payment/@PaymentDocNumber"/> от <xsl:value-of select="rti:FormatDate(set[@name='Shipments']/Shipment/Payment/@PaymentDate, 'dd.MM.yyyy')"/>
+              </Data>
             </Cell>
-            <Cell ss:MergeAcross="1" ss:StyleID="s74"/>
             <Cell ss:StyleID="s67">
               <Data ss:Type="String">(5)</Data>
             </Cell>
@@ -554,11 +561,11 @@
             <Cell ss:MergeAcross="1" ss:StyleID="s71">
               <Data ss:Type="String">ПОКУПАТЕЛЬ</Data>
             </Cell>
-            <Cell ss:MergeAcross="9" ss:StyleID="s87">
-              <Data ss:Type="String"><xsl:value-of select="set[@name='Shipments']/Shipment/Payer/@Name"/></Data>
+            <Cell ss:MergeAcross="11" ss:StyleID="s87">
+              <Data ss:Type="String">
+                <xsl:value-of select="set[@name='Shipments']/Shipment/Payer/@Name"/>
+              </Data>
             </Cell>
-            <Cell ss:StyleID="s88"/>
-            <Cell ss:StyleID="s74"/>
             <Cell ss:StyleID="s67">
               <Data ss:Type="String">(6)</Data>
             </Cell>
@@ -567,13 +574,11 @@
             <Cell ss:MergeAcross="1" ss:StyleID="s77">
               <Data ss:Type="String">Адрес:</Data>
             </Cell>
-            <Cell ss:MergeAcross="9" ss:StyleID="s90">
+            <Cell ss:MergeAcross="11" ss:StyleID="s87">
               <Data ss:Type="String">
                 <xsl:value-of select="set[@name='Shipments']/Shipment/Payer/@Address"/>
               </Data>
             </Cell>
-            <Cell ss:StyleID="s88"/>
-            <Cell ss:StyleID="s74"/>
             <Cell ss:StyleID="s67">
               <Data ss:Type="String">(6а)</Data>
             </Cell>
@@ -583,11 +588,11 @@
               <Data ss:Type="String">ИНН/КПП покупателя</Data>
             </Cell>
             <Cell ss:StyleID="s91"/>
-            <Cell ss:MergeAcross="9" ss:StyleID="s90">
-              <Data ss:Type="String"><xsl:value-of select="set[@name='Shipments']/Shipment/Payer/@Inn"/> / <xsl:value-of select="set[@name='Shipments']/Shipment/Payer/@Kpp"/></Data>
+            <Cell ss:MergeAcross="11" ss:StyleID="s87">
+              <Data ss:Type="String">
+                <xsl:value-of select="set[@name='Shipments']/Shipment/Payer/@Inn"/> / <xsl:value-of select="set[@name='Shipments']/Shipment/Payer/@Kpp"/>
+              </Data>
             </Cell>
-            <Cell ss:StyleID="s92"/>
-            <Cell ss:StyleID="s74"/>
             <Cell ss:StyleID="s67">
               <Data ss:Type="String">(6б)</Data>
             </Cell>
@@ -596,11 +601,9 @@
             <Cell ss:MergeAcross="1" ss:StyleID="s80">
               <Data ss:Type="String">Валюта: наименование, код</Data>
             </Cell>
-            <Cell ss:MergeAcross="9" ss:StyleID="s73">
+            <Cell ss:MergeAcross="11" ss:StyleID="s73">
               <Data ss:Type="String">Российский рубль,643</Data>
             </Cell>
-            <Cell ss:StyleID="s88"/>
-            <Cell ss:StyleID="s74"/>
             <Cell ss:StyleID="s67">
               <Data ss:Type="String">(7)</Data>
             </Cell>
@@ -609,7 +612,7 @@
             <Cell ss:MergeAcross="1" ss:StyleID="s801">
               <Data ss:Type="String">Идентификатор государственного контракта, договора, соглашения</Data>
             </Cell>
-            <Cell ss:StyleID="s73"/>
+            <Cell ss:StyleID="s88"/>
             <Cell ss:StyleID="s88"/>
             <Cell ss:StyleID="s74"/>
             <Cell ss:Index="15" ss:StyleID="s67">
@@ -651,25 +654,25 @@
             <Cell ss:StyleID="s88"/>
           </Row>
           <Row ss:AutoFitHeight="0" ss:Height="15" ss:StyleID="s93">
-            <Cell ss:MergeAcross="2" ss:MergeDown="1" ss:StyleID="m134286460">
-              <Data
-      ss:Type="String">Наименование товара (описание выполненных работ, оказанных услуг) , имущественного права</Data>
+            <Cell ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="m134286460">
+              <Data ss:Type="String">Наименование товара (описание выполненных работ, оказанных услуг) , имущественного права</Data>
+            </Cell>
+            <Cell ss:MergeDown="1" ss:StyleID="m134286460">
+              <Data ss:Type="String">Код вида това- ра</Data>
             </Cell>
             <Cell ss:StyleID="s101">
               <Data ss:Type="String">Единица измерения</Data>
             </Cell>
             <Cell ss:StyleID="s101"/>
             <Cell ss:MergeDown="1" ss:StyleID="m134286480">
-              <ss:Data ss:Type="String"
-      xmlns="http://www.w3.org/TR/REC-html40">
+              <ss:Data ss:Type="String" xmlns="http://www.w3.org/TR/REC-html40">
                 <B>
                   Количе-ство  <Font html:Size="7"> (объем)</Font>
                 </B>
               </ss:Data>
             </Cell>
             <Cell ss:MergeDown="1" ss:StyleID="m134286500">
-              <ss:Data ss:Type="String"
-      xmlns="http://www.w3.org/TR/REC-html40">
+              <ss:Data ss:Type="String" xmlns="http://www.w3.org/TR/REC-html40">
                 <B>
                   Цена<Font html:Size="7">  (тариф) за единицу измерения</Font>
                 </B>
@@ -724,8 +727,11 @@
             </Cell>
           </Row>
           <Row ss:AutoFitHeight="0" ss:Height="9.75" ss:StyleID="s114">
-            <Cell ss:MergeAcross="2" ss:StyleID="s116">
+            <Cell ss:MergeAcross="1" ss:StyleID="s116">
               <Data ss:Type="Number">1</Data>
+            </Cell>
+            <Cell ss:StyleID="s118">
+              <Data ss:Type="String">1а</Data>
             </Cell>
             <Cell ss:StyleID="s118">
               <Data ss:Type="Number">2</Data>
@@ -806,7 +812,7 @@
             <Cell ss:StyleID="s88"/>
           </Row>
           <Row ss:AutoFitHeight="0" ss:Height="26.25">
-            <Cell ss:MergeAcross="2" ss:StyleID="s137">
+            <Cell ss:MergeAcross="1" ss:StyleID="s137">
               <Data ss:Type="String">Руководитель организации                  или иное уполномоченное лицо</Data>
             </Cell>
             <Cell ss:StyleID="s138"/>
@@ -814,7 +820,7 @@
             <Cell ss:MergeAcross="2" ss:StyleID="s137">
               <Data ss:Type="String">Холодников Ю.В.</Data>
             </Cell>
-            <Cell ss:MergeAcross="3" ss:StyleID="s137">
+            <Cell ss:MergeAcross="2" ss:StyleID="s137">
               <Data ss:Type="String">Главный бухгалтер                        или иное уполномоченное лицо</Data>
             </Cell>
             <Cell ss:StyleID="s138"/>
@@ -824,12 +830,12 @@
             </Cell>
           </Row>
           <Row ss:AutoFitHeight="0" ss:Height="18.75">
-            <Cell ss:MergeAcross="2" ss:StyleID="s87">
+            <Cell ss:MergeAcross="1" ss:StyleID="s87">
               <Data ss:Type="String">Индивидуальный предприниматель</Data>
             </Cell>
-            <Cell ss:Index="6" ss:StyleID="s141"/>
+            <Cell ss:Index="5" ss:StyleID="s141"/>
             <Cell ss:StyleID="s141"/>
-            <Cell ss:Index="9" ss:StyleID="s141"/>
+            <Cell ss:Index="8" ss:StyleID="s141"/>
             <Cell ss:StyleID="s141"/>
             <Cell ss:StyleID="s141"/>
             <Cell ss:StyleID="s141"/>
@@ -838,10 +844,10 @@
             <Cell ss:StyleID="s141"/>
           </Row>
           <Row ss:AutoFitHeight="0" ss:Height="8.25">
-            <Cell ss:Index="6" ss:MergeAcross="1" ss:StyleID="s143">
+            <Cell ss:Index="5" ss:MergeAcross="1" ss:StyleID="s143">
               <Data ss:Type="String">ф.и.о.</Data>
             </Cell>
-            <Cell ss:Index="9" ss:MergeAcross="6" ss:StyleID="s143">
+            <Cell ss:Index="8" ss:MergeAcross="6" ss:StyleID="s143">
               <Data ss:Type="String">(реквизиты свидетельства о государственной  регистрации индивидуального предпринимателя)</Data>
             </Cell>
           </Row>
@@ -862,29 +868,29 @@
           </Row>
         </Table>
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
-          <PageSetup>
+           <PageSetup>
             <Layout x:Orientation="Landscape"/>
             <Header x:Margin="0.3"/>
             <Footer x:Margin="0.31496062992125984" x:Data="Страница  &amp;P из &amp;N"/>
             <PageMargins x:Bottom="0.75" x:Left="0.25" x:Right="0.25" x:Top="0.75"/>
-          </PageSetup>
-          <Print>
+           </PageSetup>
+           <Print>
             <ValidPrinterInfo/>
             <PaperSizeIndex>9</PaperSizeIndex>
+            <Scale>99</Scale>
             <HorizontalResolution>600</HorizontalResolution>
             <VerticalResolution>600</VerticalResolution>
-          </Print>
-          <PageBreakZoom>60</PageBreakZoom>
-          <Selected/>
-          <Panes>
+           </Print>
+           <Selected/>
+           <Panes>
             <Pane>
-              <Number>3</Number>
-              <ActiveRow>27</ActiveRow>
-              <ActiveCol>4</ActiveCol>
+             <Number>3</Number>
+             <ActiveRow>13</ActiveRow>
+             <ActiveCol>2</ActiveCol>
             </Pane>
-          </Panes>
-          <ProtectObjects>False</ProtectObjects>
-          <ProtectScenarios>False</ProtectScenarios>
+           </Panes>
+           <ProtectObjects>False</ProtectObjects>
+           <ProtectScenarios>False</ProtectScenarios>
         </WorksheetOptions>
       </Worksheet>
     </Workbook>
@@ -896,17 +902,26 @@
 
   <xsl:template name="ShipmentItemRow">
     <Row>
-      <Cell ss:MergeAcross="2" ss:StyleID="s120">
-        <Data ss:Type="String"><xsl:value-of select="@FullDetailName"/></Data>
+      <Cell ss:MergeAcross="1" ss:StyleID="s120">
+        <Data ss:Type="String">
+          <xsl:value-of select="@FullDetailName"/>
+        </Data>
+      </Cell>
+      <Cell ss:StyleID="s1241"/>
+      <Cell ss:StyleID="s1241">
+        <Data ss:Type="Number">
+          <xsl:value-of select="RequestDetail/Drawing/MeasureUnit/@Code"/>
+        </Data>
       </Cell>
       <Cell ss:StyleID="s1241">
-        <Data ss:Type="Number"><xsl:value-of select="RequestDetail/Drawing/MeasureUnit/@Code"/></Data>
-      </Cell>
-      <Cell ss:StyleID="s1241">
-        <Data ss:Type="String"><xsl:value-of select="RequestDetail/Drawing/MeasureUnit/@Name"/></Data>
+        <Data ss:Type="String">
+          <xsl:value-of select="RequestDetail/Drawing/MeasureUnit/@Name"/>
+        </Data>
       </Cell>
       <Cell ss:StyleID="s1251">
-        <Data ss:Type="Number"><xsl:value-of select="@Count"/></Data>
+        <Data ss:Type="Number">
+          <xsl:value-of select="@Count"/>
+        </Data>
       </Cell>
       <Cell ss:StyleID="s125">
         <Data ss:Type="Number">
