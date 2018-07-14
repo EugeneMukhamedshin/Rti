@@ -26,6 +26,7 @@ namespace Rti.Model.Repository.Interfaces
 		IEquipmentRepository GetEquipmentRepository();
 		IEquipmentPaymentRepository GetEquipmentPaymentRepository();
 		IGroupRepository GetGroupRepository();
+		IImageRepository GetImageRepository();
 		IJobRepository GetJobRepository();
 		IMachineRepository GetMachineRepository();
 		IMassCalculationRepository GetMassCalculationRepository();
@@ -69,6 +70,7 @@ namespace Rti.Model.Repository.Interfaces
 	public partial interface IEquipmentRepository : IRepository<Rti.Model.Domain.Equipment> { }
 	public partial interface IEquipmentPaymentRepository : IRepository<Rti.Model.Domain.EquipmentPayment> { }
 	public partial interface IGroupRepository : IRepository<Rti.Model.Domain.Group> { }
+	public partial interface IImageRepository : IRepository<Rti.Model.Domain.Image> { }
 	public partial interface IJobRepository : IRepository<Rti.Model.Domain.Job> { }
 	public partial interface IMachineRepository : IRepository<Rti.Model.Domain.Machine> { }
 	public partial interface IMassCalculationRepository : IRepository<Rti.Model.Domain.MassCalculation> { }

@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
-using System.Windows.Media.Animation;
 using Rti.Model;
 using Rti.Model.Domain;
 using Rti.Model.Repository.Interfaces;
@@ -197,9 +196,17 @@ namespace Rti.ViewModel.Lists
 
         protected override IEnumerable<DrawingViewModel> GetItems()
         {
-            var items = RepositoryFactory.GetDrawingRepository().GetPage(_page, _pageSize, _filter, new List<Expression<Func<Drawing, object>>> { });
+            var items = RepositoryFactory.GetDrawingRepository().GetPage(_page, _pageSize, _filter, new List<Expression<Func<Drawing, object>>> { }).Select(o => new DrawingViewModel(o, RepositoryFactory)).ToList();
+            var attachmentsCounts = RepositoryFactory.GetAttachmentRepository()
+                .GetCountByDrawingIds(items.Select(o => o.Id));
+            foreach (var attachmentsCount in attachmentsCounts)
+            {
+                var drawing = items.FirstOrDefault(o => o.Id == attachmentsCount.Key);
+                if (drawing != null)
+                    drawing.AttachmentsCount = attachmentsCount.Value;
+            }
             IsLastPage = !(items.Count > _pageSize);
-            return items.Take(_pageSize).Select(o => new DrawingViewModel(o, RepositoryFactory)).ToList(); ;
+            return items.Take(_pageSize).ToList(); ;
         }
 
         protected override DrawingViewModel DoCreateNewEntity()

@@ -46,7 +46,8 @@ SELECT
       DATEDIFF(r.ship_date, IFNULL(r.work_start_date, r.reg_date)) < r.lead_time THEN 3 END request_status,
   rd.details,
   rd.sum,
-  c.name customer_name
+  c.name customer_name,
+  r.is_later_payed
 FROM requests r
   INNER JOIN (SELECT
     DISTINCT
@@ -121,7 +122,8 @@ AND r.customer_id = IFNULL(:p_customer_id, r.customer_id)")
                         Status = (RequestStatus)Convert.ToInt32(objects[9]),
                         Details = (string)objects[10],
                         Sum = (decimal?)objects[11],
-                        CustomerName = (string)objects[12]
+                        CustomerName = (string)objects[12],
+                        IsLaterPayed = (int)objects[13] == 1
                     },
                     objects => objects.Cast<RequestsReportRow>().ToList())).List<RequestsReportRow>(), "");
         }

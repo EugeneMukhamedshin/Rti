@@ -16,6 +16,10 @@
                 <RowDefinition Height="32"/>
                 <RowDefinition Height="48"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="0">
                 <TextBlock Text="Дата начала" Margin="5" VerticalAlignment="Center"/>
@@ -23,7 +27,7 @@
                 <TextBlock Text="Дата окончания" Margin="5" VerticalAlignment="Center"/>
                 <xctk:DateTimePicker TabIndex="2" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding EndDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
                 <TextBlock Text="Заказчик" Margin="5" VerticalAlignment="Center"/>
-                <dxg:LookUpEdit Margin="5" ItemsSource="{Binding CustomersSource.Value}" SelectedItem="{Binding SelectedCustomer}" DisplayMember="Name" Width="200" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True" PopupWidth="500" PopupHeight="400">
+                <dxg:LookUpEdit Margin="5" ItemsSource="{Binding CustomersSource}" SelectedItem="{Binding SelectedCustomer}" DisplayMember="Name" Width="200" AutoPopulateColumns="False" AutoComplete="True" ImmediatePopup="True" IsSynchronizedWithCurrentItem="True" PopupWidth="500" PopupHeight="400">
                     <dxg:LookUpEdit.StyleSettings>
                         <dxg:SearchLookUpEditStyleSettings/>
                     </dxg:LookUpEdit.StyleSettings>
@@ -159,6 +163,7 @@
                             </lists:RequestStatusTemplateSelector>
                         </dxg:GridColumn.CellTemplateSelector>
                     </dxg:GridColumn>
+                    <dxg:GridColumn FieldName="IsLaterPayed" Header="Постоплата" Width="50"/>
                     <dxg:GridColumn FieldName="LastPaymentDate" Header="Дата оплаты" Width="100"/>
                     <dxg:GridColumn FieldName="LastShipmentDate" Header="Дата отгрузки факт" Width="100"/>
                 </dxg:GridControl.Columns>
@@ -169,6 +174,22 @@
                     <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AllowEditing="False" AllowColumnMoving="False" AllowSorting="False" AllowColumnFiltering="False" AllowPerPixelScrolling="True" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>
             </dxg:GridControl>
+            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="5">
+                <Label Content="Сумма по оплаченным заявкам, руб." Width="230"/>
+                <Label Content="{Binding PayedSum}"></Label>
+            </StackPanel>
+            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="5">
+                <Label Content="Сумма по отгруженным заявкам, руб." Width="230"/>
+                <Label Content="{Binding ShippedSum}"></Label>
+            </StackPanel>
+            <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="5">
+                <Label Content="Сумма по заявкам в производстве, руб." Width="230"/>
+                <Label Content="{Binding InWorkSum}"></Label>
+            </StackPanel>
+            <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="5">
+                <Label Content="Сумма по заявкам с постоплатой, руб." Width="230"/>
+                <Label Content="{Binding WithLaterPaymentSum}"></Label>
+            </StackPanel>
         </Grid>
         <Border Opacity="0.8" Visibility="{Binding IsLoading,Converter={StaticResource BooleanToVisibilityConverter}}" Background="AliceBlue">
             <StackPanel VerticalAlignment="Center">

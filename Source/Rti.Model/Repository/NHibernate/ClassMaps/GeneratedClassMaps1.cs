@@ -164,7 +164,9 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.Bank, "bank");
 			Map(o => o.Email, "email");
 			Map(o => o.Note, "note");
+			Map(o => o.IsLaterPayer, "is_later_payer");
 			Map(o => o.IsDeleted, "is_deleted");
+			References(o => o.Receiver, "receiver_id").Fetch.Join().Not.LazyLoad();
 			OnInitialized();
 		}
 	}
@@ -232,6 +234,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			References(o => o.FactCalculation, "fact_calculation_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Equipment, "equipment_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Method, "method_id").Fetch.Join().Not.LazyLoad();
+			References(o => o.DrawingImage, "drawing_image_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Customer, "customer_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.SecondaryCustomer, "secondary_customer_id").Fetch.Join().Not.LazyLoad();
 			OnInitialized();
@@ -416,6 +419,22 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.Name, "name");
 			Map(o => o.Note, "note");
 			Map(o => o.IsDeleted, "is_deleted");
+			OnInitialized();
+		}
+	}
+
+	// The classmap for images
+	public partial class ImageMap : BaseMap<Rti.Model.Domain.Image>
+	{
+		public ImageMap()
+		{
+			Initialize();
+		}
+
+		private void Initialize()
+		{
+			Table("images");
+			Id(o => o.Id, "id");
 			OnInitialized();
 		}
 	}
@@ -692,6 +711,7 @@ namespace Rti.Model.Repository.NHibernate.ClassMaps
 			Map(o => o.SpecificationDate, "specification_date");
 			Map(o => o.EquipmentInvoiceNumber, "equipment_invoice_number");
 			Map(o => o.EquipmentInvoiceDate, "equipment_invoice_date");
+			Map(o => o.IsLaterPayed, "is_later_payed");
 			References(o => o.Contract, "contract_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Customer, "customer_id").Fetch.Join().Not.LazyLoad();
 			References(o => o.Manufacturer, "manufacturer_id").Fetch.Join().Not.LazyLoad();

@@ -3,6 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:components="clr-namespace:Rti.App.View.Components"
         xmlns:dxprg="http://schemas.devexpress.com/winfx/2008/xaml/propertygrid"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
         Width="600" Height="635" MinWidth="600" MinHeight="635" Title="{Binding Name}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
@@ -30,6 +32,33 @@
                 <dxprg:PropertyDefinition  Header="БИК"                         Path="Bik"  IsReadOnly="{Binding ReadOnly}"/>
                 <dxprg:PropertyDefinition  Header="Банк"                        Path="Bank"  IsReadOnly="{Binding ReadOnly}"/>
                 <dxprg:PropertyDefinition  Header="E-mail"                      Path="Email"  IsReadOnly="{Binding ReadOnly}"/>
+                <dxprg:PropertyDefinition  Header="Постоплата"                  Path="IsLaterPayer"  IsReadOnly="{Binding ReadOnly}" Visibility="{Binding IsCustomer,Converter={StaticResource BooleanToCollapsedConverter}}">
+                    <dxprg:PropertyDefinition.EditSettings>
+                        <dxe:CheckEditSettings/>
+                    </dxprg:PropertyDefinition.EditSettings>
+                </dxprg:PropertyDefinition>
+                <dxprg:PropertyDefinition Header="Грузополучатель" Path="Receiver" IsReadOnly="{Binding ReadOnly}" Visibility="{Binding IsCustomer,Converter={StaticResource BooleanToCollapsedConverter}}">
+                    <dxprg:PropertyDefinition.EditSettings>
+                        <dxg:LookUpEditSettings AllowDefaultButton="true" DisplayMember="Name" ItemsSource="{Binding CustomersSource}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                            <dxg:LookUpEditSettings.StyleSettings>
+                                <dxg:SearchLookUpEditStyleSettings/>
+                            </dxg:LookUpEditSettings.StyleSettings>
+                            <dxg:LookUpEditSettings.PopupContentTemplate>
+                                <ControlTemplate>
+                                    <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
+                                        <dxg:GridControl.Columns>
+                                            <!--<dxg:GridColumn FieldName="SortOrder" Header="№" Width="50"/>-->
+                                            <dxg:GridColumn FieldName="Name" Header="Наименование" Width="100"/>
+                                        </dxg:GridControl.Columns>
+                                        <dxg:GridControl.View>
+                                            <dxg:TableView EnableImmediatePosting="True" AutoWidth="True"/>
+                                        </dxg:GridControl.View>
+                                    </dxg:GridControl>
+                                </ControlTemplate>
+                            </dxg:LookUpEditSettings.PopupContentTemplate>
+                        </dxg:LookUpEditSettings>
+                    </dxprg:PropertyDefinition.EditSettings>
+                </dxprg:PropertyDefinition>
                 <dxprg:PropertyDefinition  Header="Примечание"                  Path="Note"  IsReadOnly="{Binding ReadOnly}"/>
             </components:PropertyGridResponsible.PropertyDefinitions>
         </components:PropertyGridResponsible>

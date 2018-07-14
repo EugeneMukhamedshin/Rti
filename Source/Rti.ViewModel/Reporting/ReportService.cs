@@ -64,12 +64,12 @@ namespace Rti.ViewModel.Reporting
             return GetReport(r => r.GetRequestsByMethodsReport(startDate, endDate), xsl);
         }
 
-        public byte[] GetDrawingShipmentsReport(DateTime startDate, DateTime endDate, DrawingViewModel drawing)
+        public byte[] GetDrawingShipmentsReport(DateTime startDate, DateTime endDate, DrawingViewModel drawing, ContragentViewModel customer)
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetDrawingShipmentsReport.xslt"));
             return
                 GetReport(
-                    r => r.GetDrawingShipmentsReport(startDate, endDate, drawing == null ? (int?)null : drawing.Id),
+                    r => r.GetDrawingShipmentsReport(startDate, endDate, drawing?.Id, customer?.Id),
                     xsl);
         }
 
@@ -111,6 +111,13 @@ namespace Rti.ViewModel.Reporting
         {
             var xsl = File.ReadAllText(Path.Combine(XslPath, "GetSalaryReport.xslt"));
             return GetReport(r => r.GetSalaryReport(startDate, endDate, employee?.Id, drawing?.Id),
+                xsl);
+        }
+
+        public byte[] GetShortSalaryReport(DateTime startDate, DateTime endDate, EmployeeViewModel employee)
+        {
+            var xsl = File.ReadAllText(Path.Combine(XslPath, "GetShortSalaryReport.xslt"));
+            return GetReport(r => r.GetShortSalaryReport(startDate, endDate, employee?.Id),
                 xsl);
         }
 

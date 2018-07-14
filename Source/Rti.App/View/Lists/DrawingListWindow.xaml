@@ -79,6 +79,7 @@
                     <dxg:GridColumn FieldName="FactCalculationPrice" Header="Цена по факт. калькуляции, руб." Width="60" EditSettings="{components:Float2TextEditSettings}"/>
                     <dxg:GridColumn FieldName="PlanCalculationPrice" Header="Цена по план. калькуляции, руб." Width="60" EditSettings="{components:Float2TextEditSettings}"/>
                     <dxg:GridColumn FieldName="AdditionalInfo" Header="Доп. инфо" Width="100"/>
+                    <dxg:GridColumn FieldName="AttachmentsExists" Header="Чертеж" Width="50"/>
                     <dxg:GridColumn FieldName="Note" Header="Примечание" Width="100"/>
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>

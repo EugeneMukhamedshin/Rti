@@ -1,0 +1,67 @@
+﻿<dx:DXWindow
+    x:Class="Rti.App.View.Reports.DrawingReportEditWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    Title="{Binding Name}" Height="195.315" Width="525"
+    >
+
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Начало периода" VerticalAlignment="Center" Margin="5" Width="120"/>
+            <xctk:DateTimePicker TabIndex="1" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding StartDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Конец периода" VerticalAlignment="Center" Margin="5" Width="120"/>
+            <xctk:DateTimePicker TabIndex="2" Margin="5"  VerticalAlignment="Center" ShowButtonSpinner="False" Width="100" Value="{Binding EndDate}" AutoCloseCalendar="True" AllowTextInput="True" AllowSpin="False" Format="ShortDate" TimePickerVisibility="Collapsed"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Чертеж" VerticalAlignment="Center" Margin="5" Width="120"/>
+            <dxg:LookUpEdit TabIndex="2" Margin="5" VerticalAlignment="Center" Width="200" AllowDefaultButton="true" DisplayMember="Name" ItemsSource="{Binding DrawingsSource.Value}" SelectedItem="{Binding Drawing}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                <dxg:LookUpEdit.StyleSettings>
+                    <dxg:SearchLookUpEditStyleSettings/>
+                </dxg:LookUpEdit.StyleSettings>
+                <dxg:LookUpEdit.PopupContentTemplate>
+                    <ControlTemplate>
+                        <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
+                            <dxg:GridControl.Columns>
+                                <dxg:GridColumn FieldName="SortOrder" Header="№"/>
+                                <dxg:GridColumn FieldName="FullName" Header="Наименование"/>
+                            </dxg:GridControl.Columns>
+                            <dxg:GridControl.View>
+                                <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AutoWidth="True"/>
+                            </dxg:GridControl.View>
+                        </dxg:GridControl>
+                    </ControlTemplate>
+                </dxg:LookUpEdit.PopupContentTemplate>
+            </dxg:LookUpEdit>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Заказчик" VerticalAlignment="Center" Margin="5" Width="120"/>
+            <dxg:LookUpEdit TabIndex="2" Margin="5" VerticalAlignment="Center" Width="200" AllowDefaultButton="true" DisplayMember="Name" ItemsSource="{Binding CustomersSource.Value}" SelectedItem="{Binding Customer}" AutoPopulateColumns="False" AutoComplete="True" PopupWidth="350">
+                <dxg:LookUpEdit.StyleSettings>
+                    <dxg:SearchLookUpEditStyleSettings/>
+                </dxg:LookUpEdit.StyleSettings>
+                <dxg:LookUpEdit.PopupContentTemplate>
+                    <ControlTemplate>
+                        <dxg:GridControl x:Name="PART_GridControl" AutoGenerateColumns="None">
+                            <dxg:GridControl.Columns>
+                                <dxg:GridColumn FieldName="SortOrder" Header="№"/>
+                                <dxg:GridColumn FieldName="Name" Header="Наименование"/>
+                            </dxg:GridControl.Columns>
+                            <dxg:GridControl.View>
+                                <dxg:TableView ShowSearchPanelMode="Always" SearchPanelNullText="Поиск..." EnableImmediatePosting="True" AutoWidth="True"/>
+                            </dxg:GridControl.View>
+                        </dxg:GridControl>
+                    </ControlTemplate>
+                </dxg:LookUpEdit.PopupContentTemplate>
+            </dxg:LookUpEdit>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button Margin="5" Content="Отчет" Command="{Binding GenerateCommand}" Width="100" TabIndex="100"/>
+            <Button Margin="5" Content="Закрыть" Command="{Binding CloseCommand}" Width="100" TabIndex="101"/>
+        </StackPanel>
+    </StackPanel>
+</dx:DXWindow>

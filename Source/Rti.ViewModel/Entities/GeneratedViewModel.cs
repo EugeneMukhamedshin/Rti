@@ -624,7 +624,9 @@ namespace Rti.ViewModel.Entities
 		private String _bank;
 		private String _email;
 		private String _note;
+		private Boolean _isLaterPayer;
 		private Boolean _isDeleted;
+		private ContragentViewModel _receiver;
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
 		public Int32 SortOrder { get { return _sortOrder; } set { if (Equals(_sortOrder, value)) return; _sortOrder = value; OnPropertyChanged("SortOrder"); } }
 		public String Name { get { return _name; } set { if (Equals(_name, value)) return; _name = value; OnPropertyChanged("Name"); } }
@@ -647,7 +649,9 @@ namespace Rti.ViewModel.Entities
 		public String Bank { get { return _bank; } set { if (Equals(_bank, value)) return; _bank = value; OnPropertyChanged("Bank"); } }
 		public String Email { get { return _email; } set { if (Equals(_email, value)) return; _email = value; OnPropertyChanged("Email"); } }
 		public String Note { get { return _note; } set { if (Equals(_note, value)) return; _note = value; OnPropertyChanged("Note"); } }
+		public Boolean IsLaterPayer { get { return _isLaterPayer; } set { if (Equals(_isLaterPayer, value)) return; _isLaterPayer = value; OnPropertyChanged("IsLaterPayer"); } }
 		public Boolean IsDeleted { get { return _isDeleted; } set { if (Equals(_isDeleted, value)) return; _isDeleted = value; OnPropertyChanged("IsDeleted"); } }
+		public ContragentViewModel Receiver { get { return _receiver; } set { _receiver = value; OnPropertyChanged("Receiver"); } }
 		protected override void MapPropertiesToEntity()
 		{
 			Entity.SortOrder = SortOrder; 
@@ -671,7 +675,9 @@ namespace Rti.ViewModel.Entities
 			Entity.Bank = Bank; 
 			Entity.Email = Email; 
 			Entity.Note = Note; 
+			Entity.IsLaterPayer = IsLaterPayer; 
 			Entity.IsDeleted = IsDeleted; 
+			Entity.Receiver = Receiver == null ? null : Receiver.Entity; 
 		}
 
 		protected override void MapPropertiesFromEntity()
@@ -699,7 +705,9 @@ namespace Rti.ViewModel.Entities
 			Bank = Entity.Bank; 
 			Email = Entity.Email; 
 			Note = Entity.Note; 
+			IsLaterPayer = Entity.IsLaterPayer; 
 			IsDeleted = Entity.IsDeleted; 
+			Receiver = Entity.Receiver == null ? null : new ContragentViewModel(Entity.Receiver, RepositoryFactory); 
 			IsMapping = false;
 		}
 
@@ -727,7 +735,9 @@ namespace Rti.ViewModel.Entities
 			Bank = source.Bank;
 			Email = source.Email;
 			Note = source.Note;
+			IsLaterPayer = source.IsLaterPayer;
 			IsDeleted = source.IsDeleted;
+			Receiver = source.Receiver;
 			CustomCopyFrom(source);
 			IsMapping = false;
 		}
@@ -783,7 +793,10 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("Email", Email));
 			if (Note != null)
 				element.Add(new XAttribute("Note", Note));
+			element.Add(new XAttribute("IsLaterPayer", IsLaterPayer));
 			element.Add(new XAttribute("IsDeleted", IsDeleted));
+			if (Receiver != null)
+				element.Add(Receiver.GetXElement("Receiver"));
 			CustomFillXElement(element);
 			return element;
 		}
@@ -919,6 +932,7 @@ namespace Rti.ViewModel.Entities
 		private CalculationViewModel _factCalculation;
 		private EquipmentViewModel _equipment;
 		private MethodViewModel _method;
+		private ImageViewModel _drawingImage;
 		private ContragentViewModel _customer;
 		private ContragentViewModel _secondaryCustomer;
 		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
@@ -953,6 +967,7 @@ namespace Rti.ViewModel.Entities
 		public CalculationViewModel FactCalculation { get { return _factCalculation; } set { _factCalculation = value; OnPropertyChanged("FactCalculation"); } }
 		public EquipmentViewModel Equipment { get { return _equipment; } set { _equipment = value; OnPropertyChanged("Equipment"); } }
 		public MethodViewModel Method { get { return _method; } set { _method = value; OnPropertyChanged("Method"); } }
+		public ImageViewModel DrawingImage { get { return _drawingImage; } set { _drawingImage = value; OnPropertyChanged("DrawingImage"); } }
 		public ContragentViewModel Customer { get { return _customer; } set { _customer = value; OnPropertyChanged("Customer"); } }
 		public ContragentViewModel SecondaryCustomer { get { return _secondaryCustomer; } set { _secondaryCustomer = value; OnPropertyChanged("SecondaryCustomer"); } }
 		protected override void MapPropertiesToEntity()
@@ -988,6 +1003,7 @@ namespace Rti.ViewModel.Entities
 			Entity.FactCalculation = FactCalculation == null ? null : FactCalculation.Entity; 
 			Entity.Equipment = Equipment == null ? null : Equipment.Entity; 
 			Entity.Method = Method == null ? null : Method.Entity; 
+			Entity.DrawingImage = DrawingImage == null ? null : DrawingImage.Entity; 
 			Entity.Customer = Customer == null ? null : Customer.Entity; 
 			Entity.SecondaryCustomer = SecondaryCustomer == null ? null : SecondaryCustomer.Entity; 
 		}
@@ -1027,6 +1043,7 @@ namespace Rti.ViewModel.Entities
 			FactCalculation = Entity.FactCalculation == null ? null : new CalculationViewModel(Entity.FactCalculation, RepositoryFactory); 
 			Equipment = Entity.Equipment == null ? null : new EquipmentViewModel(Entity.Equipment, RepositoryFactory); 
 			Method = Entity.Method == null ? null : new MethodViewModel(Entity.Method, RepositoryFactory); 
+			DrawingImage = Entity.DrawingImage == null ? null : new ImageViewModel(Entity.DrawingImage, RepositoryFactory); 
 			Customer = Entity.Customer == null ? null : new ContragentViewModel(Entity.Customer, RepositoryFactory); 
 			SecondaryCustomer = Entity.SecondaryCustomer == null ? null : new ContragentViewModel(Entity.SecondaryCustomer, RepositoryFactory); 
 			IsMapping = false;
@@ -1066,6 +1083,7 @@ namespace Rti.ViewModel.Entities
 			FactCalculation = source.FactCalculation;
 			Equipment = source.Equipment;
 			Method = source.Method;
+			DrawingImage = source.DrawingImage;
 			Customer = source.Customer;
 			SecondaryCustomer = source.SecondaryCustomer;
 			CustomCopyFrom(source);
@@ -1143,6 +1161,8 @@ namespace Rti.ViewModel.Entities
 				element.Add(Equipment.GetXElement("Equipment"));
 			if (Method != null)
 				element.Add(Method.GetXElement("Method"));
+			if (DrawingImage != null)
+				element.Add(DrawingImage.GetXElement("DrawingImage"));
 			if (Customer != null)
 				element.Add(Customer.GetXElement("Customer"));
 			if (SecondaryCustomer != null)
@@ -1949,6 +1969,67 @@ namespace Rti.ViewModel.Entities
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((GroupViewModel) obj);
+        }
+	}
+
+	// The viewmodel for Image
+	public partial class ImageViewModel : EntityViewModel<Rti.Model.Domain.Image, ImageViewModel>
+	{
+		// Конструктор для маппинга
+		public ImageViewModel() { }
+
+        public ImageViewModel(Rti.Model.Domain.Image entity, IRepositoryFactory repositoryFactory) : base(entity, repositoryFactory) { }
+
+		private Int32 _id;
+		private Byte[] _data;
+		public Int32 Id { get { return _id; } set { if (Equals(_id, value)) return; _id = value; OnPropertyChanged("Id"); } }
+		public Byte[] Data { get { return _data; } set { if (Equals(_data, value)) return; _data = value; OnPropertyChanged("Data"); } }
+		protected override void MapPropertiesToEntity()
+		{
+			Entity.Data = Data; 
+		}
+
+		protected override void MapPropertiesFromEntity()
+		{
+			IsMapping = true;
+			Id = Entity.Id; 
+			Data = Entity.Data; 
+			IsMapping = false;
+		}
+
+		public override void CopyFrom(ImageViewModel source)
+		{
+			IsMapping = true;
+			Data = source.Data;
+			CustomCopyFrom(source);
+			IsMapping = false;
+		}
+
+		public override ImageViewModel Clone()
+		{
+			var copy = new ImageViewModel(null, RepositoryFactory);
+			copy.CopyFrom(this);
+			return copy;
+		}
+
+		public XElement GetXElement(string name)
+		{
+			var element = new XElement(name);
+			element.Add(new XAttribute("Id", Id));
+			if (Data != null)
+				element.Add(new XAttribute("Data", Data));
+			CustomFillXElement(element);
+			return element;
+		}
+
+        public override int GetHashCode() { return _id; }
+        protected bool Equals(ImageViewModel other) { return IsNewEntity ? ReferenceEquals(this, other) : _id == other._id; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((ImageViewModel) obj);
         }
 	}
 
@@ -3093,6 +3174,7 @@ namespace Rti.ViewModel.Entities
 		private DateTime? _specificationDate;
 		private Int32? _equipmentInvoiceNumber;
 		private DateTime? _equipmentInvoiceDate;
+		private Boolean _isLaterPayed;
 		private ContractViewModel _contract;
 		private ContragentViewModel _customer;
 		private ContragentViewModel _manufacturer;
@@ -3111,6 +3193,7 @@ namespace Rti.ViewModel.Entities
 		public DateTime? SpecificationDate { get { return _specificationDate; } set { if (Equals(_specificationDate, value)) return; _specificationDate = value; OnPropertyChanged("SpecificationDate"); } }
 		public Int32? EquipmentInvoiceNumber { get { return _equipmentInvoiceNumber; } set { if (Equals(_equipmentInvoiceNumber, value)) return; _equipmentInvoiceNumber = value; OnPropertyChanged("EquipmentInvoiceNumber"); } }
 		public DateTime? EquipmentInvoiceDate { get { return _equipmentInvoiceDate; } set { if (Equals(_equipmentInvoiceDate, value)) return; _equipmentInvoiceDate = value; OnPropertyChanged("EquipmentInvoiceDate"); } }
+		public Boolean IsLaterPayed { get { return _isLaterPayed; } set { if (Equals(_isLaterPayed, value)) return; _isLaterPayed = value; OnPropertyChanged("IsLaterPayed"); } }
 		public ContractViewModel Contract { get { return _contract; } set { _contract = value; OnPropertyChanged("Contract"); } }
 		public ContragentViewModel Customer { get { return _customer; } set { _customer = value; OnPropertyChanged("Customer"); } }
 		public ContragentViewModel Manufacturer { get { return _manufacturer; } set { _manufacturer = value; OnPropertyChanged("Manufacturer"); } }
@@ -3130,6 +3213,7 @@ namespace Rti.ViewModel.Entities
 			Entity.SpecificationDate = SpecificationDate; 
 			Entity.EquipmentInvoiceNumber = EquipmentInvoiceNumber; 
 			Entity.EquipmentInvoiceDate = EquipmentInvoiceDate; 
+			Entity.IsLaterPayed = IsLaterPayed; 
 			Entity.Contract = Contract == null ? null : Contract.Entity; 
 			Entity.Customer = Customer == null ? null : Customer.Entity; 
 			Entity.Manufacturer = Manufacturer == null ? null : Manufacturer.Entity; 
@@ -3153,6 +3237,7 @@ namespace Rti.ViewModel.Entities
 			SpecificationDate = Entity.SpecificationDate; 
 			EquipmentInvoiceNumber = Entity.EquipmentInvoiceNumber; 
 			EquipmentInvoiceDate = Entity.EquipmentInvoiceDate; 
+			IsLaterPayed = Entity.IsLaterPayed; 
 			Contract = Entity.Contract == null ? null : new ContractViewModel(Entity.Contract, RepositoryFactory); 
 			Customer = Entity.Customer == null ? null : new ContragentViewModel(Entity.Customer, RepositoryFactory); 
 			Manufacturer = Entity.Manufacturer == null ? null : new ContragentViewModel(Entity.Manufacturer, RepositoryFactory); 
@@ -3176,6 +3261,7 @@ namespace Rti.ViewModel.Entities
 			SpecificationDate = source.SpecificationDate;
 			EquipmentInvoiceNumber = source.EquipmentInvoiceNumber;
 			EquipmentInvoiceDate = source.EquipmentInvoiceDate;
+			IsLaterPayed = source.IsLaterPayed;
 			Contract = source.Contract;
 			Customer = source.Customer;
 			Manufacturer = source.Manufacturer;
@@ -3218,6 +3304,7 @@ namespace Rti.ViewModel.Entities
 				element.Add(new XAttribute("EquipmentInvoiceNumber", EquipmentInvoiceNumber));
 			if (EquipmentInvoiceDate != null)
 				element.Add(new XAttribute("EquipmentInvoiceDate", EquipmentInvoiceDate));
+			element.Add(new XAttribute("IsLaterPayed", IsLaterPayed));
 			if (Contract != null)
 				element.Add(Contract.GetXElement("Contract"));
 			if (Customer != null)

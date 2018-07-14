@@ -188,8 +188,12 @@ namespace Rti.Model.Domain
 		public virtual String Email { get; set; }
 		[Field("note")]
 		public virtual String Note { get; set; }
+		[Field("is_later_payer")]
+		public virtual Boolean IsLaterPayer { get; set; }
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+		[Reference("receiver_id", false)]
+		public virtual Contragent Receiver { get; set; }
 	}
 
 	// The class for details
@@ -276,6 +280,8 @@ namespace Rti.Model.Domain
 		public virtual Equipment Equipment { get; set; }
 		[Reference("method_id", false)]
 		public virtual Method Method { get; set; }
+		[Reference("drawing_image_id", false)]
+		public virtual Image DrawingImage { get; set; }
 		[Reference("customer_id", false)]
 		public virtual Contragent Customer { get; set; }
 		[Reference("secondary_customer_id", false)]
@@ -452,6 +458,16 @@ namespace Rti.Model.Domain
 		public virtual String Note { get; set; }
 		[Field("is_deleted")]
 		public virtual Boolean IsDeleted { get; set; }
+	}
+
+	// The class for images
+	[Table("images")]
+	public partial class Image: IIdentifiedEntity
+	{
+		[Field("id")]
+		public virtual Int32 Id { get; protected set; }
+		[Field("data")]
+		public virtual byte[] Data { get; set; }
 	}
 
 	// The class for jobs
@@ -740,6 +756,8 @@ namespace Rti.Model.Domain
 		public virtual Int32? EquipmentInvoiceNumber { get; set; }
 		[Field("equipment_invoice_date")]
 		public virtual DateTime? EquipmentInvoiceDate { get; set; }
+		[Field("is_later_payed")]
+		public virtual Boolean IsLaterPayed { get; set; }
 		[Reference("contract_id", false)]
 		public virtual Contract Contract { get; set; }
 		[Reference("customer_id", false)]

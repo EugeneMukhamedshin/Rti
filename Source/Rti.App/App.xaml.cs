@@ -48,8 +48,7 @@ namespace Rti.App
                     mainViewModel.Job = new JobViewModel(loginViewModel.Job, repositoryFactory);
                 }
                 else
-                {
-                    var drawing = repositoryFactory.GetDrawingRepository().GetById(533);
+                {var drawing = repositoryFactory.GetDrawingRepository().GetById(533);
                     //Drawing drawing = null;
                     var viewModel = new DrawingEdit("", new DrawingViewModel(drawing, repositoryFactory), false, _viewService, repositoryFactory);
                     viewModel.Refresh();

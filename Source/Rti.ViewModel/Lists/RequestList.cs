@@ -20,7 +20,15 @@ namespace Rti.ViewModel.Lists
         private DateTime _startDate;
         private DateTime _endDate;
 
-        public Lazy<List<ContragentViewModel>> CustomersSource { get; set; }
+        public List<ContragentViewModel> CustomersSource
+        {
+            get { return _customersSource; }
+            set
+            {
+                _customersSource = value; 
+                OnPropertyChanged();
+            }
+        }
 
         public List<DrawingViewModel> DrawingsSource
         {
@@ -60,7 +68,31 @@ namespace Rti.ViewModel.Lists
                 if (Equals(value, _items)) return;
                 _items = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(PayedSum));
+                OnPropertyChanged(nameof(ShippedSum));
+                OnPropertyChanged(nameof(InWorkSum));
+                OnPropertyChanged(nameof(WithLaterPaymentSum));
             }
+        }
+
+        public decimal? PayedSum
+        {
+            get { return _items.Where(o => o.LastPaymentDate != null).Sum(o => o.Sum); }
+        }
+
+        public decimal? ShippedSum
+        {
+            get { return _items.Where(o => o.LastShipmentDate != null).Sum(o => o.Sum); }
+        }
+
+        public decimal? InWorkSum
+        {
+            get { return _items.Where(o => o.IsWorkStarted).Sum(o => o.Sum); }
+        }
+
+        public decimal? WithLaterPaymentSum
+        {
+            get { return _items.Where(o => o.IsLaterPayed).Sum(o => o.Sum); }
         }
 
         private List<RequestsReportRow> _requests = new List<RequestsReportRow>();
@@ -69,6 +101,7 @@ namespace Rti.ViewModel.Lists
         private ContragentViewModel _selectedCustomer;
         private DrawingViewModel _selectedDrawing;
         private List<DrawingViewModel> _drawingsSource;
+        private List<ContragentViewModel> _customersSource;
 
         public RequestsReportRow SelectedItem
         {
@@ -108,6 +141,7 @@ namespace Rti.ViewModel.Lists
             var view = new RequestEdit(string.Format("Заявка №{0} от {1:dd.MM.yyyy}г.", request.Number, request.RegDate), new RequestViewModel(request, RepositoryFactory), request.WorkStartDate != null, _viewService, RepositoryFactory);
             view.Refresh();
             _viewService.ShowViewDialog(view);
+            Refresh();
         }
 
         private void DeleteRequest()
@@ -160,15 +194,12 @@ namespace Rti.ViewModel.Lists
                 _requests = new List<RequestsReportRow>(res);
                 SetItems();
             });
-            CustomersSource =
-                new Lazy<List<ContragentViewModel>>(
-                    () =>
-                        new List<ContragentViewModel> { null }
+            CustomersSource =  new List<ContragentViewModel> { null }
                             .Union(
                                 RepositoryFactory.GetContragentRepository()
                                     .GetAllActive(ContragentType.Customer)
                                     .Select(o => new ContragentViewModel(o, RepositoryFactory)))
-                            .ToList());
+                            .ToList();
             DoAsync(
                 () => RepositoryFactory.GetDrawingRepository()
                     .GetAllActive()

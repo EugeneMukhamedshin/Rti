@@ -152,7 +152,7 @@ namespace Rti.ViewModel.EditViewModel
                 });
                 ShipmentItemList.Items.Clear();
                 ShipmentItemList.RefreshRequestDetails(Entity.Request, Entity.Date);
-                Entity.Recipient = Entity.Request.Customer;
+                Entity.Recipient = Entity.Request.Customer.Receiver ?? Entity.Request.Customer;
                 Entity.Payer = Entity.Request.Customer;
             }
             if (e.PropertyName == "Date")
@@ -162,8 +162,7 @@ namespace Rti.ViewModel.EditViewModel
             if (e.PropertyName.In("IsReplace", "IsAddition"))
             {
                 foreach (var item in ShipmentItemList.Items)
-                {
-                    item.ZeroPrice = Entity.IsReplace || Entity.IsAddition;
+                {item.ZeroPrice = Entity.IsReplace || Entity.IsAddition;
                 }
             }
         }

@@ -146,8 +146,7 @@ namespace Rti.Model.Repository.NHibernate
                 using (var session = new NHibernateContext().SessionFactory.OpenSession())
                 {
                     return deleg(session);
-                }
-            }
+                }}
             catch (Exception ex)
             {
                 _log.ErrorExt($"{description}: Ошибка при выполнении запроса", ex);

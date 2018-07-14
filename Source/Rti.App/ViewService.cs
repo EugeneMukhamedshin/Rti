@@ -116,6 +116,7 @@ namespace Rti.App
             AddToRegistry<WorkItemDirectExpencesReportViewModel, ByPeriodReportEditWindow>();
             AddToRegistry<ShipmentDirectExpencesReportViewModel, ByPeriodReportEditWindow>();
             AddToRegistry<SalaryReportViewModel, SalaryReportEditWindow>();
+            AddToRegistry<ShortSalaryReportViewModel, ShortSalaryReportEditWindow>();
             AddToRegistry<MakedDetailsReportViewModel, DrawingReportEditWindow>();
             AddToRegistry<MaterialMovingsReportViewModel, MaterialMovingsReportWindow>();
         }

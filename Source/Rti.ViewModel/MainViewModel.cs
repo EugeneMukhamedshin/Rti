@@ -105,6 +105,7 @@ namespace Rti.ViewModel
         public DelegateCommand OpenWorkItemDirectExpencesReportCommand { get; set; }
         public DelegateCommand OpenShipmentDirectExpencesReportCommand { get; set; }
         public DelegateCommand OpenSalaryReportCommand { get; set; }
+        public DelegateCommand OpenShortSalaryReportCommand { get; set; }
         public DelegateCommand OpenMaterialMovingsReportCommand { get; set; }
 
         #endregion
@@ -159,6 +160,7 @@ namespace Rti.ViewModel
             OpenWorkItemDirectExpencesReportCommand = new DelegateCommand(o => HasReportsAccess, o => OpenView(new WorkItemDirectExpencesReportViewModel("Учет прямых затрат на наряд", ViewService, RepositoryFactory, xsltPath, "Учет прямых затрат на наряд.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }, DropDownType.Report));
             OpenShipmentDirectExpencesReportCommand = new DelegateCommand(o => HasReportsAccess, o => OpenView(new ShipmentDirectExpencesReportViewModel("Учет прямых затрат на отгрузку", ViewService, RepositoryFactory, xsltPath, "Учет прямых затрат на отгрузку.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }, DropDownType.Report));
             OpenSalaryReportCommand = new DelegateCommand(o => HasReportsAccess, o => OpenView(new SalaryReportViewModel("Отчет по заработной плате", ViewService, RepositoryFactory, xsltPath, "Отчет по заработной плате.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }, DropDownType.Report));
+            OpenShortSalaryReportCommand = new DelegateCommand(o => HasReportsAccess, o => OpenView(new ShortSalaryReportViewModel("Отчет по заработной плате (короткий)", ViewService, RepositoryFactory, xsltPath, "Отчет по заработной плате (короткий).xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }, DropDownType.Report));
             OpenMaterialMovingsReportCommand = new DelegateCommand(o => HasFullAccess, o => OpenView(new MaterialMovingsReportViewModel("Учет материалов", ViewService, RepositoryFactory, xsltPath, "Учет материалов.xls") { ExtensionFilter = "Файлы Excel (*.xls)|*.xls" }, DropDownType.Report));
         }
 
@@ -344,6 +346,7 @@ namespace Rti.ViewModel
             OpenWorkItemDirectExpencesReportCommand.RequeryCanExecute();
             OpenShipmentDirectExpencesReportCommand.RequeryCanExecute();
             OpenSalaryReportCommand.RequeryCanExecute();
+            OpenShortSalaryReportCommand.RequeryCanExecute();
             OpenMaterialMovingsReportCommand.RequeryCanExecute();
 
             OnPropertyChanged("HasAdminAccess");

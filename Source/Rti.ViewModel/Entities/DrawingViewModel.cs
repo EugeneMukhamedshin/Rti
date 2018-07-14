@@ -54,8 +54,11 @@ namespace Rti.ViewModel.Entities
         /// </summary>
         public int UndoneCount { get; set; }
 
-        public void RaiseCalculationPriceChanged()
-        {
+        public int AttachmentsCount { get; set; }
+
+        public bool AttachmentsExists => AttachmentsCount > 0;
+
+        public void RaiseCalculationPriceChanged(){
             OnPropertyChanged("CalculationPrice");
             OnPropertyChanged("FactCalculationPrice");
             OnPropertyChanged("PlanCalculationPrice");

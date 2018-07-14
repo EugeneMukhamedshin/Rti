@@ -224,6 +224,7 @@
     <Compile Include="Reporting\ViewModel\ShipmentTorg12ReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\ShipmentTransportReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\ShipmentUniversalDocumentReportViewModel.cs" />
+    <Compile Include="Reporting\ViewModel\ShortSalaryReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\UsedMaterialsReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\WorkItemDirectExpencesReportViewModel.cs" />
     <Compile Include="Reporting\ViewModel\WorkItemListReportViewModel.cs" />

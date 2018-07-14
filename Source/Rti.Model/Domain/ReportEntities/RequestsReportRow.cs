@@ -31,6 +31,7 @@ namespace Rti.Model.Domain.ReportEntities
         public string Details { get; set; }
         public decimal? Sum { get; set; }
         public string CustomerName { get; set; }
+        public bool IsLaterPayed { get; set; }
 
         public string FullName => $"Заявка №{Number} от {RegDate:dd.MM.yyyy}г.";}
 }

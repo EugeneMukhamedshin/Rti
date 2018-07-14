@@ -8,5 +8,6 @@ namespace Rti.Model.Repository.Interfaces
         IList<Attachment> GetByDrawingId(int drawingId);
         byte[] GetData(int imageId);
         void SaveData(int imageId, byte[] data);
+        Dictionary<int, int> GetCountByDrawingIds(IEnumerable<int> drawingIds);
     }
 }

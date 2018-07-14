@@ -114,7 +114,7 @@ ORDER BY RegDate ASC",
         }
 
         // Done
-        public XDocument GetDrawingShipmentsReport(DateTime startDate, DateTime endDate, int? drawingId)
+        public XDocument GetDrawingShipmentsReport(DateTime startDate, DateTime endDate, int? drawingId, int? customerId)
         {
             var queryText = @"
 SELECT
@@ -155,6 +155,7 @@ FROM request_details rd
 WHERE r.reg_date BETWEEN :p_start_date AND :p_end_date
 AND r.is_deleted = 0
 AND d.id = IFNULL(:p_drawing_id, d.id)
+AND c.id = IFNULL(:p_customer_id, c.id)
 ORDER BY d.id ASC, r.reg_date ASC, r.id ASC, s.date ASC";
 
             var result = ExecuteFuncOnSession(
@@ -164,7 +165,8 @@ ORDER BY d.id ASC, r.reg_date ASC, r.id ASC, s.date ASC";
                         .SetResultTransformer(Transformers.AliasToEntityMap);
                     query.SetParameter("p_start_date", startDate)
                         .SetParameter("p_end_date", endDate)
-                        .SetParameter("p_drawing_id", drawingId);
+                        .SetParameter("p_drawing_id", drawingId)
+                        .SetParameter("p_customer_id", customerId);
                     return query.List<Hashtable>();
                 });
 
@@ -576,7 +578,6 @@ FROM (SELECT
             return doc;
         }
 
-        // Done
         public XDocument GetSalaryReport(DateTime startDate, DateTime endDate, int? employeeId, int? drawingId)
         {
             var rows = GetXElementsFromQuery(@"
@@ -645,6 +646,56 @@ WHERE MainSalary + AdditionalSalary > 0",
                                         o =>
                                             Convert.ToDecimal(o.Attribute("AdditionalSalary").Value,
                                                 CultureInfo.InvariantCulture))))))));
+            return doc;
+        }
+
+        public XDocument GetShortSalaryReport(DateTime startDate, DateTime endDate, int? employeeId)
+        {
+            var rows = GetXElementsFromQuery(@"
+SELECT *
+FROM (
+    SELECT
+      e.id EmployeeId,
+      e.full_name EmployeeFullName,
+      IFNULL(wi.done_count, 0) - IFNULL(wi.rejected_count, 0) DoneCount,
+      IFNULL(c.Main_Salary, 0) * (IFNULL(wi.done_count, 0) - IFNULL(wi.rejected_count, 0)) MainSalary,
+      IFNULL(c.Additional_Salary, 0) * (IFNULL(wi.done_count, 0) - IFNULL(wi.rejected_count, 0)) AdditionalSalary
+    FROM work_items wi
+      INNER JOIN employees e
+        ON wi.employee_id = e.id
+      INNER JOIN drawings d
+        ON wi.drawing_id = d.id
+      INNER JOIN calculations c
+        ON d.fact_calculation_id = c.id
+    WHERE wi.work_date BETWEEN :p_start_date AND :p_end_date
+    AND e.id = IFNULL(:p_employee_id, e.id)
+    ORDER BY e.full_name, wi.work_date) T
+WHERE MainSalary + AdditionalSalary > 0",
+                query =>
+                    query.SetParameter("p_start_date", startDate)
+                        .SetParameter("p_end_date", endDate)
+                        .SetParameter("p_employee_id", employeeId));
+            var rowDict = rows.ToLookup(e => new
+            {
+                EmployeeId = e.Attribute("EmployeeId").Value,
+                EmployeeFullName = e.Attribute("EmployeeFullName").Value
+            }, r => r);
+            var doc = new XDocument(new XDeclaration("2.0", "utf8", "true"),
+                new XElement("root",
+                    new XElement("Report", new XAttribute("StartDate", startDate.ToString("dd.MM.yyyy")),
+                        new XAttribute("EndDate", endDate.ToString("dd.MM.yyyy"))),
+                    new XElement("Employees",
+                    rowDict.Select(g =>
+                            new XElement("Employee",
+                            new XAttribute("EmployeeId", g.Key.EmployeeId),
+                            new XAttribute("EmployeeFullName", g.Key.EmployeeFullName),
+                                new XAttribute("DoneCount",
+                                    g.Sum(o => Convert.ToDecimal(o.Attribute("DoneCount").Value, CultureInfo.InvariantCulture))),
+                                new XAttribute("MainSalary",
+                                    g.Sum(o => Convert.ToDecimal(o.Attribute("MainSalary").Value, CultureInfo.InvariantCulture))),
+                                new XAttribute("AdditionalSalary",
+                                    g.Sum(o => Convert.ToDecimal(o.Attribute("AdditionalSalary").Value, CultureInfo.InvariantCulture))),
+                                g)))));
             return doc;
         }
 

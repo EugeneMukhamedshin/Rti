@@ -106,7 +106,9 @@ namespace Rti.ViewModel.EditViewModel
         private void Entity_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "RegDate")
-                RefreshDrawings();}
+                RefreshDrawings();
+            if (e.PropertyName == "Customer")
+                Entity.IsLaterPayed = Entity.Customer.IsLaterPayer;}
 
         protected override bool CustomOkCommandCanExecute()
         {
